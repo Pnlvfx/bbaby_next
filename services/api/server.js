@@ -88,7 +88,10 @@ app.post('/comments/image', async(req,res) => {
 
 app.post('/logout', (req, res) => {
     //res.cookie('token', '').send();
-    res.clearCookie('token').send()
+    res.clearCookie('token',{
+        domain: '.bbabystyle.com',
+        secure: true
+    }).send()
 });
 
 
