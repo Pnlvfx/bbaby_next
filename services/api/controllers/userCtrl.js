@@ -150,6 +150,8 @@ const userCtrl = {
                     if (isMatch) {
                         jwt.sign({id:user._id}, secret, (err,token) => {
                             res.cookie('token', token, {
+                                domain: '.bbabystyle.com',
+                                secure: true,
                                 maxAge: '30d'
                             }).send()
                     });
