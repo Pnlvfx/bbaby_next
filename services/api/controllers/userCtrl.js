@@ -169,7 +169,11 @@ const userCtrl = {
                     if (err) {
                         res.sendStatus(500);
                     }else {
-                        res.status(201).cookie('token', token).send();
+                        res.status(201).cookie('token', token, {
+                                httpOnly: true,
+                                domain: COOKIE_DOMAIN,
+                                secure: true,
+                        }).send();
                         
                     }
                     });

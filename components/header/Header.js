@@ -107,7 +107,7 @@ function Header() {
                     )}
                     {session && (
                         <div className="flex lg:mr-20">
-                            <div className=' bg-gray-600 rounded-full mt-1 w-8 h-8'>
+                            <div className=' bg-gray-600 rounded-full mt-1 w-8 h-8 overflow-hidden'>
                                 <Image src={session.user.avatar} alt='' height={'32px'} width={'32px'} />
                             </div>
                             <span className="w-50 pt-[9px] px-3 text-sm hidden md:block font-semibold">
@@ -124,7 +124,6 @@ function Header() {
                 {!session && (
                      <NotUserMenu userDropdownVisibilityClass={userDropdownVisibilityClass} setUserDropdownVisibilityClass={setUserDropdownVisibilityClass} />
                 )}
-
                 </ClickOutHandler>
 
 
