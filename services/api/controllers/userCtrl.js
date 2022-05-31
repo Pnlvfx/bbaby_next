@@ -13,6 +13,8 @@ const client = new OAuth2(process.env.MAILING_SERVICE_CLIENT_ID)
 const {CLIENT_URL} = process.env
 const secret = process.env.TOKEN;
 
+const {COOKIE_DOMAIN} = process.env
+
 const userCtrl = {
     register: async (req,res) => {
         try {
@@ -82,7 +84,8 @@ const userCtrl = {
                     if (passOk) {
                         jwt.sign({id:user._id}, secret, (err,token) => {
                             res.cookie('token', token, {
-                                domain: '.bbabystyle.com',
+                                httpOnly: true,
+                                domain: COOKIE_DOMAIN,
                                 secure: true
                             }).send()
                         });
@@ -150,7 +153,8 @@ const userCtrl = {
                     if (isMatch) {
                         jwt.sign({id:user._id}, secret, (err,token) => {
                             res.cookie('token', token, {
-                                domain: '.bbabystyle.com',
+                                httpOnly: true,
+                                domain: COOKIE_DOMAIN,
                                 secure: true,
                             }).send()
                     });

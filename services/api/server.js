@@ -17,6 +17,8 @@ const uri = process.env.ATLAS_URI;
 const origin1 = process.env.CORSORIGIN1;
 const origin2 = process.env.CORSORIGIN2;
 
+const {COOKIE_DOMAIN} = process.env
+
 const app= express();
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended:true}));
@@ -89,7 +91,8 @@ app.post('/comments/image', async(req,res) => {
 app.post('/logout', (req, res) => {
     //res.cookie('token', '').send();
     res.clearCookie('token',{
-        domain: '.bbabystyle.com',
+        httpOnly: true,
+        domain: COOKIE_DOMAIN,
         secure: true
     }).send()
 });
