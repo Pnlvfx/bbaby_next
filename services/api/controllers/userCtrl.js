@@ -130,6 +130,13 @@ const userCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
+    logout: async (req,res) => {
+        res.clearCookie('token',{
+            httpOnly: true,
+            domain: COOKIE_DOMAIN,
+            secure: true
+        }).send()
+    },
     googleLogin: async (req,res) => {
         try {
             const {tokenId} = req.body

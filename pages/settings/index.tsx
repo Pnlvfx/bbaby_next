@@ -3,17 +3,26 @@ import Account from '../../components/auth/usersettings/each/Account'
 import axios from 'axios';
 import { NextPageContext } from 'next';
 import Layout from '../../components/Layout';
+import Head from 'next/head';
 
 function index() {
+  const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   return (
-    <Layout>
-      <div className='bg-reddit_dark-brighter'>
-        <div className='pl-10'>
-          <UserSettings />
-          <Account />
+    <div>
+      <Head>
+        <title>Bbabystyle - Settings </title>
+        <link rel="icon" href="/favicon.ico"/>
+        <link rel='canonical' href={hostname+'/settings'} key='canonical' />
+      </Head>
+      <Layout>
+        <div className='bg-reddit_dark-brighter'>
+          <div className='pl-10'>
+            <UserSettings />
+            <Account />
+          </div>
         </div>
+      </Layout>
     </div>
-    </Layout>
   )
 }
 

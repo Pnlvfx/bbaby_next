@@ -14,6 +14,8 @@ router.get('/user', userCtrl.user)
 
 router.post('/forgot', userCtrl.forgotPassword)
 
+router.post('/logout', userCtrl.logout)
+
 router.post('/google_login',userCtrl.googleLogin)
 
 

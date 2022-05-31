@@ -1,10 +1,17 @@
 import axios from 'axios';
 import { NextPageContext } from 'next';
+import Head from 'next/head';
 import React from 'react'
 
 function modqueue() {
   return (
-    <div>Admin here(soon)</div>
+    <div>
+      <Head>
+        <title>Bbabystyle - community admin page </title>
+        <link rel="icon" href="/favicon.ico"/>
+      </Head>
+      <h1>Admin here(soon)</h1>
+    </div>
   )
 }
 

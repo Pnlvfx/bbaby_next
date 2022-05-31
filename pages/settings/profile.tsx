@@ -1,20 +1,28 @@
 import axios from 'axios';
 import { NextPageContext } from 'next';
+import Head from 'next/head';
 import Profile from '../../components/auth/usersettings/each/Profile'
 import UserSettings from '../../components/auth/usersettings/UserSettings'
 import Layout from '../../components/Layout';
 
 function profile() {
+  const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   return (
-    <Layout>
-      <div className='bg-reddit_dark-brighter'>
-        <div className='pl-12'>
-          <UserSettings />
-          <Profile />
+    <div>
+      <Head>
+        <title>Bbabystyle - Settings </title>
+        <link rel="icon" href="/favicon.ico"/>
+        <link rel='canonical' href={hostname+'/settings/profile'} key='canonical' />
+      </Head>
+      <Layout>
+        <div className='bg-reddit_dark-brighter'>
+          <div className='pl-12'>
+            <UserSettings />
+            <Profile />
+          </div>
         </div>
+      </Layout>
     </div>
-    </Layout>
-    
   )
 }
 

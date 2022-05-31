@@ -17,8 +17,6 @@ const uri = process.env.ATLAS_URI;
 const origin1 = process.env.CORSORIGIN1;
 const origin2 = process.env.CORSORIGIN2;
 
-const {COOKIE_DOMAIN} = process.env
-
 const app= express();
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended:true}));
@@ -82,20 +80,6 @@ app.post('/comments/image', async(req,res) => {
         res.status(500).json({err:'something went wrong'})
     }
 })
-
-
-
-
-
-
-app.post('/logout', (req, res) => {
-    //res.cookie('token', '').send();
-    res.clearCookie('token',{
-        httpOnly: true,
-        domain: COOKIE_DOMAIN,
-        secure: true
-    }).send()
-});
 
 
 // app.get('/comments/count', (req,res) => {
