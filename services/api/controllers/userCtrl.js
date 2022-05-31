@@ -152,7 +152,6 @@ const userCtrl = {
                             res.cookie('token', token, {
                                 domain: '.bbabystyle.com',
                                 secure: true,
-                                maxAge: '30d'
                             }).send()
                     });
                 } 
