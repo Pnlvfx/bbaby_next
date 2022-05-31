@@ -14,7 +14,7 @@ function Google() {
         localStorage.setItem('isLogged', true)
         router.reload()
       } catch (err) {
-        console.log(err)
+        //console.log(err)
       }
   }
 

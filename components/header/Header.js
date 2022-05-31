@@ -107,8 +107,8 @@ function Header() {
                     )}
                     {session && (
                         <div className="flex lg:mr-20">
-                            <div className='w-8 h-8 bg-gray-600 rounded-full mt-1'>
-                                <img src={session.user.avatar} alt='' className='block w-full rounded-full' />
+                            <div className=' bg-gray-600 rounded-full mt-1 w-8 h-8'>
+                                <Image src={session.user.avatar} alt='' height={'32px'} width={'32px'} />
                             </div>
                             <span className="w-50 pt-[9px] px-3 text-sm hidden md:block font-semibold">
                             {session.user.username}

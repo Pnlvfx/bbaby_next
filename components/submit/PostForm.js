@@ -29,10 +29,10 @@ function PostForm(props) {
             <div className='border border-reddit_border p-2 rounded-md flex bg-reddit_dark-brighter self-center mx-auto'>
                 <div className='rounded-full bg-gray-600 overflow-hidden w-10 h-10 flex-none'>
                     {session && (
-                        <img src={session.user.avatar} alt='' className='w-full rounded-full'/>
+                        <Image src={session.user.avatar} alt='' width={'40px'} height={'40px'}/>
                     )}
                     {!session && (
-                        <img src='https://res.cloudinary.com/bbabystyle/image/upload/v1652554985/avatar_aqlsee.png' alt='' className='w-full rounded-full' />
+                        <Image src='https://res.cloudinary.com/bbabystyle/image/upload/v1652554985/avatar_aqlsee.png' alt='' width={'40px'} height={'40px'} />
                     )}
                 </div>
                 <form action='' className='flex-grow bg-reddit_dark-brightest border border-reddit_border hover:border-reddit_text ml-4 mr-2 rounded-md'>
