@@ -19,7 +19,7 @@ function CommentForm(props) {
 
     //const {community} = router.query
 
-    console.log(props)
+    //console.log(props)
 
     const postComment = async(e) => {
         e.preventDefault();

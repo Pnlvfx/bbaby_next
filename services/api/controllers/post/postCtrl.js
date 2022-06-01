@@ -1,4 +1,5 @@
 import Post from '../../models/Post.js'
+import Comment from '../../models/Comment.js'
 import {getUserFromToken} from '../user/UserFunctions.js'
 
 const PostCtrl = {
@@ -32,8 +33,10 @@ const PostCtrl = {
                 return;
             }
             const user = await getUserFromToken(token)
-            const {title,body,image,parentId,rootId,community,communityIcon,isImage} = req.body;
-
+            const {title,body,image,community,communityIcon,isImage} = req.body;
+            if(isImage) {
+                
+            }
             const post = await new Post({
                 author:user.username,
                 authorAvatar:user.avatar,
@@ -42,8 +45,6 @@ const PostCtrl = {
                 image,
                 community,
                 communityIcon,
-                parentId,
-                rootId,
                 isImage
             })
             const savedPost = await post.save()
@@ -56,10 +57,11 @@ const PostCtrl = {
             
         }
     },
-    deletePost: async (req,res) => {
+    deletePost: async (req,res) => { //and comments related
         try {
-            const id = req.params.id
-            const find = await Post.findByIdAndDelete(id)
+            const {id} = req.params
+            const findPost = await Post.findByIdAndDelete(id)
+            const findChildComments = await Comment.deleteMany({rootId:id})
             res.json({msg: "Deleted Success"})
         } catch (err) {
             return res.status(500).json({msg: err.message})

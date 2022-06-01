@@ -6,7 +6,6 @@ import {useEffect,useState,useRef} from 'react'
 import { useRouter } from 'next/router'
 
 
-
 function Post(props) {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
 
@@ -15,12 +14,14 @@ function Post(props) {
     const filePickerRefMore = useRef(null);
     const router = useRouter()
 
+    const post = props
+
     //getting community Info
     const [subComments,setSubComments] = useState([]);
 
 
     function refreshCommentsLength() {
-        const id = props._id || router.query.commentId
+        const id = post._id || router.query.postId
         if(id === undefined) return
         if(subComments.length === undefined) return
         axios.get(server+'/comments/length/'+id)
@@ -33,25 +34,26 @@ function Post(props) {
         refreshCommentsLength()
     },[subComments])
 
-   
-    let postClasses = 'block border border-reddit_border rounded-md ' + (props.open ? '' : "hover:border-reddit_text")
+    
+    let postClasses = 'block border border-reddit_border rounded-md ' + (post.open ? '' : "hover:border-reddit_text")
 
     return (
     <div className='pb-3'>
-        {props.open && (
+        {post.open && (
             <div className={postClasses}>
-                    <PostContent {...props} subComments={subComments} />
+                    <PostContent {...post} subComments={subComments} />
             </div>
         )}
 
-        {!props.open && (
+        {!post.open && (
             <>
                 <div className={postClasses} tabIndex='-1'>
                     {!isMobile && (
                         <>
-                        <Link href={`/?postId=${props._id}&community=${props.community}`} as={'/b/'+props.community+'/comments/'+props._id} scroll={false} >
+                        <Link href={`${router.pathname}?postId=${post._id}&community=${post.community}`} as={`/b/${post.community}/comments/${post._id}`} scroll={false}> 
+                        {/* as={`/b/${post.community}/comments/${post._id}`} */}
                         <a>
-                            <PostContent {...props} filePickerRef={filePickerRef} subComments={subComments} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
+                            <PostContent {...post} filePickerRef={filePickerRef} subComments={subComments} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
                         </a>
                         </Link>
                         <button id='commentButtonRef' onClick={e => { //using reference to get the correct comment Id
@@ -91,9 +93,8 @@ function Post(props) {
                                     )
                                 }} hidden ref={filePickerRefShare}>
                         </button>
-                        <button id='moreButtonRef' onClick={() => {
+                        <button id='moreButtonRef' onClick={() => { //using reference to get the correct delete Id
                             router.push({
-                                pathname: '/',
                                 query: {deleteId: props._id, community: props.community },
                             },'/',{scroll:false}
                             )

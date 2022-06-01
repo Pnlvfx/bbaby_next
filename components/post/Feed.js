@@ -5,14 +5,33 @@ import BestPost from './postutils/BestPost'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import CommentModal from '../comments/CommentModal'
+import { isMobile } from 'react-device-detect'
 
 //PostsListings from home and best page
 
 function Feed(props) {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
 
-  //INFINITE SCROLLING
+  const [postOpen, setPostOpen] = useState(false)
 
+  let router = useRouter()
+  let postId = null
+
+  if(router.query.postId) {
+    postId = router.query.postId;
+  }
+
+  useEffect(() => {
+    setPostOpen(true);
+  }, [postId]);
+
+  useEffect(() => {
+    postId= null
+  },[postOpen]);
+
+  //INFINITE SCROLLING
   const [posts,setPosts] = useState(props.posts)
 
   const getMorePosts = async() => {
@@ -21,6 +40,7 @@ function Feed(props) {
     const newPosts = await res.data
     setPosts((posts) => [...posts, ...newPosts])
   };
+  //
 
   // GET ALL COMMUNITY INFO
   const [allCommunity,setAllCommunity] = useState([]);
@@ -29,11 +49,19 @@ function Feed(props) {
     axios.get(server+'/communities?limit=5', {withCredentials:true})
         .then(response => setAllCommunity(response.data));
     }, []);
+    //
+
+
   
 
   return (
-    <div className='bg-reddit_dark'>
-      <div className='flex pt-5 mx-0 lg:mx-10'>
+    <>
+    {postId && !isMobile && (
+      <CommentModal postId={postId} open={postOpen} onClickOut={() => {
+        setPostOpen(false)
+      }} />
+    )}
+    <div className='flex pt-5 mx-0 lg:mx-10'>
         <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center ml-auto mr-6 flex-none'>
           <div>
           </div>
@@ -57,11 +85,11 @@ function Feed(props) {
             </InfiniteScroll>
             </div> 
         </div>
-        <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden mr-auto'>
-          <CommunitiesList allCommunity={allCommunity} />
-        </div>
+          <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden mr-auto'>
+              <CommunitiesList allCommunity={allCommunity}/>
+          </div>
       </div>
-    </div>
+    </>
   )
 }
 

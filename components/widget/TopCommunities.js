@@ -14,8 +14,8 @@ function TopCommunities(props) {
             position: 'relative'
         }}>
           </div>
-                   {allCommunity.map(allCommunity => (
-                       <TopCommunitiesContent key={allCommunity._id} {...allCommunity} />
+                   {allCommunity.map(community => (
+                       <TopCommunitiesContent key={community._id} {...community} />
                    ))}
       </div>
     )

@@ -8,7 +8,7 @@ import Head from 'next/head';
 import { NextPage, NextPageContext } from 'next';
 
 
-const communityPage: NextPage = (props) => {
+const CommunityPage: NextPage = (props) => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const imagePreview = '/imagePreview.png'
 
@@ -46,11 +46,12 @@ const communityPage: NextPage = (props) => {
   )
 }
 
-export default communityPage
+export default CommunityPage
 
 export async function getServerSideProps(context: NextPageContext) {
   
   const server = process.env.NEXT_PUBLIC_SERVER_URL
+  
   const {query} = context
   const {community} = query
   

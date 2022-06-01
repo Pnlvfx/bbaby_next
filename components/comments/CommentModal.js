@@ -16,7 +16,9 @@ function CommentModal(props) {
 
   const visibleClass = props.open ? 'block' : 'hidden'
 
-  const {postId,community} = props
+  const {postId} = props
+
+  const community = router.query.community
 
   useEffect(() => {
     axios.get(server+'/posts/'+postId)
@@ -25,10 +27,9 @@ function CommentModal(props) {
     });
   },[postId]);
 
-
   return (
       <ClickOutHandler onClickOut={() => {
-        router.push({pathname:'/'},'/',{scroll:false})
+        router.push({pathname:'/'},`/`,{scroll:false})
         setPost({})
         props.onClickOut()
       }}>
@@ -39,7 +40,7 @@ function CommentModal(props) {
               <GrDocumentText className="w-4 h-4 text-reddit_text bg-white mr-3" />
               <h1 className='text-sm flex-none'>{post.title}</h1>
               </div>
-              <button onClick={() => {
+              <button id="closeButton" onClick={() => {
                     router.push({pathname:'/'},'/',{scroll:false})
                     setPost({})
                     props.onClickOut()
@@ -52,7 +53,7 @@ function CommentModal(props) {
             </div>
           <div className="bg-reddit_dark-brighter">
           <div className="block overflow-scroll" style={{maxHeight:"calc(100vh - 200px)"}}>
-            <Comment post={post} postId={postId} community={community} />
+            <Comment post={post} postId={postId} />
           </div>
         </div>
         </div>

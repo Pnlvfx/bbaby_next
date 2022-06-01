@@ -8,7 +8,7 @@ import { useRef,useState } from 'react';
 
 function SubmitButton(props) {
 
-    const {title,setTitle,setSelectedFile} = props
+    const {title,setTitle,setSelectedFile,setIsImage} = props
 
     
 
@@ -66,8 +66,11 @@ function SubmitButton(props) {
                 </button>
             </div>
             <div className={Imageclass}>
-                <button title='Add an image' onClick={() => filePickerRef.current.click()}>
-                    <Image src={'/addimage.svg'} height={'22px'} width={'22px'} className='' />
+                <button title='Add an image' onClick={() => {
+                    filePickerRef.current.click()
+                    setIsImage(true)
+                }}>
+                    <Image src={'/addimage.svg'} height={'22px'} width={'22px'}/>
                     <input type='file' hidden onChange={addImageToPost} ref={filePickerRef} />
                 </button>
             </div>

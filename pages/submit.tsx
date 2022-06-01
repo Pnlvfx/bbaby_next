@@ -13,11 +13,7 @@ const submit:NextPage = () => {
 
   const community: any = router.query?.community ? router.query?.community : null
 
-  console.log(community)
-
   const [communityName,setCommunityName] = useState('')
-
-  console.log(community)
 
   useEffect(() => {
     if(!router.isReady) return;

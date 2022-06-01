@@ -6,6 +6,7 @@ import { CommunityContext } from '../community/CommunityContext';
 import { useRouter } from 'next/router';
 import UserContext from '../auth/UserContext';
 import axios from 'axios';
+import Link from 'next/link';
 
 
 function UserMenu(props) {
@@ -64,17 +65,23 @@ function UserMenu(props) {
                             <h1 className='font-bold text-sm mt-[2px]'>Create a community</h1>
                         </div>
                     </div>
-                    <div onClick={() => {
-                        router.push('/policies/user-agreement')
-                        setUserDropdownVisibilityClass('hidden');
-                        }} className={containerClass}>
-                         <h1 className={buttonClass}>User Agreement</h1>    
+                    <div className={containerClass}>
+                            <Link href={'/policies/user-agreement'}>
+                                <a target='_blank' onClick={() => {
+                                    setUserDropdownVisibilityClass('hidden')
+                                }}>
+                                    <h1 className={buttonClass}>User Agreement</h1> 
+                                </a>   
+                            </Link>
                     </div>
-                    <div onClick={() => {
-                        router.push('/policies/privacy-policy')
-                        setUserDropdownVisibilityClass('hidden');
-                        }} className={containerClass}>
-                        <h1 className={buttonClass}>Privacy Policy</h1>    
+                    <div className={containerClass}>
+                            <Link href={'/policies/privacy-policy'}>
+                                <a target='_blank' onClick={() => {
+                                    setUserDropdownVisibilityClass('hidden');
+                                }} >
+                                    <h1 className={buttonClass}>Privacy Policy</h1>   
+                                </a>
+                            </Link> 
                     </div>
                 </div>
                 <hr className='border-reddit_border my-3 mb-4'/>

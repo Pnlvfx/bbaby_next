@@ -11,7 +11,7 @@ export function CommunityContextProvider({children}) {
     
 
     useEffect(() => {
-       
+        if(community === undefined) return
     axios.get(server+'/communities/'+community)
             .then(response => {
                 setCommunityInfo(response.data);

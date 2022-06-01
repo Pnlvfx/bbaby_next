@@ -1,9 +1,10 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { BiUserCircle } from 'react-icons/bi';
 import {FiSettings} from 'react-icons/fi'
 import { CommunityContext } from '../community/CommunityContext';
 import AuthModalContext from '../auth/AuthModalContext'
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 
 function NotUserMenu(props) {
@@ -35,17 +36,23 @@ function NotUserMenu(props) {
                 </div>
                 <hr className='border-reddit_border my-3 mb-4'/>
                     <div id='button_no_icons' className=''>
-                    <div onClick={() => {
-                        router.push('/policies/user-agreement')
-                        setUserDropdownVisibilityClass('hidden');
-                        }} className={containerClass}>
-                    <h1 className={buttonClass}>User Agreement</h1>    
+                    <div className={containerClass}>
+                            <Link href={'/policies/user-agreement'}>
+                                <a target='_blank' onClick={() => {
+                                    setUserDropdownVisibilityClass('hidden')
+                                }}>
+                                    <h1 className={buttonClass}>User Agreement</h1> 
+                                </a>   
+                            </Link>
                     </div>
-                    <div onClick={() => {
-                        router.push('/policies/privacy-policy')
-                        setUserDropdownVisibilityClass('hidden');
-                        }} className={containerClass}>
-                    <h1 className={buttonClass}>Privacy Policy</h1>    
+                    <div className={containerClass}>
+                            <Link href={'/policies/privacy-policy'}>
+                                <a target='_blank' onClick={() => {
+                                    setUserDropdownVisibilityClass('hidden');
+                                }} >
+                                    <h1 className={buttonClass}>Privacy Policy</h1>   
+                                </a>
+                            </Link> 
                     </div>
                     <div className={containerClass}>
                     <h1 className={buttonClass}>Content Policy</h1>    
@@ -73,4 +80,4 @@ function NotUserMenu(props) {
   )
 }
 
-export default NotUserMenu
+export default NotUserMenu;

@@ -10,8 +10,8 @@ const SearchResultPage = () => {
 
   const router = useRouter();
   const {text} = router.query
-  const [comments, setComments] = useState([]);
-  const [communities,setCommunitis] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [communities,setCommunities] = useState([]);
   const server = process.env.NEXT_PUBLIC_SERVER_URL
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const imagePreview = '/imagePreview.png'
@@ -24,8 +24,8 @@ const SearchResultPage = () => {
     if (router.query) {
       axios.get(server+'/search?phrase='+text, {withCredentials:true})
       .then(response => {
-        setComments(response.data.comments);
-        setCommunitis(response.data.communities);
+        setPosts(response.data.comments);
+        setCommunities(response.data.communities);
       })
     }
   },[router])
@@ -48,8 +48,8 @@ const SearchResultPage = () => {
       </Head>
       <Layout>
         <div>
-        {comments.map(comment => (
-          <Post {...comment} />
+        {posts.map(post => (
+          <Post {...post} />
         ))}
       </div>
       </Layout>

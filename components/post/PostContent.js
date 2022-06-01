@@ -44,7 +44,7 @@ function PostContent(props) {
                     <span className="text-xs ml-1 hover:underline font-bold mt-[2px]">b/{props.community}
                     </span>
                     <h2 className="px-1 text-sm">-</h2>
-                    <h3 className='text-reddit_text-darker text-xs mt-[3px]'>Posted by b/{props.author} <TimeAgo datetime={props.postedAt}/></h3>
+                    <h3 className='text-reddit_text-darker text-xs mt-[3px]'>Posted by b/{props.author} <TimeAgo datetime={props.createdAt}/></h3>
                   </div>
 
                   <h3 className='text-lg mb-4 break-words'>{props.title}</h3>

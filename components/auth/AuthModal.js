@@ -90,7 +90,8 @@ function AuthModal() {
                   <div className="pr-52">
                       <h1 className='text-2xl mb-2'>Login</h1>
                       <div className="text-sm pb-10">
-                          <h1>By continuing, you agree to our <Link href={'/policies/user-agreement'}>
+                          <h1>By continuing, you agree to our 
+                        <Link href={'/policies/user-agreement'}>
                           <a target='_blank' className="text-blue-400">User Agreement</a>
                         </Link></h1> 
                         and     <Link href={'/policies/privacy-policy'}>

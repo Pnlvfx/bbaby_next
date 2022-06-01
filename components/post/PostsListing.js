@@ -4,32 +4,60 @@ import CommunitiesInfo from '../widget/CommunitiesInfo'
 import BestPost from './postutils/BestPost'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import axios from 'axios'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import CommentModal from '../comments/CommentModal'
+import { useRouter } from 'next/router'
+import { isMobile } from 'react-device-detect'
 
 //postslistings from posts and community page
 
 function PostsListing(props) {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
 
-  //INFINITE SCROLLING
+  const [postOpen, setPostOpen] = useState(false)
 
+  const {community} = props
+
+  let router = useRouter()
+  let postId = null
+
+  if(router.query.postId) {
+    postId = router.query.postId;
+  }
+
+  useEffect(() => {
+    setPostOpen(true);
+  }, [postId]);
+
+  useEffect(() => {
+    postId= null
+  },[postOpen]);
+
+  //INFINITE SCROLLING
   const [posts,setPosts] = useState(props.posts)
 
   const getMorePosts = async() => {
-    const res = await axios.get(`${server}/posts?community=${props.community}skip=${posts.length}&limit=10`)
+    const res = await axios.get(`${server}/posts?community=${community}skip=${posts.length}&limit=10`)
     
     const newPosts = await res.data
     setPosts((posts) => [...posts, ...newPosts])
-  }
+  };
+  //
+
 
   return (
-    <div className=''>
-      <div className='flex pt-5 mx-0 lg:mx-10'>
+    <>
+    {postId && !isMobile && (
+      <CommentModal postId={postId} open={postOpen} onClickOut={() => {
+        setPostOpen(false)
+      }} />
+    )}
+    <div className='flex pt-5 mx-0 lg:mx-10'>
         <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center ml-auto mr-6 flex-none'>
           <div>
           </div>
           <div className='pb-3'>
-            <PostForm community={props.community} />
+            <PostForm community={community} />
           </div>
             <div className='pb-4'> 
                 <BestPost />
@@ -52,7 +80,7 @@ function PostsListing(props) {
           <CommunitiesInfo />
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

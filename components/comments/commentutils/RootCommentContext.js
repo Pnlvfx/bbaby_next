@@ -1,5 +1,5 @@
-import React from 'react'
+import {createContext} from 'react'
 
-const RootCommentContext = React.createContext({});
+const RootCommentContext = createContext({});
 
 export default RootCommentContext;

@@ -40,7 +40,6 @@ app.use(VotingRoutes);
 app.use(CommunityRoutes)
 
 
-
 await mongoose.connect(uri, {useNewUrlParser:true,useUnifiedTopology:true,});
 const db = mongoose.connection;
 db.on('error', console.log);
@@ -69,6 +68,7 @@ app.post('/upload_avatar', async(req,res) => {
 
 app.post('/comments/image', async(req,res) => {
     try {
+        console.log(req.body.data)
         const fileStr = req.body.data;
         const uploadedResponse = await cloudinary.uploader.upload(fileStr,{
             upload_preset: 'bbaby_avatar'

@@ -18,24 +18,43 @@ function MoreButton(props) {
   const router = useRouter()
   const [showElement,setShowElement] = useState(true)
   const server = process.env.NEXT_PUBLIC_SERVER_URL
+  const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const {comments,filePickerRefMore} = props
   const [postAuthor,setPostAuthor] = useState(false)
+
+  // message
+  const [deletedSuccess,setDeletedSuccess] = useState(false)
+  //
 
   useEffect(() => {
     if(session) {
       if(session.user.username === comments.author) {
         setPostAuthor(true)
+      } else {
+        return
       }
     }
-  },[postAuthor,session])
+  },[postAuthor,comments])
 
   const deletePost = async () => {
     try {
-      const {query} = router
-      const {deleteId} = query
-      const id = deleteId
-      await axios.delete(`${server}/posts/${router.query.deleteId}`,{withCredentials:true}) 
-      window.location = '/'
+      if(router.asPath !== '/') {
+        const deleteId = comments._id
+        await axios.delete(`${server}/posts/${deleteId}`,{withCredentials:true})
+        router.push(`${hostname}/b/${comments.community}`).then(() => {
+        setDeletedSuccess(true)
+        })
+      } else {
+        const {deleteId} = router.query
+      await axios.delete(`${server}/posts/${deleteId}`,{withCredentials:true})
+      router.reload().then(() => {
+        setDeletedSuccess(true)
+      }) // to fixconst {deleteId} = router.query
+        await axios.delete(`${server}/posts/${deleteId}`,{withCredentials:true})
+        router.reload().then(() => {
+          setDeletedSuccess(true)
+        }) // to fix
+      }
     } catch (err) {
 
     }
@@ -50,6 +69,7 @@ function MoreButton(props) {
   },[showElement])
   
   const [ShareDropdownVisibilityClass, setShareDropdownVisibilityClass] = useState('hidden');
+
   function toggleShareDropdown() {
     if (ShareDropdownVisibilityClass === 'hidden') {
       setShareDropdownVisibilityClass('block');
@@ -58,16 +78,24 @@ function MoreButton(props) {
     }
   }
 
+  const clickMoreButton = async() => {
+    if (router.asPath !== ('/')) {
+      toggleShareDropdown()
+    } else {
+      filePickerRefMore.current.click()
+      toggleShareDropdown()
+    }
+    
+  }
+
   return (
     <>
-    {router.asPath === ('/') && (
        <ClickOutHandler onClickOut={() => setShareDropdownVisibilityClass('hidden')}>
        <div className='text-sm'>
           <button id='moreOptions' className={"block " + buttonClasses} onClick={event =>{
-          event.preventDefault()
-          filePickerRefMore.current.click()
-           toggleShareDropdown()
-         }}>
+            event.preventDefault()
+            clickMoreButton()
+        }}>
            <Image src='/points.svg' height={'20px'} width={'20px'}/>
          </button>
    
@@ -75,22 +103,22 @@ function MoreButton(props) {
    
          <div className={'absolute ' + ShareDropdownVisibilityClass}>
            <div className='flex bg-reddit_dark-brighter border border-reddit_border z-10 rounded-md'>
-             <div className='w-auto lg:w-[200px]'>
                {postAuthor && (
-                 <div onClick={e => {
+                 <button onClick={e => {
                    e.preventDefault()
                    deletePost()
-                 }} className='p-2 flex text-reddit_text-darker hover:bg-blue-900'>
+                 }} className='p-2 flex text-reddit_text-darker hover:bg-blue-900 w-auto lg:w-[200px]'>
                    <BsTrashFill className='w-4 h-4 mt-1 mr-2' />
                    <h1>Delete</h1>
-                 </div>
+                 </button>
                )}
-             </div>
           </div>
            </div>
+           {deletedSuccess && (
+             showTimeMsg('Post deleted successfully.')
+           )}
        </div>
        </ClickOutHandler>
-    )}
    </>
   )
 }

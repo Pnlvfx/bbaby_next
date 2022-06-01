@@ -1,5 +1,5 @@
-import React from 'react';
+import {createContext} from 'react';
 
-const PostFormModalContext = React.createContext({});
+const PostFormModalContext = createContext({});
 
 export default PostFormModalContext;

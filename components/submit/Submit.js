@@ -19,13 +19,18 @@ function Submit(props) {
 
     const [startTyping,setStartTyping] = useState(false)
 
+
     const [title,setTitle] = useState('');
     const [body,setBody] = useState('');
-    const [image,setImage] = useState('')
+
     const [newPostId,setNewPostId] = useState(null);
     ///image
-    const [postImage,setPostImage] = useState(false)
+    const [image,setImage] = useState('')
+    const [tryToPost,setTryToPost] = useState(false)
     const [showDeleteOptions,setShowDeleteOptions] = useState(false)
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [isImage,setIsImage] = useState(false)
+
     const [loading,setLoading] = useState(false)
 
     //community
@@ -40,8 +45,6 @@ function Submit(props) {
     const [selectedCommunity,setSelectedCommunity] = useState('')
     const community = selectedCommunity
     const [communityIcon,setCommunityIcon] = useState('')
-    const [isImage,setIsImage] = useState(false)
-
     const router = useRouter()
 
     useEffect(() => {
@@ -85,8 +88,6 @@ function Submit(props) {
 
 
     //add image
-    const [selectedFile, setSelectedFile] = useState(null);
-
     const uploadImage = async (base64EncodedImage) => {
         try {
             const data = base64EncodedImage
@@ -95,21 +96,18 @@ function Submit(props) {
                 data,
                 headers: {'Content-type': 'application/json'}
             })
-
-            setImage(res.data.url)
             const {url} = await res.data
             setImage(url)
         } catch (error) {
             console.error(error)
         }
     }
-
-    
-
+    //
 
     //create a post
    const createPost = async() => {
                 try {
+                    setLoading(true)
                     const data = {title,body,community,communityIcon,image,isImage};
                     const res =  await axios.post(server+'/posts', data, {withCredentials:true})
                     setNewPostId(res.data._id);
@@ -121,24 +119,21 @@ function Submit(props) {
     }
 
     useEffect(() => {
-        if (loading) return;
-        setLoading(true);
-        if(postImage) {
+        if(tryToPost) {
             if(selectedFile !== null) {
                 uploadImage(selectedFile)
-                setIsImage(true)
                 setSelectedFile(null)
                 if(image) {
                     createPost()
-                    setPostImage(false)
+                    setTryToPost(false)
                 }
             } else {
                 createPost()
-                setPostImage(false)
+                setTryToPost(false)
             }
         }
-        setLoading(false)
-    },[postImage,image])
+    },[tryToPost,image])
+    //
 
 
 
@@ -159,7 +154,7 @@ function Submit(props) {
    
 
   return (
-    <div className='bg-reddit_dark h-screen'>
+    <div className={`${loading && ('opacity-40')}`}>
         <div className='border-b border-reddit_border flex mb-4'>
             <h1 className='mb-3 pt-4 text-lg font-semibold'>Create a Post</h1>
         </div>
@@ -229,7 +224,7 @@ function Submit(props) {
                         
                             <div onClick={() => setActiveClassBody('hover:border border-reddit_text')} className={'mx-4 mt-2 border border-reddit_border rounded-md mb-3 ' +activeClassBody}>
                                 <div className='bg-reddit_dark-brightest h-10 overflow-hidden'>
-                                    <SubmitButton title={title} setTitle={setTitle} setSelectedFile={setSelectedFile} />    
+                                    <SubmitButton title={title} setTitle={setTitle} setSelectedFile={setSelectedFile} setIsImage={setIsImage} />    
                                 </div>
                                 {!selectedFile && (
                                      <textarea 
@@ -245,9 +240,9 @@ function Submit(props) {
                                         {showDeleteOptions && (
                                             <div onClick={() => {
                                                 setSelectedFile(null)
-
+                                                setIsImage(false)
                                                 setShowDeleteOptions(false)
-                                                }} className='border border-reddit_border mx-auto w-9 h-8 hover:bg-reddit_dark-brightest'>
+                                                }} className='border border-reddit_border mx-auto w-9 h-8 hover:bg-reddit_dark-brightest cursor-pointer'>
                                             <FaTrashAlt className='text-reddit_text-darker px-2 py-1 self-center mx-auto w-full h-full' />
                                             </div>
                                         )}
@@ -270,10 +265,10 @@ function Submit(props) {
                                 <div className='h-12 mb-4 border-b border-reddit_border mx-3'>
                                 </div>
                                     <div className='text-right pb-4 mx-4'>
-                                        <Button outline className='px-4 py-1 mr-2 opacity-20'>Save Draft</Button>
+                                        <Button outline='true' className='px-4 py-1 mr-2 opacity-20'>Save Draft</Button>
                                         <Button onClick={() => {
-                                        setPostImage(true)
-                                        }} className={"px-4 py-1 "+enablePost }>Post</Button>
+                                        setTryToPost(true)
+                                        }} className={"px-4 py-1 "+enablePost}>Post</Button>
                                     </div>
                         </>
                     )}

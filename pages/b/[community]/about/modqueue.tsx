@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { NextPageContext } from 'next';
 import Head from 'next/head';
-import React from 'react'
 
 function modqueue() {
   return (
