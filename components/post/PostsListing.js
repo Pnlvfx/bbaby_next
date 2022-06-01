@@ -8,17 +8,18 @@ import { useState } from 'react'
 
 //postslistings from posts and community page
 
-
 function PostsListing(props) {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
 
-  const [comments,setComments] = useState(props.comments)
+  //INFINITE SCROLLING
+
+  const [posts,setPosts] = useState(props.posts)
 
   const getMorePosts = async() => {
-    const res = await axios.get(`${server}/comments?community=${props.community}skip=${comments.length}&limit=10`)
+    const res = await axios.get(`${server}/posts?community=${props.community}skip=${posts.length}&limit=10`)
     
     const newPosts = await res.data
-    setComments((comments) => [...comments, ...newPosts])
+    setPosts((posts) => [...posts, ...newPosts])
   }
 
   return (
@@ -35,14 +36,14 @@ function PostsListing(props) {
             </div>
             <div className=''>
             <InfiniteScroll 
-              dataLength={comments.length}
+              dataLength={posts.length}
               next={getMorePosts}
               hasMore={true}
               loader={<h4></h4>}
               endMessage={<p></p>}
             >
-            {comments.map(comment => (
-                <Post key={comment._id} {...comment} isListing={true}/>
+            {posts.map(post => (
+                <Post key={post._id} {...post} isListing={true}/>
             ))}
             </InfiniteScroll>
             </div> 

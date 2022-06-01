@@ -55,10 +55,10 @@ function Header() {
             setCommunity()
          }}>
             <div className='flex-none mt-2 mr-2'>
-                <Image src='/logo.png' alt='logo' width={'30px'} height={'30px'}/>
+                <Image src='/logo.png' alt='logo' width={'30px'} height={'30px'} priority={true}/>
             </div>
             <div className='hidden lg:block mt-2'>
-                <Image src='/textlogo.svg' alt='text_logo' width={'80px'} height={'24px'} />
+                <Image src='/textlogo.svg' alt='text_logo' width={'80px'} height={'24px'} priority={true} />
             </div>
              
         </button>
@@ -108,7 +108,7 @@ function Header() {
                     {session && (
                         <div className="flex lg:mr-20">
                             <div className=' bg-gray-600 rounded-full mt-1 w-8 h-8 overflow-hidden'>
-                                <Image src={session.user.avatar} alt='' height={'32px'} width={'32px'} />
+                                <Image src={session.user.avatar} alt='' height={'32px'} width={'32px'} priority={true} />
                             </div>
                             <span className="w-50 pt-[9px] px-3 text-sm hidden md:block font-semibold">
                             {session.user.username}

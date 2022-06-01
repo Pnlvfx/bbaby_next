@@ -1,6 +1,6 @@
 import express from 'express';
 import Community from '../models/Community.js';
-import {getUserFromToken} from '../controllers/UserFunctions.js'
+import {getUserFromToken} from '../controllers/user/UserFunctions.js'
 
 const router = express.Router();
 

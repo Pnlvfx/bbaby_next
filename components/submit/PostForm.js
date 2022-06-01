@@ -13,12 +13,15 @@ function PostForm(props) {
 
     let router = useRouter()
     const [url,setUrl] = useState('')
+    const [query,setQuery] = useState('')
     const modalContext = useContext(AuthModalContext)
 
     useEffect(() => {
-        if(router.asPath === '/' && '/best') {
+        if(router.asPath === '/') {
+            setQuery('/submit')
             setUrl('/submit')
         } else {
+            setQuery(`/submit?community=${props.community}`)
             setUrl(router.asPath+'/submit')
         }
     },[router])
@@ -37,7 +40,7 @@ function PostForm(props) {
                 </div>
                 <form action='' className='flex-grow bg-reddit_dark-brightest border border-reddit_border hover:border-reddit_text ml-4 mr-2 rounded-md'>
                     {session && (
-                        <Link href={`${url}?community=${props.community}`} as={url}>
+                        <Link href={query} as={url}>
                         <a>
                         <input 
                             type='text' 

@@ -1,22 +1,22 @@
 import express from 'express';
-import userCtrl from '../controllers/userCtrl.js';
+import userCtrl from '../controllers/user/userCtrl.js';
 
 
-const router = express.Router();
+const userRouter = express.Router();
 
-router.post('/register', userCtrl.register)
+userRouter.post('/register', userCtrl.register)
 
-router.post('/activation', userCtrl.activateEmail)
+userRouter.post('/activation', userCtrl.activateEmail)
 
-router.post('/login', userCtrl.login)
+userRouter.post('/login', userCtrl.login)
 
-router.get('/user', userCtrl.user)
+userRouter.get('/user', userCtrl.user)
 
-router.post('/forgot', userCtrl.forgotPassword)
+userRouter.post('/forgot', userCtrl.forgotPassword)
 
-router.post('/logout', userCtrl.logout)
+userRouter.post('/logout', userCtrl.logout)
 
-router.post('/google_login',userCtrl.googleLogin)
+userRouter.post('/google_login',userCtrl.googleLogin)
 
 
-export default router;
+export default userRouter;

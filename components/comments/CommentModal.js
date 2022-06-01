@@ -12,22 +12,24 @@ function CommentModal(props) {
 
   const server = process.env.NEXT_PUBLIC_SERVER_URL
 
-  const [comment,setComment] = useState({});
+  const [post,setPost] = useState({});
 
   const visibleClass = props.open ? 'block' : 'hidden'
 
+  const {postId,community} = props
+
   useEffect(() => {
-    axios.get(server+'/comments/'+props.id)
+    axios.get(server+'/posts/'+postId)
     .then(response => {
-      setComment(response.data)
+      setPost(response.data)
     });
-  },[props.id]);
+  },[postId]);
 
 
   return (
       <ClickOutHandler onClickOut={() => {
         router.push({pathname:'/'},'/',{scroll:false})
-        setComment({})
+        setPost({})
         props.onClickOut()
       }}>
         <div className={"fixed top-0 left-0 right-0 z-20 flex mx-32 " +visibleClass} style={{backgroundColor:'rgba(0,0,0,1'}}>
@@ -35,11 +37,11 @@ function CommentModal(props) {
             <div className="flex">
               <div className="flex pt-4 pb-8 w-full mr-4 overflow-hidden">
               <GrDocumentText className="w-4 h-4 text-reddit_text bg-white mr-3" />
-              <h1 className='text-sm flex-none'>{comment.title}</h1>
+              <h1 className='text-sm flex-none'>{post.title}</h1>
               </div>
               <button onClick={() => {
                     router.push({pathname:'/'},'/',{scroll:false})
-                    setComment({})
+                    setPost({})
                     props.onClickOut()
                 }} className="text-right ml-auto flex pt-4 pb-8">
                   <div className="mr-1">
@@ -50,7 +52,7 @@ function CommentModal(props) {
             </div>
           <div className="bg-reddit_dark-brighter">
           <div className="block overflow-scroll" style={{maxHeight:"calc(100vh - 200px)"}}>
-            <Comment comment={comment} id={props.id} community={props.community} />
+            <Comment post={post} postId={postId} community={community} />
           </div>
         </div>
         </div>

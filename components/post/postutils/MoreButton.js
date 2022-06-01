@@ -34,7 +34,7 @@ function MoreButton(props) {
       const {query} = router
       const {deleteId} = query
       const id = deleteId
-      await axios.delete(`${server}/comments/delete/${router.query.deleteId}`,{withCredentials:true}) 
+      await axios.delete(`${server}/posts/${router.query.deleteId}`,{withCredentials:true}) 
       window.location = '/'
     } catch (err) {
 

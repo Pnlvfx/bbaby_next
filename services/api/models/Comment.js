@@ -1,7 +1,8 @@
-import { timeStamp } from "console";
 import mongoose from "mongoose";
 
-const schema = new mongoose.Schema({
+const {ObjectId} = mongoose
+
+const CommentSchema = new mongoose.Schema({
     author: 
         {type:String,
         required:true
@@ -10,45 +11,23 @@ const schema = new mongoose.Schema({
         {type:String,
         required:true
     },
-    title: 
-        {type:String,
-        required:true
-    },
     body: {
-        type:String
-    },
-    image: {
-        type:String
-    },
-    postedAt: {
-        type:Date,
+        type:String,
         required:true
     },
     parentId: {
-        type:mongoose.ObjectId,
+        type:ObjectId,
         required:false
     },
     rootId: {
-        type:mongoose.ObjectId,
+        type:ObjectId,
         required:false
-    },
-    community: {
-        type:String,
-        required:true
-    },
-    communityIcon: {
-        type:String,
-        required:true
-    },
-    isImage: {
-        type:Boolean,
-        default:false
     },
 },
 {
     timestamps:true
 }
 );
-const Comment = mongoose.model('Comment', schema);
+const Comment = mongoose.model('Comment', CommentSchema);
 
 export default Comment;

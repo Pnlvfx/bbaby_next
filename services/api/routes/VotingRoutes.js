@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUserFromToken } from '../controllers/UserFunctions.js';
+import { getUserFromToken } from '../controllers/user/UserFunctions.js';
 import Vote from '../models/Vote.js'
 
 const router = express.Router();

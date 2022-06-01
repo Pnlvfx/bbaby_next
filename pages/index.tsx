@@ -13,24 +13,26 @@ const Home: NextPage = (props) => {
 
   const [postOpen, setPostOpen] = useState(false)
 
+  const {posts} : any = props
+
   //metatags
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const imagePreview = '/imagePreview.png'
 
   let router = useRouter()
-  let commentId = null
+  let postId = null
 
-  if(router.query && router.query.commentId) {
+  if(router.query?.postId) {
     router.pathname = '/';
-    commentId = router.query.commentId;  
+    postId = router.query.postId;  
   }
 
   useEffect(() => {
     setPostOpen(true);
-  }, [commentId]);
+  }, [postId]);
 
   useEffect(() => {
-    commentId= null
+    postId= null
   },[postOpen]);
   
   return (
@@ -49,12 +51,12 @@ const Home: NextPage = (props) => {
         <link rel='canonical' href={hostname} key='canonical' />
       </Head>
        <Layout>
-        <Feed comments={props}/>
-          {commentId && !isMobile && (
-          <CommentModal id={commentId}
-          open={postOpen}
-          onClickOut={() => {
-            setPostOpen(false)
+        <Feed posts={posts}/>
+          {postId && !isMobile && (
+          <CommentModal postId={postId}
+                        open={postOpen}
+                        onClickOut={() => {
+                        setPostOpen(false)
           }}/>
           )} 
       </Layout>
@@ -68,8 +70,8 @@ export async function getServerSideProps(context: NextPageContext) {
   
   const server = process.env.NEXT_PUBLIC_SERVER_URL
   
-  const res = await axios.get(`${server}/comments?limit=10&skip=0`);
-  const comments = res.data
+  const res = await axios.get(`${server}/posts?limit=10&skip=0`);
+  const posts = res.data
 
   //const getNumberOfPost = await axios.get(`${server}/comments/count`);
 
@@ -83,7 +85,7 @@ export async function getServerSideProps(context: NextPageContext) {
   return {
     props: {
       session: session,
-      allComments : comments
+      posts : posts
     }
   }
 }

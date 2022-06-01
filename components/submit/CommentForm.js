@@ -17,12 +17,14 @@ function CommentForm(props) {
     const router = useRouter()
     const authModalContext = useContext(AuthModalContext)
 
-    const community = router.query.community
+    //const {community} = router.query
+
+    console.log(props)
 
     const postComment = async(e) => {
         e.preventDefault();
         try {
-        const data = {title:commentBody, parentId:props.parentId, rootId:props.rootId,community:community};
+        const data = {body:commentBody, parentId:props.parentId, rootId:props.rootId};
         const res = await axios.post(server+'/comments', data, {withCredentials:true})
             .then(response => {
             setCommentBody('');

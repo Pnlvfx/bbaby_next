@@ -12,7 +12,7 @@ function Comment(props) {
 
     const router = useRouter()
 
-    const {comment} = props
+    const {post,postId} = props
     const [comments,setComments] = useState([]);
 
     const [commentsTotals,setCommentsTotals] = useState(null);
@@ -21,14 +21,14 @@ function Comment(props) {
     
     
     function refreshComments() {
-        axios.get(server+'/comments/root/'+props.id)
+        axios.get(server+'/comments/root/'+postId)
         .then(response => {
         setComments(response.data)
         })
     }
 
     function refreshVotes() {
-        const commentsIds = [comment._id, ...comments.map(c => c._id)];
+        const commentsIds = [post._id, ...comments.map(c => c._id)];
         axios.post(server+'/votes', {commentsIds}, {withCredentials:true})
             .then(response => {
                 setCommentsTotals(response.data.commentsTotals);
@@ -38,13 +38,13 @@ function Comment(props) {
 
     
     useEffect(() => {
-        if (router.query.id || router.query.commentId) {
+        if (router.query.postId) {
         refreshComments();
         }
-        },[comment,router]);
+        },[post,router]);
 
         useEffect(() => {
-            if (router.query.id || router.query.commentId) {
+            if (router.query.postId) {
             refreshVotes();
             }
         },[comments.length]);
@@ -54,17 +54,17 @@ function Comment(props) {
 
   return (
       <>
-      {comment && (
-        <Post {...comment} open={true} />
+      {post && (
+        <Post {...post} open={true} />
       )}
       
-      {!!comment && !!comment._id && (
+      {!!post && !!post._id && (
           <>
           <hr className='border-reddit_border my-4'/>
-          <CommentForm onSubmit={() => refreshComments()} rootId={comment._id} parentId={comment._id} showAuthor={true} community={props.community} />
+          <CommentForm onSubmit={() => refreshComments()} rootId={post._id} parentId={post._id} showAuthor={true} community={props.community} />
           <hr className='border-reddit_border my-4'/> 
           <RootCommentContext.Provider value={{refreshComments,refreshVotes,commentsTotals,userVotes}}>
-              <Comments parentId={comment._id} rootId={comment._id} comments={comments}/>
+              <Comments parentId={post._id} rootId={post._id} comments={comments}/>
           </RootCommentContext.Provider>
           </>
       )}

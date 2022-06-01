@@ -6,11 +6,12 @@ import cors from 'cors';
 import 'dotenv/config';
 import cloudinary from './utils/cloudinary.js';
 import Comment from './models/Comment.js';
-import router from './routes/userRouter.js';
+import userRouter from './routes/userRouter.js';
+import commentRouter from './routes/commentRouter.js';
+import postRouter from './routes/postRouter.js'
 import VotingRoutes from './routes/VotingRoutes.js'
 import CommunityRoutes from './routes/CommunityRoutes.js'
 import Community from './models/Community.js';
-import {getUserFromToken} from './controllers/UserFunctions.js'
 
 const uri = process.env.ATLAS_URI;
 
@@ -28,16 +29,15 @@ app.use(cors({
 
 //Routes
 
-app.use('/',router)
+app.use('/',userRouter)
+
+app.use('/', postRouter)
+
+app.use('/',commentRouter)
 
 app.use(VotingRoutes);
 
 app.use(CommunityRoutes)
-
-
-
-
-
 
 
 
@@ -75,54 +75,10 @@ app.post('/comments/image', async(req,res) => {
         })
         //console.log(uploadedResponse)
         res.json({url:uploadedResponse.secure_url})
-    } catch (error) {
-        console.error(error)
+    } catch (err) {
         res.status(500).json({err:'something went wrong'})
     }
 })
-
-
-// app.get('/comments/count', (req,res) => {
-//     Comment.find({}).then(comments => {
-//         res.json(comments.length)
-//     })
-// })
-
-
-app.get('/comments', (req, res) => {
-    //console.log(req.query)
-    const {search,community,limit,skip} = req.query;
-    let filters = search 
-    ? {body: {$regex: '.*'+search+'.*'}}
-    : {rootId:null};
-
-    if (community) {
-        filters.community = community;
-    }
-
-    Comment.find(filters).sort({postedAt: -1}).limit(limit).skip(skip).then(comments => {
-        //console.log(comments)
-        res.json(comments);
-    })
-});
-
-app.delete('/comments/delete/:id', async(req,res) => {
-    try {
-        await Comment.findByIdAndDelete(req.params.id)
-
-        res.json({msg: "Deleted Success"})
-    } catch (err) {
-        return res.status(500).json({msg: err.message})
-    }
-})
-
-
-
-app.get('/comments/root/:rootId', async (req, res) => {
-    Comment.find({rootId:req.params.rootId}).sort({postedAt: -1}).then(comments => {
-        res.json(comments);
-    });  
-});
 
 app.get('/search', (req, res) => {
     const {phrase,community} = req.query;
@@ -133,61 +89,11 @@ app.get('/search', (req, res) => {
     })
 });
 
-app.get('/comments/root/:rootId', async (req, res) => {
-    Comment.find({rootId:req.params.rootId}).sort({postedAt: -1}).then(comments => {
-        res.json(comments);
-    });  
-});
-
 app.get('/comments/length/:rootId', async (req, res) => {
     Comment.find({rootId:req.params.rootId}).then(comments => {
         res.json(comments.length);
     });  
 });
-
-
-app.get('/comments/:id', async (req, res) => {
-    Comment.findById(req.params.id).then(comment => {
-        res.json(comment);
-    });
-}) 
-
-app.post('/comments', async (req, res) => {
-  try {
-    const token = req.cookies.token;
-    if(!token) {
-        res.sendStatus(401);
-        return;
-    }
-    getUserFromToken(token)
-    .then(userInfo => {
-    const {title,body,image,parentId,rootId,community,communityIcon,isImage} = req.body;
-    
-    const comment = new Comment({
-        title,
-        body,
-        image,
-        community,
-        communityIcon,
-        author:userInfo.username,
-        authorAvatar:userInfo.avatar,
-        postedAt:new Date(),
-        parentId,
-        rootId,
-        isImage,
-    });
-    comment.save().then(savedComment => {
-        //console.log(savedComment)
-        res.json(savedComment);
-    }).catch();
-    })
-    .catch(() => {
-        res.sendStatus(401);
-    })
-  } catch {
-
-  }
-})
 
 const port = process.env.PORT || 4000;
 

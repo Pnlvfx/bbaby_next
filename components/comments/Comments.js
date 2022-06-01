@@ -23,13 +23,13 @@ function Comments(props) {
               <div className="flex mb-2">
                   <img src={comment.authorAvatar} alt='' className="bg-gray-600 w-8 h-8 rounded-full mr-2" />
                   <div className="leading-10 pr-2 text-sm font-sans">{comment.author}</div>
-                  <TimeAgo className='leading-10 text-sm text-reddit_text-darker font-sans' datetime={comment.postedAt} />
+                  <TimeAgo className='leading-10 text-sm text-reddit_text-darker font-sans' datetime={comment.createdAt} />
               </div>
               <div className='border-l-2 border-reddit_text-darker p-3'
               style={{marginLeft:'18px'}} >
                 <div className='pl-4 -mt-4'>
                   <div>
-                    <ReactMarkdown remarkPlugins={[gfm]} children={comment.title} />
+                    <ReactMarkdown remarkPlugins={[gfm]} children={comment.body} />
                   </div>
 
 

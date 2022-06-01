@@ -1,14 +1,32 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import PostFormModal from '../components/submit/PostFormModal'
 import Head from 'next/head'
 import { NextPage, NextPageContext } from 'next';
 import Layout from '../components/Layout';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 const submit:NextPage = () => {
 
+  const router = useRouter()
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
-  const communityName = '';
+
+  const community: any = router.query?.community ? router.query?.community : null
+
+  console.log(community)
+
+  const [communityName,setCommunityName] = useState('')
+
+  console.log(community)
+
+  useEffect(() => {
+    if(!router.isReady) return;
+    if(community) {
+      setCommunityName(community)
+    } else {
+      return
+    }
+  }, [router.query])
   
   return (
     <>

@@ -47,60 +47,59 @@ function Post(props) {
         {!props.open && (
             <>
                 <div className={postClasses} tabIndex='-1'>
-                           {!isMobile && (
-                               <>
-                                <Link href={`/?commentId=${props._id}&community=${props.community}`} as={'/b/'+props.community+'/comments/'+props._id} scroll={false} >
-                                <a>
-                                    <PostContent {...props} filePickerRef={filePickerRef} subComments={subComments} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
-                                </a>
-                                </Link>
-                                <button id='commentButtonRef' onClick={e => { //using reference to get the correct comment Id
-                                    e.preventDefault()
-                                        router.push({
-                                            pathname: '/',
-                                            query: {commentId: props._id, community: props.community }
-                                        },'/b/'+props.community+'/comments/'+props._id,{scroll:false}
-                                        )
-                                    
-                                    }} hidden ref={filePickerRef}>
-                                </button>
-                               </>
-                            )}
-                            {isMobile && (
-                                <>
-                                <Link href={'/b/'+props.community+'/comments/'+props._id}>
-                                    <a>
-                                        <PostContent {...props} subComments={subComments} filePickerRef={filePickerRef} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
-                                    </a>
-                                </Link>
-                            <button onClick={e => { //using reference to get the correct comment Id
-                                    e.preventDefault()
-                                        router.push({
-                                            pathname: '/b/'+props.community+'/comments/'+props._id,
-                                        },'/b/'+props.community+'/comments/'+props._id,{scroll:false}
-                                        )
-                                    }} hidden ref={filePickerRef}>
-                            </button>
-                                </>
-                            )}
-                            <button id='shareButtonRef' onClick={() => { //using reference to get the correct share Id
-                                        router.push({
-                                            pathname: '/',
-                                            query: {shareId: props._id, community: props.community },
-                                        },'/',{scroll:false}
-                                        )
-                                    
-                                    }} hidden ref={filePickerRefShare}>
-                            </button>
-                            <button id='moreButtonRef' onClick={() => {
+                    {!isMobile && (
+                        <>
+                        <Link href={`/?postId=${props._id}&community=${props.community}`} as={'/b/'+props.community+'/comments/'+props._id} scroll={false} >
+                        <a>
+                            <PostContent {...props} filePickerRef={filePickerRef} subComments={subComments} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
+                        </a>
+                        </Link>
+                        <button id='commentButtonRef' onClick={e => { //using reference to get the correct comment Id
+                            e.preventDefault()
                                 router.push({
                                     pathname: '/',
-                                    query: {deleteId: props._id, community: props.community },
-                                },'/',{scroll:false}
+                                    query: {postId: props._id, community: props.community }
+                                },'/b/'+props.community+'/comments/'+props._id,{scroll:false}
                                 )
-                            }} hidden ref={filePickerRefMore}>
+                            
+                            }} hidden ref={filePickerRef}>
+                        </button>
+                        </>
+                    )}
+                    {isMobile && (
+                        <>
+                        <Link href={'/b/'+props.community+'/comments/'+props._id}>
+                            <a>
+                                <PostContent {...props} subComments={subComments} filePickerRef={filePickerRef} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
+                            </a>
+                        </Link>
+                        <button onClick={e => { //using reference to get the correct comment Id
+                                e.preventDefault()
+                                    router.push({
+                                        pathname: '/b/'+props.community+'/comments/'+props._id,
+                                    },'/b/'+props.community+'/comments/'+props._id,{scroll:false}
+                                    )
+                                }} hidden ref={filePickerRef}>
+                        </button>
+                        </>
+                    )}
+                        <button id='shareButtonRef' onClick={() => { //using reference to get the correct share Id
+                                    router.push({
+                                        pathname: '/',
+                                        query: {shareId: props._id, community: props.community },
+                                    },'/',{scroll:false}
+                                    )
+                                }} hidden ref={filePickerRefShare}>
+                        </button>
+                        <button id='moreButtonRef' onClick={() => {
+                            router.push({
+                                pathname: '/',
+                                query: {deleteId: props._id, community: props.community },
+                            },'/',{scroll:false}
+                            )
+                        }} hidden ref={filePickerRefMore}>
 
-                            </button>
+                        </button>
                 </div>
             </>
         )}

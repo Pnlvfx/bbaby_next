@@ -6,26 +6,25 @@ import Layout from '../../../../components/Layout';
 
 const id: NextPage = (props) => {
     const hostname = process.env.NEXT_PUBLIC_HOSTNAME
-    const all: any = props
-    const comment = all.comment
+    const {post}: any = props
     
 
   return (
     <div>
        <Head>
-        <title>{comment.title}</title>
-        <meta property="og:title" content={comment.title} key='ogtitle' />
-        <meta name="description" content={comment.body}  />
-        <meta property="og:description" content={comment.body} key='ogdesc'/>
-        <meta property="og:image" content={comment.image} key='ogimage' />
-        <meta property="og:url" content={hostname + '/b/' + comment.community + '/comments/' + comment._id} key='ogurl' />
+        <title>{post.title}</title>
+        <meta property="og:title" content={post.title} key='ogtitle' />
+        <meta name="description" content={post.body}  />
+        <meta property="og:description" content={post.body} key='ogdesc'/>
+        <meta property="og:image" content={post.image} key='ogimage' />
+        <meta property="og:url" content={hostname + '/b/' + post.community + '/comments/' + post._id} key='ogurl' />
         <meta property='og:type' content='website' key='ogtype' />
         <meta name="twitter:card" content="summary_large_image" key='twcard'/>
         <meta name="twitter:image:alt" content="" />
-        <link rel='canonical' href={hostname + '/b/' + comment.community + '/comments/' + comment._id} key='canonical' />
+        <link rel='canonical' href={hostname + '/b/' + post.community + '/comments/' + post._id} key='canonical' />
       </Head>
       <Layout>
-        <CommentPage comment={comment} />
+        <CommentPage post={post}/>
       </Layout>
     </div>
   )
@@ -37,9 +36,9 @@ export async function getServerSideProps(context: NextPageContext) {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
   const {query} = context
   const {id} = query
-  const res = await axios.get(server+`/comments/${id}`);
+  const res = await axios.get(server+`/posts/${id}`);
 
-  const {data} = await res
+  const post = await res.data
 
   //login
   const response = await axios({
@@ -52,7 +51,7 @@ export async function getServerSideProps(context: NextPageContext) {
   return {
     props: {
       session: session,
-      comment: data
+      post: post
     }
   }
 }

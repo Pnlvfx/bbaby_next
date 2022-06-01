@@ -13,13 +13,13 @@ function Feed(props) {
 
   //INFINITE SCROLLING
 
-  const [comments,setComments] = useState(props.comments.allComments)
+  const [posts,setPosts] = useState(props.posts)
 
   const getMorePosts = async() => {
-    const res = await axios.get(`${server}/comments?skip=${comments.length}&limit=10`)
+    const res = await axios.get(`${server}/posts?skip=${posts.length}&limit=10`)
     
     const newPosts = await res.data
-    setComments((comments) => [...comments, ...newPosts])
+    setPosts((posts) => [...posts, ...newPosts])
   };
 
   // GET ALL COMMUNITY INFO
@@ -45,14 +45,14 @@ function Feed(props) {
               </div>
             <div className=''>
             <InfiniteScroll 
-              dataLength={comments.length}
+              dataLength={posts.length}
               next={getMorePosts}
               hasMore={true}
               loader={<h4></h4>}
               endMessage={<p></p>}
             >
-            {comments.map(comment => (
-                <Post key={comment._id} {...comment} isListing={true}/>
+            {posts.map(post => (
+                <Post key={post._id} {...post} isListing={true}/>
             ))}
             </InfiniteScroll>
             </div> 

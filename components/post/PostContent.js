@@ -60,22 +60,22 @@ function PostContent(props) {
                     )}
                 </div>
               <div className='flex'>
-                      <button type='button' onClick={event => {
-                          event.preventDefault()
-                          if (router.asPath === '/') {
-                            filePickerRef.current.click()
-                          } else {
-                            null
-                          }
-                        }}>
-                          <div className='flex text-[#717273] p-2 rounded-sm hover:bg-reddit_hover text-sm'>
-                          <Image src='/comment.svg' alt='' height={'20px'} width={'20px'} />
-                          <h1 className="ml-1">{props.subComments} Comments</h1>
-                          </div>
-                        </button>
-                          <ShareButton community={props.community} filePickerRefShare={filePickerRefShare} />
-                           <MoreButton comments={props} filePickerRefMore={filePickerRefMore} />
-                      </div>
+                <button type='button' onClick={event => {
+                    event.preventDefault()
+                      if (router.asPath === '/') {
+                        filePickerRef.current.click()
+                      } else {
+                        null
+                      }
+                    }}>
+                    <div className='flex text-[#717273] p-2 rounded-sm hover:bg-reddit_hover text-sm'>
+                    <Image src='/comment.svg' alt='' height={'20px'} width={'20px'} />
+                    <h1 className="ml-1">{props.subComments} Comments</h1>
+                    </div>
+                  </button>
+                    <ShareButton community={props.community} filePickerRefShare={filePickerRefShare} />
+                    <MoreButton comments={props} filePickerRefMore={filePickerRefMore} />
+              </div>
           </div>
           </div>
       </div>

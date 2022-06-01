@@ -1,6 +1,5 @@
 import nodemailer from 'nodemailer';
 import 'dotenv/config';
-import { google } from 'googleapis';
 import { OAuth2Client } from 'google-auth-library';
 
 const OAUTH_PLAYGROUND = 'https://developers.google.com/oauthplayground'

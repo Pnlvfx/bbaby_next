@@ -17,7 +17,6 @@ function Submit(props) {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     const authModalContext = useContext(AuthModalContext)
 
-
     const [startTyping,setStartTyping] = useState(false)
 
     const [title,setTitle] = useState('');
@@ -112,7 +111,7 @@ function Submit(props) {
    const createPost = async() => {
                 try {
                     const data = {title,body,community,communityIcon,image,isImage};
-                    const res =  await axios.post(server+'/comments', data, {withCredentials:true})
+                    const res =  await axios.post(server+'/posts', data, {withCredentials:true})
                     setNewPostId(res.data._id);
                 } catch (error) {
                     if(error.response.status === 401) {
