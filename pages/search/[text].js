@@ -24,8 +24,8 @@ const SearchResultPage = () => {
     if (router.query) {
       axios.get(server+'/search?phrase='+text, {withCredentials:true})
       .then(response => {
-        setPosts(response.data.comments);
-        setCommunities(response.data.communities);
+        setPosts(response.data.posts);
+        //setCommunities(response.data.communities);
       })
     }
   },[router])
@@ -49,7 +49,7 @@ const SearchResultPage = () => {
       <Layout>
         <div>
         {posts.map(post => (
-          <Post {...post} />
+          <Post {...post}/>
         ))}
       </div>
       </Layout>

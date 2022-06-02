@@ -57,6 +57,27 @@ const PostCtrl = {
             
         }
     },
+    voting: async (req,res) => {
+        try {
+            const {token} = req.cookies
+            if(!token) {
+                res.status(500).json({msg: "You need to be logged for vote this post"})
+                return;
+            }
+            const {id} = req.params
+            const {data} = req.body
+            if(data === '1') {
+                const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : +1}})
+                res.json(post.ups)
+            } else {
+                const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : -1}})
+                res.json(post.ups)
+            }
+            
+        } catch (err) {
+            
+        }
+    },
     deletePost: async (req,res) => { //and comments related
         try {
             const {id} = req.params

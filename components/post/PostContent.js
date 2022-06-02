@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
 import MoreButton from './postutils/MoreButton'
 import Image from "next/image";
+import Voting from "./Voting";
 
 function PostContent(props) {
 
@@ -16,21 +17,7 @@ function PostContent(props) {
       <div className="bg-reddit_dark-brighter rounded-md">
         <div className="flex">
           <div className='bg-[#141415] w-10 flex-none'>
-            <div className="pt-2 text-center">
-            <div className="" value={'voteUp'} onClick={event => {
-              event.preventDefault()
-              
-            }}>
-              <BiUpvote className="w-6 h-6 text-reddit_text-darker hover:text-blue-600 text-center mx-auto"/>
-            </div>
-              <span className="text-sm">Vote</span>
-            <div value='voteDown' onClick={event => {
-              event.preventDefault()
-              
-            }}>
-              <BiDownvote className="w-6 h-6 text-reddit_text-darker hover:text-reddit_orange mx-auto"/>
-            </div>   
-            </div>       
+            <Voting ups={props.ups} postId={props._id}/>
             </div>
           <div className="p-2">
               <div className="">

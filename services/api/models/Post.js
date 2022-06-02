@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
 
-const {ObjectId} = mongoose
-
 const PostSchema = new mongoose.Schema({
     author: 
         {type:String,
@@ -32,6 +30,14 @@ const PostSchema = new mongoose.Schema({
     isImage: {
         type:Boolean,
         default:false
+    },
+    numComments: {
+        type:Number,
+        default: '0'
+    },
+    ups: {
+        type:Number,
+        default: '0'
     },
 },
 {

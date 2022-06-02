@@ -38,10 +38,8 @@ function Comment(props) {
 
     
     useEffect(() => {
-        if (router.query.postId) {
         refreshComments();
-        }
-        },[post,router]);
+        },[post]);
 
         useEffect(() => {
             if (router.query.postId) {

@@ -18,8 +18,6 @@ function CommentModal(props) {
 
   const {postId} = props
 
-  const community = router.query.community
-
   useEffect(() => {
     axios.get(server+'/posts/'+postId)
     .then(response => {

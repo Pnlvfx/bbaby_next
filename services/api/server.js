@@ -12,6 +12,7 @@ import postRouter from './routes/postRouter.js'
 import VotingRoutes from './routes/VotingRoutes.js'
 import CommunityRoutes from './routes/CommunityRoutes.js'
 import Community from './models/Community.js';
+import Post from './models/Post.js';
 
 const uri = process.env.ATLAS_URI;
 
@@ -82,9 +83,9 @@ app.post('/comments/image', async(req,res) => {
 
 app.get('/search', (req, res) => {
     const {phrase,community} = req.query;
-    Comment.find({title: {$regex: '.*'+phrase+'.*'}}).sort({postedAt: -1}).then(comments => {
+    Post.find({title: {$regex: '.*'+phrase+'.*'}}).sort({postedAt: -1}).then(posts => {
         Community.find({name:{$regex: '.*'+phrase+'.*'}}).then(communities => {
-            res.json({comments});
+            res.json({posts});
         })
     })
 });

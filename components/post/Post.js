@@ -70,16 +70,16 @@ function Post(props) {
                     )}
                     {isMobile && (
                         <>
-                        <Link href={'/b/'+props.community+'/comments/'+props._id}>
+                        <Link href={'/b/'+post.community+'/comments/'+post._id}>
                             <a>
-                                <PostContent {...props} subComments={subComments} filePickerRef={filePickerRef} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
+                                <PostContent {...post} subComments={subComments} filePickerRef={filePickerRef} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
                             </a>
                         </Link>
                         <button onClick={e => { //using reference to get the correct comment Id
                                 e.preventDefault()
                                     router.push({
-                                        pathname: '/b/'+props.community+'/comments/'+props._id,
-                                    },'/b/'+props.community+'/comments/'+props._id,{scroll:false}
+                                        pathname: '/b/'+post.community+'/comments/'+post._id,
+                                    },undefined,{scroll:false}
                                     )
                                 }} hidden ref={filePickerRef}>
                         </button>
