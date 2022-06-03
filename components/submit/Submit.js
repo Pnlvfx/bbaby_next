@@ -94,7 +94,7 @@ function Submit(props) {
             const res =
                 await axios.post(server+'/posts/image', {
                 data,
-                headers: {'Content-type': 'application/json'}
+                headers: {'Content-type': 'application/json',withCredentials:true}
             })
             const {url} = await res.data
             setImage(url)
