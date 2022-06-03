@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
       />
-      <Script
+    <Script
         id="gtag-init"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
@@ -53,6 +53,17 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
       />
       <Head>
         <meta name='viewport' content='width=device-width,initial-scale=1.0, maximum-scale=1.0' />
+        <meta name="referrer" content="origin-when-cross-origin" />
+        <meta name="application-name" content="bbabystyle" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+              name="apple-mobile-web-app-status-bar-style"
+              content="default"
+            />
+        <meta name="apple-mobile-web-app-title" content="bbabystyle" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta property="og:site_name" content="bbabystyle" />
+        <meta name="twitter:creator" content="@Bbabystyle" />
       </Head>
     <UserContext.Provider value={{session: session}}>
       <AuthModalContext.Provider value={{show:showAuthModal,setShow:setShowAuthModal}}>

@@ -4,6 +4,7 @@ const siteUrl = "https://www.bbabystyle.com";
 
 module.exports = {
     siteUrl,
+    priority: 1,
     generateRobotsTxt: true,
     robotsTxtOptions: {
         additionalSitemaps: [
@@ -11,5 +12,5 @@ module.exports = {
             `${siteUrl}/server-sitemap-index.xml`
         ],
     },
-    exclude: ["/activation/*","/server-sitemap.xml","/server-sitemap-index.xml","admin/*","/search/*","/settings/*","/user/*"] //user is temp
+    exclude: ["/activation/*","/server-sitemap.xml","/server-sitemap-index.xml","/admin/*","/search/*","/settings/*","/user/*"] //user is temp
 }

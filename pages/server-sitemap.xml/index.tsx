@@ -12,7 +12,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
     const fields : ISitemapField[] = posts.map(post => ({
         loc: hostname+`/b/${post.community}/comments/${post._id}`,
-        lastmod: new Date().toISOString(),
+        priority: 1,
+        lastmod: new Date().toISOString()
 }));
 
     
