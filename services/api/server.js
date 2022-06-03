@@ -69,7 +69,7 @@ app.post('/upload_avatar', async(req,res) => {
 
 app.post('/comments/image', async(req,res) => {
     try {
-        console.log(req.body.data)
+        //console.log(req.body.data)
         const fileStr = req.body.data;
         const uploadedResponse = await cloudinary.uploader.upload(fileStr,{
             upload_preset: 'bbaby_avatar'
