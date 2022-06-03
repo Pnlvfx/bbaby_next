@@ -67,7 +67,7 @@ app.post('/upload_avatar', async(req,res) => {
     }
 })
 
-app.post('/posts/image', async(req,res) => {
+app.post('/comments/image', async(req,res) => {
     try {
         //console.log(req.body.data)
         const fileStr = req.body.data;

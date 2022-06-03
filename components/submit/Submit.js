@@ -92,11 +92,10 @@ function Submit(props) {
         try {
             const data = base64EncodedImage
             const res =
-                await axios.post(server+'/posts/image', {
+                await axios.post(server+'/comments/image', {
                 data,
-                headers: {'Content-type': 'application/json', withCredentials:true}
+                headers: {'Content-type': 'application/json'}
             })
-            setImage(res.data.url)
             const {url} = await res.data
             setImage(url)
         } catch (error) {
@@ -108,6 +107,7 @@ function Submit(props) {
     //create a post
    const createPost = async() => {
                 try {
+                    setLoading(true)
                     const data = {title,body,community,communityIcon,image,isImage};
                     const res =  await axios.post(server+'/posts', data, {withCredentials:true})
                     setNewPostId(res.data._id);
@@ -120,7 +120,7 @@ function Submit(props) {
 
     useEffect(() => {
         if(tryToPost) {
-            //setLoading(true)
+            setLoading(true)
             if(selectedFile !== null) {
                 uploadImage(selectedFile)
                 setSelectedFile(null)
