@@ -1,15 +1,12 @@
 import axios from 'axios';
 import type { NextPage, NextPageContext } from 'next'
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import CommentPage from '../../../../components/comments/CommentPage'
 import Layout from '../../../../components/Layout';
 
 const id: NextPage = (props) => {
     const hostname = process.env.NEXT_PUBLIC_HOSTNAME
     const {post}: any = props
-
-    console.log(useRouter().query)
 
   return (
     <div>

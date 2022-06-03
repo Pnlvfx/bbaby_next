@@ -30,7 +30,7 @@ function ActivationEmail() {
                 activationEmail()
             }
 
-    },[activation_token,router])
+    },[activation_token,router.isReady])
   return (
     <div>
         {err && showErrMsg(err)}

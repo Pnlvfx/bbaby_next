@@ -21,7 +21,7 @@ function BoardHeader(props) {
         <div className='bg-reddit_dark-brighter self-center mx-auto'>
             <div className='mx-5 flex'>
                 <div className='rounded-full overflow-hidden border-4 relative -top-4 border-white bg-reddit_blue ml-0 lg:ml-40'>
-                   <img src={communityAvatar} className='h-16 w-16 rounded-full flex-none' />
+                   <img src={communityAvatar} alt='community header' className='h-16 w-16 rounded-full flex-none' />
                 </div>
                     <div className='pt-2 pl-4'>
                         <h1 className='text-2xl font-bold mx-auto'>{community}</h1>

@@ -48,21 +48,21 @@ function Submit(props) {
     const router = useRouter()
 
     useEffect(() => {
-        if(startTyping && community) {
+        if(startTyping && selectedCommunity) {
             setEnablePost('text-opacity-100')
         }
-    },[community,startTyping])
+    },[selectedCommunity,startTyping])
 
      //get all community info
      useEffect(() => {
-        if(community) {
-            const name = community
+        if(selectedCommunity) {
+            const name = selectedCommunity
             axios.get(server+'/communities/'+name,{withCredentials:true})
             .then(response => {
                 setCommunityIcon(response.data.communityAvatar)
             })
         }
-    },[community])
+    },[selectedCommunity])
    
 
     useEffect(() => {
@@ -176,8 +176,8 @@ function Submit(props) {
                 {show && (
                         <div className={' border border-reddit_text absolute bg-reddit_dark-brighter z-10 text-reddit_text overflow-hidden '}>
                             <div className='w-[300px]'>
-                                {allCommunity.map(allCommunity => (
-                                    <CommunityList {...allCommunity} setSelectedCommunity={setSelectedCommunity} setActiveClass={setActiveClass} setShow={setShow} />
+                                {allCommunity.map(community => (
+                                    <CommunityList key={community._id} {...community} setSelectedCommunity={setSelectedCommunity} setActiveClass={setActiveClass} setShow={setShow} />
                                 
                                 ))}
                             </div>

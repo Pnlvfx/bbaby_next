@@ -6,7 +6,7 @@ import Layout from '../components/Layout';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-const submit:NextPage = () => {
+const Submit:NextPage = ({context}:any) => {
 
   const router = useRouter()
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
@@ -23,6 +23,8 @@ const submit:NextPage = () => {
       return
     }
   }, [router.query])
+
+  console.log(context)
   
   return (
     <>
@@ -46,7 +48,7 @@ const submit:NextPage = () => {
   )
 }
 
-export default submit;
+export default Submit;
 
 export async function getServerSideProps(context: NextPageContext) {
   const server = process.env.NEXT_PUBLIC_SERVER_URL

@@ -19,7 +19,7 @@ function NewEmailNotif(props) {
                   <div className="">
                       <h1 className="font-bold" >Confirm your email:</h1>
                       <h2 className="pb-2">{props.email}</h2>
-                      <h3 className="">Check your inbox email for Bbaby's confirmation email. A current email address help ensure you don't lose access to your account</h3>
+                      <h3 className="">Check your inbox email for Bbaby&apos;s confirmation email. A current email address help ensure you don&apos;t lose access to your account</h3>
                   </div>
                   <div className="flex-none">
                       <button onClick={() => setIsOpen(false)} >
