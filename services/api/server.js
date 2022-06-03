@@ -67,20 +67,6 @@ app.post('/upload_avatar', async(req,res) => {
     }
 })
 
-app.post('/comments/image', async(req,res) => {
-    try {
-        //console.log(req.body.data)
-        const fileStr = req.body.data;
-        const uploadedResponse = await cloudinary.uploader.upload(fileStr,{
-            upload_preset: 'bbaby_avatar'
-        })
-        //console.log(uploadedResponse)
-        res.json({url:uploadedResponse.secure_url})
-    } catch (err) {
-        res.status(500).json({err:'something went wrong'})
-    }
-})
-
 app.get('/search', (req, res) => {
     const {phrase,community} = req.query;
     Post.find({title: {$regex: '.*'+phrase+'.*'}}).sort({postedAt: -1}).then(posts => {

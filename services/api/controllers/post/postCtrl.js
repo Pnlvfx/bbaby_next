@@ -1,6 +1,8 @@
 import Post from '../../models/Post.js'
 import Comment from '../../models/Comment.js'
 import {getUserFromToken} from '../user/UserFunctions.js'
+import cloudinary from '../../utils/cloudinary.js';
+import 'dotenv/config';
 
 const PostCtrl = {
     getPosts: async (req, res) => {
@@ -20,9 +22,13 @@ const PostCtrl = {
     },
     addImage: async (req,res) => {
         try {
-            
+            const fileStr = req.body.data
+            const uploadedResponse = await cloudinary.uploader.upload(fileStr,{
+                upload_preset: 'bbaby_avatar'
+            })
+            res.json({url:uploadedResponse.secure_url})
         } catch (err) {
-            
+            res.status(500).json({err:'something went wrong'})
         }
     },
     createPost: async (req, res) => {

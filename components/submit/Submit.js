@@ -92,7 +92,7 @@ function Submit(props) {
         try {
             const data = base64EncodedImage
             const res =
-                await axios.post(server+'/comments/image', {
+                await axios.post(server+'/posts/image', {
                 data,
                 headers: {'Content-type': 'application/json'}
             })
@@ -126,11 +126,9 @@ function Submit(props) {
                 setSelectedFile(null)
                 if(image) {
                     createPost()
-                    setTryToPost(false)
                 }
             } else {
                 createPost()
-                setTryToPost(false)
             }
         }
     },[tryToPost,image])

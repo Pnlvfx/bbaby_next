@@ -1,5 +1,6 @@
 import Comment from '../../models/Comment.js'
 import {getUserFromToken} from '../user/UserFunctions.js'
+import 'dotenv/config';
 
 const commentCtrl = {
     createComment: async (req,res) => {
