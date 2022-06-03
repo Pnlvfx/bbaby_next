@@ -106,9 +106,9 @@
     fastq "^1.6.0"
 
 "@react-oauth/google@^0.2.4":
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@react-oauth/google/-/google-0.2.4.tgz#66ab734716159cba64a48bb410c2af82287ce07a"
-  integrity sha512-5YYzS8UQ00iZreVf5Qo2G5O4DgTW9Mifuhve2IIaYOQYKvU3FFcOgYUeFAMjEhjUfQ/5AKq3rasfO/ytF9iJeg==
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@react-oauth/google/-/google-0.2.5.tgz#3c03d63644f136377c52e5bbd957961c6923c4ff"
+  integrity sha512-SB0qtM1wB/IBhdjMC9NrASaP4g4PzGjEh0Nf1GVUiHP70NXX5sgdO065Y1BGDyMKqX/gIJESFpUSgxQQ+KiiyQ==
 
 "@types/debug@^4.0.0":
   version "4.1.7"
@@ -1233,9 +1233,9 @@ napi-build-utils@^1.0.1:
   integrity sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==
 
 next-sitemap@^2.5.26:
-  version "2.5.27"
-  resolved "https://registry.yarnpkg.com/next-sitemap/-/next-sitemap-2.5.27.tgz#5ff82e620a4f0a66f064bcb7afdf11d173665727"
-  integrity sha512-ZnETijg9PNq7yuh9hkAtiCgpRjM9w2JFt1oal9ZgEquvmtj2Xd119/4pWrcI+RFxWBlsJ2awRYrH46gvugB4UQ==
+  version "2.5.28"
+  resolved "https://registry.yarnpkg.com/next-sitemap/-/next-sitemap-2.5.28.tgz#c061914edcc74268e43254710dec0a0febae5fa4"
+  integrity sha512-rDMTa7nLE0ikYnu8JDCrwQufIRm4b4Sg8BK11DGdDAmYpXmcmw4Qvm+oVBR8gUL97E6i2ihTM+cRx8mgENDACA==
   dependencies:
     "@corex/deepmerge" "^2.6.148"
     minimist "^1.2.6"
@@ -1496,16 +1496,16 @@ react-dom@^17.0.2:
     scheduler "^0.20.2"
 
 react-edit-text@^4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/react-edit-text/-/react-edit-text-4.4.0.tgz#aca941f6d039a3359969a6f72adef90e82095b50"
-  integrity sha512-xwE34rpkrTpjr35yu7DZB7rLyeNY0CPSJHCDXHFC/BVGOt2hEwZAKZm0VB+NsnKcDGitfJxCTPMagTBmrWgh7g==
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/react-edit-text/-/react-edit-text-4.4.1.tgz#189fffa99d6f7416694845b6ddd1bbab2ae5c134"
+  integrity sha512-Gyr60tyJGAKo6J+Jt7Wq2Phg9nylkgraJTeREsH+DSougBZ69fXclO8NnCRc5l76Z3rygKhfHNrvqE0QpssZsw==
   dependencies:
     classnames "^2.2.6"
 
 react-icons@^4.3.1:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.3.1.tgz#2fa92aebbbc71f43d2db2ed1aed07361124e91ca"
-  integrity sha512-cB10MXLTs3gVuXimblAdI71jrJx8njrJZmNMEMC+sQu5B/BIOmlsAjskdqpn81y8UBVEGuHODd7/ci5DvoSzTQ==
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.4.0.tgz#a13a8a20c254854e1ec9aecef28a95cdf24ef703"
+  integrity sha512-fSbvHeVYo/B5/L4VhB7sBA1i2tS8MkT0Hb9t2H1AVPkwGfVHLJCqyr2Py9dKMxsyM63Eng1GkdZfbWj+Fmv8Rg==
 
 react-infinite-scroll-component@^6.1.0:
   version "6.1.0"

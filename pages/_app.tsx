@@ -8,6 +8,7 @@ import * as gtag from '../lib/gtag'
 import {CommunityContextProvider} from '../components/community/CommunityContext';
 import {GoogleOAuthProvider} from '@react-oauth/google'
 import UserContext from '../components/auth/UserContext';
+import Head from 'next/head';
 
 function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
 
@@ -50,10 +51,9 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
           `,
         }}
       />
-
-
-
-  
+      <Head>
+        <meta name='viewport' content='width=device-width,initial-scale=1.0, maximum-scale=1.0' />
+      </Head>
     <UserContext.Provider value={{session: session}}>
       <AuthModalContext.Provider value={{show:showAuthModal,setShow:setShowAuthModal}}>
         <GoogleOAuthProvider clientId='527300585899-mh0q9kh2fpijep43k37oriuafsl8m9hi.apps.googleusercontent.com'>
