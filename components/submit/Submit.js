@@ -193,7 +193,7 @@ function Submit(props) {
                         </button>
                         <button className='opacity-20 text-sm border-r border-reddit_border flex border-b-2 px-3 py-1 hover:bg-reddit_hover'>
                             <div className='mt-2 mr-1'>
-                            <Image src={'/addimage.svg'} height={'25px'} width={'25px'} className='' />
+                            <Image src={'/addimage.svg'} alt={'PostIcon'} height={'25px'} width={'25px'}/>
                             </div>
                             <h1 className='py-3 font-semibold'>Images & Video</h1>
                         </button>
@@ -250,6 +250,7 @@ function Submit(props) {
                                             }} >
                                             <img 
                                             src={selectedFile}
+                                            alt={'DisplayImage'}
                                             className='rounded-lg object-contain mx-auto border border-reddit_border hover:border-4 hover:border-reddit_text'
                                             />
                                         </div>

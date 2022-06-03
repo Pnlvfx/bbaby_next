@@ -33,7 +33,7 @@ function userAgreement() {
               <h1>2. Privacy</h1>
               </div>
               <div className='flex'>
-              <h1>Bbaby's <Link href={'/policies/privacy-policy'}>
+              <h1>Bbaby&apos;s <Link href={'/policies/privacy-policy'}>
                   <a className='text-blue-400'>Privacy Policy</a>
                   </Link> explains how and why we collect, use, and share information about you when you access or use our Services. You understand that through your use of the Services, you consent to the collection and use of this information as set forth in the Privacy Policy.</h1>
                 </div>

@@ -19,7 +19,7 @@ function Comments(props) {
           const replies = props.comments.filter(c => c.parentId === comment._id)
 
           return(
-          <div className='mb-2'>
+          <div className='mb-2' key={comment._id}>
               <div className="flex mb-2">
                   <img src={comment.authorAvatar} alt='' className="bg-gray-600 w-8 h-8 rounded-full mr-2" />
                   <div className="leading-10 pr-2 text-sm font-sans">{comment.author}</div>
@@ -29,7 +29,7 @@ function Comments(props) {
               style={{marginLeft:'18px'}} >
                 <div className='pl-4 -mt-4'>
                   <div>
-                    <ReactMarkdown remarkPlugins={[gfm]} children={comment.body} />
+                    <ReactMarkdown remarkPlugins={[gfm]}>{comment.body}</ReactMarkdown>
                   </div>
 
 

@@ -17,7 +17,7 @@ function ResetYourPassword() {
         </div>
         <h1 className='font-bold'>Reset your password</h1>
         <div className='w-[600px] pr-48 pt-1'>
-            <h1>Tell us the username and email address associated with your Bbabystyle account, and we'll send you an email with a link to reset your password.</h1>
+            <h1>Tell us the username and email address associated with your Bbabystyle account, and we&apos;ll send you an email with a link to reset your password.</h1>
         </div>
             <div className='pt-4'>
                 <label>
@@ -37,7 +37,7 @@ function ResetYourPassword() {
             </div>
                 <button className="text-blue-400 text-sm">FORGOT USERNAME?</button>
                 <div>
-                    <h1 className='text-sm pt-4'>Don't have an email or need assistance loggin in? Get help.</h1>
+                    <h1 className='text-sm pt-4'>Don&apos;t have an email or need assistance loggin in? Get help.</h1>
                 </div>
                 <div className='pt-4 flex pb-24'>
                 <button className="text-sm text-blue-500 ml-1 font-semibold" onClick={() => modalContext.setShow('login')}>LOG IN</button>

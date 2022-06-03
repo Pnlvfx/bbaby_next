@@ -42,7 +42,7 @@ function PostContent(props) {
                     )}
                     {props.body && (
                       <div className='text-sm leading-6 break-words resize-x-none flex-none'>
-                        <ReactMarkdown remarkPlugins={[gfm]} children={props.body} />
+                        <ReactMarkdown remarkPlugins={[gfm]}>{props.body}</ReactMarkdown>
                       </div>
                     )}
                 </div>

@@ -16,7 +16,7 @@ function PostFormModal(props) {
         <div className="hidden lg:block pt-11 pr-3">
             <TempSubmitWid />
             <div className=" text-gray-700 text-sm w-72">
-              Please be mindful of bbabystyle's content policy
+              Please be mindful of bbabystyle&apos;s content policy
             </div>
         </div>
         </div>
