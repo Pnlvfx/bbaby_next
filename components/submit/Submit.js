@@ -92,9 +92,9 @@ function Submit(props) {
         try {
             const data = base64EncodedImage
             const res =
-                await axios.post(server+'/comments/image', {
+                await axios.post(server+'/posts/image', {
                 data,
-                headers: {'Content-type': 'application/json'}
+                headers: {'Content-type': 'application/json', withCredentials:true}
             })
             setImage(res.data.url)
             const {url} = await res.data
