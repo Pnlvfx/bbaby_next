@@ -39,15 +39,19 @@ function AuthModal() {
     }
 
 
-    const register = (e) => {
+    const register = async (e) => {
         e.preventDefault();
-        const data = {email,username,password};
-        axios.post(server+'/register', data, {withCredentials:true})
+        const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY
+        const userIpInfo = await axios.get(`http://extreme-ip-lookup.com/json?key=${IP_API_KEY}`)
+        const {country,countryCode,city,region} = await userIpInfo.data
+        
+        const data = {email,username,password,country,countryCode,city,region};
+        const res = await axios.post(server+'/register', data, {withCredentials:true})
         .then(() => {
             setStatus({err:"", success:"registration completed"})
             localStorage.setItem('isLogged', true)
             setEmailTo(email)
-            modalContext.setShow(false)
+            router.reload()
             })
         .catch(err => {
         err.response.data.msg &&

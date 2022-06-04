@@ -4,14 +4,28 @@ import CommunitiesList from '../widget/TopCommunities'
 import BestPost from './postutils/BestPost'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import CommentModal from '../comments/CommentModal'
 import { isMobile } from 'react-device-detect'
+import UserContext from '../auth/UserContext'
 
 //PostsListings from home and best page
 
 function Feed() {
+  const provider = useContext(UserContext)
+  const {session} = provider
+
+  useEffect(() => {
+    const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY
+    if(session) return
+    axios.get(`http://extreme-ip-lookup.com/json?key=${IP_API_KEY}`)
+    .then(response => {
+      console.log(response)
+    })
+  },[])
+
+
   const server = process.env.NEXT_PUBLIC_SERVER_URL
 
   const [postOpen, setPostOpen] = useState(false)

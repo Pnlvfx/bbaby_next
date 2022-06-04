@@ -19,7 +19,9 @@ const {COOKIE_DOMAIN} = process.env
 const userCtrl = {
     register: async (req,res) => {
         try {
-            const {email,username,password} = req.body;
+            const {email,username,password,country,countryCode,city,region} = req.body;
+
+            console.log(country,countryCode,city,region)
 
             if(!username || !email || !password)
             return res.status(400).json({msg: "Please fill in all fields"})
@@ -35,7 +37,7 @@ const userCtrl = {
 
             const passwordHash = bcrypt.hashSync(password, 10);
 
-            const user = new User({email,username,password: passwordHash});
+            const user = new User({email,username,password: passwordHash,country,countryCode,city,region});
 
             const activation_token = createActivationToken(user)
 
@@ -144,6 +146,8 @@ const userCtrl = {
 
             const verify = await client.verifyIdToken({idToken: tokenId,audience: process.env.MAILING_SERVICE_CLIENT_ID})
 
+            //console.log(verify.payload)
+
             const {email_verified,email,name,picture} = verify.payload
 
             const password = email + process.env.GOOGLE_SECRET
@@ -168,8 +172,9 @@ const userCtrl = {
                     });
                 } 
                 } else {
-                   const user = new User ({
-                       username:name,email,password:passwordHash,avatar:picture
+                    const {country,countryCode,city,region} = req.body.data
+                    const user = new User ({
+                       username:name,email,password:passwordHash,avatar:picture,country,countryCode,city,region
                    })  
 
                    await user.save()

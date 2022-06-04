@@ -25,6 +25,18 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: "https://res.cloudinary.com/bbabystyle/image/upload/v1652554985/avatar_aqlsee.png"
     },
+    country: {
+        type: String,
+    },
+    countryCode: {
+        type: String,
+    },
+    city: {
+        type: String,
+    },
+    region: {
+        type: String,
+    },
     upVotes: {
         type: [mongoose.ObjectId],
     },

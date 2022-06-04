@@ -7,15 +7,10 @@ import Layout from '../components/Layout'
 
 const Home: NextPage = () => {
 
-
- 
-
   //metatags
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const imagePreview = '/imagePreview.png'
 
-
-  
   return (
     <>
       <Head>
