@@ -11,7 +11,7 @@ import { isMobile } from 'react-device-detect'
 
 //PostsListings from home and best page
 
-function Feed(props) {
+function Feed() {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
 
   const [postOpen, setPostOpen] = useState(false)
@@ -76,7 +76,7 @@ function Feed(props) {
       }} />
     )}
     {loading && (
-      <div classname='opacity-60'>
+      <div className='opacity-60'>
         <h1>Loading...</h1>
       </div>
     )}

@@ -69,7 +69,7 @@ function PostsListing(props) {
       }} />
     )}
     {loading && (
-      <div classname='opacity-60'>
+      <div className='opacity-60'>
         <h1>Loading...</h1>
       </div>
     )}
