@@ -5,11 +5,12 @@ import AuthModalContext from "../auth/AuthModalContext"
 
 
 const Voting = (props) => {
-    const {ups,postId} = props
+    const {ups,postId,liked} = props
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     const [dir,setDir] = useState('0')  //vote
     const [upVote,setUpVote] = useState(ups)
     const modalContext = useContext(AuthModalContext);
+    const [voted,setVoted] = useState(false)
 
 
     
@@ -51,8 +52,9 @@ const Voting = (props) => {
             <div className="" value={'voteUp'} onClick={event => {
               event.preventDefault()
               handleVoteUp()
+              refreshVote()
             }}>
-              <BiUpvote className="w-6 h-6 text-reddit_text-darker hover:text-blue-600 text-center mx-auto"/>
+              <BiUpvote className={`w-6 h-6 text-reddit_text-darker hover:text-blue-600 text-center mx-auto && ${liked === true && "text-blue-600"}`}/>
             </div>
               <span className="text-sm">{upVote}</span>
             <div value='voteDown' onClick={event => {

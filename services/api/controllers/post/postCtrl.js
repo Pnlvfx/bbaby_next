@@ -12,6 +12,9 @@ const PostCtrl = {
                 const user = await getUserFromToken(token)
                 const userUpVote = await Post.find({_id : {'$in': user.upVotes}}).updateMany({"liked" : "true"})
             }
+            if(!token) {
+                const nullVote = await Post.find({}).updateMany({'liked' : null})
+            }
         const {search, community, limit, skip} = await req.query;
         let filters = search ? {body: {regex: '.*'+search+'.*'}} : {}
 
@@ -79,14 +82,23 @@ const PostCtrl = {
             const user = await getUserFromToken(token)
             const {id} = req.params
             const {dir} = req.body
-            if(dir === '1') {
-                const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : +1}})
-                const userVote = await User.findOneAndUpdate({username: user.username},{$push: {upVotes : id}})
-                res.status(200).json({vote: post.ups})
-            } else {
+            //const postLike = await Post.findByIdAndUpdate({id, })
+            const userVoted = await User.findOne({upVotes: id})
+
+            if (userVoted) {
+                await User.findOneAndUpdate({upVotes: id}, {$pull: {upVotes: id}})
                 const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : -1}})
-                const userVote = await User.findOneAndUpdate({username: user.username},{$push: {downVotes: id}})
-                res.status(200).json({vote: post.ups})
+                res.status(200).json({vote: post.ups -1})
+            } else {
+                if(dir === '1') {
+                    const userVote = await User.findOneAndUpdate({username: user.username},{$push: {upVotes : id}})
+                    const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : +1}})
+                    res.status(200).json({vote: post.ups + 1})
+                } else {
+                    const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : -1}})
+                    const userVote = await User.findOneAndUpdate({username: user.username},{$push: {downVotes: id}})
+                    res.status(200).json({vote: post.ups -1})
+                }
             }
             
         } catch (err) {

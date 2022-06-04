@@ -17,7 +17,7 @@ function PostContent(props) {
       <div className="bg-reddit_dark-brighter rounded-md">
         <div className="flex">
           <div className='bg-[#141415] w-10 flex-none'>
-            <Voting ups={props.ups} postId={props._id}/>
+            <Voting ups={props.ups} postId={props._id} liked={props.liked} />
             </div>
           <div className="p-2">
               <div className="">
