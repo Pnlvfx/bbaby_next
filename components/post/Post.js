@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 
 
 function Post(props) {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
+    
 
     const filePickerRef = useRef(null);
     const filePickerRefShare = useRef(null);
@@ -20,7 +20,9 @@ function Post(props) {
     const [subComments,setSubComments] = useState([]);
 
 
+
     function refreshCommentsLength() {
+        const server = process.env.NEXT_PUBLIC_SERVER_URL
         const id = post._id || router.query.postId
         if(id === undefined) return
         if(subComments.length === undefined) return
@@ -33,6 +35,9 @@ function Post(props) {
     useEffect(() => {
         refreshCommentsLength()
     },[subComments])
+
+
+ 
 
     
     let postClasses = 'block border border-reddit_border rounded-md ' + (post.open ? '' : "hover:border-reddit_text")

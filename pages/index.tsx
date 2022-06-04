@@ -44,8 +44,12 @@ export async function getServerSideProps(context: NextPageContext) {
   
   const server = process.env.NEXT_PUBLIC_SERVER_URL
   
-  const res = await axios.get(`${server}/posts?limit=10&skip=0`);
-  const posts = res.data
+  const res = await axios({
+    method: 'get',
+    url: `${server}/posts?limit=10&skip=0`,
+    headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
+    })
+    const posts = res.data
 
   //const getNumberOfPost = await axios.get(`${server}/comments/count`);
 
@@ -53,7 +57,7 @@ export async function getServerSideProps(context: NextPageContext) {
     method: "get",
     url: `${server}/user`,
     headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
-    withCredentials:true})
+    })
     const session = await response.data
 
   return {

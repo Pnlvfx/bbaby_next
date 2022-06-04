@@ -24,7 +24,13 @@ const UserSchema = new mongoose.Schema({
     avatar: {
         type: String,
         default: "https://res.cloudinary.com/bbabystyle/image/upload/v1652554985/avatar_aqlsee.png"
-    }
+    },
+    upVotes: {
+        type: [mongoose.ObjectId],
+    },
+    downVotes: {
+        type: [mongoose.ObjectId],
+    },
 }, {
     timestamps: true
 });

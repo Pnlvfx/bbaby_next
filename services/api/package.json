@@ -1,4 +1,7 @@
 {
+  "author": "Simone Gauli",
+  "name": "bbabystyle",
+  "version": "1,0.0",
   "engines": {
     "node": "17.9.0"
   },
@@ -19,6 +22,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.6.0",
     "mongoose": "^6.3.4",
+    "node-fetch": "^3.2.5",
     "nodemailer": "^6.7.5",
     "webpack": "^5.72.0"
   },

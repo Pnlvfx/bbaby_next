@@ -24,7 +24,7 @@ const Submit:NextPage = ({context}:any) => {
     }
   }, [router.query])
 
-  console.log(context)
+  //console.log(context)
   
   return (
     <>

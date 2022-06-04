@@ -3,9 +3,15 @@ import Comment from '../../models/Comment.js'
 import {getUserFromToken} from '../user/UserFunctions.js'
 import cloudinary from '../../utils/cloudinary.js';
 import 'dotenv/config';
+import User from '../../models/User.js';
 
 const PostCtrl = {
     getPosts: async (req, res) => {
+        const {token} = req.cookies
+            if(token) {
+                const user = await getUserFromToken(token)
+                const userUpVote = await Post.find({_id : {'$in': user.upVotes}}).updateMany({"liked" : "true"})
+            }
         const {search, community, limit, skip} = await req.query;
         let filters = search ? {body: {regex: '.*'+search+'.*'}} : {}
 
@@ -67,21 +73,24 @@ const PostCtrl = {
         try {
             const {token} = req.cookies
             if(!token) {
-                res.status(500).json({msg: "You need to be logged for vote this post"})
+                res.status(401).json({msg: "You need to be logged for vote this post"})
                 return;
             }
+            const user = await getUserFromToken(token)
             const {id} = req.params
-            const {data} = req.body
-            if(data === '1') {
+            const {dir} = req.body
+            if(dir === '1') {
                 const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : +1}})
-                res.json(post.ups)
+                const userVote = await User.findOneAndUpdate({username: user.username},{$push: {upVotes : id}})
+                res.status(200).json({vote: post.ups})
             } else {
                 const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : -1}})
-                res.json(post.ups)
+                const userVote = await User.findOneAndUpdate({username: user.username},{$push: {downVotes: id}})
+                res.status(200).json({vote: post.ups})
             }
             
         } catch (err) {
-            
+            res.status(500).json({msg: err})
         }
     },
     deletePost: async (req,res) => { //and comments related
@@ -91,7 +100,7 @@ const PostCtrl = {
             const findChildComments = await Comment.deleteMany({rootId:id})
             res.json({msg: "Deleted Success"})
         } catch (err) {
-            return res.status(500).json({msg: err.message})
+            return res.status(500).json({msg: err})
         }
     },
 }

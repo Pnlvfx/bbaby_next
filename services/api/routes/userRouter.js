@@ -18,5 +18,7 @@ userRouter.post('/logout', userCtrl.logout)
 
 userRouter.post('/google_login',userCtrl.googleLogin)
 
+userRouter.get('/reddit_login', userCtrl.redditLogin)
+
 
 export default userRouter;

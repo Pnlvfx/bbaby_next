@@ -51,7 +51,6 @@ function Feed(props) {
     }, []);
     //
 
-
   
 
   return (

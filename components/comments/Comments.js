@@ -9,7 +9,9 @@ import Voting from '../voting/Voting'
 
 function Comments(props) {
   const [showForm, setShowForm] = useState(false);
+  console.log(props.comments)
   const comments = props.comments.filter(comment => props.parentId === comment.parentId);
+  console.log(...comments)
   const rootCommentInfo = useContext(RootCommentContext);
 
 

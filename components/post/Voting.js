@@ -7,7 +7,7 @@ import AuthModalContext from "../auth/AuthModalContext"
 const Voting = (props) => {
     const {ups,postId} = props
     const server = process.env.NEXT_PUBLIC_SERVER_URL
-    const [data,setData] = useState('0')  //vote
+    const [dir,setDir] = useState('0')  //vote
     const [upVote,setUpVote] = useState(ups)
     const modalContext = useContext(AuthModalContext);
 
@@ -16,17 +16,17 @@ const Voting = (props) => {
 
     const refreshVote = async() => {
       try {
-        if(data !== '0') {
-          const res = await axios.post(`${server}/posts/${postId}/vote`,{data}, {withCredentials:true})
-          setData('0')
-          setUpVote(res.data)
+        if(dir !== '0') {
+          const res = await axios.post(`${server}/posts/${postId}/vote`,{dir}, {withCredentials:true})
+          setDir('0')
+          setUpVote(res.data.vote)
         } else {
           return
         }
       } catch (err) {
-        if(err.response.status === 500) {
+        if(err.response.status === 401) {
           modalContext.setShow('login');
-          setData('0')
+          setDir('0')
       }
 
       }
@@ -35,21 +35,16 @@ const Voting = (props) => {
 
 
     const handleVoteUp = async() => {
-      setData('1')
+      setDir('1')
     }
 
     const handleVoteDown = async() => {
-      setData('-1')
+      setDir('-1')
     }
 
     useEffect(() => {
       refreshVote()
-    }, [data,ups])
-
-
-    
-
-    console.log(data)
+    }, [dir,ups])
 
   return (
       <div className="pt-2 text-center">

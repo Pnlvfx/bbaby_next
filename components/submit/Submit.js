@@ -90,7 +90,7 @@ function Submit(props) {
     //add image
     const uploadImage = async (base64EncodedImage) => {
         try {
-            const data = base64EncodedImage
+            const data = await base64EncodedImage
             const res =
                 await axios.post(server+'/posts/image', {
                 data,

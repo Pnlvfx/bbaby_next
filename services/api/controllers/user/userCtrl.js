@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import sendEmail from "./sendMail.js";
 import { getUserFromToken } from "./UserFunctions.js";
 import {google} from 'googleapis'
+import fetch from 'node-fetch'
 
 const {OAuth2} = google.auth
 
@@ -190,7 +191,70 @@ const userCtrl = {
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
-    }
+    },
+    redditLogin: async (req,res) => {
+        const {REDDIT_CLIENT_ID,REDDIT_CLIENT_SECRET} = process.env
+        const {code} = req.query
+        const encondedHeader = Buffer.from(`${REDDIT_CLIENT_ID}:${REDDIT_CLIENT_SECRET}`).toString("base64")
+        let response = await fetch(`https://www.reddit.com/api/v1/access_token`, {
+            method: 'POST',
+            body: `grant_type=authorization_code&code=${code}&redirect_uri=${CLIENT_URL}/login/callback`,
+            headers: {authorization: `Basic ${encondedHeader}`, 'Content-Type': 'application/x-www-form-urlencoded'}
+        })
+        // let body = await response.json()
+        // response = await fetch(`https://oauth.reddit.com/user/UTOPIA_VFX/upvoted`, {
+        //     method: 'GET',
+        //     headers: {authorization: `bearer ${body.access_token}`}
+        // })
+        // let redditUserPref = await response.json()
+        // console.log(redditUserPref)
+        let body = await response.json()
+        response = await fetch(`https://oauth.reddit.com/api/v1/me`, {
+            method: 'GET',
+            headers: {authorization: `bearer ${body.access_token}`}
+        })
+        let redditUser = await response.json()
+
+        const {verified,name,icon_img} = redditUser
+        const password = name + process.env.REDDIT_SECRET
+        const passwordHash = await bcrypt.hash(password, 10)
+        if(!verified) return res.status(400).json({msg: "You need to verify your Reddit account to access"})
+
+        const email = 'email@isnotneeded.com'
+        const username = name
+        const user = await User.findOne({username})
+        
+        if(user){
+            const isMatch = await bcrypt.compare(password, user.password)
+            if(!isMatch) return res.status(400).json({msg: "Password is incorrect."})
+
+            if(isMatch) {
+                jwt.sign({id:user._id}, secret, (err,token) => {
+                    res.cookie('token', token, {
+                        httpOnly: true,
+                        domain: COOKIE_DOMAIN,
+                        secure: true,
+                    }).send()
+                });
+            }
+        } else {
+            const user = new User ({
+                username: username,email: email,password:passwordHash,avatar:icon_img
+            });
+            await user.save()
+            jwt.sign({id:user._id}, secret, (err,token) => {
+                if(err) {
+                    res.status(500).json('Incorrect credentials')
+                } else {
+                    res.status(201).cookie('token', token, {
+                        httpOnly: true,
+                        domain: COOKIE_DOMAIN,
+                        secure: true,
+                    }).send();
+                }
+            })
+        }
+    },
 }
 
 

@@ -10,6 +10,7 @@ import Google from './Google'
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import Reddit from './providers/Reddit'
 
 function AuthModal() {
     const initialState = {
@@ -112,9 +113,11 @@ function AuthModal() {
                         </div>
                 )}
                     <div id='google_login' className='pb-6'>
-                        
                         <Google />
                     </div>
+                    {/* <div id='reddit_login' className='pb-6'>
+                        <Reddit />
+                    </div> */}
                 {modalType === 'register' && (
                     <div>
                         
@@ -142,6 +145,7 @@ function AuthModal() {
                         <span className='text-reddit_text-darker text-sm'>Username:</span>
                         <Input type='text' className='mb-3 w-80 p-2' value={username} onChange={e => setUsername(e.target.value)}/>
                     </label>
+                    {status.err && showErrMsg(status.err)}
                     <label className="">
                         <span className='text-reddit_text-darker text-sm'>Password:</span>
                         <Input type='password' className='p-2 mb-3 w-80' value={password} onChange={e => setPassword(e.target.value)}/>
