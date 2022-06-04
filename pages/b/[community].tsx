@@ -15,7 +15,7 @@ const CommunityPage: NextPage = (props) => {
 
   const {setCommunity}: any = useContext(CommunityContext)
 
-  const {posts,community}: any = props
+  const {community}: any = props
 
   useEffect(() => {
     setCommunity(community)
@@ -39,7 +39,7 @@ const CommunityPage: NextPage = (props) => {
       <Layout>
         <div className='w-full'>
           <BoardHeader community={community}/>
-          <PostsListing posts={posts} community={community}/>
+          <PostsListing community={community}/>
         </div>
       </Layout>
     </div>
@@ -54,9 +54,6 @@ export async function getServerSideProps(context: NextPageContext) {
   
   const {query} = context
   const {community} = query
-  
-  const res = await axios.get(`${server}/posts?community=${community}&limit=10&skip=0`);
-  const posts = res.data
 
   const response = await axios({
     method: "get",
@@ -66,8 +63,7 @@ export async function getServerSideProps(context: NextPageContext) {
     const session = await response.data
   return {
     props: {
-      session: session ,
-      posts,
+      session: session,
       community
     }
   }

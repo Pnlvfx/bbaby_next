@@ -5,10 +5,10 @@ import Feed from '../components/post/Feed'
 import Layout from '../components/Layout'
 
 
-const Home: NextPage = (props) => {
+const Home: NextPage = () => {
 
 
-  const {posts} : any = props
+ 
 
   //metatags
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
@@ -32,7 +32,7 @@ const Home: NextPage = (props) => {
         <link rel='canonical' href={hostname} key='canonical' />
       </Head>
        <Layout>
-        <Feed posts={posts}/>
+        <Feed />
       </Layout>
     </>
   )
@@ -43,15 +43,6 @@ export default Home
 export async function getServerSideProps(context: NextPageContext) {
   
   const server = process.env.NEXT_PUBLIC_SERVER_URL
-  
-  const res = await axios({
-    method: 'get',
-    url: `${server}/posts?limit=10&skip=0`,
-    headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
-    })
-    const posts = res.data
-
-  //const getNumberOfPost = await axios.get(`${server}/comments/count`);
 
   const response =  await axios({
     method: "get",
@@ -63,7 +54,6 @@ export async function getServerSideProps(context: NextPageContext) {
   return {
     props: {
       session: session,
-      posts : posts
     }
   }
 }
