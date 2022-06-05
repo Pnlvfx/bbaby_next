@@ -37,6 +37,12 @@ const UserSchema = new mongoose.Schema({
     region: {
         type: String,
     },
+    lat: {
+        type: String,
+    },
+    lon: {
+        type: String,
+    },
     upVotes: {
         type: [mongoose.ObjectId],
     },

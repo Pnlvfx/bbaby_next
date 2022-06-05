@@ -19,9 +19,7 @@ const {COOKIE_DOMAIN} = process.env
 const userCtrl = {
     register: async (req,res) => {
         try {
-            const {email,username,password,country,countryCode,city,region} = req.body;
-
-            console.log(country,countryCode,city,region)
+            const {email,username,password,country,countryCode,city,region,lat,lon} = req.body;
 
             if(!username || !email || !password)
             return res.status(400).json({msg: "Please fill in all fields"})
@@ -37,7 +35,7 @@ const userCtrl = {
 
             const passwordHash = bcrypt.hashSync(password, 10);
 
-            const user = new User({email,username,password: passwordHash,country,countryCode,city,region});
+            const user = new User({email,username,password: passwordHash,country,countryCode,city,region,lat,lon});
 
             const activation_token = createActivationToken(user)
 
@@ -170,9 +168,9 @@ const userCtrl = {
                     });
                 } 
                 } else {
-                    const {country,countryCode,city,region} = req.body.data
+                    const {country,countryCode,city,region,lat,lon} = req.body.data
                     const user = new User ({
-                       username:name,email,password:passwordHash,avatar:picture,country,countryCode,city,region
+                       username:name,email,password:passwordHash,avatar:picture,country,countryCode,city,region,lat,lon
                    })  
 
                    await user.save()

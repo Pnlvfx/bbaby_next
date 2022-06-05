@@ -12,11 +12,11 @@ function Google() {
       try {
         const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY
         const userIpInfo = await axios.get(`https://extreme-ip-lookup.com/json?key=${IP_API_KEY}`)
-        const {country,countryCode,city,region} = await userIpInfo.data
+        const {country,countryCode,city,region,lat,lon} = await userIpInfo.data
         // data: {country,countryCode,city,region}
 
-        const res = await axios.post(server+'/google_login', {tokenId: response.credential},{withCredentials:true})
-        localStorage.setItem('isLogged', true)/b/Crypto
+        const res = await axios.post(server+'/google_login', {tokenId: response.credential, data: {country,countryCode,city,region,lat,lon}},{withCredentials:true})
+        localStorage.setItem('isLogged', true)
         router.reload()
       } catch (err) {
         //console.log(err)

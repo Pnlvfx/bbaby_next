@@ -43,9 +43,9 @@ function AuthModal() {
         e.preventDefault();
         const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY
         const userIpInfo = await axios.get(`https://extreme-ip-lookup.com/json?key=${IP_API_KEY}`)
-        const {country,countryCode,city,region} = await userIpInfo.data
+        const {country,countryCode,city,region,lat,lon} = await userIpInfo.data
         
-        const data = {email,username,password,country,countryCode,city,region};
+        const data = {email,username,password,country,countryCode,city,region,lat,lon};
         const res = await axios.post(server+'/register', data, {withCredentials:true})
         .then(() => {
             setStatus({err:"", success:"registration completed"})
