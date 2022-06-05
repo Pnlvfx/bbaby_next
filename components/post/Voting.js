@@ -7,15 +7,11 @@ import AuthModalContext from "../auth/AuthModalContext"
 const Voting = (props) => {
     const {ups,postId,liked} = props
 
-    console.log(liked)
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     const [dir,setDir] = useState('0')  //vote
     const [upVote,setUpVote] = useState(ups)
     const modalContext = useContext(AuthModalContext);
     const [voted,setVoted] = useState(liked)   //true false or null
-
-
-    console.log(voted)
 
     const refreshVote = async() => {
       try {

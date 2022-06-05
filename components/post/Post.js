@@ -16,26 +16,6 @@ function Post(props) {
 
     const post = props
 
-    //getting community Info
-    const [subComments,setSubComments] = useState([]);
-
-
-
-    function refreshCommentsLength() {
-        const server = process.env.NEXT_PUBLIC_SERVER_URL
-        const id = post._id || router.query.postId
-        if(id === undefined) return
-        if(subComments.length === undefined) return
-        axios.get(server+'/comments/length/'+id)
-        .then(response => {
-        setSubComments(response.data)
-        })
-    }
-
-    useEffect(() => {
-        refreshCommentsLength()
-    },[subComments])
-
 
  
 
@@ -46,7 +26,7 @@ function Post(props) {
     <div className='pb-3'>
         {post.open && (
             <div className={postClasses}>
-                    <PostContent {...post} subComments={subComments} />
+                    <PostContent {...post} />
             </div>
         )}
 
@@ -58,7 +38,7 @@ function Post(props) {
                         <Link href={`${router.pathname}?postId=${post._id}&community=${post.community}`} as={`/b/${post.community}/comments/${post._id}`} scroll={false}> 
                         {/* as={`/b/${post.community}/comments/${post._id}`} */}
                         <a>
-                            <PostContent {...post} filePickerRef={filePickerRef} subComments={subComments} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
+                            <PostContent {...post} filePickerRef={filePickerRef} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
                         </a>
                         </Link>
                         <button id='commentButtonRef' onClick={e => { //using reference to get the correct comment Id
@@ -77,7 +57,7 @@ function Post(props) {
                         <>
                         <Link href={'/b/'+post.community+'/comments/'+post._id}>
                             <a>
-                                <PostContent {...post} subComments={subComments} filePickerRef={filePickerRef} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
+                                <PostContent {...post} filePickerRef={filePickerRef} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
                             </a>
                         </Link>
                         <button onClick={e => { //using reference to get the correct comment Id

@@ -13,6 +13,7 @@ function CommentModal(props) {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
 
   const [post,setPost] = useState({});
+  const [loading,setLoading] = useState(true)
 
   const visibleClass = props.open ? 'block' : 'hidden'
 
@@ -22,12 +23,18 @@ function CommentModal(props) {
     axios.get(server+'/posts/'+postId)
     .then(response => {
       setPost(response.data)
+      setLoading(false)
     });
   },[postId]);
 
+
   return (
-      <ClickOutHandler onClickOut={(event) => {
-        event.preventDefault()
+    <>
+    {loading && (
+      <div>loading...</div>
+    )}
+    {!loading && (
+      <ClickOutHandler onClickOut={() => {
         router.push({pathname:'/'},`/`,{scroll:false})
         setPost({})
         props.onClickOut()
@@ -58,6 +65,8 @@ function CommentModal(props) {
         </div>
         </div>
       </ClickOutHandler>
+    )}
+    </>
   )
 }
 

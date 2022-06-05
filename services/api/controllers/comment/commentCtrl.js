@@ -1,6 +1,7 @@
 import Comment from '../../models/Comment.js'
 import {getUserFromToken} from '../user/UserFunctions.js'
 import 'dotenv/config';
+import Post from '../../models/Post.js'
 
 const commentCtrl = {
     createComment: async (req,res) => {
@@ -21,6 +22,7 @@ const commentCtrl = {
             })
             const savedComment = await comment.save()
             if(savedComment) {
+                const postNumComments = await Post.findByIdAndUpdate(rootId, {$inc : {'numComments' : +1}})
                 res.json(savedComment)
             } else {
                 res.sendStatus(401)

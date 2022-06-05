@@ -31,10 +31,6 @@ const PostSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     },
-    numComments: {
-        type:Number,
-        default: '0'
-    },
     ups: {
         type:Number,
         default: '0'
@@ -42,6 +38,10 @@ const PostSchema = new mongoose.Schema({
     liked: {
         type: String,
         default: null
+    },
+    numComments: {
+        type: Number,
+        default: 0
     }
 },
 {

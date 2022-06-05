@@ -57,7 +57,7 @@ function PostContent(props) {
                     }}>
                     <div className='flex text-[#717273] p-2 rounded-sm hover:bg-reddit_hover text-sm'>
                     <Image src='/comment.svg' alt='' height={'20px'} width={'20px'} />
-                    <h1 className="ml-1">{props.subComments} Comments</h1>
+                    <h1 className="ml-1">{props.numComments} Comments</h1>
                     </div>
                   </button>
                     <ShareButton community={props.community} filePickerRefShare={filePickerRefShare} />
