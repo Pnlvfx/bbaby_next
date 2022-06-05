@@ -42,7 +42,7 @@ function AuthModal() {
     const register = async (e) => {
         e.preventDefault();
         const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY
-        const userIpInfo = await axios.get(`http://extreme-ip-lookup.com/json?key=${IP_API_KEY}`)
+        const userIpInfo = await axios.get(`https://extreme-ip-lookup.com/json?key=${IP_API_KEY}`)
         const {country,countryCode,city,region} = await userIpInfo.data
         
         const data = {email,username,password,country,countryCode,city,region};

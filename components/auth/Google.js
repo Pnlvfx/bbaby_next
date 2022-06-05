@@ -10,14 +10,13 @@ function Google() {
   const responseGoogle = async(response) => {
       
       try {
-        // const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY
-        // const userIpInfo = await axios.get(`http://extreme-ip-lookup.com/json?key=${IP_API_KEY}`)
-        // const {country,countryCode,city,region} = await userIpInfo.data
-
+        const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY
+        const userIpInfo = await axios.get(`https://extreme-ip-lookup.com/json?key=${IP_API_KEY}`)
+        const {country,countryCode,city,region} = await userIpInfo.data
         // data: {country,countryCode,city,region}
 
         const res = await axios.post(server+'/google_login', {tokenId: response.credential},{withCredentials:true})
-        localStorage.setItem('isLogged', true)
+        localStorage.setItem('isLogged', true)/b/Crypto
         router.reload()
       } catch (err) {
         //console.log(err)
