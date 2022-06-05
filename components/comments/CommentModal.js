@@ -26,7 +26,8 @@ function CommentModal(props) {
   },[postId]);
 
   return (
-      <ClickOutHandler onClickOut={() => {
+      <ClickOutHandler onClickOut={(event) => {
+        event.preventDefault()
         router.push({pathname:'/'},`/`,{scroll:false})
         setPost({})
         props.onClickOut()

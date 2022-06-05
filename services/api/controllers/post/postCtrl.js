@@ -10,7 +10,10 @@ const PostCtrl = {
         const {token} = req.cookies
             if(token) {
                 const user = await getUserFromToken(token)
+                
+                const userNullVote = await Post.find({_id : {'$nin': user.downVotes && user.upVotes}}).updateMany({"liked" : "null"})
                 const userUpVote = await Post.find({_id : {'$in': user.upVotes}}).updateMany({"liked" : "true"})
+                const userDownVote = await Post.find({_id : {'$in': user.downVotes}}).updateMany({"liked" : "false"})
             }
             if(!token) {
                 const nullVote = await Post.find({}).updateMany({'liked' : null})
@@ -82,13 +85,20 @@ const PostCtrl = {
             const user = await getUserFromToken(token)
             const {id} = req.params
             const {dir} = req.body
-            //const postLike = await Post.findByIdAndUpdate({id, })
-            const userVoted = await User.findOne({upVotes: id})
 
-            if (userVoted) {
-                await User.findOneAndUpdate({upVotes: id}, {$pull: {upVotes: id}})
-                const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : -1}})
-                res.status(200).json({vote: post.ups -1})
+            const userVotedUp = await User.findOne({upVotes: id})
+            const userVotedDown = await User.findOne({downVotes: id})
+
+            if (userVotedUp || userVotedDown) {
+                if(dir === '1') {   //delete existing upvote and add +1 
+                    await User.findOneAndUpdate({upVotes: id}, {$pull: {upVotes: id}})
+                    const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : -1}})
+                    res.status(200).json({vote: post.ups -1})
+                } else {
+                        await User.findOneAndUpdate({downVotes: id}, {$pull: {downVotes: id}})
+                        const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : +1}})
+                        res.status(200).json({vote: post.ups +1})
+                }
             } else {
                 if(dir === '1') {
                     const userVote = await User.findOneAndUpdate({username: user.username},{$push: {upVotes : id}})
