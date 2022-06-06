@@ -26,7 +26,7 @@ function Feed() {
   // },[])
 
 
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
+  
 
   const [postOpen, setPostOpen] = useState(false)
 
@@ -52,6 +52,7 @@ function Feed() {
   //GET POST
   useEffect(() => {
     setLoading(true)
+    const server = process.env.NEXT_PUBLIC_SERVER_URL
     axios({
       method: 'get',
       url: `${server}/posts?limit=10&skip=0`,
@@ -75,6 +76,7 @@ function Feed() {
   const [allCommunity,setAllCommunity] = useState([]);
 
   useEffect(() => {
+    const server = process.env.NEXT_PUBLIC_SERVER_URL
     axios.get(server+'/communities?limit=5', {withCredentials:true})
         .then(response => setAllCommunity(response.data));
     }, []);

@@ -18,7 +18,7 @@ function UserMenu(props) {
 
     const logout = async() => {
         const res = await axios.post(`${server}/logout`, {}, {withCredentials:true})
-        localStorage.setItem('islogged', false)
+        localStorage.removeItem('isLogged')
         router.reload()
     }
 

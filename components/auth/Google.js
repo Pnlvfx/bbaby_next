@@ -1,11 +1,14 @@
 import axios from 'axios'
 import {GoogleLogin} from '@react-oauth/google'
 import { useRouter } from 'next/router';
+import { useContext } from 'react';
+import AuthModalContext from './AuthModalContext';
 
 function Google() {
 
   const server = process.env.NEXT_PUBLIC_SERVER_URL
   const router = useRouter()
+  const modalContext = useContext(AuthModalContext)
 
   const responseGoogle = async(response) => {
       
@@ -17,7 +20,13 @@ function Google() {
 
         const res = await axios.post(server+'/google_login', {tokenId: response.credential, data: {country,countryCode,city,region,lat,lon}},{withCredentials:true})
         localStorage.setItem('isLogged', true)
-        router.reload()
+        modalContext.setShow('false')
+        if(res.data.msg === "newUser") {
+          localStorage.setItem('firstLogin', true)
+          router.reload()
+        } else {
+           router.reload()
+        }
       } catch (err) {
         //console.log(err)
       }

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import Input from '../utils/Input'
 import AuthModalContext from './AuthModalContext';
 import Button from '../utils/Button'
@@ -11,25 +11,26 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Reddit from './providers/Reddit'
+import UserPreferencesModal from '../user/UserPreferencesModal';
 
 function AuthModal() {
     const initialState = {
         err: "",
         success: ""
     }
-
     const router = useRouter()
-
     const [status,setStatus] = useState(initialState)
-
     const server = process.env.NEXT_PUBLIC_SERVER_URL
 
     const [modalType, setModalType] = useState('login');
+
     const [email,setEmail] = useState('');
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
 
+    // IF NEW USER
     const [EmailTo,setEmailTo] = useState('')
+
 
     const modalContext = useContext(AuthModalContext);
 
@@ -51,7 +52,8 @@ function AuthModal() {
             setStatus({err:"", success:"registration completed"})
             localStorage.setItem('isLogged', true)
             setEmailTo(email)
-            router.reload()
+            modalContext.setShow(false)
+            //router.reload()
             })
         .catch(err => {
         err.response.data.msg &&
@@ -70,6 +72,14 @@ function AuthModal() {
             setStatus({err:err.response.data.msg, success: ""})
         }
     }
+
+
+    // ONLY AFTER FIRST LOGIN
+    const [newUser,setNewUser] = useState(false)
+    useEffect(() => {
+        const firstLogin = localStorage.getItem('firstLogin')
+        setNewUser(firstLogin)
+    }, [])
 
 
 
@@ -126,17 +136,16 @@ function AuthModal() {
                     <form>
                         <label>
                         <span className='text-reddit_text-darker text-sm'>E-mail:</span>
-                        <Input type='email' className=' p-2 mb-3 w-80' value={email} onChange={e => setEmail(e.target.value)} />
+                        <Input type='email' className=' p-2 mb-3 w-80' value={email} onChange={e => setEmail(e.target.value)} autoComplete={'off'} />
                         </label>
                     {status.err && showErrMsg(status.err)}
                     <label>
                         <span className='text-reddit_text-darker text-sm'>Username:</span>
-                        <Input type='text' className='mb-3 w-80 p-2' value={username} onChange={e => setUsername(e.target.value)}/>
+                        <Input type='text' className='mb-3 w-80 p-2' value={username} onChange={e => setUsername(e.target.value)} autoComplete={'off'}/>
                     </label>
                     <label className="">
                         <span className='text-reddit_text-darker text-sm'>Password:</span>
-
-                        <Input type='password' className='p-2 mb-3 w-80' value={password} onChange={e => setPassword(e.target.value)}/>
+                        <Input type='password' className='p-2 mb-3 w-80' value={password} onChange={e => setPassword(e.target.value)} autoComplete={'off'}/>
                     </label>
                     </form>
                 )}
@@ -196,9 +205,14 @@ function AuthModal() {
                 </div>
           </div>
       </div>
+      <>
       {EmailTo && (
           <NewEmailNotif email={EmailTo}/>
       )}
+      {newUser && (
+         <UserPreferencesModal setNewUser={setNewUser} />
+      )}
+      </>
       </>
   )
 }

@@ -14,7 +14,7 @@ function CommunitiesInfo() {
     const provider = useContext(UserContext)
     const {session} = provider
 
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
+    
     const [communityInfo,setCommunityInfo] = useState({})
     const router = useRouter()
     const [description,setDescription] = useState('')
@@ -35,6 +35,7 @@ function CommunitiesInfo() {
 
     useEffect(() => {
         if(commit) {
+            const server = process.env.NEXT_PUBLIC_SERVER_URL
             const data = {description, name:communityInfo.name}
             axios.post(server+'/communities/edit/description',data,{withCredentials:true}).then(response => {
                 setCommit(false)
@@ -45,6 +46,7 @@ function CommunitiesInfo() {
 
     //get Community info
     useEffect(() => {
+        const server = process.env.NEXT_PUBLIC_SERVER_URL
         axios.get(server+'/communities/'+community)
         .then(response => {
             setCommunityInfo(response.data);

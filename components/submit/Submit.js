@@ -14,7 +14,6 @@ import {FaTrashAlt} from 'react-icons/fa'
 import {HiChevronDown,HiOutlineDocumentText} from 'react-icons/hi'
 
 function Submit(props) {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
     const authModalContext = useContext(AuthModalContext)
 
     const [startTyping,setStartTyping] = useState(false)
@@ -58,6 +57,7 @@ function Submit(props) {
      //get all community info
      useEffect(() => {
         if(selectedCommunity) {
+            const server = process.env.NEXT_PUBLIC_SERVER_URL
             const name = selectedCommunity
             axios.get(server+'/communities/'+name,{withCredentials:true})
             .then(response => {
@@ -75,7 +75,8 @@ function Submit(props) {
 
 
     useEffect(() => {
-    axios.get(server+'/communities?limit=11', {withCredentials:true})
+        const server = process.env.NEXT_PUBLIC_SERVER_URL
+        axios.get(server+'/communities?limit=11', {withCredentials:true})
         .then(response => setAllCommunity(response.data));
     }, []);
 
@@ -93,6 +94,7 @@ function Submit(props) {
     const uploadImage = async (base64EncodedImage) => {
         try {
             const data = await base64EncodedImage
+            const server = process.env.NEXT_PUBLIC_SERVER_URL
             const res =
                 await axios.post(server+'/posts/image', {
                 data,
@@ -111,6 +113,7 @@ function Submit(props) {
                 try {
                     setLoading(true)
                     const data = {title,body,community,communityIcon,image,isImage};
+                    const server = process.env.NEXT_PUBLIC_SERVER_URL
                     const res =  await axios.post(server+'/posts', data, {withCredentials:true})
                     setNewPostId(res.data._id);
                 } catch (error) {

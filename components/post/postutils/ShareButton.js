@@ -12,7 +12,7 @@ function ShareButton(props) {
  
   const router = useRouter()
   const [copied,setCopied] = useState(false);
-  const [showElement,setShowElement] = useState(true)
+  const [showElement,setShowElement] = useState(false)
 
 
   const value = 'Link copied!'
@@ -20,6 +20,8 @@ function ShareButton(props) {
 
   //Timeout after copy a link
   useEffect(() => {
+    if (showElement === false) return 
+    setShowElement(true)
       setTimeout(() => {
         setShowElement(false)
         setCopied(false)

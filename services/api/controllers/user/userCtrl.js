@@ -35,10 +35,12 @@ const userCtrl = {
 
             const passwordHash = bcrypt.hashSync(password, 10);
 
-            const user = new User({email,username,password: passwordHash,country,countryCode,city,region,lat,lon});
+            const existingUser = await User.findOne({username})
+            if (existingUser) return res.status(400).json( {msg: "This username already exist!"})
+
+            const user = await new User({email,username,password: passwordHash,country,countryCode,city,region,lat,lon});
 
             const activation_token = createActivationToken(user)
-
 
             const url = `${CLIENT_URL}/activation/${activation_token}`
             sendEmail(email, url, "Verify your email address")
@@ -46,14 +48,16 @@ const userCtrl = {
             user.save().then(user => {
                 jwt.sign({id:user._id}, secret, (err, token) => {
                     if (err) {
-                        res.sendStatus(500);
+                        res.status(500).json({msg: 'For some reason you are not able to login. Please retry.'});
                     }else {
-                        res.status(201).cookie('token', token).send();
+                        res.status(201).cookie('token', token, {
+                                httpOnly: true,
+                                domain: COOKIE_DOMAIN,
+                                secure: true
+                        }).send();
                     }
-                    });
-            }).catch(() => {
-                res.status(500).json({msg: "This username already exist."});
-            });    
+                });
+            })
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
@@ -141,57 +145,50 @@ const userCtrl = {
     googleLogin: async (req,res) => {
         try {
             const {tokenId} = req.body
-
             const verify = await client.verifyIdToken({idToken: tokenId,audience: process.env.MAILING_SERVICE_CLIENT_ID})
-
             const {email_verified,email,name,picture} = verify.payload
-
             const password = email + process.env.GOOGLE_SECRET
-
             const passwordHash = await bcrypt.hash(password, 10)
-
             if(!email_verified) return res.status(400).json({msg: "Email verification failed."})
 
            
-                const user = await User.findOne({email})
-                if(user){
-                    const isMatch = await bcrypt.compare(password,user.password)
-                    if(!isMatch) return res.status(400).json({msg: "Password is incorrect."})
-                    
-                    if (isMatch) {
-                        jwt.sign({id:user._id}, secret, (err,token) => {
-                            res.cookie('token', token, {
-                                httpOnly: true,
-                                domain: COOKIE_DOMAIN,
-                                secure: true,
-                            }).send()
-                    });
-                } 
+            const user = await User.findOne({email})
+            if(user){
+                const isMatch = await bcrypt.compare(password,user.password)
+                if(!isMatch) return res.status(400).json({msg: "Password is incorrect."})
+                
+                if (isMatch) {
+                    jwt.sign({id:user._id}, secret, (err,token) => {
+                        res.cookie('token', token, {
+                            httpOnly: true,
+                            domain: COOKIE_DOMAIN,
+                            secure: true,
+                        }).send()
+                });
+            } 
+            } else {
+                const {country,countryCode,city,region,lat,lon} = req.body.data
+                
+                const username = await name.replace(/\s/g,'')  //remove space if there is
+                
+                const user = new User ({
+                    username:username,email,password:passwordHash,avatar:picture,country,countryCode,city,region,lat,lon
+                })
+
+                await user.save()
+                jwt.sign({id:user._id}, secret, (err, token) => {
+                if (err) {
+                    res.sendStatus(500);
                 } else {
-                    const {country,countryCode,city,region,lat,lon} = req.body.data
-                   
-                        const username = await name.replace(/\s/g,'')
+                    res.status(201).cookie('token', token, {
+                            httpOnly: true,
+                            domain: COOKIE_DOMAIN,
+                            secure: true,
+                    }).json({msg: "newUser"}).send();
                     
-                    const user = new User ({
-                       username:username,email,password:passwordHash,avatar:picture,country,countryCode,city,region,lat,lon
-                   })  
-
-                   await user.save()
-                   jwt.sign({id:user._id}, secret, (err, token) => {
-                    if (err) {
-                        res.sendStatus(500);
-                    }else {
-                        res.status(201).cookie('token', token, {
-                                httpOnly: true,
-                                domain: COOKIE_DOMAIN,
-                                secure: true,
-                        }).send();
-                        
-                    }
-                    });
                 }
-            
-
+                });
+            }
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }

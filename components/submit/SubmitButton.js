@@ -84,7 +84,7 @@ function SubmitButton(props) {
                     filePickerRef.current.click()
                     setIsImage(true)
                 }}>
-                    <Image src={'/addimage.svg'} height={'22px'} width={'22px'}/>
+                    <Image src={'/addimage.svg'} alt='' height={'22px'} width={'22px'}/>
                     <input type='file' hidden onChange={addImageToPost} ref={filePickerRef} />
                 </button>
             </div>
