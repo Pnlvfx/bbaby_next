@@ -5,4 +5,6 @@ const governanceRouter = express.Router()
 
 governanceRouter.get('/admin/create-image', governanceCtrl.createImage)
 
+governanceRouter.get('/admin/create-video', governanceCtrl.createVideo)
+
 export default governanceRouter;

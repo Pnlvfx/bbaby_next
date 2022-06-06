@@ -1,6 +1,7 @@
 import Post from '../../models/Post.js'
 import textToImage from 'text-to-image'
 import fs from 'fs'
+import videoshow from 'videoshow'
 
 const governanceCtrl =  {
     createImage: async (req,res) => {
@@ -45,9 +46,48 @@ const governanceCtrl =  {
             }
 
         } catch (err) {
-            
+            res.status(500).json({msg: err.message})
         }
-    }
+    },
+    createVideo: async (req,res) => {
+        const images = [
+            {
+                path: './youtubeImage/image0.png'
+            },
+            {
+                path: './youtubeImage/image1.png'
+            },
+            {
+                path: './youtubeImage/image2.png'
+            },
+        ]
+
+        const videoOptions = {
+            loop: 15,
+            fps:25,
+            transition: true,
+            transitionDuration: 1, // seconds
+            videoBitrate: 1024,
+            videoCodec: 'libx264',
+            size: '640x?',
+            audioBitrate: '128k',
+            audioChannels: 2,
+            format: 'mp4',
+            pixelFormat: 'yuv420p'
+        }
+        videoshow(images,videoOptions)
+        .save("./youtubeImage/video1.mp4")
+        .on('start', function(command) {
+            console.log("Conversion started" + command)
+        })
+        .on('error', function (err,stdout,stderr) {
+            console.log("Some error occured" + err)
+        })
+        .on('end', function(output) {
+            res.status(201).json({msg: "Conversion completed" + output})
+        })
+
+    },
 }
 
 export default governanceCtrl;
