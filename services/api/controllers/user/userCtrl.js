@@ -124,6 +124,25 @@ const userCtrl = {
 
         }
     },
+    userAdmin: (req,res) => {
+        try {
+            if (!req?.cookies?.token) return res.json(null)
+            
+            if (req?.cookies?.token) {
+                const {token} = req.cookies
+                getUserFromToken(token)
+                .then(user => {
+                    //console.log(user)
+                    res.json({user: {username:user.username,avatar:user.avatar,email:user.email,role:user.role}});
+                }).catch(err => {
+                    res.status(500).json({msg: "Token is expired"})
+                })   
+            }
+            
+        } catch {
+
+        }
+    },
     forgotPassword: async (req,res) => {
         try {
             const {email} = req.body

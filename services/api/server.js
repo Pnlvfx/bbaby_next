@@ -13,6 +13,7 @@ import VotingRoutes from './routes/VotingRoutes.js'
 import CommunityRoutes from './routes/CommunityRoutes.js'
 import Community from './models/Community.js';
 import Post from './models/Post.js';
+import governanceRouter from './routes/governanceRouter.js';
 
 const uri = process.env.ATLAS_URI;
 
@@ -39,6 +40,10 @@ app.use('/',commentRouter)
 app.use(VotingRoutes);
 
 app.use(CommunityRoutes)
+
+if(process.env.NODE_ENV === 'development') {
+    app.use('/', governanceRouter)
+}
 
 
 await mongoose.connect(uri, {useNewUrlParser:true,useUnifiedTopology:true,});

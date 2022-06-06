@@ -24,6 +24,7 @@
     "mongoose": "^6.3.4",
     "node-fetch": "^3.2.5",
     "nodemailer": "^6.7.5",
+    "text-to-image": "^5.2.0",
     "webpack": "^5.72.0"
   },
   "devDependencies": {
