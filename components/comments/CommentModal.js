@@ -10,8 +10,6 @@ function CommentModal(props) {
 
   let router = useRouter();
 
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
-
   const [post,setPost] = useState({});
   const [loading,setLoading] = useState(true)
 
@@ -20,6 +18,7 @@ function CommentModal(props) {
   const {postId} = props
 
   useEffect(() => {
+    const server = process.env.NEXT_PUBLIC_SERVER_URL
     axios.get(server+'/posts/'+postId)
     .then(response => {
       setPost(response.data)

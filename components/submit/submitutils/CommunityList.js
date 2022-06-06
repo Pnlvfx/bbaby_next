@@ -13,7 +13,7 @@ function CommunityList(props) {
         props.setActiveClass('border-reddit_dark-brightest')
         }}>
           <div className="flex">
-            <Image src={props.communityAvatar} height={'30px'} width={'30px'} className='flex-none object-contain'/>
+            <Image src={props.communityAvatar} alt='' height={'30px'} width={'30px'} className='flex-none object-contain'/>
             <h1 className="flex w-full p-2">{props.name}</h1>
           </div>
       </button>

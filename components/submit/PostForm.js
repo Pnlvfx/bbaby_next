@@ -62,7 +62,7 @@ function PostForm(props) {
                     )}
                 </form>
                 <button className="mx-1 mt-[6px] opacity-10 text-reddit_text-darker">
-                    <Image src={'/addimage.svg'} width={'24px'} height={'24px'} />
+                    <Image src={'/addimage.svg'} alt='' width={'24px'} height={'24px'} />
                 </button>
                 <button className="">
                     <BiLink className="text-gray-400 w-6 h-6 mx-1 opacity-10"/>

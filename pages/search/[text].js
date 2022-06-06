@@ -11,7 +11,6 @@ const SearchResultPage = () => {
   const router = useRouter();
   const {text} = router.query
   const [posts, setPosts] = useState([]);
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const imagePreview = '/imagePreview.png'
 
@@ -21,6 +20,7 @@ const SearchResultPage = () => {
 
   useEffect(() => {
     if (router.query) {
+      const server = process.env.NEXT_PUBLIC_SERVER_URL
       axios.get(server+'/search?phrase='+text, {withCredentials:true})
       .then(response => {
         setPosts(response.data.posts);

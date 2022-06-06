@@ -74,7 +74,7 @@ function Profile() {
                 <button type='submit'>submit</button>
             </form>
             {previewSource && (
-                <Image src={previewSource} width={'384px'} height={'384px'} />
+                <Image src={previewSource} alt='' width={'384px'} height={'384px'} />
             )}
             </div>
     </>

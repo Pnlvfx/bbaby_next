@@ -97,7 +97,7 @@ function MoreButton(props) {
             clickMoreButton()
         }}>
           <div className='mt-[2px] text-[#717273] p-2 rounded-sm hover:bg-reddit_hover text-sm'>
-            <Image src='/points.svg' height={'20px'} width={'20px'}/>
+            <Image src='/points.svg' alt='' height={'20px'} width={'20px'}/>
           </div>
          </button>
    

@@ -6,7 +6,7 @@ import Layout from '../components/Layout';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-const Submit:NextPage = ({context}:any) => {
+const Submit:NextPage = () => {
 
   const router = useRouter()
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME

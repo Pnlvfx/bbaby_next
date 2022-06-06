@@ -24,7 +24,7 @@ function Google() {
   }
 
   return (
-        <GoogleLogin
+        <GoogleLogin style={{display:'inline-flex'}}
             onSuccess={response => {responseGoogle(response)}}
             onError={response => {responseGoogle(response)}}
         />

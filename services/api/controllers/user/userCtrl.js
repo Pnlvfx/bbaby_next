@@ -169,8 +169,11 @@ const userCtrl = {
                 } 
                 } else {
                     const {country,countryCode,city,region,lat,lon} = req.body.data
+                   
+                        const username = await name.replace(/\s/g,'')
+                    
                     const user = new User ({
-                       username:name,email,password:passwordHash,avatar:picture,country,countryCode,city,region,lat,lon
+                       username:username,email,password:passwordHash,avatar:picture,country,countryCode,city,region,lat,lon
                    })  
 
                    await user.save()

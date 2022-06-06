@@ -14,7 +14,7 @@ function TopCommunitiesContent(props) {
           <a>
           <div className='flex p-1'>
             <div className='rounded-full mt-3'>
-              <Image loader={loader} src={community.communityAvatar} width={'20px'} height={'20px'}/>          
+              <Image loader={loader} src={community.communityAvatar} alt='' width={'20px'} height={'20px'}/>          
             </div>
            <h3 className="h-12 pt-3 pl-4 font-bold text-sm">b/{community.name}</h3>
           </div>

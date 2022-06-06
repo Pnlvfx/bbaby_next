@@ -123,8 +123,7 @@ function AuthModal() {
                         <Reddit />
                     </div> */}
                 {modalType === 'register' && (
-                    <div>
-                        
+                    <form>
                         <label>
                         <span className='text-reddit_text-darker text-sm'>E-mail:</span>
                         <Input type='email' className=' p-2 mb-3 w-80' value={email} onChange={e => setEmail(e.target.value)} />
@@ -139,22 +138,20 @@ function AuthModal() {
 
                         <Input type='password' className='p-2 mb-3 w-80' value={password} onChange={e => setPassword(e.target.value)}/>
                     </label>
-                    
-                    </div>
+                    </form>
                 )}
                 {modalType === 'login' && (
-                    <div>
-                    
+                    <form>
                     <label>
                         <span className='text-reddit_text-darker text-sm'>Username:</span>
-                        <Input type='text' className='mb-3 w-80 p-2' value={username} onChange={e => setUsername(e.target.value)}/>
+                        <Input type='text' className='mb-3 w-80 p-2' value={username} onChange={e => setUsername(e.target.value)} autoComplete={'username'} />
                     </label>
                     {status.err && showErrMsg(status.err)}
                     <label className="">
                         <span className='text-reddit_text-darker text-sm'>Password:</span>
-                        <Input type='password' className='p-2 mb-3 w-80' value={password} onChange={e => setPassword(e.target.value)}/>
+                        <Input type='password' className='p-2 mb-3 w-80' value={password} onChange={e => setPassword(e.target.value)} autoComplete={'current-password'} />
                     </label>   
-                    </div>
+                    </form>
                     )}
                     {modalType === 'login' && (
                         <Button className='w-80 py-2 mb-3' style={{borderRadius:'.3rem'}} onClick={() => login()}>

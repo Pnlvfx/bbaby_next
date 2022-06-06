@@ -173,6 +173,7 @@ function Submit(props) {
                         <Input className='w-full h-full outline-none placeholder:text-gray-300 text-sm'
                         placeholder={'Choose a community'}
                         value={selectedCommunity}
+                        readOnly={true}
                         />
                         <HiChevronDown className='text-reddit_text-darker w-10 h-10 ml-12 mr-2'/>
                 </button>
@@ -262,7 +263,7 @@ function Submit(props) {
                                             </div>
                                         </div>
                                         <div className='text-center'>
-                                            <textarea />
+                                            <textarea className='bg-reddit_dark-brighter' />
                                         </div>
                                     </div>
                                     </ClickOutHandler>

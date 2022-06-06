@@ -95,9 +95,6 @@ function SubmitButton(props) {
                     <GrEmoji className={iconClass} />
                 </button>            
             </div>
-            <div id='wrapper'>
-
-            </div>
             <div className={Imageclass + ' w-[80px] flex pt-0 ml-auto p-1'}>
                 <button>
                     <h1 className='text-xs text-reddit_text font-bold'>Markdown Mode</h1>

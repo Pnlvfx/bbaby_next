@@ -7,7 +7,7 @@ import axios from 'axios'
 
 function ActivationEmail() {
 
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
+    
 
 
     const router = useRouter()
@@ -19,6 +19,7 @@ function ActivationEmail() {
     useEffect(() => {
             if(!router.isReady) return;
             if(activation_token){
+                const server = process.env.NEXT_PUBLIC_SERVER_URL
                 const activationEmail = async () => {
                     try {
                         const res = await axios.post(server+'/activation', {activation_token} )
