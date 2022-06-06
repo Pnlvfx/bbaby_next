@@ -3,6 +3,7 @@
   "private": true,
   "name": "bbabystyle",
   "version": "1,0.0",
+  "license": "MIT",
   "engines": {
     "node": "17.9.0"
   },

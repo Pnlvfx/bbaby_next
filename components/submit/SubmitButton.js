@@ -8,7 +8,7 @@ import { useRef,useState } from 'react';
 
 function SubmitButton(props) {
 
-    const {title,setTitle,setSelectedFile,setIsImage} = props
+    const {title,setTitle,setSelectedFile,setIsImage,setImageHeight,setImageWidth} = props
 
     
 
@@ -29,6 +29,20 @@ function SubmitButton(props) {
         if(!file) return;
         const reader = new FileReader();
         reader.readAsDataURL(file);
+        reader.onload = (event) => {
+            let image_url = event.target.result
+            let image = document.createElement("img")
+            image.src = image_url
+
+            image.onload = (e) => {
+                // let canvas = document.createElement("canvas")
+                // canvas.width = 800
+                setImageHeight(e.target.height)
+                setImageWidth(e.target.width)
+                // let ratio = 800 / e.target.width
+            }
+            //document.getElementById("wrapper").appendChild(image)
+        }
         reader.onloadend = () => {
             setSelectedFile(reader.result)
         }
@@ -81,12 +95,14 @@ function SubmitButton(props) {
                     <GrEmoji className={iconClass} />
                 </button>            
             </div>
+            <div id='wrapper'>
+
+            </div>
             <div className={Imageclass + ' w-[80px] flex pt-0 ml-auto p-1'}>
                 <button>
                     <h1 className='text-xs text-reddit_text font-bold'>Markdown Mode</h1>
                 </button>     
             </div>
-            
         </div>
     </div>
   )

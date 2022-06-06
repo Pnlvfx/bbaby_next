@@ -7,7 +7,6 @@ import {AiOutlineLink} from 'react-icons/ai'
 import Image from 'next/image';
 
 
-const buttonClasses = "mr-2 flex text-[#717273] hover:bg-reddit_hover p-2 rounded-sm"
 
 function ShareButton(props) {
  
@@ -41,18 +40,18 @@ function ShareButton(props) {
   return (
     <>
     <ClickOutHandler onClickOut={() => setShareDropdownVisibilityClass('hidden')}>
-    <div className='text-sm'>
-       <button className={"block " + buttonClasses} onClick={event =>{
+    <div>
+       <button type='button' onClick={event =>{
        event.preventDefault()
        if(router.asPath === '/') {
         filePickerRefShare.current.click()
        }
         toggleShareDropdown()
       }}>
-        <div className='mr-2'>
-          <Image src='/share.svg' alt='' width={'20px'} height={'20px'}/>
+        <div className='flex text-[#717273] p-2 rounded-sm hover:bg-reddit_hover text-sm'>
+          <Image src='/share.svg' alt='share_button' width={'20px'} height={'20px'}/>
+          <h1 className='ml-1 mt-[2px]'>Share</h1>
         </div>
-        <h1 className=''>Share</h1>
       </button>
 
 
@@ -82,7 +81,7 @@ function ShareButton(props) {
             }}>
               <div className='flex py-2 pl-2 pr-12 text-reddit_text-darker'>
                 <AiOutlineLink className='w-5 h-5 mr-1 mt-[3px]' />
-                <button className='block'>Copy Link</button>
+                <button className='text-sm'>Copy Link</button>
               </div>
             </CopyToClipboard>
           </div>

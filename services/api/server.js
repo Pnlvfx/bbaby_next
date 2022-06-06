@@ -76,12 +76,6 @@ app.get('/search', (req, res) => {
     })
 });
 
-app.get('/comments/length/:rootId', async (req, res) => {
-    Comment.find({rootId:req.params.rootId}).then(comments => {
-        res.json(comments.length);
-    });  
-});
-
 const port = process.env.PORT || 4000;
 
 app.listen(port);

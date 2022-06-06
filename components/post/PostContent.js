@@ -3,7 +3,6 @@ import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import ShareButton from "./postutils/ShareButton";
 import { useRouter } from "next/router";
-import { BiUpvote, BiDownvote } from "react-icons/bi";
 import MoreButton from './postutils/MoreButton'
 import Image from "next/image";
 import Voting from "./Voting";
@@ -56,7 +55,7 @@ function PostContent(props) {
                       }
                     }}>
                     <div className='flex text-[#717273] p-2 rounded-sm hover:bg-reddit_hover text-sm'>
-                    <Image src='/comment.svg' alt='' height={'20px'} width={'20px'} />
+                    <Image src='/comment.svg' alt='comment_button' height={'20px'} width={'20px'} />
                     <h1 className="ml-1">{props.numComments} Comments</h1>
                     </div>
                   </button>

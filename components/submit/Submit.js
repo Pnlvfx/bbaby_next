@@ -30,6 +30,8 @@ function Submit(props) {
     const [showDeleteOptions,setShowDeleteOptions] = useState(false)
     const [selectedFile, setSelectedFile] = useState(null);
     const [isImage,setIsImage] = useState(false)
+    const [imageWidth,setImageWidth] = useState()
+    const [imageHeight, setImageHeight] = useState()
 
     const [loading,setLoading] = useState(false)
 
@@ -142,6 +144,8 @@ function Submit(props) {
         setSelectedCommunity(router.query.with_community)
     },[])
 
+    console.log(imageHeight,imageWidth)
+
    
     
     
@@ -223,7 +227,7 @@ function Submit(props) {
                         
                             <div onClick={() => setActiveClassBody('hover:border border-reddit_text')} className={'mx-4 mt-2 border border-reddit_border rounded-md mb-3 ' +activeClassBody}>
                                 <div className='bg-reddit_dark-brightest h-10 overflow-hidden'>
-                                    <SubmitButton title={title} setTitle={setTitle} setSelectedFile={setSelectedFile} setIsImage={setIsImage} />    
+                                    <SubmitButton setImageHeight={setImageHeight} setImageWidth={setImageWidth} title={title} setTitle={setTitle} setSelectedFile={setSelectedFile} setIsImage={setIsImage} />    
                                 </div>
                                 {!selectedFile && (
                                      <textarea 
@@ -233,7 +237,7 @@ function Submit(props) {
                                      onChange={e => setBody(e.target.value)}
                                      value={body}/>
                                 )}
-                                {selectedFile && (
+                                {selectedFile && imageHeight && imageWidth && (
                                     <ClickOutHandler onClickOut={() => setShowDeleteOptions(false)}>
                                         <div className='relative rounded-lg my-9 mx-5'>
                                         {showDeleteOptions && (
@@ -247,12 +251,15 @@ function Submit(props) {
                                         )}
                                         <div className='' onClick={() => {
                                                 setShowDeleteOptions(true)
-                                            }} >
-                                            <img 
-                                            src={selectedFile}
-                                            alt={'DisplayImage'}
-                                            className='rounded-lg object-contain mx-auto border border-reddit_border hover:border-4 hover:border-reddit_text'
-                                            />
+                                            }}>
+                                            <div className='rounded-lg object-contain mx-auto border border-reddit_border hover:border-4 hover:border-reddit_text'>
+                                                <Image 
+                                                src={selectedFile}
+                                                alt={'DisplayImage'}
+                                                height={`${imageHeight}px`}
+                                                width={`${imageWidth}px`}
+                                                />
+                                            </div>
                                         </div>
                                         <div className='text-center'>
                                             <textarea />

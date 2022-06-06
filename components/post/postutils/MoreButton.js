@@ -91,12 +91,14 @@ function MoreButton(props) {
   return (
     <>
        <ClickOutHandler onClickOut={() => setShareDropdownVisibilityClass('hidden')}>
-       <div className='text-sm'>
-          <button id='moreOptions' className={"block " + buttonClasses} onClick={event =>{
+       <div className=''>
+          <button id='moreOptions' type='button' onClick={event =>{
             event.preventDefault()
             clickMoreButton()
         }}>
-           <Image src='/points.svg' height={'20px'} width={'20px'}/>
+          <div className='mt-[2px] text-[#717273] p-2 rounded-sm hover:bg-reddit_hover text-sm'>
+            <Image src='/points.svg' height={'20px'} width={'20px'}/>
+          </div>
          </button>
    
    
@@ -109,7 +111,7 @@ function MoreButton(props) {
                    deletePost()
                  }} className='p-2 flex text-reddit_text-darker hover:bg-blue-900 w-auto lg:w-[200px]'>
                    <BsTrashFill className='w-4 h-4 mt-1 mr-2' />
-                   <h1>Delete</h1>
+                   <h1 className='text-sm'>Delete</h1>
                  </button>
                )}
           </div>

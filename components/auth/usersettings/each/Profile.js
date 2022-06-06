@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import {  useState, useRef, useContext } from 'react'
 import {AiOutlinePlus} from 'react-icons/ai'
 import UserContext from '../../UserContext';
+import Image from 'next/image';
 
 
 function Profile() {
@@ -64,10 +65,8 @@ function Profile() {
                 <h2 className='p-4 pt-0 text-sm text-reddit_text-darker'>Images must be .png or .jpg format</h2>
             </div>
             <div className='p-6'>
-            <div onClick={() => filePickerRef.current.click()}  className='rounded-full bg-reddit_dark-brightest h-36 w-36 flex cursor-pointer'>
-                {session && (
-                    <img src={session.user.avatar} className='' />
-                )}
+            <div onClick={() => filePickerRef.current.click()} className='rounded-full bg-reddit_dark-brightest h-36 w-36 flex cursor-pointer relative overflow-hidden'>
+                    <Image src={session.user.avatar} layout='fill' alt='user_image' />
                 <AiOutlinePlus className='absolute mx-[95px] mt-[100px] text-reddit_text-darker w-8 h-8'/>
             </div>
             <form onSubmit={handleSubmitFile}>
@@ -75,7 +74,7 @@ function Profile() {
                 <button type='submit'>submit</button>
             </form>
             {previewSource && (
-                <img src={previewSource} className='w-96 h-96' />
+                <Image src={previewSource} width={'384px'} height={'384px'} />
             )}
             </div>
     </>

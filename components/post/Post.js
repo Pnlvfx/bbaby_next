@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import PostContent from './PostContent'
 import {isMobile} from 'react-device-detect'
-import axios from 'axios'
-import {useEffect,useState,useRef} from 'react'
+import {useRef} from 'react'
 import { useRouter } from 'next/router'
 
 
