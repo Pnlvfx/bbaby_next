@@ -1,4 +1,5 @@
-import {ChatAltIcon} from '@heroicons/react/outline'
+import Image from 'next/image';
+import CommentIcon from '../../../public/comment.svg'
 
 
 function ReplyButton(props) {
@@ -6,7 +7,9 @@ function ReplyButton(props) {
 
   return (
     <button {...props} className={classNames + props.className}>
-        <ChatAltIcon className='w-6 h-6 mr-1'/>
+      <div className='mr-1'>
+        <Image src={CommentIcon} width={'24px'} height={'24px'} />
+      </div>
         <h1 className=''>Reply</h1>
     </button>
 

@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import MoreButton from './postutils/MoreButton'
 import Image from "next/image";
 import Voting from "./Voting";
+import CommentIcon from '../../public/comment.svg'
 
 function PostContent(props) {
 
@@ -55,7 +56,7 @@ function PostContent(props) {
                       }
                     }}>
                     <div className='flex text-[#717273] p-2 rounded-sm hover:bg-reddit_hover text-sm'>
-                    <Image src='/comment.svg' alt='comment_button' height={'20px'} width={'20px'} />
+                    <Image src={CommentIcon} alt='comment_button' height={'20px'} width={'20px'} />
                     <h1 className="ml-1">{props.numComments} Comments</h1>
                     </div>
                   </button>

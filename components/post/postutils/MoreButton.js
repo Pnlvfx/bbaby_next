@@ -6,6 +6,7 @@ import {BsTrashFill} from 'react-icons/bs'
 import axios from 'axios';
 import Image from 'next/image';
 import UserContext from '../../auth/UserContext';
+import moreButton from '../../../public/moreButton.svg'
 
 
 const buttonClasses = " hover:bg-reddit_hover py-2 rounded-sm"
@@ -16,7 +17,7 @@ function MoreButton(props) {
   const {session} = provider
  
   const router = useRouter()
-  const [showElement,setShowElement] = useState(true)
+  const [showElement,setShowElement] = useState(false)
   const server = process.env.NEXT_PUBLIC_SERVER_URL
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const {comments,filePickerRefMore} = props
@@ -62,6 +63,7 @@ function MoreButton(props) {
 
   //Timeout after copy a link
   useEffect(() => {
+    setShowElement(true)
       setTimeout(() => {
         setShowElement(false)
         //setCopied(false)    to define
@@ -97,7 +99,7 @@ function MoreButton(props) {
             clickMoreButton()
         }}>
           <div className='mt-[2px] text-[#717273] p-2 rounded-sm hover:bg-reddit_hover text-sm'>
-            <Image src='/points.svg' alt='' height={'20px'} width={'20px'}/>
+            <Image src={moreButton} alt='' height={'20px'} width={'20px'}/>
           </div>
          </button>
    

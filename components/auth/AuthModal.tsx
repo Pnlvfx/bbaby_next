@@ -12,6 +12,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Reddit from './providers/Reddit'
 import UserPreferencesModal from '../user/UserPreferencesModal';
+import AuthImage from '../../public/addimage.svg'
+import CloseIcon from '../../public/closeIcon.svg'
 
 function AuthModal() {
     const initialState = {
@@ -96,7 +98,7 @@ function AuthModal() {
           <div className='flex border border-reddit_dark-brightest bg-reddit_dark-brighter self-center mx-auto rounded-md'>
             <div className='flex'>
               <div className="hidden lg:block">
-              <Image src="/authImage.png"
+              <Image src={AuthImage}
                         alt=""
                         width={'148px'} 
                         height={'640px'}/>
@@ -199,7 +201,7 @@ function AuthModal() {
                     }
                         }>
                             <div className='p-1'>
-                                <Image src="/closeIcon.svg" alt="" width={'20px'} height={'20px'} style={{filter:'invert(60%)'}} />
+                                <Image src={CloseIcon} alt="" width={'20px'} height={'20px'} style={{filter:'invert(60%)'}} />
                             </div>
                     </button>
                 </div>

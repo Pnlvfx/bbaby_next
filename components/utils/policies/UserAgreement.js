@@ -1,12 +1,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import PoliciesImage from '../../../public/policies_image.svg'
 
 function userAgreement() {
   return (
     <>
     <span>
         <div className='w-full'>
-          <Image src='/policies_image.svg' alt='' height={'192px'} width={'1982px'} />
+          <Image src={PoliciesImage} alt='' height={'192px'} width={'1982px'} />
         </div>
       </span>
       <div className='flex'>

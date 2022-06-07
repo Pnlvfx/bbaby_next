@@ -5,6 +5,7 @@ import ClickOutHandler from "react-clickout-handler";
 import Comment from './Comment';
 import {GrDocumentText} from 'react-icons/gr'
 import Image from "next/image";
+import closeIcon from '../../public/closeIcon.svg'
 
 function CommentModal(props) {
 
@@ -51,7 +52,7 @@ function CommentModal(props) {
                     props.onClickOut()
                 }} className="text-right ml-auto flex pt-4 pb-8">
                   <div className="mr-1">
-                  <Image src="/closeIcon.svg" alt="" width={'20px'} height={'20px'} style={{filter:'invert(80%)'}} />
+                  <Image src={closeIcon} alt="" width={'20px'} height={'20px'} style={{filter:'invert(80%)'}} />
                   </div>
                 <h1 className="text-xs font-bold mt-[2px]">Close</h1>
                 </button>

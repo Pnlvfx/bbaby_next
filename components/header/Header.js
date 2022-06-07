@@ -18,6 +18,9 @@ import UserMenu from './UserMenu'
 import NotUserMenu from './NotUserMenu'
 import Image from 'next/image';
 import UserContext from '../auth/UserContext';
+import Logo from '../../public/logo.png'
+import HomeIcon from '../../public/home.svg'
+import textLogo from '../../public/textlogo.svg'
 
 
 function Header() {
@@ -55,15 +58,15 @@ function Header() {
             setCommunity()
          }}>
             <div className='flex-none mt-2 mr-2'>
-                <Image src='/logo.png' alt='logo' width={'30px'} height={'30px'} priority={true}/>
+                <Image src={Logo} alt='logo' width={'30px'} height={'30px'} priority={true}/>
             </div>
             <div className='hidden lg:block mt-2'>
-                <Image src='/textlogo.svg' alt='text_logo' width={'80px'} height={'24px'} priority={true} />
+                <Image src={textLogo} alt='text_logo' width={'80px'} height={'24px'} priority={true} />
             </div>
              
         </button>
          {/* <div id='home_button' className='flex p-2'>
-             <img src='/home.svg' alt='' className='flex-none w-5 h-5' />
+             <img src={homeIcon} alt='' className='flex-none w-5 h-5' />
              <h1>Home</h1>
          </div> */}
             <form onSubmit={doSearch} className=' bg-reddit_dark-brightest pl-3 flex rounded-md border border-reddit_border flex-grow w-24 xl:ml-64 xl:mr-64 text-reddit_text-darker'>
@@ -106,7 +109,7 @@ function Header() {
                         <UserIcon className='w-6 h-6 text-gray-400 mt-1 ml-1 mb-1' />
                     )}
                     {session && (
-                        <div className="flex lg:mr-20">
+                        <div className="flex mr-2 lg:mr-20">
                             <div className=' bg-gray-600 rounded-full mt-1 w-8 h-8 overflow-hidden'>
                                 <Image src={session.user.avatar} alt='' height={'32px'} width={'32px'} priority={true} />
                             </div>
@@ -115,7 +118,7 @@ function Header() {
                             </span>
                         </div>
                     )}
-                        <ChevronDownIcon className='text-gray-500 w-5 h-5 mr-2 mt-2' />
+                        <ChevronDownIcon className='text-reddit_text-darker w-5 h-5 mr-2 mt-[9px]' />
                 </button>
                 {/*dropdown menu for user and not*/}
                 {session && (

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import {useState} from "react";
 import Button from "../utils/Button";
+import closeIcon from '../../public/closeIcon.svg'
 
 
 function NewEmailNotif(props) {
@@ -23,7 +24,7 @@ function NewEmailNotif(props) {
                   </div>
                   <div className="flex-none">
                       <button onClick={() => setIsOpen(false)} >
-                      <Image src="/closeIcon.svg" alt="" width={'16px'} height={'16px'} style={{filter:'invert(60%)'}} />
+                      <Image src={closeIcon} alt="" width={'16px'} height={'16px'} style={{filter:'invert(60%)'}} />
                       </button>
                   </div>
               </div>

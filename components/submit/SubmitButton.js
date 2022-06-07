@@ -3,6 +3,7 @@ import {GrBold,GrEmoji} from 'react-icons/gr'
 import {GoItalic} from 'react-icons/go'
 import {BiLink} from 'react-icons/bi'
 import { useRef,useState } from 'react';
+import addImage from '../../public/addimage.svg'
 
 
 
@@ -84,7 +85,7 @@ function SubmitButton(props) {
                     filePickerRef.current.click()
                     setIsImage(true)
                 }}>
-                    <Image src={'/addimage.svg'} alt='' height={'22px'} width={'22px'}/>
+                    <Image src={addImage} alt='' height={'22px'} width={'22px'}/>
                     <input type='file' hidden onChange={addImageToPost} ref={filePickerRef} />
                 </button>
             </div>

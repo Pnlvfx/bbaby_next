@@ -6,6 +6,7 @@ import Button from "../utils/Button";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import closeIcon from '../../public/closeIcon.svg'
 
 function CommunityFormModal() {
 
@@ -42,7 +43,7 @@ function CommunityFormModal() {
                     <h1 className="font-semibold">Create a community</h1>
                     <button className="right-0 pb-5" onClick={() => setShow(false)}>
                         <div className="mx-1 right-2 absolute">
-                        <Image src="/closeIcon.svg" alt="" width={'16px'} height={'16px'} style={{filter:'invert(60%)'}} />
+                        <Image src={closeIcon} alt="" width={'16px'} height={'16px'} style={{filter:'invert(60%)'}} />
                         </div>
                     </button>
                 </div>

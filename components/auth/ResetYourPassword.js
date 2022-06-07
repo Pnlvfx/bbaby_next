@@ -3,6 +3,7 @@ import {useState,useContext} from 'react'
 import Button from '../utils/Button';
 import AuthModalContext from './AuthModalContext';
 import Image from 'next/image';
+import Logo from '../../public/logo.png'
 
 function ResetYourPassword() {
 
@@ -13,7 +14,7 @@ function ResetYourPassword() {
   return (
     <div className=''>
         <div className='rounded-full'>
-            <Image src="/logo.png" alt="" width={'40px'} height={'40px'}/>
+            <Image src={Logo} alt="" width={'40px'} height={'40px'}/>
         </div>
         <h1 className='font-bold'>Reset your password</h1>
         <div className='w-[600px] pr-48 pt-1'>
