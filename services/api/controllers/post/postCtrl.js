@@ -75,7 +75,6 @@ const PostCtrl = {
                 community,
                 communityIcon,
                 isImage,
-                imageId,
                 mediaInfo: [{
                     dimension: [imageHeight,imageWidth] 
                 }]
