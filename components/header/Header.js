@@ -106,19 +106,21 @@ function Header() {
                 <ClickOutHandler onClickOut={() => setUserDropdownVisibilityClass('hidden')}>
                 <button className='rounded-md flex ml-4 mt-1' onClick={() => toggleUserDropdown()}>
                     {!session && (
-                        <UserIcon className='w-6 h-6 text-gray-400 mt-1 ml-1 mb-1' />
+                        <div className='w-8 h-8 m-1 rounded-full'>
+                            <UserIcon className='w-6 h-6 text-reddit_text-darker' />
+                        </div>
                     )}
                     {session && (
-                        <div className="flex mr-2 lg:mr-20">
-                            <div className=' bg-gray-600 rounded-full mt-1 w-8 h-8 overflow-hidden'>
-                                <Image src={session.user.avatar} alt='' height={'32px'} width={'32px'} priority={true} />
+                        <div className="flex mr-0 lg:mr-20">
+                            <div className=' bg-gray-600 rounded-full m-1 w-8 h-8 overflow-hidden'>
+                                <Image src={session.user.avatar} alt='' height={'32px'} width={'32px'}/>
                             </div>
                             <span className="w-50 pt-[9px] px-3 text-sm hidden md:block font-semibold">
                             {session.user.username}
                             </span>
                         </div>
                     )}
-                        <ChevronDownIcon className='text-reddit_text-darker w-5 h-5 mr-2 mt-[9px]' />
+                        <ChevronDownIcon className='text-reddit_text-darker w-5 h-5 mr-2 mt-[7px]' />
                 </button>
                 {/*dropdown menu for user and not*/}
                 {session && (

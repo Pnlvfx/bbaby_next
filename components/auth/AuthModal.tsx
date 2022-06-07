@@ -12,10 +12,14 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Reddit from './providers/Reddit'
 import UserPreferencesModal from '../user/UserPreferencesModal';
-import AuthImage from '../../public/addimage.svg'
+import AuthImage from '../../public/authImage.png'
 import CloseIcon from '../../public/closeIcon.svg'
 
 function AuthModal() {
+
+
+    
+
     const initialState = {
         err: "",
         success: ""
@@ -98,10 +102,11 @@ function AuthModal() {
           <div className='flex border border-reddit_dark-brightest bg-reddit_dark-brighter self-center mx-auto rounded-md'>
             <div className='flex'>
               <div className="hidden lg:block">
-              <Image src={AuthImage}
-                        alt=""
-                        width={'148px'} 
-                        height={'640px'}/>
+                <Image src={AuthImage}
+                            alt=""
+                            width={'148px'} 
+                            height={'640px'}
+                />
               </div>
               <div className='flex-none mt-20 pl-6'>
                 {modalType === 'reset your password' && (

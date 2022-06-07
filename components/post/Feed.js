@@ -1,6 +1,6 @@
 import Post from './Post'
 import PostForm from '../submit/PostForm'
-import CommunitiesList from '../widget/TopCommunities'
+//import CommunitiesList from '../widget/TopCommunities'
 import BestPost from './postutils/BestPost'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import axios from 'axios'
@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import CommentModal from '../comments/CommentModal'
 import { isMobile } from 'react-device-detect'
 import UserContext from '../auth/UserContext'
+import dynamic from 'next/dynamic'
 
 //PostsListings from home and best page
 
@@ -26,7 +27,9 @@ function Feed() {
   // },[])
 
 
-  
+  const CommunitiesList = dynamic(() => import('../widget/TopCommunities'), {
+    loading: () => <p>...</p>
+  })
 
   const [postOpen, setPostOpen] = useState(false)
 
@@ -100,15 +103,12 @@ function Feed() {
     {!loading && (
       <div className='flex pt-5 mx-0 lg:mx-10'>
       <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center ml-auto mr-6 flex-none'>
-        <div>
-        </div>
-         <div className='pb-3'>
+        <div className='pb-3'>
           <PostForm community={posts.community} allCommunity={allCommunity} />
         </div>
           <div className='pb-4'> 
-              <BestPost />
-            </div>
-          <div className=''>
+            <BestPost />
+          </div>
           <InfiniteScroll 
             dataLength={posts.length}
             next={getMorePosts}
@@ -120,7 +120,6 @@ function Feed() {
               <Post key={post._id} {...post} isListing={true}/>
           ))}
           </InfiniteScroll>
-          </div> 
       </div>
         <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden mr-auto'>
             <CommunitiesList allCommunity={allCommunity}/>

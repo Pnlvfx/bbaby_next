@@ -158,7 +158,6 @@ function Submit(props) {
         Router.push('/b/'+community+'/comments/'+newPostId)
 
     }
-   
 
   return (
     <div className={`${loading && ('opacity-40')}`}>

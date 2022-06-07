@@ -8,9 +8,6 @@ import Image from 'next/image';
 import UserContext from '../../auth/UserContext';
 import moreButton from '../../../public/moreButton.svg'
 
-
-const buttonClasses = " hover:bg-reddit_hover py-2 rounded-sm"
-
 function MoreButton(props) {
 
   const provider = useContext(UserContext)
@@ -20,7 +17,7 @@ function MoreButton(props) {
   const [showElement,setShowElement] = useState(false)
   const server = process.env.NEXT_PUBLIC_SERVER_URL
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
-  const {comments,filePickerRefMore} = props
+  const {post,filePickerRefMore} = props
   const [postAuthor,setPostAuthor] = useState(false)
 
   // message
@@ -29,30 +26,31 @@ function MoreButton(props) {
 
   useEffect(() => {
     if(session) {
-      if(session.user.username === comments.author) {
+      if(session.user.username === post.author) {
         setPostAuthor(true)
+        console.log('here')
       } else {
         return
       }
     }
-  },[postAuthor,comments])
+  },[postAuthor,post])
 
   const deletePost = async () => {
     try {
       if(router.asPath !== '/') {
-        const deleteId = comments._id
+        const deleteId = post._id
         await axios.delete(`${server}/posts/${deleteId}`,{withCredentials:true})
-        router.push(`${hostname}/b/${comments.community}`).then(() => {
+        router.push(`${hostname}/b/${post.community}`).then(() => {
         setDeletedSuccess(true)
         })
       } else {
         const {deleteId} = router.query
-      await axios.delete(`${server}/posts/${deleteId}`,{withCredentials:true})
-      router.reload().then(() => {
-        setDeletedSuccess(true)
-      }) // to fixconst {deleteId} = router.query
         await axios.delete(`${server}/posts/${deleteId}`,{withCredentials:true})
         router.reload().then(() => {
+        setDeletedSuccess(true)
+      }) // to fixconst {deleteId} = router.query
+          await axios.delete(`${server}/posts/${deleteId}`,{withCredentials:true})
+          router.reload().then(() => {
           setDeletedSuccess(true)
         }) // to fix
       }
