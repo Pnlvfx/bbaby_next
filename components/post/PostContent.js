@@ -26,9 +26,11 @@ function PostContent(props) {
                   router.push({
                     pathname: '/b/'+props.community
                   })
-                  }} className="flex cursor-pointer">    
-                    <img src={communityIcon} alt='' className='rounded-full flex-none' height={'20px'} width={'20px'} />
-                  <span className="text-xs ml-1 hover:underline font-bold mt-[2px]">b/{props.community}</span>
+                  }} className="flex cursor-pointer">
+                    <div className="">
+                      <Image src={communityIcon} alt='' className='rounded-full' height={'20px'} width={'20px'} />                      
+                    </div>    
+                    <span className="text-xs ml-1 hover:underline font-bold mt-[2px]">b/{props.community}</span>
               </div>
                   <h2 className="px-1 text-sm">-</h2>
                   <div className='text-reddit_text-darker text-xs mt-[3px]'>

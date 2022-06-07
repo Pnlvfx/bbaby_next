@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+const {ObjectId} = mongoose
+
 const PostSchema = new mongoose.Schema({
     author: 
         {type:String,
@@ -28,6 +30,7 @@ const PostSchema = new mongoose.Schema({
         required:true
     },
     mediaInfo: {
+        type: [],
         dimension: {
             type: [],
             maxlength: 2,
@@ -41,6 +44,13 @@ const PostSchema = new mongoose.Schema({
         },
     },
     isImage: {
+        type:Boolean,
+        default:false
+    },
+    imageId: {
+        type: ObjectId,
+    },
+    isLink: {
         type:Boolean,
         default:false
     },

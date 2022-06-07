@@ -19,7 +19,6 @@ function Submit(props) {
 
     const [startTyping,setStartTyping] = useState(false)
 
-
     const [title,setTitle] = useState('');
     const [body,setBody] = useState('');
 
@@ -30,8 +29,11 @@ function Submit(props) {
     const [showDeleteOptions,setShowDeleteOptions] = useState(false)
     const [selectedFile, setSelectedFile] = useState(null);
     const [isImage,setIsImage] = useState(false)
+    //ONLY FOR VISUALIZATION
     const [imageWidth,setImageWidth] = useState()
     const [imageHeight, setImageHeight] = useState()
+    //
+
 
     const [loading,setLoading] = useState(false)
 
@@ -109,10 +111,11 @@ function Submit(props) {
     }
     //
 
+    //console.log(selectedFile)
+
     //create a post
    const createPost = async() => {
                 try {
-                    setLoading(true)
                     const data = {title,body,community,communityIcon,image,isImage};
                     const server = process.env.NEXT_PUBLIC_SERVER_URL
                     const res =  await axios.post(server+'/posts', data, {withCredentials:true})
@@ -140,15 +143,13 @@ function Submit(props) {
     },[tryToPost,image])
     //
 
-
-
     // set community directly to selected (happens only from communitiesinfo widget)
     useEffect(() => {
         if(router.query.with_community)
         setSelectedCommunity(router.query.with_community)
     },[])
 
-    console.log(imageHeight,imageWidth)
+    console.log(imageHeight,imageWidth,selectedFile)
 
    
     

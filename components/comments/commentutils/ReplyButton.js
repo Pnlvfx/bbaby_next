@@ -8,7 +8,7 @@ function ReplyButton(props) {
   return (
     <button {...props} className={classNames + props.className}>
       <div className='mr-1'>
-        <Image src={CommentIcon} width={'24px'} height={'24px'} />
+        <Image src={CommentIcon} alt='' width={'24px'} height={'24px'} />
       </div>
         <h1 className=''>Reply</h1>
     </button>

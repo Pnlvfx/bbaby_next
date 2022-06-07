@@ -36,8 +36,8 @@ function CommentModal(props) {
     {!loading && (
       <ClickOutHandler onClickOut={() => {
         router.push({pathname:'/'},`/`,{scroll:false})
-        setPost({})
         props.onClickOut()
+        
       }}>
         <div className={"fixed top-0 left-0 right-0 z-20 flex mx-32 " +visibleClass} style={{backgroundColor:'rgba(0,0,0,1'}}>
           <div className="py-[51px] w-full mx-8">
@@ -48,7 +48,6 @@ function CommentModal(props) {
               </div>
               <button id="closeButton" onClick={() => {
                     router.push({pathname:'/'},'/',{scroll:false})
-                    setPost({})
                     props.onClickOut()
                 }} className="text-right ml-auto flex pt-4 pb-8">
                   <div className="mr-1">

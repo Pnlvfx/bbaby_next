@@ -6,6 +6,7 @@ import PostsListing from '../../components/post/PostsListing'
 import Layout from '../../components/Layout'
 import Head from 'next/head';
 import { NextPage, NextPageContext } from 'next';
+import Feed from '../../components/post/Feed';
 
 
 const CommunityPage: NextPage = (props) => {
@@ -39,7 +40,7 @@ const CommunityPage: NextPage = (props) => {
       <Layout>
         <div className='w-full'>
           <BoardHeader community={community}/>
-          <PostsListing community={community}/>
+          <Feed community={community}/>
         </div>
       </Layout>
     </div>

@@ -14,26 +14,26 @@ function MoreButton(props) {
   const {session} = provider
  
   const router = useRouter()
-  const [showElement,setShowElement] = useState(false)
   const server = process.env.NEXT_PUBLIC_SERVER_URL
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const {post,filePickerRefMore} = props
   const [postAuthor,setPostAuthor] = useState(false)
+  const [moreDropdownVisibilityClass, setMoreDropdownVisibilityClass] = useState('hidden');
 
   // message
   const [deletedSuccess,setDeletedSuccess] = useState(false)
   //
 
   useEffect(() => {
+    if(moreDropdownVisibilityClass === 'hidden') return
     if(session) {
       if(session.user.username === post.author) {
         setPostAuthor(true)
-        console.log('here')
       } else {
         return
       }
     }
-  },[postAuthor,post])
+  },[post,moreDropdownVisibilityClass])
 
   const deletePost = async () => {
     try {
@@ -45,12 +45,12 @@ function MoreButton(props) {
         })
       } else {
         const {deleteId} = router.query
-        await axios.delete(`${server}/posts/${deleteId}`,{withCredentials:true})
-        router.reload().then(() => {
+      await axios.delete(`${server}/posts/${deleteId}`,{withCredentials:true})
+      router.reload().then(() => {
         setDeletedSuccess(true)
       }) // to fixconst {deleteId} = router.query
-          await axios.delete(`${server}/posts/${deleteId}`,{withCredentials:true})
-          router.reload().then(() => {
+        await axios.delete(`${server}/posts/${deleteId}`,{withCredentials:true})
+        router.reload().then(() => {
           setDeletedSuccess(true)
         }) // to fix
       }
@@ -58,39 +58,30 @@ function MoreButton(props) {
 
     }
   }
-
-  //Timeout after copy a link
-  useEffect(() => {
-    setShowElement(true)
-      setTimeout(() => {
-        setShowElement(false)
-        //setCopied(false)    to define
-    }, 8000);
-  },[showElement])
   
-  const [ShareDropdownVisibilityClass, setShareDropdownVisibilityClass] = useState('hidden');
+  
 
-  function toggleShareDropdown() {
-    if (ShareDropdownVisibilityClass === 'hidden') {
-      setShareDropdownVisibilityClass('block');
+  function toggleMoreDropdown() {
+    if (moreDropdownVisibilityClass === 'hidden') {
+      setMoreDropdownVisibilityClass('block');
     }else {
-      setShareDropdownVisibilityClass('hidden')
+      setMoreDropdownVisibilityClass('hidden')
     }
   }
 
   const clickMoreButton = async() => {
     if (router.asPath !== ('/')) {
-      toggleShareDropdown()
+      toggleMoreDropdown()
     } else {
       filePickerRefMore.current.click()
-      toggleShareDropdown()
+      toggleMoreDropdown()
     }
     
   }
 
   return (
     <>
-       <ClickOutHandler onClickOut={() => setShareDropdownVisibilityClass('hidden')}>
+       <ClickOutHandler onClickOut={() => setMoreDropdownVisibilityClass('hidden')}>
        <div className=''>
           <button id='moreOptions' type='button' onClick={event =>{
             event.preventDefault()
@@ -103,7 +94,7 @@ function MoreButton(props) {
    
    
    
-         <div className={'absolute ' + ShareDropdownVisibilityClass}>
+         <div className={'absolute ' + moreDropdownVisibilityClass}>
            <div className='flex bg-reddit_dark-brighter border border-reddit_border z-10 rounded-md'>
                {postAuthor && (
                  <button onClick={e => {

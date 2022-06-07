@@ -166,15 +166,15 @@ function AuthModal() {
                 {modalType === 'login' && (
                     <>
                         <form onSubmit={handleSubmit}>
-                        <label>
-                            <span className='text-reddit_text-darker text-sm'>Username:</span>
-                            <Input type='text' className='mb-3 w-80 p-2' value={username} onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setUsername(e.target.value)} autoComplete={'username'} />
-                        </label>
-                        {status.err && showErrMsg(status.err)}
-                        <label className="">
-                            <span className='text-reddit_text-darker text-sm'>Password:</span>
-                            <Input type='password' className='p-2 mb-4 w-80' value={password} onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setPassword(e.target.value)} autoComplete={'current-password'} />
-                        </label>
+                            <label>
+                                <span className='text-reddit_text-darker text-sm'>Username:</span>
+                                <Input type='text' className='mb-3 w-80 p-2' value={username} onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setUsername(e.target.value)} autoComplete={'username'} />
+                            </label>
+                            {status.err && showErrMsg(status.err)}
+                            <label className="">
+                                <span className='text-reddit_text-darker text-sm'>Password:</span>
+                                <Input type='password' className='p-2 mb-4 w-80' value={password} onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setPassword(e.target.value)} autoComplete={'current-password'} />
+                            </label>
                             <Button type='submit' className='w-80 py-2 mb-3' style={{borderRadius:'.3rem'}} onClick={() => login()}>
                                 Log In
                             </Button> 

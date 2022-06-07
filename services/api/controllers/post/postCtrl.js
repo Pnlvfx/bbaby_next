@@ -38,7 +38,8 @@ const PostCtrl = {
             const uploadedResponse = await cloudinary.uploader.upload(fileStr,{
                 upload_preset: 'bbaby_avatar'
             })
-            res.json({url:uploadedResponse.secure_url})
+            console.log(uploadedResponse)
+            res.json({url:uploadedResponse.secure_url, imageId: uploadedResponse.public_id })
         } catch (err) {
             res.status(500).json({err:'something went wrong'})
         }
@@ -51,10 +52,8 @@ const PostCtrl = {
                 return;
             }
             const user = await getUserFromToken(token)
-            const {title,body,image,community,communityIcon,isImage} = req.body;
-            if(isImage) {
-                
-            }
+            const {title,body,image,community,communityIcon,isImage,imageHeight,imageWidth,imageId} = req.body;
+            console.log(imageId)
             const post = await new Post({
                 author:user.username,
                 authorAvatar:user.avatar,
@@ -63,7 +62,11 @@ const PostCtrl = {
                 image,
                 community,
                 communityIcon,
-                isImage
+                isImage,
+                imageId,
+                mediaInfo: [{
+                    dimension: [imageHeight,imageWidth] 
+                }]
             })
             const savedPost = await post.save()
             if(savedPost) {
@@ -120,6 +123,9 @@ const PostCtrl = {
             const {id} = req.params
             const findPost = await Post.findByIdAndDelete(id)
             const findChildComments = await Comment.deleteMany({rootId:id})
+            //const deleteImage = await cloudinary.uploader.destroy(
+                
+            //)
             res.json({msg: "Deleted Success"})
         } catch (err) {
             return res.status(500).json({msg: err})

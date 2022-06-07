@@ -1,6 +1,6 @@
 import Post from './Post'
 import PostForm from '../submit/PostForm'
-//import CommunitiesList from '../widget/TopCommunities'
+import CommunitiesList from '../widget/TopCommunities'
 import BestPost from './postutils/BestPost'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import axios from 'axios'
@@ -9,11 +9,11 @@ import { useRouter } from 'next/router'
 import CommentModal from '../comments/CommentModal'
 import { isMobile } from 'react-device-detect'
 import UserContext from '../auth/UserContext'
-import dynamic from 'next/dynamic'
+import CommunitiesInfo from '../widget/CommunitiesInfo'
 
 //PostsListings from home and best page
 
-function Feed() {
+function Feed(props) {
   const provider = useContext(UserContext)
   const {session} = provider
 
@@ -26,20 +26,16 @@ function Feed() {
   //   })
   // },[])
 
+  // GETTING COMMUNITY FROM COMMUNITY PAGE
+  const {community} = props
 
-  const CommunitiesList = dynamic(() => import('../widget/TopCommunities'), {
-    loading: () => <p>...</p>
-  })
-
+  // OPEN MODAL
   const [postOpen, setPostOpen] = useState(false)
-
   let router = useRouter()
   let postId = null
-
   if(router.query.postId) {
     postId = router.query.postId;
   }
-
   useEffect(() => {
     setPostOpen(true);
   }, [postId]);
@@ -47,32 +43,49 @@ function Feed() {
   useEffect(() => {
     postId= null
   },[postOpen]);
+  //
 
   //INFINITE SCROLLING
   const [posts,setPosts] = useState()
-  const [loading,setLoading] = useState(true)
+  const [loadingPosts,setLoadingPosts] = useState(true)
 
-  //GET POST
+  //GET POST FROM COMMUNITYPAGE AND HOMEPAGE
   useEffect(() => {
-    setLoading(true)
+    //setLoadingPosts(true)
     const server = process.env.NEXT_PUBLIC_SERVER_URL
-    axios({
-      method: 'get',
-      url: `${server}/posts?limit=10&skip=0`,
-      withCredentials:true
-    }).then(response => {
-      setPosts(response.data)
-      setLoading(false)
-    })
+    if (!community) {
+      axios({
+        method: 'get',
+        url: `${server}/posts?limit=10&skip=0`,
+        withCredentials:true
+      }).then(response => {
+        setPosts(response.data)
+        setLoadingPosts(false)
+      })
+    } else {
+      axios({
+        method: 'get',
+        url: `${server}/posts?community=${community}&limit=10&skip=0`,
+        withCredentials:true
+      }).then(response => {
+        setPosts(response.data)
+        setLoadingPosts(false)
+      })
+    }
   },[])
   //
 
   const getMorePosts = async() => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
-    const res = await axios.get(`${server}/posts?skip=${posts.length}&limit=10`)
-    
-    const newPosts = await res.data
-    setPosts((posts) => [...posts, ...newPosts])
+    if (!community) {
+      const res = await axios.get(`${server}/posts?skip=${posts.length}&limit=10`)
+      const newPosts = await res.data
+      setPosts((posts) => [...posts, ...newPosts])
+    } else {
+      const res = await axios.get(`${server}/posts?community=${community}skip=${posts.length}&limit=10`)
+      const newPosts = await res.data
+      setPosts((posts) => [...posts, ...newPosts])
+    }
   };
   //
 
@@ -80,6 +93,7 @@ function Feed() {
   const [allCommunity,setAllCommunity] = useState([]);
 
   useEffect(() => {
+    if (community) return
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     axios.get(server+'/communities?limit=5', {withCredentials:true})
         .then(response => setAllCommunity(response.data));
@@ -95,16 +109,16 @@ function Feed() {
         setPostOpen(false)
       }} />
     )}
-    {loading && (
+    {loadingPosts && (
       <div className='opacity-60'>
         <h1>Loading...</h1>
       </div>
     )}
-    {!loading && (
+    {!loadingPosts && (
       <div className='flex pt-5 mx-0 lg:mx-10'>
       <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center ml-auto mr-6 flex-none'>
         <div className='pb-3'>
-          <PostForm community={posts.community} allCommunity={allCommunity} />
+          <PostForm community={community ? community : posts.community} allCommunity={allCommunity} />
         </div>
           <div className='pb-4'> 
             <BestPost />
@@ -121,9 +135,16 @@ function Feed() {
           ))}
           </InfiniteScroll>
       </div>
+      {community && (
         <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden mr-auto'>
-            <CommunitiesList allCommunity={allCommunity}/>
+          <CommunitiesInfo />
         </div>
+      )}
+      {!community && (
+        <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden mr-auto'>
+          <CommunitiesList allCommunity={allCommunity}/>
+        </div>
+      )}
     </div>
     )}
     </>
