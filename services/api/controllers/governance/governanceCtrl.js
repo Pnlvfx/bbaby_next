@@ -64,7 +64,7 @@ const governanceCtrl =  {
 
         const videoOptions = {
             loop: 15,
-            fps:25,
+            fps:24,
             transition: true,
             transitionDuration: 1, // seconds
             videoBitrate: 1024,

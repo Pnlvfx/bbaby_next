@@ -13,7 +13,7 @@ function ResetYourPassword() {
   return (
     <div className=''>
         <div className='rounded-full'>
-        <Image src="/logo.png" alt="" width={'40px'} height={'40px'}/>
+            <Image src="/logo.png" alt="" width={'40px'} height={'40px'}/>
         </div>
         <h1 className='font-bold'>Reset your password</h1>
         <div className='w-[600px] pr-48 pt-1'>
@@ -24,7 +24,7 @@ function ResetYourPassword() {
                     <span className='text-reddit_text-darker text-sm'>Username:</span>
                     <Input type='text' className='mb-3 w-80 p-2' value={username} onChange={e => setUsername(e.target.value)}/>
                 </label>
-                {status.err && showErrMsg(status.err)}
+                {/* {status.err && showErrMsg(status.err)} */}
                 <label>
                     <span className='text-reddit_text-darker text-sm'>E-mail:</span>
                     <Input type='email' className=' p-2 mb-3 w-80' value={email} onChange={e => setEmail(e.target.value)} />

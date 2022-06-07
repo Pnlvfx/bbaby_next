@@ -19,10 +19,10 @@ function Google() {
         // data: {country,countryCode,city,region}
 
         const res = await axios.post(server+'/google_login', {tokenId: response.credential, data: {country,countryCode,city,region,lat,lon}},{withCredentials:true})
-        localStorage.setItem('isLogged', true)
+        localStorage.setItem('isLogged', 'true')
         modalContext.setShow('false')
         if(res.data.msg === "newUser") {
-          localStorage.setItem('firstLogin', true)
+          localStorage.setItem('firstLogin', 'true')
           router.reload()
         } else {
            router.reload()

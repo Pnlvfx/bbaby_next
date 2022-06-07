@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Input from '../utils/Input'
 import AuthModalContext from './AuthModalContext';
 import Button from '../utils/Button'
@@ -18,6 +18,7 @@ function AuthModal() {
         err: "",
         success: ""
     }
+
     const router = useRouter()
     const [status,setStatus] = useState(initialState)
     const server = process.env.NEXT_PUBLIC_SERVER_URL
@@ -33,14 +34,15 @@ function AuthModal() {
 
 
     const modalContext = useContext(AuthModalContext);
+    const {show,setShow} : any = modalContext
 
-    const visibleClass = modalContext.show !== false ? 'block' : 'hidden';
-    if(modalContext.show && modalContext.show !== modalType) {
-        setModalType(modalContext.show);
+    const visibleClass = show !== false ? 'block' : 'hidden';
+    if(show && show !== modalType) {
+        setModalType(show);
     }
 
 
-    const register = async (e) => {
+    const register = async (e: any) => {
         e.preventDefault();
         const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY
         const userIpInfo = await axios.get(`https://extreme-ip-lookup.com/json?key=${IP_API_KEY}`)
@@ -50,10 +52,10 @@ function AuthModal() {
         const res = await axios.post(server+'/register', data, {withCredentials:true})
         .then(() => {
             setStatus({err:"", success:"registration completed"})
-            localStorage.setItem('isLogged', true)
+            localStorage.setItem('isLogged', 'true')
             setEmailTo(email)
-            modalContext.setShow(false)
-            //router.reload()
+            setShow(false)
+            router.reload()
             })
         .catch(err => {
         err.response.data.msg &&
@@ -65,9 +67,9 @@ function AuthModal() {
         try {
             const data = {username,password}
             const res = await axios.post(`${server}/login`, data, {withCredentials:true})
-            localStorage.setItem('isLogged', true)
+            localStorage.setItem('isLogged', 'true')
             router.reload()
-        } catch (err) {
+        } catch (err:any) {
             err.response.data.msg &&
             setStatus({err:err.response.data.msg, success: ""})
         }
@@ -77,7 +79,7 @@ function AuthModal() {
     // ONLY AFTER FIRST LOGIN
     const [newUser,setNewUser] = useState(false)
     useEffect(() => {
-        const firstLogin = localStorage.getItem('firstLogin')
+        const firstLogin:any = localStorage.getItem('firstLogin')
         setNewUser(firstLogin)
     }, [])
 
@@ -95,12 +97,9 @@ function AuthModal() {
                         height={'640px'}/>
               </div>
               <div className='flex-none mt-20 pl-6'>
-
-
                 {modalType === 'reset your password' && (
-                    <ResetYourPassword setModalType={setModalType} />
+                    <ResetYourPassword/>
                 )}
-
                 {modalType === 'login' && (
                   <div className="pr-52">
                       <h1 className='text-2xl mb-2'>Login</h1>
@@ -116,7 +115,7 @@ function AuthModal() {
                   </div>
                 )}
                 {modalType === 'register' && (
-                        <div className="pr-96 mr-24">
+                        <div className="pr-96">
                             <h1 className='text-2xl mb-2'>Sign Up</h1>
                             <h2 className="text-sm pb-4 w-60">By continuing, you are setting up a Bbabystyle account and agree to our <Link href={'/policies/user-agreement'}>
                                 <a target='_blank' className="text-blue-400">User Agreement</a>
@@ -136,62 +135,58 @@ function AuthModal() {
                     <form>
                         <label>
                         <span className='text-reddit_text-darker text-sm'>E-mail:</span>
-                        <Input type='email' className=' p-2 mb-3 w-80' value={email} onChange={e => setEmail(e.target.value)} autoComplete={'off'} />
+                        <Input type='email' className=' p-2 mb-3 w-80' value={email} onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setEmail(e.target.value)} autoComplete={'off'} />
                         </label>
                     {status.err && showErrMsg(status.err)}
                     <label>
                         <span className='text-reddit_text-darker text-sm'>Username:</span>
-                        <Input type='text' className='mb-3 w-80 p-2' value={username} onChange={e => setUsername(e.target.value)} autoComplete={'off'}/>
+                        <Input type='text' className='mb-3 w-80 p-2' value={username} onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setUsername(e.target.value)} autoComplete={'off'}/>
                     </label>
                     <label className="">
                         <span className='text-reddit_text-darker text-sm'>Password:</span>
-                        <Input type='password' className='p-2 mb-3 w-80' value={password} onChange={e => setPassword(e.target.value)} autoComplete={'off'}/>
+                        <Input type='password' className='p-2 mb-4 w-80' value={password} onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setPassword(e.target.value)} autoComplete={'off'}/>
                     </label>
+                        <Button type='submit' className='w-80 py-2 mb-3' style={{borderRadius:'.3rem'}} onClick={(e: any) => register(e)}>
+                            Sign Up
+                        </Button>
                     </form>
                 )}
                 {modalType === 'login' && (
-                    <form>
-                    <label>
-                        <span className='text-reddit_text-darker text-sm'>Username:</span>
-                        <Input type='text' className='mb-3 w-80 p-2' value={username} onChange={e => setUsername(e.target.value)} autoComplete={'username'} />
-                    </label>
-                    {status.err && showErrMsg(status.err)}
-                    <label className="">
-                        <span className='text-reddit_text-darker text-sm'>Password:</span>
-                        <Input type='password' className='p-2 mb-3 w-80' value={password} onChange={e => setPassword(e.target.value)} autoComplete={'current-password'} />
-                    </label>   
-                    </form>
-                    )}
-                    {modalType === 'login' && (
-                        <Button className='w-80 py-2 mb-3' style={{borderRadius:'.3rem'}} onClick={() => login()}>
-                            Log In
-                        </Button>
+                    <>
+                        <form>
+                        <label>
+                            <span className='text-reddit_text-darker text-sm'>Username:</span>
+                            <Input type='text' className='mb-3 w-80 p-2' value={username} onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setUsername(e.target.value)} autoComplete={'username'} />
+                        </label>
+                        {status.err && showErrMsg(status.err)}
+                        <label className="">
+                            <span className='text-reddit_text-darker text-sm'>Password:</span>
+                            <Input type='password' className='p-2 mb-4 w-80' value={password} onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setPassword(e.target.value)} autoComplete={'current-password'} />
+                        </label>
+                            <Button type='submit' className='w-80 py-2 mb-3' style={{borderRadius:'.3rem'}} onClick={() => login()}>
+                                Log In
+                            </Button> 
+                        </form>
+                        <div>
+                            <h1 className="mb-6 text-sm">Forgot your <button className="text-blue-400">username</button> or <button className="text-blue-400" onClick={() => setShow('reset your password')}>password</button> ?</h1>
+                        <div className="text-sm mt-3">
+                            New to Bbaby? <button className='font-semibold text-blue-500 ml-1 ' onClick={() => setShow('register')}>SIGN UP</button>
+                        </div>
+                        </div>
+                    </>
                     )}
                     {modalType === 'register' && (
-                        <Button className='w-80 py-2 mb-3' style={{borderRadius:'.3rem'}} onClick={e => register(e)}>
-                            Sign Up
-                        </Button>
-                    )}
-                    {modalType === 'login' && (
-                        <div className="">
-                            <h1 className="mb-6 text-sm">Forgot your <button className="text-blue-400">username</button> or <button className="text-blue-400" onClick={() => modalContext.setShow('reset your password')}>password</button> ?</h1>
                         <div className="text-sm mt-3">
-                            New to Bbaby? <button className='font-semibold text-blue-500 ml-1 ' onClick={() => modalContext.setShow('register')}>SIGN UP</button>
-                        </div>
+                            Already have an account? <button className="text-blue-500 ml-1 font-semibold" onClick={() => setShow('login')}>LOG IN</button>
                         </div>
                     )}
-                {modalType === 'register' && (
-                    <div className="text-sm mt-3">
-                        Already have an account? <button className="text-blue-500 ml-1 font-semibold" onClick={() => modalContext.setShow('login')}>LOG IN</button>
-                    </div>
-                )}
               </div>
             </div>
                 <div id='closeButton' className="text-right w-7 h-7 mr-3 mt-3">
                     <button 
                     className=""
                     onClick={() => {
-                        modalContext.setShow(false)
+                        setShow(false)
                         setEmail('');
                         setPassword('');
                         setUsername('');
@@ -199,7 +194,7 @@ function AuthModal() {
                     }
                         }>
                             <div className='p-1'>
-                            <Image src="/closeIcon.svg" alt="" width={'18px'} height={'18px'} style={{filter:'invert(60%)'}} />
+                                <Image src="/closeIcon.svg" alt="" width={'20px'} height={'20px'} style={{filter:'invert(60%)'}} />
                             </div>
                     </button>
                 </div>

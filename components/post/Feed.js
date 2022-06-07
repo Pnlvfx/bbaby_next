@@ -65,6 +65,7 @@ function Feed() {
   //
 
   const getMorePosts = async() => {
+    const server = process.env.NEXT_PUBLIC_SERVER_URL
     const res = await axios.get(`${server}/posts?skip=${posts.length}&limit=10`)
     
     const newPosts = await res.data
