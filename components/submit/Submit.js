@@ -116,7 +116,7 @@ function Submit(props) {
     //create a post
    const createPost = async() => {
                 try {
-                    const data = {title,body,community,communityIcon,image,isImage};
+                    const data = {title,body,community,communityIcon,image,isImage,imageHeight,imageWidth};
                     const server = process.env.NEXT_PUBLIC_SERVER_URL
                     const res =  await axios.post(server+'/posts', data, {withCredentials:true})
                     setNewPostId(res.data._id);
@@ -148,9 +148,6 @@ function Submit(props) {
         if(router.query.with_community)
         setSelectedCommunity(router.query.with_community)
     },[])
-
-    console.log(imageHeight,imageWidth,selectedFile)
-
    
     
     

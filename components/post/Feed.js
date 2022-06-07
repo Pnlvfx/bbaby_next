@@ -18,8 +18,8 @@ function Feed(props) {
   const {session} = provider
 
   // useEffect(() => {
-  //   const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY
   //   if(session) return
+  //   const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY
   //   axios.get(`http://extreme-ip-lookup.com/json?key=${IP_API_KEY}`)
   //   .then(response => {
   //     console.log(response)

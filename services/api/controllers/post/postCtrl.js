@@ -8,22 +8,35 @@ import User from '../../models/User.js';
 const PostCtrl = {
     getPosts: async (req, res) => {
         const {token} = req.cookies
+        const userLang = req.acceptsLanguages('en','it')
+        const {search, community, limit, skip} = await req.query;
             if(token) {
                 const user = await getUserFromToken(token)
-                
+                // VOTING REALTIME
                 const userNullVote = await Post.find({_id : {'$nin': user.downVotes && user.upVotes}}).updateMany({"liked" : "null"})
                 const userUpVote = await Post.find({_id : {'$in': user.upVotes}}).updateMany({"liked" : "true"})
                 const userDownVote = await Post.find({_id : {'$in': user.downVotes}}).updateMany({"liked" : "false"})
+                //
             }
+            
             if(!token) {
                 const nullVote = await Post.find({}).updateMany({'liked' : null})
             }
-        const {search, community, limit, skip} = await req.query;
-        let filters = search ? {body: {regex: '.*'+search+'.*'}} : {}
+        let filters = {}
+
+        if (userLang === 'en') {
+            filters.community = {'$ne': 'Italy'}
+        }
+
+        if (userLang === 'it') {
+            filters.community =  'Italy'
+        }
+
 
         if (community) {
             filters.community = community
         }
+
         const posts = await Post.find(filters).sort({createdAt: -1}).limit(limit).skip(skip)
         res.json(posts)
     },
@@ -38,7 +51,7 @@ const PostCtrl = {
             const uploadedResponse = await cloudinary.uploader.upload(fileStr,{
                 upload_preset: 'bbaby_avatar'
             })
-            console.log(uploadedResponse)
+            //console.log(uploadedResponse)
             res.json({url:uploadedResponse.secure_url, imageId: uploadedResponse.public_id })
         } catch (err) {
             res.status(500).json({err:'something went wrong'})
@@ -52,8 +65,7 @@ const PostCtrl = {
                 return;
             }
             const user = await getUserFromToken(token)
-            const {title,body,image,community,communityIcon,isImage,imageHeight,imageWidth,imageId} = req.body;
-            console.log(imageId)
+            const {title,body,image,community,communityIcon,isImage,imageHeight,imageWidth} = req.body;
             const post = await new Post({
                 author:user.username,
                 authorAvatar:user.avatar,
@@ -92,7 +104,7 @@ const PostCtrl = {
             const userVotedUp = await User.findOne({upVotes: id})
             const userVotedDown = await User.findOne({downVotes: id})
 
-            if (userVotedUp || userVotedDown) {
+            if (userVotedUp && userVotedDown) {
                 if(dir === '1') {   //delete existing upvote and add +1 
                     await User.findOneAndUpdate({upVotes: id}, {$pull: {upVotes: id}})
                     const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : -1}})
