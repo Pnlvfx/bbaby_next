@@ -19,6 +19,11 @@ function AuthModal() {
         success: ""
     }
 
+    const handleSubmit = (e: any) => {
+        e.preventDefault()
+        //console.log('form submitted')
+    }
+
     const router = useRouter()
     const [status,setStatus] = useState(initialState)
     const server = process.env.NEXT_PUBLIC_SERVER_URL
@@ -132,7 +137,7 @@ function AuthModal() {
                         <Reddit />
                     </div> */}
                 {modalType === 'register' && (
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <label>
                         <span className='text-reddit_text-darker text-sm'>E-mail:</span>
                         <Input type='email' className=' p-2 mb-3 w-80' value={email} onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setEmail(e.target.value)} autoComplete={'off'} />
@@ -153,7 +158,7 @@ function AuthModal() {
                 )}
                 {modalType === 'login' && (
                     <>
-                        <form>
+                        <form onSubmit={handleSubmit}>
                         <label>
                             <span className='text-reddit_text-darker text-sm'>Username:</span>
                             <Input type='text' className='mb-3 w-80 p-2' value={username} onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setUsername(e.target.value)} autoComplete={'username'} />

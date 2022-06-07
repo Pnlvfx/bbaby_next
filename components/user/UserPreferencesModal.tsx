@@ -16,7 +16,7 @@ const UserPreferencesModal = (props: any) => {
         <div className="mx-auto self-center relative w-[500px]">
           <div className="flex px-2 py-4">
             <div className="mx-auto flex-none">
-              <Image src={'/logo.png'} width={'32px'} height={'32px'}/>
+              <Image src={'/logo.png'} alt='' width={'32px'} height={'32px'}/>
             </div>
             {modalType === 'userGender' && (
                <button className="right-0 pb-7">
