@@ -103,15 +103,28 @@ const PostCtrl = {
             const userVotedUp = await User.findOne({upVotes: id})
             const userVotedDown = await User.findOne({downVotes: id})
 
-            if (userVotedUp && userVotedDown) {
+            if (userVotedUp) {
                 if(dir === '1') {   //delete existing upvote and add +1 
-                    await User.findOneAndUpdate({upVotes: id}, {$pull: {upVotes: id}})
+                    const deletePrevVote = await User.findOneAndUpdate({upVotes: id}, {$pull: {upVotes: id}})
                     const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : -1}})
+                    //const liked = await Post.findByIdAndUpdate(id,{liked: true})
                     res.status(200).json({vote: post.ups -1})
                 } else {
-                        await User.findOneAndUpdate({downVotes: id}, {$pull: {downVotes: id}})
-                        const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : +1}})
-                        res.status(200).json({vote: post.ups +1})
+                    const deletePrevVote = await User.findOneAndUpdate({upVotes: id}, {$pull: {upVotes: id}})
+                    const userVote = await User.findOneAndUpdate({username: user.username},{$push: {downVotes: id}})
+                    const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : -2}})
+                    res.status(200).json({vote: post.ups -2})
+                }
+            } else if(userVotedDown) {
+                if(dir === '1') {
+                    const deletePrevVote = await User.findOneAndUpdate({downVotes: id}, {$pull: {downVotes: id}})
+                    const userVote = await User.findOneAndUpdate({username: user.username},{$push: {upVotes : id}})
+                    const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : +2}})
+                    res.status(200).json({vote: post.ups +2})
+                } else  {
+                    const deletePrevVote = await User.findOneAndUpdate({downVotes: id}, {$pull: {downVotes: id}})
+                    const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : +1}})
+                    res.status(200).json({vote: post.ups +1})
                 }
             } else {
                 if(dir === '1') {

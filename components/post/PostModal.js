@@ -2,7 +2,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react"
 import ClickOutHandler from "react-clickout-handler";
-import Comment from './Comment';
+import Comment from '../comments/Comment';
 import {GrDocumentText} from 'react-icons/gr'
 import Image from "next/image";
 import closeIcon from '../../public/closeIcon.svg'
@@ -30,13 +30,11 @@ function CommentModal(props) {
 
   return (
     <>
-    {loading && (
-      <div>loading...</div>
-    )}
-    {!loading && (
       <ClickOutHandler onClickOut={() => {
         router.push({pathname:'/'},`/`,{scroll:false})
         props.onClickOut()
+        setLoading(true)
+        setPost({})
         
       }}>
         <div className={"fixed top-0 left-0 right-0 z-20 flex mx-32 " +visibleClass} style={{backgroundColor:'rgba(0,0,0,1'}}>
@@ -47,24 +45,30 @@ function CommentModal(props) {
               <h1 className='text-sm flex-none'>{post.title}</h1>
               </div>
               <button id="closeButton" onClick={() => {
-                    router.push({pathname:'/'},'/',{scroll:false})
-                    props.onClickOut()
+                router.push({pathname:'/'},'/',{scroll:false})
+                props.onClickOut()
+                setLoading(true)
+                setPost({})
                 }} className="text-right ml-auto flex pt-4 pb-8">
                   <div className="mr-1">
                   <Image src={closeIcon} alt="" width={'20px'} height={'20px'} style={{filter:'invert(80%)'}} />
                   </div>
                 <h1 className="text-xs font-bold mt-[2px]">Close</h1>
-                </button>
+              </button>
+          </div>
+          {loading && (
+            <div>Loading...</div>
+          )}
+            <div className="bg-reddit_dark-brighter">
+              <div className="block overflow-scroll" style={{maxHeight:"calc(100vh - 200px)"}}>
+                {!loading && (
+                  <Comment post={post} postId={postId} />
+                )}
+              </div>
             </div>
-          <div className="bg-reddit_dark-brighter">
-          <div className="block overflow-scroll" style={{maxHeight:"calc(100vh - 200px)"}}>
-            <Comment post={post} postId={postId} />
           </div>
         </div>
-        </div>
-        </div>
       </ClickOutHandler>
-    )}
     </>
   )
 }
