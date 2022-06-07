@@ -2,7 +2,6 @@ import {useContext, useEffect} from 'react'
 import BoardHeader from '../../components/header/BoardHeader'
 import {CommunityContext} from '../../components/community/CommunityContext'
 import axios from 'axios';
-import PostsListing from '../../components/post/PostsListing'
 import Layout from '../../components/Layout'
 import Head from 'next/head';
 import { NextPage, NextPageContext } from 'next';
