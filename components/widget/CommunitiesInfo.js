@@ -10,18 +10,18 @@ import Link from "next/link";
 import AuthModalContext from "../auth/AuthModalContext";
 import UserContext from "../auth/UserContext";
 
-function CommunitiesInfo() {
+function CommunitiesInfo(props) {
     const provider = useContext(UserContext)
     const {session} = provider
-
+    const router = useRouter()
+    const community = props.community ? props.community : router.query.community
     
     const [communityInfo,setCommunityInfo] = useState({})
-    const router = useRouter()
     const [description,setDescription] = useState('')
     const [commit,setCommit] = useState(false)
 
-    const {query} = router
-    const {community} = query
+    // const {query} = router
+    // const {community} = query
     const {user} = session ? session : {user: {username: ''}}
     const authModal = useContext(AuthModalContext)
 
@@ -46,6 +46,7 @@ function CommunitiesInfo() {
 
     //get Community info
     useEffect(() => {
+        if (!community) return;
         const server = process.env.NEXT_PUBLIC_SERVER_URL
         axios.get(server+'/communities/'+community)
         .then(response => {
@@ -62,7 +63,7 @@ function CommunitiesInfo() {
                 <div>
                     <h1 className=" p-1 font-bold text-[15px]">About community</h1>
                 </div>
-                <Link href={`/b/${communityInfo.name}/about/modqueue`} className="">
+                <Link href={`/b/${community}/about/modqueue`} className="">
                     <a className="ml-auto">
                         <div className="flex mt-1">
                         <MdOutlineAdminPanelSettings className="w-6 h-6" />
@@ -71,13 +72,15 @@ function CommunitiesInfo() {
                     </a>
                 </Link>
               </div>
-              <div className="flex pt-3">
-                    <div className=''>
-                        <img src={communityInfo.communityAvatar} alt='' className="w-8 h-8 rounded-full flex-none"/>
-                    </div>
-                    <h3 className="h-12 pl-2 mt-[4px]">
-                        b/{communityInfo.name}
-                    </h3>
+              <div>
+                <Link href={`/b/${community}`}>
+                    <a className='flex pt-3'>
+                        <div className=''>
+                            <img src={communityInfo.communityAvatar} alt='' className="w-8 h-8 rounded-full flex-none"/>
+                        </div>
+                        <h3 className="h-12 pl-2 mt-[4px]">b/{communityInfo.name}</h3>
+                    </a>
+                </Link>
               </div>
               {user.username === communityInfo.communityAuthor && (
               <ClickOutHandler onClickOut={() => {

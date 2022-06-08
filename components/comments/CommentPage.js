@@ -16,7 +16,7 @@ import Comment from './Comment'
           </div>
         </div>
         <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden mr-auto'>
-          <CommunitiesInfo/>
+          <CommunitiesInfo community={post.community} />
           </div>
       </div>
     </div>
