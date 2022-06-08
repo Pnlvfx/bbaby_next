@@ -30,22 +30,17 @@ const PostSchema = new mongoose.Schema({
         required:true
     },
     mediaInfo: {
-        type: [],
-        dimension: {
+            dimension: { 
             type: [],
-            maxlength: 2,
-        },
-        isImage: {
-            type: Boolean,
-            default: false
-        },
-        isLink: {
-            type:Boolean,
-            default:false
-        },
-        imageInfo: {
-            type: [],
-        },
+            default: undefined,
+            },
+            isImage: {
+                type: Boolean,
+                default: false
+            },
+            // imageInfo: {
+            //     type: [],
+            // },
     },
     imageId: {
         type: String,

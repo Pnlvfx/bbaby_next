@@ -89,10 +89,10 @@ const PostCtrl = {
                 community,
                 communityIcon,
                 imageId,
-                mediaInfo: [{
+                mediaInfo: {
                     dimension: [imageHeight,imageWidth],
                     isImage: isImage
-                }]
+                }
             })
             const savedPost = await post.save()
             if(savedPost) {

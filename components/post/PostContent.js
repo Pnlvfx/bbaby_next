@@ -13,6 +13,14 @@ function PostContent(props) {
   const router = useRouter()
   const {filePickerRefMore,filePickerRef,filePickerRefShare,communityIcon} = props
 
+  let height = null
+  let width = null
+
+  if(props.image) {
+    height = props.mediaInfo.dimension[0]
+    width = props.mediaInfo.dimension[1]
+  }
+
     return (
       <div className="bg-reddit_dark-brighter rounded-md">
         <div className="flex">
@@ -28,7 +36,7 @@ function PostContent(props) {
                   })
                   }} className="flex cursor-pointer">
                     <div className="">
-                      <Image src={communityIcon} alt='' className='rounded-full' height={'20px'} width={'20px'} />                      
+                      <Image src={communityIcon} alt='' objectFit="contain" className='rounded-full' height={'20px'} width={'20px'} />                      
                     </div>    
                     <span className="text-xs ml-1 hover:underline font-bold mt-[2px]">b/{props.community}</span>
               </div>
@@ -46,9 +54,9 @@ function PostContent(props) {
                 </div>
 
                 <h3 className='text-lg mb-4 break-words'>{props.title}</h3>
-                  {props.image && (
-                    <div className="w-full ">
-                        <img src={props.image} alt='' className='w-full max-h-[400px] object-contain'/>
+                  {props.image !== '' && (
+                    <div className="w-full">
+                        <Image src={props.image} alt='' height={height} width={width} />
                     </div>
                   )}
                   {props.body && (
