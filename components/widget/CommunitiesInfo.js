@@ -9,6 +9,7 @@ import moment from 'moment';
 import Link from "next/link";
 import AuthModalContext from "../auth/AuthModalContext";
 import UserContext from "../auth/UserContext";
+import {format} from 'date-fns'
 
 function CommunitiesInfo(props) {
     const provider = useContext(UserContext)
@@ -30,6 +31,8 @@ function CommunitiesInfo(props) {
     useEffect(() => {
       setDescription(communityInfo.description)
     }, [communityInfo])
+
+    
 
 
 
@@ -53,6 +56,7 @@ function CommunitiesInfo(props) {
             setCommunityInfo(response.data);
         })
       },[community])
+      console.log(communityInfo.createdAt)
     
     //console.log(commit)
     //console.log(communityInfo)

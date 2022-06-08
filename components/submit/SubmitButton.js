@@ -4,7 +4,6 @@ import {GoItalic} from 'react-icons/go'
 import {BiLink} from 'react-icons/bi'
 import { useRef,useState } from 'react';
 import addImage from '../../public/addimage.svg'
-import { getLinkPreview, getPreviewFromContent } from "link-preview-js";
 
 
 
@@ -78,14 +77,8 @@ function SubmitButton(props) {
             </div>
             <div className={Imageclass}>
                 <button title='Link' onClick={() => {
-                    getLinkPreview("https://www.theguardian.com/world/2022/jun/02/vladimir-putin-has-almost-messianic-belief-in-himself-says-hillary-clinton", {
-                        headers: {
-                            "user-agent": "googlebot"
-                        }
-                    }).then((data) =>
-                    console.log(data)
-                  );
-                }} >
+                   
+                    }} >
                     <BiLink className={iconClass}/>
                 </button>
             </div>

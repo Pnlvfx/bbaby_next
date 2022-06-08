@@ -50,7 +50,7 @@ const PostCtrl = {
                 const user = await getUserFromToken(token)
                 let filters = {username: user.username, upVotes: id}
                  const userUpVoted = User.find({filters})
-                 console.log(userUpVoted)
+                 //console.log(userUpVoted)
                 // console.log(userUpVoted)
                 // const userDownVoted = User.find({downVotes: {'$in': id}})
                 const post = await Post.findById(id)

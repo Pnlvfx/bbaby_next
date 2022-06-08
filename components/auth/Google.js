@@ -33,10 +33,12 @@ function Google() {
   }
 
   return (
-        <GoogleLogin style={{display:'inline-flex'}}
+    <div className='block w-10'>
+      <GoogleLogin
             onSuccess={response => {responseGoogle(response)}}
             onError={response => {responseGoogle(response)}}
-        />
+      />
+    </div>
     
   )
 }

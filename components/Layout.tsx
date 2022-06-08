@@ -1,9 +1,10 @@
 import Header from './header/Header'
-import AuthModal from './auth/AuthModal'
-import CommunityFormModal from './community/CommunityFormModal'
+import dynamic from 'next/dynamic'
 
 const Layout = ({children} : any) => {
-
+  const AuthModal = dynamic(() => import('./auth/AuthModal',))
+  const CommunityFormModal = dynamic(() => import('./community/CommunityFormModal'))
+  
   return (
     <div>
         <AuthModal />

@@ -19,6 +19,8 @@ const Governance: NextPage = () => {
     const res = await axios.get(`${server}/admin/create-video`, {withCredentials:true})
   }
 
+
+
   return (
     <div className="w-full h-[1000px]">
       <Layout>
