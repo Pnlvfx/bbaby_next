@@ -90,25 +90,6 @@ function Submit(props) {
     }
     }
 
-
-    //add image
-    // const uploadImage = async () => {
-    //     try {
-    //         const data = selectedFile
-    //         const server = process.env.NEXT_PUBLIC_SERVER_URL
-    //         const res =
-    //             await axios.post(server+'/posts/image', {
-    //             data,
-    //             headers: {'Content-type': 'application/json',withCredentials:true}
-    //         })
-    //         const {url} = await res.data
-    //         setImage(url)
-    //     } catch (error) {
-    //         console.error(error)
-    //     }
-    // }
-    // //
-
     //console.log(selectedFile)
     let imageId = null
     let image = null
@@ -138,21 +119,6 @@ function Submit(props) {
                     }
                 }
     }
-
-    // useEffect(() => {
-    //     if(tryToPost) {
-    //         setLoading(true)
-    //         if(selectedFile !== null) {
-    //             uploadImage(selectedFile)
-    //             setSelectedFile(null)
-    //             if(image) {
-    //                 createPost()
-    //             }
-    //         } else {
-    //             createPost()
-    //         }
-    //     }
-    // },[tryToPost,image])
     //
 
     // set community directly to selected (happens only from communitiesinfo widget)

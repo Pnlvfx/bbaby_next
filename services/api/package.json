@@ -20,7 +20,6 @@
     "express": "^4.17.3",
     "googleapis": "^100.0.0",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^4.6.0",
     "mongoose": "^6.3.4",
     "node-fetch": "^3.2.5",
     "nodemailer": "^6.7.5",
