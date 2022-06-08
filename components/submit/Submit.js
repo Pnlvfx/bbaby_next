@@ -24,8 +24,6 @@ function Submit(props) {
 
     const [newPostId,setNewPostId] = useState(null);
     ///image
-    const [image,setImage] = useState('')
-    const [tryToPost,setTryToPost] = useState(false)
     const [showDeleteOptions,setShowDeleteOptions] = useState(false)
     const [selectedFile, setSelectedFile] = useState(null);
     const [isImage,setIsImage] = useState(false)
@@ -94,29 +92,43 @@ function Submit(props) {
 
 
     //add image
-    const uploadImage = async (base64EncodedImage) => {
-        try {
-            const data = await base64EncodedImage
-            const server = process.env.NEXT_PUBLIC_SERVER_URL
-            const res =
-                await axios.post(server+'/posts/image', {
-                data,
-                headers: {'Content-type': 'application/json',withCredentials:true}
-            })
-            const {url} = await res.data
-            setImage(url)
-        } catch (error) {
-            console.error(error)
-        }
-    }
-    //
+    // const uploadImage = async () => {
+    //     try {
+    //         const data = selectedFile
+    //         const server = process.env.NEXT_PUBLIC_SERVER_URL
+    //         const res =
+    //             await axios.post(server+'/posts/image', {
+    //             data,
+    //             headers: {'Content-type': 'application/json',withCredentials:true}
+    //         })
+    //         const {url} = await res.data
+    //         setImage(url)
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    // }
+    // //
 
     //console.log(selectedFile)
-
+    let imageId = null
+    let image = null
     //create a post
    const createPost = async() => {
                 try {
-                    const data = {title,body,community,communityIcon,image,isImage,imageHeight,imageWidth};
+                    if(isImage) {
+                        const data = selectedFile
+                        const server = process.env.NEXT_PUBLIC_SERVER_URL
+                        const res =
+                        await axios.post(server+'/posts/image', {
+                        data,
+                        headers: {'Content-type': 'application/json',withCredentials:true}
+                        })
+                        const {url} = await res.data
+                        imageId = await res.data.imageId
+                        image = await url
+                        //setImage(url)
+                    }
+                    const data = {title,body,community,communityIcon,image,isImage,imageHeight,imageWidth,imageId};
                     const server = process.env.NEXT_PUBLIC_SERVER_URL
                     const res =  await axios.post(server+'/posts', data, {withCredentials:true})
                     setNewPostId(res.data._id);
@@ -127,20 +139,20 @@ function Submit(props) {
                 }
     }
 
-    useEffect(() => {
-        if(tryToPost) {
-            setLoading(true)
-            if(selectedFile !== null) {
-                uploadImage(selectedFile)
-                setSelectedFile(null)
-                if(image) {
-                    createPost()
-                }
-            } else {
-                createPost()
-            }
-        }
-    },[tryToPost,image])
+    // useEffect(() => {
+    //     if(tryToPost) {
+    //         setLoading(true)
+    //         if(selectedFile !== null) {
+    //             uploadImage(selectedFile)
+    //             setSelectedFile(null)
+    //             if(image) {
+    //                 createPost()
+    //             }
+    //         } else {
+    //             createPost()
+    //         }
+    //     }
+    // },[tryToPost,image])
     //
 
     // set community directly to selected (happens only from communitiesinfo widget)
@@ -276,7 +288,7 @@ function Submit(props) {
                                     <div className='text-right pb-4 mx-4'>
                                         <Button outline='true' className='px-4 py-1 mr-2 opacity-20'>Save Draft</Button>
                                         <Button onClick={() => {
-                                        setTryToPost(true)
+                                        createPost()
                                         }} className={"px-4 py-1 "+enablePost}>Post</Button>
                                     </div>
                         </>

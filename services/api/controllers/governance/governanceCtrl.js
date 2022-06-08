@@ -13,7 +13,7 @@ const governanceCtrl =  {
                 const bgColor = '#1a1a1b'
                 const textColor = 'rgb(215, 218, 220)'
                 const website = 'www.bbabystyle.com'
-                const post = await Post.findOne({}).sort({createdAt: -1}).limit(limit).skip(skip)
+                const post = await Post.findOne({community: 'Italy'}).sort({createdAt: -1}).limit(limit).skip(skip)
                 const data = await textToImage.generate(`${post?.title}\n\n${post.body}\n\n\n\n${website}`, {
                     maxWidth: 1920,
                     bgColor: bgColor,

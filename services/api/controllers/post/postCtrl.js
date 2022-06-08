@@ -79,7 +79,7 @@ const PostCtrl = {
                 return;
             }
             const user = await getUserFromToken(token)
-            const {title,body,image,community,communityIcon,isImage,imageHeight,imageWidth} = req.body;
+            const {title,body,image,community,communityIcon,isImage,imageHeight,imageWidth,imageId} = req.body
             const post = await new Post({
                 author:user.username,
                 authorAvatar:user.avatar,
@@ -88,9 +88,10 @@ const PostCtrl = {
                 image,
                 community,
                 communityIcon,
-                isImage,
+                imageId,
                 mediaInfo: [{
-                    dimension: [imageHeight,imageWidth] 
+                    dimension: [imageHeight,imageWidth],
+                    isImage: isImage
                 }]
             })
             const savedPost = await post.save()
@@ -160,10 +161,8 @@ const PostCtrl = {
         try {
             const {id} = req.params
             const findPost = await Post.findByIdAndDelete(id)
+            const deleteImage = await cloudinary.uploader.destroy(findPost.imageId)
             const findChildComments = await Comment.deleteMany({rootId:id})
-            //const deleteImage = await cloudinary.uploader.destroy(
-                
-            //)
             res.json({msg: "Deleted Success"})
         } catch (err) {
             return res.status(500).json({msg: err})

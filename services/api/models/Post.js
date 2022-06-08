@@ -39,20 +39,16 @@ const PostSchema = new mongoose.Schema({
             type: Boolean,
             default: false
         },
+        isLink: {
+            type:Boolean,
+            default:false
+        },
         imageInfo: {
             type: [],
         },
     },
-    isImage: {
-        type:Boolean,
-        default:false
-    },
     imageId: {
-        type: ObjectId,
-    },
-    isLink: {
-        type:Boolean,
-        default:false
+        type: String,
     },
     ups: {
         type:Number,
