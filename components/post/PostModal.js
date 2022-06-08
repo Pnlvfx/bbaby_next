@@ -20,7 +20,7 @@ function CommentModal(props) {
 
   useEffect(() => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
-    axios.get(server+'/posts/'+postId)
+    axios.get(server+'/posts/'+postId, {withCredentials:true})
     .then(response => {
       setPost(response.data)
       setLoading(false)

@@ -58,14 +58,14 @@ const Voting = (props) => {
 
   return (
       <div className="pt-2 text-center">
-        <div className="" value={'voteUp'} onClick={event => {
+        <div className="cursor-pointer" value={'voteUp'} onClick={event => {
           event.preventDefault()
           handleVoteUp()
         }}>
           <BiUpvote className={`w-6 h-6 text-reddit_text-darker hover:text-blue-600 text-center mx-auto && ${voted === "true" && "text-blue-600"}`}/>
         </div>
           <span className="text-sm">{upVote}</span>
-        <div value='voteDown' onClick={event => {
+        <div className="cursor-pointer" value='voteDown' onClick={event => {
           event.preventDefault()
           handleVoteDown()
         }}>

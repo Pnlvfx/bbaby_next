@@ -9,7 +9,7 @@ const PostCtrl = {
     getPosts: async (req, res) => {
         const {token} = req.cookies
         const userLang = req.acceptsLanguages('en','it')
-        const {search, community, limit, skip} = await req.query;
+        const {community, limit, skip} = await req.query;
             if(token) {
                 const user = await getUserFromToken(token)
                 // VOTING REALTIME
@@ -41,9 +41,23 @@ const PostCtrl = {
         res.json(posts)
     },
     getPost: async (req,res) => {
+            const {token} = req.cookies
             const {id} = req.params
-            const post = await Post.findById(id)
-            res.json(post);
+            if (!token) {
+                const post = await Post.findByIdAndUpdate(id, {'liked': 'null' })
+                res.json(post)    
+            } else {
+                const user = await getUserFromToken(token)
+                let filters = {username: user.username, upVotes: id}
+                 const userUpVoted = User.find({filters})
+                 console.log(userUpVoted)
+                // console.log(userUpVoted)
+                // const userDownVoted = User.find({downVotes: {'$in': id}})
+                const post = await Post.findById(id)
+                res.json(post);
+
+                
+            }
     },
     addImage: async (req,res) => {
         try {
