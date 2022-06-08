@@ -78,7 +78,7 @@ function SubmitButton(props) {
             </div>
             <div className={Imageclass}>
                 <button title='Link' onClick={() => {
-                    getLinkPreview("https://bbabystyle.com/b/World/comments/62a098a41d0d5fc363cdc73e", {
+                    getLinkPreview("https://www.theguardian.com/world/2022/jun/02/vladimir-putin-has-almost-messianic-belief-in-himself-says-hillary-clinton", {
                         headers: {
                             "user-agent": "googlebot"
                         }
