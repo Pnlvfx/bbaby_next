@@ -115,6 +115,7 @@ function Submit(props) {
     //create a post
    const createPost = async() => {
                 try {
+                    setLoading(true)
                     if(isImage) {
                         const data = selectedFile
                         const server = process.env.NEXT_PUBLIC_SERVER_URL
@@ -126,7 +127,6 @@ function Submit(props) {
                         const {url} = await res.data
                         imageId = await res.data.imageId
                         image = await url
-                        //setImage(url)
                     }
                     const data = {title,body,community,communityIcon,image,isImage,imageHeight,imageWidth,imageId};
                     const server = process.env.NEXT_PUBLIC_SERVER_URL

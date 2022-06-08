@@ -54,7 +54,7 @@ function PostContent(props) {
                 </div>
 
                 <h3 className='text-lg mb-4 break-words'>{props.title}</h3>
-                  {props.image !== '' && (
+                  {props.image && (
                     <div className="w-full">
                         <Image src={props.image} alt='' height={height} width={width} />
                     </div>

@@ -161,7 +161,9 @@ const PostCtrl = {
         try {
             const {id} = req.params
             const findPost = await Post.findByIdAndDelete(id)
-            const deleteImage = await cloudinary.uploader.destroy(findPost.imageId)
+            if(findPost.isImage) {
+                const deleteImage = await cloudinary.uploader.destroy(findPost.imageId)
+            }
             const findChildComments = await Comment.deleteMany({rootId:id})
             res.json({msg: "Deleted Success"})
         } catch (err) {
