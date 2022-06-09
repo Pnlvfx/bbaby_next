@@ -2,48 +2,70 @@ import Post from '../../models/Post.js'
 import textToImage from 'text-to-image'
 import fs from 'fs'
 import videoshow from 'videoshow'
+import cloudinary from '../../utils/cloudinary.js'
 
 const governanceCtrl =  {
+    // createImage: async (req,res) => {
+    //     try {
+    //         let skip = 0
+    //         const limit = 1
+
+    //         const createImage = async() => {
+    //             const bgColor = '#1a1a1b'
+    //             const textColor = 'rgb(215, 218, 220)'
+    //             const website = 'www.bbabystyle.com'
+    //             const post = await Post.findOne({community: 'Italy'}).sort({createdAt: -1}).limit(limit).skip(skip)
+    //             const data = await textToImage.generate(`${post?.title}\n\n${post.body}\n\n\n\n${website}`, {
+    //                 maxWidth: 1920,
+    //                 bgColor: bgColor,
+    //                 textColor: textColor,
+    //                 customHeight: 1080,
+    //                 fontSize: 48,
+    //                 lineHeight: 48,
+    //                 textAlign: 'center',
+    //                 verticalAlign: 'center'
+    //             })
+    //             const clean = await data.replace(/^data:image\/\w+;base64,/, "")
+    //             const buf = Buffer.from(clean, 'base64')
+    //             fs.writeFile(`./youtubeImage/image${skip}.png`, buf, function(err,image) {
+    //                 if (err) {
+    //                     console.log(err)
+    //                 }
+    //             })      
+    //         }
+    //         if (skip === 0) {
+    //             await createImage()
+    //             skip = 1
+    //             if (skip === 1) {
+    //                 await createImage()
+    //                 skip = 2
+    //                 if (skip === 2) {
+    //                     await createImage()
+    //                     res.json({msg: 'all three image are being created'})
+    //                 }
+    //             }
+    //         }
+
+    //     } catch (err) {
+    //         res.status(500).json({msg: err.message})
+    //     }
+    // },
     createImage: async (req,res) => {
         try {
-            let skip = 0
             const limit = 1
-
             const createImage = async() => {
-                const bgColor = '#1a1a1b'
-                const textColor = 'rgb(215, 218, 220)'
-                const website = 'www.bbabystyle.com'
-                const post = await Post.findOne({community: 'Italy'}).sort({createdAt: -1}).limit(limit).skip(skip)
-                const data = await textToImage.generate(`${post?.title}\n\n${post.body}\n\n\n\n${website}`, {
-                    maxWidth: 1920,
-                    bgColor: bgColor,
-                    textColor: textColor,
-                    customHeight: 1080,
-                    fontSize: 48,
-                    lineHeight: 48,
-                    textAlign: 'center',
-                    verticalAlign: 'center'
+                const post = await Post.findOne({community: 'Italy', MediaInfo: {isImage: true}}).sort({createdAt: -1}).limit(limit)
+                console.log(post)
+                const textToImage = await cloudinary.image('jbxzlg0knnkxpa1bvmsf.jpg', {
+                    overlay: {font_family: "Arial", font_size: 45, font_weight: "bold",text: `${post.title}`}
                 })
-                const clean = await data.replace(/^data:image\/\w+;base64,/, "")
-                const buf = Buffer.from(clean, 'base64')
-                fs.writeFile(`./youtubeImage/image${skip}.png`, buf, function(err,image) {
-                    if (err) {
-                        console.log(err)
-                    }
-                })      
+                console.log(textToImage)
+                const uploadedResponse = await cloudinary.uploader.upload(textToImage,{
+                    upload_preset: 'bbaby_avatar'
+                })
+                res.json(uploadedResponse)
             }
-            if (skip === 0) {
-                await createImage()
-                skip = 1
-                if (skip === 1) {
-                    await createImage()
-                    skip = 2
-                    if (skip === 2) {
-                        await createImage()
-                        res.json({msg: 'all three image are being created'})
-                    }
-                }
-            }
+            createImage()
 
         } catch (err) {
             res.status(500).json({msg: err.message})

@@ -7,7 +7,7 @@ import {GrDocumentText} from 'react-icons/gr'
 import Image from "next/image";
 import closeIcon from '../../public/closeIcon.svg'
 
-function CommentModal(props) {
+function PostModal(props) {
 
   let router = useRouter();
 
@@ -73,4 +73,4 @@ function CommentModal(props) {
   )
 }
 
-export default CommentModal;
+export default PostModal;

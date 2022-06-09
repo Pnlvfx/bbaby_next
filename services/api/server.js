@@ -5,7 +5,6 @@ import mongoose from "mongoose";
 import cors from 'cors';
 import 'dotenv/config';
 import cloudinary from './utils/cloudinary.js';
-import Comment from './models/Comment.js';
 import userRouter from './routes/userRouter.js';
 import commentRouter from './routes/commentRouter.js';
 import postRouter from './routes/postRouter.js'

@@ -3,7 +3,7 @@ import { CommunityContext } from "../community/CommunityContext";
 
 function BoardHeader(props) {
 
-    const {communityAvatar,cover,name} = useContext(CommunityContext);
+    const {communityAvatar,cover} = useContext(CommunityContext);
 
     const {community} = props
 

@@ -35,8 +35,8 @@ function PostContent(props) {
                     pathname: '/b/'+props.community
                   })
                   }} className="flex cursor-pointer">
-                    <div className="">
-                      <Image src={communityIcon} alt='' objectFit="contain" className='rounded-full' height={'20px'} width={'20px'} />                      
+                    <div className="relative">
+                      <Image src={communityIcon} alt='' className='rounded-full' height={'20px'} width={'20px'} />                      
                     </div>    
                     <span className="text-xs ml-1 hover:underline font-bold mt-[2px]">b/{props.community}</span>
               </div>
@@ -55,7 +55,7 @@ function PostContent(props) {
 
                 <h3 className='text-lg mb-4 break-words'>{props.title}</h3>
                   {props.image && (
-                    <div className="w-full">
+                    <div className="relative">
                         <Image src={props.image} alt='' height={height} width={width} />
                     </div>
                   )}

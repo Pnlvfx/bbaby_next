@@ -4,32 +4,23 @@ import CommunitiesList from '../widget/TopCommunities'
 import BestPost from './postutils/BestPost'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import axios from 'axios'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import CommentModal from './PostModal'
 import { isMobile } from 'react-device-detect'
-import UserContext from '../auth/UserContext'
 import CommunitiesInfo from '../widget/CommunitiesInfo'
+import dynamic from 'next/dynamic'
 
 //PostsListings from home and best page
 
 function Feed(props) {
-  const provider = useContext(UserContext)
-  const {session} = provider
-
-  // useEffect(() => {
-  //   if(session) return
-  //   const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY
-  //   axios.get(`http://extreme-ip-lookup.com/json?key=${IP_API_KEY}`)
-  //   .then(response => {
-  //     console.log(response)
-  //   })
-  // },[])
-
-  // GETTING COMMUNITY FROM COMMUNITY PAGE
+  // GETTING COMMUNITY IF COMMUNITY PAGE
   const {community} = props
+  //
 
   // OPEN MODAL
+  //DELAY MODAL LOADING
+  const PostModal = dynamic(() => import('./PostModal'))
+  //
   const [postOpen, setPostOpen] = useState(false)
   let router = useRouter()
   let postId = null
@@ -48,6 +39,7 @@ function Feed(props) {
   //INFINITE SCROLLING
   const [posts,setPosts] = useState()
   const [loadingPosts,setLoadingPosts] = useState(true)
+  const [loadingCommunity,setLoadingCommunity] = useState(true)
 
   //GET POST FROM COMMUNITYPAGE AND HOMEPAGE
   useEffect(() => {
@@ -96,7 +88,10 @@ function Feed(props) {
     if (community) return
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     axios.get(server+'/communities?limit=5', {withCredentials:true})
-        .then(response => setAllCommunity(response.data));
+        .then(response => {
+          setAllCommunity(response.data)
+          setLoadingCommunity(false)
+        });
     }, []);
     //
 
@@ -105,21 +100,22 @@ function Feed(props) {
   return (
     <>
     {postId && !isMobile && (
-      <CommentModal postId={postId} open={postOpen} onClickOut={() => {
+      <PostModal postId={postId} open={postOpen} onClickOut={() => {
         setPostOpen(false)
       }} />
     )}
-    {loadingPosts && (
+      <div className='flex pt-5 mx-0 lg:mx-10'>
+      <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center ml-auto mr-6 flex-none'>
+      {loadingPosts && (
       <div className='opacity-60'>
         <h1>Loading...</h1>
       </div>
-    )}
-    {!loadingPosts && (
-      <div className='flex pt-5 mx-0 lg:mx-10'>
-      <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center ml-auto mr-6 flex-none'>
-        <div className='pb-3'>
-          <PostForm community={community ? community : posts.community} allCommunity={allCommunity} />
-        </div>
+      )}
+      {!loadingPosts && (
+        <>
+          <div className='pb-3'>
+            <PostForm community={community ? community : posts.community} allCommunity={allCommunity} />
+          </div>
           <div className='pb-4'> 
             <BestPost />
           </div>
@@ -134,6 +130,8 @@ function Feed(props) {
               <Post key={post._id} {...post} isListing={true}/>
           ))}
           </InfiniteScroll>
+        </>
+      )}
       </div>
       {community && (
         <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden mr-auto'>
@@ -142,11 +140,15 @@ function Feed(props) {
       )}
       {!community && (
         <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden mr-auto'>
-          <CommunitiesList allCommunity={allCommunity}/>
+          {!loadingCommunity && (
+            <CommunitiesList allCommunity={allCommunity}/>
+          )}
+          {loadingCommunity && (
+            <div>Loading...</div>
+          )}
         </div>
       )}
     </div>
-    )}
     </>
   )
 }

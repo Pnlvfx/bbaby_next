@@ -4,6 +4,7 @@ const NextConfig = {
   images: {
     domains: ['res.cloudinary.com','lh3.googleusercontent.com', 'styles.redditmedia.com'],
   },
+  productionBrowserSourceMaps: true
 };
 
 module.exports = NextConfig;
