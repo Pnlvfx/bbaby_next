@@ -9,7 +9,6 @@ import moment from 'moment';
 import Link from "next/link";
 import AuthModalContext from "../auth/AuthModalContext";
 import UserContext from "../auth/UserContext";
-import {format} from 'date-fns'
 
 function CommunitiesInfo(props) {
     const provider = useContext(UserContext)
