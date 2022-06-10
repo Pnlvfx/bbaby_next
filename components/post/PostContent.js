@@ -22,7 +22,7 @@ function PostContent(props) {
   }
 
     return (
-        <div className="flex bg-reddit_dark-brighter rounded-md">
+        <div className="flex bg-reddit_dark-brighter rounded-md overflow-hidden">
           <div className='bg-[#141415] w-10 flex-none'>
           {loadingPosts && <LoaderPlaceholder extraStyles={{height: `100%`}} />}
           {!loadingPosts && (
@@ -43,15 +43,15 @@ function PostContent(props) {
                       <span className="text-xs ml-1 hover:underline font-bold mt-[2px]">b/{props.community}</span>
                 </div>
                   <h2 className="px-1 text-sm">-</h2>
-                  <div className='text-reddit_text-darker text-xs mt-[3px]'>
+                  <div className='text-reddit_text-darker text-xs mt-[3px] truncate'>
                     <button onClick={event => {
                       event.preventDefault()
                       router.push(`/user/${props.author}`)
                     }}>
-                      <div className="hover:underline">
+                      <div className="hover:underline text-ellipsis">
                         Posted by b/{props.author}
                       </div> 
-                    </button> <TimeAgo datetime={props.createdAt}/>
+                    </button> <TimeAgo datetime={props.createdAt} className='text-ellipsis'/>
                   </div>
                 </div>
                   <h3 className='text-lg mb-4 break-words'>{props.title}</h3>
