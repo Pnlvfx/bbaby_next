@@ -13,7 +13,7 @@ const id: NextPage = (props) => {
        <Head>
         <title>{post.title}</title>
         <meta property="og:title" content={post.title} key='ogtitle' />
-        <meta name="description" content={`Bbabystyle : ${post.body}`}  />
+        <meta name="description" content={`${post.body}`}  />
         <meta property="og:description" content={`${post.body}`} key='ogdesc'/>
         <meta property="og:image" content={post.image} key='ogimage' />
         <meta property="og:url" content={hostname + '/b/' + post.community + '/comments/' + post._id} key='ogurl' />

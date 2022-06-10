@@ -4,6 +4,7 @@ import {getUserFromToken} from '../user/UserFunctions.js'
 import cloudinary from '../../utils/cloudinary.js';
 import 'dotenv/config';
 import User from '../../models/User.js';
+import TelegramBot from 'node-telegram-bot-api'
 
 const PostCtrl = {
     getPosts: async (req, res) => {
@@ -96,15 +97,11 @@ const PostCtrl = {
             })
             const savedPost = await post.save()
             if(sharePostToTG) {
-                const token = process.env.TELEGRAM_TOKEN
+                const telegramToken = process.env.TELEGRAM_TOKEN
+                const bot = new TelegramBot(telegramToken, {polling: true});
                 const chat_id = '@bbabystyle1'
-                const my_text = 'Hello'
-                const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${my_text}`
-                console.log(url)
-                let api = new XMLHttpRequest()
-                api.open("GET",url,true)
-                api.send()
-
+                const my_text = `https://bbabystyle.com/b/${savedPost.community}/comments/${savedPost._id}`
+                bot.sendMessage(chat_id, my_text)
                 console.log('messagge successfully sended')
             }
             if(savedPost) {
