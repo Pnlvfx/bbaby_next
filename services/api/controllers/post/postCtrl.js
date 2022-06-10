@@ -26,11 +26,11 @@ const PostCtrl = {
         let filters = {}
 
         if (userLang === 'en') {
-            filters.community = {'$ne': 'Italy'}
+            filters.community = {'$nin': ['Italy', 'calciomercato']}
         }
 
         if (userLang === 'it') {
-            filters.community =  'Italy'
+            filters.community =  ['Italy', 'calciomercato']
         }
 
 
