@@ -33,12 +33,11 @@ function Google() {
   }
 
   return (
-    <div className='block w-10'>
       <GoogleLogin
             onSuccess={response => {responseGoogle(response)}}
             onError={response => {responseGoogle(response)}}
+            scope={'profile,email'}
       />
-    </div>
     
   )
 }

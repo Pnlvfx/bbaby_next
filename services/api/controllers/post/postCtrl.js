@@ -115,8 +115,8 @@ const PostCtrl = {
             const {id} = req.params
             const {dir} = req.body
 
-            const userVotedUp = await User.findOne({upVotes: id})
-            const userVotedDown = await User.findOne({downVotes: id})
+            const userVotedUp = await User.findOne({username: user.username, upVotes: id})
+            const userVotedDown = await User.findOne({username: user.username, downVotes: id})
 
             if (userVotedUp) {
                 if(dir === '1') {   //delete existing upvote and add +1 

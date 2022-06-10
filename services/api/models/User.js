@@ -49,6 +49,9 @@ const UserSchema = new mongoose.Schema({
     downVotes: {
         type: [mongoose.ObjectId],
     },
+    googleToken: {
+        type: String,
+    },
 }, {
     timestamps: true
 });

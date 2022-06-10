@@ -6,18 +6,13 @@ import { useRouter } from 'next/router'
 
 
 function Post(props) {
-    
-
     const filePickerRef = useRef(null);
     const filePickerRefShare = useRef(null);
     const filePickerRefMore = useRef(null);
     const router = useRouter()
 
     const post = props
-
-
- 
-
+    const {loadingPosts} = props
     
     let postClasses = 'block border border-reddit_border rounded-md ' + (post.open ? '' : "hover:border-reddit_text")
 
@@ -35,9 +30,8 @@ function Post(props) {
                     {!isMobile && (
                         <>
                         <Link href={`${router.pathname}?postId=${post._id}&community=${post.community}`} as={`/b/${post.community}/comments/${post._id}`} scroll={false}> 
-                        {/* as={`/b/${post.community}/comments/${post._id}`} */}
                         <a>
-                            <PostContent {...post} filePickerRef={filePickerRef} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
+                            <PostContent {...post} loadingPosts={loadingPosts} filePickerRef={filePickerRef} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
                         </a>
                         </Link>
                         <button id='commentButtonRef' onClick={e => { //using reference to get the correct comment Id

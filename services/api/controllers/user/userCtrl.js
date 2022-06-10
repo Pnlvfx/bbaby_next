@@ -191,7 +191,7 @@ const userCtrl = {
                 const username = await name.replace(/\s/g,'')  //remove space if there is
                 
                 const user = new User ({
-                    username:username,email,password:passwordHash,avatar:picture,country,countryCode,city,region,lat,lon
+                    username:username,email,password:passwordHash,avatar:picture,country,countryCode,city,region,lat,lon,googleToken:tokenId
                 })
 
                 await user.save()

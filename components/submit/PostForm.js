@@ -29,7 +29,7 @@ function PostForm(props) {
 
     
     return (
-        <div className='text-gray-400'>
+        <div className='text-reddit_text relative'>
             <div className='border border-reddit_border p-2 rounded-md flex bg-reddit_dark-brighter self-center mx-auto'>
                 <div className='rounded-full bg-gray-600 overflow-hidden w-10 h-10 flex-none'>
                     {session && (

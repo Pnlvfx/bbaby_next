@@ -7,11 +7,11 @@ import MoreButton from './postutils/MoreButton'
 import Image from "next/image";
 import Voting from "./Voting";
 import CommentIcon from '../../public/comment.svg'
+import LoaderPlaceholder from './LoaderPlaceholder'
 
 function PostContent(props) {
-
   const router = useRouter()
-  const {filePickerRefMore,filePickerRef,filePickerRefShare,communityIcon} = props
+  const {filePickerRefMore,filePickerRef,filePickerRefShare,communityIcon,loadingPosts} = props
 
   let height = null
   let width = null
@@ -22,24 +22,26 @@ function PostContent(props) {
   }
 
     return (
-      <div className="bg-reddit_dark-brighter rounded-md">
-        <div className="flex">
+        <div className="flex bg-reddit_dark-brighter rounded-md">
           <div className='bg-[#141415] w-10 flex-none'>
+          {loadingPosts && <LoaderPlaceholder extraStyles={{height: `100%`}} />}
+          {!loadingPosts && (
             <Voting ups={props.ups} postId={props._id} liked={props.liked} />
+          )}
           </div>
             <div className="p-2">
               <div className="flex mb-3">
-              <div onClick={event => {
-                  event.preventDefault()
-                  router.push({
-                    pathname: '/b/'+props.community
-                  })
-                  }} className="flex cursor-pointer">
-                    <div className="relative">
-                      <Image src={communityIcon} alt='' className='rounded-full' height={'20px'} width={'20px'} />                      
-                    </div>    
-                    <span className="text-xs ml-1 hover:underline font-bold mt-[2px]">b/{props.community}</span>
-              </div>
+                <div onClick={event => {
+                    event.preventDefault()
+                    router.push({
+                      pathname: '/b/'+props.community
+                    })
+                    }} className="flex cursor-pointer">
+                      <div className="relative">
+                        <Image src={communityIcon} alt='' className='rounded-full' height={'20px'} width={'20px'} />                      
+                      </div>    
+                      <span className="text-xs ml-1 hover:underline font-bold mt-[2px]">b/{props.community}</span>
+                </div>
                   <h2 className="px-1 text-sm">-</h2>
                   <div className='text-reddit_text-darker text-xs mt-[3px]'>
                     <button onClick={event => {
@@ -52,8 +54,7 @@ function PostContent(props) {
                     </button> <TimeAgo datetime={props.createdAt}/>
                   </div>
                 </div>
-
-                <h3 className='text-lg mb-4 break-words'>{props.title}</h3>
+                  <h3 className='text-lg mb-4 break-words'>{props.title}</h3>
                   {props.image && (
                     <div className="relative">
                         <Image src={props.image} alt='' height={height} width={width} />
@@ -80,10 +81,9 @@ function PostContent(props) {
                     </button>
                       <ShareButton community={props.community} filePickerRefShare={filePickerRefShare} />
                       <MoreButton post={props} filePickerRefMore={filePickerRefMore} />
-                  </div>
+                </div>
               </div>
           </div>
-      </div>
     )
   }
 
