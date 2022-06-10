@@ -7,8 +7,6 @@ function BestPost() {
     const selectedClass = 'text-reddit_text bg-reddit_dark-brightest'
     const notSelectedClass = 'text-reddit_text-darker hover:bg-reddit_dark-brightest'
     const [bestClass,setBestClass] = useState(selectedClass)
-    //const [worldClass,setWorldClass] = useState(notSelectedClass)
-    //const [italyClass,setItalyClass] = useState(notSelectedClass)
 
     const router = useRouter();
     return (
@@ -21,8 +19,6 @@ function BestPost() {
                             pathname:'/'
                         },'/best')
                         setBestClass(selectedClass)
-                        setWorldClass(notSelectedClass)
-                        setItalyClass(notSelectedClass)
                         }} className='flex'>
                         <FaSpaceShuttle className='-rotate-90 mt-[2px] mr-1'/>
                         <h1 className='text-sm font-bold'>Best</h1>

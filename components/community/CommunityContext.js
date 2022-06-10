@@ -12,7 +12,7 @@ export function CommunityContextProvider({children}) {
     useEffect(() => {
         if(community === undefined) return
         const server = process.env.NEXT_PUBLIC_SERVER_URL
-    axios.get(server+'/communities/'+community)
+        axios.get(server+'/communities/'+community)
             .then(response => {
                 setCommunityInfo(response.data);
             })

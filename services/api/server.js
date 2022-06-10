@@ -80,6 +80,11 @@ app.get('/search', (req, res) => {
     })
 });
 
+app.get('/sitemaps', async(req,res) => {
+    const posts = await Post.find({}).sort({createdAt: -1})
+    res.json(posts)
+})
+
 const port = process.env.PORT || 4000;
 
 app.listen(port);

@@ -1,7 +1,7 @@
 import Submit from "./Submit";
 import TempSubmitWid from '../widget/TempSubmitWid'
 
-function PostFormModal(props) {
+function PostFormModal(props: any) {
 
   const {communityName} = props
 

@@ -5,7 +5,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     const hostname = process.env.NEXT_PUBLIC_HOSTNAME
 
-    const response = await fetch(server+"/posts");
+    const response = await fetch(server+"/sitemaps");
     const posts: any[] = await response.json();
 
     

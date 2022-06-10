@@ -79,3 +79,7 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
 }
 
 export default MyApp
+
+export function reportWebVitals(metric: any) {
+  metric.label === "web-vital" && console.log(metric);
+}

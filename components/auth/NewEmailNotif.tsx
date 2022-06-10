@@ -4,7 +4,7 @@ import Button from "../utils/Button";
 import closeIcon from '../../public/closeIcon.svg'
 
 
-function NewEmailNotif(props) {
+function NewEmailNotif(props: any) {
 
     const [isOpen,setIsOpen] = useState(true)
     if (!isOpen) {

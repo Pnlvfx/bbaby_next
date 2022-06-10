@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { CommunityContext } from "../community/CommunityContext";
 
-function BoardHeader(props) {
+function BoardHeader(props: any) {
 
-    const {communityAvatar,cover} = useContext(CommunityContext);
+    const {communityAvatar,cover}: any = useContext(CommunityContext);
 
     const {community} = props
 
