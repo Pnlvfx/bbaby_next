@@ -17,9 +17,7 @@ const CommunityPage: NextPage = (props) => {
 
   const {community}: any = props
 
-  useEffect(() => {
-    setCommunity(community)
-  },[community]);
+  setCommunity(community)
 
   return (
     <div>

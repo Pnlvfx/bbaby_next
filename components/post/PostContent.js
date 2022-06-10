@@ -30,7 +30,7 @@ function PostContent(props) {
           )}
           </div>
             <div className="p-2">
-              <div className="flex mb-3">
+              <div className="flex mb-3 truncate">
                 <div onClick={event => {
                     event.preventDefault()
                     router.push({

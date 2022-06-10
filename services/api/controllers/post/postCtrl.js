@@ -79,7 +79,7 @@ const PostCtrl = {
                 return;
             }
             const user = await getUserFromToken(token)
-            const {title,body,image,community,communityIcon,isImage,imageHeight,imageWidth,imageId} = req.body
+            const {title,body,image,community,communityIcon,isImage,imageHeight,imageWidth,imageId,sharePostToTG} = req.body
             const post = await new Post({
                 author:user.username,
                 authorAvatar:user.avatar,
@@ -95,6 +95,18 @@ const PostCtrl = {
                 }
             })
             const savedPost = await post.save()
+            if(sharePostToTG) {
+                const token = process.env.TELEGRAM_TOKEN
+                const chat_id = '@bbabystyle1'
+                const my_text = 'Hello'
+                const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${my_text}`
+                console.log(url)
+                let api = new XMLHttpRequest()
+                api.open("GET",url,true)
+                api.send()
+
+                console.log('messagge successfully sended')
+            }
             if(savedPost) {
                 res.json(savedPost)
             } else {

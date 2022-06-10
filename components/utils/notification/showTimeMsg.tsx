@@ -1,6 +1,6 @@
 import { isMobile } from "react-device-detect";
 
-function showTimeMsg(value) {
+function showTimeMsg(value:any) {
   
  return(
     <>

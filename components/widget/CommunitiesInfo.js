@@ -55,7 +55,7 @@ function CommunitiesInfo(props) {
             setCommunityInfo(response.data);
         })
       },[community])
-      console.log(communityInfo.createdAt)
+      
     
     //console.log(commit)
     //console.log(communityInfo)

@@ -35,6 +35,13 @@ function Submit(props) {
 
     const [loading,setLoading] = useState(false)
 
+    // SHARE ON TELEGRAM
+    const [sharePostToTG,setSharePostToTG] = useState(false)
+
+    const shareToTelegram = () => {
+        setSharePostToTG(!sharePostToTG)
+    }
+
     //community
     const [activeClass, setActiveClass] = useState('border-reddit_dark-brightest')
     const [activeClassTitle, setActiveClassTitle] = useState('border-reddit_dark-brightest')
@@ -109,7 +116,7 @@ function Submit(props) {
                         imageId = await res.data.imageId
                         image = await url
                     }
-                    const data = {title,body,community,communityIcon,image,isImage,imageHeight,imageWidth,imageId};
+                    const data = {title,body,community,communityIcon,image,isImage,imageHeight,imageWidth,imageId,sharePostToTG};
                     const server = process.env.NEXT_PUBLIC_SERVER_URL
                     const res =  await axios.post(server+'/posts', data, {withCredentials:true})
                     setNewPostId(res.data._id);
@@ -251,6 +258,10 @@ function Submit(props) {
                             </ClickOutHandler>
                                 <div className='h-12 mb-4 border-b border-reddit_border mx-3'>
                                 </div>
+                                    <div className='flex mx-4'>
+                                        <input type="checkbox" id='telegram' checked={sharePostToTG} onChange={shareToTelegram} className='px-4 py-1' />
+                                        <h1 className='ml-2 text-sm'>Share this post on Telegram</h1>
+                                    </div>
                                     <div className='text-right pb-4 mx-4'>
                                         <Button outline='true' className='px-4 py-1 mr-2 opacity-20'>Save Draft</Button>
                                         <Button onClick={() => {

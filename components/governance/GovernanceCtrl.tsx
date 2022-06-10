@@ -1,13 +1,11 @@
-import axios from "axios";
-import { NextPage, NextPageContext } from "next";
-import { useContext } from "react";
-import UserContext from "../../components/auth/UserContext";
-import Layout from "../../components/Layout";
-import Button from "../../components/utils/Button";
+import axios from "axios"
+import { useContext } from "react"
+import UserContext from '../auth/UserContext'
+import Feed from "../post/Feed"
+import Button from "../utils/Button"
 
-const Governance: NextPage = () => {
-
-  const provider = useContext(UserContext)
+const GovernanceCtrl = () => {
+const provider = useContext(UserContext)
   const {session}:any = provider
   const server = process.env.NEXT_PUBLIC_SERVER_URL
 
@@ -19,12 +17,9 @@ const Governance: NextPage = () => {
     const res = await axios.get(`${server}/admin/create-video`, {withCredentials:true})
   }
 
-
-
   return (
-    <div className="w-full h-[1000px]">
-      <Layout>
-        {!session && (
+    <>
+    {!session && (
           <div>
             <h1>You cannot access this page as you are not an admin</h1>
           </div>
@@ -49,30 +44,12 @@ const Governance: NextPage = () => {
                   }} className='py-2 px-4'>Create video from images
                   </Button>
                 </div>
+                <Feed />
               </>
             )}
           </div>
-      </Layout>
-    </div>
+    </>
   )
 }
 
-export default Governance;
-
-export async function getServerSideProps(context: NextPageContext) {
-  
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
-
-  const response =  await axios({
-    method: "get",
-    url: `${server}/user/admin`,
-    headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
-    })
-    const session = await response.data
-
-  return {
-    props: {
-      session: session,
-    }
-  }
-}
+export default GovernanceCtrl

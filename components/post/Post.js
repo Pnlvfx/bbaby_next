@@ -20,7 +20,7 @@ function Post(props) {
     <div className='pb-3'>
         {post.open && (
             <div className={postClasses}>
-                    <PostContent {...post} />
+                    <PostContent {...post} loadingPosts={loadingPosts}/>
             </div>
         )}
 
@@ -50,7 +50,7 @@ function Post(props) {
                         <>
                         <Link href={'/b/'+post.community+'/comments/'+post._id}>
                             <a>
-                                <PostContent {...post} filePickerRef={filePickerRef} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
+                                <PostContent {...post} loadingPosts={loadingPosts} filePickerRef={filePickerRef} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
                             </a>
                         </Link>
                         <button onClick={e => { //using reference to get the correct comment Id

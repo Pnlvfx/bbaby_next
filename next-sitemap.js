@@ -12,5 +12,5 @@ module.exports = {
             `${siteUrl}/server-sitemap-index.xml`
         ],
     },
-    exclude: ["/admin","/server-sitemap.xml","/server-sitemap-index.xml","/settings/*","/login/*","/settings"] //user is temp
+    exclude: ["/governance","/server-sitemap.xml","/server-sitemap-index.xml","/settings/*","/login/*","/settings"] //user is temp
 }

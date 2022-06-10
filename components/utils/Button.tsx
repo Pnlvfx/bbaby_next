@@ -1,4 +1,4 @@
-function Button(props) {
+function Button(props:any) {
     let classNames = "border border-gray-300 rounded-full px-3 text-sm font-bold ";
     if (props.outline) {
         classNames += "text-gray-300 ";

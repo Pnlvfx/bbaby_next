@@ -20,7 +20,7 @@ import Image from 'next/image';
 import UserContext from '../auth/UserContext';
 import Logo from '../../public/logo.png'
 import HomeIcon from '../../public/home.svg'
-import textLogo from '../../public/textlogo.svg'
+import {TextLogo} from '../utils/SVG'
 
 
 function Header() {
@@ -61,7 +61,7 @@ function Header() {
                 <Image src={Logo} alt='logo' width={'30px'} height={'30px'} priority={true}/>
             </div>
             <div className='hidden lg:block mt-2'>
-                <Image src={textLogo} alt='text_logo' width={'80px'} height={'24px'} priority={true} />
+           <TextLogo />
             </div>
              
         </button>

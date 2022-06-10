@@ -5,7 +5,7 @@ import {useContext, useState} from 'react'
 import AuthModalContext from '../auth/AuthModalContext';
 import UserContext from '../auth/UserContext';
 import Button from '/components/utils/Button';
-import Textarea from '/components/utils/Textarea.js';
+import Textarea from '/components/utils/Textarea';
 
 
 function CommentForm(props) {

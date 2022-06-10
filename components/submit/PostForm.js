@@ -40,7 +40,7 @@ function PostForm(props) {
                         </Link>
                     )}
                     {!session && (
-                        <Image src='https://res.cloudinary.com/bbabystyle/image/upload/v1652554985/avatar_aqlsee.png' alt='' width={'40px'} height={'40px'} />
+                        <Image src='https://res.cloudinary.com/bbabystyle/image/upload/v1654860374/default/avatar_qq8etc.png' alt='' width={'40px'} height={'40px'} />
                     )}
                 </div>
                 <form action='' className='flex-grow bg-reddit_dark-brightest border border-reddit_border hover:border-reddit_text ml-4 mr-2 rounded-md'>
@@ -55,7 +55,7 @@ function PostForm(props) {
                         </Link>
                     )}
                     {!session && (
-                        <button onClick={e => {
+                        <div onClick={e => {
                             e.preventDefault()
                             modalContext.setShow('login')
                         }}>
@@ -63,7 +63,7 @@ function PostForm(props) {
                             type='text' 
                             className='bg-reddit_dark-brightest p-2 px-3 text-sm block w-full rounded-md placeholder:text-reddit_text-darker' 
                             placeholder='Login to create a Post'/>
-                        </button>
+                        </div>
                     )}
                 </form>
                 <button className="mx-1 mt-[6px] opacity-10 text-reddit_text-darker">

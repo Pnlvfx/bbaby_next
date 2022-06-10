@@ -120,8 +120,6 @@ const governanceCtrl =  {
         const TOKEN = user.googleToken
         const videoFilePath = '../../youtubeImage/video1.mp4'
         const youtube = google.youtube('v3')
-        
-        
     }
 }
 
