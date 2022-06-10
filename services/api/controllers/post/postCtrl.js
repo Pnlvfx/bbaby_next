@@ -99,7 +99,7 @@ const PostCtrl = {
             if(sharePostToTG) {
                 const telegramToken = process.env.TELEGRAM_TOKEN
                 const bot = new TelegramBot(telegramToken, {polling: true});
-                const chat_id = '@bbabystyle1'
+                const chat_id = savedPost.community === 'Italy' ? '@anonynewsitaly' : savedPost.community === 'calciomercato' ? '@bbabystyle1' : '@bbaby_style'
                 const my_text = `https://bbabystyle.com/b/${savedPost.community}/comments/${savedPost._id}`
                 bot.sendMessage(chat_id, my_text)
                 console.log('messagge successfully sended')
