@@ -10,7 +10,7 @@ const PostCtrl = {
     getPosts: async (req, res) => {
         const {token} = req.cookies
         const userLang = req.acceptsLanguages('en','it')
-        const {community, limit, skip} = req.query;
+        const {community, author, limit, skip} = req.query;
             if(token) {
                 const user = await getUserFromToken(token)
                 // VOTING REALTIME
@@ -36,6 +36,10 @@ const PostCtrl = {
 
         if (community) {
             filters.community = community
+        }
+
+        if (author) {
+            filters.author = author
         }
 
         const posts = await Post.find(filters).sort({createdAt: -1}).limit(limit).skip(skip)
@@ -102,7 +106,7 @@ const PostCtrl = {
                 const chat_id = savedPost.community === 'Italy' ? '@anonynewsitaly' : savedPost.community === 'calciomercato' ? '@bbabystyle1' : '@bbaby_style'
                 const my_text = `https://bbabystyle.com/b/${savedPost.community}/comments/${savedPost._id}`
                 bot.sendMessage(chat_id, my_text)
-                console.log('messagge successfully sended')
+                //console.log('messagge successfully sended')
             }
             if(savedPost) {
                 res.json(savedPost)
@@ -177,15 +181,6 @@ const PostCtrl = {
             res.json({msg: "Deleted Success"})
         } catch (err) {
             return res.status(500).json({msg: err})
-        }
-    },
-    userPosts: async (req,res) => {
-        try {
-            const {author} = req.query
-            const userPost = await Post.find({author: author})
-            
-        } catch (err) {
-            
         }
     },
 }

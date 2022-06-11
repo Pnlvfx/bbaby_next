@@ -14,7 +14,7 @@ import dynamic from 'next/dynamic'
 
 function Feed(props) {
   // GETTING COMMUNITY IF COMMUNITY PAGE
-  const {community} = props
+  const {community,author} = props
   //
 
   // OPEN MODAL
@@ -45,10 +45,19 @@ function Feed(props) {
   useEffect(() => {
     //setLoadingPosts(true)
     const server = process.env.NEXT_PUBLIC_SERVER_URL
-    if (!community) {
+    if (community) {
       axios({
         method: 'get',
-        url: `${server}/posts?limit=10&skip=0`,
+        url: `${server}/posts?community=${community}&limit=10&skip=0`,
+        withCredentials:true
+      }).then(response => {
+        setPosts(response.data)
+        setLoadingPosts(false)
+      })
+    } if(author) {
+      axios({
+        method: 'get',
+        url: `${server}/posts?author=${author}&limit=10&skip=0`,
         withCredentials:true
       }).then(response => {
         setPosts(response.data)
@@ -57,7 +66,7 @@ function Feed(props) {
     } else {
       axios({
         method: 'get',
-        url: `${server}/posts?community=${community}&limit=10&skip=0`,
+        url: `${server}/posts?limit=10&skip=0`,
         withCredentials:true
       }).then(response => {
         setPosts(response.data)
@@ -69,13 +78,16 @@ function Feed(props) {
 
   const getMorePosts = async() => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
-    if (!community) {
-      const res = await axios.get(`${server}/posts?skip=${posts.length}&limit=10`)
-      console.log(res)
+    if (community) {
+      const res = await axios.get(`${server}/posts?community=${community}&skip=${posts.length}&limit=10`)
+      const newPosts = await res.data
+      setPosts((posts) => [...posts, ...newPosts])
+    } if (author) {
+      const res = await axios.get(`${server}/posts?author=${author}&skip=${posts.length}&limit=10`)
       const newPosts = await res.data
       setPosts((posts) => [...posts, ...newPosts])
     } else {
-      const res = await axios.get(`${server}/posts?community=${community}&skip=${posts.length}&limit=10`)
+      const res = await axios.get(`${server}/posts?skip=${posts.length}&limit=10`)
       console.log(res)
       const newPosts = await res.data
       setPosts((posts) => [...posts, ...newPosts])
@@ -116,7 +128,9 @@ function Feed(props) {
           {!loadingPosts && (
             <>
           <div className='pb-3'>
-            <PostForm community={community ? community : posts?.community} allCommunity={allCommunity} />
+            {!author && ( //authorPage
+              <PostForm community={community ? community : posts?.community} allCommunity={allCommunity} />
+            )}
           </div>
           <div className='pb-4'> 
             <BestPost />

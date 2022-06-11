@@ -11,8 +11,6 @@ postRouter.post('/posts/image', PostCtrl.addImage)
 
 postRouter.post('/posts', PostCtrl.createPost)
 
-postRouter.get('/user/posts', PostCtrl.userPosts)
-
 postRouter.post('/posts/:id/vote', PostCtrl.voting)
 
 postRouter.delete('/posts/:id', PostCtrl.deletePost)

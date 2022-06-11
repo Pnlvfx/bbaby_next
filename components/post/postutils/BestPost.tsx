@@ -10,7 +10,6 @@ function BestPost() {
 
     const router = useRouter();
     return (
-        <div className=''>
             <div className='border border-reddit_border py-3 px-2 rounded-md flex bg-reddit_dark-brighter self-center mx-auto'>
                 <div className='flex'>
                     <div className={'rounded-full py-1 px-3 '+bestClass}> 
@@ -26,7 +25,6 @@ function BestPost() {
                     </div>
                 </div>
             </div>
-        </div>
     )
 }
 

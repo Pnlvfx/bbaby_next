@@ -122,6 +122,9 @@ const userCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
+    // userInfo: async(req,res) => {
+
+    // },
     userAdmin: (req,res) => {
         try {
             if (!req?.cookies?.token) return res.json(null)
