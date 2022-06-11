@@ -29,9 +29,7 @@
     "react-edit-text": "^4.4.0",
     "react-icons": "^4.3.1",
     "react-infinite-scroll-component": "^6.1.0",
-    "react-markdown": "^8.0.3",
     "react-textarea-autosize": "^8.3.4",
-    "remark-gfm": "^3.0.1",
     "sharp": "^0.30.6",
     "timeago-react": "^3.0.5"
   },

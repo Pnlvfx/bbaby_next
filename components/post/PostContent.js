@@ -1,6 +1,4 @@
 import TimeAgo from "timeago-react";
-import ReactMarkdown from 'react-markdown';
-import gfm from 'remark-gfm';
 import ShareButton from "./postutils/ShareButton";
 import { useRouter } from "next/router";
 import MoreButton from './postutils/MoreButton'
@@ -62,7 +60,7 @@ function PostContent(props) {
                   )}
                   {props.body && (
                     <div className='text-sm leading-6 break-words resize-x-none flex-none'>
-                      <ReactMarkdown remarkPlugins={[gfm]}>{props.body}</ReactMarkdown>
+                      <h1>{props.body}</h1>
                     </div>
                   )}
                 <div className='flex'>

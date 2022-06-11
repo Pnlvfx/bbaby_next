@@ -1,16 +1,19 @@
 import axios from "axios";
-import { NextPageContext } from "next";
+import { NextPage, NextPageContext } from "next";
 import Head from "next/head";
 import Layout from "../../components/Layout";
+import UserPage from '../../components/user/UserPage'
 
-function Username() {
+const Username:NextPage = (props) => {
+  const {username}: any = props
+  
   return (
    <div>
      <Head>
-     <title>Bbabystyle - user profile page </title>
+      <title>Bbabystyle - user profile page </title>
      </Head>
      <Layout>
-
+      <UserPage username={username} />
      </Layout>
    </div>
   )
@@ -32,6 +35,7 @@ export async function getServerSideProps(context: NextPageContext) {
   return {
     props: {
       session: session,
+      username: context.query.username
     }
   }
 }

@@ -30,7 +30,7 @@ function Header() {
 
     const router = useRouter()
     const [userDropdownVisibilityClass, setUserDropdownVisibilityClass] = useState('hidden');
-    const {setShow:setShowCommunity,setCommunity} = useContext(CommunityContext);
+    const {setCommunity} = useContext(CommunityContext);
     const [searchText,setSearchText] = useState('')
     function toggleUserDropdown() {
         if (userDropdownVisibilityClass === 'hidden') {
@@ -39,7 +39,6 @@ function Header() {
             setUserDropdownVisibilityClass('hidden');
         }
     }
-
 
     function doSearch(ev) {
         ev.preventDefault();
@@ -58,7 +57,7 @@ function Header() {
             setCommunity()
          }}>
             <div className='flex-none mt-2 mr-2'>
-                <Image src={Logo} alt='logo' width={'30px'} height={'30px'} priority={true}/>
+                <Image src={Logo} alt='logo' width={'30px'} height={'30px'}/>
             </div>
             <div className='hidden lg:block mt-2'>
            <TextLogo />
@@ -102,7 +101,6 @@ function Header() {
                     </Button>
                 </div>
                 )}
-
                 <ClickOutHandler onClickOut={() => setUserDropdownVisibilityClass('hidden')}>
                 <button className='rounded-md flex ml-4 mt-1' onClick={() => toggleUserDropdown()}>
                     {!session && (

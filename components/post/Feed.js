@@ -71,10 +71,12 @@ function Feed(props) {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     if (!community) {
       const res = await axios.get(`${server}/posts?skip=${posts.length}&limit=10`)
+      console.log(res)
       const newPosts = await res.data
       setPosts((posts) => [...posts, ...newPosts])
     } else {
-      const res = await axios.get(`${server}/posts?community=${community}skip=${posts.length}&limit=10`)
+      const res = await axios.get(`${server}/posts?community=${community}&skip=${posts.length}&limit=10`)
+      console.log(res)
       const newPosts = await res.data
       setPosts((posts) => [...posts, ...newPosts])
     }
@@ -120,7 +122,7 @@ function Feed(props) {
             <BestPost />
           </div>
             <InfiniteScroll 
-            dataLength={10} // CHANGE TO:posts.length 
+            dataLength={posts.length}
             next={getMorePosts}
             hasMore={true}
             loader={<h4></h4>}

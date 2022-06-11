@@ -3,8 +3,6 @@ import TimeAgo from 'timeago-react'
 import CommentForm from '../submit/CommentForm';
 import {useState, useContext} from 'react'
 import RootCommentContext from './commentutils/RootCommentContext';
-import ReactMarkdown from 'react-markdown';
-import gfm from 'remark-gfm';
 import Voting from '../voting/Voting'
 
 function Comments(props) {
@@ -29,7 +27,7 @@ function Comments(props) {
               style={{marginLeft:'18px'}} >
                 <div className='pl-4 -mt-4'>
                   <div>
-                    <ReactMarkdown remarkPlugins={[gfm]}>{comment.body}</ReactMarkdown>
+                    <h1>{comment.body}</h1>
                   </div>
 
 

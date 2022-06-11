@@ -10,7 +10,7 @@ const PostCtrl = {
     getPosts: async (req, res) => {
         const {token} = req.cookies
         const userLang = req.acceptsLanguages('en','it')
-        const {community, limit, skip} = await req.query;
+        const {community, limit, skip} = req.query;
             if(token) {
                 const user = await getUserFromToken(token)
                 // VOTING REALTIME
@@ -177,6 +177,15 @@ const PostCtrl = {
             res.json({msg: "Deleted Success"})
         } catch (err) {
             return res.status(500).json({msg: err})
+        }
+    },
+    userPosts: async (req,res) => {
+        try {
+            const {author} = req.query
+            const userPost = await Post.find({author: author})
+            
+        } catch (err) {
+            
         }
     },
 }

@@ -105,23 +105,21 @@ const userCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
-    user: (req,res) => {
+    user: async(req,res) => {
         try {
-            if (!req?.cookies?.token) return res.json(null)
-            
-            if (req?.cookies?.token) {
+            if (!req?.cookies?.token) {
+                return res.json(null)
+            } else {
                 const {token} = req.cookies
-                getUserFromToken(token)
-                .then(user => {
-                    //console.log(user)
-                    res.json({user: {username:user.username,avatar:user.avatar,email:user.email}});
-                }).catch(err => {
+                const user = await getUserFromToken(token)
+                if(!user) {
                     res.status(500).json({msg: "Token is expired"})
-                })   
+                } else {
+                    res.json({user: {username:user.username,avatar:user.avatar,email:user.email}});
+                }  
             }
-            
-        } catch {
-
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
         }
     },
     userAdmin: (req,res) => {
