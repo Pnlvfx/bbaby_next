@@ -25,20 +25,16 @@ const PostCtrl = {
             }
         let filters = {}
 
-        if (userLang === 'en') {
-            filters.community = {'$nin': ['Italy', 'calciomercato']}
-        }
-
-        if (userLang === 'it') {
-            filters.community =  ['Italy', 'calciomercato']
-        }
-
-
-        if (community) {
+        if (!community) {
+            if (userLang === 'en') {
+                filters.community = {'$nin': ['Italy', 'calciomercato']}
+            }
+            if (userLang === 'it') {
+                filters.community =  ['Italy', 'calciomercato']
+            }
+        } else if (community) {
             filters.community = community
-        }
-
-        if (author) {
+        } else if (author) {
             filters.author = author
         }
 

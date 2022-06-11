@@ -54,7 +54,7 @@ function Feed(props) {
         setPosts(response.data)
         setLoadingPosts(false)
       })
-    } if(author) {
+    } else if(author) {
       axios({
         method: 'get',
         url: `${server}/posts?author=${author}&limit=10&skip=0`,

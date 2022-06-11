@@ -17,6 +17,7 @@ const CommunityPage: NextPage = (props) => {
 
   const {community}: any = props
 
+  
   setCommunity(community)
 
   return (
