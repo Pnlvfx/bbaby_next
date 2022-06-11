@@ -16,7 +16,7 @@ function index() {
       </Head>
       <Layout>
         <div className='bg-reddit_dark-brighter'>
-          <div className='pl-10'>
+          <div className='w-full lg:w-6/12 xl:w-7/12 2xl:w-[850px] self-center mx-auto overflow-hidden'>
             <UserSettings />
             <Account />
           </div>

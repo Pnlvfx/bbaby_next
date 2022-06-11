@@ -12,6 +12,8 @@ userRouter.post('/login', userCtrl.login)
 
 userRouter.get('/user', userCtrl.user)
 
+userRouter.get('/user/private-info', userCtrl.userInfo)
+
 userRouter.get('/user/admin', userCtrl.userAdmin)
 
 userRouter.post('/forgot', userCtrl.forgotPassword)

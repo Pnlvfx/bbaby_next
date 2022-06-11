@@ -23,6 +23,11 @@ function UserSettings() {
                     }} className={`px-4 py-2 ${active && 'border-b-2'}`}>
                         <h1 className='font-bold text-sm'>Profile</h1>
                     </button>
+                    <button title='account' onClick={() => {
+                        router.push('/settings/profile')
+                    }} className={`px-4 py-2 ${active && 'border-b-2'}`}>
+                        <h1 className='font-bold text-sm'>Safety & Privacy</h1>
+                    </button>
                 </div>
                 <hr className='p-2 mx-2 border-reddit_border w-1/2'/>
             </>

@@ -122,9 +122,16 @@ const userCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
-    // userInfo: async(req,res) => {
-
-    // },
+    userInfo: async(req,res) => {
+        try {
+            const {token} = req.cookies
+            if (!token) return res.status(400).json({msg: "You are not a registered user"})
+            const user = await getUserFromToken(token)
+            res.json(user)
+        } catch (err) {
+            
+        }
+    },
     userAdmin: (req,res) => {
         try {
             if (!req?.cookies?.token) return res.json(null)
