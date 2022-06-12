@@ -13,8 +13,12 @@ import SubmitButton from './SubmitButton';
 import {FaTrashAlt} from 'react-icons/fa'
 import {HiChevronDown,HiOutlineDocumentText} from 'react-icons/hi'
 import addImage from '../../public/addimage.svg'
+import UserContext from '../auth/UserContext';
 
 function Submit(props) {
+    const provider = useContext(UserContext)
+    const {session} = provider
+
     const authModalContext = useContext(AuthModalContext)
 
     const [startTyping,setStartTyping] = useState(false)
@@ -37,9 +41,14 @@ function Submit(props) {
 
     // SHARE ON TELEGRAM
     const [sharePostToTG,setSharePostToTG] = useState(false)
+    const [sharePostToTwitter,setSharePostToTwitter] = useState(false)
 
     const shareToTelegram = () => {
         setSharePostToTG(!sharePostToTG)
+    }
+
+    const shareToTwitter = () => {
+        setSharePostToTwitter(!sharePostToTwitter)
     }
 
     //community
@@ -116,7 +125,7 @@ function Submit(props) {
                         imageId = await res.data.imageId
                         image = await url
                     }
-                    const data = {title,body,community,communityIcon,image,isImage,imageHeight,imageWidth,imageId,sharePostToTG};
+                    const data = {title,body,community,communityIcon,image,isImage,imageHeight,imageWidth,imageId,sharePostToTG,sharePostToTwitter};
                     const server = process.env.NEXT_PUBLIC_SERVER_URL
                     const res =  await axios.post(server+'/posts', data, {withCredentials:true})
                     setNewPostId(res.data._id);
@@ -258,10 +267,6 @@ function Submit(props) {
                             </ClickOutHandler>
                                 <div className='h-12 mb-4 border-b border-reddit_border mx-3'>
                                 </div>
-                                    <div className='flex mx-4'>
-                                        <input type="checkbox" id='telegram' checked={sharePostToTG} onChange={shareToTelegram} className='px-4 py-1' />
-                                        <h1 className='ml-2 text-sm'>Share this post on Telegram</h1>
-                                    </div>
                                     <div className='text-right pb-4 mx-4'>
                                         <Button outline='true' className='px-4 py-1 mr-2 opacity-20'>Save Draft</Button>
                                         <Button onClick={() => {
@@ -271,6 +276,16 @@ function Submit(props) {
                         </>
                     )}
                                         <div className='h-24 bg-reddit_dark-brightest'>
+                                            {session?.user?.role === 1 && (
+                                                <div id='telegram' className='flex mx-4 pt-5'>
+                                                    <input type="checkbox" id='telegram' checked={sharePostToTG} onChange={shareToTelegram} className='w-[15px] h-[15px] px-4 self-center bg-reddit_dark-brighter' style={{filter: 'invert(85%)'}}/>
+                                                    <h1 className='ml-[7px] text-[13px] self-center font-bold'>Share this post on Telegram</h1>
+                                                </div>
+                                            )}
+                                            <div id='twitter' className='flex mx-4 pt-3'>
+                                                <input type="checkbox" id='telegram' checked={sharePostToTwitter} onChange={shareToTwitter} className='w-[15px] h-[15px] px-4 self-center bg-reddit_dark-brighter' style={{filter: 'invert(85%)'}}/>
+                                                <h1 className='ml-[7px] text-[13px] self-center font-bold'>Share this post on Twitter</h1>
+                                            </div>
                                         </div>
 
                     </div>

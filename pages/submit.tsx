@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
-import PostFormModal from '../components/submit/PostFormModal'
 import Head from 'next/head'
 import { NextPage, NextPageContext } from 'next';
 import Layout from '../components/Layout';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import TempSubmitWid from '../components/widget/TempSubmitWid';
+import Submit from '../components/submit/Submit';
 
-const Submit:NextPage = () => {
+const SubmitPage:NextPage = () => {
 
   const router = useRouter()
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
@@ -42,20 +43,29 @@ const Submit:NextPage = () => {
         <link rel='canonical' href={hostname + '/submit'} key='canonical' />
       </Head>
       <Layout>
-        <PostFormModal communityName={communityName} />
+      <div className=" p-2 sm:p-4 block lg:flex self-center">
+          <div className="self-center mx-auto flex">
+            <div className="pr-0 md:pr-3 w-full lg:w-[800px]">
+              <Submit community={communityName} />
+            </div>
+            <div className="hidden lg:block pt-11 pr-3">
+              <TempSubmitWid />
+            </div>
+          </div>
+        </div>
       </Layout>
     </>
   )
 }
 
-export default Submit;
+export default SubmitPage;
 
 export async function getServerSideProps(context: NextPageContext) {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
 
   const response = await axios({
     method: "get",
-    url: `${server}/user`,
+    url: `${server}/user/admin`,
     headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
     withCredentials:true})
     const session = await response.data

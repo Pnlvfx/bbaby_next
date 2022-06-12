@@ -71,7 +71,16 @@ const twitterCtrl = {
         } catch (err) {
             res.status(403).json({msg: "Missing, invalid, or expired tokens"})            
         }
-    }
+    },
+    twitterGetUserPost: async (req,res) => {
+        const {token} = req.cookies
+        const internalUser = await getUserFromToken(token)
+        const {oauth_access_token, oauth_access_token_secret} = internalUser.tokens
+        const {slug,owner_screen_name} = req.query
+        // const response = await oauth.getProtectedResource(`https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=spectatorindex`, "GET", oauth_access_token, oauth_access_token_secret)
+        const response = await oauth.getProtectedResource(`https://api.twitter.com/1.1/lists/statuses.json?slug=${slug}&owner_screen_name=${owner_screen_name}`, "GET", oauth_access_token, oauth_access_token_secret)
+        res.json(JSON.parse(response.data))
+    },
 
 }
 

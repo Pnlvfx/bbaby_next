@@ -6,7 +6,6 @@ import sendEmail from "./sendMail.js";
 import { getUserFromToken } from "./UserFunctions.js";
 import {google} from 'googleapis'
 import fetch from 'node-fetch'
-import _oauth from '../../utils/twitter_oauth.js'
 
 const {OAuth2} = google.auth
 
