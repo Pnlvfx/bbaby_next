@@ -13,6 +13,7 @@ import CommunityRoutes from './routes/CommunityRoutes.js'
 import Community from './models/Community.js';
 import Post from './models/Post.js';
 import governanceRouter from './routes/governanceRouter.js';
+import twitterRouter from './routes/twitterRouter.js';
 
 const uri = process.env.ATLAS_URI;
 
@@ -39,6 +40,8 @@ app.use('/',commentRouter)
 app.use(VotingRoutes);
 
 app.use(CommunityRoutes)
+
+app.use('/', twitterRouter)
 
 if(process.env.NODE_ENV === 'development') {
     app.use('/', governanceRouter)

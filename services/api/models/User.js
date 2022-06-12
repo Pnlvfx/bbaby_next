@@ -49,9 +49,16 @@ const UserSchema = new mongoose.Schema({
     downVotes: {
         type: [mongoose.ObjectId],
     },
-    googleToken: {
-        type: String,
+    tokens: {
+        type: {},
     },
+    hasExternalAccount: {
+        type: Boolean,
+        default: false
+    },
+    externalAccounts: {
+    
+    }
 }, {
     timestamps: true
 });

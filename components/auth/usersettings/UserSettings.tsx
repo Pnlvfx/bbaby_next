@@ -10,26 +10,26 @@ function UserSettings() {
   return (
             <>
                 <div>
-                    <h1 className='font-bold py-4 px-6 text-[19px]'>User settings</h1>
+                    <h1 className='font-bold py-4 px-8 text-[19px]'>User settings</h1>
                 </div>
                 <div className='flex pl-5'>
                     <button title='account' onClick={() => {
-                        router.push('/settings/account')
+                        router.push('/settings/account', undefined, {shallow:true})
                     }} className={`px-4 py-2 ${active && 'border-b-2'}`}>
                         <h1 className='font-bold text-sm'>Account</h1>
                     </button>
                     <button title='account' onClick={() => {
-                        router.push('/settings/profile')
+                        router.push('/settings/profile', undefined, {shallow:true})
                     }} className={`px-4 py-2 ${active && 'border-b-2'}`}>
                         <h1 className='font-bold text-sm'>Profile</h1>
                     </button>
                     <button title='account' onClick={() => {
-                        router.push('/settings/profile')
+                        router.push('/settings/profile', undefined, {shallow:true})
                     }} className={`px-4 py-2 ${active && 'border-b-2'}`}>
                         <h1 className='font-bold text-sm'>Safety & Privacy</h1>
                     </button>
                 </div>
-                <hr className='p-2 mx-2 border-reddit_border w-1/2'/>
+                <hr className='p-2 mx-8 border-reddit_border'/>
             </>
   )
 }

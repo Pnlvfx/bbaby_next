@@ -88,7 +88,6 @@ function Feed(props) {
       setPosts((posts) => [...posts, ...newPosts])
     } else {
       const res = await axios.get(`${server}/posts?skip=${posts.length}&limit=10`)
-      console.log(res)
       const newPosts = await res.data
       setPosts((posts) => [...posts, ...newPosts])
     }
@@ -110,8 +109,6 @@ function Feed(props) {
     }
     }, [loadingPosts]);
     //
-
-  
 
   return (
     <>

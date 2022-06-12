@@ -6,6 +6,7 @@ import sendEmail from "./sendMail.js";
 import { getUserFromToken } from "./UserFunctions.js";
 import {google} from 'googleapis'
 import fetch from 'node-fetch'
+import _oauth from '../../utils/twitter_oauth.js'
 
 const {OAuth2} = google.auth
 
@@ -127,7 +128,15 @@ const userCtrl = {
             const {token} = req.cookies
             if (!token) return res.status(400).json({msg: "You are not a registered user"})
             const user = await getUserFromToken(token)
-            res.json(user)
+            res.json({
+                avatar: user.avatar,
+                country: user.country, 
+                email:user.email,
+                externalAccounts:user.externalAccounts,
+                hasExternalAccount: user.hasExternalAccount,
+                role: user.role,
+                username: user.username
+            })
         } catch (err) {
             
         }
@@ -199,7 +208,7 @@ const userCtrl = {
                 const username = await name.replace(/\s/g,'')  //remove space if there is
                 
                 const user = new User ({
-                    username:username,email,password:passwordHash,avatar:picture,country,countryCode,city,region,lat,lon,googleToken:tokenId
+                    username:username,email,password:passwordHash,avatar:picture,country,countryCode,city,region,lat,lon
                 })
 
                 await user.save()
@@ -284,7 +293,6 @@ const userCtrl = {
         }
     },
 }
-
 
 function validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

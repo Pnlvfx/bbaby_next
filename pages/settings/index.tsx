@@ -15,11 +15,12 @@ function index() {
         <link rel='canonical' href={hostname+'/settings'} key='canonical' />
       </Head>
       <Layout>
-        <div className='bg-reddit_dark-brighter'>
-          <div className='w-full lg:w-6/12 xl:w-7/12 2xl:w-[850px] self-center mx-auto overflow-hidden'>
+        <div className='bg-reddit_dark-brighter flex'>
+          <div className='w-full md:w-11/12 lg:w-9/12 xl:w-7/12 2xl:w-[850px] self-center mr-0 md:mr-auto ml-0 xl:ml-auto overflow-hidden'>
             <UserSettings />
             <Account />
           </div>
+          <div className='w-0 xl:w-[480px]'/>
         </div>
       </Layout>
     </div>
