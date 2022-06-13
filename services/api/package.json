@@ -26,6 +26,7 @@
     "nodemailer": "^6.7.5",
     "oauth": "^0.9.15",
     "text-to-image": "^5.2.0",
+    "twitter-api-v2": "^1.12.2",
     "videoshow": "^0.1.12",
     "webpack": "^5.72.0"
   },

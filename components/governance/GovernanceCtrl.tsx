@@ -10,9 +10,10 @@ const GovernanceCtrl = () => {
 const provider = useContext(UserContext)
   const {session}:any = provider
   const server = process.env.NEXT_PUBLIC_SERVER_URL
-  const [showTweets,setShowTweets] = useState(false)
   const [tweets,setTweets] = useState([])
   const [loading,setLoading] = useState(false)
+
+  const [selectedTweet,setSelectedTweet] = useState(null)  //SETTEDD IN TWEETCONTENT:JSX
 
   const createImage = async() => {
     const res = await axios.get(`${server}/admin/create-image`, {withCredentials:true})
@@ -30,6 +31,8 @@ const provider = useContext(UserContext)
     setTweets(res.data)
     setLoading(false)
   }
+
+  console.log(selectedTweet)
 
   return (
     <>
@@ -82,7 +85,7 @@ const provider = useContext(UserContext)
             {!loading && tweets && (
               <div className="">
               {tweets.map((tweet: any) => (
-                <Tweet key={tweet.id} {...tweet} isListing={true}/>
+                <Tweet key={tweet.id} {...tweet} isListing={true} setSelectedTweet={setSelectedTweet}/>
               ))}
               </div>
             )}
@@ -90,7 +93,7 @@ const provider = useContext(UserContext)
           <div>
           <div className=" p-2 sm:p-4 block lg:flex self-center">
             <div className="pr-0 md:pr-3 w-full lg:w-[800px]">
-              <Submit />
+              <Submit selectedTweet={selectedTweet} />
             </div>
         </div>
           </div>

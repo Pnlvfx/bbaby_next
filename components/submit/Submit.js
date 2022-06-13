@@ -18,6 +18,7 @@ import UserContext from '../auth/UserContext';
 function Submit(props) {
     const provider = useContext(UserContext)
     const {session} = provider
+    const {selectedTweet} = props
 
     const authModalContext = useContext(AuthModalContext)
 
@@ -36,7 +37,6 @@ function Submit(props) {
     const [imageHeight, setImageHeight] = useState()
     //
 
-
     const [loading,setLoading] = useState(false)
 
     // SHARE ON TELEGRAM
@@ -47,9 +47,11 @@ function Submit(props) {
         setSharePostToTG(!sharePostToTG)
     }
 
+    //SHARE TO TWITTER
     const shareToTwitter = () => {
         setSharePostToTwitter(!sharePostToTwitter)
     }
+    //
 
     //community
     const [activeClass, setActiveClass] = useState('border-reddit_dark-brightest')
@@ -142,6 +144,15 @@ function Submit(props) {
         if(router.query.with_community)
         setSelectedCommunity(router.query.with_community)
     },[])
+
+
+    //////MY TWEEEEEEEEET
+    useEffect(() => {
+        if (selectedTweet) {
+            setTitle(selectedTweet.full_text)
+        }
+    },[selectedTweet])
+    //
    
     
     

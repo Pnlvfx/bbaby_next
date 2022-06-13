@@ -3,11 +3,15 @@ import TimeAgo from "timeago-react"
 
 const TweetContent = (props:any) => {
     const tweet = props
+    const postImage = tweet?.extended_entities?.media[0]?.media_url_https
+    const height = tweet?.extended_entities?.media[0]?.sizes.large.h
+    const width = tweet?.extended_entities?.media[0]?.sizes.large.w
+    const {setSelectedTweet} = props
+
   return (
     <div className="flex bg-reddit_dark-brighter rounded-md overflow-hidden">
         <div className="p-2 max-h-[700px]">
-            <div className="flex mb-3">
-                <div className="flex">
+                <div className="flex mb-3">
                     <div className="rounded-full overflow-hidden w-5 h-5">
                         <Image src={tweet.user.profile_image_url_https} alt='twitter_user_image' width={'20px'} height={'20px'} />
                     </div>
@@ -16,10 +20,25 @@ const TweetContent = (props:any) => {
                     <span className="self-center ml-1 font-bold text-xs text-reddit_text-darker leading-6">@{tweet.user.screen_name}</span>
                     <TimeAgo datetime={tweet.created_at} className='text-ellipsis text-xs self-center ml-1 text-reddit_text-darker'/>
                 </div>
-            </div>
             <div>
-                <h3 className="break-words mb-4 text-lg">{tweet.text}</h3>
+                <h3 className="break-words mb-4 text-lg">{tweet.full_text}</h3>
             </div>
+            {tweet?.extended_entities?.media[0]?.media_url_https && (
+                <div className="">
+                    <Image src={postImage} height={height} width={width}/> 
+                </div>
+            )}
+            <button type="button" onClick={e => {
+                e.preventDefault()
+                setSelectedTweet(tweet)
+            }}>
+                <div className="flex text-[#717273] p-2 rounded-sm hover:bg-reddit_hover text-sm">
+                    <h1>Magic</h1>
+                </div>
+            </button>
+        </div>
+        <div>
+            
         </div>
     </div>
   )

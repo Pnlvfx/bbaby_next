@@ -5,6 +5,8 @@ import cloudinary from '../../utils/cloudinary.js';
 import 'dotenv/config';
 import User from '../../models/User.js';
 import TelegramBot from 'node-telegram-bot-api'
+import {TwitterApi} from 'twitter-api-v2';
+
 
 const PostCtrl = {
     getPosts: async (req, res) => {
@@ -80,7 +82,7 @@ const PostCtrl = {
                 return;
             }
             const user = await getUserFromToken(token)
-            const {title,body,image,community,communityIcon,isImage,imageHeight,imageWidth,imageId,sharePostToTG} = req.body
+            const {title,body,image,community,communityIcon,isImage,imageHeight,imageWidth,imageId,sharePostToTG,sharePostToTwitter} = req.body
             const post = await new Post({
                 author:user.username,
                 authorAvatar:user.avatar,
@@ -104,13 +106,55 @@ const PostCtrl = {
                 bot.sendMessage(chat_id, my_text)
                 //console.log('messagge successfully sended')
             }
+            if(sharePostToTwitter) {
+                const internalUser = await getUserFromToken(token)
+                const {oauth_access_token, oauth_access_token_secret} = internalUser.tokens
+                const {role} = internalUser
+                if(oauth_access_token && oauth_access_token_secret) {
+                    if (role === '0') { //NORMAL USER
+                        const twitterClient = new TwitterApi({
+                            appKey: process.env.TWITTER_CONSUMER_KEY,
+                            appSecret: process.env.TWITTER_CONSUMER_SECRET,
+                            accessToken: oauth_access_token,
+                            accessSecret: oauth_access_token_secret,
+                        });
+                        const response = await twitterClient.v1.tweet(`bbabystyle.com/b/${savedPost.community}/comments/${savedPost._id}`)
+                    } else { //GOVERNANCE
+                        if (savedPost.community === 'Italy') {
+                            const twitterClient = new TwitterApi({
+                                appKey: process.env.TWITTER_CONSUMER_KEY,
+                                appSecret: process.env.TWITTER_CONSUMER_SECRET,
+                                accessToken: process.env.ANON_ACCESS_TOKEN,
+                                accessSecret:process.env.ANON_ACCESS_TOKEN_SECRET,
+                            });
+                            const response = await twitterClient.v1.tweet(`bbabystyle.com/b/${savedPost.community}/comments/${savedPost._id}`)
+                        } else if (savedPost.community === 'calciomercato') {
+                            const twitterClient = new TwitterApi({
+                                appKey: process.env.TWITTER_CONSUMER_KEY,
+                                appSecret: process.env.TWITTER_CONSUMER_SECRET,
+                                accessToken: process.env.BBABYITALIA_ACCESS_TOKEN,
+                                accessSecret:process.env.BBABYITALIA_ACCESS_TOKEN_SECRET,
+                            });
+                            const response = await twitterClient.v1.tweet(`bbabystyle.com/b/${savedPost.community}/comments/${savedPost._id}`)
+                        } else {
+                            const twitterClient = new TwitterApi({
+                                appKey: process.env.TWITTER_CONSUMER_KEY,
+                                appSecret: process.env.TWITTER_CONSUMER_SECRET,
+                                accessToken: process.env.BBABY_ACCESS_TOKEN,
+                                accessSecret:process.env.BBABY_ACCESS_TOKEN_SECRET,
+                            });
+                            const response = await twitterClient.v1.tweet(`bbabystyle.com/b/${savedPost.community}/comments/${savedPost._id}`)
+                        }
+                    }
+                    
+                }}
             if(savedPost) {
                 res.json(savedPost)
             } else {
                 res.sendStatus(401)
             }
         } catch (err) {
-            
+            console.log(err)
         }
     },
     voting: async (req,res) => {
