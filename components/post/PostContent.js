@@ -20,7 +20,7 @@ function PostContent(props) {
   }
 
     return (
-        <div className="flex bg-reddit_dark-brighter rounded-md overflow-hidden">
+        <div className="flex bg-reddit_dark-brighter rounded-md overflow-hidden max-h-[700px]">
           <div className='bg-[#141415] w-10 flex-none'>
           {loadingPosts && <LoaderPlaceholder extraStyles={{height: `100%`}} />}
           {!loadingPosts && (

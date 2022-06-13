@@ -27,7 +27,7 @@ const PostCtrl = {
             }
         let filters = {}
 
-        if (!community) {
+        if (!community && !author) {
             if (userLang === 'en') {
                 filters.community = {'$nin': ['Italy', 'calciomercato']}
             }
@@ -37,6 +37,7 @@ const PostCtrl = {
         } else if (community) {
             filters.community = community
         } else if (author) {
+            console.log(author)
             filters.author = author
         }
 

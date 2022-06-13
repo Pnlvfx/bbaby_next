@@ -66,7 +66,8 @@ function CommunitiesInfo(props) {
                 <div>
                     <h1 className=" p-1 font-bold text-[15px]">About community</h1>
                 </div>
-                <Link href={`/b/${community}/about/modqueue`} className="">
+                {user.username === communityInfo.communityAuthor && (
+                <Link href={`/b/${community}/about/modqueue`}>
                     <a className="ml-auto">
                         <div className="flex mt-1">
                         <MdOutlineAdminPanelSettings className="w-6 h-6" />
@@ -74,6 +75,7 @@ function CommunitiesInfo(props) {
                         </div>
                     </a>
                 </Link>
+                )}
               </div>
               <div>
                 <Link href={`/b/${community}`}>
