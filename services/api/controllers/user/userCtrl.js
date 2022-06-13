@@ -6,6 +6,7 @@ import sendEmail from "./sendMail.js";
 import { getUserFromToken } from "./UserFunctions.js";
 import {google} from 'googleapis'
 import fetch from 'node-fetch'
+import cloudinary from '../../utils/cloudinary.js';
 
 const {OAuth2} = google.auth
 
@@ -157,6 +158,18 @@ const userCtrl = {
             
         } catch {
 
+        }
+    },
+    changeAvatar: async (req,res) => {
+        try {
+            const {image,username} = req.body
+            const uploadedResponse = await cloudinary.uploader.upload(image, {
+                upload_preset: 'bbaby_avatar'
+            })
+            const changeAvatar = await User.findOneAndUpdate({username: username}, {avatar: uploadedResponse.secure_url})
+            res.json({msg: "True: Avatar updated successfully"})
+        } catch (err) {
+            res.status(500).json({msg: err.message})
         }
     },
     forgotPassword: async (req,res) => {

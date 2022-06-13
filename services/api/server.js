@@ -43,9 +43,9 @@ app.use(CommunityRoutes)
 
 app.use('/', twitterRouter)
 
-if(process.env.NODE_ENV === 'development') {
-    app.use('/', governanceRouter)
-}
+
+app.use('/', governanceRouter)
+
 
 
 await mongoose.connect(uri, {useNewUrlParser:true,useUnifiedTopology:true,});
@@ -66,7 +66,7 @@ app.post('/upload_avatar', async(req,res) => {
         const uploadedResponse = await cloudinary.uploader.upload(fileStr,{
             upload_preset: 'bbaby_avatar'
         })
-        //console.log(uploadedResponse)
+       const changeAvatar = await User
         res.json({msg: uploadedResponse.secure_url})
     } catch (error) {
         console.error(error)

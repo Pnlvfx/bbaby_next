@@ -37,7 +37,6 @@ const PostCtrl = {
         } else if (community) {
             filters.community = community
         } else if (author) {
-            console.log(author)
             filters.author = author
         }
 
@@ -104,13 +103,15 @@ const PostCtrl = {
                 const bot = new TelegramBot(telegramToken, {polling: true});
                 const chat_id = savedPost.community === 'Italy' ? '@anonynewsitaly' : savedPost.community === 'calciomercato' ? '@bbabystyle1' : '@bbaby_style'
                 const my_text = `https://bbabystyle.com/b/${savedPost.community}/comments/${savedPost._id}`
-                bot.sendMessage(chat_id, my_text)
+                const message = await bot.sendMessage(chat_id, my_text)
                 //console.log('messagge successfully sended')
             }
             if(sharePostToTwitter) {
-                const internalUser = await getUserFromToken(token)
-                const {oauth_access_token, oauth_access_token_secret} = internalUser.tokens
-                const {role} = internalUser
+                const {oauth_access_token, oauth_access_token_secret} = user.tokens
+                if (!oauth_access_token && oauth_access_token_secret) {
+                    return res.status(500).json({msg:'You need to access to your twitter account first'})
+                }
+                const {role} = user
                 if(oauth_access_token && oauth_access_token_secret) {
                     if (role === '0') { //NORMAL USER
                         const twitterClient = new TwitterApi({
@@ -148,14 +149,15 @@ const PostCtrl = {
                         }
                     }
                     
-                }}
+                }
+            }
             if(savedPost) {
                 res.json(savedPost)
             } else {
                 res.sendStatus(401)
             }
         } catch (err) {
-            console.log(err)
+            res.status(500).json({msg: err.message})
         }
     },
     voting: async (req,res) => {

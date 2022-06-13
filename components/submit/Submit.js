@@ -111,6 +111,9 @@ function Submit(props) {
     let imageId = null
     let image = null
     //create a post
+    //TWITTER ERROR 
+    const [value,setValue] = useState()
+    //
    const createPost = async() => {
                 try {
                     setLoading(true)
@@ -130,11 +133,16 @@ function Submit(props) {
                     const server = process.env.NEXT_PUBLIC_SERVER_URL
                     const res =  await axios.post(server+'/posts', data, {withCredentials:true})
                     setNewPostId(res.data._id);
-                    setLoading(false)
-                } catch (error) {
-                    if(error.response.status === 401) {
+                    if (userRole) {
+                        setLoading(false)
+                    }
+                } catch (err) {
+                    if(err.response.status === 401) {
                         authModalContext.setShow('login');
                     }
+                    err.response.data.msg && 
+                    setLoading(false)
+                    setValue(err.response.data.msg)
                 }
     }
     //
@@ -304,6 +312,9 @@ function Submit(props) {
                                         </div>
 
                     </div>
+                    {value && (
+                        showTimeMsg(value)
+                    )}
     </div>
   )
 }

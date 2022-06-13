@@ -37,7 +37,7 @@ function Feed(props) {
   //
 
   //INFINITE SCROLLING
-  const [posts,setPosts] = useState()
+  const [posts,setPosts] = useState([])
   const [loadingPosts,setLoadingPosts] = useState(true)
   const [loadingCommunity,setLoadingCommunity] = useState(true)
 

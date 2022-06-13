@@ -35,7 +35,7 @@ function MoreButton(props) {
     }
   },[post,moreDropdownVisibilityClass])
 
-  const deletePost = async () => {
+  const deletePost = async() => {
     try {
       if(router.asPath !== '/') {
         const deleteId = post._id
@@ -45,14 +45,14 @@ function MoreButton(props) {
         })
       } else {
         const {deleteId} = router.query
-      await axios.delete(`${server}/posts/${deleteId}`,{withCredentials:true})
-      router.reload().then(() => {
-        setDeletedSuccess(true)
-      }) // to fixconst {deleteId} = router.query
-        await axios.delete(`${server}/posts/${deleteId}`,{withCredentials:true})
-        router.reload().then(() => {
+          const res = await axios.delete(`${server}/posts/${deleteId}`,{withCredentials:true})
+          router.reload().then(() => {
           setDeletedSuccess(true)
-        }) // to fix
+        }) // to fixconst {deleteId} = router.query
+          // await axios.delete(`${server}/posts/${deleteId}`,{withCredentials:true})
+          // router.reload().then(() => {
+          // setDeletedSuccess(true)
+        // }) // to fix
       }
     } catch (err) {
 
@@ -94,7 +94,7 @@ function MoreButton(props) {
    
    
    
-         <div className={'absolute ' + moreDropdownVisibilityClass}>
+         <div id='delete_button' className={'absolute ' + moreDropdownVisibilityClass}>
            <div className='flex bg-reddit_dark-brighter border border-reddit_border z-10 rounded-md'>
                {postAuthor && (
                  <button onClick={e => {
