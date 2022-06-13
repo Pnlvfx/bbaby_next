@@ -4,7 +4,6 @@ import cookieParser from 'cookie-parser';
 import mongoose from "mongoose";
 import cors from 'cors';
 import 'dotenv/config';
-import cloudinary from './utils/cloudinary.js';
 import userRouter from './routes/userRouter.js';
 import commentRouter from './routes/commentRouter.js';
 import postRouter from './routes/postRouter.js'
@@ -57,22 +56,6 @@ db.on('error', console.log);
 app.get('/', (req, res) => {
     res.send('This is Bbabystyle API');
 });
-
-
-
-app.post('/upload_avatar', async(req,res) => {
-    try {
-        const fileStr = req.body.data;
-        const uploadedResponse = await cloudinary.uploader.upload(fileStr,{
-            upload_preset: 'bbaby_avatar'
-        })
-       const changeAvatar = await User
-        res.json({msg: uploadedResponse.secure_url})
-    } catch (error) {
-        console.error(error)
-        res.status(500).json({err:'something went wrong'})
-    }
-})
 
 app.get('/search', (req, res) => {
     const {phrase,community} = req.query;
