@@ -13,7 +13,11 @@ const provider = useContext(UserContext)
   const [tweets,setTweets] = useState([])
   const [loading,setLoading] = useState(false)
 
+
+  /// TRANSLATION
   const [selectedTweet,setSelectedTweet] = useState(null)  //SETTEDD IN TWEETCONTENT:JSX
+  const [translatedTweet,setTranslatedTweet] = useState(null)
+  //
 
   const createImage = async() => {
     const res = await axios.get(`${server}/admin/create-image`, {withCredentials:true})
@@ -32,7 +36,7 @@ const provider = useContext(UserContext)
     setLoading(false)
   }
 
-  console.log(selectedTweet)
+  //console.log(selectedTweet)
 
   return (
     <>
@@ -85,7 +89,7 @@ const provider = useContext(UserContext)
             {!loading && tweets && (
               <div className="">
               {tweets.map((tweet: any) => (
-                <Tweet key={tweet.id} {...tweet} isListing={true} setSelectedTweet={setSelectedTweet}/>
+                <Tweet key={tweet.id} {...tweet} isListing={true} setTranslatedTweet={setTranslatedTweet}/>
               ))}
               </div>
             )}
@@ -93,7 +97,7 @@ const provider = useContext(UserContext)
           <div>
           <div className=" p-2 sm:p-4 block lg:flex self-center">
             <div className="pr-0 md:pr-3 w-full lg:w-[800px]">
-              <Submit selectedTweet={selectedTweet} />
+              <Submit translatedTweet={translatedTweet} userRole={session.user.role} />
             </div>
         </div>
           </div>

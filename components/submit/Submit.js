@@ -3,7 +3,7 @@ import {useContext, useState,useEffect} from 'react'
 import AuthModalContext from '../auth/AuthModalContext';
 import Button from '../utils/Button';
 import Input from '../utils/Input';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import TextareaAutosize from 'react-textarea-autosize';
 import CommunityList from './submitutils/CommunityList';
 import ClickOutHandler from 'react-clickout-handler';
@@ -13,12 +13,11 @@ import SubmitButton from './SubmitButton';
 import {FaTrashAlt} from 'react-icons/fa'
 import {HiChevronDown,HiOutlineDocumentText} from 'react-icons/hi'
 import addImage from '../../public/addimage.svg'
-import UserContext from '../auth/UserContext';
+import showTimeMsg from '../utils/notification/showTimeMsg';
 
 function Submit(props) {
-    const provider = useContext(UserContext)
-    const {session} = provider
-    const {selectedTweet} = props
+    
+    const {translatedTweet,userRole} = props
 
     const authModalContext = useContext(AuthModalContext)
 
@@ -131,6 +130,7 @@ function Submit(props) {
                     const server = process.env.NEXT_PUBLIC_SERVER_URL
                     const res =  await axios.post(server+'/posts', data, {withCredentials:true})
                     setNewPostId(res.data._id);
+                    setLoading(false)
                 } catch (error) {
                     if(error.response.status === 401) {
                         authModalContext.setShow('login');
@@ -148,18 +148,22 @@ function Submit(props) {
 
     //////MY TWEEEEEEEEET
     useEffect(() => {
-        if (selectedTweet) {
-            setTitle(selectedTweet.full_text)
+        if (translatedTweet) {
+            setTitle(translatedTweet)
+            //setSelectedFile(selectedTweet?.extended_entities.media[0]?.media_url_https)
         }
-    },[selectedTweet])
+    },[translatedTweet])
     //
    
     
     
 
     if(newPostId) {
-        Router.push('/b/'+community+'/comments/'+newPostId)
-
+        if(!userRole) {
+            router.push('/b/'+community+'/comments/'+newPostId)
+        } else {
+            showTimeMsg('OK')
+        }
     }
 
   return (
@@ -287,7 +291,7 @@ function Submit(props) {
                         </>
                     )}
                                         <div className='h-24 bg-reddit_dark-brightest'>
-                                            {session?.user?.role === 1 && (
+                                            {userRole && (
                                                 <div id='telegram' className='flex mx-4 pt-5'>
                                                     <input type="checkbox" id='telegram' checked={sharePostToTG} onChange={shareToTelegram} className='w-[15px] h-[15px] px-4 self-center bg-reddit_dark-brighter' style={{filter: 'invert(85%)'}}/>
                                                     <h1 className='ml-[7px] text-[13px] self-center font-bold'>Share this post on Telegram</h1>

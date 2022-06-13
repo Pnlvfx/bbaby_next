@@ -1,3 +1,4 @@
+import axios from "axios"
 import Image from "next/image"
 import TimeAgo from "timeago-react"
 
@@ -6,7 +7,15 @@ const TweetContent = (props:any) => {
     const postImage = tweet?.extended_entities?.media[0]?.media_url_https
     const height = tweet?.extended_entities?.media[0]?.sizes.large.h
     const width = tweet?.extended_entities?.media[0]?.sizes.large.w
-    const {setSelectedTweet} = props
+    const {setTranslatedTweet} = props
+
+    const translate = async() => {
+        const server = process.env.NEXT_PUBLIC_SERVER_URL
+        console.log(tweet)
+        const data = await tweet.full_text
+        const res = await axios.post(`${server}/governance/translate-tweet`, {data})
+        setTranslatedTweet(res.data)
+    }
 
   return (
     <div className="flex bg-reddit_dark-brighter rounded-md overflow-hidden">
@@ -30,7 +39,7 @@ const TweetContent = (props:any) => {
             )}
             <button type="button" onClick={e => {
                 e.preventDefault()
-                setSelectedTweet(tweet)
+                translate()
             }}>
                 <div className="flex text-[#717273] p-2 rounded-sm hover:bg-reddit_hover text-sm">
                     <h1>Magic</h1>

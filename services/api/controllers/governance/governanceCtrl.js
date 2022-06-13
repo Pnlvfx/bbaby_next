@@ -5,6 +5,7 @@ import videoshow from 'videoshow'
 import cloudinary from '../../utils/cloudinary.js'
 import {google} from 'googleapis'
 import User from '../../models/User.js'
+import {TranslationServiceClient} from '@google-cloud/translate'
 
 const governanceCtrl =  {
     createImage: async (req,res) => {
@@ -113,6 +114,28 @@ const governanceCtrl =  {
         })
 
     },
+    translateTweet: async (req,res) => {
+        const translationClient = new TranslationServiceClient()
+        const text = req.body.data
+        const projectId = 'bbabystyle'
+        const location = 'us-central1'
+        async function translateText() {
+            const request = {
+                parent: `projects/${projectId}/locations/${location}`,
+                contents: [text],
+                mimeType: 'text/plain',
+                sourceLanguageCode: 'en',
+                targetLanguageCode: 'it'
+            }
+            const [response] = await translationClient.translateText(request)
+
+            for (const translation of response.translations) {
+                res.json(translation.translatedText)
+            }
+        }
+    
+        translateText()
+    },
     uploadYoutube: async (req,res) => {
         const {OAuth2} = google.auth
         const SCOPES = ['https://www.googleapis.com/auth/youtube.upload'];
@@ -121,6 +144,7 @@ const governanceCtrl =  {
         const videoFilePath = '../../youtubeImage/video1.mp4'
         const youtube = google.youtube('v3')
     }
+
 }
 
 export default governanceCtrl;
