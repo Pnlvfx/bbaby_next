@@ -83,18 +83,18 @@ function MoreButton(props) {
     <>
        <ClickOutHandler onClickOut={() => setMoreDropdownVisibilityClass('hidden')}>
        <div className=''>
-          <button id='moreOptions' type='button' onClick={event =>{
+          <button title='Show more options' type='button' onClick={event =>{
             event.preventDefault()
             clickMoreButton()
         }}>
-          <div className='mt-[2px] text-[#717273] p-2 rounded-sm hover:bg-reddit_hover text-sm'>
+          <div className='mt-[2px] text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm'>
             <Image src={moreButton} alt='' height={'20px'} width={'20px'}/>
           </div>
          </button>
    
    
    
-         <div id='delete_button' className={'absolute ' + moreDropdownVisibilityClass}>
+         <div className={'absolute ' + moreDropdownVisibilityClass}>
            <div className='flex bg-reddit_dark-brighter border border-reddit_border z-10 rounded-md'>
                {postAuthor && (
                  <button onClick={e => {

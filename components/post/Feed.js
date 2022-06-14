@@ -99,6 +99,7 @@ function Feed(props) {
 
   useEffect(() => {
     if (community) return
+    if (isMobile) return
     if (!loadingPosts) {
       const server = process.env.NEXT_PUBLIC_SERVER_URL
       axios.get(server+'/communities?limit=5', {withCredentials:true})
@@ -146,12 +147,12 @@ function Feed(props) {
           </>
           )}
       </div>
-      {community && (
+      {community && !isMobile && (
         <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden mr-auto'>
           <CommunitiesInfo />
         </div>
       )}
-      {!community && (
+      {!community && !isMobile && (
         <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden mr-auto'>
             <CommunitiesList allCommunity={allCommunity} loadingCommunity={loadingCommunity}/>
         </div>

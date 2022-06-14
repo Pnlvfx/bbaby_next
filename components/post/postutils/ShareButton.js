@@ -44,14 +44,14 @@ function ShareButton(props) {
     <>
     <ClickOutHandler onClickOut={() => setShareDropdownVisibilityClass('hidden')}>
     <div>
-       <button type='button' onClick={event =>{
+       <button type='button' id='share_button' onClick={event =>{
        event.preventDefault()
        if(router.asPath === '/') {
         filePickerRefShare.current.click()
        }
         toggleShareDropdown()
       }}>
-        <div className='flex text-[#717273] p-2 rounded-sm hover:bg-reddit_hover text-sm'>
+        <div className='flex text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm'>
           <Image src={shareButton} alt='share_button' width={'20px'} height={'20px'}/>
           <h1 className='ml-1 mt-[2px]'>Share</h1>
         </div>

@@ -65,7 +65,7 @@ function PostForm(props) {
                         </div>
                     )}
                 </form>
-                <button className="mx-1 mt-[6px] opacity-10 text-reddit_text-darker">
+                <button title='Create media post' id='create_post_w_image' className="mx-1 mt-[6px] opacity-10 text-reddit_text-darker">
                     <Image src={addImage} alt='' width={'24px'} height={'24px'} />
                 </button>
                 <button className="">

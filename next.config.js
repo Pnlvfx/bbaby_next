@@ -4,6 +4,10 @@ const NextConfig = {
   images: {
     domains: ['res.cloudinary.com','lh3.googleusercontent.com','pbs.twimg.com'],
   },
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en"
+  },
   productionBrowserSourceMaps: true
 };
 

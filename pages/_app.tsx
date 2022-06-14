@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import type { AppProps, NextWebVitalsMetric } from 'next/app'
 import AuthModalContext from '../components/auth/AuthModalContext';
 import {useState,useEffect} from 'react'
 import Script from 'next/script'
@@ -80,6 +80,6 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
 
 export default MyApp
 
-export function reportWebVitals(metric: any) {
+export function reportWebVitals(metric: NextWebVitalsMetric) {
   metric.label === "web-vital" && console.log(metric);
 }
