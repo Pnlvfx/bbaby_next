@@ -68,7 +68,7 @@ const PostCtrl = {
             const uploadedResponse = await cloudinary.uploader.upload(fileStr,{
                 upload_preset: 'bbaby_avatar'
             })
-            //console.log(uploadedResponse)
+            
             res.json({url:uploadedResponse.secure_url, imageId: uploadedResponse.public_id })
         } catch (err) {
             res.status(500).json({err:'something went wrong'})

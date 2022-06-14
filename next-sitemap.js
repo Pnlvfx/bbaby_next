@@ -4,7 +4,7 @@ const siteUrl = "https://www.bbabystyle.com";
 
 module.exports = {
     siteUrl,
-    priority: 1,
+    //priority: 1,
     generateRobotsTxt: true,
     robotsTxtOptions: {
         additionalSitemaps: [

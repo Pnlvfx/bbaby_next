@@ -55,7 +55,7 @@ function PostContent(props) {
                   <h3 className='text-lg mb-4 break-words'>{props.title}</h3>
                   {props.image && (
                     <div className="relative">
-                        <Image src={props.image} alt='' height={height} width={width} />
+                        <Image src={`${props.image}`} alt='' height={height} width={width} />
                     </div>
                   )}
                   {props.body && (

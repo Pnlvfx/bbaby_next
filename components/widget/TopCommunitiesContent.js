@@ -19,7 +19,7 @@ function TopCommunitiesContent(props) {
             {loadingCommunity && <LoaderPlaceholder extraStyles={{height: '100%'}} />}
             {!loadingCommunity && (
               <>
-              <div className='rounded-full mt-3 w-5 h-5'>
+              <div className='rounded-full mt-3 w-5 h-5 overflow-hidden'>
               <Image loader={loader} src={community.communityAvatar} alt='' width={'20px'} height={'20px'}/>          
               </div>
               <h3 className="h-12 pt-3 pl-4 font-bold text-sm">b/{community.name}</h3>

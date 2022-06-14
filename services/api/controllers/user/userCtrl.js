@@ -116,7 +116,7 @@ const userCtrl = {
                 if(!user) {
                     res.status(500).json({msg: "Token is expired"})
                 } else {
-                    res.json({user: {username:user.username,avatar:user.avatar,email:user.email}});
+                    res.json({user: {username:user.username,avatar:user.avatar}});
                 }  
             }
         } catch (err) {

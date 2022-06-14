@@ -30,11 +30,9 @@ function CommunitiesInfo(props) {
     useEffect(() => {
       setDescription(communityInfo.description)
     }, [communityInfo])
+    //
 
     
-
-
-
     useEffect(() => {
         if(commit) {
             const server = process.env.NEXT_PUBLIC_SERVER_URL
@@ -55,10 +53,7 @@ function CommunitiesInfo(props) {
             setCommunityInfo(response.data);
         })
       },[community])
-      
-    
-    //console.log(commit)
-    //console.log(communityInfo)
+
     return (
       <div className='bg-reddit_dark-brighter shadow-lg w-[310px] h-96 rounded-md border border-reddit_border'>
           <div className='p-2'>

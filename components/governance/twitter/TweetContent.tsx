@@ -34,7 +34,7 @@ const TweetContent = (props:any) => {
             </div>
             {tweet?.extended_entities?.media[0]?.media_url_https && (
                 <div className="">
-                    <Image src={postImage} height={height} width={width}/> 
+                    <Image src={postImage} height={height} alt='twitter_image' width={width}/> 
                 </div>
             )}
             <button type="button" onClick={e => {
