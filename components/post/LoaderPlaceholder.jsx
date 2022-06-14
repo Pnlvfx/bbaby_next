@@ -17,7 +17,7 @@ const LoaderPlaceholder = (props) => {
         height: '100%'
     }
   return (
-    <div style={loaderStyles} className='mb-5'>
+    <div style={loaderStyles} className='mb-5 mx-2'>
         <div style={loaderSwipeStyles}>
 
         </div>

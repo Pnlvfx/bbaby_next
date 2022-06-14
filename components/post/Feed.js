@@ -71,7 +71,7 @@ function Feed(props) {
         withCredentials:true
       }).then(response => {
         setPosts(response.data)
-        setLoadingPosts(false)
+        //setLoadingPosts(false)
       })
     }
   },[])
@@ -119,7 +119,7 @@ function Feed(props) {
         setPostOpen(false)
       }}/>
     )}
-      <div className='flex pt-5 mx-0 lg:mx-10'>
+      <div className='flex pt-5 mx-0 lg:mx-10 overflow-hidden'>
       <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center ml-auto mr-6 flex-none'>
           <div className='pb-3'>
               {!author && ( //authorPage
