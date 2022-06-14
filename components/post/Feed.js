@@ -129,19 +129,18 @@ function Feed(props) {
           <div className='pb-4'> 
             <BestPost />
           </div>
-          {!isMobile && loadingPosts && (  ///CLS PROBLEM TO FIX WEBVITALS
-            <div className='relative'>
+          {loadingPosts && (
+            <>
+            Loading posts..
+                   {/* <LoaderPlaceholder extraStyles={{height:'400px'}} />
                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
-                   <LoaderPlaceholder extraStyles={{height:'400px'}} />
-                   <LoaderPlaceholder extraStyles={{height:'400px'}} />
-            </div>
+                   <LoaderPlaceholder extraStyles={{height:'400px'}} /> */}
+            </>
           )}
-          {isMobile && loadingPosts && (
-            <div>Loading...</div>
-          )}
+          
           {!loadingPosts && (
             <>
             <InfiniteScroll 
