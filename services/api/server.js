@@ -13,6 +13,7 @@ import Community from './models/Community.js';
 import Post from './models/Post.js';
 import governanceRouter from './routes/governanceRouter.js';
 import twitterRouter from './routes/twitterRouter.js';
+import compression from 'compression';
 
 const uri = process.env.ATLAS_URI;
 
@@ -23,6 +24,7 @@ const app= express();
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json({limit: '50mb'}));
+app.use(compression())
 app.use(cors({
     origin: [origin1, origin2],
     credentials: true,

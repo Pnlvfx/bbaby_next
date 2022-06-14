@@ -44,7 +44,7 @@ function ShareButton(props) {
     <>
     <ClickOutHandler onClickOut={() => setShareDropdownVisibilityClass('hidden')}>
     <div>
-       <button type='button' id='share_button' onClick={event =>{
+       <button type='button' onClick={event =>{
        event.preventDefault()
        if(router.asPath === '/') {
         filePickerRefShare.current.click()

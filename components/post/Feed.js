@@ -63,7 +63,7 @@ function Feed(props) {
         setPosts(response.data)
         setLoadingPosts(false)
       })
-    } else {
+    } else {  //HOME
       axios({
         method: 'get',
         url: `${server}/posts?limit=10&skip=0`,

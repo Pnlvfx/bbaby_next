@@ -63,7 +63,7 @@ function Post(props) {
                         </button>
                         </>
                     )}
-                        <button id='shareButtonRef' onClick={() => { //using reference to get the correct share Id
+                        <button onClick={() => { //using reference to get the correct share Id
                                     router.push({
                                         pathname: '/',
                                         query: {shareId: props._id, community: props.community },
@@ -71,7 +71,7 @@ function Post(props) {
                                     )
                                 }} hidden ref={filePickerRefShare}>
                         </button>
-                        <button id='moreButtonRef' onClick={() => { //using reference to get the correct delete Id
+                        <button onClick={() => { //using reference to get the correct delete Id
                             router.push({
                                 query: {deleteId: props._id, community: props.community },
                             },'/',{scroll:false}
