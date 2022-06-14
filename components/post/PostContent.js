@@ -9,7 +9,7 @@ import LoaderPlaceholder from './LoaderPlaceholder'
 
 function PostContent(props) {
   const router = useRouter()
-  const {filePickerRefMore,filePickerRef,filePickerRefShare,communityIcon,loadingPosts} = props
+  const {filePickerRefMore,filePickerRef,filePickerRefShare,communityIcon} = props
 
   let height = null
   let width = null
@@ -22,10 +22,7 @@ function PostContent(props) {
     return (
         <div className="flex bg-reddit_dark-brighter rounded-md overflow-hidden max-h-[700px]">
           <div className='bg-[#141415] w-10 flex-none'>
-          {loadingPosts && <LoaderPlaceholder extraStyles={{height: `100%`}} />}
-          {!loadingPosts && (
             <Voting ups={props.ups} postId={props._id} liked={props.liked} />
-          )}
           </div>
             <div className="p-2">
               <div className="flex mb-3 truncate">

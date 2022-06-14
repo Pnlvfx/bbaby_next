@@ -7,7 +7,7 @@ function TopCommunities(props) {
     const [img,setImg] = useState('Blurred.webp')
 
     const image = setTimeout(() => {
-      setImg('Icon.png')
+      setImg('Icon.webp')
     },[1000])
 
 

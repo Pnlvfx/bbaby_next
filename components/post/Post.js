@@ -12,7 +12,6 @@ function Post(props) {
     const router = useRouter()
 
     const post = props
-    const {loadingPosts} = props
     
     let postClasses = 'block border border-reddit_border rounded-md ' + (post.open ? '' : "hover:border-reddit_text")
 
@@ -20,7 +19,7 @@ function Post(props) {
     <div className='pb-3'>
         {post.open && (
             <div className={postClasses}>
-                    <PostContent {...post} loadingPosts={loadingPosts}/>
+                    <PostContent {...post}/>
             </div>
         )}
 
@@ -31,7 +30,7 @@ function Post(props) {
                         <>
                         <Link href={`${router.pathname}?postId=${post._id}&community=${post.community}`} as={`/b/${post.community}/comments/${post._id}`} scroll={false}> 
                         <a>
-                            <PostContent {...post} loadingPosts={loadingPosts} filePickerRef={filePickerRef} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
+                            <PostContent {...post} filePickerRef={filePickerRef} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
                         </a>
                         </Link>
                         <button id='commentButtonRef' onClick={e => { //using reference to get the correct comment Id
@@ -50,7 +49,7 @@ function Post(props) {
                         <>
                         <Link href={'/b/'+post.community+'/comments/'+post._id}>
                             <a>
-                                <PostContent {...post} loadingPosts={loadingPosts} filePickerRef={filePickerRef} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
+                                <PostContent {...post} filePickerRef={filePickerRef} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} />
                             </a>
                         </Link>
                         <button onClick={e => { //using reference to get the correct comment Id
