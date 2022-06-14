@@ -3,7 +3,7 @@ const LoaderPlaceholder = (props) => {
         backgroundColor: '#818384',
         width: '100%',
         overflow: 'hidden',
-        position: props.container ? 'absolute' : 'relative',
+        position: 'relative',
         ...props.extraStyles
       };
 
