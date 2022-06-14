@@ -130,14 +130,14 @@ function Feed(props) {
             <BestPost />
           </div>
           {loadingPosts && (
-            <>
+            <div className='relative'>
                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
-            </>
+            </div>
           )}
           
           {!loadingPosts && (
