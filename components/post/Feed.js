@@ -71,7 +71,7 @@ function Feed(props) {
         withCredentials:true
       }).then(response => {
         setPosts(response.data)
-        //setLoadingPosts(false)
+        setLoadingPosts(false)
       })
     }
   },[])
@@ -129,7 +129,7 @@ function Feed(props) {
           <div className='pb-4'> 
             <BestPost />
           </div>
-          {loadingPosts && (
+          {loadingPosts && !isMobile && (  ///CLS PROBLEM TO FIX WEBVITALS
             <div className='relative'>
                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
@@ -139,7 +139,9 @@ function Feed(props) {
                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
             </div>
           )}
-          
+          {loadingPosts && isMobile && (
+            <div>Loading...</div>
+          )}
           {!loadingPosts && (
             <>
             <InfiniteScroll 
