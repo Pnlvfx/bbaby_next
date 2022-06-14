@@ -52,7 +52,7 @@ const provider = useContext(UserContext)
     )}
     {session?.user?.role === 1 && (
     <div id="main">
-      <div id="2nd_header" className={'w-full bg-reddit_dark-brighter p-1 border-b border-reddit_border sticky top-0 z-30'}>
+      <div id="2nd_header" className={'w-full bg-reddit_dark-brighter p-1 border-b border-reddit_border z-30'}>
             <div className="flex">
               <div className='mx-2 my-auto text-center'>
                 <Button onClick={() => {

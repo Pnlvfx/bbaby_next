@@ -166,8 +166,8 @@ const userCtrl = {
             const uploadedResponse = await cloudinary.uploader.upload(image, {
                 upload_preset: 'bbaby_avatar'
             })
-            const changeAvatar = await User.findOneAndUpdate({username: username}, {avatar: uploadedResponse.secure_url})
-            res.json({msg: "True: Avatar updated successfully"})
+            // const changeAvatar = await User.findOneAndUpdate({username: username}, {avatar: uploadedResponse.secure_url})
+            // res.json({msg: "True: Avatar updated successfully"})
         } catch (err) {
             res.status(500).json({msg: err.message})
         }

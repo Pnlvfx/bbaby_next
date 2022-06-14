@@ -39,7 +39,7 @@ function PostForm(props) {
                         </Link>
                     )}
                     {!session && (
-                        <Image src='https://res.cloudinary.com/bbabystyle/image/upload/v1654860374/default/avatar_qq8etc.png' alt='' width={'40px'} height={'40px'} />
+                        <Image src='https://res.cloudinary.com/bbabystyle/image/upload/v1655209740/default/avatar_txt7me.webp' alt='' width={'40px'} height={'40px'} />
                     )}
                 </div>
                 <form action='' className='flex-grow bg-reddit_dark-brightest border border-reddit_border hover:border-reddit_text ml-4 mr-2 rounded-md'>
