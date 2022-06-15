@@ -102,7 +102,7 @@ function Header() {
                 </div>
                 )}
                 <ClickOutHandler onClickOut={() => setUserDropdownVisibilityClass('hidden')}>
-                <button id='user_menu' className='rounded-md flex ml-4 mt-1' onClick={() => toggleUserDropdown()}>
+                <button role={'presentation'} className='rounded-md flex ml-4 mt-1' onClick={() => toggleUserDropdown()}>
                     {!session && (
                         <div className='w-8 h-8 m-1 rounded-full'>
                             <UserIcon className='w-6 h-6 text-reddit_text-darker' />

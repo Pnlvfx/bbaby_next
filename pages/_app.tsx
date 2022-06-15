@@ -27,17 +27,33 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
   },[router.events])
 
   const [showAuthModal,setShowAuthModal] = useState(false);
+  const server = process.env.NEXT_PUBLIC_SERVER_URL
 
 
 
   return (
     <>
-    {/* Global Site Tag (gtag.js) - Google Analytics */}
-    <Script
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+      <Head>
+        <meta name='viewport' content='width=device-width,initial-scale=1.0, maximum-scale=1.0' />
+        <meta httpEquiv="Content-Security-Policy"
+              content={`default-src 'self' https://www.googletagmanager.com https://accounts.google.com ${server} https://apis.google.com 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: w3.org/svg/2000 https://*; child-src https://accounts.google.com;`}/>
+        <meta name="referrer" content="origin-when-cross-origin"/>
+        <meta name="application-name" content="bbabystyle" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+              name="apple-mobile-web-app-status-bar-style"
+              content="default"
+            />
+        <meta name="apple-mobile-web-app-title" content="bbabystyle" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta property="og:site_name" content="bbabystyle" />
+        <meta name="twitter:creator" content="@Bbabystyle" />
+      </Head>
+      <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
       />
-    <Script
+      <Script
         id="gtag-init"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
@@ -51,20 +67,6 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
           `,
         }}
       />
-      <Head>
-        <meta name='viewport' content='width=device-width,initial-scale=1.0, maximum-scale=1.0' />
-        <meta name="referrer" content="origin-when-cross-origin" />
-        <meta name="application-name" content="bbabystyle" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta
-              name="apple-mobile-web-app-status-bar-style"
-              content="default"
-            />
-        <meta name="apple-mobile-web-app-title" content="bbabystyle" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta property="og:site_name" content="bbabystyle" />
-        <meta name="twitter:creator" content="@Bbabystyle" />
-      </Head>
     <UserContext.Provider value={{session: session}}>
       <AuthModalContext.Provider value={{show:showAuthModal,setShow:setShowAuthModal}}>
         <GoogleOAuthProvider clientId='527300585899-mh0q9kh2fpijep43k37oriuafsl8m9hi.apps.googleusercontent.com'>
