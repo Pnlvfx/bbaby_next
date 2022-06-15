@@ -15,6 +15,7 @@ function Post(props) {
     
     let postClasses = 'block border border-reddit_border rounded-md ' + (post.open ? '' : "hover:border-reddit_text")
 
+    console.log(router)
     return (
     <div className='pb-3'>
         {post.open && (

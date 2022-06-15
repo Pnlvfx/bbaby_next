@@ -11,8 +11,7 @@ function Google(props) {
   const router = useRouter()
   const modalContext = useContext(AuthModalContext)
 
-  const responseGoogle = async(response) => {
-      
+  const responseGoogle = async(response) => {z
       try {
         setLoading(true)
         const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY
@@ -35,12 +34,13 @@ function Google(props) {
   }
 
   return (
-      <GoogleLogin
-            onSuccess={response => {responseGoogle(response)}}
-            onError={response => {responseGoogle(response)}}
-            scope={'profile,email'}
-      />
-    
+    <GoogleLogin
+          onSuccess={response => {responseGoogle(response)}}
+          onError={response => {responseGoogle(response)}}
+          scope={'profile,email'}
+          width={'200px'}
+          size={'large'}
+    />
   )
 }
 

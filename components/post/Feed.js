@@ -24,6 +24,7 @@ function Feed(props) {
   //
   const [postOpen, setPostOpen] = useState(false)
   let router = useRouter()
+  
   let postId = null
   if(router.query.postId) {
     postId = router.query.postId;
