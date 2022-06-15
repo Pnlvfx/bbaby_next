@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
 
-const {ObjectId} = mongoose
-
 const PostSchema = new mongoose.Schema({
     author: 
         {type:String,

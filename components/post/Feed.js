@@ -1,6 +1,6 @@
 import Post from './Post'
 import PostForm from '../submit/PostForm'
-import CommunitiesList from '../widget/TopCommunities'
+import TopCommunities from '../widget/TopCommunities'
 import BestPost from './postutils/BestPost'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import axios from 'axios'
@@ -119,7 +119,7 @@ function Feed(props) {
         setPostOpen(false)
       }}/>
     )}
-      <div className='flex pt-5 mx-0 lg:mx-10 overflow-hidden'>
+      <div className='flex pt-5 mx-0 lg:mx-10'>
       <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center ml-auto mr-6 flex-none'>
           <div className='pb-3'>
               {!author && ( //authorPage
@@ -164,7 +164,7 @@ function Feed(props) {
       )}
       {!community && !isMobile && (
         <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden mr-auto'>
-            <CommunitiesList allCommunity={allCommunity} loadingCommunity={loadingCommunity}/>
+            <TopCommunities allCommunity={allCommunity} loadingCommunity={loadingCommunity}/>
         </div>
       )}
     </div>

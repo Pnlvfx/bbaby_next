@@ -1,6 +1,6 @@
 const LoaderPlaceholder = (props) => {
       const loaderStyles = {
-        backgroundColor: '#818384',
+        backgroundColor: '#1a1a1b',
         width: '100%',
         overflow: 'hidden',
         position: props.container ? 'absolute' : 'relative',
@@ -12,7 +12,7 @@ const LoaderPlaceholder = (props) => {
         top: '0',
         left: '0',
         width: '100%',
-        background: 'linear-gradient(to right, #eeeeee 10%, #dddddd 50%, #eeeeee 90%)',
+        background: 'linear-gradient(to right, #272729 10%, #1a1a1b 50%, #272729 90%)',
         animation: 'loaderSwipeAnim 1s cubic-bezier(0.4, 0.0, 0.2, 1) infinite',
         height: '100%'
     }

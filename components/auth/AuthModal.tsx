@@ -14,6 +14,7 @@ import Reddit from './providers/Reddit'
 import UserPreferencesModal from '../user/UserPreferencesModal';
 import AuthImage from '../../public/authImage.png'
 import CloseIcon from '../../public/closeIcon.svg'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 function AuthModal() {
     const initialState = {
@@ -26,7 +27,7 @@ function AuthModal() {
         //console.log('form submitted')
     }
 
-    const [loading,setLoading] = useState(true)
+    const [loading,setLoading] = useState(false)
     const router = useRouter()
     const [status,setStatus] = useState(initialState)
     const server = process.env.NEXT_PUBLIC_SERVER_URL
@@ -50,6 +51,7 @@ function AuthModal() {
 
     const register = async (e: any) => {
         e.preventDefault();
+        setLoading(true)
         const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY
         const userIpInfo = await axios.get(`https://extreme-ip-lookup.com/json?key=${IP_API_KEY}`)
         const {country,countryCode,city,region,lat,lon} = await userIpInfo.data
@@ -71,6 +73,7 @@ function AuthModal() {
 
     const login = async() => {
         try {
+            setLoading(true)
             const data = {username,password}
             const res = await axios.post(`${server}/login`, data, {withCredentials:true})
             localStorage.setItem('isLogged', 'true')
@@ -78,6 +81,7 @@ function AuthModal() {
         } catch (err:any) {
             err.response.data.msg &&
             setStatus({err:err.response.data.msg, success: ""})
+            setLoading(false)
         }
     }
 
@@ -114,7 +118,7 @@ function AuthModal() {
                                 </div>
                                 </div>
                                 <div id='google_login' className='pb-6'>
-                                    <Google />
+                                    <Google setLoading={setLoading} />
                                 </div>
                                 {/* <div id='reddit_login' className='pb-6'>
                                     <Reddit />
@@ -122,16 +126,23 @@ function AuthModal() {
                                 <form onSubmit={handleSubmit}>
                                     <label>
                                         <span className='text-reddit_text-darker text-xs'>Username:</span>
-                                        <Input type='text' title='username' className='mb-3 w-80 p-2' value={username} onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setUsername(e.target.value)} autoComplete={'username'} />
+                                        <Input type='text' title='username' className={`mb-3 w-80 p-2 ${status.err && 'border border-reddit_red'}`} value={username} onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setUsername(e.target.value)} autoComplete={'username'} />
                                     </label>
                                     {status.err && showErrMsg(status.err)}
                                     <label className="">
                                         <span className='text-reddit_text-darker text-xs'>Password:</span>
-                                        <Input type='password' className='p-2 mb-4 w-80' value={password} onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setPassword(e.target.value)} autoComplete={'current-password'} />
+                                        <Input type='password' className={`p-2 mb-4 w-80 ${status.err && 'border border-reddit_red'}`} value={password} onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setPassword(e.target.value)} autoComplete={'current-password'} />
                                     </label>
-                                    <Button type='submit' className='w-80 py-2 mb-3' style={{borderRadius:'.3rem'}} onClick={() => login()}>
-                                        Log In
+                                    {loading && (
+                                    <Button disabled className='w-80 py-2 mb-3' style={{borderRadius:'.3rem'}} onClick={() => login()}>
+                                        <AiOutlineLoading3Quarters className='animate-spin mx-auto' />
                                     </Button> 
+                                    )}
+                                    {!loading && (
+                                    <Button type='submit' className='w-80 py-2 mb-3' style={{borderRadius:'.3rem'}} onClick={() => login()}>
+                                        <h1>Log In</h1>
+                                    </Button> 
+                                    )}
                                 </form>
                                 <div>
                                     <h1 className="mb-6 text-sm">Forgot your <button className="text-blue-400">username</button> or <button className="text-blue-400" onClick={() => setShow('reset your password')}>password</button> ?</h1>
@@ -172,9 +183,16 @@ function AuthModal() {
                                     <span className='text-reddit_text-darker text-sm'>Password:</span>
                                     <Input type='password' className='p-2 mb-4 w-80' value={password} onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setPassword(e.target.value)} autoComplete={'off'}/>
                                 </label>
+                                {loading && (
+                                    <Button disabled className='w-80 py-2 mb-3' style={{borderRadius:'.3rem'}} onClick={() => login()}>
+                                        <AiOutlineLoading3Quarters className='animate-spin mx-auto' />
+                                    </Button>
+                                )}
+                                {!loading && (
                                     <Button type='submit' className='w-80 py-2 mb-3' style={{borderRadius:'.3rem'}} onClick={(e: any) => register(e)}>
                                         Sign Up
                                     </Button>
+                                )}
                                 </form>
                                 <div className="text-sm mt-3">
                                     Already have an account? <button className="text-blue-500 ml-1 font-semibold" onClick={() => setShow('login')}>LOG IN</button>

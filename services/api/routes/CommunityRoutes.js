@@ -20,7 +20,12 @@ router.post('/communities', (req,res) => {
     })
 });
 
-router.get('/communities/:name', (req,res) => {
+router.get('/communities/:name', async (req,res) => {
+    const token = req.cookies?.token ///MY EDIT
+    if (token) {
+        const user = await getUserFromToken(token)
+        
+    }
     const {name} = req.params;
     Community.findOne({name}).then(c => {
         res.json(c);
@@ -47,7 +52,6 @@ router.post('/communities/edit/description', (req,res) => {
 router.get('/communities', (req,res) => {
     const {limit} = req.query
     Community.find({}).limit(limit).then(communities => {
-        //console.log(req.query.limit)
         res.json(communities);
     })
 });

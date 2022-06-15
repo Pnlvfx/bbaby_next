@@ -25,6 +25,41 @@ const schema = new mongoose.Schema({
         type:Date,
         required:true
     },
+    acceptFollowers: {
+        type: Boolean,
+        default: true
+    },
+    subscribers: {
+        type: Number,
+        default: 0,
+    },
+    userIsBanned: {
+        type: Boolean,
+        default: false
+    },
+    userIsContributor: {
+        type: Boolean,
+        default: false
+    },
+    userIsSubscriber: {
+        type: Boolean,
+        default: false
+    },
+    userIsBanned: {
+        type: Boolean,
+        default: false
+    },
+    icon: { // SHOULD BE THE SMALL COMMUNITYAVATAR FOR SHOWING ON POSTS
+        height: {
+            type: Number
+        },
+        width: {
+            type: Number
+        },
+        url: {
+            type: String
+        },
+    }
 });
 
 const Community = mongoose.model('Community', schema);
