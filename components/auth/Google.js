@@ -11,7 +11,7 @@ function Google(props) {
   const router = useRouter()
   const modalContext = useContext(AuthModalContext)
 
-  const responseGoogle = async(response) => {z
+  const responseGoogle = async(response) => {
       try {
         setLoading(true)
         const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY
