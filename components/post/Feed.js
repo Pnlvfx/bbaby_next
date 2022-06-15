@@ -163,7 +163,7 @@ function Feed(props) {
         </div>
       )}
       {!community && !isMobile && (
-        <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden mr-auto'>
+        <div className='hidden 2-xl:flex xl:block lg:block md:hidden sm:hidden mr-auto'>
             <TopCommunities allCommunity={allCommunity} loadingCommunity={loadingCommunity}/>
         </div>
       )}

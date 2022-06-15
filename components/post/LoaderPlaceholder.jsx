@@ -17,8 +17,9 @@ const LoaderPlaceholder = (props) => {
         height: '100%'
     }
   return (
-    <div style={loaderStyles} className='mb-5'>
+    <div style={loaderStyles} className=''>
         <div style={loaderSwipeStyles}>
+          <hr className='border-reddit_border'/>
 
         </div>
     </div>

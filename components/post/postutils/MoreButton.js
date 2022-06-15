@@ -26,14 +26,12 @@ function MoreButton(props) {
 
   useEffect(() => {
     if(moreDropdownVisibilityClass === 'hidden') return
-    if(session) {
-      if(session.user.username === post.author) {
+      if(session?.user?.username === post.author) {
         setPostAuthor(true)
       } else {
         return
       }
-    }
-  },[post,moreDropdownVisibilityClass])
+  },[moreDropdownVisibilityClass])
 
   const deletePost = async() => {
     try {

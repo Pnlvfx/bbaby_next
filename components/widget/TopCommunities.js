@@ -17,9 +17,22 @@ function TopCommunities(props) {
                 position: 'relative'}}>
           </div>
         )}
-                   {allCommunity.map(community => (
-                       <TopCommunitiesContent key={community._id} {...community} loadingCommunity={loadingCommunity} />
-                   ))}
+          {loadingCommunity && (
+          <div className='h-[50px]'>
+            <LoaderPlaceholder extraStyles={{height: '50px'}} />
+            <LoaderPlaceholder extraStyles={{height: '50px'}} />
+            <LoaderPlaceholder extraStyles={{height: '50px'}} />
+            <LoaderPlaceholder extraStyles={{height: '50px'}} />
+            <LoaderPlaceholder extraStyles={{height: '50px'}} />
+          </div>
+          )}
+          {!loadingCommunity && (
+          <>
+            {allCommunity.map(community => (
+              <TopCommunitiesContent key={community._id} {...community}/>
+            ))}
+          </>
+          )}
       </div>
     )
   }
