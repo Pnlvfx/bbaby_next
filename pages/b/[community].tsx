@@ -11,14 +11,13 @@ import Feed from '../../components/post/Feed';
 const CommunityPage: NextPage = (props) => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const imagePreview = '/imagePreview.png'
-
-
   const {setCommunity}: any = useContext(CommunityContext)
 
   const {community}: any = props
 
-  
-  setCommunity(community)
+  useEffect(() => {
+    setCommunity(community)
+  },[])
 
   return (
     <div>

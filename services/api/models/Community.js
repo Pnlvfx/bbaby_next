@@ -33,19 +33,23 @@ const schema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
-    userIsBanned: {
+    user_is_moderator: {
         type: Boolean,
         default: false
     },
-    userIsContributor: {
+    user_is_banned: {
         type: Boolean,
         default: false
     },
-    userIsSubscriber: {
+    user_is_contributor: {
         type: Boolean,
         default: false
     },
-    userIsBanned: {
+    user_is_subscriber: {
+        type: Boolean,
+        default: false
+    },
+    user_is_banned: {
         type: Boolean,
         default: false
     },

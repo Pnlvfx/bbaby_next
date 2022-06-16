@@ -11,17 +11,19 @@ import AuthModalContext from "../auth/AuthModalContext";
 import UserContext from "../auth/UserContext";
 import LoaderPlaceholder from "../post/LoaderPlaceholder";
 import Image from "next/image";
+import { CommunityContext } from "../community/CommunityContext";
 
 function CommunitiesInfo(props) {
     const provider = useContext(UserContext)
     const {session} = provider
     const router = useRouter()
-    const community = props.community ? props.community : router.query.community
-    
-    const [communityInfo,setCommunityInfo] = useState({})
-    const [description,setDescription] = useState('')
+    const {communityAvatar,name,description,communityAuthor,createdAt,loading,user_is_moderator} = useContext(CommunityContext)
+    const {community} = props
+    const [editedDescr,setEditedDescr] = useState('')
+
+
     const [commit,setCommit] = useState(false)
-    const [loading,setLoading] = useState(true)
+    
 
     const {user} = session ? session : {user: {username: ''}}
     const authModal = useContext(AuthModalContext)
@@ -29,36 +31,21 @@ function CommunitiesInfo(props) {
 
     //setDescription
     useEffect(() => {
-      setDescription(communityInfo.description)
-    }, [communityInfo])
-    //
+      setEditedDescr(description)
+    }, [name])
+    
 
     
     useEffect(() => {
         if(commit) {
             const server = process.env.NEXT_PUBLIC_SERVER_URL
-            const data = {description, name:communityInfo.name}
+            const data = {description, name}
             axios.post(server+'/communities/edit/description',data,{withCredentials:true}).then(response => {
                 setCommit(false)
             })
         }
     },[commit])
-
-
-    //get Community info
-    useEffect(() => {
-        if (!community) return;
-        const server = process.env.NEXT_PUBLIC_SERVER_URL
-        axios.get(server+'/communities/'+community, {withCredentials:true})
-        .then(response => {
-            setCommunityInfo(response.data);
-            //  setTimeout(() => {
-            //      setLoading(false)
-            //  },[5000])
-            setLoading(false)
-        })
-      },[community])
-
+    
     return (
       <div className='bg-reddit_dark-brighter shadow-lg w-[310px] h-96 rounded-md border border-reddit_border'>
           <div className='p-2'>
@@ -69,7 +56,7 @@ function CommunitiesInfo(props) {
                         <h1 className="font-bold text-[15px]">About community</h1>
                     )}
                 </div>
-                    {user.username === communityInfo.communityAuthor && (
+                    {user_is_moderator && (
                     <Link href={`/b/${community}/about/modqueue`}>
                         <a className="ml-auto">
                             <div className="flex mt-1">
@@ -88,20 +75,20 @@ function CommunitiesInfo(props) {
                         <Link href={`/b/${community}`}>
                             <a className='flex pt-3'>
                                 <div className=''>
-                                    <Image unoptimized src={communityInfo.communityAvatar} alt='' height={'32px'} width={'32px'} className="rounded-full flex-none"/>
+                                    <Image unoptimized src={communityAvatar} alt='' height={'32px'} width={'32px'} className="rounded-full flex-none"/>
                                 </div>
-                                <h3 className="h-12 pl-2 mt-[4px]">b/{communityInfo.name}</h3>
+                                <h3 className="h-12 pl-2 mt-[4px]">b/{name}</h3>
                             </a>
                         </Link>
                     )}
                 </div>
-              {user.username === communityInfo.communityAuthor && !loading && (
+              {user_is_moderator && !loading && (
               <ClickOutHandler onClickOut={() => {
                   setCommit(true)
               }}>
                 <div className="flex hover:border border-reddit_text">
                     <div className="overflow-hidden">
-                        <EditTextarea className='bg-reddit_dark-brighter break-words leading-6 overflow-hidden resize-none outline-none' value={description} onChange={setDescription} />               
+                    <EditTextarea value={editedDescr} onChange={setEditedDescr} className='bg-reddit_dark-brighter break-words leading-6 overflow-hidden resize-none outline-none' />
                     </div>
                     <div className="pt-4 text-reddit_text-darker">
                         <MdOutlineModeEditOutline className="w-6 h-6"/>
@@ -109,7 +96,7 @@ function CommunitiesInfo(props) {
                 </div>
               </ClickOutHandler>
               )} 
-              {user.username !== communityInfo.communityAuthor && (
+              {user_is_moderator && (
                   <div className="flex">
                     <div className="overflow-hidden mb-2">
                         <span className='bg-reddit_dark-brighter break-words leading-6 overflow-hidden resize-none outline-none'>{description}</span>               
@@ -120,7 +107,7 @@ function CommunitiesInfo(props) {
               <div>
                   <hr className="border-reddit_border"></hr>
                   <div className="py-3 text-sm">
-                      Created {moment(communityInfo.createdAt).format('MMM DD, YYYY')}
+                      Created {moment(createdAt).format('MMM DD, YYYY')}
                   </div>
                   <hr className="border-reddit_border"/>
               </div>
@@ -133,7 +120,7 @@ function CommunitiesInfo(props) {
                         e.preventDefault()  
                         router.push({
                           pathname:'/submit',
-                          query: {with_community: community}
+                          query: {with_community: name}
                         },'/submit')
                         }} className='w-full py-1 mt-3 mb-4'>Create a Post</Button>
                   )}

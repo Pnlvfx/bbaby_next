@@ -21,15 +21,23 @@ router.post('/communities', (req,res) => {
 });
 
 router.get('/communities/:name', async (req,res) => {
-    const token = req.cookies?.token ///MY EDIT
-    if (token) {
-        const user = await getUserFromToken(token)
-        
+    try {
+        const token = req.cookies?.token ///MY EDIT
+        const {name} = req.params;
+        if (token) {
+            const user = await getUserFromToken(token)
+            const community = await Community.findOne({name})
+            if (user.username === community.communityAuthor) {
+                const edit = await Community.findOneAndUpdate({name}, {user_is_moderator: true})
+            }
+            res.json(community);
+        } else {
+            const community = await Community.findOne({name})
+            res.json(community);
+        }   
+    } catch (err) {
+        res.status(500).json({msg: err.message})
     }
-    const {name} = req.params;
-    Community.findOne({name}).then(c => {
-        res.json(c);
-    })
 });
 
 

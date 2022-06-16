@@ -6,7 +6,6 @@ import Feed from "../../components/post/Feed";
 
 const Username:NextPage = (props) => {
   const {author}: any = props
-  console.log(author)
   
   return (
    <div>

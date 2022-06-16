@@ -29,18 +29,24 @@ function Google(props) {
            router.reload()
         }
       } catch (err) {
-        //console.log(err)
+        console.log(err)
       }
   }
 
   return (
+    <div className='w-[200px]'>
     <GoogleLogin
           onSuccess={response => {responseGoogle(response)}}
           onError={response => {responseGoogle(response)}}
           scope={'profile,email'}
           width={'200px'}
           size={'large'}
+          type={'standard'}
+          theme={'filled_black'}
+          locale={'en'}
+          
     />
+    </div>
   )
 }
 

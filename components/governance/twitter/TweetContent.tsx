@@ -11,7 +11,6 @@ const TweetContent = (props:any) => {
 
     const translate = async() => {
         const server = process.env.NEXT_PUBLIC_SERVER_URL
-        console.log(tweet)
         const data = await tweet.full_text
         const res = await axios.post(`${server}/governance/translate-tweet`, {data})
         setTranslatedTweet(res.data)

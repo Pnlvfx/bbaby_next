@@ -1,12 +1,22 @@
 import axios from 'axios';
 import type { NextPage, NextPageContext } from 'next'
 import Head from 'next/head';
+import { useEffect } from 'react';
+import { useContext } from 'react';
 import CommentPage from '../../../../components/comments/CommentPage'
+import { CommunityContext } from '../../../../components/community/CommunityContext';
 import Layout from '../../../../components/Layout';
 
 const id: NextPage = (props) => {
     const hostname = process.env.NEXT_PUBLIC_HOSTNAME
     const {post}: any = props
+    const {setCommunity}: any = useContext(CommunityContext)
+    
+    const {community}: any = post
+
+    useEffect(() => {
+      setCommunity(community)
+    },[])
 
   return (
     <div>

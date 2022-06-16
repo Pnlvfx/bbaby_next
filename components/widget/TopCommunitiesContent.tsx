@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link'
 
-function TopCommunitiesContent(props) {
+function TopCommunitiesContent(props:any) {
 
   const loader = () => {
     return `${community.communityAvatar}?w=20px&q=25`
