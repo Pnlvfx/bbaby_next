@@ -96,7 +96,7 @@ function CommunitiesInfo(props) {
                 </div>
               </ClickOutHandler>
               )} 
-              {user_is_moderator && (
+              {!user_is_moderator && !loading && (
                   <div className="flex">
                     <div className="overflow-hidden mb-2">
                         <span className='bg-reddit_dark-brighter break-words leading-6 overflow-hidden resize-none outline-none'>{description}</span>               
