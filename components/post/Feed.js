@@ -40,9 +40,10 @@ function Feed(props) {
   const [posts,setPosts] = useState([])
   const [loadingPosts,setLoadingPosts] = useState(true)
   const [loadingCommunity,setLoadingCommunity] = useState(true)
+  const server = process.env.NEXT_PUBLIC_SERVER_URL
 
   const refreshCommunityPost = () => {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
+    
     axios({
       method: 'get',
       url: `${server}/posts?community=${community}&limit=10&skip=0`,
@@ -55,6 +56,7 @@ function Feed(props) {
 
   //GET POST FROM COMMUNITYPAGE AND HOMEPAGE
   useEffect(() => {
+    
     //setLoadingPosts(true)
     if (community) {
       refreshCommunityPost()
