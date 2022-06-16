@@ -1,12 +1,13 @@
+import axios from "axios";
 import Image from "next/image";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { CommunityContext } from "../community/CommunityContext";
 
 function BoardHeader(props: any) {
-    const {communityAvatar,cover,loading,user_is_moderator}: any = useContext(CommunityContext);
+    const {communityAvatar,cover,loading,user_is_moderator,name,refreshCommunity}: any = useContext(CommunityContext);
     const [selectedFile,setSelectedFile] = useState(communityAvatar)
-    const [change,setChange] = useState(false)
     const filePickerRef: any = useRef(null)
+    const server = process.env.NEXT_PUBLIC_SERVER_URL
 
     const {community} = props
 
@@ -19,10 +20,22 @@ function BoardHeader(props: any) {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () =>{
-            setChange(true)
             setSelectedFile(reader.result)
         }
     }
+
+    useEffect(() => {
+        if (!selectedFile) return
+        axios({
+            method: "POST",
+            url: `${server}/communities/${name}/change_avatar`,
+            data: {image: selectedFile},
+            headers: {'Content-Type': 'application/json'}
+        }).then(() => {
+            refreshCommunity()
+            setSelectedFile(false)
+        })
+    },[selectedFile])
 
     return(
         <>
@@ -40,7 +53,7 @@ function BoardHeader(props: any) {
                         {!user_is_moderator && (
                             <div className='w-[72px] h-[72px] rounded-full overflow-hidden border-4 relative -top-4 border-white bg-reddit_blue ml-0 lg:ml-40'>
                                 {!loading && (
-                                    <Image src={selectedFile ? selectedFile : communityAvatar} alt='community header' className='rounded-full flex-none' layout="fill" />
+                                    <Image src={communityAvatar} alt='community header' className='rounded-full flex-none' layout="fill" />
                                 )}
                             </div>
                         )}
@@ -48,8 +61,8 @@ function BoardHeader(props: any) {
                             <div className="-top-4 relative ml-0 lg:ml-40">
                                 <div className='w-[72px] h-[72px] rounded-full overflow-hidden border-4 relative border-white bg-reddit_blue'>
                                     {!loading && (
-                                        <button onClick={() => filePickerRef.current.click()}>
-                                            <Image src={selectedFile ? selectedFile : communityAvatar} alt='community header' className='rounded-full flex-none' layout="fill" />
+                                        <button className="w-[72px] h-[72px] relative" onClick={() => filePickerRef.current.click()}>
+                                            <Image src={communityAvatar} alt='community header' className='rounded-full flex-none' layout="fill" />
                                         </button>
                                     )}
                                 </div>

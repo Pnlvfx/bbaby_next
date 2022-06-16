@@ -1,6 +1,8 @@
 import express from 'express';
 import Community from '../models/Community.js';
 import {getUserFromToken} from '../controllers/user/UserFunctions.js'
+import cloudinary from '../utils/cloudinary.js';
+import Post from '../models/Post.js'
 
 const router = express.Router();
 
@@ -45,6 +47,22 @@ router.get('/communities/:name', async (req,res) => {
         res.status(500).json({msg: err.message})
     }
 });
+
+router.post('/communities/:name/change_avatar', async(req,res) => {
+    try {
+        const {image} = req.body
+        const {name} = req.params
+        const uploadedResponse = await cloudinary.v2.uploader.upload(image, {
+            height: 256, width: 256, crop: "scale"
+        })
+        const community = await Community.findOneAndUpdate({name}, {communityAvatar: uploadedResponse.secure_url})
+        const postThumb = await Post.updateMany({community: name}, {$set: {communityIcon: uploadedResponse.secure_url}})
+
+        res.json({msg: "Image updated successfully"})
+    } catch (err) {
+        res.status(500).json({msg: err.message})
+    }
+})
 
 
 router.get('/communities/edit/:name', (req,res) => {

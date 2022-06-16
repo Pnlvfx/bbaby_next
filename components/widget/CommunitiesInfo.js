@@ -30,21 +30,21 @@ function CommunitiesInfo(props) {
 
 
     //setDescription
-    useEffect(() => {
-      setEditedDescr(description)
-    }, [])
+    // useEffect(() => {
+    //   setEditedDescr(description)
+    // }, [])
     
 
     
-    useEffect(() => {
-        if(commit) {
-            const server = process.env.NEXT_PUBLIC_SERVER_URL
-            const data = {description, name}
-            axios.post(server+'/communities/edit/description',data,{withCredentials:true}).then(response => {
-                setCommit(false)
-            })
-        }
-    },[commit])
+    // useEffect(() => {
+    //     if(commit) {
+    //         const server = process.env.NEXT_PUBLIC_SERVER_URL
+    //         const data = {description, name}
+    //         axios.post(server+'/communities/edit/description',data,{withCredentials:true}).then(response => {
+    //             setCommit(false)
+    //         })
+    //     }
+    // },[commit])
     
     return (
       <div className='bg-reddit_dark-brighter shadow-lg w-[310px] h-96 rounded-md border border-reddit_border'>
@@ -83,8 +83,9 @@ function CommunitiesInfo(props) {
                     )}
                 </div>
               {user_is_moderator && !loading && (
-              <ClickOutHandler onClickOut={() => {
-                  setCommit(true)
+              <ClickOutHandler onClickOut={e => {
+                e.preventDefault()
+                setCommit(true)
               }}>
                 <div className="flex hover:border border-reddit_text">
                     <div className="overflow-hidden">

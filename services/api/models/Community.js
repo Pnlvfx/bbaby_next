@@ -53,17 +53,6 @@ const schema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    icon: { // SHOULD BE THE SMALL COMMUNITYAVATAR FOR SHOWING ON POSTS
-        height: {
-            type: Number
-        },
-        width: {
-            type: Number
-        },
-        url: {
-            type: String
-        },
-    }
 });
 
 const Community = mongoose.model('Community', schema);

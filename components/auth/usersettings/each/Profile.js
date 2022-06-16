@@ -26,8 +26,8 @@ function Profile() {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () =>{
-            setChange(true)
             setSelectedFile(reader.result)
+            setChange(true)
         }
     }
     
@@ -40,11 +40,12 @@ function Profile() {
                 url: server+'/user/change_avatar',
                 data: data,
                 headers: {'Content-type': 'application/json'},
-            })   
+            })
+            setChange(false) 
         } catch (err) {
             console.log(err)
         }
-    },[selectedFile])
+    },[change])
 
     const [test,setTest] = useState('https://res.cloudinary.com/bbabystyle/image/upload/v1655201859/dltcic92snumr7dst7mu.webp')
 

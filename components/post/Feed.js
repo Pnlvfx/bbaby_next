@@ -11,8 +11,6 @@ import CommunitiesInfo from '../widget/CommunitiesInfo'
 import dynamic from 'next/dynamic'
 import LoaderPlaceholder from './LoaderPlaceholder'
 
-//PostsListings from home and best page
-
 function Feed(props) {
   // GETTING COMMUNITY IF COMMUNITY PAGE
   const {community,author} = props
@@ -43,19 +41,23 @@ function Feed(props) {
   const [loadingPosts,setLoadingPosts] = useState(true)
   const [loadingCommunity,setLoadingCommunity] = useState(true)
 
+  const refreshCommunityPost = () => {
+    const server = process.env.NEXT_PUBLIC_SERVER_URL
+    axios({
+      method: 'get',
+      url: `${server}/posts?community=${community}&limit=10&skip=0`,
+      withCredentials:true
+    }).then(response => {
+      setPosts(response.data)
+      setLoadingPosts(false)
+    })
+  }
+
   //GET POST FROM COMMUNITYPAGE AND HOMEPAGE
   useEffect(() => {
     //setLoadingPosts(true)
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
     if (community) {
-      axios({
-        method: 'get',
-        url: `${server}/posts?community=${community}&limit=10&skip=0`,
-        withCredentials:true
-      }).then(response => {
-        setPosts(response.data)
-        setLoadingPosts(false)
-      })
+      refreshCommunityPost()
     } else if(author) {
       axios({
         method: 'get',

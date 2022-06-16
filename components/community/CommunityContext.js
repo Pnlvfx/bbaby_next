@@ -10,18 +10,25 @@ export function CommunityContextProvider({children}) {
     const [loading,setLoading] = useState(true)
     
 
+    const refreshCommunity = () => {
+        const server = process.env.NEXT_PUBLIC_SERVER_URL
+            axios.get(server+'/communities/'+community, {withCredentials:true})
+                .then(response => {
+                    setCommunityInfo(response.data);
+                    setLoading(false)
+            })
+    }
+
+
     useEffect(() => {
         if(community === undefined) return
-        const server = process.env.NEXT_PUBLIC_SERVER_URL
-        axios.get(server+'/communities/'+community, {withCredentials:true})
-            .then(response => {
-                setCommunityInfo(response.data);
-                setLoading(false)
-            })
+        refreshCommunity()
     },[community])
 
+
+
     return (
-        <CommunityContext.Provider value={{show,setShow, community,setCommunity,loading, ...communityInfo}}>
+        <CommunityContext.Provider value={{show,setShow, community,setCommunity,loading, refreshCommunity, ...communityInfo}}>
             {children}
         </CommunityContext.Provider>
     );
