@@ -4,9 +4,8 @@ import showTimeMsg from '../../utils/notification/showTimeMsg'
 import { useRouter } from 'next/router';
 import {BsTrashFill} from 'react-icons/bs'
 import axios from 'axios';
-import Image from 'next/image';
 import UserContext from '../../auth/UserContext';
-import moreButton from '../../../public/moreButton.svg'
+import {MoreIcon} from '../../utils/SVG'
 
 function MoreButton(props) {
 
@@ -86,7 +85,7 @@ function MoreButton(props) {
             clickMoreButton()
         }}>
           <div className='mt-[2px] text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm'>
-            <Image src={moreButton} alt='' height={'20px'} width={'20px'}/>
+            <MoreIcon style={{height: '20px', width: '20px'}} />
           </div>
          </button>
    

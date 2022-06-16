@@ -4,8 +4,7 @@ import { useEffect, useState } from "react"
 import ClickOutHandler from "react-clickout-handler";
 import Comment from '../comments/Comment';
 import {GrDocumentText} from 'react-icons/gr'
-import Image from "next/image";
-import closeIcon from '../../public/closeIcon.svg'
+import { CloseIcon } from "../utils/SVG";
 
 function PostModal(props) {
 
@@ -51,7 +50,7 @@ function PostModal(props) {
                 setPost({})
                 }} className="text-right ml-auto flex pt-4 pb-8">
                   <div className="mr-1">
-                  <Image src={closeIcon} alt="" width={'20px'} height={'20px'} style={{filter:'invert(80%)'}} />
+                  <CloseIcon style={{height: '20px', width: '20px'}} />
                   </div>
                 <h1 className="text-xs font-bold mt-[2px]">Close</h1>
               </button>

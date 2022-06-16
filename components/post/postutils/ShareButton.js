@@ -4,8 +4,7 @@ import showTimeMsg from '../../utils/notification/showTimeMsg'
 import { useRouter } from 'next/router';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {AiOutlineLink} from 'react-icons/ai'
-import Image from 'next/image';
-import shareButton from '../../../public/share.svg'
+import { ShareIcon } from '../../utils/SVG';
 
 
 
@@ -52,7 +51,7 @@ function ShareButton(props) {
         toggleShareDropdown()
       }}>
         <div className='flex text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm'>
-          <Image src={shareButton} alt='share_button' width={'20px'} height={'20px'}/>
+          <ShareIcon style={{height: '20px', width: '20px'}} />
           <h1 className='ml-1 mt-[2px]'>Share</h1>
         </div>
       </button>

@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import AuthModalContext from '../auth/AuthModalContext';
 import Image from 'next/image';
 import UserContext from '../auth/UserContext';
-import addImage from '../../public/addimage.svg'
+import {AddImage} from '../utils/SVG'
 
 function PostForm(props) {
 
@@ -65,12 +65,14 @@ function PostForm(props) {
                         </div>
                     )}
                 </form>
-                <button title='Create media post' id='create_post_w_image' className="mx-1 mt-[6px] opacity-10 text-reddit_text-darker">
-                    <Image src={addImage} alt='' width={'24px'} height={'24px'} />
-                </button>
-                <button className="">
-                    <BiLink className="text-gray-400 w-6 h-6 mx-1 opacity-10"/>
-                </button>
+                <div className='self-centr mt-[6px]'>
+                    <button title='Create media post' className="mx-1 opacity-10 text-reddit_text-darker">
+                        <AddImage />
+                    </button>
+                    <button className="">
+                        <BiLink className="text-reddit_text-darker w-6 h-6 mx-1 opacity-10"/>
+                    </button>
+                </div>
             </div>
     )
 }

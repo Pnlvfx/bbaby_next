@@ -13,8 +13,8 @@ import { useRouter } from 'next/router';
 import Reddit from './providers/Reddit'
 import UserPreferencesModal from '../user/UserPreferencesModal';
 import AuthImage from '../../public/authImage.png'
-import CloseIcon from '../../public/closeIcon.svg'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { CloseIcon } from '../utils/SVG';
 
 function AuthModal() {
     const initialState = {
@@ -213,7 +213,7 @@ function AuthModal() {
                     }
                         }>
                             <div className='p-1'>
-                                <Image src={CloseIcon} alt="" width={'20px'} height={'20px'} style={{filter:'invert(60%)'}} />
+                                <CloseIcon style={{height: '20px', width: '20px'}} />
                             </div>
                     </button>
                 </div>

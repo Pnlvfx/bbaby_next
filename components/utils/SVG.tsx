@@ -41,3 +41,97 @@ export const TwitterLogo = (props: any) => {
     </svg>
     )
 }
+
+export const AddImage = (props: any) => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            className="r-1cvl2hr r-4qtqp9 r-yyyyoo r-z80fyv r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-19wmn03"
+            width={24}
+            height={24}
+            {...props}
+            >
+            <g fill="#818384">
+                <path d="M19.75 2H4.25C3.01 2 2 3.01 2 4.25v15.5C2 20.99 3.01 22 4.25 22h15.5c1.24 0 2.25-1.01 2.25-2.25V4.25C22 3.01 20.99 2 19.75 2zM4.25 3.5h15.5c.413 0 .75.337.75.75v9.676l-3.858-3.858a.75.75 0 00-.53-.22h-.003a.74.74 0 00-.532.224l-4.317 4.384-1.813-1.806a.75.75 0 00-.53-.22c-.193-.03-.395.08-.535.227L3.5 17.642V4.25c0-.413.337-.75.75-.75zm-.744 16.28l5.418-5.534 6.282 6.254H4.25a.75.75 0 01-.744-.72zm16.244.72h-2.42l-5.007-4.987 3.792-3.85 4.385 4.384v3.703c0 .413-.337.75-.75.75z" />
+                <circle cx={8.868} cy={8.309} r={1.542} />
+            </g>
+        </svg>
+    )
+}
+
+export const CommentIcon = (props: any) => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            className="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi"
+            width={props.style.width}
+            height={props.style.height}
+            >
+            <path
+                d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.802 0 4.098 3.186 7.206 7.465 7.37v3.828a.85.85 0 00.12.403.744.744 0 001.034.229c.264-.168 6.473-4.14 8.088-5.506 1.902-1.61 3.04-3.97 3.043-6.312v-.017c-.006-4.367-3.43-7.787-7.8-7.788zm3.787 12.972c-1.134.96-4.862 3.405-6.772 4.643V16.67a.75.75 0 00-.75-.75h-.396c-3.66 0-6.318-2.476-6.318-5.886 0-3.534 2.768-6.302 6.3-6.302l4.147.01h.002c3.532 0 6.3 2.766 6.302 6.296-.003 1.91-.942 3.844-2.514 5.176z"
+                fill="#818384"
+            />
+        </svg>
+    )
+}
+
+export const MoreIcon = (props: any) => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            className="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi"
+            width={props.style.width}
+            height={props.style.height}
+            {...props}
+            >
+            <g fill="#818384">
+                <circle cx={5} cy={12} r={2} />
+                <circle cx={12} cy={12} r={2} />
+                <circle cx={19} cy={12} r={2} />
+            </g>
+        </svg>
+    )
+}
+
+export const ShareIcon = (props: any) => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            className="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi"
+            width={props.style.width}
+            height={props.style.height}
+            {...props}
+        >
+            <g fill="#818384">
+            <path d="M17.53 7.47l-5-5a.749.749 0 00-1.06 0l-5 5a.749.749 0 101.06 1.06l3.72-3.72V15a.75.75 0 001.5 0V4.81l3.72 3.72c.146.147.338.22.53.22s.384-.072.53-.22a.749.749 0 000-1.06z" />
+            <path d="M19.708 21.944H4.292A2.294 2.294 0 012 19.652V14a.75.75 0 011.5 0v5.652c0 .437.355.792.792.792h15.416a.793.793 0 00.792-.792V14a.75.75 0 011.5 0v5.652a2.294 2.294 0 01-2.292 2.292z" />
+            </g>
+        </svg>
+    )
+}
+
+export const CloseIcon = (props: any) => {
+    return (
+        <svg
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+            className="_1P6W3uUZ7ehYwJrW6a7sfJ"
+            width={props.style.width}
+            height={props.style.height}
+            {...props}
+            >
+            <path
+                fill="#818384"
+                d="M11.649 9.882L18.262 3.267 16.495 1.5 9.881 8.114 3.267 1.5 1.5 3.267 8.114 9.883 1.5 16.497 3.267 18.264 9.881 11.65 16.495 18.264 18.262 16.497z"
+            />
+        </svg>
+    )
+}

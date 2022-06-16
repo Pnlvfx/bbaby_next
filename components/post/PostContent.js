@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import MoreButton from './postutils/MoreButton'
 import Image from "next/image";
 import Voting from "./Voting";
-import CommentIcon from '../../public/comment.svg'
+import {CommentIcon} from '../utils/SVG'
 import LoaderPlaceholder from './LoaderPlaceholder'
 
 function PostContent(props) {
@@ -50,7 +50,7 @@ function PostContent(props) {
                   </div>
                 </div>
                 <pre>
-                  <p style={{whiteSpace: 'pre-line'}} className='mb-4 break-words font-extrabold'>{props.title}</p>
+                  <p style={{whiteSpace: 'pre-line',fontFamily: 'Roboto'}} className='mb-4 break-words font-extrabold leading-6'>{props.title}</p>
                 </pre>
                   {props.image && (
                     <div className="relative">
@@ -72,7 +72,7 @@ function PostContent(props) {
                         }
                       }}>
                       <div className='flex text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm'>
-                      <Image src={CommentIcon} alt='comment_button' height={'20px'} width={'20px'} />
+                      <CommentIcon style={{height: '20px', width: '20px'}} />
                       <h1 className="ml-1">{props.numComments} Comments</h1>
                       </div>
                     </button>

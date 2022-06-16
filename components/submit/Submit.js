@@ -12,8 +12,8 @@ import {MdOutlineCircle} from 'react-icons/md'
 import SubmitButton from './SubmitButton';
 import {FaTrashAlt} from 'react-icons/fa'
 import {HiChevronDown,HiOutlineDocumentText} from 'react-icons/hi'
-import addImage from '../../public/addimage.svg'
 import showTimeMsg from '../utils/notification/showTimeMsg';
+import { AddImage } from '../utils/SVG';
 
 function Submit(props) {
     
@@ -216,7 +216,7 @@ function Submit(props) {
                         </button>
                         <button className='opacity-20 text-sm border-r border-reddit_border flex border-b-2 px-3 py-1 hover:bg-reddit_hover'>
                             <div className='mt-2 mr-1'>
-                            <Image src={addImage} alt={'PostIcon'} height={'25px'} width={'25px'}/>
+                            <AddImage />
                             </div>
                             <h1 className='py-3 font-semibold'>Images & Video</h1>
                         </button>

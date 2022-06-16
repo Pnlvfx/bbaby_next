@@ -1,5 +1,4 @@
-import Image from 'next/image';
-import CommentIcon from '../../../public/comment.svg'
+import { CommentIcon } from '../../utils/SVG';
 
 
 function ReplyButton(props) {
@@ -8,7 +7,7 @@ function ReplyButton(props) {
   return (
     <button {...props} className={classNames + props.className}>
       <div className='mr-1'>
-        <Image src={CommentIcon} alt='' width={'24px'} height={'24px'} />
+        <CommentIcon style={{height: '20px', width: '20px'}} />
       </div>
         <h1 className=''>Reply</h1>
     </button>
