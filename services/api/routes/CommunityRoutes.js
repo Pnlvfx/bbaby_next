@@ -27,15 +27,18 @@ router.get('/communities/:name', async (req,res) => {
         if (token) {
             const user = await getUserFromToken(token)
             const comm = await Community.findOne({name})
-            if (user.username === comm.communityAuthor) {
-                const community = await Community.findOneAndUpdate({name}, {user_is_moderator: true})
+            if (user.username === comm.communityAuthor || user.role === 1) {
+                const edit = await Community.findOneAndUpdate({name}, {user_is_moderator: true})
+                const community = await Community.findOne({name})
                 res.json(community);
             } else {
-                const community = await Community.findOneAndUpdate({name}, {user_is_moderator: false})
+                const edit = await Community.findOneAndUpdate({name}, {user_is_moderator: false})
+                const community = await Community.findOne({name})
                 res.json(community);
             }
         } else {
-            const community = await Community.findOneAndUpdate({name}, {user_is_moderator: false})
+            const edit = await Community.findOneAndUpdate({name}, {user_is_moderator: false})
+            const community = await Community.findOne({name})
             res.json(community);
         }   
     } catch (err) {

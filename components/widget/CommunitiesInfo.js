@@ -17,7 +17,7 @@ function CommunitiesInfo(props) {
     const provider = useContext(UserContext)
     const {session} = provider
     const router = useRouter()
-    const {communityAvatar,name,description,communityAuthor,createdAt,loading,user_is_moderator} = useContext(CommunityContext)
+    const {communityAvatar,name,description,createdAt,loading,user_is_moderator} = useContext(CommunityContext)
     const {community} = props
     const [editedDescr,setEditedDescr] = useState('')
 
