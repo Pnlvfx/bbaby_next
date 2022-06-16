@@ -7,7 +7,7 @@ import CommentPage from '../../../../components/comments/CommentPage'
 import { CommunityContext } from '../../../../components/community/CommunityContext';
 import Layout from '../../../../components/Layout';
 
-const id: NextPage = (props) => {
+const Id: NextPage = (props) => {
     const hostname = process.env.NEXT_PUBLIC_HOSTNAME
     const {post}: any = props
     const {setCommunity}: any = useContext(CommunityContext)
@@ -39,7 +39,7 @@ const id: NextPage = (props) => {
   )
 }
 
-export default id
+export default Id
 
 export async function getServerSideProps(context: NextPageContext) {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
