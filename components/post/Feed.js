@@ -84,7 +84,7 @@ function Feed(props) {
       const res = await axios.get(`${server}/posts?community=${community}&skip=${posts.length}&limit=10`)
       const newPosts = await res.data
       setPosts((posts) => [...posts, ...newPosts])
-    } if (author) {
+    } else if (author) {
       const res = await axios.get(`${server}/posts?author=${author}&skip=${posts.length}&limit=10`)
       const newPosts = await res.data
       setPosts((posts) => [...posts, ...newPosts])

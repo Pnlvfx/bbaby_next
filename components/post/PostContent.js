@@ -49,16 +49,18 @@ function PostContent(props) {
                     </button> <TimeAgo datetime={props.createdAt} className='text-ellipsis'/>
                   </div>
                 </div>
-                  <h3 className='text-lg mb-4 break-words'>{props.title}</h3>
+                <pre>
+                  <p style={{whiteSpace: 'pre-line'}} className='mb-4 break-words font-extrabold'>{props.title}</p>
+                </pre>
                   {props.image && (
                     <div className="relative">
                         <Image src={`${props.image}`} alt='' height={height} width={width} />
                     </div>
                   )}
                   {props.body && (
-                    <div className='text-sm leading-6 break-words resize-x-none flex-none'>
-                      <h1>{props.body}</h1>
-                    </div>
+                    <pre className='text-sm leading-6 break-words resize-x-none flex-none'>
+                      <p style={{whiteSpace: 'pre-line'}}>{props.body}</p>
+                    </pre>
                   )}
                 <div className='flex'>
                   <button type='button' onClick={event => {

@@ -32,7 +32,7 @@ function CommunitiesInfo(props) {
     //setDescription
     useEffect(() => {
       setEditedDescr(description)
-    }, [name])
+    }, [])
     
 
     
