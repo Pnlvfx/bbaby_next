@@ -129,8 +129,10 @@ function Submit(props) {
             const data = {title,body,community,communityIcon,image,isImage,imageHeight,imageWidth,imageId,sharePostToTG,sharePostToTwitter};
             const server = process.env.NEXT_PUBLIC_SERVER_URL
             const res =  await axios.post(server+'/posts', data, {withCredentials:true})
-            setNewPostId(res.data._id);
-            if (userRole) {
+            if (!userRole) {
+                const _id = await res.data
+                setNewPostId(_id);
+            } else {
                 setValue('OK')
                 setLoading(false)
             }
@@ -138,11 +140,6 @@ function Submit(props) {
             if(err.response.status === 401) {
                 authModalContext.setShow('login');
             }
-            err.response.data.msg && 
-            setLoading(false)
-            return (
-                <ShowTimeMsg value={value} setValue={setValue} />
-            )
         }
     }
     //
@@ -163,13 +160,7 @@ function Submit(props) {
     
 
     if(newPostId) {
-        if(!userRole) {
-            router.push('/b/'+community+'/comments/'+newPostId)
-        } else {
-            return (
-                <ShowTimeMsg value={value} setValue={setValue} />
-            )
-        }
+        router.push('/b/'+community+'/comments/'+newPostId)
     }
 
   return (
@@ -311,7 +302,7 @@ function Submit(props) {
 
                     </div>
                     {value && (
-                        ShowTimeMsg(value)
+                        <ShowTimeMsg value={value} setValue={setValue} />
                     )}
     </div>
   )

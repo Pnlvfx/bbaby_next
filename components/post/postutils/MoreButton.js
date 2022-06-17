@@ -1,6 +1,6 @@
 import {useState,useEffect, useContext} from 'react'
 import ClickOutHandler from "react-clickout-handler";
-import showTimeMsg from '../../utils/notification/ShowTimeMsg'
+import ShowTimeMsg from '../../utils/notification/ShowTimeMsg'
 import { useRouter } from 'next/router';
 import {BsTrashFill} from 'react-icons/bs'
 import axios from 'axios';
@@ -104,9 +104,9 @@ function MoreButton(props) {
                )}
           </div>
            </div>
-           {deletedSuccess && (
-             showTimeMsg('Post deleted successfully.')
-           )}
+           {/* {deletedSuccess && (
+             <ShowTimeMsg />
+           )} */}
        </div>
        </ClickOutHandler>
    </>
