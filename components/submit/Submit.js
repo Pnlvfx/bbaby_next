@@ -130,7 +130,7 @@ function Submit(props) {
             const server = process.env.NEXT_PUBLIC_SERVER_URL
             const res =  await axios.post(server+'/posts', data, {withCredentials:true})
             if (!userRole) {
-                const _id = await res.data
+                const {_id} = await res.data
                 setNewPostId(_id);
             } else {
                 setValue('OK')
