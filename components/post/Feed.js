@@ -12,21 +12,24 @@ import dynamic from 'next/dynamic'
 import LoaderPlaceholder from './LoaderPlaceholder'
 
 function Feed(props) {
-  // GETTING COMMUNITY IF COMMUNITY PAGE
-  const {community,author} = props
-  //
-
   // OPEN MODAL
   //DELAY MODAL LOADING
   const PostModal = dynamic(() => import('./PostModal'))
   //
+
+
+  // GETTING COMMUNITY IF COMMUNITY PAGE
+  const {community,author} = props
+  //
+
   const [postOpen, setPostOpen] = useState(false)
   let router = useRouter()
-  
   let postId = null
+
   if(router.query.postId) {
     postId = router.query.postId;
   }
+
   useEffect(() => {
     setPostOpen(true);
   }, [postId]);
@@ -43,7 +46,6 @@ function Feed(props) {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
 
   const refreshCommunityPost = () => {
-    
     axios({
       method: 'get',
       url: `${server}/posts?community=${community}&limit=10&skip=0`,
@@ -120,58 +122,58 @@ function Feed(props) {
   return (
     <>
     {postId && !isMobile && (
-      <PostModal postId={postId} open={postOpen} onClickOut={() => {
+      <PostModal community={community} postId={postId} open={postOpen} onClickOut={() => {
         setPostOpen(false)
       }}/>
     )}
       <div className='flex pt-5 mx-0 lg:mx-10'>
-      <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center ml-auto mr-6 flex-none'>
-          <div className='pb-3'>
-              {!author && ( //authorPage
-                <PostForm community={community ? community : posts?.community} allCommunity={allCommunity} />
-              )}
-          </div>
-          <div className='pb-4'> 
-            <BestPost />
-          </div>
-          {loadingPosts && (
-            <>
-            Loading posts..
-                   {/* <LoaderPlaceholder extraStyles={{height:'400px'}} />
-                   <LoaderPlaceholder extraStyles={{height:'400px'}} />
-                   <LoaderPlaceholder extraStyles={{height:'400px'}} />
-                   <LoaderPlaceholder extraStyles={{height:'400px'}} />
-                   <LoaderPlaceholder extraStyles={{height:'400px'}} />
-                   <LoaderPlaceholder extraStyles={{height:'400px'}} /> */}
+        <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center ml-auto mr-6 flex-none'>
+            <div className='pb-3'>
+                {!author && ( //authorPage
+                  <PostForm community={community ? community : posts?.community} allCommunity={allCommunity} />
+                )}
+            </div>
+            <div className='pb-4'> 
+              <BestPost />
+            </div>
+            {loadingPosts && (
+              <>
+              Loading posts..
+                    {/* <LoaderPlaceholder extraStyles={{height:'400px'}} />
+                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
+                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
+                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
+                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
+                    <LoaderPlaceholder extraStyles={{height:'400px'}} /> */}
+              </>
+            )}
+            
+            {!loadingPosts && (
+              <>
+              <InfiniteScroll 
+              dataLength={posts.length}
+              next={getMorePosts}
+              hasMore={true}
+              loader={<h4></h4>}
+              endMessage={<p></p>}
+            >
+            {posts.map(post => (
+                <Post key={post._id} {...post} isListing={true}/>
+            ))}
+            </InfiniteScroll>
             </>
-          )}
-          
-          {!loadingPosts && (
-            <>
-            <InfiniteScroll 
-            dataLength={posts.length}
-            next={getMorePosts}
-            hasMore={true}
-            loader={<h4></h4>}
-            endMessage={<p></p>}
-          >
-          {posts.map(post => (
-              <Post key={post._id} {...post} isListing={true}/>
-          ))}
-          </InfiniteScroll>
-          </>
-          )}
-      </div>
-      {community && !isMobile && (
-        <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden mr-auto'>
-          <CommunitiesInfo community={community} />
+            )}
         </div>
-      )}
-      {!community && !isMobile && (
-        <div className='hidden 2-xl:flex xl:block lg:block md:hidden sm:hidden mr-auto'>
-            <TopCommunities allCommunity={allCommunity} loadingCommunity={loadingCommunity}/>
-        </div>
-      )}
+        {community && !isMobile && (
+          <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden mr-auto'>
+            <CommunitiesInfo community={community} />
+          </div>
+        )}
+        {!community && !isMobile && (
+          <div className='hidden 2-xl:flex xl:block lg:block md:hidden sm:hidden mr-auto'>
+              <TopCommunities allCommunity={allCommunity} loadingCommunity={loadingCommunity}/>
+          </div>
+        )}
     </div>
     </>
   )

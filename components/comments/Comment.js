@@ -7,7 +7,6 @@ import CommentForm from '../submit/CommentForm'
 import { useRouter } from 'next/router'
 
 function Comment(props) {
-
     const server = process.env.NEXT_PUBLIC_SERVER_URL
 
     const router = useRouter()
@@ -18,8 +17,6 @@ function Comment(props) {
     const [commentsTotals,setCommentsTotals] = useState(null);
     const [userVotes,setUserVotes] = useState(null);
 
-    
-    
     function refreshComments() {
         axios.get(server+'/comments/root/'+postId)
         .then(response => {

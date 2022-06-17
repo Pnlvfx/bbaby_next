@@ -23,20 +23,15 @@ function Comments(props) {
                   <div className="leading-10 pr-2 text-sm font-sans">{comment.author}</div>
                   <TimeAgo className='leading-10 text-sm text-reddit_text-darker font-sans' datetime={comment.createdAt} />
               </div>
-              <div className='border-l-2 border-reddit_text-darker p-3'
-              style={{marginLeft:'18px'}} >
+              <div className='border-l-2 border-reddit_text-darker p-3' style={{marginLeft:'18px'}}>
                 <div className='pl-4 -mt-4'>
                   <div>
                     <h1>{comment.body}</h1>
                   </div>
-
-
                   <div className='flex p-2 pl-0 w-auto'>
-                  <Voting commentId={comment._id} />
-                  <ReplyButton type={"button"} onClick={() => {setShowForm(comment._id)}}>Reply</ReplyButton>
+                    <Voting commentId={comment._id} />
+                    <ReplyButton type={"button"} onClick={() => {setShowForm(comment._id)}}>Reply</ReplyButton>
                   </div>
-
-
                     {comment._id === showForm && (
                     <CommentForm parentId={comment._id} rootId={props.rootId} onSubmit={() => {setShowForm(false);
                             rootCommentInfo.refreshComments();

@@ -1,6 +1,5 @@
 import axios from 'axios';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import Link from 'next/link';;
 import {useContext, useState} from 'react'
 import AuthModalContext from '../auth/AuthModalContext';
 import UserContext from '../auth/UserContext';
@@ -14,12 +13,7 @@ function CommentForm(props) {
 
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     const [commentBody,setCommentBody] = useState('');
-    const router = useRouter()
     const authModalContext = useContext(AuthModalContext)
-
-    //const {community} = router.query
-
-    //console.log(props)
 
     const postComment = async(e) => {
         e.preventDefault();
@@ -42,12 +36,14 @@ function CommentForm(props) {
   return (
     <div className='text-reddit_text '>
         {session && props.showAuthor && (
-            <div className='mb-2 text-[13px]'>
-                <h1>Comment as <Link href={`/user/${session.user.username}`}><a className='text-reddit_blue mt-[1px]'>{session.user.username}</a></Link></h1>
+            <div className='mb-2 text-[13px] self-center'>
+                <h1 className=''>Comment as <Link href={`/user/${session.user.username}`}> 
+                    <a className='text-reddit_blue mt-[1px]'>{session.user.username}</a> 
+                    </Link>
+                </h1>
             </div>
         )}
-        <div>
-           {/* parentId:{props.parentId}, rootId:{props.rootId} */}       
+        <div> 
         </div>
         <form onSubmit={e => postComment(e)}>
             <Textarea 

@@ -1,4 +1,5 @@
 import LoaderPlaceholder from '../post/LoaderPlaceholder';
+import Button from '../utils/Button';
 import TopCommunitiesContent from './TopCommunitiesContent'
 
 function TopCommunities(props) {
@@ -28,9 +29,13 @@ function TopCommunities(props) {
           )}
           {!loadingCommunity && (
           <>
-            {allCommunity.map(community => (
+            {allCommunity.map((community,index) => (
+              community.rank = index + 1,
               <TopCommunitiesContent key={community._id} {...community}/>
             ))}
+            <div className='self-center mx-auto pt-3 text-center'>
+              <Button className='w-[300px] mx-2 py-[6px]'>View All</Button>
+            </div>
           </>
           )}
       </div>

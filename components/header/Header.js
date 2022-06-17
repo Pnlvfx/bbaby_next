@@ -55,14 +55,13 @@ function Header() {
             event.preventDefault(),
             router.push('/'),
             setCommunity()
-         }}>
-            <div className='flex-none mt-2 mr-2'>
+            }}>
+            <div className='flex-none mt-2 mr-2 ml-2'>
                 <Image src={Logo} alt='logo' width={'30px'} height={'30px'}/>
             </div>
             <div className='hidden lg:block mt-2'>
-           <TextLogo />
-            </div>
-             
+            <TextLogo />
+            </div>  
         </button>
          {/* <div id='home_button' className='flex p-2'>
              <img src={homeIcon} alt='' className='flex-none w-5 h-5' />
@@ -76,18 +75,18 @@ function Header() {
                     onChange={ev => setSearchText(ev.target.value)} />
             </form>
                 {session && (
-                    <div className='px-2 my-auto'>
-                <button className=' hidden'>
-                    <ChatIcon className='text-reddit_text-darker w-6 h-6 mx-2' />
-                </button>
-                <button className='hidden'>
-                    <BellIcon className='text-reddit_text-darker w-6 h-6 mx-2' />
-                </button>
-                <Link href={'/submit'} className=''>
-                    <a className=''>
-                    <PlusIcon className='text-reddit_text-darker w-6 h-6 hidden md:block' />
-                    </a>
-                </Link>
+                    <div className='px-2 my-auto self-center'>
+                        <button className=' hidden'>
+                            <ChatIcon className='text-reddit_text-darker w-6 h-6 mx-2' />
+                        </button>
+                        <button className='hidden'>
+                            <BellIcon className='text-reddit_text-darker w-6 h-6 mx-2' />
+                        </button>
+                        <Link href={'/submit'} className=''>
+                            <a className=''>
+                            <PlusIcon className='text-[#D7DADC] self-center w-6 h-6 hidden md:block' />
+                            </a>
+                        </Link>
                     </div>
                 )}
 

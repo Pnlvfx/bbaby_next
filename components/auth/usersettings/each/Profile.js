@@ -47,14 +47,6 @@ function Profile() {
         }
     },[change])
 
-    const [test,setTest] = useState('https://res.cloudinary.com/bbabystyle/image/upload/v1655201859/dltcic92snumr7dst7mu.webp')
-
-    const testing = async() => {
-        const split = test.split('/')
-        console.log(split)
-    }
-
-
   return (
     <>
         <div>
@@ -75,9 +67,6 @@ function Profile() {
                 </div>
                     <input hidden type="file" name="image" id="file_up" ref={filePickerRef} onChange={handleFileInputChange}/>
                     <h1>{test}</h1>
-                    <button onClick={() => {
-                        testing()
-                    }}>testing button</button>
             </div>
     </>
   )

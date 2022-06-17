@@ -15,7 +15,7 @@ function PostModal(props) {
 
   const visibleClass = props.open ? 'block' : 'hidden'
 
-  const {postId} = props
+  const {postId,community} = props
 
   useEffect(() => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
@@ -26,13 +26,17 @@ function PostModal(props) {
     });
   },[postId]);
 
-
   return (
     <>
       <ClickOutHandler onClickOut={() => {
-        router.push({pathname:'/'},`/`,{scroll:false})
-        props.onClickOut()
         setLoading(true)
+        router.push({
+          pathname:router.pathname,
+          query: community ? {community: community} : {username: post.author}
+        },
+        router.pathname,{scroll:false}
+        )
+        props.onClickOut()
         setPost({})
         
       }}>
@@ -44,13 +48,18 @@ function PostModal(props) {
               <h1 className='text-sm flex-none'>{post.title}</h1>
               </div>
               <button id="closeButton" onClick={() => {
-                router.push({pathname:'/'},'/',{scroll:false})
-                props.onClickOut()
                 setLoading(true)
+                router.push({
+                  pathname:router.pathname,
+                  query: props.community ? {community: props.community} : {}
+                },
+                router.pathname,{scroll:false}
+                )
+                props.onClickOut()
                 setPost({})
                 }} className="text-right ml-auto flex pt-4 pb-8">
                   <div className="mr-1">
-                  <CloseIcon style={{height: '20px', width: '20px'}} />
+                    <CloseIcon style={{height: '20px', width: '20px'}} />
                   </div>
                 <h1 className="text-xs font-bold mt-[2px]">Close</h1>
               </button>

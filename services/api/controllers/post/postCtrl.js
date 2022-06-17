@@ -1,10 +1,10 @@
 import Post from '../../models/Post.js'
+import TelegramBot from 'node-telegram-bot-api'
 import Comment from '../../models/Comment.js'
 import {getUserFromToken} from '../user/UserFunctions.js'
 import cloudinary from '../../utils/cloudinary.js';
 import 'dotenv/config';
 import User from '../../models/User.js';
-import TelegramBot from 'node-telegram-bot-api'
 import {TwitterApi} from 'twitter-api-v2';
 
 
@@ -104,7 +104,6 @@ const PostCtrl = {
                 const chat_id = savedPost.community === 'Italy' ? '@anonynewsitaly' : savedPost.community === 'calciomercato' ? '@bbabystyle1' : '@bbaby_style'
                 const my_text = `https://bbabystyle.com/b/${savedPost.community}/comments/${savedPost._id}`
                 const message = await bot.sendMessage(chat_id, my_text)
-                //console.log('messagge successfully sended')
             }
             if(sharePostToTwitter) {
                 const {oauth_access_token, oauth_access_token_secret} = user.tokens

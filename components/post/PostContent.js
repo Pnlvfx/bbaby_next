@@ -53,7 +53,7 @@ function PostContent(props) {
                   <p style={{whiteSpace: 'pre-line',fontFamily: 'Roboto'}} className='mb-4 break-words font-extrabold leading-6'>{props.title}</p>
                 </pre>
                   {props.image && (
-                    <div className="relative">
+                    <div className="max-h-[500px] overflow-hidden">
                         <Image src={`${props.image}`} alt='' height={height} width={width} />
                     </div>
                   )}
@@ -64,20 +64,18 @@ function PostContent(props) {
                   )}
                 <div className='flex'>
                   <button type='button' onClick={event => {
-                      event.preventDefault()
-                        if (router.asPath === '/') {
-                          filePickerRef.current.click()
-                        } else {
-                          null
-                        }
-                      }}>
-                      <div className='flex text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm'>
-                      <CommentIcon style={{height: '20px', width: '20px'}} />
-                      <h1 className="ml-1">{props.numComments} Comments</h1>
-                      </div>
-                    </button>
-                      <ShareButton community={props.community} filePickerRefShare={filePickerRefShare} />
-                      <MoreButton post={props} filePickerRefMore={filePickerRefMore}/>
+                    event.preventDefault()
+                      if (props.isListing) {
+                        filePickerRef.current.click()
+                      }
+                    }}>
+                    <div className='flex text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm'>
+                    <CommentIcon style={{height: '20px', width: '20px'}} />
+                    <h1 className="ml-1">{props.numComments} Comments</h1>
+                    </div>
+                  </button>
+                    <ShareButton community={props.community} filePickerRefShare={filePickerRefShare} />
+                    <MoreButton post={props} filePickerRefMore={filePickerRefMore}/>
                 </div>
               </div>
           </div>
