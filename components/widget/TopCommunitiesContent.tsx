@@ -54,8 +54,8 @@ function TopCommunitiesContent(props:any) {
                 <Button onClick={(e: { preventDefault: () => void; }) => {
                   e.preventDefault()
                   subscribe()
-                }} className='py-[2px] px-2 mx-2'>
-                  <p>Join</p>
+                }} className='py-[3px] px-4 mx-1'>
+                  <p className='text-xs'>Join</p>
                 </Button>
               </div>
             </div>

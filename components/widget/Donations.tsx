@@ -1,9 +1,8 @@
 import {FaRegFlag} from 'react-icons/fa'
-import Button from '../utils/Button'
 import { PayPalScriptProvider,PayPalButtons } from '@paypal/react-paypal-js'
 
 const Donations = () => {
-   const NEXT_PUBLIC_PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPPAL_CLIENT_ID
+   //const NEXT_PUBLIC_PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPPAL_CLIENT_ID
   return (
     <div className='bg-reddit_dark-brighter rounded-md ml-2 w-[310] max-w-[310px] mb-5 border border-reddit_border box-content'>
         <div className='p-4 flex'>

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import LoaderPlaceholder from '../post/LoaderPlaceholder';
 import Button from '../utils/Button';
 import TopCommunitiesContent from './TopCommunitiesContent'
@@ -5,6 +6,7 @@ import TopCommunitiesContent from './TopCommunitiesContent'
 function TopCommunities(props) {
 
     const {allCommunity,loadingCommunity} = props
+    const router = useRouter()
     return (
       <div className='bg-reddit_dark-brighter shadow-lg rounded-md ml-2 w-[310px] h-96 mb-5 border border-reddit_border box-content overflow-hidden'>
         {loadingCommunity && (
@@ -33,8 +35,12 @@ function TopCommunities(props) {
               community.rank = index + 1,
               <TopCommunitiesContent key={community._id} {...community}/>
             ))}
-            <div className='self-center mx-auto pt-3 text-center'>
-              <Button className='w-[300px] mx-2 py-[6px]'>View All</Button>
+            <div className='mx-auto pt-3 text-center'>
+              <Button onClick={() => {
+                router.push(`/bbaby/leaderboard`)
+              }} className=' mx-2 py-[6px] w-full max-w-[290px] self-center'>
+                View All
+              </Button>
             </div>
           </>
           )}
