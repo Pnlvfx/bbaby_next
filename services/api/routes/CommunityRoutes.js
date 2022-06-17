@@ -79,13 +79,21 @@ router.post('/communities/edit/description', (req,res) => {
     })
 });
 
-
-router.get('/communities', (req,res) => {
+router.get('/communities', (req,res) => {  ///WITHOUT SORT OR SUBSCRIBED INFORMATION
     const {limit} = req.query
-    Community.find({}).limit(limit).then(communities => {
+    Community.find({}).sort({}).limit(limit).then(communities => {
         res.json(communities);
     })
 });
+
+router.get('/best-communities', (req,res) => {  ///WITH SORT AND SUBSCRIBED INFORMATION
+    const {limit} = req.query
+    Community.find({}).sort({number_of_posts: -1}).limit(limit).then(communities => {
+        res.json(communities);
+    })
+});
+
+
 
 router.post('/communities/subscribe', async(req,res) => {
     const {token} = req.cookies

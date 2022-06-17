@@ -35,8 +35,8 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
     <>
       <Head>
         <meta name='viewport' content='width=device-width,initial-scale=1.0, maximum-scale=1.0' />
-        <meta httpEquiv="Content-Security-Policy"
-              content={`default-src 'self' https://extreme-ip-lookup.com https://*.google-analytics.com https://www.googletagmanager.com https://accounts.google.com ${server} https://apis.google.com 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: w3.org/svg/2000 https://*; child-src https://accounts.google.com;`}/>
+        {/* <meta httpEquiv="Content-Security-Policy"
+              content={`default-src 'self' https://extreme-ip-lookup.com https://*.google-analytics.com https://www.googletagmanager.com https://accounts.google.com ${server} https://apis.google.com 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: w3.org/svg/2000 https://*; child-src https://accounts.google.com;`}/> */}
         <meta name="referrer" content="origin-when-cross-origin"/>
         <meta name="application-name" content="bbabystyle" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

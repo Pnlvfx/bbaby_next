@@ -10,12 +10,10 @@ import { isMobile } from 'react-device-detect'
 import CommunitiesInfo from '../widget/CommunitiesInfo'
 import dynamic from 'next/dynamic'
 import LoaderPlaceholder from './LoaderPlaceholder'
+import Donations from '../widget/Donations'
 
 function Feed(props) {
-  // OPEN MODAL
-  //DELAY MODAL LOADING
   const PostModal = dynamic(() => import('./PostModal'))
-  //
 
   // GETTING COMMUNITY IF COMMUNITY PAGE
   const {community,author} = props
@@ -108,7 +106,7 @@ function Feed(props) {
     if (isMobile) return
     if (!loadingPosts) {
       const server = process.env.NEXT_PUBLIC_SERVER_URL
-      axios.get(server+'/communities?limit=5', {withCredentials:true})
+      axios.get(`${server}/best-communities?limit=5`)
         .then(response => {
           setAllCommunity(response.data)
           setLoadingCommunity(false)
@@ -125,7 +123,7 @@ function Feed(props) {
       }}/>
     )}
       <div className='flex pt-5 mx-0 lg:mx-10'>
-        <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center ml-auto mr-6 flex-none'>
+        <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center ml-auto mr-4 flex-none'>
             <div className='pb-3'>
                 {!author && ( //authorPage
                   <PostForm community={community ? community : posts?.community} allCommunity={allCommunity} />
@@ -170,6 +168,7 @@ function Feed(props) {
         {!community && !isMobile && (
           <div className='hidden 2-xl:flex xl:block lg:block md:hidden sm:hidden mr-auto'>
               <TopCommunities allCommunity={allCommunity} loadingCommunity={loadingCommunity}/>
+              <Donations />
           </div>
         )}
     </div>

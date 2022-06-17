@@ -1,13 +1,14 @@
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link'
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { RiArrowUpSLine } from 'react-icons/ri';
 import AuthModalContext from '../auth/AuthModalContext';
 import Button from '../utils/Button';
 
 function TopCommunitiesContent(props:any) {
   const {setShow}: any = useContext(AuthModalContext);
+  const [subscribed,setSubscribed] = useState(false)
 
   const loader = () => {
     return `${community.communityAvatar}?w=20px&q=25`
@@ -22,7 +23,7 @@ function TopCommunitiesContent(props:any) {
         url: `${server}/communities/subscribe`,
         data,
         withCredentials:true
-      }) 
+      })
     } catch (err:any) {
       if (err.response.status === 401) {
         setShow('login')
@@ -53,13 +54,14 @@ function TopCommunitiesContent(props:any) {
                 <Button onClick={(e: { preventDefault: () => void; }) => {
                   e.preventDefault()
                   subscribe()
-                }} className='my-1 mx-1'>
-                  Join
+                }} className='py-[2px] px-2 mx-2'>
+                  <p>Join</p>
                 </Button>
               </div>
             </div>
           </a>
         </Link>
+        <hr className='border-reddit_border'/>
       </div>
   )
 }

@@ -6,6 +6,7 @@ import cloudinary from '../../utils/cloudinary.js';
 import 'dotenv/config';
 import User from '../../models/User.js';
 import {TwitterApi} from 'twitter-api-v2';
+import Community from '../../models/Community.js';
 
 
 const PostCtrl = {
@@ -151,6 +152,7 @@ const PostCtrl = {
                 }
             }
             if(savedPost) {
+                const updateComNumber = await Community.findOneAndUpdate({name: savedPost.community}, {$inc: {number_of_posts: +1}})
                 res.json(savedPost)
             } else {
                 res.sendStatus(401)

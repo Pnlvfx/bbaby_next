@@ -53,7 +53,15 @@ const schema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-});
+    number_of_posts: {
+        type: Number,
+        default: 0
+    },
+},
+{
+    timestamps:true
+}
+);
 
 const Community = mongoose.model('Community', schema);
 
