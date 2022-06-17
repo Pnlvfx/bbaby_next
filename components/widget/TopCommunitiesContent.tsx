@@ -1,12 +1,33 @@
+import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link'
+import { useContext } from 'react';
 import { RiArrowUpSLine } from 'react-icons/ri';
+import AuthModalContext from '../auth/AuthModalContext';
 import Button from '../utils/Button';
 
 function TopCommunitiesContent(props:any) {
+  const {setShow}: any = useContext(AuthModalContext);
 
   const loader = () => {
     return `${community.communityAvatar}?w=20px&q=25`
+  }
+
+  const subscribe = async() => {
+    try {
+      const server = process.env.NEXT_PUBLIC_SERVER_URL
+      const data = {}
+      const res = await axios({
+        method: 'POST',
+        url: `${server}/communities/subscribe`,
+        data,
+        withCredentials:true
+      }) 
+    } catch (err:any) {
+      if (err.response.status === 401) {
+        setShow('login')
+      }
+    }
   }
 
   const community = props
@@ -29,7 +50,10 @@ function TopCommunitiesContent(props:any) {
                 <h1 className="ml-2 font-bold text-sm">b/{community.name}</h1>
               </div>
               <div className='self-center ml-auto mr-2'>
-                <Button className='my-1 mx-1'>
+                <Button onClick={(e: { preventDefault: () => void; }) => {
+                  e.preventDefault()
+                  subscribe()
+                }} className='my-1 mx-1'>
                   Join
                 </Button>
               </div>

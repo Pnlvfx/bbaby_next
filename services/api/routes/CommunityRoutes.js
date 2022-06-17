@@ -64,7 +64,6 @@ router.post('/communities/:name/change_avatar', async(req,res) => {
     }
 })
 
-
 router.get('/communities/edit/:name', (req,res) => {
     const {name} = req.params;
     Community.findOne({name}).then(c => {
@@ -87,5 +86,13 @@ router.get('/communities', (req,res) => {
         res.json(communities);
     })
 });
+
+router.post('/communities/subscribe', async(req,res) => {
+    const {token} = req.cookies
+    if(!token) {
+        return res.sendStatus(401);
+        
+    }    
+})
 
 export default router;

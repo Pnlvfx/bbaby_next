@@ -20,7 +20,7 @@ function PostContent(props) {
   }
 
     return (
-        <div className="flex bg-reddit_dark-brighter rounded-md overflow-hidden max-h-[700px]">
+        <div className="flex bg-reddit_dark-brighter rounded-md overflow-hidden max-h-[700px] container">
           <div className='bg-[#141415] w-10 flex-none'>
             <Voting ups={props.ups} postId={props._id} liked={props.liked} />
           </div>
@@ -32,7 +32,7 @@ function PostContent(props) {
                       pathname: '/b/'+props.community
                     })
                     }} className="flex cursor-pointer">
-                      <div className="relative">
+                      <div className="">
                         <Image src={communityIcon} alt='' className='rounded-full' height={'20px'} width={'20px'} />                      
                       </div>    
                       <span className="text-xs ml-1 hover:underline font-bold mt-[2px]">b/{props.community}</span>
@@ -53,8 +53,8 @@ function PostContent(props) {
                   <p style={{whiteSpace: 'pre-line',fontFamily: 'Roboto'}} className='mb-4 break-words font-extrabold leading-6'>{props.title}</p>
                 </pre>
                   {props.image && (
-                    <div className="max-h-[500px] overflow-hidden">
-                        <Image src={`${props.image}`} alt='' height={height} width={width} />
+                    <div className="max-h-[500px] overflow-hidden container">
+                        <Image src={`${props.image}`} alt='' height={height} width={width} objectFit={'container'} />
                     </div>
                   )}
                   {props.body && (

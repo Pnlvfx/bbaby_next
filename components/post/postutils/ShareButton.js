@@ -1,32 +1,21 @@
-import {useState,useEffect} from 'react'
+import {useState} from 'react'
 import ClickOutHandler from "react-clickout-handler";
-import showTimeMsg from '../../utils/notification/showTimeMsg'
 import { useRouter } from 'next/router';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {AiOutlineLink} from 'react-icons/ai'
 import { ShareIcon } from '../../utils/SVG';
-
-
+import dynamic from 'next/dynamic';
 
 function ShareButton(props) {
  
   const router = useRouter()
-  const [copied,setCopied] = useState(false);
-  const [showElement,setShowElement] = useState(false)
 
+  //TIMEMSG
+  const ShowTimeMsg = dynamic(() => import('../../utils/notification/ShowTimeMsg'))
+  const [value,setValue] = useState('')
+  //
 
-  const value = 'Link copied!'
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
-
-  //Timeout after copy a link
-  useEffect(() => {
-    if (showElement === false) return 
-    setShowElement(true)
-      setTimeout(() => {
-        setShowElement(false)
-        setCopied(false)
-    }, 8000);
-  },[showElement])
 
   const {community,filePickerRefShare} = props
   
@@ -61,11 +50,10 @@ function ShareButton(props) {
       <div className={'absolute ' + ShareDropdownVisibilityClass}>
         <div className='flex bg-reddit_dark-brighter border border-reddit_border z-10 rounded-md overflow-hidden'>
           {router.asPath === '/' && (
-            <div onClick={e => {e.preventDefault()}} className=''>
+            <div onClick={e => {e.preventDefault()}}>
             <CopyToClipboard text={hostname + '/b/'+community+'/comments/'+router.query.shareId} onCopy={() => {
               setShareDropdownVisibilityClass('hidden')
-              setCopied(true)
-              setShowElement(true)
+              setValue('Link copied!')
             }}>
               <div className='flex py-2 pl-2 pr-12 text-reddit_text-darker'>
               <AiOutlineLink className='w-5 h-5 mr-1 mt-[3px]' />
@@ -78,8 +66,7 @@ function ShareButton(props) {
             <div onClick={e => {e.preventDefault()}} className=''>
             <CopyToClipboard text={hostname + router.asPath} onCopy={() => {
               setShareDropdownVisibilityClass('hidden')
-              setCopied(true)
-              setShowElement(true)
+              setValue('Link copied!')
             }}>
               <div className='flex py-2 pl-2 pr-12 text-reddit_text-darker'>
                 <AiOutlineLink className='w-5 h-5 mr-1 mt-[3px]' />
@@ -92,9 +79,7 @@ function ShareButton(props) {
         </div>
     </div>
     </ClickOutHandler>
-    {copied && showElement && (
-      showTimeMsg(value)
-    )}
+      <ShowTimeMsg value={value} setValue={setValue} />
    </>
   )
 }

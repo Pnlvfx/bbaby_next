@@ -12,7 +12,7 @@ import {MdOutlineCircle} from 'react-icons/md'
 import SubmitButton from './SubmitButton';
 import {FaTrashAlt} from 'react-icons/fa'
 import {HiChevronDown,HiOutlineDocumentText} from 'react-icons/hi'
-import showTimeMsg from '../utils/notification/showTimeMsg';
+import ShowTimeMsg from '../utils/notification/ShowTimeMsg';
 import { AddImage } from '../utils/SVG';
 
 function Submit(props) {
@@ -84,20 +84,17 @@ function Submit(props) {
         }
     },[selectedCommunity])
    
-
     useEffect(() => {
         if(props.community) {
             setSelectedCommunity(props.community)
         }
     },[props.community])
 
-
     useEffect(() => {
         const server = process.env.NEXT_PUBLIC_SERVER_URL
         axios.get(server+'/communities?limit=11', {withCredentials:true})
         .then(response => setAllCommunity(response.data));
     }, []);
-
 
     if(startTyping) {
         const textarea = document.querySelector('textarea')
@@ -114,36 +111,39 @@ function Submit(props) {
     //TWITTER ERROR 
     const [value,setValue] = useState()
     //
-   const createPost = async() => {
-                try {
-                    setLoading(true)
-                    if(isImage) {
-                        const data = selectedFile
-                        const server = process.env.NEXT_PUBLIC_SERVER_URL
-                        const res =
-                        await axios.post(server+'/posts/image', {
-                        data,
-                        headers: {'Content-type': 'application/json',withCredentials:true}
-                        })
-                        const {url} = await res.data
-                        imageId = await res.data.imageId
-                        image = await url
-                    }
-                    const data = {title,body,community,communityIcon,image,isImage,imageHeight,imageWidth,imageId,sharePostToTG,sharePostToTwitter};
-                    const server = process.env.NEXT_PUBLIC_SERVER_URL
-                    const res =  await axios.post(server+'/posts', data, {withCredentials:true})
-                    setNewPostId(res.data._id);
-                    if (userRole) {
-                        setLoading(false)
-                    }
-                } catch (err) {
-                    if(err.response.status === 401) {
-                        authModalContext.setShow('login');
-                    }
-                    err.response.data.msg && 
-                    setLoading(false)
-                    setValue(err.response.data.msg)
-                }
+    const createPost = async() => {
+        try {
+            setLoading(true)
+            if(isImage) {
+                const data = selectedFile
+                const server = process.env.NEXT_PUBLIC_SERVER_URL
+                const res =
+                await axios.post(server+'/posts/image', {
+                data,
+                headers: {'Content-type': 'application/json',withCredentials:true}
+                })
+                const {url} = await res.data
+                imageId = await res.data.imageId
+                image = await url
+            }
+            const data = {title,body,community,communityIcon,image,isImage,imageHeight,imageWidth,imageId,sharePostToTG,sharePostToTwitter};
+            const server = process.env.NEXT_PUBLIC_SERVER_URL
+            const res =  await axios.post(server+'/posts', data, {withCredentials:true})
+            setNewPostId(res.data._id);
+            if (userRole) {
+                setValue('OK')
+                setLoading(false)
+            }
+        } catch (err) {
+            if(err.response.status === 401) {
+                authModalContext.setShow('login');
+            }
+            err.response.data.msg && 
+            setLoading(false)
+            return (
+                <ShowTimeMsg value={value} setValue={setValue} />
+            )
+        }
     }
     //
 
@@ -153,24 +153,22 @@ function Submit(props) {
         setSelectedCommunity(router.query.with_community)
     },[])
 
-
     //////MY TWEEEEEEEEET
     useEffect(() => {
         if (translatedTweet) {
             setTitle(translatedTweet)
-            //setSelectedFile(selectedTweet?.extended_entities.media[0]?.media_url_https)
         }
     },[translatedTweet])
     //
-   
-    
     
 
     if(newPostId) {
         if(!userRole) {
             router.push('/b/'+community+'/comments/'+newPostId)
         } else {
-            showTimeMsg('OK')
+            return (
+                <ShowTimeMsg value={value} setValue={setValue} />
+            )
         }
     }
 
@@ -313,7 +311,7 @@ function Submit(props) {
 
                     </div>
                     {value && (
-                        showTimeMsg(value)
+                        ShowTimeMsg(value)
                     )}
     </div>
   )
