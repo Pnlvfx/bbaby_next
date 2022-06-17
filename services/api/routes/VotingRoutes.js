@@ -38,28 +38,28 @@ router.post('/votes', (req,res) => {
         
     }
 
-    // getUserFromToken(req.cookies.token).then(userInfo => {
+    getUserFromToken(req.cookies.token).then(userInfo => {
 
-    //     Vote.find({commentId: {'$in': commentsIds}})
-    //     .then(votes => {
-    //         let commentsTotals = {};
-    //         votes.forEach(vote => {
-    //             if(typeof commentsTotals[vote.commentId] === 'undefined'){
-    //                 commentsTotals[vote.commentId] = 0;
-    //             }
-    //             commentsTotals[vote.commentId] += vote.direction;
-    //     });
+        Vote.find({commentId: {'$in': commentsIds}})
+        .then(votes => {
+            let commentsTotals = {};
+            votes.forEach(vote => {
+                if(typeof commentsTotals[vote.commentId] === 'undefined'){
+                    commentsTotals[vote.commentId] = 0;
+                }
+                commentsTotals[vote.commentId] += vote.direction;
+        });
 
-    //     let userVotes = {};
-    //     votes.forEach(vote => {
-    //         if(vote.author === userInfo.username) {
-    //             userVotes[vote.commentId] = vote.direction;
-    //         }
-    //     });
+        let userVotes = {};
+        votes.forEach(vote => {
+            if(vote.author === userInfo.username) {
+                userVotes[vote.commentId] = vote.direction;
+            }
+        });
 
-    //     res.json({commentsTotals, userVotes})
-    //     })
-    // });
+        res.json({commentsTotals, userVotes})
+        })
+    });
 })
 
 

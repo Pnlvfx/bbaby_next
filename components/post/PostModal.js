@@ -40,12 +40,12 @@ function PostModal(props) {
         setPost({})
         
       }}>
-        <div className={"fixed top-0 left-0 right-0 z-20 flex mx-32 " +visibleClass} style={{backgroundColor:'rgba(0,0,0,1'}}>
+        <div className={"fixed top-0 left-0 right-0 z-20 flex mx-32 " +visibleClass} style={{backgroundColor:'rgba(0,0,0,.8'}}>
           <div className="py-[51px] w-full mx-8">
             <div className="flex">
               <div className="flex pt-4 pb-8 w-full mr-4 overflow-hidden">
-              <GrDocumentText className="w-4 h-4 text-reddit_text bg-white mr-3" />
-              <h1 className='text-sm flex-none'>{post.title}</h1>
+                <GrDocumentText className="w-4 h-4 text-reddit_text bg-white mr-3" />
+                <h1 className='text-sm flex-none'>{post.title}</h1>
               </div>
               <button id="closeButton" onClick={() => {
                 setLoading(true)

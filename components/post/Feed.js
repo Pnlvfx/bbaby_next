@@ -17,13 +17,12 @@ function Feed(props) {
   const PostModal = dynamic(() => import('./PostModal'))
   //
 
-
   // GETTING COMMUNITY IF COMMUNITY PAGE
   const {community,author} = props
   //
 
   const [postOpen, setPostOpen] = useState(false)
-  let router = useRouter()
+  const router = useRouter()
   let postId = null
 
   if(router.query.postId) {
@@ -58,7 +57,6 @@ function Feed(props) {
 
   //GET POST FROM COMMUNITYPAGE AND HOMEPAGE
   useEffect(() => {
-    
     //setLoadingPosts(true)
     if (community) {
       refreshCommunityPost()

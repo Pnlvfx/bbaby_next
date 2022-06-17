@@ -39,8 +39,8 @@ function Submit(props) {
     const [loading,setLoading] = useState(false)
 
     // SHARE ON TELEGRAM
-    const [sharePostToTG,setSharePostToTG] = useState(false)
-    const [sharePostToTwitter,setSharePostToTwitter] = useState(false)
+    const [sharePostToTG,setSharePostToTG] = useState(userRole ? true : false)
+    const [sharePostToTwitter,setSharePostToTwitter] = useState(userRole ? true : false)
 
     const shareToTelegram = () => {
         setSharePostToTG(!sharePostToTG)

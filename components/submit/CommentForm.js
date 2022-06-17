@@ -34,7 +34,7 @@ function CommentForm(props) {
     }
 
   return (
-    <div className='text-reddit_text '>
+    <div className=''>
         {session && props.showAuthor && (
             <div className='mb-2 text-[13px] self-center'>
                 <h1 className=''>Comment as <Link href={`/user/${session.user.username}`}> 
@@ -43,11 +43,9 @@ function CommentForm(props) {
                 </h1>
             </div>
         )}
-        <div> 
-        </div>
         <form onSubmit={e => postComment(e)}>
-            <Textarea 
-                className="w-full h-[150px] border-reddit_border min-h-[150px] max-h-[270px] placeholder:text-sm placeholder:text-reddit_text-darker "
+            <Textarea
+                className="w-full h-[150px] border-reddit_border min-h-[150px] max-h-[270px] placeholder:text-sm placeholder:text-reddit_text-darker"
                 onChange={e => setCommentBody(e.target.value)}
                 value={commentBody} 
                 placeholder={'What are your thoughts?'} />

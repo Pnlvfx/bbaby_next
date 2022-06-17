@@ -117,7 +117,7 @@ const governanceCtrl =  {
     translateTweet: async (req,res) => {
         try {
             const translationClient = new TranslationServiceClient()
-            const text = req.body.data
+            const {text} = req.body
             const projectId = 'bbabystyle'
             const location = 'us-central1'
             async function translateText() {

@@ -51,7 +51,7 @@ const provider = useContext(UserContext)
       </div>
     )}
     {session?.user?.role === 1 && (
-    <div id="main">
+    <div id="main" className="">
       <div id="2nd_header" className={'w-full bg-reddit_dark-brighter p-1 border-b border-reddit_border z-30'}>
             <div className="flex">
               <div className='mx-2 my-auto text-center'>
@@ -75,7 +75,7 @@ const provider = useContext(UserContext)
             </div>
       </div>
         <div id="diplay_tweets" className="flex pt-5 mx-0 lg:mx-10">
-          <div className="w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center mr-6 flex-none">
+          <div className="w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center mr-6">
             {!tweets && (
               <div>Nothing for now</div>
             )}
@@ -94,13 +94,11 @@ const provider = useContext(UserContext)
               </div>
             )}
           </div>
-          <div>
-          <div className=" p-2 sm:p-4 block lg:flex self-center">
-            <div className="pr-0 md:pr-3 w-full lg:w-[800px]">
-              <Submit translatedTweet={translatedTweet} userRole={session.user.role} />
+            <div className="p-2 sm:p-4">
+              <div className="pr-0 md:pr-3 w-full sticky top-0 lg:w-[800px]">
+                <Submit translatedTweet={translatedTweet} userRole={session.user.role} />
+              </div>
             </div>
-        </div>
-          </div>
         </div>
     </div>
     )}

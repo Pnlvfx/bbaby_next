@@ -11,14 +11,14 @@ const TweetContent = (props:any) => {
 
     const translate = async() => {
         const server = process.env.NEXT_PUBLIC_SERVER_URL
-        const data = await tweet.full_text
-        const res = await axios.post(`${server}/governance/translate-tweet`, {data})
+        const data = {text: tweet.full_text}
+        const res = await axios.post(`${server}/governance/translate-tweet`, data)
         setTranslatedTweet(res.data)
     }
 
   return (
-    <div className="flex bg-reddit_dark-brighter rounded-md overflow-hidden">
-        <div className="p-2 max-h-[700px]">
+    <div className="flex bg-reddit_dark-brighter rounded-md overflow-hidden max-h-[700px]">
+        <div className="p-2">
                 <div className="flex mb-3">
                     <div className="rounded-full overflow-hidden w-5 h-5">
                         <Image src={tweet.user.profile_image_url_https} alt='twitter_user_image' width={'20px'} height={'20px'} />
@@ -32,7 +32,7 @@ const TweetContent = (props:any) => {
                 <h3 className="break-words mb-4 text-lg">{tweet.full_text}</h3>
             </div>
             {tweet?.extended_entities?.media[0]?.media_url_https && (
-                <div className="">
+                <div className="max-h-[500px] overflow-hidden">
                     <Image src={postImage} height={height} alt='twitter_image' width={width}/> 
                 </div>
             )}
