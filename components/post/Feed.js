@@ -101,16 +101,20 @@ function Feed(props) {
   // GET ALL COMMUNITY INFO
   const [allCommunity,setAllCommunity] = useState([]);
 
+  const refreshCommunities = () => {
+    const server = process.env.NEXT_PUBLIC_SERVER_URL
+    axios.get(`${server}/best-communities?limit=5`,{withCredentials:true})
+      .then(response => {
+        setAllCommunity(response.data)
+        setLoadingCommunity(false)
+      });
+  }
+
   useEffect(() => {
     if (community) return
     if (isMobile) return
     if (!loadingPosts) {
-      const server = process.env.NEXT_PUBLIC_SERVER_URL
-      axios.get(`${server}/best-communities?limit=5`)
-        .then(response => {
-          setAllCommunity(response.data)
-          setLoadingCommunity(false)
-        });
+      refreshCommunities()
     }
     }, [loadingPosts]);
     //
@@ -124,7 +128,7 @@ function Feed(props) {
     )}
       <div className='flex pt-5 mx-0 lg:mx-10'>
         <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center ml-auto mr-4 flex-none'>
-            <div className='pb-3'>
+            <div className='pb-[18px]'>
                 {!author && ( //authorPage
                   <PostForm community={community ? community : posts?.community} allCommunity={allCommunity} />
                 )}
@@ -167,7 +171,7 @@ function Feed(props) {
         )}
         {!community && !isMobile && (
           <div className='hidden 2-xl:flex xl:block lg:block md:hidden sm:hidden mr-auto'>
-              <TopCommunities allCommunity={allCommunity} loadingCommunity={loadingCommunity}/>
+              <TopCommunities refreshCommunities={refreshCommunities} allCommunity={allCommunity} loadingCommunity={loadingCommunity}/>
               <Donations />
           </div>
         )}

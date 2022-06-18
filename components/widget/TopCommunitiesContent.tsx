@@ -8,7 +8,9 @@ import Button from '../utils/Button';
 
 function TopCommunitiesContent(props:any) {
   const {setShow}: any = useContext(AuthModalContext);
-  const [subscribed,setSubscribed] = useState(false)
+  const [subscribed,setSubscribed] = useState('')
+  const {refreshCommunities} = props
+  const community:any = props
 
   const loader = () => {
     return `${community.communityAvatar}?w=20px&q=25`
@@ -17,13 +19,14 @@ function TopCommunitiesContent(props:any) {
   const subscribe = async() => {
     try {
       const server = process.env.NEXT_PUBLIC_SERVER_URL
-      const data = {}
+      const data = {community: community.name}
       const res = await axios({
         method: 'POST',
         url: `${server}/communities/subscribe`,
         data,
         withCredentials:true
       })
+      refreshCommunities()
     } catch (err:any) {
       if (err.response.status === 401) {
         setShow('login')
@@ -31,8 +34,6 @@ function TopCommunitiesContent(props:any) {
     }
   }
 
-  const community = props
-  
   return (
       <div className='overflow-hidden'>
         <Link href={'/b/'+community.name}>
@@ -51,12 +52,22 @@ function TopCommunitiesContent(props:any) {
                 <h1 className="ml-2 font-bold text-sm">b/{community.name}</h1>
               </div>
               <div className='self-center ml-auto mr-2'>
-                <Button onClick={(e: { preventDefault: () => void; }) => {
-                  e.preventDefault()
-                  subscribe()
-                }} className='py-[3px] px-4 mx-1'>
-                  <p className='text-xs'>Join</p>
-                </Button>
+                {!community.user_is_subscriber && (
+                  <Button onClick={(e: { preventDefault: () => void; }) => {
+                    e.preventDefault()
+                      subscribe()
+                  }} className='py-[3px] px-4 mx-1'>
+                    <p className='text-xs'>Join</p>
+                  </Button>
+                )}
+                {community.user_is_subscriber && (
+                   <Button outline={true} onClick={(e: { preventDefault: () => void; }) => {
+                    e.preventDefault()
+                      subscribe()
+                  }} className='py-[3px] px-4 mx-1'>
+                    <span className='text-xs'>Joined</span>
+                  </Button>
+                )}
               </div>
             </div>
           </a>

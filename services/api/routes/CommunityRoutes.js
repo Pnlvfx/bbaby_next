@@ -3,6 +3,7 @@ import Community from '../models/Community.js';
 import {getUserFromToken} from '../controllers/user/UserFunctions.js'
 import cloudinary from '../utils/cloudinary.js';
 import Post from '../models/Post.js'
+import User from '../models/User.js';
 
 const router = express.Router();
 
@@ -86,21 +87,39 @@ router.get('/communities', (req,res) => {  ///WITHOUT SORT OR SUBSCRIBED INFORMA
     })
 });
 
-router.get('/best-communities', (req,res) => {  ///WITH SORT AND SUBSCRIBED INFORMATION
+router.get('/best-communities', async(req,res) => {  ///WITH SORT AND SUBSCRIBED INFORMATION
+    const token = req.cookies?.token
     const {limit} = req.query
-    Community.find({}).sort({number_of_posts: -1}).limit(limit).then(communities => {
-        res.json(communities);
-    })
+    const sort = {number_of_posts: -1}
+    const notSub = await Community.updateMany({}, {user_is_subscriber: false}).sort(sort).limit(limit)
+    if (token) {
+        const user = await getUserFromToken(token)
+        const subscribed = await Community.updateMany({name: user.subscribed}, {user_is_subscriber: true}).sort(sort).limit(limit)
+    }
+    const communities = await Community.find({}).sort(sort).limit(limit)
+    res.json(communities);
 });
 
 
 
 router.post('/communities/subscribe', async(req,res) => {
     const {token} = req.cookies
+    const {community} = req.body
     if(!token) {
         return res.sendStatus(401);
-        
-    }    
+    }
+    const user = await getUserFromToken(token)
+    const check = await User.findOne({username: user.username, subscribed: community})
+    if (check) { //UNSUBSCRIBE
+        const unsubscribe = await User.findOneAndUpdate({username: user.username}, {$pull: {subscribed: community}})
+        const subscribedCount = await Community.findOneAndUpdate({name: community}, {$inc: {subscriberCount: -1}})
+        res.json({msg: `You have unfollowed ${community}`})
+    } else {
+        const subscribe = await User.findOneAndUpdate({username: user.username}, {$push: {subscribed: community}})
+        const subscribedCount = await Community.findOneAndUpdate({name: community}, {$inc: {subscriberCount: +1}})
+        res.json({msg: `You now follow ${community}`})
+    }
+    
 })
 
 export default router;

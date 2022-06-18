@@ -58,6 +58,10 @@ const UserSchema = new mongoose.Schema({
     },
     externalAccounts: {
     
+    },
+    subscribed: {
+        type: [String],
+        default: null
     }
 }, {
     timestamps: true

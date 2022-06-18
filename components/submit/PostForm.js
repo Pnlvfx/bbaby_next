@@ -29,12 +29,12 @@ function PostForm(props) {
 
     
     return (
-            <div className='border border-reddit_border p-2 rounded-md flex bg-reddit_dark-brighter self-center mx-auto'>
-                <div className='rounded-full bg-gray-600 overflow-hidden w-10 h-10 flex-none'>
+            <div className='border border-reddit_border p-2 rounded-md flex bg-reddit_dark-brighter mx-auto'>
+                <div className='flex-none rounded-full bg-gray-600 overflow-hidden w-9 h-9 relative border border-reddit_border'>
                     {session && (
                         <Link href={`/user/${session.user.username}`}>
                             <a>
-                                <Image src={session.user.avatar} alt='' width={'40px'} height={'40px'}/>
+                                <Image src={session.user.avatar} alt='' layout='fill' objectFit='cover' />
                             </a>
                         </Link>
                     )}
@@ -42,7 +42,7 @@ function PostForm(props) {
                         <Image src='https://res.cloudinary.com/bbabystyle/image/upload/v1655209740/default/avatar_txt7me.webp' alt='' width={'40px'} height={'40px'} />
                     )}
                 </div>
-                <form action='' className='flex-grow bg-reddit_dark-brightest border border-reddit_border hover:border-reddit_text ml-4 mr-2 rounded-md'>
+                <form className='flex-grow bg-reddit_dark-brightest border border-reddit_border hover:border-reddit_text ml-4 mr-2 rounded-md'>
                     {session && (
                         <Link href={query} as={url}>
                         <a>
@@ -65,7 +65,7 @@ function PostForm(props) {
                         </div>
                     )}
                 </form>
-                <div className='self-centr mt-[6px]'>
+                <div className='self-center mt-[6px] flex-none'>
                     <button title='Create media post' className="mx-1 opacity-10 text-reddit_text-darker">
                         <AddImage />
                     </button>

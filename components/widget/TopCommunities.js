@@ -4,6 +4,7 @@ import Button from '../utils/Button';
 import TopCommunitiesContent from './TopCommunitiesContent'
 
 function TopCommunities(props) {
+  const {refreshCommunities} = props
 
     const {allCommunity,loadingCommunity} = props
     const router = useRouter()
@@ -33,7 +34,7 @@ function TopCommunities(props) {
           <>
             {allCommunity.map((community,index) => (
               community.rank = index + 1,
-              <TopCommunitiesContent key={community._id} {...community}/>
+              <TopCommunitiesContent key={community._id} {...community} refreshCommunities={refreshCommunities}/>
             ))}
             <div className='mx-auto pt-3 text-center'>
               <Button onClick={() => {

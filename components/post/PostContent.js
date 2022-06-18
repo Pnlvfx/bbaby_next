@@ -20,7 +20,7 @@ function PostContent(props) {
   }
 
     return (
-        <div className="flex bg-reddit_dark-brighter rounded-md overflow-hidden max-h-[700px] container">
+        <div className="flex bg-reddit_dark-brighter rounded-md overflow-hidden max-h-[700px]">
           <div className='bg-[#141415] w-10 flex-none'>
             <Voting ups={props.ups} postId={props._id} liked={props.liked} />
           </div>
@@ -50,7 +50,7 @@ function PostContent(props) {
                   </div>
                 </div>
                 <pre>
-                  <p style={{whiteSpace: 'pre-line',fontFamily: 'Roboto'}} className='mb-4 break-words font-extrabold leading-6'>{props.title}</p>
+                  <p style={{whiteSpace: 'pre-line',fontFamily: 'Helvetica'}} className='mb-4 break-words font-extrabold leading-6'>{props.title}</p>
                 </pre>
                   {props.image && (
                     <div className="max-h-[500px] overflow-hidden container">

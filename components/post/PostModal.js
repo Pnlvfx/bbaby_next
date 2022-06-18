@@ -18,6 +18,7 @@ function PostModal(props) {
   const {postId,community} = props
 
   useEffect(() => {
+    if(!postId) return
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     axios.get(server+'/posts/'+postId, {withCredentials:true})
     .then(response => {

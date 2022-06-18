@@ -55,7 +55,7 @@ function Header() {
             router.push('/'),
             setCommunity()
             }}>
-            <div className='relative flex-none mr-2 ml-2 self-center w-[34px] h-[34px]'>
+            <div className='relative mr-2 ml-2 self-center w-[34px] h-[34px]'>
                 <Image src={Logo} alt='logo' layout='fill'/>
             </div>
             <div className='hidden lg:block self-center'>
@@ -67,7 +67,7 @@ function Header() {
              <h1>Home</h1>
          </div> */}
             <form onSubmit={doSearch} className='mt-[2px] h-[38px] self-center bg-reddit_dark-brightest pl-3 flex rounded-sm border border-reddit_border flex-grow w-24 xl:ml-64 xl:mr-64 text-reddit_text-darker'>
-                <SearchIcon className='h-5 w-5 self-center' />
+                <SearchIcon className='h-5 w-5 self-center flex-none' />
                 <input type='text' className='placeholder:text-reddit_text-darker bg-reddit_dark-brightest placeholder:text-sm text-sm p-1 pl-2 pr-0 block focus:outline-none text-reddit_text' 
                     placeholder='Search Bbaby' 
                     value={searchText} 
