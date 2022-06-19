@@ -9,8 +9,8 @@ import { useRouter } from 'next/router'
 import { isMobile } from 'react-device-detect'
 import CommunitiesInfo from '../widget/CommunitiesInfo'
 import dynamic from 'next/dynamic'
-import LoaderPlaceholder from './LoaderPlaceholder'
 import Donations from '../widget/Donations'
+import PostLoading from './PostLoading'
 
 function Feed(props) {
   const PostModal = dynamic(() => import('./PostModal'))
@@ -74,7 +74,7 @@ function Feed(props) {
         withCredentials:true
       }).then(response => {
         setPosts(response.data)
-        setLoadingPosts(false)
+         setLoadingPosts(false)
       })
     }
   },[])
@@ -126,8 +126,8 @@ function Feed(props) {
         setPostOpen(false)
       }}/>
     )}
-      <div className='flex pt-5 mx-0 lg:mx-10'>
-        <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center ml-auto mr-4 flex-none'>
+      <div className='flex pt-5 mx-5 lg:mx-10'>
+        <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center ml-auto mr-4 flex-none overflow-hidden'>
             <div className='pb-[18px]'>
                 {!author && ( //authorPage
                   <PostForm community={community ? community : posts?.community} allCommunity={allCommunity} />
@@ -138,14 +138,10 @@ function Feed(props) {
             </div>
             {loadingPosts && (
               <>
-              Loading posts..
-                    {/* <LoaderPlaceholder extraStyles={{height:'400px'}} />
-                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
-                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
-                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
-                    <LoaderPlaceholder extraStyles={{height:'400px'}} />
-                    <LoaderPlaceholder extraStyles={{height:'400px'}} /> */}
+              <PostLoading />
+              <PostLoading />
               </>
+
             )}
             
             {!loadingPosts && (

@@ -31,7 +31,7 @@ function PostContent(props) {
                     router.push({
                       pathname: '/b/'+props.community
                     })
-                    }} className="flex cursor-pointer">
+                    }} className="h-5 relative flex cursor-pointer">
                       <div className="">
                         <Image src={communityIcon} alt='' className='rounded-full' height={'20px'} width={'20px'} />                      
                       </div>    
@@ -59,7 +59,7 @@ function PostContent(props) {
                   )}
                   {props.body && (
                     <pre className='text-sm leading-6 break-words resize-x-none flex-none'>
-                      <p style={{whiteSpace: 'pre-line'}}>{props.body}</p>
+                      <p style={{whiteSpace: 'pre-line',fontFamily: 'Helvetica'}}>{props.body}</p>
                     </pre>
                   )}
                 <div className='flex'>
@@ -70,8 +70,8 @@ function PostContent(props) {
                       }
                     }}>
                     <div className='flex text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm'>
-                    <CommentIcon style={{height: '20px', width: '20px'}} />
-                    <h1 className="ml-1">{props.numComments} Comments</h1>
+                      <CommentIcon style={{height: '20px', width: '20px'}} />
+                      <h1 className="ml-1">{props.numComments} Comments</h1>
                     </div>
                   </button>
                     <ShareButton community={props.community} filePickerRefShare={filePickerRefShare} />
