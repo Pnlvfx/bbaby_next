@@ -138,8 +138,9 @@ function Feed(props) {
             </div>
             {loadingPosts && (
               <>
-              <PostLoading />
-              <PostLoading />
+              loading posts...
+              {/* <PostLoading />
+              <PostLoading /> */}
               </>
 
             )}

@@ -34,12 +34,12 @@ function PostForm(props) {
                     {session && (
                         <Link href={`/user/${session.user.username}`}>
                             <a>
-                                <Image src={session.user.avatar} alt='' layout='fill' objectFit='cover' />
+                                <Image src={session.user.avatar} className='rounded-full' alt='' layout='fill' objectFit='cover' />
                             </a>
                         </Link>
                     )}
                     {!session && (
-                        <Image src='https://res.cloudinary.com/bbabystyle/image/upload/v1655209740/default/avatar_txt7me.webp' alt='' width={'40px'} height={'40px'} />
+                        <Image className='rounded-full' src='https://res.cloudinary.com/bbabystyle/image/upload/v1655209740/default/avatar_txt7me.webp' alt='' layout='fill' objectFit='cover' />
                     )}
                 </div>
                 <form className='flex-grow bg-reddit_dark-brightest border border-reddit_border hover:border-reddit_text ml-4 mr-2 rounded-md'>
