@@ -126,7 +126,7 @@ function Feed(props) {
         setPostOpen(false)
       }}/>
     )}
-      <div className='flex pt-5 mx-5 lg:mx-10'>
+      <div className='flex pt-5 mx-[2px] lg:mx-10'>
         <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center ml-auto mr-4 flex-none overflow-hidden'>
             <div className='pb-[18px]'>
                 {!author && ( //authorPage
