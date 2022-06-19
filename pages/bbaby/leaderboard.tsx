@@ -10,7 +10,7 @@ const Leaderboard = () => {
   return (
     <div>
       <Head>
-        <title>Today's Top Communities </title>
+        <title>Today&apos;s Top Communities </title>
         <link rel="icon" href="/favicon.ico"/>
         <meta property="og:title" content="Today's Top Communities" key='ogtitle' />
         <meta name="description" content="Bbabystyle - all best communities" />
