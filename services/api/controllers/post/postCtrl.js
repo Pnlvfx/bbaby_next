@@ -42,6 +42,7 @@ const PostCtrl = {
         }
 
         const posts = await Post.find(filters).sort({createdAt: -1}).limit(limit).skip(skip)
+        res.setHeader('Cache-Control', 'private, max-age=3600')
         res.json(posts)
     },
     getPost: async (req,res) => {
