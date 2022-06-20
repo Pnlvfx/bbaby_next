@@ -53,6 +53,8 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
           strategy="afterInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
       />
+      <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7203519143982992"
+     crossOrigin="anonymous" />
       <Script
         id="gtag-init"
         strategy="afterInteractive"

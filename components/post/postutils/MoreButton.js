@@ -77,14 +77,14 @@ function MoreButton(props) {
   }
 
   return (
-    <>
+    <div>
        <ClickOutHandler onClickOut={() => setMoreDropdownVisibilityClass('hidden')}>
        <div className=''>
           <button title='Show more options' type='button' onClick={event =>{
             event.preventDefault()
             clickMoreButton()
         }}>
-          <div className='mt-[2px] text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm'>
+          <div className='self-center text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm'>
             <MoreIcon style={{height: '20px', width: '20px'}} />
           </div>
          </button>
@@ -109,7 +109,7 @@ function MoreButton(props) {
            )} */}
        </div>
        </ClickOutHandler>
-   </>
+   </div>
   )
 }
 

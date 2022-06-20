@@ -62,18 +62,20 @@ function PostContent(props) {
                       <p style={{whiteSpace: 'pre-line',fontFamily: 'Helvetica'}}>{props.body}</p>
                     </pre>
                   )}
-                <div className='flex'>
+                <div className='flex self-center'>
+                  <div>
                   <button type='button' onClick={event => {
                     event.preventDefault()
                       if (props.isListing) {
                         filePickerRef.current.click()
                       }
                     }}>
-                    <div className='flex text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm'>
+                    <div className='flex text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm self-center'>
                       <CommentIcon style={{height: '20px', width: '20px'}} />
                       <h1 className="ml-1">{props.numComments} Comments</h1>
                     </div>
                   </button>
+                  </div>
                     <ShareButton community={props.community} filePickerRefShare={filePickerRefShare} />
                     <MoreButton post={props} filePickerRefMore={filePickerRefMore}/>
                 </div>

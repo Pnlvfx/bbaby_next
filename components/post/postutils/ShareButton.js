@@ -29,7 +29,7 @@ function ShareButton(props) {
   }
 
   return (
-    <>
+    <div>
     <ClickOutHandler onClickOut={() => setShareDropdownVisibilityClass('hidden')}>
     <div>
        <button type='button' onClick={event =>{
@@ -39,9 +39,9 @@ function ShareButton(props) {
        }
         toggleShareDropdown()
       }}>
-        <div className='flex text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm'>
+        <div className='flex text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm self-center'>
           <ShareIcon style={{height: '20px', width: '20px'}} />
-          <h1 className='ml-1 mt-[2px]'>Share</h1>
+          <h1 className='ml-1'>Share</h1>
         </div>
       </button>
 
@@ -80,7 +80,7 @@ function ShareButton(props) {
     </div>
     </ClickOutHandler>
       <ShowTimeMsg value={value} setValue={setValue} />
-   </>
+   </div>
   )
 }
 
