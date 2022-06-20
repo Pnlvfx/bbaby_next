@@ -13,7 +13,6 @@ const provider = useContext(UserContext)
   const [tweets,setTweets] = useState([])
   const [loading,setLoading] = useState(false)
 
-
   /// TRANSLATION
   const [selectedTweet,setSelectedTweet] = useState(null)  //SETTEDD IN TWEETCONTENT:JSX
   const [translatedTweet,setTranslatedTweet] = useState(null)

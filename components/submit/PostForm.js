@@ -41,7 +41,9 @@ function PostForm(props) {
                         </Link>
                     )}
                     {!session && (
-                        <Image className='rounded-full' src='https://res.cloudinary.com/bbabystyle/image/upload/v1655209740/default/avatar_txt7me.webp' alt='' layout='fill' objectFit='cover' />
+                        <div className='w-9 h-9 relative'>
+                            <Image className='rounded-full' src='https://res.cloudinary.com/bbabystyle/image/upload/v1655209740/default/avatar_txt7me.webp' alt='' layout='fill' objectFit='cover' />
+                        </div>
                     )}
                 </div>
                 <form className='flex-grow bg-reddit_dark-brightest border border-reddit_border hover:border-reddit_text ml-4 mr-2 rounded-md'>

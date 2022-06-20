@@ -16,6 +16,10 @@ const TweetContent = (props:any) => {
         setTranslatedTweet(res.data)
     }
 
+    const copyPaste = async() => {
+        
+    }
+
   return (
     <div className="flex bg-reddit_dark-brighter rounded-md overflow-hidden max-h-[700px]">
         <div className="p-2">
@@ -42,6 +46,13 @@ const TweetContent = (props:any) => {
             }}>
                 <div className="flex text-[#717273] p-2 rounded-sm hover:bg-reddit_hover text-sm">
                     <h1>Magic</h1>
+                </div>
+            </button>
+            <button type="button" onClick={e => {
+                e.preventDefault()
+            }}>
+                <div className="flex text-[#717273] p-2 rounded-sm hover:bg-reddit_hover text-sm">
+                    <h1>Copy/Paste</h1>
                 </div>
             </button>
         </div>

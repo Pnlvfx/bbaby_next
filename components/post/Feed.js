@@ -164,6 +164,7 @@ function Feed(props) {
         {community && !isMobile && (
           <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden mr-auto'>
             <CommunitiesInfo community={community} />
+            <Donations />
           </div>
         )}
         {!community && !isMobile && (
