@@ -19,7 +19,7 @@ function CommunitiesInfo(props) {
     const router = useRouter()
     const {communityAvatar,name,description,createdAt,loading,user_is_moderator} = useContext(CommunityContext)
     const {community} = props
-    const [editedDescr,setEditedDescr] = useState('')
+    const [descr,setDescr] = useState('')
 
 
     const [commit,setCommit] = useState(false)
@@ -30,9 +30,9 @@ function CommunitiesInfo(props) {
 
 
     //setDescription
-    // useEffect(() => {
-    //   setEditedDescr(description)
-    // }, [])
+     useEffect(() => {
+       setDescr(description)
+     }, [description])
     
 
     
@@ -47,7 +47,7 @@ function CommunitiesInfo(props) {
     // },[commit])
     
     return (
-      <div className='bg-reddit_dark-brighter shadow-lg w-[310px] h-96 rounded-md border border-reddit_border'>
+      <div className='bg-reddit_dark-brighter shadow-lg w-[310px] h-96 ml-2 rounded-md border border-reddit_border mb-5'>
           <div className='p-2'>
               <div className="flex text-reddit_text-darker">
                 <div className="p-1">
@@ -89,7 +89,7 @@ function CommunitiesInfo(props) {
               }}>
                 <div className="flex hover:border border-reddit_text">
                     <div className="overflow-hidden">
-                    <EditTextarea value={editedDescr} onChange={setEditedDescr} className='bg-reddit_dark-brighter break-words leading-6 overflow-hidden resize-none outline-none' />
+                    <EditTextarea value={descr} onChange={setDescr} className='bg-reddit_dark-brighter break-words leading-6 overflow-hidden outline-none'/>
                     </div>
                     <div className="pt-4 text-reddit_text-darker">
                         <MdOutlineModeEditOutline className="w-6 h-6"/>

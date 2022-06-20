@@ -61,7 +61,7 @@ function TopCommunitiesContent(props:any) {
                   </Button>
                 )}
                 {community.user_is_subscriber && (
-                   <Button outline={true} onClick={(e: { preventDefault: () => void; }) => {
+                   <Button outline='true' onClick={(e: { preventDefault: () => void; }) => {
                     e.preventDefault()
                       subscribe()
                   }} className='py-[3px] px-4 mx-1'>

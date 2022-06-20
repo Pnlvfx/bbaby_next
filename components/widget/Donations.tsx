@@ -4,7 +4,7 @@ import { PayPalScriptProvider,PayPalButtons } from '@paypal/react-paypal-js'
 const Donations = () => {
    //const NEXT_PUBLIC_PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPPAL_CLIENT_ID
   return (
-    <div className='bg-reddit_dark-brighter rounded-md ml-2 w-[310] max-w-[310px] mb-5 border border-reddit_border box-content'>
+    <div className='bg-reddit_dark-brighter rounded-md w-[310] max-w-[310px] mb-5 ml-2 border border-reddit_border box-content'>
         <div className='p-4 flex'>
             <div className='self-center'>
                 <FaRegFlag className='w-6 h-6' />
@@ -19,9 +19,9 @@ const Donations = () => {
                 </div>
             </div>
         </div>
-        <div className='w-[310] mx-2 mb-3'>
+        <div className='w-[310] mx-2 mb-3 relative z-10' >
             <PayPalScriptProvider options={{"client-id": 'AU1ut3kg1iLfhoZ22Dv04YUwSMs9CsSeeHN4sxBVytTdmAH0g4so2g4R3ZUoNwrt239Qs2VCB3enjO2F'}}>
-                <PayPalButtons style={{layout: "horizontal"}} className='w-full' />
+                <PayPalButtons style={{layout: "horizontal"}} className='w-full'  />
             </PayPalScriptProvider>
         </div>
     </div>

@@ -25,9 +25,9 @@ function Comments(props) {
               </div>
               <div className='border-l-2 border-reddit_text-darker p-3' style={{marginLeft:'18px'}}>
                 <div className='pl-4 -mt-4'>
-                  <div>
-                    <h1>{comment.body}</h1>
-                  </div>
+                  <pre className='text-sm leading-6 break-words resize-x-none flex-none'>
+                    <p style={{whiteSpace: 'pre-line',fontFamily: 'Helvetica'}}>{comment.body}</p>
+                  </pre>
                   <div className='flex p-2 pl-0 w-auto'>
                     <Voting commentId={comment._id} />
                     <ReplyButton type={"button"} onClick={() => {setShowForm(comment._id)}}>Reply</ReplyButton>
