@@ -7,17 +7,13 @@ const TweetContent = (props:any) => {
     const postImage = tweet?.extended_entities?.media[0]?.media_url_https
     const height = tweet?.extended_entities?.media[0]?.sizes.large.h
     const width = tweet?.extended_entities?.media[0]?.sizes.large.w
-    const {setTranslatedTweet} = props
+    const {setTranslatedTweet,language} = props
 
     const translate = async() => {
         const server = process.env.NEXT_PUBLIC_SERVER_URL
         const data = {text: tweet.full_text}
-        const res = await axios.post(`${server}/governance/translate-tweet`, data)
+        const res = await axios.post(`${server}/governance/translate-tweet?lang=${language}`, data)
         setTranslatedTweet(res.data)
-    }
-
-    const copyPaste = async() => {
-        
     }
 
   return (
@@ -46,13 +42,6 @@ const TweetContent = (props:any) => {
             }}>
                 <div className="flex text-[#717273] p-2 rounded-sm hover:bg-reddit_hover text-sm">
                     <h1>Magic</h1>
-                </div>
-            </button>
-            <button type="button" onClick={e => {
-                e.preventDefault()
-            }}>
-                <div className="flex text-[#717273] p-2 rounded-sm hover:bg-reddit_hover text-sm">
-                    <h1>Copy/Paste</h1>
                 </div>
             </button>
         </div>

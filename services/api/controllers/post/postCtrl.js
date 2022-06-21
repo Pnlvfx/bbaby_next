@@ -8,7 +8,8 @@ import User from '../../models/User.js';
 import {TwitterApi} from 'twitter-api-v2';
 import Community from '../../models/Community.js';
 
-
+const telegramToken = process.env.TELEGRAM_TOKEN
+const bot = new TelegramBot(telegramToken);
 const PostCtrl = {
     getPosts: async (req, res) => {
         const {token} = req.cookies
@@ -101,8 +102,7 @@ const PostCtrl = {
             })
             const savedPost = await post.save()
             if(sharePostToTG) {
-                const telegramToken = process.env.TELEGRAM_TOKEN
-                const bot = new TelegramBot(telegramToken, {polling: true});
+               
                 const chat_id = savedPost.community === 'Italy' ? '@anonynewsitaly' : savedPost.community === 'calciomercato' ? '@bbabystyle1' : '@bbaby_style'
                 const my_text = `https://bbabystyle.com/b/${savedPost.community}/comments/${savedPost._id}`
                 const message = await bot.sendMessage(chat_id, my_text)

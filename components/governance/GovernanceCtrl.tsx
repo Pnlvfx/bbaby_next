@@ -1,4 +1,5 @@
 import axios from "axios"
+import Head from "next/head"
 import { useContext, useState } from "react"
 import UserContext from '../auth/UserContext'
 import LoaderPlaceholder from "../post/LoaderPlaceholder"
@@ -7,11 +8,13 @@ import Button from "../utils/Button"
 import Tweet from "./twitter/Tweet"
 
 const GovernanceCtrl = () => {
-const provider = useContext(UserContext)
+  const hostname = process.env.NEXT_PUBLIC_HOSTNAME
+  const provider = useContext(UserContext)
   const {session}:any = provider
   const server = process.env.NEXT_PUBLIC_SERVER_URL
   const [tweets,setTweets] = useState([])
   const [loading,setLoading] = useState(false)
+  const [language,setLanguage] = useState('')
 
   /// TRANSLATION
   const [selectedTweet,setSelectedTweet] = useState(null)  //SETTEDD IN TWEETCONTENT:JSX
@@ -26,17 +29,20 @@ const provider = useContext(UserContext)
     const res = await axios.get(`${server}/governance/create-video`, {withCredentials:true})
   }
 
-  const getMyListTweets = async() => {
-    const anonListId = '1535968733537177604'
-    const owner_screen_name = 'anonynewsitaly' 
+  const getMyListTweets = async(listId:any,owner_screen_name: any) => {
     setLoading(true)
-    const res = await axios.get(`${server}/twitter/selected-tweets?slug=${anonListId}&owner_screen_name=${owner_screen_name}`, {withCredentials:true})
+    const res = await axios.get(`${server}/twitter/selected-tweets?slug=${listId}&owner_screen_name=${owner_screen_name}`, {withCredentials:true})
     setTweets(res.data)
     setLoading(false)
   }
 
   return (
-    <>
+    <div>
+      <Head>
+        <title>Bbabystyle - authority page </title>
+        <link rel="icon" href="/favicon.ico"/>
+        <link rel='canonical' href={`${hostname}/governance`} key='canonical' />
+      </Head>
     {!session && (
       <div className="my-auto mx-auto text-center self-center">
         <h1 className="self-center text-sm pt-20 text-reddit_red">You cannot access this page as you are not an admin</h1>
@@ -65,8 +71,20 @@ const provider = useContext(UserContext)
               </div>
               <div className='mx-2 my-auto text-center'>
                   <Button onClick={() => {
-                    getMyListTweets()
-                  }} className='py-2 px-4'>See Anon Tweet-list
+                    const listId = '1535968733537177604'
+                    const owner_screen_name = 'anonynewsitaly'
+                    setLanguage('en')
+                    getMyListTweets(listId,owner_screen_name)
+                    }} className='py-2 px-4'>See Anon/English Tweet
+                  </Button>
+              </div>
+              <div className='mx-2 my-auto text-center'>
+                  <Button onClick={() => {
+                    const listId = '1539278403689492482'
+                    const owner_screen_name = 'Bbabystyle'
+                    setLanguage('it')
+                    getMyListTweets(listId,owner_screen_name)
+                    }} className='py-2 px-4'>See bbaby/ita Tweet
                   </Button>
               </div>
             </div>
@@ -86,7 +104,7 @@ const provider = useContext(UserContext)
             {!loading && tweets && (
               <div className="">
               {tweets.map((tweet: any) => (
-                <Tweet key={tweet.id} {...tweet} isListing={true} setTranslatedTweet={setTranslatedTweet}/>
+                <Tweet key={tweet.id} {...tweet} setTranslatedTweet={setTranslatedTweet} language={language}/>
               ))}
               </div>
             )}
@@ -104,7 +122,7 @@ const provider = useContext(UserContext)
         </div>
     </div>
     )}
-    </>
+    </div>
   )
 }
 

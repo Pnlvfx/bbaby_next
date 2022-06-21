@@ -133,6 +133,8 @@ const governanceCtrl =  {
         try {
             const translationClient = new TranslationServiceClient()
             const {text} = req.body
+            const {lang} = req.query
+            console.log(lang)
             const projectId = 'bbabystyle'
             const location = 'us-central1'
             async function translateText() {
@@ -140,8 +142,8 @@ const governanceCtrl =  {
                     parent: `projects/${projectId}/locations/${location}`,
                     contents: [text],
                     mimeType: 'text/plain',
-                    sourceLanguageCode: 'en',
-                    targetLanguageCode: 'it'
+                    sourceLanguageCode: lang === 'en' ? lang : 'it',
+                    targetLanguageCode: lang === 'en' ? 'it' : 'en'
                 }
                 const [response] = await translationClient.translateText(request)
 
