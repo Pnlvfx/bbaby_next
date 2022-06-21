@@ -38,11 +38,52 @@ const governanceCtrl =  {
                     upload_preset: 'bbaby_governance'
                 })
                 const {public_id} = imageWText
-                const new_public_id = await public_id.replace('/', ':')
-                const finalImage = await cloudinary.v2.image(`${post.imageId}.webp`, {overlay: new_public_id})
-                res.json({msg: finalImage})
-             }
+                const new_public_id = public_id.replace('/', ':')
+                const finalImage =  cloudinary.v2.image(`${post.imageId}.webp`, {overlay: new_public_id})
+                const cleanImage = finalImage.replace('<img src=','')
+                const cleanImage2 = cleanImage.replace('/>','')
+                const cleanImage3 = cleanImage2.replace('http', 'https')
+                await createVideo(cleanImage3)
+                //res.json({msg: finalImage})
+            }
+            const createVideo = async (cleanImage3) => {
+                console.log(cleanImage3)
+            const images = [
+                {
+                    path: 'https://res.cloudinary.com/bbabystyle/image/upload/l_governance:gtcftzadinx5bj8j2tvp/d63smyadznwbe2lsevti.webp'
+                }
+            ]
+            const videoOptions = {
+                loop: 15,
+                fps:24,
+                transition: true,
+                transitionDuration: 1, // seconds
+                videoBitrate: 1024,
+                videoCodec: 'libx264',
+                size: '640x?',
+                audioBitrate: '128k',
+                audioChannels: 2,
+                format: 'mp4',
+                pixelFormat: 'yuv420p'
+            }
+            videoshow(images,videoOptions)
+            .save("./youtubeImage/video1.mp4")
+            .on('start', function(command) {
+                console.log("Conversion started " + command)
+            })
+            .on('error', function (err,stdout,stderr) {
+                console.log("Some error occured" + err)
+            })
+            .on('end', function(output) {
+                res.status(201).json({msg: "Conversion completed " + output})
+            })
+
+            }
              await createImage()
+
+
+
+
 
         } catch (err) {
             res.status(500).json({msg: err.message})

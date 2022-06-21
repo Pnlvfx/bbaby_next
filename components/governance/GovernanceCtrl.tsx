@@ -19,11 +19,11 @@ const provider = useContext(UserContext)
   //
 
   const createImage = async() => {
-    const res = await axios.get(`${server}/admin/create-image`, {withCredentials:true})
+    const res = await axios.get(`${server}/governance/create-image`, {withCredentials:true})
   }
 
   const createVideo = async() => {
-    const res = await axios.get(`${server}/admin/create-video`, {withCredentials:true})
+    const res = await axios.get(`${server}/governance/create-video`, {withCredentials:true})
   }
 
   const getMyListTweets = async() => {
@@ -91,6 +91,7 @@ const provider = useContext(UserContext)
               </div>
             )}
           </div>
+          {!loading && tweets && (
             <div className="p-2 sm:p-4">
               <button>
                 Test
@@ -99,6 +100,7 @@ const provider = useContext(UserContext)
                 <Submit translatedTweet={translatedTweet} userRole={session.user.role} />
               </div>
             </div>
+          )}
         </div>
     </div>
     )}

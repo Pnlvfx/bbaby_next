@@ -5,7 +5,7 @@ function userAgreement() {
   return (
     <div>
       <Head>
-        <title>Bbabystyle Privacy Policy</title>
+        <title>Bbabystyle User Agreement</title>
         <link rel="icon" href="/favicon.ico"/>
       </Head>
       <UserAgreement/>  

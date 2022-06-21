@@ -50,11 +50,13 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
         <meta name="twitter:creator" content="@Bbabystyle" />
       </Head>
       <Script
+          async
           strategy="afterInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
       />
       <Script
         id="gtag-init"
+        async
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
@@ -68,8 +70,12 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
         }}
       />
       <Script 
+        id='Adsense-id'
+        data-ad-client='ca-pub-7203519143982992'
+        async
         strategy="afterInteractive"
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7203519143982992"
+        onError={ (e) => { console.error('Script failed to load', e) }}
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
         crossOrigin="anonymous" />
     <UserContext.Provider value={{session: session}}>
       <AuthModalContext.Provider value={{show:showAuthModal,setShow:setShowAuthModal}}>
