@@ -67,8 +67,8 @@ const PostCtrl = {
     addImage: async (req,res) => {
         try {
             const fileStr = req.body.data
-            const uploadedResponse = await cloudinary.uploader.upload(fileStr,{
-                upload_preset: 'bbaby_avatar'
+            const uploadedResponse = await cloudinary.v2.uploader.upload(fileStr,{
+                upload_preset: 'bbaby_posts'
             })
             
             res.json({url:uploadedResponse.secure_url, imageId: uploadedResponse.public_id })

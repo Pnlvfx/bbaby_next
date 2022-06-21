@@ -35,8 +35,6 @@ const provider = useContext(UserContext)
     setLoading(false)
   }
 
-  //console.log(selectedTweet)
-
   return (
     <>
     {!session && (
@@ -94,6 +92,9 @@ const provider = useContext(UserContext)
             )}
           </div>
             <div className="p-2 sm:p-4">
+              <button>
+                Test
+              </button>
               <div className="pr-0 md:pr-3 w-full sticky top-0 lg:w-[800px]">
                 <Submit translatedTweet={translatedTweet} userRole={session.user.role} />
               </div>

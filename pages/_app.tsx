@@ -53,10 +53,6 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
           strategy="afterInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
       />
-      <Script 
-        strategy="afterInteractive"
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7203519143982992"
-        crossOrigin="anonymous" />
       <Script
         id="gtag-init"
         strategy="afterInteractive"
@@ -71,7 +67,10 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
           `,
         }}
       />
-      <Script src="//static.ads-twitter.com/oct.js" type="text/javascript"/>
+      <Script 
+        strategy="afterInteractive"
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7203519143982992"
+        crossOrigin="anonymous" />
     <UserContext.Provider value={{session: session}}>
       <AuthModalContext.Provider value={{show:showAuthModal,setShow:setShowAuthModal}}>
         <GoogleOAuthProvider clientId='527300585899-mh0q9kh2fpijep43k37oriuafsl8m9hi.apps.googleusercontent.com'>
