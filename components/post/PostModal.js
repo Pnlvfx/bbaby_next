@@ -28,7 +28,7 @@ function PostModal(props) {
   },[postId]);
 
   return (
-    <>
+    <div className={"fixed top-0 left-0 right-0 z-20 flex mx-32 " +visibleClass} style={{backgroundColor:'rgba(0,0,0,.8'}}>
       <ClickOutHandler onClickOut={() => {
         setLoading(true)
         router.push({
@@ -41,7 +41,6 @@ function PostModal(props) {
         setPost({})
         
       }}>
-        <div className={"fixed top-0 left-0 right-0 z-20 flex mx-32 " +visibleClass} style={{backgroundColor:'rgba(0,0,0,.8'}}>
           <div className="py-[51px] w-full mx-8">
             <div className="flex">
               <div className="flex pt-4 pb-8 w-full mr-4 overflow-hidden">
@@ -76,9 +75,8 @@ function PostModal(props) {
               </div>
             </div>
           </div>
-        </div>
       </ClickOutHandler>
-    </>
+    </div>
   )
 }
 

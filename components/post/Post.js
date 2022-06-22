@@ -18,14 +18,14 @@ function Post(props) {
     return (
     <div className='pb-3'>
         {post.open && (
-            <div className={postClasses}>
+            <div className={postClasses} >
                     <PostContent {...post}/>
             </div>
         )}
 
         {!post.open && (
             <>
-                <div className={postClasses} tabIndex='-1'>
+                <div className={postClasses} >
                     {!isMobile && (
                         <>
                         <Link href={`${router.pathname}?postId=${post._id}&community=${post.community}&username=${post.author}`} as={'/b/'+post.community+'/comments/'+post._id}

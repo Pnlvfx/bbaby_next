@@ -35,10 +35,8 @@ const CommunityPage: NextPage = (props) => {
         <link rel='canonical' href={hostname} key='canonical' />
       </Head>
       <Layout>
-        <div className=''>
           <BoardHeader community={community}/>
           <Feed community={community}/>
-        </div>
       </Layout>
     </div>
   )

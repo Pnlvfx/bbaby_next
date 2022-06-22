@@ -257,10 +257,10 @@ function Submit(props) {
                                             <FaTrashAlt className='text-reddit_text-darker px-2 py-1 self-center mx-auto w-full h-full' />
                                             </div>
                                         )}
-                                        <div className='' onClick={() => {
+                                        <div onClick={() => {
                                                 setShowDeleteOptions(true)
                                             }}>
-                                            <div className='rounded-lg object-contain mx-auto border border-reddit_border hover:border-4 hover:border-reddit_text'>
+                                            <div className='rounded-lg mx-auto border border-reddit_border hover:border-4 hover:border-reddit_text'>
                                                 <Image 
                                                 src={selectedFile}
                                                 alt={'DisplayImage'}

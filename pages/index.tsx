@@ -3,6 +3,7 @@ import Head from 'next/head'
 import axios from 'axios'
 import Feed from '../components/post/Feed'
 import Layout from '../components/Layout'
+import BoardHeader from '../components/header/BoardHeader'
 
 
 const Home: NextPage = () => {

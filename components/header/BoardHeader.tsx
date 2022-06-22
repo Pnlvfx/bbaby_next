@@ -38,7 +38,7 @@ function BoardHeader(props: any) {
     },[selectedFile])
 
     return(
-        <>
+        <div className="z-10">
             <div className="h-48 bg-cover no-repeat" 
             style={{backgroundImage: `url("${cover}")`,
                     backgroundRepeat: 'no-repeat',
@@ -76,7 +76,7 @@ function BoardHeader(props: any) {
                             </div>
                     </div>
                 </div>
-        </>
+        </div>
     );
 }
 

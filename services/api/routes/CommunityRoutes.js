@@ -73,7 +73,7 @@ router.get('/communities/edit/:name', (req,res) => {
 });
 
 router.post('/communities/edit/description', (req,res) => {
-    const {name,description} = req.body;
+    const {name,descr:description} = req.body;
     //console.log(req.body)
     Community.findOne({name}).updateOne({description}).then(() => {
         res.json('Description update successfully');

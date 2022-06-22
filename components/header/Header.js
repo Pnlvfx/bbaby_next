@@ -83,7 +83,7 @@ function Header() {
                         </button>
                         <Link href={'/submit'}>
                             <a className=''>
-                            <PlusIcon className='text-[#D7DADC] self-center w-6 h-6 hidden md:block' />
+                                <PlusIcon className='text-[#D7DADC] self-center w-6 h-6 hidden md:block' />
                             </a>
                         </Link>
                     </div>

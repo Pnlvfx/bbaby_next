@@ -134,7 +134,6 @@ const governanceCtrl =  {
             const translationClient = new TranslationServiceClient()
             const {text} = req.body
             const {lang} = req.query
-            console.log(lang)
             const projectId = 'bbabystyle'
             const location = 'us-central1'
             async function translateText() {

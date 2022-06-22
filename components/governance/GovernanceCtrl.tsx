@@ -17,7 +17,6 @@ const GovernanceCtrl = () => {
   const [language,setLanguage] = useState('')
 
   /// TRANSLATION
-  const [selectedTweet,setSelectedTweet] = useState(null)  //SETTEDD IN TWEETCONTENT:JSX
   const [translatedTweet,setTranslatedTweet] = useState(null)
   //
 

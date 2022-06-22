@@ -3,7 +3,7 @@ import LoaderPlaceholder from '../post/LoaderPlaceholder';
 import Button from '../utils/Button';
 import TopCommunitiesContent from './TopCommunitiesContent'
 
-function TopCommunities(props) {
+function TopCommunities(props:any) {
   const {refreshCommunities} = props
 
     const {allCommunity,loadingCommunity} = props
@@ -32,7 +32,7 @@ function TopCommunities(props) {
           )}
           {!loadingCommunity && (
           <>
-            {allCommunity.map((community,index) => (
+            {allCommunity.map((community:any,index:any) => (
               community.rank = index + 1,
               <TopCommunitiesContent key={community._id} {...community} refreshCommunities={refreshCommunities}/>
             ))}
