@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { EditTextarea } from 'react-edit-text';
 import Button from '../utils/Button'
@@ -15,7 +14,6 @@ import { CommunityContext } from "../community/CommunityContext";
 function CommunitiesInfo(props:any) {
     const provider = useContext(UserContext)
     const {session}:any = provider
-    const router = useRouter()
     const {communityAvatar,name,description,createdAt,loading,user_is_moderator}:any = useContext(CommunityContext)
     const {community} = props
     const [descr,setDescr] = useState('')

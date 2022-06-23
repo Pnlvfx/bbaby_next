@@ -4,7 +4,7 @@ import { useState } from "react"
 import { AiOutlineLoading3Quarters } from "react-icons/ai"
 import Button from "../../utils/Button"
 import Input from "../../utils/Input"
-import EditText from 'react-edit-text'
+import {EditText} from 'react-edit-text'
 
 const Youtube = () => {
   const server = process.env.NEXT_PUBLIC_SERVER_URL

@@ -30,7 +30,7 @@ const Twitter = () => {
             <div className='mx-2 my-auto text-center'>
                 <Button onClick={() => {
                     const listId = '1535968733537177604'
-                    const owner_screen_name = 'anon+8ynewsitaly'
+                    const owner_screen_name = 'anonynewsitaly'
                     setLanguage('en')
                     getMyListTweets(listId,owner_screen_name)
                     }} className='py-2 px-4'>English Tweet
