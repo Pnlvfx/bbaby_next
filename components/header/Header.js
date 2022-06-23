@@ -50,18 +50,20 @@ function Header() {
   return (
     <header id='myHeader' className={'w-full bg-reddit_dark-brighter p-1 border-b border-reddit_border sticky top-0 z-30'}>
         <div className='ml-2 flex'>
-        <button className='flex' value={'logo'} onClick={event => {
-            event.preventDefault(),
-            router.push('/'),
-            setCommunity()
-            }}>
-            <div className='relative mr-2 ml-2 self-center w-[34px] h-[34px]'>
-                <Image src={Logo} alt='logo' layout='fill'/>
-            </div>
-            <div className='hidden lg:block self-center'>
-                <TextLogo />
-            </div>  
-        </button>
+            <Link href={'/'}>
+                <a className='flex' value={'logo'} onClick={event => {
+                    event.preventDefault(),
+                    router.push('/'),
+                    setCommunity()
+                    }}>
+                    <div className='relative mr-2 ml-2 self-center w-[34px] h-[34px]'>
+                        <Image src={Logo} alt='logo' layout='fill'/>
+                    </div>
+                    <div className='hidden lg:block self-center'>
+                        <TextLogo />
+                    </div>  
+                </a>
+            </Link>
          {/* <div id='home_button' className='flex p-2'>
              <img src={homeIcon} alt='' className='flex-none w-5 h-5' />
              <h1>Home</h1>

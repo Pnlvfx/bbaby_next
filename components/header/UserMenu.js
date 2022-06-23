@@ -8,7 +8,6 @@ import UserContext from '../auth/UserContext';
 import axios from 'axios';
 import Link from 'next/link';
 
-
 function UserMenu(props) {
     const provider = useContext(UserContext)
     const {session} = provider

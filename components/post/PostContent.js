@@ -67,27 +67,29 @@ function PostContent(props) {
                   )}
                 <div className='flex self-center'>
                   <div>
-                  <button type='button' onClick={event => {
-                    event.preventDefault()
-                      if (props.isListing) {
-                        if (isMobile) {
-                          router.push({
-                            pathname: `/b/${props.community}/comments/${props._id}`
-                          },undefined,{scroll:false})
-                        } else {
-                          router.push({
-                              pathname: router.pathname,
-                              query: {postId: props._id, community: props.community, username: props.author }
-                          },'/b/'+props.community+'/comments/'+props._id, {scroll:false}
-                          )
-                        }
-                      }
-                    }}>
-                    <div className='flex text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm self-center'>
-                      <CommentIcon style={{height: '20px', width: '20px'}} />
-                      <h1 className="ml-1">{props.numComments} Comments</h1>
-                    </div>
-                  </button>
+                    <Link href={`/b/${props.community}/comments/${props._id}`} scroll={false}>
+                      <a type='button' onClick={event => {
+                        event.preventDefault()
+                          if (props.isListing) {
+                            if (isMobile) {
+                              router.push({
+                                pathname: `/b/${props.community}/comments/${props._id}`
+                              },undefined,{scroll:false})
+                            } else {
+                              router.push({
+                                  pathname: router.pathname,
+                                  query: {postId: props._id, community: props.community, username: props.author }
+                              },'/b/'+props.community+'/comments/'+props._id, {scroll:false}
+                              )
+                            }
+                          }
+                        }}>
+                        <div className='flex text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm self-center'>
+                          <CommentIcon style={{height: '20px', width: '20px'}} />
+                          <h1 className="ml-1">{props.numComments} Comments</h1>
+                        </div>
+                      </a>
+                    </Link>
                   </div>
                     <ShareButton community={props.community} filePickerRefShare={filePickerRefShare} />
                     <MoreButton post={props} filePickerRefMore={filePickerRefMore}/>
