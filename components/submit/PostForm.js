@@ -69,14 +69,14 @@ function PostForm(props) {
                         </div>
                     )}
                 </form>
-                <div className='self-center mt-[6px] flex-none'>
+                {/* <div className='self-center mt-[6px] flex-none'> CHANGE TO A LINK
                     <button title='Create media post' className="mx-1 opacity-10 text-reddit_text-darker">
                         <AddImage />
                     </button>
-                    <button className="">
+                    <a>
                         <BiLink className="text-reddit_text-darker w-6 h-6 mx-1 opacity-10"/>
-                    </button>
-                </div>
+                    </a>
+                </div> */}
             </div>
     )
 }

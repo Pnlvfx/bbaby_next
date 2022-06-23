@@ -103,7 +103,7 @@ function Header() {
                 )}
                 <div className='self-center'>
                     <ClickOutHandler onClickOut={() => setUserDropdownVisibilityClass('hidden')}>
-                        <button className='flex ml-4 self-center' onClick={() => toggleUserDropdown()}>
+                        <div className='flex ml-4 self-center cursor-pointer' onClick={() => toggleUserDropdown()}>
                             {!session && (
                                 <div className='w-6 h-6 m-1 rounded-full self-center'>
                                     <UserIcon className='text-reddit_text-darker' />
@@ -120,7 +120,7 @@ function Header() {
                                 </div>
                             )}
                                 <RiArrowDownSLine className='text-reddit_text-darker w-[22px] h-[22px] mr-[17px] self-center' />
-                        </button>
+                        </div>
                         {/*dropdown menu for user and not*/}
                         {session && (
                             <UserMenu userDropdownVisibilityClass={userDropdownVisibilityClass} setUserDropdownVisibilityClass={setUserDropdownVisibilityClass} />
