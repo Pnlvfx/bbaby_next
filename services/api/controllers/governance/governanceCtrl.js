@@ -13,15 +13,14 @@ const governanceCtrl =  {
         try {
             let skip = 0
             const limit = 1
-
+            const {textColor,fontSize,community} = req.body
             const createImage = async() => {
-                const bgColor = 'rgba(0,0,0,0)'     //transparent: rgba(0,0,0,0)
-                const textColor = 'rgb(215, 218, 220)'
+                const bgColor = 'rgba(0,0,0,0)'
                 const website = 'www.bbabystyle.com'
                 let filters = {}
-                filters.community = 'Italy'
+                filters.community = community
 
-                const post = await Post.findOne({"mediaInfo.isImage" : true, community: "Italy"}).sort({createdAt: -1}).limit(limit).skip(skip)
+                const post = await Post.findOne({"mediaInfo.isImage" : true, community: community}).sort({createdAt: -1}).limit(limit).skip(skip)
                 const height = post.mediaInfo.dimension[0]
                 const width = post.mediaInfo.dimension[1]
                 const data = await textToImage.generate(`${post?.title}\n\n${post.body}\n\n\n\n${website}`, {
@@ -29,7 +28,7 @@ const governanceCtrl =  {
                     bgColor: bgColor,
                     textColor: textColor,
                     customHeight: height,
-                    fontSize: 48,
+                    fontSize: fontSize,
                     lineHeight: 48,
                     textAlign: 'center',
                     verticalAlign: 'center'
@@ -43,48 +42,10 @@ const governanceCtrl =  {
                 const cleanImage = finalImage.replace('<img src=','')
                 const cleanImage2 = cleanImage.replace('/>','')
                 const cleanImage3 = cleanImage2.replace('http', 'https')
-                await createVideo(cleanImage3)
-                //res.json({msg: finalImage})
-            }
-            const createVideo = async (cleanImage3) => {
-                console.log(cleanImage3)
-            const images = [
-                {
-                    path: 'https://res.cloudinary.com/bbabystyle/image/upload/l_governance:gtcftzadinx5bj8j2tvp/d63smyadznwbe2lsevti.webp'
-                }
-            ]
-            const videoOptions = {
-                loop: 15,
-                fps:24,
-                transition: true,
-                transitionDuration: 1, // seconds
-                videoBitrate: 1024,
-                videoCodec: 'libx264',
-                size: '640x?',
-                audioBitrate: '128k',
-                audioChannels: 2,
-                format: 'mp4',
-                pixelFormat: 'yuv420p'
-            }
-            videoshow(images,videoOptions)
-            .save("./youtubeImage/video1.mp4")
-            .on('start', function(command) {
-                console.log("Conversion started " + command)
-            })
-            .on('error', function (err,stdout,stderr) {
-                console.log("Some error occured" + err)
-            })
-            .on('end', function(output) {
-                res.status(201).json({msg: "Conversion completed " + output})
-            })
-
+                const cleanImage4 = cleanImage3.replaceAll("'", "")
+                res.json({image: cleanImage4, title: post.title,width: width, height: height})
             }
              await createImage()
-
-
-
-
-
         } catch (err) {
             res.status(500).json({msg: err.message})
         }

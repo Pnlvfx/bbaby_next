@@ -1,23 +1,17 @@
+import Youtube from '../../components/governance/youtube/Youtube'
 import axios from "axios";
 import { NextPage, NextPageContext } from "next";
 import Layout from "../../components/Layout";
 import GovernanceCtrl from "../../components/governance/GovernanceCtrl";
-import Head from "next/head";
 
 const Governance: NextPage = () => {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   return (
-    <div>
-      <Head>
-        <title>Bbabystyle - authority page </title>
-        <link rel="icon" href="/favicon.ico"/>
-        <link rel='canonical' href={`${hostname}/governance`} key='canonical' />
-      </Head>
-      <div className="w-full h-[1000px]">
-        <Layout>
-          <GovernanceCtrl />
-        </Layout>
-      </div>
+    <div className="w-full h-[1000px]">
+      <Layout>
+        <GovernanceCtrl>
+          <Youtube />
+        </GovernanceCtrl>
+      </Layout>
     </div>
   )
 }

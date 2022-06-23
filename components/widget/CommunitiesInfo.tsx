@@ -4,7 +4,6 @@ import { useContext, useEffect, useState } from "react";
 import { EditTextarea } from 'react-edit-text';
 import Button from '../utils/Button'
 import {MdOutlineAdminPanelSettings, MdOutlineModeEditOutline} from 'react-icons/md'
-import ClickOutHandler from "react-clickout-handler";
 import moment from 'moment';
 import Link from "next/link";
 import AuthModalContext from "../auth/AuthModalContext";
@@ -117,13 +116,11 @@ function CommunitiesInfo(props:any) {
                       <Button onClick={() => {setShow('login')}} className='w-full py-1 mt-3 mb-4'>Create a Post</Button>
                   )}
                   {user && (
-                      <Button onClick={(e: { preventDefault: () => void; }) => {
-                        e.preventDefault()  
-                        router.push({
-                          pathname:'/submit',
-                          query: {with_community: name}
-                        },'/submit')
-                        }} className='w-full py-1 mt-3 mb-4'>Create a Post</Button>
+                    <Link href={`/submit?with_community=${name}`} as={'/submit'}>
+                        <a>
+                            <Button className='w-full py-1 mt-3 mb-4'>Create a Post</Button>
+                        </a>
+                    </Link>
                   )}
               </div>
               <hr className="border-reddit_border"/>

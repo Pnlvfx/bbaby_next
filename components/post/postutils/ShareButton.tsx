@@ -1,12 +1,12 @@
 import {useState} from 'react'
-import ClickOutHandler from "react-clickout-handler";
+import ClickOutHandler from "react-clickout-ts";
 import { useRouter } from 'next/router';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {AiOutlineLink} from 'react-icons/ai'
 import { ShareIcon } from '../../utils/SVG';
 import dynamic from 'next/dynamic';
 
-function ShareButton(props) {
+function ShareButton(props:any) {
  
   const router = useRouter()
 

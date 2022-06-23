@@ -6,7 +6,7 @@ import Input from '../utils/Input';
 import { useRouter } from 'next/router';
 import TextareaAutosize from 'react-textarea-autosize';
 import CommunityList from './submitutils/CommunityList';
-import ClickOutHandler from 'react-clickout-handler';
+import ClickOutHandler from 'react-clickout-ts';
 import Image from 'next/image';
 import {MdOutlineCircle} from 'react-icons/md'
 import SubmitButton from './SubmitButton';

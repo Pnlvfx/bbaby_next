@@ -134,7 +134,7 @@ function AuthModal() {
                                         <Input type='password' className={`p-2 mb-4 w-80 ${status.err && 'border border-reddit_red'}`} value={password} onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setPassword(e.target.value)} autoComplete={'current-password'} />
                                     </label>
                                     {loading && (
-                                    <Button disabled className='w-80 py-2 mb-3' style={{borderRadius:'.3rem'}} onClick={() => login()}>
+                                    <Button disabled className='w-80 py-2 mb-3' style={{borderRadius:'.3rem'}}>
                                         <AiOutlineLoading3Quarters className='animate-spin mx-auto' />
                                     </Button> 
                                     )}

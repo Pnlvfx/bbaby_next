@@ -3,7 +3,7 @@ import governanceCtrl from '../controllers/governance/governanceCtrl.js'
 
 const governanceRouter = express.Router()
 
-governanceRouter.get('/governance/create-image', governanceCtrl.createImage)
+governanceRouter.post('/governance/create-image', governanceCtrl.createImage)
 
 governanceRouter.get('/governance/create-video', governanceCtrl.createVideo)
 

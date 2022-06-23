@@ -55,7 +55,7 @@ function Profile() {
             <hr className='mx-4 w-1/2 border-reddit_border'/>
         </div>
             <div>
-                <h2 className=' font-bold px-4 pt-4 pb-1 text-[11px] text-reddit_text-darker'>IMAGES</h2>
+                <h2 className='font-bold px-4 pt-4 pb-1 text-[11px] text-reddit_text-darker'>IMAGES</h2>
                 <hr className='mx-4 w-1/2 border-reddit_border'/>
                 <h1 className='font-bold text-sm p-4 pt-6 pb-0'>Avatar and banner image</h1>
                 <h2 className='p-4 pt-0 text-sm text-reddit_text-darker'>Images must be .png or .jpg format</h2>
@@ -66,7 +66,6 @@ function Profile() {
                     <AiOutlinePlus className='absolute mx-[95px] mt-[100px] text-reddit_text-darker w-8 h-8'/>
                 </div>
                     <input hidden type="file" name="image" id="file_up" ref={filePickerRef} onChange={handleFileInputChange}/>
-                    <h1>{test}</h1>
             </div>
     </>
   )

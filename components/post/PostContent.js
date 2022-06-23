@@ -5,11 +5,12 @@ import MoreButton from './postutils/MoreButton'
 import Image from "next/image";
 import Voting from "./Voting";
 import {CommentIcon} from '../utils/SVG'
-import LoaderPlaceholder from './LoaderPlaceholder'
+import Link from "next/link";
+import { isMobile } from "react-device-detect";
 
 function PostContent(props) {
   const router = useRouter()
-  const {filePickerRefMore,filePickerRef,filePickerRefShare,communityIcon} = props
+  const {filePickerRefMore,filePickerRefShare,communityIcon} = props
 
   let height = null
   let width = null
@@ -26,27 +27,29 @@ function PostContent(props) {
           </div>
             <div className="p-2">
               <div className="flex mb-3 truncate">
-                <div onClick={event => {
-                    event.preventDefault()
-                    router.push({
-                      pathname: '/b/'+props.community
-                    })
-                    }} className="h-5 relative flex cursor-pointer">
-                      <div className="">
-                        <Image src={communityIcon} alt='' className='rounded-full' height={'20px'} width={'20px'} />                      
-                      </div>    
-                      <span className="text-xs ml-1 hover:underline font-bold mt-[2px]">b/{props.community}</span>
-                </div>
-                  <h2 className="px-1 text-sm">-</h2>
-                  <div className='text-reddit_text-darker text-xs mt-[3px] truncate'>
-                    <button onClick={event => {
+                <Link href={`/b/${props.community}`}>
+                  <a onClick={event => {
                       event.preventDefault()
-                      router.push(`/user/${props.author}`)
-                    }}>
-                      <div className="hover:underline text-ellipsis">
-                        Posted by b/{props.author}
-                      </div> 
-                    </button> <TimeAgo datetime={props.createdAt} className='text-ellipsis'/>
+                      router.push({
+                        pathname: '/b/'+props.community
+                      })
+                      }} className="h-5 relative flex">
+                        <div className="">
+                          <Image src={communityIcon} alt='' className='rounded-full' height={'20px'} width={'20px'} />                      
+                        </div>    
+                        <span className="text-xs ml-1 hover:underline font-bold mt-[2px]">b/{props.community}</span>
+                  </a>
+                </Link>
+                  <span className="px-1 text-sm">-</span>
+                  <div className='text-reddit_text-darker text-xs mt-[3px] truncate'>
+                    <span>Posted by</span> <Link href={`/user/${props.author}`}>
+                      <a onClick={event => {
+                        event.preventDefault()
+                        router.push(`/user/${props.author}`)
+                      }}>
+                        <span className="hover:underline text-ellipsis">b/{props.author}</span> 
+                      </a> 
+                      </Link> <TimeAgo datetime={props.createdAt} className='text-ellipsis'/>
                   </div>
                 </div>
                 <pre>
@@ -67,7 +70,17 @@ function PostContent(props) {
                   <button type='button' onClick={event => {
                     event.preventDefault()
                       if (props.isListing) {
-                        filePickerRef.current.click()
+                        if (isMobile) {
+                          router.push({
+                            pathname: `/b/${props.community}/comments/${props._id}`
+                          },undefined,{scroll:false})
+                        } else {
+                          router.push({
+                              pathname: router.pathname,
+                              query: {postId: props._id, community: props.community, username: props.author }
+                          },'/b/'+props.community+'/comments/'+props._id, {scroll:false}
+                          )
+                        }
                       }
                     }}>
                     <div className='flex text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm self-center'>

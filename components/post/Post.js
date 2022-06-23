@@ -6,7 +6,6 @@ import { useRouter } from 'next/router'
 
 
 function Post(props) {
-    const filePickerRef = useRef(null);
     const filePickerRefShare = useRef(null);
     const filePickerRefMore = useRef(null);
     const router = useRouter()
@@ -31,36 +30,18 @@ function Post(props) {
                         <Link href={`${router.pathname}?postId=${post._id}&community=${post.community}&username=${post.author}`} as={'/b/'+post.community+'/comments/'+post._id}
                          scroll={false}> 
                         <a>
-                            <PostContent {...post} filePickerRef={filePickerRef} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} isListing={props.isListing}/>
+                            <PostContent {...post} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} isListing={props.isListing}/>
                         </a>
                         </Link>
-                        <button id='commentButtonRef' onClick={e => { //using reference to get the correct comment Id
-                            e.preventDefault()
-                                router.push({
-                                    pathname: router.pathname,
-                                    query: {postId: post._id, community: post.community, username: post.username }
-                                },'/b/'+post.community+'/comments/'+post._id, {scroll:false}
-                                )
-                            
-                            }} hidden ref={filePickerRef}>
-                        </button>
                         </>
                     )}
                     {isMobile && (
                         <>
                         <Link href={'/b/'+post.community+'/comments/'+post._id}>
                             <a>
-                                <PostContent {...post} filePickerRef={filePickerRef} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} isListing={props.isListing} />
+                                <PostContent {...post} filePickerRefShare={filePickerRefShare} filePickerRefMore={filePickerRefMore} isListing={props.isListing} />
                             </a>
                         </Link>
-                        <button onClick={e => { //using reference to get the correct comment Id
-                                e.preventDefault()
-                                    router.push({
-                                        pathname: '/b/'+post.community+'/comments/'+post._id,
-                                    },undefined,{scroll:false}
-                                    )
-                                }} hidden ref={filePickerRef}>
-                        </button>
                         </>
                     )}
                         <button onClick={() => { //using reference to get the correct share Id

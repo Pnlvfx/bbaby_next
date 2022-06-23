@@ -9,8 +9,9 @@ module.exports = {
     robotsTxtOptions: {
         additionalSitemaps: [
             //`${siteUrl}/server-sitemap.xml`,
-            `${siteUrl}/server-sitemap-index.xml`
+            `${siteUrl}/server-sitemap-index.xml`,
+            `${siteUrl}/server-sitemap.xml`
         ],
     },
-    exclude: ["/governance","/server-sitemap.xml","/server-sitemap-index.xml","/settings/*","/login/*","/settings"] //user is temp
+    exclude: ["/governance","/governance/*","/server-sitemap.xml","/server-sitemap-index.xml","/settings/*","/login/*","/settings"] //user is temp
 }

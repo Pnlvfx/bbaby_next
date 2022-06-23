@@ -10,7 +10,7 @@ import Link from 'next/link';
 import {useState} from 'react'
 import Button from '../utils/Button'
 import AuthModalContext from '../auth/AuthModalContext'
-import ClickOutHandler from "react-clickout-handler";
+import ClickOutHandler from "react-clickout-ts";
 import { CommunityContext } from '../community/CommunityContext';
 import { useRouter } from 'next/router';
 import UserMenu from './UserMenu'

@@ -1,5 +1,5 @@
 import {useState,useEffect, useContext} from 'react'
-import ClickOutHandler from "react-clickout-handler";
+import ClickOutHandler from "react-clickout-ts";
 import ShowTimeMsg from '../../utils/notification/ShowTimeMsg'
 import { useRouter } from 'next/router';
 import {BsTrashFill} from 'react-icons/bs'
@@ -7,10 +7,10 @@ import axios from 'axios';
 import UserContext from '../../auth/UserContext';
 import {MoreIcon} from '../../utils/SVG'
 
-function MoreButton(props) {
+function MoreButton(props:any) {
 
   const provider = useContext(UserContext)
-  const {session} = provider
+  const {session}:any = provider
  
   const router = useRouter()
   const server = process.env.NEXT_PUBLIC_SERVER_URL
@@ -43,13 +43,7 @@ function MoreButton(props) {
       } else {
         const {deleteId} = router.query
           const res = await axios.delete(`${server}/posts/${deleteId}`,{withCredentials:true})
-          router.reload().then(() => {
-          setDeletedSuccess(true)
-        }) // to fixconst {deleteId} = router.query
-          // await axios.delete(`${server}/posts/${deleteId}`,{withCredentials:true})
-          // router.reload().then(() => {
-          // setDeletedSuccess(true)
-        // }) // to fix
+          router.reload()
       }
     } catch (err) {
 

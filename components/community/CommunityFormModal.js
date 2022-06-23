@@ -1,6 +1,6 @@
 import { useContext, useState } from "react"
 import {CommunityContext} from './CommunityContext'
-import ClickOutHandler from 'react-clickout-handler'
+import ClickOutHandler from 'react-clickout-ts'
 import Input from "../utils/Input";
 import Button from "../utils/Button";
 import axios from "axios";

@@ -1,28 +1,22 @@
 import axios from "axios";
 import { NextPage, NextPageContext } from "next";
 import Layout from "../../components/Layout";
+import Twitter from "../../components/governance/twitter/Twitter";
 import GovernanceCtrl from "../../components/governance/GovernanceCtrl";
-import Head from "next/head";
 
-const Governance: NextPage = () => {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME
+const TwitterPage: NextPage = () => {
   return (
-    <div>
-      <Head>
-        <title>Bbabystyle - authority page </title>
-        <link rel="icon" href="/favicon.ico"/>
-        <link rel='canonical' href={`${hostname}/governance`} key='canonical' />
-      </Head>
-      <div className="w-full h-[1000px]">
-        <Layout>
-          <GovernanceCtrl />
-        </Layout>
-      </div>
+    <div className="w-full h-[1000px]">
+      <Layout>
+        <GovernanceCtrl>
+          <Twitter />
+        </GovernanceCtrl>
+      </Layout>
     </div>
   )
 }
 
-export default Governance;
+export default TwitterPage;
 
 export async function getServerSideProps(context: NextPageContext) {
   

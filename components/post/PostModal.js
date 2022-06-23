@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react"
-import ClickOutHandler from "react-clickout-handler";
+import ClickOutHandler from "react-clickout-ts";
 import Comment from '../comments/Comment';
 import {GrDocumentText} from 'react-icons/gr'
 import { CloseIcon } from "../utils/SVG";
@@ -28,7 +28,7 @@ function PostModal(props) {
   },[postId]);
 
   return (
-    <div className={"fixed top-0 left-0 right-0 z-20 flex mx-32 " +visibleClass} style={{backgroundColor:'rgba(0,0,0,.8'}}>
+    <div className={"fixed top-0 left-0 right-0 z-20 flex mx-32 " +visibleClass} style={{backgroundColor:'rgba(0,0,0,1'}}>
       <ClickOutHandler onClickOut={() => {
         setLoading(true)
         router.push({
@@ -47,7 +47,7 @@ function PostModal(props) {
                 <GrDocumentText className="w-4 h-4 text-reddit_text bg-white mr-3" />
                 <h1 className='text-sm flex-none'>{post.title}</h1>
               </div>
-              <button id="closeButton" onClick={() => {
+              <button title='close' id="closeButton" onClick={() => {
                 setLoading(true)
                 router.push({
                   pathname:router.pathname,
