@@ -21,9 +21,9 @@ const governanceCtrl =  {
             const width = post.mediaInfo.dimension[1]
             const height = post.mediaInfo.dimension[0]
             let audio = []
-            let audioDuration = ''
+            let audioDuration = []
 
-            const createImage = async(input) => {
+            const _createImage = async(input) => {
                 const bgColor = 'rgba(0,0,0,0)'
                 const data = await textToImage.generate(`${input}`, { //USE '/n to add space
                     maxWidth: width,
@@ -52,7 +52,7 @@ const governanceCtrl =  {
                 const cleanImage2 = cleanImage.replace('/>','')
                 const cleanImage3 = cleanImage2.replace('http', 'https')
                 const finalImage = cleanImage3.replaceAll("'", "")
-                images.push({path: finalImage})
+                return finalImage
             }
             const createAudio = async(input) => {
                 const client = new textToSpeech.TextToSpeechClient()
@@ -70,37 +70,47 @@ const governanceCtrl =  {
                     resource_type: "video"
                 })
                 audio.push(upload.secure_url)
-                audioDuration = upload.duration
+                audioDuration.push(upload.duration)
+                return upload.duration
             }
-            texts.map(async function(text,key,arr) {
-                    await createImage(text.title ? text.title : text.body)
-                    await createAudio(text.title ? text.title : text.body)
-                    if (Object.is(arr.length -1, key)) {
-                            res.json({
-                                title: post.title,
-                                description: `Bbabystyle è un social network indipendente,esistiamo solo grazie a voi. Contribuisci a far crescere bbabystyle https://bbabystyle.com`,
-                                keywords: `Ucraina, News, Notizie`,
-                                category: `25`,
-                                privacyStatus: `private`,
-                                images: images,
-                                audio: audio,
-                                audioDuration:audioDuration,
-                                width: width,
-                                height: height,
-                                success:'Image and audio created successfully'
-                            })
-                    }
-                    }
+            // const delay = 3000
+            const wait = ms => new Promise(resolve => setTimeout(resolve,ms))
+            
+            await Promise.all(
+                texts.map(async (text,index) => {
+                    const delay = `${index}000`
+                    await wait(delay)
+                    const finalImage = await _createImage(text.title ? text.title : text.body)
+                    const loop = await createAudio(text.title ? text.title : text.body)
+                    images.push({path:finalImage,loop:loop})
+                    await wait(delay)
+                    // const _audio = await createAudio(text.title ? text.title : text.body)
+                    // if (!_audio) return res.status(500).json({msg: "Something went wrong"})
+                })
             )
+            images.reverse()
+            audio.reverse()
+            res.json({
+                title: post.title,
+                description: `Bbabystyle è un social network indipendente,esistiamo solo grazie a voi. Contribuisci a far crescere bbabystyle https://bbabystyle.com`,
+                keywords: `Ucraina, News, Notizie`,
+                category: `25`,
+                privacyStatus: `private`,
+                images: images,
+                audio: audio,
+                audioDuration:audioDuration,
+                width: width,
+                height: height,
+                success:'Image and audio created successfully'
+            })
         } catch (err) {
             res.status(500).json({msg: err.message})
         }
     },
     createVideo: (req,res) => {
         try {
-            const {_videoOptions,images} = req.body
+            const {_videoOptions,images,audio} = req.body
             const videoOptions = {
-                loop: _videoOptions.loop,
                 fps: _videoOptions.fps,
                 transition: _videoOptions.transition,
                 transitionDuration: _videoOptions.transitionDuration, // seconds
@@ -113,26 +123,30 @@ const governanceCtrl =  {
                 pixelFormat: 'yuv420p'
             }
             videoshow(images,videoOptions)
-            .save("/home/simone/simone/website/Bbaby_next/services/api/youtubeImage/video1.mp4")
-            .on('start', function(command) {
-                console.log("Conversion started " + command)
-            })
-            .on('error', function (err,stdout,stderr) {
-                res.status(500).json({msg: `Some error occured ${err ? err : stdout ? stdout : stderr}`})
-            })
-            .on('end', function(output) {
-                cloudinary.v2.uploader.upload(output, {
-                    upload_preset: 'bbaby_gov_video',
-                    resource_type: "video"
-                },function(err,response) {
-                    if (err) return res.status(500).json({msg: err.message})
-                    res.status(201).json({
-                        success: "Conversion completed",
-                        video: response.secure_url,
-                        localPath: '/home/simone/simone/website/Bbaby_next/services/api/youtubeImage/video1.mp4'
+            .audio()
+                .save("./youtubeImage/video1.mp4")
+                .on('start', function(command) {
+                    console.log("Conversion started " + command)
+                })
+                .on('progress', function(progress) {
+                console.log('Processing: ' + progress.percent + '% done')
+                })
+                .on('error', function (err,stdout,stderr) {
+                    res.status(500).json({msg: `Some error occured ${err ? err : stdout ? stdout : stderr}`})
+                })
+                .on('end', function(output) {
+                    cloudinary.v2.uploader.upload(output, {
+                        upload_preset: 'bbaby_gov_video',
+                        resource_type: "video"
+                    },function(err,response) {
+                        if (err) return res.status(500).json({msg: err.message})
+                        res.status(201).json({
+                            success: "Conversion completed",
+                            video: response.secure_url,
+                            localPath: '/home/simone/simone/website/Bbaby_next/services/api/youtubeImage/video1.mp4'
+                        })
                     })
-                })
-                })
+            })
         } catch (err) {
             res.status(500).json({msg: err.message})
         }
