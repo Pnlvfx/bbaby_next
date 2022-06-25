@@ -9,6 +9,6 @@ governanceRouter.post('/governance/create-video', governanceCtrl.createVideo)
 
 governanceRouter.post('/governance/translate-tweet', governanceCtrl.translateTweet)
 
-governanceRouter.post('/admin/youtube', governanceCtrl.uploadYoutube)
+governanceRouter.post('/governance/youtube', governanceCtrl.uploadYoutube)
 
 export default governanceRouter;

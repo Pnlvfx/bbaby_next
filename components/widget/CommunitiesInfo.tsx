@@ -43,7 +43,7 @@ function CommunitiesInfo(props:any) {
     //
     
     return (
-      <div className='bg-reddit_dark-brighter shadow-lg w-[310px] h-96 ml-2 rounded-md border border-reddit_border mb-5'>
+      <div className='bg-reddit_dark-brighter shadow-lg w-[310px] h-80 ml-2 rounded-md border border-reddit_border mb-5'>
           <div className='p-2'>
               <div className="flex text-reddit_text-darker">
                 <div className="p-1 self-center">
@@ -102,21 +102,23 @@ function CommunitiesInfo(props:any) {
                 </div>
               )}
 
-              <div>
-                  <hr className="border-reddit_border"></hr>
-                  <div className="py-3 text-sm">
-                      Created {moment(createdAt).format('MMM DD, YYYY')}
-                  </div>
-                  <hr className="border-reddit_border"/>
-              </div>
-              <div className="">
+                <div>
+                    <hr className="border-reddit_border"></hr>
+                    <div className="py-3 text-sm">
+                        Created {moment(createdAt).format('MMM DD, YYYY')}
+                    </div>
+                    <hr className="border-reddit_border"/>
+                </div>
+              <div className="self-center">
                   {!user && (
-                      <Button onClick={() => {setShow('login')}} className='w-full py-1 mt-3 mb-4'>Create a Post</Button>
+                      <Button onClick={() => {setShow('login')}} className='w-full py-1 mt-3'>Create a Post</Button>
                   )}
                   {user && (
                     <Link href={`/submit?with_community=${name}`} as={'/submit'}>
-                        <a>
-                            <Button className='w-full py-1 mt-3 mb-4'>Create a Post</Button>
+                        <a className="self-center">
+                            <div className="self-center">
+                                <Button className='w-full py-1 mt-3'>Create a Post</Button>
+                            </div>
                         </a>
                     </Link>
                   )}

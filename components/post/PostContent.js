@@ -84,7 +84,7 @@ function PostContent(props) {
                             }
                           }
                         }}>
-                        <div className='flex text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm self-center'>
+                        <div className='flex text-reddit_text-darker p-2 rounded-sm bg-reddit_dark-brighter hover:bg-reddit_hover text-sm self-center'>
                           <CommentIcon style={{height: '20px', width: '20px'}} />
                           <h1 className="ml-1">{props.numComments} Comments</h1>
                         </div>

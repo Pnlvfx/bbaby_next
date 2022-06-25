@@ -50,7 +50,7 @@ function Header() {
 
   return (
     <header id='myHeader' className={'w-full bg-reddit_dark-brighter p-1 border-b border-reddit_border sticky top-0 z-30'}>
-        <div className='ml-2 flex'>
+        <div className='ml-0 lg:ml-2 flex'>
             <Link href={'/'}>
                 <a className='flex' value={'logo'} onClick={event => {
                     event.preventDefault(),
@@ -87,7 +87,7 @@ function Header() {
                         {session.user.role === 1 && (
                             <Link href={'/governance'}>
                                 <a className='px-2'>
-                                    <TbBabyCarriage className='text-[#D7DADC] self-center w-6 h-6 hidden md:block' />
+                                    <TbBabyCarriage className='text-[#D7DADC] self-center w-6 h-6 block' />
                                 </a>
                             </Link>
                         )}

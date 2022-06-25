@@ -15,7 +15,8 @@ const governanceCtrl =  {
             const limit = 1
             const {textColor,fontSize,community,format} = req.body
             const post = await Post.findOne({"mediaInfo.isImage" : true, community: community}).sort({createdAt: -1}).limit(limit).skip(skip)
-            const comments = await Comment.find({rootId: post._id}).sort({createdAt: -1})
+            const comments = await Comment.find({rootId: post._id}).sort({createdAt: 1})
+            console.log(comments)
             
             let images = []
             const width = post.mediaInfo.dimension[1]
@@ -43,8 +44,8 @@ const governanceCtrl =  {
                     return res.status(500).json({msg: 'Something went wrong when trying to parse the text on the image'})
                 }
                 const {public_id} = imageWText
-                const new_public_id = await public_id.replace('/', ':')
-                const updatedImage =  await cloudinary.v2.image(`${post.imageId}.${format}`, {overlay: new_public_id})
+                const new_public_id = public_id.replace('/', ':')
+                const updatedImage = cloudinary.v2.image(`${post.imageId}.${format}`, {overlay: new_public_id})
                 if (!updatedImage) {
                     return res.status(500).json({msg: 'Final image: Something went wrong when trying to add the image with the text on the image'})
                 }
@@ -52,7 +53,7 @@ const governanceCtrl =  {
                 const cleanImage2 = cleanImage.replace('/>','')
                 const cleanImage3 = cleanImage2.replace('http', 'https')
                 const finalImage = cleanImage3.replaceAll("'", "")
-                images = await [...images, {path: finalImage}]
+                images.push({path: finalImage})
             }
             const createAudio = async(input) => {
                 const client = new textToSpeech.TextToSpeechClient()
@@ -69,16 +70,15 @@ const governanceCtrl =  {
                     upload_preset: 'bbaby_gov_video',
                     resource_type: "video"
                 })
-                audio = [...audio,upload.secure_url]
-                console.log(images)
+                audio.push(upload.secure_url)
                 audioDuration = upload.duration
             }
             comments.forEach(async function(comment,key,arr) {
                     await createImage(comment.body)
-                    //await createAudio(comment.body)
+                    await createAudio(comment.body)
                     if (Object.is(arr.length -1, key)) {
                         await createImage(post.title)
-                        //await createAudio(post.title)
+                        await createAudio(post.title)
                             res.json({
                                 title: post.title,
                                 description: `Bbabystyle è un social network indipendente,esistiamo solo grazie a voi. Contribuisci a far crescere bbabystyle https://bbabystyle.com`,
@@ -101,8 +101,7 @@ const governanceCtrl =  {
     },
     createVideo: (req,res) => {
         try {
-            const {_videoOptions,images:_images} = req.body
-            const images = _images
+            const {_videoOptions,images} = req.body
             const videoOptions = {
                 loop: _videoOptions.loop,
                 fps: _videoOptions.fps,
