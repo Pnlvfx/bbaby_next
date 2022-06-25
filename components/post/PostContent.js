@@ -68,7 +68,9 @@ function PostContent(props) {
                 <div className='flex self-center'>
                   <div>
                     <Link href={`/b/${props.community}/comments/${props._id}`} scroll={false}>
-                      <a type='button' onClick={event => {
+                      <a type='button'
+                      className="bg-reddit_dark-brighter"
+                      onClick={event => {
                         event.preventDefault()
                           if (props.isListing) {
                             if (isMobile) {
