@@ -78,7 +78,7 @@ const governanceCtrl =  {
                     //await createAudio(comment.body)
                     if (Object.is(arr.length -1, key)) {
                         await createImage(post.title)
-                        await createAudio(post.title)
+                        //await createAudio(post.title)
                             res.json({
                                 title: post.title,
                                 description: `Bbabystyle è un social network indipendente,esistiamo solo grazie a voi. Contribuisci a far crescere bbabystyle https://bbabystyle.com`,
