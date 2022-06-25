@@ -21,6 +21,7 @@ import Logo from '../../public/logo.png'
 import HomeIcon from '../../public/home.svg'
 import {TextLogo} from '../utils/SVG'
 import { RiArrowDownSLine } from 'react-icons/ri';
+import {TbBabyCarriage} from 'react-icons/tb'
 
 
 function Header() {
@@ -76,15 +77,22 @@ function Header() {
                     onChange={ev => setSearchText(ev.target.value)} />
             </form>
                 {session && (
-                    <div className='px-2 self-center'>
+                    <div className='px-2 self-center flex'>
                         <button className=' hidden'>
                             <ChatIcon className='text-reddit_text-darker w-6 h-6 mx-2' />
                         </button>
                         <button className='hidden'>
                             <BellIcon className='text-reddit_text-darker w-6 h-6 mx-2' />
                         </button>
+                        {session.user.role === 1 && (
+                            <Link href={'/governance'}>
+                                <a className='px-2'>
+                                    <TbBabyCarriage className='text-[#D7DADC] self-center w-6 h-6 hidden md:block' />
+                                </a>
+                            </Link>
+                        )}
                         <Link href={'/submit'}>
-                            <a className=''>
+                            <a className='px-2'>
                                 <PlusIcon className='text-[#D7DADC] self-center w-6 h-6 hidden md:block' />
                             </a>
                         </Link>

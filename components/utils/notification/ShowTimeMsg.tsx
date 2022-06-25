@@ -3,13 +3,19 @@ import { isMobile } from "react-device-detect";
 
 function ShowTimeMsg(props:any) {
 
-  const {value,setValue} = props
+  const {value,setValue,gov_value} = props
 
   useEffect(() => {
     if (!value) return 
+    if(!gov_value) {
       setTimeout(() => {
         setValue('')
     }, 8000)
+    } else {
+      setTimeout(() => {
+        setValue({...gov_value,err:'',success:''})
+    }, 8000)
+    }
   },[value])
 
   

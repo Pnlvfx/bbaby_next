@@ -14,8 +14,6 @@ userRouter.get('/user', userCtrl.user)
 
 userRouter.get('/user/about', userCtrl.userInfo)
 
-userRouter.get('/user/admin', userCtrl.userAdmin)
-
 userRouter.post('/user/change_avatar', userCtrl.changeAvatar)
 
 userRouter.post('/forgot', userCtrl.forgotPassword)

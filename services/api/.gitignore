@@ -1,7 +1,8 @@
 node_modules
+youtubeCategories
 
 .env
 
-/youtubeImage
+youtubeImage
 
 bbabystyle_googleCredentials.json

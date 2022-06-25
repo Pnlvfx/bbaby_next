@@ -1,32 +1,35 @@
 import Post from '../../models/Post.js'
+import Comment from '../../models/Comment.js'
 import textToImage from 'text-to-image'
-import fs from 'fs'
 import videoshow from 'videoshow'
 import cloudinary from '../../utils/cloudinary.js'
-import {google} from 'googleapis'
-import User from '../../models/User.js'
 import {TranslationServiceClient} from '@google-cloud/translate'
-import { texttospeech } from 'googleapis/build/src/apis/texttospeech/index.js'
+import textToSpeech from '@google-cloud/text-to-speech'
+import util from 'util'
+import fs from 'fs'
 
 const governanceCtrl =  {
     createImage: async (req,res) => {
         try {
-            let skip = 0
+            const skip = 0
             const limit = 1
-            const {textColor,fontSize,community} = req.body
-            const createImage = async() => {
-                const bgColor = 'rgba(0,0,0,0)'
-                const website = 'www.bbabystyle.com'
-                let filters = {}
-                filters.community = community
+            const {textColor,fontSize,community,format} = req.body
+            const post = await Post.findOne({"mediaInfo.isImage" : true, community: community}).sort({createdAt: -1}).limit(limit).skip(skip)
+            const comments = await Comment.find({rootId: post._id}).sort({createdAt: -1})
+            
+            let images = []
+            const width = post.mediaInfo.dimension[1]
+            const height = post.mediaInfo.dimension[0]
+            let audio = []
+            let audioDuration = ''
 
-                const post = await Post.findOne({"mediaInfo.isImage" : true, community: community}).sort({createdAt: -1}).limit(limit).skip(skip)
-                const height = post.mediaInfo.dimension[0]
-                const width = post.mediaInfo.dimension[1]
-                const data = await textToImage.generate(`${post?.title}\n\n${post.body}\n\n\n\n${website}`, {
+            const createImage = async(input) => {
+                const bgColor = 'rgba(0,0,0,0)'
+                const data = await textToImage.generate(`${input}`, { //USE '/n to add space
                     maxWidth: width,
                     bgColor: bgColor,
                     textColor: textColor,
+                    fontFamily: 'Helvetica',
                     customHeight: height,
                     fontSize: fontSize,
                     lineHeight: 48,
@@ -36,59 +39,107 @@ const governanceCtrl =  {
                 const imageWText = await cloudinary.v2.uploader.upload(data, {
                     upload_preset: 'bbaby_governance'
                 })
+                if (!imageWText) {
+                    return res.status(500).json({msg: 'Something went wrong when trying to parse the text on the image'})
+                }
                 const {public_id} = imageWText
-                const new_public_id = public_id.replace('/', ':')
-                const finalImage =  cloudinary.v2.image(`${post.imageId}.webp`, {overlay: new_public_id})
-                const cleanImage = finalImage.replace('<img src=','')
+                const new_public_id = await public_id.replace('/', ':')
+                const updatedImage =  await cloudinary.v2.image(`${post.imageId}.${format}`, {overlay: new_public_id})
+                if (!updatedImage) {
+                    return res.status(500).json({msg: 'Final image: Something went wrong when trying to add the image with the text on the image'})
+                }
+                const cleanImage = updatedImage.replace('<img src=','')
                 const cleanImage2 = cleanImage.replace('/>','')
                 const cleanImage3 = cleanImage2.replace('http', 'https')
-                const cleanImage4 = cleanImage3.replaceAll("'", "")
-                res.json({image: cleanImage4, title: post.title,width: width, height: height})
+                const finalImage = cleanImage3.replaceAll("'", "")
+                images = await [...images, {path: finalImage}]
             }
-             await createImage()
+            const createAudio = async(input) => {
+                const client = new textToSpeech.TextToSpeechClient()
+                const request = {
+                    input: {text:input},
+                    voice: {languageCode: 'it', ssmlGender: 'NEUTRAL'},
+                    audioConfig: {audioEncoding: 'MP3'},
+                };
+                const [response] = await client.synthesizeSpeech(request);
+                const path = '/home/simone/simone/website/Bbaby_next/services/api/youtubeImage/audio.mp3'
+                const writeFile = util.promisify(fs.writeFile)
+                await writeFile(path, response.audioContent, 'binary')
+                const upload = await cloudinary.v2.uploader.upload(path, {
+                    upload_preset: 'bbaby_gov_video',
+                    resource_type: "video"
+                })
+                audio = [...audio,upload.secure_url]
+                console.log(images)
+                audioDuration = upload.duration
+            }
+            comments.forEach(async function(comment,key,arr) {
+                    await createImage(comment.body)
+                    //await createAudio(comment.body)
+                    if (Object.is(arr.length -1, key)) {
+                        await createImage(post.title)
+                        await createAudio(post.title)
+                            res.json({
+                                title: post.title,
+                                description: `Bbabystyle è un social network indipendente,esistiamo solo grazie a voi. Contribuisci a far crescere bbabystyle https://bbabystyle.com`,
+                                keywords: `Ucraina, News, Notizie`,
+                                category: `25`,
+                                privacyStatus: `private`,
+                                images: images,
+                                audio: audio,
+                                audioDuration:audioDuration,
+                                width: width,
+                                height: height,
+                                success:'Image and audio created successfully'
+                            })
+                    }
+                    }
+            )
         } catch (err) {
             res.status(500).json({msg: err.message})
         }
     },
-    createVideo: async (req,res) => {
-        
-        const images = [
-            {
-                path: 'https://res.cloudinary.com/bbabystyle/image/upload/l_governance:gtcftzadinx5bj8j2tvp/d63smyadznwbe2lsevti.webp'
-            },
-            // {
-            //     path: './youtubeImage/image1.png'
-            // },
-            // {
-            //     path: './youtubeImage/image2.png'
-            // },
-        ]
-
-        const videoOptions = {
-            loop: 15,
-            fps:24,
-            transition: true,
-            transitionDuration: 1, // seconds
-            videoBitrate: 1024,
-            videoCodec: 'libx264',
-            size: '640x?',
-            audioBitrate: '128k',
-            audioChannels: 2,
-            format: 'mp4',
-            pixelFormat: 'yuv420p'
+    createVideo: (req,res) => {
+        try {
+            const {_videoOptions,images:_images} = req.body
+            const images = _images
+            const videoOptions = {
+                loop: _videoOptions.loop,
+                fps: _videoOptions.fps,
+                transition: _videoOptions.transition,
+                transitionDuration: _videoOptions.transitionDuration, // seconds
+                videoBitrate: 1024,
+                videoCodec: 'libx264',
+                size: '640x?',
+                audioBitrate: '128k',
+                audioChannels: 2,
+                format: 'mp4',
+                pixelFormat: 'yuv420p'
+            }
+            videoshow(images,videoOptions)
+            .save("/home/simone/simone/website/Bbaby_next/services/api/youtubeImage/video1.mp4")
+            .on('start', function(command) {
+                console.log("Conversion started " + command)
+            })
+            .on('error', function (err,stdout,stderr) {
+                res.status(500).json({msg: `Some error occured ${err ? err : stdout ? stdout : stderr}`})
+            })
+            .on('end', function(output) {
+                cloudinary.v2.uploader.upload(output, {
+                    upload_preset: 'bbaby_gov_video',
+                    resource_type: "video"
+                },function(err,response) {
+                    if (err) return res.status(500).json({msg: err.message})
+                    res.status(201).json({
+                        success: "Conversion completed",
+                        video: response.secure_url,
+                        localPath: '/home/simone/simone/website/Bbaby_next/services/api/youtubeImage/video1.mp4'
+                    })
+                })
+                })
+        } catch (err) {
+            res.status(500).json({msg: err.message})
         }
-        videoshow(images,videoOptions)
-        .save("./youtubeImage/video1.mp4")
-        .on('start', function(command) {
-            console.log("Conversion started" + command)
-        })
-        .on('error', function (err,stdout,stderr) {
-            console.log("Some error occured" + err)
-        })
-        .on('end', function(output) {
-            res.status(201).json({msg: "Conversion completed" + output})
-        })
-
     },
     translateTweet: async (req,res) => {
         try {
@@ -119,12 +170,7 @@ const governanceCtrl =  {
         }
     },
     uploadYoutube: async (req,res) => {
-        const {OAuth2} = google.auth
-        const SCOPES = ['https://www.googleapis.com/auth/youtube.upload'];
-        const user = await User.findOne({username: 'SimoneGauli'})
-        const TOKEN = user.googleToken
-        const videoFilePath = '../../youtubeImage/video1.mp4'
-        const youtube = google.youtube('v3')
+        
     }
 
 }

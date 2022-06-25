@@ -37,23 +37,41 @@ function UserMenu(props) {
                         <h1 className='text-sm pt-[3px] pl-2'>My Stuff</h1>
                     </span>
                 </div>
-            <div id='button_no_icons' className=''>
-                <div className={containerClass}>
-                <h1 className={buttonClass}>Online Status</h1>    
-                </div>
-                <div onClick={() => {
-                    router.push(`/user/${user.username}`)
-                }} className={containerClass}>
-                <h1 className={buttonClass}>Profile</h1>    
-                </div>
-                <div className={containerClass} title='user settings' onClick={() => {
-                    router.push('/settings')
-                    setUserDropdownVisibilityClass('hidden');
+                <div id='button_no_icons' >
+                    {user.role === 1 && (
+                        <Link href={`/governance`}>
+                            <a onClick={() => {
+                                setUserDropdownVisibilityClass('hidden');
+                        }}>
+                                <div className={containerClass}>
+                                    <h1 className={buttonClass}>Governance</h1>    
+                                </div>
+                            </a>
+                        </Link>
+                    )}
+                    <div className={containerClass}>
+                        <h1 className={buttonClass}>Online Status</h1>    
+                    </div>
+                    <Link href={`/user/${user.username}`}>
+                        <a onClick={() => {
+                            setUserDropdownVisibilityClass('hidden');
+                        }}>
+                            <div className={containerClass}>
+                                <h1 className={buttonClass}>Profile</h1>    
+                            </div>
+                        </a>
+                    </Link>
+                    <Link href={`/settings`}>
+                    <a onClick={() => {
+                        setUserDropdownVisibilityClass('hidden');
                     }}>
-                <h1 className={buttonClass}>User Settings</h1>    
-                </div>
-            </div>    
-            <hr className='border-reddit_border my-3 mb-4'/>  
+                        <div className={containerClass}>
+                            <h1 className={buttonClass}>User Settings</h1>    
+                        </div>
+                    </a>
+                    </Link>
+                </div>    
+                <hr className='border-reddit_border my-3 mb-4'/>  
                 <div id='buttons_with_icon'>
                     <div className={containerClass}>
                         <div className={'flex p-[9px] pl-4'} onClick={() => {

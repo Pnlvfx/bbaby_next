@@ -35,7 +35,6 @@ function Submit(props) {
     const [imageWidth,setImageWidth] = useState()
     const [imageHeight, setImageHeight] = useState()
     //
-
     const [loading,setLoading] = useState(false)
 
     // SHARE ON TELEGRAM
@@ -139,6 +138,9 @@ function Submit(props) {
         } catch (err) {
             if(err.response.status === 401) {
                 authModalContext.setShow('login');
+            } else if (err?.response?.data?.msg) {
+            setValue(err.response.data.msg)
+            setLoading(false)
             }
         }
     }

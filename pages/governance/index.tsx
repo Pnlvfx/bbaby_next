@@ -30,7 +30,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
   const response =  await axios({
     method: "get",
-    url: `${server}/user/admin`,
+    url: `${server}/user`,
     headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
     })
     const session = await response.data

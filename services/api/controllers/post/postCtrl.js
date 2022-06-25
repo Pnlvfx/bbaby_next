@@ -1,5 +1,4 @@
 import 'dotenv/config';
-import TelegramBot from 'node-telegram-bot-api'
 import Post from '../../models/Post.js'
 import Comment from '../../models/Comment.js'
 import {getUserFromToken} from '../user/UserFunctions.js'
@@ -7,6 +6,7 @@ import cloudinary from '../../utils/cloudinary.js';
 import User from '../../models/User.js';
 import {TwitterApi} from 'twitter-api-v2';
 import Community from '../../models/Community.js';
+import TelegramBot from 'node-telegram-bot-api'
 
 const telegramToken = process.env.TELEGRAM_TOKEN
 const bot = new TelegramBot(telegramToken);
@@ -87,7 +87,7 @@ const PostCtrl = {
             }
             const user = await getUserFromToken(token)
             const {title,body,image,community,communityIcon,isImage,imageHeight,imageWidth,imageId,sharePostToTG,sharePostToTwitter} = req.body
-            const post = await new Post({
+            const post = new Post({
                 author:user.username,
                 authorAvatar:user.avatar,
                 title,
@@ -106,6 +106,9 @@ const PostCtrl = {
                 const chat_id = savedPost.community === 'Italy' ? '@anonynewsitaly' : savedPost.community === 'calciomercato' ? '@bbabystyle1' : '@bbaby_style'
                 const my_text = `https://bbabystyle.com/b/${savedPost.community}/comments/${savedPost._id}`
                 const message = await bot.sendMessage(chat_id, my_text)
+                if(!message) {
+                    return res.status(500).json({msg: "Something went wrong during the upload on telegram"})
+                }
             }
             if(sharePostToTwitter) {
                 const {oauth_access_token, oauth_access_token_secret} = user.tokens
@@ -122,6 +125,9 @@ const PostCtrl = {
                             accessSecret: oauth_access_token_secret,
                         });
                         const response = await twitterClient.v1.tweet(`bbabystyle.com/b/${savedPost.community}/comments/${savedPost._id}`)
+                        if (!response) {
+                            return res.status(500).json({msg: "Something went wrong during the upload on twitter"})
+                        }
                     } else { //GOVERNANCE
                         if (savedPost.community === 'Italy') {
                             const twitterClient = new TwitterApi({
@@ -131,6 +137,9 @@ const PostCtrl = {
                                 accessSecret:process.env.ANON_ACCESS_TOKEN_SECRET,
                             });
                             const response = await twitterClient.v1.tweet(`bbabystyle.com/b/${savedPost.community}/comments/${savedPost._id}`)
+                            if (!response) {
+                                return res.status(500).json({msg: "Something went wrong during the upload on twitter"})
+                            }
                         } else if (savedPost.community === 'calciomercato') {
                             const twitterClient = new TwitterApi({
                                 appKey: process.env.TWITTER_CONSUMER_KEY,
@@ -139,6 +148,9 @@ const PostCtrl = {
                                 accessSecret:process.env.BBABYITALIA_ACCESS_TOKEN_SECRET,
                             });
                             const response = await twitterClient.v1.tweet(`bbabystyle.com/b/${savedPost.community}/comments/${savedPost._id}`)
+                            if (!response) {
+                                return res.status(500).json({msg: "Something went wrong during the upload on twitter"})
+                            }
                         } else {
                             const twitterClient = new TwitterApi({
                                 appKey: process.env.TWITTER_CONSUMER_KEY,
@@ -147,6 +159,9 @@ const PostCtrl = {
                                 accessSecret:process.env.BBABY_ACCESS_TOKEN_SECRET,
                             });
                             const response = await twitterClient.v1.tweet(`bbabystyle.com/b/${savedPost.community}/comments/${savedPost._id}`)
+                            if (!response) {
+                                return res.status(500).json({msg: "Something went wrong during the upload on twitter"})
+                            }
                         }
                     }
                     
@@ -154,9 +169,9 @@ const PostCtrl = {
             }
             if(savedPost) {
                 const updateComNumber = await Community.findOneAndUpdate({name: savedPost.community}, {$inc: {number_of_posts: +1}})
-                res.json(savedPost)
+                res.status(201).json(savedPost)
             } else {
-                res.sendStatus(401)
+                res.status(401).json({msg: "Something went wrong"})
             }
         } catch (err) {
             res.status(500).json({msg: err.message})

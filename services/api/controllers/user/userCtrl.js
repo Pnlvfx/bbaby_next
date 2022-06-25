@@ -116,7 +116,7 @@ const userCtrl = {
                 if(!user) {
                     res.status(500).json({msg: "Token is expired"})
                 } else {
-                    res.json({user: {username:user.username,avatar:user.avatar}});
+                    res.json({user: {username:user.username,avatar:user.avatar,role:user.role}});
                 }  
             }
         } catch (err) {
@@ -139,25 +139,6 @@ const userCtrl = {
             })
         } catch (err) {
             
-        }
-    },
-    userAdmin: (req,res) => {
-        try {
-            if (!req?.cookies?.token) return res.json(null)
-            
-            if (req?.cookies?.token) {
-                const {token} = req.cookies
-                getUserFromToken(token)
-                .then(user => {
-                    //console.log(user)
-                    res.json({user: {username:user.username,avatar:user.avatar,email:user.email,role:user.role}});
-                }).catch(err => {
-                    res.status(500).json({msg: "Token is expired"})
-                })   
-            }
-            
-        } catch {
-
         }
     },
     changeAvatar: async (req,res) => {
@@ -310,7 +291,6 @@ function validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email); 
 }
-
 
 const createActivationToken = ({...payload}) => {
     return jwt.sign(payload, process.env.ACTIVATION_TOKEN_SECRET, {expiresIn: '3d'})
