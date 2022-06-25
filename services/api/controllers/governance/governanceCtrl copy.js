@@ -9,23 +9,54 @@ import util from 'util'
 import fs from 'fs'
 
 const governanceCtrl =  {
-    createImage: async (req,res) => {
-        try {
+    createImage: (req,res) => {
             const skip = 0
             const limit = 1
             const {textColor,fontSize,community,format} = req.body
-            const post = await Post.findOne({"mediaInfo.isImage" : true, community: community}).sort({createdAt: -1}).limit(limit).skip(skip)
-            const texts = await Comment.find({rootId: post._id}).sort({createdAt: 1})
-            texts.push(post)
             let images = []
-            const width = post.mediaInfo.dimension[1]
-            const height = post.mediaInfo.dimension[0]
             let audio = []
             let audioDuration = ''
+            let width = 0
+            let height = 0
+            let index = 0
+            Post.findOne({"mediaInfo.isImage" : true, community: community}).sort({createdAt: -1}).limit(limit).skip(skip)
+            .then(post => {
+                Comment.find({rootId: post._id}).sort({createdAt: 1}).then(texts => {
+                    texts.push(post)
+                    width = post.mediaInfo.dimension[1]
+                    height = post.mediaInfo.dimension[0]
+                    texts.forEach(function(text,key,arr) {
+                        _createImage(text.title ? text.title : text.body,post,function(err,index) {
+                            if (err) {
+                                console.log(err)
+                                return
+                            }
+                        })
+                    })
+                    res.json({
+                        title: post.title,
+                        description: `Bbabystyle è un social network indipendente,esistiamo solo grazie a voi. Contribuisci a far crescere bbabystyle https://bbabystyle.com`,
+                        keywords: `Ucraina, News, Notizie`,
+                        category: `25`,
+                        privacyStatus: `private`,
+                        images: images,
+                        audio: audio,
+                        audioDuration:audioDuration,
+                        width: width,
+                        height: height,
+                        success:'Image and audio created successfully'
+                    })
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            }).catch(error => {
+                console.log(error)
+            })
 
-            const createImage = async(input) => {
+            const _createImage = (input,post) => {
                 const bgColor = 'rgba(0,0,0,0)'
-                const data = await textToImage.generate(`${input}`, { //USE '/n to add space
+                textToImage.generate(`${input}`, { //USE '/n to add space
                     maxWidth: width,
                     bgColor: bgColor,
                     textColor: textColor,
@@ -35,24 +66,31 @@ const governanceCtrl =  {
                     lineHeight: 48,
                     textAlign: 'center',
                     verticalAlign: 'center'
+                }).then(data => {
+                    cloudinary.v2.uploader.upload(data, {upload_preset: 'bbaby_governance'}).then(imageWText => {
+                        const {public_id} = imageWText
+                        const new_public_id = public_id.replace('/', ':')
+                        const updatedImage = cloudinary.v2.image(`${post.imageId}.${format}`, {overlay: new_public_id})
+                        const cleanImage = updatedImage.replace('<img src=','')
+                        const cleanImage2 = cleanImage.replace('/>','')
+                        const cleanImage3 = cleanImage2.replace('http', 'https')
+                        const finalImage = cleanImage3.replaceAll("'", "")
+                        images.push({path: finalImage})
+                        return input, post,index
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+                }).catch(err => {
+                    console.log(err)
                 })
-                const imageWText = await cloudinary.v2.uploader.upload(data, {
-                    upload_preset: 'bbaby_governance'
-                })
-                if (!imageWText) {
-                    return res.status(500).json({msg: 'Something went wrong when trying to parse the text on the image'})
-                }
-                const {public_id} = imageWText
-                const new_public_id = public_id.replace('/', ':')
-                const updatedImage = cloudinary.v2.image(`${post.imageId}.${format}`, {overlay: new_public_id})
-                if (!updatedImage) {
-                    return res.status(500).json({msg: 'Final image: Something went wrong when trying to add the image with the text on the image'})
-                }
-                const cleanImage = updatedImage.replace('<img src=','')
-                const cleanImage2 = cleanImage.replace('/>','')
-                const cleanImage3 = cleanImage2.replace('http', 'https')
-                const finalImage = cleanImage3.replaceAll("'", "")
-                images.push({path: finalImage})
+                // if (!imageWText) {
+                //     return res.status(500).json({msg: 'Something went wrong when trying to parse the text on the image'})
+                // }
+
+                // if (!updatedImage) {
+                //     return res.status(500).json({msg: 'Final image: Something went wrong when trying to add the image with the text on the image'})
+                // }
             }
             const createAudio = async(input) => {
                 const client = new textToSpeech.TextToSpeechClient()
@@ -72,29 +110,6 @@ const governanceCtrl =  {
                 audio.push(upload.secure_url)
                 audioDuration = upload.duration
             }
-            texts.map(async function(text,key,arr) {
-                    await createImage(text.title ? text.title : text.body)
-                    await createAudio(text.title ? text.title : text.body)
-                    if (Object.is(arr.length -1, key)) {
-                            res.json({
-                                title: post.title,
-                                description: `Bbabystyle è un social network indipendente,esistiamo solo grazie a voi. Contribuisci a far crescere bbabystyle https://bbabystyle.com`,
-                                keywords: `Ucraina, News, Notizie`,
-                                category: `25`,
-                                privacyStatus: `private`,
-                                images: images,
-                                audio: audio,
-                                audioDuration:audioDuration,
-                                width: width,
-                                height: height,
-                                success:'Image and audio created successfully'
-                            })
-                    }
-                    }
-            )
-        } catch (err) {
-            res.status(500).json({msg: err.message})
-        }
     },
     createVideo: (req,res) => {
         try {
@@ -158,15 +173,15 @@ const governanceCtrl =  {
                     res.json(translation.translatedText)
                 }
             }
-        
-            translateText()   
+
+            translateText()
         } catch (err) {
            console.log(err)
-           res.json({msg:err}) 
+           res.json({msg:err})
         }
     },
     uploadYoutube: async (req,res) => {
-        
+
     }
 
 }

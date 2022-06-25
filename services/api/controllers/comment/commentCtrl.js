@@ -8,12 +8,12 @@ const commentCtrl = {
         try {
             const {token} = req.cookies
             if(!token) {
-                res.sendStatus(401);
-                return;
+                return res.status(401).json({msg: "You need to login first"})
             }
             const user = await getUserFromToken(token)
+            if (!user) return res.status(401).json({msg: "You need to login first"})
             const {body,parentId,rootId} = req.body;
-            const comment = await new Comment({
+            const comment = new Comment({
                 author:user.username,
                 authorAvatar:user.avatar,
                 body,
@@ -23,18 +23,20 @@ const commentCtrl = {
             const savedComment = await comment.save()
             if(savedComment) {
                 const postNumComments = await Post.findByIdAndUpdate(rootId, {$inc : {'numComments' : +1}})
+                if (!postNumComments) return res.status(500).json({msg: "Something went wrong in our database, sorry for the inconvenience."})
                 res.json(savedComment)
             } else {
-                res.sendStatus(401)
+                res.status(500).json({msg: "Something went wrong in our database, sorry for the inconvenience."})
             }
         } catch (err) {
-
+            res.status(500).json({msg: err.message})
         }
     },
     childComments: async (req,res) => {
         const {rootId} = req.params
         const comments = await Comment.find({rootId:rootId}).sort({createdAt: -1})
-        res.json(comments)
+        if (!comments) return res.status(500).json({msg: "Failed to load comments for this posts, it could be for some reason. Try to refresh the page otherwise this posts could be banned"})
+        res.status(200).json(comments)
     }
 }
 

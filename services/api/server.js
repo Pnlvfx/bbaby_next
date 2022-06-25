@@ -48,10 +48,11 @@ app.use('/', governanceRouter)
 
 
 
-await mongoose.connect(uri, {useNewUrlParser:true,useUnifiedTopology:true,});
-const db = mongoose.connection;
-db.on('error', console.log);
-
+try {
+    await mongoose.connect(uri, {useNewUrlParser:true,useUnifiedTopology:true,});
+} catch (error) {
+    console.log(error)
+}
 
 
 app.get('/', (req, res) => {
@@ -68,8 +69,13 @@ app.get('/search', (req, res) => {
 });
 
 app.get('/sitemaps', async(req,res) => {
-    const posts = await Post.find({}).sort({createdAt: -1})
-    res.json(posts)
+    try {
+        const posts = await Post.find({}).sort({createdAt: -1})
+        if(!posts) return res.status(500).json({msg: "For some reason we are not able to provide you this sitemaps, we will try to fix the problem as soon as possible"})
+        res.json(posts)   
+    } catch (err) {
+        res.status(500).json({msg: err.message})
+    }
 })
 
 const port = process.env.PORT || 4000;
