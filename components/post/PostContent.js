@@ -65,7 +65,8 @@ function PostContent(props) {
                       <p style={{whiteSpace: 'pre-line',fontFamily: 'Helvetica'}}>{props.body}</p>
                     </pre>
                   )}
-                <div className='flex self-center'>
+                <div className='flex self-center bg-reddit_dark-brighter'>
+                  <div className="bg-reddit_dark-brighter">
                     <Link href={`/b/${props.community}/comments/${props._id}`} scroll={false}>
                       <a type='button'
                       className="bg-reddit_dark-brighter"
@@ -91,6 +92,7 @@ function PostContent(props) {
                         </div>
                       </a>
                     </Link>
+                  </div>
                     <ShareButton community={props.community} filePickerRefShare={filePickerRefShare} />
                     <MoreButton post={props} filePickerRefMore={filePickerRefMore}/>
                 </div>
