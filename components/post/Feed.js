@@ -38,9 +38,15 @@ function Feed(props) {
 
   //INFINITE SCROLLING
   const [posts,setPosts] = useState([])
-  const [loadingPosts,setLoadingPosts] = useState(true)
+  const [loadingPosts,setLoadingPosts] = useState(false)
   const [loadingCommunity,setLoadingCommunity] = useState(true)
   const server = process.env.NEXT_PUBLIC_SERVER_URL
+  
+  useEffect(() => {
+    if (!posts) {
+      setLoadingPosts(true)
+     }
+  },[posts])
 
   const refreshCommunityPost = () => {
     axios({
