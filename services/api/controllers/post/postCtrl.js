@@ -13,39 +13,43 @@ const bot = new TelegramBot(telegramToken);
 
 const PostCtrl = {
     getPosts: async (req, res) => {
-        const {token} = req.cookies
-        const userLang = req.acceptsLanguages('en','it')
-        const {community, author, limit, skip} = req.query;
-            if(token) {
-                const user = await getUserFromToken(token)
-                // VOTING REALTIME
-                const userNullVote = await Post.find({_id : {'$nin': user.downVotes && user.upVotes}}).updateMany({"liked" : "null"})
-                const userUpVote = await Post.find({_id : {'$in': user.upVotes}}).updateMany({"liked" : "true"})
-                const userDownVote = await Post.find({_id : {'$in': user.downVotes}}).updateMany({"liked" : "false"})
-                //
+       try {
+            const {token} = req.cookies
+            const userLang = req.acceptsLanguages('en','it')
+            const {community, author, limit, skip} = req.query;
+                if(token) {
+                    const user = await getUserFromToken(token)
+                    // VOTING REALTIME
+                    const userNullVote = await Post.find({_id : {'$nin': user.downVotes && user.upVotes}}).updateMany({"liked" : "null"})
+                    const userUpVote = await Post.find({_id : {'$in': user.upVotes}}).updateMany({"liked" : "true"})
+                    const userDownVote = await Post.find({_id : {'$in': user.downVotes}}).updateMany({"liked" : "false"})
+                    //
+                }
+                
+                if(!token) {
+                    const nullVote = await Post.find({}).updateMany({'liked' : null})
+                }
+            let filters = {}
+    
+            if (!community && !author) {
+                if (userLang === 'en') {
+                    filters.community = {'$nin': ['Italy', 'calciomercato']}
+                }
+                if (userLang === 'it') {
+                    filters.community =  ['Italy', 'calciomercato']
+                }
+            } else if (community) {
+                filters.community = community
+            } else if (author) {
+                filters.author = author
             }
-            
-            if(!token) {
-                const nullVote = await Post.find({}).updateMany({'liked' : null})
-            }
-        let filters = {}
-
-        if (!community && !author) {
-            if (userLang === 'en') {
-                filters.community = {'$nin': ['Italy', 'calciomercato']}
-            }
-            if (userLang === 'it') {
-                filters.community =  ['Italy', 'calciomercato']
-            }
-        } else if (community) {
-            filters.community = community
-        } else if (author) {
-            filters.author = author
+    
+            const posts = await Post.find(filters).sort({createdAt: -1}).limit(limit).skip(skip)
+            //res.setHeader('Cache-Control', 'private, max-age=3600')
+            res.json(posts)   
+        } catch (err) {
+            res.status(500).json({msg: err.message})
         }
-
-        const posts = await Post.find(filters).sort({createdAt: -1}).limit(limit).skip(skip)
-        //res.setHeader('Cache-Control', 'private, max-age=3600')
-        res.json(posts)
     },
     getPost: async (req,res) => {
             const {token} = req.cookies
