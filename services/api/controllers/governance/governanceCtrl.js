@@ -109,7 +109,7 @@ const governanceCtrl =  {
                     description: `Bbabystyle è un social network indipendente,esistiamo solo grazie a voi. Contribuisci a far crescere bbabystyle https://bbabystyle.com`,
                     keywords: `Ucraina, News, Notizie`,
                     category: `25`,
-                    privacyStatus: `private`,
+                    privacyStatus: `public`,
                     images: images,
                     audio: audio,
                     audioDuration:audioDuration,
