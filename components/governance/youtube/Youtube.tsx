@@ -246,7 +246,7 @@ const Youtube = () => {
                     </div>
                     <div className="ml-auto w-full self-center">
                       <p className='p-2 font-bold w-full bg-reddit_dark-brighter text-sm text-blue-600'>
-                        {`python upload_video.py --file='${input.localPath}' --title='${input.title}' --description='${input.description}' --keywords='${input.keywords}' --category='${input.category}' --privacyStatus='${input.privacyStatus}'`}
+                        {`python upload_video.py --file="${input.localPath}" --title="${input.title}" --description="${input.description}" --keywords="${input.keywords}" --category="${input.category}" --privacyStatus="${input.privacyStatus}"`}
                       </p>
                     </div>
                 </div>
@@ -264,4 +264,3 @@ const Youtube = () => {
 }
 
 export default Youtube;
-
