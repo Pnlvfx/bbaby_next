@@ -23,7 +23,7 @@ function PostContent(props) {
     return (
         <div className="flex bg-reddit_dark-brighter rounded-md overflow-hidden max-h-[700px]">
           <div className='bg-[#141415] w-10 flex-none'>
-            <Voting ups={props.ups} postId={props._id} liked={props.liked} />
+            <Voting ups={props.ups} postId={props._id} liked={props.liked} author={props.author} />
           </div>
             <div className="p-2">
               <div className="flex mb-3 truncate">

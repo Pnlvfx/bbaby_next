@@ -15,8 +15,7 @@ import governanceRouter from './routes/governanceRouter.js';
 import twitterRouter from './routes/twitterRouter.js';
 import compression from 'compression';
 
-const uri = process.env.ATLAS_URI;
-
+const {ATLAS_URI} = process.env
 const {CORS_ORIGIN1} = process.env;
 const {CORS_ORIGIN2} = process.env;
 const {CLIENT_URL} = process.env
@@ -32,7 +31,6 @@ app.use(cors({
 }));
 
 //Routes
-
 app.use('/',userRouter)
 
 app.use('/', postRouter)
@@ -47,14 +45,11 @@ app.use('/', twitterRouter)
 
 app.use('/', governanceRouter)
 
-
-
 try {
-    await mongoose.connect(uri, {useNewUrlParser:true,useUnifiedTopology:true,});
+    await mongoose.connect(ATLAS_URI, {useNewUrlParser:true,useUnifiedTopology:true,});
 } catch (error) {
     console.log(error)
 }
-
 
 app.get('/', (req, res) => {
     res.send('This is Bbabystyle API');
@@ -81,5 +76,4 @@ app.get('/sitemaps', async(req,res) => {
 
 const port = process.env.PORT || 4000;
 
-app.listen(port);
- 
+const server = app.listen(port);

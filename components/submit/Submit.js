@@ -108,7 +108,7 @@ function Submit(props) {
     let image = null
     //create a post
     //TWITTER ERROR 
-    const [value,setValue] = useState()
+    const [value,setValue] = useState('')
     //
     const createPost = async() => {
         try {

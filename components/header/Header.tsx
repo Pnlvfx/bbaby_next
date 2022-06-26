@@ -22,15 +22,16 @@ import HomeIcon from '../../public/home.svg'
 import {TextLogo} from '../utils/SVG'
 import { RiArrowDownSLine } from 'react-icons/ri';
 import {TbBabyCarriage} from 'react-icons/tb'
+import NotificationButton from '../notifications/NotificationButton';
 
 
 function Header() {
     const provider = useContext(UserContext)
-    const {session} = provider
+    const {session}:any = provider
 
     const router = useRouter()
     const [userDropdownVisibilityClass, setUserDropdownVisibilityClass] = useState('hidden');
-    const {setCommunity} = useContext(CommunityContext);
+    const {setCommunity}:any = useContext(CommunityContext);
     const [searchText,setSearchText] = useState('')
     function toggleUserDropdown() {
         if (userDropdownVisibilityClass === 'hidden') {
@@ -40,24 +41,24 @@ function Header() {
         }
     }
 
-    function doSearch(ev) {
+    function doSearch(ev: { preventDefault: () => void; }) {
         ev.preventDefault();
         router.push('/search/'+encodeURIComponent(searchText));
     }
 
-    const authModal = useContext(AuthModalContext);
+    const {setShow}:any = useContext(AuthModalContext);
    
 
   return (
     <header id='myHeader' className={'w-full bg-reddit_dark-brighter p-1 border-b border-reddit_border sticky top-0 z-30'}>
         <div className='ml-0 lg:ml-2 flex'>
             <Link href={'/'}>
-                <a className='flex' value={'logo'} onClick={event => {
+                <a className='flex' onClick={event => {
                     event.preventDefault(),
                     router.push('/'),
                     setCommunity()
                     }}>
-                    <div className='relative mr-2 ml-2 self-center w-[34px] h-[34px]'>
+                    <div className='relative mr-2 ml-0 lg:ml-2 self-center w-[34px] h-[34px]'>
                         <Image src={Logo} alt='logo' layout='fill'/>
                     </div>
                     <div className='hidden lg:block self-center'>
@@ -79,21 +80,19 @@ function Header() {
                 {session && (
                     <div className='px-2 self-center flex'>
                         <button className=' hidden'>
-                            <ChatIcon className='text-reddit_text-darker w-6 h-6 mx-2' />
+                            <ChatIcon className='text-[#D7DADC] w-[25px] h-[25px] mx-2' />
                         </button>
-                        <button className='hidden'>
-                            <BellIcon className='text-reddit_text-darker w-6 h-6 mx-2' />
-                        </button>
+                            <NotificationButton />
                         {session.user.role === 1 && (
                             <Link href={'/governance'}>
-                                <a className='px-2'>
-                                    <TbBabyCarriage className='text-[#D7DADC] self-center w-6 h-6 block' />
+                                <a className='px-2 self-center'>
+                                    <TbBabyCarriage className='text-[#D7DADC] self-center w-[25px] h-[25px] block' />
                                 </a>
                             </Link>
                         )}
                         <Link href={'/submit'}>
-                            <a className='px-2'>
-                                <PlusIcon className='text-[#D7DADC] self-center w-6 h-6 hidden md:block' />
+                            <a className='px-2 self-center hidden md:block'>
+                                <PlusIcon className='text-[#D7DADC] self-center w-[25px] h-[25px]' />
                             </a>
                         </Link>
                     </div>
@@ -101,17 +100,17 @@ function Header() {
 
                 {!session && (
                 <div className='mx-2 hidden sm:block self-center'>
-                    <Button outline={1} className='h-8 ml-4 w-20 mr-2 md:mr-4 md:w-24' onClick={() => authModal.setShow('login')}>
+                    <Button outline={1} className='h-8 ml-4 w-20 mr-2 md:mr-4 md:w-24' onClick={() => setShow('login')}>
                         <p className='self-center'>Log In</p>
                     </Button>
-                    <Button className='h-8 w-20 md:w-24' onClick={() => authModal.setShow('register')}>
+                    <Button className='h-8 w-20 md:w-24' onClick={() => setShow('register')}>
                         <p>Sign Up</p>
                     </Button>
                 </div>
                 )}
                 <div className='self-center'>
                     <ClickOutHandler onClickOut={() => setUserDropdownVisibilityClass('hidden')}>
-                        <div className='flex ml-4 self-center cursor-pointer' onClick={() => toggleUserDropdown()}>
+                        <div className='flex ml-0 lg:ml-4 self-center cursor-pointer' onClick={() => toggleUserDropdown()}>
                             {!session && (
                                 <div className='w-6 h-6 m-1 rounded-full self-center'>
                                     <UserIcon className='text-reddit_text-darker' />

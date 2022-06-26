@@ -13,9 +13,10 @@ import Head from 'next/head';
 function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
 
   const router = useRouter()
+  const [showAuthModal,setShowAuthModal] = useState(false);
 
-  useEffect(() => {
-    const handleRouteChange = (url: any) => {
+  useEffect(() => { //GOOGLE ANALYTICS
+    const handleRouteChange = (url: URL) => {
       gtag.pageview(url)
     }
       router.events.on('routeChangeComplete', handleRouteChange)
@@ -26,10 +27,10 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
     }
   },[router.events])
 
-  const [showAuthModal,setShowAuthModal] = useState(false);
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
-
-
+  useEffect(() => {
+    if (!session) return
+    gtag.user(session.user.username)
+  },[session])
 
   return (
     <>
@@ -64,7 +65,7 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '${gtag.GA_TRACKING_ID}', {
-              page_path: window.location.pathname,
+              page_path: window.location.pathname
             });
           `,
         }}
@@ -78,13 +79,13 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
         crossOrigin="anonymous" />
     <UserContext.Provider value={{session: session}}>
-      <AuthModalContext.Provider value={{show:showAuthModal,setShow:setShowAuthModal}}>
-        <GoogleOAuthProvider clientId='527300585899-mh0q9kh2fpijep43k37oriuafsl8m9hi.apps.googleusercontent.com'>
-          <CommunityContextProvider>
-              <Component {...pageProps}/>
-         </CommunityContextProvider>
-        </GoogleOAuthProvider>
-      </AuthModalContext.Provider>
+        <AuthModalContext.Provider value={{show:showAuthModal,setShow:setShowAuthModal}}>
+          <GoogleOAuthProvider clientId='527300585899-mh0q9kh2fpijep43k37oriuafsl8m9hi.apps.googleusercontent.com'>
+            <CommunityContextProvider>
+                <Component {...pageProps}/>
+          </CommunityContextProvider>
+          </GoogleOAuthProvider>
+        </AuthModalContext.Provider>
     </UserContext.Provider>
     </>
   )

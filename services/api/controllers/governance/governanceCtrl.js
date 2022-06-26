@@ -90,7 +90,7 @@ const governanceCtrl =  {
             }
 
 
-            const makeDir = (path) => {
+            const makeDir = async(path) => {
                 try {
                     fs.mkdirSync(path)
                 } catch (err) {
@@ -146,8 +146,9 @@ const governanceCtrl =  {
     },
     createVideo: (req,res) => {
         try {
+            req.setTimeout(300000)
             const {HOME_PATH} = process.env
-            const {_videoOptions,images,audio} = req.body
+            const {_videoOptions,images} = req.body
             const videoOptions = {
                 fps: _videoOptions.fps,
                 transition: _videoOptions.transition,

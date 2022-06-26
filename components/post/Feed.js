@@ -11,6 +11,7 @@ import CommunitiesInfo from '../widget/CommunitiesInfo'
 import dynamic from 'next/dynamic'
 import Donations from '../widget/Donations'
 import PostLoading from './PostLoading'
+import { getPosts } from './APIpost'
 
 function Feed(props) {
   const PostModal = dynamic(() => import('./PostModal'))
@@ -40,7 +41,6 @@ function Feed(props) {
   const [posts,setPosts] = useState([])
   const [loadingPosts,setLoadingPosts] = useState(false)
   const [loadingCommunity,setLoadingCommunity] = useState(true)
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
   
   useEffect(() => {
     if (!posts) {
@@ -48,39 +48,23 @@ function Feed(props) {
      }
   },[posts])
 
-  const refreshCommunityPost = () => {
-    axios({
-      method: 'get',
-      url: `${server}/posts?community=${community}&limit=10&skip=0`,
-      withCredentials:true
-    }).then(response => {
-      setPosts(response.data)
-      setLoadingPosts(false)
-    })
-  }
-
   //GET POST FROM COMMUNITYPAGE AND HOMEPAGE
   useEffect(() => {
     //setLoadingPosts(true)
     if (community) {
-      refreshCommunityPost()
+        getPosts({input:'community',value:community}).then(response => {
+        setPosts(response.data)
+        setLoadingPosts(false)
+      })
     } else if(author) {
-      axios({
-        method: 'get',
-        url: `${server}/posts?author=${author}&limit=10&skip=0`,
-        withCredentials:true
-      }).then(response => {
+        getPosts({input:'author',value:author}).then(response => {
         setPosts(response.data)
         setLoadingPosts(false)
       })
     } else {  //HOME
-      axios({
-        method: 'get',
-        url: `${server}/posts?limit=10&skip=0`,
-        withCredentials:true
-      }).then(response => {
+        getPosts({}).then(response => {
         setPosts(response.data)
-         setLoadingPosts(false)
+        setLoadingPosts(false)
       })
     }
   },[])

@@ -14,7 +14,6 @@ const Youtube = () => {
 
   //VIDEOSHOW OPTIONS
   const _videoOptions = {
-    loop: 15,
     fps: 24,
     transition: true,
     transitionDuration: 1, // seconds
@@ -95,14 +94,6 @@ const Youtube = () => {
           <>
           <div className="flex">
             <form className="p-2 w-full text-sm">
-                <div id="loop" className="mt-2 flex">
-                    <div className="self-center">
-                      <h1 className="">Loop:</h1>
-                    </div>
-                    <div className="ml-auto self-center">
-                      <Input type='text' title='video_loop' value={videoOptions.loop} onChange={(e: { target: { value: any } }) => setVideoOptions({...videoOptions,loop:e.target.value})} className='p-2 font-bold'/>
-                    </div>
-                </div>
                 <div id="fps" className="mt-2 flex">
                     <div className="self-center">
                       <h1 className="">Fps:</h1>
@@ -267,7 +258,7 @@ const Youtube = () => {
             </>
         )}
         {input && input.err && (
-          <ShowTimeMsg value={input.err} setValue={setInput} gov_value={input}/>
+          <ShowTimeMsg value={input.err} status={'error'} setValue={setInput} gov_value={input}/>
         )}
          {input && input.success && (
           <ShowTimeMsg value={input.success} setValue={setInput} gov_value={input}/>
