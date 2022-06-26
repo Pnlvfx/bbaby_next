@@ -57,11 +57,9 @@ const Youtube = () => {
       setInput({...input, video: res.data.video, localPath: res.data.localPath, success: res.data.success})
       setLoading(false)
     } catch (err:any) {
-      err?.response &&
-      console.log(err)
-      // err?.response?.data?.msg &&
-      // setInput({...input,err:err.response.data.msg})
-      // setLoading(false)
+      err?.response?.data?.msg &&
+      setInput({...input,err:err.response.data.msg})
+      setLoading(false)
     }
   }
 
@@ -78,6 +76,15 @@ const Youtube = () => {
     sound.on('end', function() {
       setIsPlaying(false)
     })
+  }
+
+  const uploadYoutube = async() => {
+    try {
+        const res = await axios.post(`${server}/governance/youtube`, {}, {withCredentials:true})
+        console.log(res.data)
+    } catch (err) {
+      console.log(err)
+    }
   }
   
   return (
@@ -211,7 +218,7 @@ const Youtube = () => {
                    <video className={`aspect-video`} 
                     src={input.video}
                     id='video_pre-share'
-                    poster={input.images[3].path}
+                    poster={input.images[0].path}
                     controls
                     width={input.width}
                     height={input.height}
@@ -231,11 +238,18 @@ const Youtube = () => {
                       </Button>
                     )}
                     {!loading && (
+                      <>
                       <Button type='submit' onClick={() => {
                         createVideo()
                       }} className='w-40 h-7 mb-3 ml-auto mr-5'>
                           <h1>Create Video</h1>
                       </Button>
+                       <Button type='submit' onClick={() => {
+                        uploadYoutube()
+                      }} className='w-40 h-7 mb-3 ml-auto mr-5'>
+                          <h1>Upload to youtube</h1>
+                      </Button>
+                      </>
                     )}
                   </div>
               </div>

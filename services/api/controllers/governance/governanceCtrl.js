@@ -8,6 +8,12 @@ import textToSpeech from '@google-cloud/text-to-speech'
 import util from 'util'
 import fs from 'fs'
 import audioconcat from 'audioconcat'
+import assert from 'assert'
+import readline from 'readline'
+import {google} from 'googleapis'
+
+const {OAuth2} = google.auth
+
 
 const governanceCtrl =  {
     createImage: async (req,res) => {
@@ -26,6 +32,7 @@ const governanceCtrl =  {
             let concatAudio = []
             let audioDuration = []
             let audioIndex = 0
+            const {HOME_PATH} = process.env
 
             const _createImage = async(input) => {
                 const bgColor = 'rgba(0,0,0,0)'
@@ -67,18 +74,32 @@ const governanceCtrl =  {
                     audioConfig: {audioEncoding: 'MP3'},
                 };
                 const [response] = await client.synthesizeSpeech(request);
-                const path = `/home/simone/simone/website/Bbaby_next/services/api/youtubeImage/audio${audioIndex}.mp3`
+                const path = `${HOME_PATH}/youtubeImage`
+                makeDir(path)
+                const audio_path = `${path}/audio${audioIndex}.mp3`
                 const writeFile = util.promisify(fs.writeFile)
-                await writeFile(path, response.audioContent, 'binary')
-                const upload = await cloudinary.v2.uploader.upload(path, {
+                await writeFile(audio_path, response.audioContent, 'binary')
+                const upload = await cloudinary.v2.uploader.upload(audio_path, {
                     upload_preset: 'bbaby_gov_video',
                     resource_type: "video"
                 })
                 audio.push(upload.secure_url)
-                concatAudio.push(path)
+                concatAudio.push(audio_path)
                 audioDuration.push(upload.duration)
                 return upload.duration
             }
+
+
+            const makeDir = (path) => {
+                try {
+                    fs.mkdirSync(path)
+                } catch (err) {
+                    if (err.code != 'EEXIST') {
+                        console.log(err)
+                    }
+                }
+            }
+
             // const delay = 3000
             const wait = ms => new Promise(resolve => setTimeout(resolve,ms))
             
@@ -95,7 +116,7 @@ const governanceCtrl =  {
                 })
             )
             audioconcat(concatAudio)
-            .concat('./youtubeImage/Final.mp3')
+            .concat(`${HOME_PATH}/youtubeImage/Final.mp3`)
             .on('start', function (command) {
                 console.log('ffmpeg process started:', command)
               })
@@ -125,6 +146,7 @@ const governanceCtrl =  {
     },
     createVideo: (req,res) => {
         try {
+            const {HOME_PATH} = process.env
             const {_videoOptions,images,audio} = req.body
             const videoOptions = {
                 fps: _videoOptions.fps,
@@ -139,8 +161,8 @@ const governanceCtrl =  {
                 pixelFormat: 'yuv420p'
             }
             videoshow(images,videoOptions)
-            .audio(`./youtubeImage/Final.mp3`)
-                .save("./youtubeImage/video1.mp4")
+            .audio(`${HOME_PATH}/youtubeImage/Final.mp3`)
+                .save(`${HOME_PATH}/youtubeImage/video1.mp4`)
                 .on('start', function(command) {
                     console.log("Conversion started " + command)
                 })
@@ -159,7 +181,7 @@ const governanceCtrl =  {
                         res.status(201).json({
                             success: "Conversion completed",
                             video: response.secure_url,
-                            localPath: '/home/simone/simone/website/Bbaby_next/services/api/youtubeImage/video1.mp4'
+                            localPath: `${HOME_PATH}/youtubeImage/video1.mp4`
                         })
                     })
             })
@@ -195,8 +217,117 @@ const governanceCtrl =  {
            res.json({msg:err}) 
         }
     },
-    uploadYoutube: async (req,res) => {
-        
+    uploadYoutube: (req,res) => {
+        const SCOPES = ['https://www.googleapis.com/auth/youtube.upload']
+        const TOKEN_DIR = process.env.HOME_PATH
+        const TOKEN_PATH = `./youtube_oauth_token.json`
+        const videoFilePath = `./youtubeImage/video1.mp4`
+        const thumbFilePath = ``
+
+        uploadVideo = (title,description,tags) => {
+            //assert(fs.existsSync(videoFilePath))
+            //assert(fs.existsSync(thumbFilePath))
+
+            fs.readFile(`./youtube_client_secret.json`, function processClientSecrets(err,content) {
+                if(err) {
+                    console.log('Error loading client secret file:' + err)
+                    return
+                }
+                authorize(JSON.parse(content), (auth) => uploadVideo(auth,title,description,tags))
+            });
+        }
+        uploadVideo()
+        function uploadVideo(auth,title,description,tags) {
+            const service = google.youtube('v3')
+            service.videos.insert({
+                auth: auth,
+                part: 'snippet,status',
+                requestBody: {
+                    snippet: {
+                        title,
+                        description,
+                        tags,
+                        categoryId: 25,
+                        defaultLanguage: 'en',
+                        defaultAudioLanguage: 'en'
+                    },
+                    status: {
+                        privacyStatus: 'private'
+                    },
+                },
+                media: {
+                    body: fs.createReadStream(videoFilePath)
+                },
+            },
+            function(err,response) {
+                if (err) {
+                    console.log(err)
+                    return
+                }
+                console.log(response.data)
+                console.log('video uploaded. Uploading the thumbnail now.')
+                service.thumbnails.set({
+                    auth: auth,
+                    videoId: response.data.id,
+                    media: {
+                        body: fs.createReadStream(thumbFilePath)
+                    },
+                }, function(err,response) {
+                    if(err) {
+                    console.log(err)
+                    return
+                    }
+                    console.log(response.data)
+                })
+            }
+            )
+        }
+        function authorize(credentials,callback) {
+            console.log(credentials)
+            const clientSecret = credentials.client_secret;
+            const clientId = credentials.client_id
+            const redirectUrl = credentials.redirect_uris
+            const oauth2Client = new OAuth2(clientId,clientSecret,redirectUrl)
+
+            fs.readFile(TOKEN_PATH, function (err,token) {
+                if (err) {
+                    getNewToken(oauth2Client, callback)
+                } else {
+                    oauth2Client.credentials = JSON.parse(token)
+                    callback(oauth2Client)
+                }
+            });
+        }
+        function getNewToken(oauth2Client, callback) {
+            const authUrl = oauth2Client.generateAuthUrl({
+                access_type: 'offline',
+                scopes: SCOPES
+            });
+            console.log('Authorize this app by visiting this url:', authUrl);
+            const rl = readline.createInterface({
+                input: process.stdin,
+                output: process.stdout
+            });
+            rl.question('Enter the code from that page here:', function(code) {
+                rl.close()
+                oauth2Client.getToken(code, function(err, token) {
+                    if (err) {
+                        console.log('Error while trying to retrieve access token', err)
+                        return
+                    }
+                    oauth2Client.credentials = token;
+                    storeToken(token);
+                    callback(oauth2Client)
+                });
+            });
+        }
+        function storeToken(token) {
+            try {
+                fs.mkdirSync()
+            } catch (error) {
+                
+            }
+        }
     }
 
 }

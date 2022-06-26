@@ -17,8 +17,9 @@ import compression from 'compression';
 
 const uri = process.env.ATLAS_URI;
 
-const origin1 = process.env.CORSORIGIN1;
-const origin2 = process.env.CORSORIGIN2;
+const {CORS_ORIGIN1} = process.env;
+const {CORS_ORIGIN2} = process.env;
+const {CLIENT_URL} = process.env
 
 const app= express();
 app.use(cookieParser());
@@ -26,7 +27,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(compression())
 app.use(cors({
-    origin: [origin1, origin2],
+    origin: [CLIENT_URL,CORS_ORIGIN1, CORS_ORIGIN2],
     credentials: true,
 }));
 
