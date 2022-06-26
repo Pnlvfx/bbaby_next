@@ -29,7 +29,7 @@ const Youtube = () => {
     video: '',
     localPath: '',
     audio: [],
-    audioDuration: '',
+    audioDuration: [],
     height: '',
     width: '',
     title: '',
@@ -57,9 +57,11 @@ const Youtube = () => {
       setInput({...input, video: res.data.video, localPath: res.data.localPath, success: res.data.success})
       setLoading(false)
     } catch (err:any) {
-      err.response.data.msg &&
-      setInput({...input,err:err.response.data.msg})
-      setLoading(false)
+      err?.response &&
+      console.log(err)
+      // err?.response?.data?.msg &&
+      // setInput({...input,err:err.response.data.msg})
+      // setLoading(false)
     }
   }
 
@@ -163,8 +165,8 @@ const Youtube = () => {
                     <div className="self-center">
                       <h1 className="">audio_duration:</h1>
                     </div>
-                    <div className="ml-auto self-center">
-                      <Input type='text' title='fps' value={input.audioDuration} onChange={(e: { target: { value: any } }) => setInput({...input,audioDuration:e.target.value})} className='p-2 font-bold'/>
+                    <div className="ml-auto self-center text-center">
+                      <p title='audio_duration' className='p-2 font-bold w-full text-center'>{input.audioDuration[imageIndex]}</p>
                     </div>
                 </div>
                 <div id="keywords" className="mt-2 flex">
@@ -205,14 +207,16 @@ const Youtube = () => {
                 </div>
               )}
               {input?.video && (
-                <video className={`aspect-video`} 
+                <div className="relative" style={{width: input.width, height: input.height}} >
+                   <video className={`aspect-video`} 
                     src={input.video}
                     id='video_pre-share'
-                    poster={input.images[4].path}
+                    poster={input.images[3].path}
                     controls
                     width={input.width}
                     height={input.height}
-                />
+                    />
+                </div>
               )}
             </div>
           </div>

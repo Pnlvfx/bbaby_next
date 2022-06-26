@@ -7,6 +7,7 @@ import {TranslationServiceClient} from '@google-cloud/translate'
 import textToSpeech from '@google-cloud/text-to-speech'
 import util from 'util'
 import fs from 'fs'
+import audioconcat from 'audioconcat'
 
 const governanceCtrl =  {
     createImage: async (req,res) => {
@@ -17,11 +18,14 @@ const governanceCtrl =  {
             const post = await Post.findOne({"mediaInfo.isImage" : true, community: community}).sort({createdAt: -1}).limit(limit).skip(skip)
             const texts = await Comment.find({rootId: post._id}).sort({createdAt: 1})
             texts.push(post)
+            texts.reverse()
             let images = []
             const width = post.mediaInfo.dimension[1]
             const height = post.mediaInfo.dimension[0]
             let audio = []
+            let concatAudio = []
             let audioDuration = []
+            let audioIndex = 0
 
             const _createImage = async(input) => {
                 const bgColor = 'rgba(0,0,0,0)'
@@ -55,14 +59,15 @@ const governanceCtrl =  {
                 return finalImage
             }
             const createAudio = async(input) => {
+                audioIndex = audioIndex + 1
                 const client = new textToSpeech.TextToSpeechClient()
                 const request = {
                     input: {text:input},
-                    voice: {languageCode: 'it', ssmlGender: 'NEUTRAL'},
+                    voice: {languageCode: 'it', ssmlGender: 'MALE'},
                     audioConfig: {audioEncoding: 'MP3'},
                 };
                 const [response] = await client.synthesizeSpeech(request);
-                const path = '/home/simone/simone/website/Bbaby_next/services/api/youtubeImage/audio.mp3'
+                const path = `/home/simone/simone/website/Bbaby_next/services/api/youtubeImage/audio${audioIndex}.mp3`
                 const writeFile = util.promisify(fs.writeFile)
                 await writeFile(path, response.audioContent, 'binary')
                 const upload = await cloudinary.v2.uploader.upload(path, {
@@ -70,6 +75,7 @@ const governanceCtrl =  {
                     resource_type: "video"
                 })
                 audio.push(upload.secure_url)
+                concatAudio.push(path)
                 audioDuration.push(upload.duration)
                 return upload.duration
             }
@@ -88,21 +94,31 @@ const governanceCtrl =  {
                     // if (!_audio) return res.status(500).json({msg: "Something went wrong"})
                 })
             )
-            images.reverse()
-            audio.reverse()
-            res.json({
-                title: post.title,
-                description: `Bbabystyle è un social network indipendente,esistiamo solo grazie a voi. Contribuisci a far crescere bbabystyle https://bbabystyle.com`,
-                keywords: `Ucraina, News, Notizie`,
-                category: `25`,
-                privacyStatus: `private`,
-                images: images,
-                audio: audio,
-                audioDuration:audioDuration,
-                width: width,
-                height: height,
-                success:'Image and audio created successfully'
-            })
+            audioconcat(concatAudio)
+            .concat('./youtubeImage/Final.mp3')
+            .on('start', function (command) {
+                console.log('ffmpeg process started:', command)
+              })
+              .on('error', function (err, stdout, stderr) {
+                console.error('Error:', err)
+                console.error('ffmpeg stderr:', stderr)
+              })
+              .on('end', function (output) {
+                res.json({
+                    title: post.title,
+                    description: `Bbabystyle è un social network indipendente,esistiamo solo grazie a voi. Contribuisci a far crescere bbabystyle https://bbabystyle.com`,
+                    keywords: `Ucraina, News, Notizie`,
+                    category: `25`,
+                    privacyStatus: `private`,
+                    images: images,
+                    audio: audio,
+                    audioDuration:audioDuration,
+                    width: width,
+                    height: height,
+                    success:'Image and audio created successfully'
+                })
+              })
+            
         } catch (err) {
             res.status(500).json({msg: err.message})
         }
@@ -123,7 +139,7 @@ const governanceCtrl =  {
                 pixelFormat: 'yuv420p'
             }
             videoshow(images,videoOptions)
-            .audio()
+            .audio(`./youtubeImage/Final.mp3`)
                 .save("./youtubeImage/video1.mp4")
                 .on('start', function(command) {
                     console.log("Conversion started " + command)
