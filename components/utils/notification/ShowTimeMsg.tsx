@@ -4,9 +4,9 @@ import { isMobile } from "react-device-detect";
 type TimeMessage = {
   value: string,
   setValue: any,
-  status: string,
-  time: number,
-  gov_value: {}
+  status?: string,
+  time?: number,
+  gov_value?: {}
 }
 
 function ShowTimeMsg({value,setValue,status,time,gov_value}:TimeMessage) {

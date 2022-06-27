@@ -1,4 +1,4 @@
-import type { NextPage, NextPageContext } from 'next'
+import type { GetServerSideProps, NextPage, NextPageContext } from 'next'
 import Head from 'next/head'
 import axios from 'axios'
 import Feed from '../components/post/Feed'
@@ -35,7 +35,7 @@ const Home: NextPage = () => {
 
 export default Home
 
-export async function getServerSideProps(context: NextPageContext) {
+export const getServerSideProps: GetServerSideProps = async(context) => {
   
   const server = process.env.NEXT_PUBLIC_SERVER_URL
 
