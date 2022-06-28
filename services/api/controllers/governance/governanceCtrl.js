@@ -64,7 +64,9 @@ const governanceCtrl =  {
                 return finalImage
             }
             const saveImageToDisk = async(imageUrl,index) => {
-                const browser = await puppeteer.launch()
+                const browser = await puppeteer.launch({
+                    args: ['--no-sandbox', '--disabled-setupid-sandbox']
+                })
                 const page = await browser.newPage()
                 page.on('response',async (response) => {
                     const url = response.url()
