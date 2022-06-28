@@ -32,9 +32,6 @@ const governanceCtrl =  {
             let audioIndex = 0
             const {HOME_PATH} = process.env
             const path = `${HOME_PATH}/youtubeImage`
-
-            await saveImageToDisk('https://en.wikipedia.org/wiki/Lionel_Messi', 1)
-            return
             const _createImage = async(input) => {
                 const bgColor = 'rgba(0,0,0,0)'
                 const data = await textToImage.generate(`${input}`, { //USE '/n to add space
@@ -105,9 +102,6 @@ const governanceCtrl =  {
                     await wait(delay)
                     const finalImage = await _createImage(text.title ? text.title : text.body)
                     const loop = await createAudio(text.title ? text.title : text.body)
-                    const stringImage = JSON.stringify(finalImage)
-                    const space = stringImage.replaceAll(' ', '')
-                    await saveImageToDisk(finalImage, index)
                     images.push({path:finalImage,loop:loop})
                     await wait(delay)
                 })
