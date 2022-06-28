@@ -23,11 +23,9 @@ const Youtube = () => {
   const [videoOptions,setVideoOptions] = useState(_videoOptions)
   //
   type InputProps = {
-    images: [{
-      path: string
-    }],
+    images: [],
     video: string,
-    localPath: string,
+    localImages: [],
     audio: [],
     audioDuration: [],
     height: number,
@@ -42,9 +40,9 @@ const Youtube = () => {
   }
   //YOUTUBE INPUT
   const _input:InputProps = {
-    images: [{path: ''}],
+    images: [],
     video: '',
-    localPath: '',
+    localImages: [],
     audio: [],
     audioDuration: [],
     height: 0,
@@ -64,9 +62,9 @@ const Youtube = () => {
   const createVideo = async() => {
     try {
       setLoading(true)
-      const data = {_videoOptions:videoOptions,images:input.images}
+      const data = {_videoOptions:videoOptions,images:input.localImages}
       const res = await axios.post(`${server}/governance/create-video`,data, {withCredentials:true})
-      setInput({...input, video: res.data.video, localPath: res.data.localPath, success: res.data.success})
+      setInput({...input, video: res.data.video, success: res.data.success})
       setLoading(false)
     } catch (err:any) {
       err?.response?.data?.msg &&
@@ -82,12 +80,11 @@ const Youtube = () => {
           {showInput && (
             <>
             <CreateVideo input={input} setInput={setInput} videoOptions={videoOptions} setVideoOptions={setVideoOptions} />
-            <div id="create_video" className="mt-2 flex p-2">
+            {!input.video && <div id="create_video" className="mt-2 flex p-2">
                     <div className="self-center">
-                      {!input.video && <h1 className="">Submit:</h1>}
+                      <h1 className="">Submit:</h1>
                     </div>
                     <div className="ml-auto self-center">
-                      {!input.video && (
                         <>
                         <Button type='submit' onClick={() => {
                           createVideo()
@@ -96,21 +93,10 @@ const Youtube = () => {
                           {!loading && <h1>Create Video</h1>}
                         </Button>
                         </>
-                      )}
                     </div>
-                </div>
-                <UploadVideo input={input} />
+                </div>}
+                <UploadVideo input={input} setInput={setInput} />
                 <hr className="border-reddit_border" />
-                <div id="python_code" className="mt-2 flex p-2">
-                      <div>
-                        <h1 className="mt-[8px] flex-none">Python Code:</h1>
-                      </div>
-                      <div className="ml-auto w-full self-center">
-                        <p className='p-2 font-bold w-full bg-reddit_dark-brighter text-sm text-blue-600'>
-                          {`python upload_video.py --file="${input.localPath}" --title="${input.title}" --description="${input.description}" --keywords="${input.keywords}" --category="${input.category}" --privacyStatus="${input.privacyStatus}"`}
-                        </p>
-                      </div>
-                  </div>
               </>
         )}
         {input && input.err && (

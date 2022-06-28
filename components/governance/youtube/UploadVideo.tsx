@@ -4,7 +4,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import Button from '../../utils/Button'
 
 
-const UploadVideo = ({input}:any) => {
+const UploadVideo = ({input,setInput}:any) => {
     const [loading,setLoading] = useState(false)
     const hostname = process.env.NEXT_PUBLIC_HOSTNAME
 
@@ -19,10 +19,11 @@ const UploadVideo = ({input}:any) => {
                 privacyStatus: input.privacyStatus,
             }
             const res = await axios.post(`${hostname}/api/governance/youtube`,data)
-            console.log(res.data)
+            console.log(res.data.VideoInfo)
+            setInput({...input, success: res.data.success})
             setLoading(false)
-        } catch (err) {
-          console.log(err)
+        } catch (err:any) {
+          setInput(err.message)
         }
     }
 
@@ -49,4 +50,4 @@ const UploadVideo = ({input}:any) => {
   )
 }
 
-export default UploadVideo
+export default UploadVideo;

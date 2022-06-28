@@ -10,7 +10,7 @@ export default async function uploadYoutube(req:NextApiRequest,res:NextApiRespon
     const TOKEN_DIR:any = process.env.HOME_PATH
     const TOKEN_PATH = `${TOKEN_DIR}/youtube_oauth_token.json`
     const videoFilePath = `${TOKEN_DIR}/youtubeImage/video1.mp4`
-    const thumbFilePath = `${TOKEN_DIR}/youtubeImage/thumbnail.png`
+    const thumbFilePath = `${TOKEN_DIR}/youtubeImage/image0.webp`
     
     const authorize = (credentials: { web: { client_secret: any; client_id: any; redirect_uris: any[]; }; },callback: (auth: any) => void) => {
         const clientSecret = credentials.web.client_secret
@@ -67,6 +67,7 @@ export default async function uploadYoutube(req:NextApiRequest,res:NextApiRespon
     }
 
     const uploadVideo = (auth:any,title:string,description:string,tags:string[],privacyStatus: string) => {
+        let videoInfo = {}
         const youtube = google.youtube('v3')
         youtube.videos.insert({
             auth: auth,
@@ -93,7 +94,7 @@ export default async function uploadYoutube(req:NextApiRequest,res:NextApiRespon
                 return res.status(500).json(err.message)
                 return
             }
-            console.log(response?.data)
+            videoInfo = response?.data
 
             console.log('Video uploaded. Uloading the thumbnail now')
             youtube.thumbnails.set({
@@ -110,10 +111,10 @@ export default async function uploadYoutube(req:NextApiRequest,res:NextApiRespon
                 }
                 fs.rmdir(`${TOKEN_DIR}/youtubeImage`, {recursive: true}, (err) => {
                     if (err) {
-                        return res.status(500).json('Cannot delete this folder')
+                        return res.status(500).json({msg:'Cannot delete this folder'})
                     }
                 })
-                res.status(201).json(response.data)
+                res.status(201).json({VideoInfo: videoInfo, success: 'Video and thumbnail updated successfully'})
             })
         }
         )

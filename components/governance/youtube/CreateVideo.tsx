@@ -95,7 +95,9 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
                 <h1 className="">audio_duration:</h1>
               </div>
               <div className="ml-auto self-center text-center">
-                <p title='audio_duration' className='p-2 font-bold w-full text-center'>{input.audioDuration[imageIndex]}</p>
+                <p title='audio_duration' className='p-2 font-bold w-full text-center'>
+                  {input.audioDuration[imageIndex]}
+                </p>
               </div>
           </div>
           <div id="keywords" className="mt-2 flex">
@@ -132,7 +134,7 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
               setImageIndex(0)
             }
           }} style={{width: input.width, height: input.height}} className='relative cursor-pointer' >
-            <Image src={input.images[imageIndex].path} layout='fill' unoptimized/>
+            <Image src={input.images[imageIndex]} layout='fill' unoptimized/>
           </div>
         )}
         {input?.video && (
@@ -140,7 +142,7 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
               <video className={`aspect-video`} 
               src={input.video}
               id='video_pre-share'
-              poster={input.images[0].path}
+              poster={input.images[0]}
               controls
               width={input.width}
               height={input.height}

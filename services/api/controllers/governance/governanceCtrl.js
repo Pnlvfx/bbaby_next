@@ -8,9 +8,8 @@ import textToSpeech from '@google-cloud/text-to-speech'
 import util from 'util'
 import fs from 'fs'
 import audioconcat from 'audioconcat'
-import {google} from 'googleapis'
+import puppeteer from 'puppeteer'
 
-const {OAuth2} = google.auth
 
 
 const governanceCtrl =  {
@@ -24,6 +23,7 @@ const governanceCtrl =  {
             texts.push(post)
             texts.reverse()
             let images = []
+            let localImages = []
             const width = post.mediaInfo.dimension[1]
             const height = post.mediaInfo.dimension[0]
             let audio = []
@@ -62,6 +62,23 @@ const governanceCtrl =  {
                 const cleanImage3 = cleanImage2.replace('http', 'https')
                 const finalImage = cleanImage3.replaceAll("'", "")
                 return finalImage
+            }
+            const saveImageToDisk = async(imageUrl,index) => {
+                const browser = await puppeteer.launch()
+                const page = await browser.newPage()
+                page.on('response',async (response) => {
+                    const url = response.url()
+                    //console.log(response.request().resourceType())
+                    if (response.request().resourceType() === 'document') { //normally should be 'image'
+                        response.buffer().then((file) => {
+                            const imagePath = `./youtube/youtubeImage/image${index}.webp`
+                            const writeStream = fs.createWriteStream(imagePath)
+                            writeStream.write(file)
+                        })
+                    }
+                })
+                await page.goto(imageUrl)
+                await browser.close
             }
             const createAudio = async(input) => {
                 audioIndex = audioIndex + 1
@@ -102,11 +119,13 @@ const governanceCtrl =  {
                     await wait(delay)
                     const finalImage = await _createImage(text.title ? text.title : text.body)
                     const loop = await createAudio(text.title ? text.title : text.body)
-                    images.push({path:finalImage,loop:loop})
+                    await saveImageToDisk(finalImage, index)
+                    const imagePath = `${path}/image${index}.webp`
+                    localImages.push({path: imagePath, loop:loop})
+                    images.push(finalImage)
                     await wait(delay)
                 })
             )
-
             audioconcat(concatAudio)
             .concat(`${HOME_PATH}/youtubeImage/Final.mp3`)
             .on('start', function (command) {
@@ -124,6 +143,7 @@ const governanceCtrl =  {
                     category: `25`,
                     privacyStatus: `public`,
                     images: images,
+                    localImages: localImages,
                     audio: audio,
                     audioDuration:audioDuration,
                     width: width,
@@ -131,14 +151,13 @@ const governanceCtrl =  {
                     success:'Image and audio created successfully'
                 })
               })
-            
         } catch (err) {
+            console.log(err.message)
             res.status(500).json({msg: err.message})
         }
     },
     createVideo: (req,res) => {
         try {
-            req.setTimeout(300000)
             const {HOME_PATH} = process.env
             const {_videoOptions,images} = req.body
             const videoOptions = {
@@ -174,7 +193,6 @@ const governanceCtrl =  {
                         res.status(201).json({
                             success: "Conversion completed",
                             video: response.secure_url,
-                            localPath: `${HOME_PATH}/youtubeImage/video1.mp4`
                         })
                     })
             })
