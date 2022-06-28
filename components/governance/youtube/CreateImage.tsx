@@ -5,12 +5,13 @@ import Button from "../../utils/Button"
 import Input from "../../utils/Input"
 
 type CreateImageProps = {
-  setShowInput: any,
+  modalType: string,
+  setModalType: any,
   setInput: any,
   input: any
 }
 
-const CreateImage = ({setShowInput,setInput,input}:CreateImageProps) => {
+const CreateImage = ({modalType,setModalType,setInput,input}:CreateImageProps) => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     const _value = {
       textColor: 'rgb(26, 26, 27)',
@@ -19,7 +20,6 @@ const CreateImage = ({setShowInput,setInput,input}:CreateImageProps) => {
       format: 'webp'
     }
     const [value,setValue] = useState(_value)
-    const [showValue,setShowValue] = useState(true)
     const [loading,setLoading] = useState(false)
     const createImage = async() => {
         try {
@@ -27,8 +27,7 @@ const CreateImage = ({setShowInput,setInput,input}:CreateImageProps) => {
           const data = {textColor: value.textColor, community:value.community,fontSize:value.fontSize,format:value.format}
           const res = await axios.post(`${server}/governance/create-image`,data, {withCredentials:true})
           setInput(res.data)
-          setShowValue(false)
-          setShowInput(true)
+          setModalType('create_video')
           setLoading(false) 
         } catch (err:any) {
           err.response.data.msg &&
@@ -38,7 +37,7 @@ const CreateImage = ({setShowInput,setInput,input}:CreateImageProps) => {
       }
   return (
    <>
-   {showValue && (
+   {modalType === 'create_image' && (
           <>
             <form className="p-2 w-[350px] text-sm">
               <div id="set_community" className="mt-2 flex">

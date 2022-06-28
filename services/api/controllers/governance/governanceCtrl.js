@@ -11,12 +11,13 @@ import audioconcat from 'audioconcat'
 import puppeteer from 'puppeteer'
 import { google } from 'googleapis'
 import readline from 'readline'
-
+import {getAudioDurationInSeconds} from 'get-audio-duration'
 
 
 const governanceCtrl =  {
     createImage: async (req,res) => {
         try {
+            const {PUBLIC_PATH} = process.env
             const skip = 0
             const limit = 1
             const {textColor,fontSize,community,format} = req.body
@@ -29,11 +30,10 @@ const governanceCtrl =  {
             const width = post.mediaInfo.dimension[1]
             const height = post.mediaInfo.dimension[0]
             let audio = []
-            let concatAudio = []
+            let audioConcat = []
             let audioDuration = []
             let audioIndex = 0
-            const {HOME_PATH} = process.env
-            const path = `${HOME_PATH}/youtubeImage`
+            const path = `${PUBLIC_PATH}/youtube`
             const _createImage = async(input) => {
                 const bgColor = 'rgba(0,0,0,0)'
                 const data = await textToImage.generate(`${input}`, { //USE '/n to add space
@@ -75,7 +75,7 @@ const governanceCtrl =  {
                     //console.log(response.request().resourceType())
                     if (response.request().resourceType() === 'document') { //normally should be 'image'
                         response.buffer().then((file) => {
-                            const imagePath = `./youtube/youtubeImage/image${index}.webp`
+                            const imagePath = `${path}/image${index}.webp`
                             const writeStream = fs.createWriteStream(imagePath)
                             writeStream.write(file)
                         })
@@ -97,14 +97,11 @@ const governanceCtrl =  {
                 const audio_path = `${path}/audio${audioIndex}.mp3`
                 const writeFile = util.promisify(fs.writeFile)
                 await writeFile(audio_path, response.audioContent, 'binary')
-                const upload = await cloudinary.v2.uploader.upload(audio_path, {
-                    upload_preset: 'bbaby_gov_video',
-                    resource_type: "video"
-                })
-                audio.push(upload.secure_url)
-                concatAudio.push(audio_path)
-                audioDuration.push(upload.duration)
-                return upload.duration
+                const _audioDuration = await getAudioDurationInSeconds(audio_path)
+                audio.push(`/youtube/audio${audioIndex}.mp3`)
+                audioConcat.push(audio_path)
+                audioDuration.push(_audioDuration)
+                return _audioDuration
             }
             const makeDir = async(path) => {
                 try {
@@ -126,12 +123,12 @@ const governanceCtrl =  {
                     await saveImageToDisk(finalImage, index)
                     const imagePath = `${path}/image${index}.webp`
                     localImages.push({path: imagePath, loop:loop})
-                    images.push(finalImage)
+                    images.push(`/youtube/image${index}.webp`) //FOR CLIENT VISUALIZE
                     await wait(delay)
                 })
             )
-            audioconcat(concatAudio)
-            .concat(`${HOME_PATH}/youtubeImage/Final.mp3`)
+            audioconcat(audioConcat)
+            .concat(`${path}/Final.mp3`)
             .on('start', function (command) {
                 console.log('ffmpeg process started:', command)
               })
@@ -162,7 +159,8 @@ const governanceCtrl =  {
     },
     createVideo: (req,res) => {
         try {
-            const {HOME_PATH} = process.env
+            const {PUBLIC_PATH} = process.env
+            const path = `${PUBLIC_PATH}/youtube`
             const {_videoOptions,images} = req.body
             const videoOptions = {
                 fps: _videoOptions.fps,
@@ -177,8 +175,8 @@ const governanceCtrl =  {
                 pixelFormat: 'yuv420p'
             }
             videoshow(images,videoOptions)
-            .audio(`${HOME_PATH}/youtubeImage/Final.mp3`)
-                .save(`${HOME_PATH}/youtubeImage/video1.mp4`)
+            .audio(`${path}/Final.mp3`)
+                .save(`${path}/video1.mp4`)
                 .on('start', function(command) {
                     console.log("Conversion started " + command)
                 })
@@ -189,15 +187,9 @@ const governanceCtrl =  {
                     res.status(500).json({msg: `Some error occured ${err ? err : stdout ? stdout : stderr}`})
                 })
                 .on('end', function(output) {
-                    cloudinary.v2.uploader.upload(output, {
-                        upload_preset: 'bbaby_gov_video',
-                        resource_type: "video"
-                    },function(err,response) {
-                        if (err) return res.status(500).json({msg: err.message})
-                        res.status(201).json({
-                            success: "Conversion completed",
-                            video: response.secure_url,
-                        })
+                    res.status(201).json({
+                        success: "Conversion completed",
+                        video: `/youtube/video1.mp4`,
                     })
             })
         } catch (err) {
@@ -236,10 +228,12 @@ const governanceCtrl =  {
         try {
             const {OAuth2} = google.auth
             const SCOPES = 'https://googleapis.com/auth/youtube.upload'
+            const {PUBLIC_PATH} = process.env
+            const path = `${PUBLIC_PATH}/youtube`
             const TOKEN_DIR = process.env.HOME_PATH
             const TOKEN_PATH = `${TOKEN_DIR}/youtube_oauth_token.json`
-            const videoFilePath = `${TOKEN_DIR}/youtubeImage/video1.mp4`
-            const thumbFilePath = `${TOKEN_DIR}/youtubeImage/image0.webp`
+            const videoFilePath = `${path}/video1.mp4`
+            const thumbFilePath = `${path}/image0.webp`
 
             const authorize = (credentials,callback) => {
                 const clientSecret = credentials.web.client_secret
@@ -283,7 +277,7 @@ const governanceCtrl =  {
                     fs.mkdirSync(TOKEN_DIR)
                 } catch (err) {
                     if (err.code != 'EEXIST') {
-                        return res.status(500).json({msg: err})
+                        return res.status(500).json({msg: err.message})
                     }
                 }
                 fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
@@ -317,7 +311,6 @@ const governanceCtrl =  {
                 function (err, response) {
                     if (err) {
                         return res.status(500).json(err.message)
-                        return
                     }
                     videoInfo = response?.data
         
@@ -332,9 +325,8 @@ const governanceCtrl =  {
                     function (err,response) {
                         if (err) {
                             return res.status(500).json('The API returned an error' + err)
-                            return
                         }
-                        fs.rmdir(`${TOKEN_DIR}/youtubeImage`, {recursive: true}, (err) => {
+                        fs.rm(path, {recursive: true}, (err) => {
                             if (err) {
                                 return res.status(500).json({msg:'Cannot delete this folder'})
                             }

@@ -8,10 +8,9 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
   const [imageIndex,setImageIndex] = useState(0)
   const [isPlaying,setIsPlaying] = useState(false)
   const soundPlay = () => {
+    console.log(input.audio)
     const sound = new Howl({
-      src: [input.audio[imageIndex]],
-      format: ['mp3'],
-      html5: true
+      src: [input.audio[imageIndex]]
     })
     sound.once('load', function() {
       setIsPlaying(true)

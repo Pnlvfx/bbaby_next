@@ -4,7 +4,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import Button from '../../utils/Button'
 
 
-const UploadVideo = ({input,setInput}:any) => {
+const UploadVideo = ({input,setInput,setModalType}:any) => {
     const [loading,setLoading] = useState(false)
     const server = process.env.NEXT_PUBLIC_SERVER_URL
 
@@ -21,6 +21,7 @@ const UploadVideo = ({input,setInput}:any) => {
             const res = await axios.post(`${server}/governance/youtube`,data)
             console.log(res.data.VideoInfo)
             setInput({...input, success: res.data.success})
+            setModalType('create_image')
             setLoading(false)
         } catch (err:any) {
           setInput(err.message)

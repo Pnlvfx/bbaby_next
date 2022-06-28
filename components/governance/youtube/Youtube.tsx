@@ -56,7 +56,7 @@ const Youtube = () => {
     success: ''
   }
   const [input,setInput] = useState(_input)
-  const [showInput,setShowInput] = useState(false)
+  const [modalType,setModalType] = useState('create_image') // create_image // create_video
   const [loading,setLoading] = useState(false)
   //
   const createVideo = async() => {
@@ -76,8 +76,8 @@ const Youtube = () => {
   return (
     <div id="display_youtube" className="w-full mx-12">
         <div className="border border-reddit_border ml-2 bg-reddit_dark-brighter rounded-md overflow-hidden">
-          <CreateImage input={input} setInput={setInput} setShowInput={setShowInput}/>
-          {showInput && (
+          <CreateImage modalType={modalType} setModalType={setModalType} input={input} setInput={setInput}/>
+          {modalType === 'create_video' && (
             <>
             <CreateVideo input={input} setInput={setInput} videoOptions={videoOptions} setVideoOptions={setVideoOptions} />
             {!input.video && <div id="create_video" className="mt-2 flex p-2">
@@ -95,7 +95,7 @@ const Youtube = () => {
                         </>
                     </div>
                 </div>}
-                <UploadVideo input={input} setInput={setInput} />
+                <UploadVideo input={input} setInput={setInput} setModalType={setModalType} />
                 <hr className="border-reddit_border" />
               </>
         )}
