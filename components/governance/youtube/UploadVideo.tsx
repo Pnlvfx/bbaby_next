@@ -6,7 +6,7 @@ import Button from '../../utils/Button'
 
 const UploadVideo = ({input,setInput}:any) => {
     const [loading,setLoading] = useState(false)
-    const hostname = process.env.NEXT_PUBLIC_HOSTNAME
+    const server = process.env.NEXT_PUBLIC_SERVER_URL
 
     const uploadVideo = async() => {
         try {
@@ -18,12 +18,12 @@ const UploadVideo = ({input,setInput}:any) => {
                 categoryId:input.category,
                 privacyStatus: input.privacyStatus,
             }
-            const res = await axios.post(`${hostname}/api/governance/youtube`,data)
+            const res = await axios.post(`${server}/governance/youtube`,data)
             console.log(res.data.VideoInfo)
             setInput({...input, success: res.data.success})
             setLoading(false)
         } catch (err:any) {
-          setInput(err.message) 
+          setInput(err.message)
         }
     }
 
