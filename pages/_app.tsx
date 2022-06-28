@@ -50,11 +50,13 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
         <meta property="og:site_name" content="bbabystyle" />
         <meta name="twitter:creator" content="@Bbabystyle" />
       </Head>
+      {process.env.NEXT_PUBLIC_NODE_ENV === 'production' &&
       <Script
           async
           strategy="afterInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
       />
+      }
       <Script
         id="gtag-init"
         async
@@ -70,14 +72,14 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
           `,
         }}
       />
-      <Script 
+      {/* <Script 
         id='Adsense-id'
         data-ad-client='ca-pub-7203519143982992'
         async
         strategy="afterInteractive"
         onError={ (e) => { console.error('Script failed to load', e) }}
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-        crossOrigin="anonymous" />
+        crossOrigin="anonymous" /> */}
     <UserContext.Provider value={{session: session}}>
         <AuthModalContext.Provider value={{show:showAuthModal,setShow:setShowAuthModal}}>
           <GoogleOAuthProvider clientId='527300585899-mh0q9kh2fpijep43k37oriuafsl8m9hi.apps.googleusercontent.com'>
