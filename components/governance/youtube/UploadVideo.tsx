@@ -23,7 +23,7 @@ const UploadVideo = ({input,setInput}:any) => {
             setInput({...input, success: res.data.success})
             setLoading(false)
         } catch (err:any) {
-          setInput(err.message)
+          setInput(err.message) 
         }
     }
 
