@@ -8,9 +8,8 @@ import textToSpeech from '@google-cloud/text-to-speech'
 import util from 'util'
 import fs from 'fs'
 import audioconcat from 'audioconcat'
-import assert from 'assert'
-import readline from 'readline'
 import {google} from 'googleapis'
+import https from 'https'
 
 const {OAuth2} = google.auth
 
@@ -33,7 +32,20 @@ const governanceCtrl =  {
             let audioDuration = []
             let audioIndex = 0
             const {HOME_PATH} = process.env
+            const path = `${HOME_PATH}/youtubeImage`
 
+            const saveImageToDisk = async(url,index) => {
+                console.log(url,index)
+                const _path = `${path}/image${index}.png`
+                const localPath = fs.createWriteStream(_path)
+                https.get(url, function (err,response) {
+                    if (err) {
+                        return res.status(500).json({msg: err})
+                    }
+                    console.log(response)
+                    response.pipe(localPath)
+                })
+            }
             const _createImage = async(input) => {
                 const bgColor = 'rgba(0,0,0,0)'
                 const data = await textToImage.generate(`${input}`, { //USE '/n to add space
@@ -74,7 +86,6 @@ const governanceCtrl =  {
                     audioConfig: {audioEncoding: 'MP3'},
                 };
                 const [response] = await client.synthesizeSpeech(request);
-                const path = `${HOME_PATH}/youtubeImage`
                 makeDir(path)
                 const audio_path = `${path}/audio${audioIndex}.mp3`
                 const writeFile = util.promisify(fs.writeFile)
@@ -88,8 +99,6 @@ const governanceCtrl =  {
                 audioDuration.push(upload.duration)
                 return upload.duration
             }
-
-
             const makeDir = async(path) => {
                 try {
                     fs.mkdirSync(path)
@@ -99,8 +108,6 @@ const governanceCtrl =  {
                     }
                 }
             }
-
-            // const delay = 3000
             const wait = ms => new Promise(resolve => setTimeout(resolve,ms))
             
             await Promise.all(
@@ -109,12 +116,14 @@ const governanceCtrl =  {
                     await wait(delay)
                     const finalImage = await _createImage(text.title ? text.title : text.body)
                     const loop = await createAudio(text.title ? text.title : text.body)
+                    const stringImage = JSON.stringify(finalImage)
+                    const space = stringImage.replaceAll(' ', '')
+                    await saveImageToDisk(space, index)
                     images.push({path:finalImage,loop:loop})
                     await wait(delay)
-                    // const _audio = await createAudio(text.title ? text.title : text.body)
-                    // if (!_audio) return res.status(500).json({msg: "Something went wrong"})
                 })
             )
+
             audioconcat(concatAudio)
             .concat(`${HOME_PATH}/youtubeImage/Final.mp3`)
             .on('start', function (command) {
@@ -218,119 +227,6 @@ const governanceCtrl =  {
            res.json({msg:err}) 
         }
     },
-    uploadYoutube: (req,res) => {
-        const SCOPES = ['https://www.googleapis.com/auth/youtube.upload']
-        const TOKEN_DIR = process.env.HOME_PATH
-        const TOKEN_PATH = `./youtube_oauth_token.json`
-        const videoFilePath = `./youtubeImage/video1.mp4`
-        const thumbFilePath = ``
-
-        uploadVideo = (title,description,tags) => {
-            //assert(fs.existsSync(videoFilePath))
-            //assert(fs.existsSync(thumbFilePath))
-
-            fs.readFile(`./youtube_client_secret.json`, function processClientSecrets(err,content) {
-                if(err) {
-                    console.log('Error loading client secret file:' + err)
-                    return
-                }
-                authorize(JSON.parse(content), (auth) => uploadVideo(auth,title,description,tags))
-            });
-        }
-        uploadVideo()
-        function uploadVideo(auth,title,description,tags) {
-            const service = google.youtube('v3')
-            service.videos.insert({
-                auth: auth,
-                part: 'snippet,status',
-                requestBody: {
-                    snippet: {
-                        title,
-                        description,
-                        tags,
-                        categoryId: 25,
-                        defaultLanguage: 'en',
-                        defaultAudioLanguage: 'en'
-                    },
-                    status: {
-                        privacyStatus: 'private'
-                    },
-                },
-                media: {
-                    body: fs.createReadStream(videoFilePath)
-                },
-            },
-            function(err,response) {
-                if (err) {
-                    console.log(err)
-                    return
-                }
-                console.log(response.data)
-                console.log('video uploaded. Uploading the thumbnail now.')
-                service.thumbnails.set({
-                    auth: auth,
-                    videoId: response.data.id,
-                    media: {
-                        body: fs.createReadStream(thumbFilePath)
-                    },
-                }, function(err,response) {
-                    if(err) {
-                    console.log(err)
-                    return
-                    }
-                    console.log(response.data)
-                })
-            }
-            )
-        }
-        function authorize(credentials,callback) {
-            console.log(credentials)
-            const clientSecret = credentials.client_secret;
-            const clientId = credentials.client_id
-            const redirectUrl = credentials.redirect_uris
-            const oauth2Client = new OAuth2(clientId,clientSecret,redirectUrl)
-
-            fs.readFile(TOKEN_PATH, function (err,token) {
-                if (err) {
-                    getNewToken(oauth2Client, callback)
-                } else {
-                    oauth2Client.credentials = JSON.parse(token)
-                    callback(oauth2Client)
-                }
-            });
-        }
-        function getNewToken(oauth2Client, callback) {
-            const authUrl = oauth2Client.generateAuthUrl({
-                access_type: 'offline',
-                scopes: SCOPES
-            });
-            console.log('Authorize this app by visiting this url:', authUrl);
-            const rl = readline.createInterface({
-                input: process.stdin,
-                output: process.stdout
-            });
-            rl.question('Enter the code from that page here:', function(code) {
-                rl.close()
-                oauth2Client.getToken(code, function(err, token) {
-                    if (err) {
-                        console.log('Error while trying to retrieve access token', err)
-                        return
-                    }
-                    oauth2Client.credentials = token;
-                    storeToken(token);
-                    callback(oauth2Client)
-                });
-            });
-        }
-        function storeToken(token) {
-            try {
-                fs.mkdirSync()
-            } catch (error) {
-                
-            }
-        }
-    }
-
 }
 
 export default governanceCtrl;

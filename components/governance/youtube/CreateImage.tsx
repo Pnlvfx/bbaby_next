@@ -4,8 +4,13 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai"
 import Button from "../../utils/Button"
 import Input from "../../utils/Input"
 
-const CreateImage = (props:any) => {
-  const {setShowInput,setInput,input} = props
+type CreateImageProps = {
+  setShowInput: any,
+  setInput: any,
+  input: any
+}
+
+const CreateImage = ({setShowInput,setInput,input}:CreateImageProps) => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     const _value = {
       textColor: 'rgb(26, 26, 27)',

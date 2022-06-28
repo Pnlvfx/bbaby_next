@@ -20,6 +20,7 @@
     "@paypal/react-paypal-js": "^7.8.1",
     "@react-oauth/google": "^0.2.4",
     "axios": "^0.27.2",
+    "googleapis": "^104.0.0",
     "howler": "^2.2.3",
     "moment": "^2.29.3",
     "next": "12.1.6",

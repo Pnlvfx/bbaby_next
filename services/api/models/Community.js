@@ -49,10 +49,6 @@ const schema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    user_is_banned: {
-        type: Boolean,
-        default: false
-    },
     number_of_posts: {
         type: Number,
         default: 0
