@@ -9,7 +9,6 @@ import util from 'util'
 import fs from 'fs'
 import audioconcat from 'audioconcat'
 import {google} from 'googleapis'
-import https from 'https'
 
 const {OAuth2} = google.auth
 
@@ -34,18 +33,8 @@ const governanceCtrl =  {
             const {HOME_PATH} = process.env
             const path = `${HOME_PATH}/youtubeImage`
 
-            const saveImageToDisk = async(url,index) => {
-                console.log(url,index)
-                const _path = `${path}/image${index}.png`
-                const localPath = fs.createWriteStream(_path)
-                https.get(url, function (err,response) {
-                    if (err) {
-                        return res.status(500).json({msg: err})
-                    }
-                    console.log(response)
-                    response.pipe(localPath)
-                })
-            }
+            await saveImageToDisk('https://en.wikipedia.org/wiki/Lionel_Messi', 1)
+            return
             const _createImage = async(input) => {
                 const bgColor = 'rgba(0,0,0,0)'
                 const data = await textToImage.generate(`${input}`, { //USE '/n to add space
@@ -118,7 +107,7 @@ const governanceCtrl =  {
                     const loop = await createAudio(text.title ? text.title : text.body)
                     const stringImage = JSON.stringify(finalImage)
                     const space = stringImage.replaceAll(' ', '')
-                    await saveImageToDisk(space, index)
+                    await saveImageToDisk(finalImage, index)
                     images.push({path:finalImage,loop:loop})
                     await wait(delay)
                 })
