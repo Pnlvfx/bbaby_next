@@ -2,6 +2,7 @@ node_modules
 youtube
 
 .env
+yarn.lock
 
 
 bbabystyle_googleCredentials.json

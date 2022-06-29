@@ -1,36 +1,15 @@
 import '../styles/globals.css'
 import type { AppProps, NextWebVitalsMetric } from 'next/app'
 import AuthModalContext from '../components/auth/AuthModalContext';
-import {useState,useEffect} from 'react'
-import Script from 'next/script'
-import { useRouter } from 'next/router'
-import * as gtag from '../lib/gtag'
+import {useState} from 'react'
 import {CommunityContextProvider} from '../components/community/CommunityContext';
 import {GoogleOAuthProvider} from '@react-oauth/google'
 import UserContext from '../components/auth/UserContext';
 import Head from 'next/head';
+import GoogleAnalytics from '../components/google/GoogleAnalytics';
 
 function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
-
-  const router = useRouter()
   const [showAuthModal,setShowAuthModal] = useState(false);
-
-  useEffect(() => { //GOOGLE ANALYTICS
-    const handleRouteChange = (url: URL) => {
-      gtag.pageview(url)
-    }
-      router.events.on('routeChangeComplete', handleRouteChange)
-      router.events.on('hashChangeComplete',handleRouteChange)
-      return()=> {
-      router.events.off('routeChangeComplete', handleRouteChange)
-      router.events.off('hashChangeComplete', handleRouteChange)
-    }
-  },[router.events])
-
-  useEffect(() => {
-    if (!session) return
-    gtag.user(session.user.username)
-  },[session])
 
   return (
     <>
@@ -50,28 +29,9 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
         <meta property="og:site_name" content="bbabystyle" />
         <meta name="twitter:creator" content="@Bbabystyle" />
       </Head>
-      {process.env.NEXT_PUBLIC_NODE_ENV === 'production' &&
-      <Script
-          async
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
-      />
+      {process.env.NEXT_PUBLIC_NODE_ENV === 'development' &&
+      <GoogleAnalytics />
       }
-      <Script
-        id="gtag-init"
-        async
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${gtag.GA_TRACKING_ID}', {
-              page_path: window.location.pathname
-            });
-          `,
-        }}
-      />
       {/* <Script 
         id='Adsense-id'
         data-ad-client='ca-pub-7203519143982992'

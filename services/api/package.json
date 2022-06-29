@@ -4,7 +4,7 @@
   "version": "1,0.0",
   "license": "MIT",
   "engines": {
-    "node": "^17.9.0"
+    "node": "^17.x.x || 18.x.x"
   },
   "scripts": {
     "build": "webpack"
