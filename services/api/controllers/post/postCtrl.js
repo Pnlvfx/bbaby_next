@@ -196,7 +196,7 @@ const PostCtrl = {
             const userVotedDown = await User.findOne({username: user.username, downVotes: id})
 
             if (userVotedUp) {
-                if(dir === '1') {   //delete existing upvote and add +1 
+                if(dir === 1) {   //delete existing upvote and add +1 
                     const deletePrevVote = await User.findOneAndUpdate({upVotes: id}, {$pull: {upVotes: id}})
                     const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : -1}})
                     //const liked = await Post.findByIdAndUpdate(id,{liked: true})
@@ -208,7 +208,7 @@ const PostCtrl = {
                     res.status(200).json({vote: post.ups -2})
                 }
             } else if(userVotedDown) {
-                if(dir === '1') {
+                if(dir === 1) {
                     const deletePrevVote = await User.findOneAndUpdate({downVotes: id}, {$pull: {downVotes: id}})
                     const userVote = await User.findOneAndUpdate({username: user.username},{$push: {upVotes : id}})
                     const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : +2}})
@@ -219,7 +219,7 @@ const PostCtrl = {
                     res.status(200).json({vote: post.ups +1})
                 }
             } else {
-                if(dir === '1') {
+                if(dir === 1) {
                     const userVote = await User.findOneAndUpdate({username: user.username},{$push: {upVotes : id}})
                     const post = await Post.findByIdAndUpdate(id, {$inc : {'ups' : +1}})
                     res.status(200).json({vote: post.ups + 1})
