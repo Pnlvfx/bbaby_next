@@ -8,9 +8,6 @@ const UserPreferencesModal = (props: any) => {
   const [userGender,setUserGender] = useState('')
   const {setNewUser} = props
 
-
-
-
   return (
     <div className={'w-screen h-screen fixed top-0 left-0 z-30 flex '} style={{backgroundColor:'rgba(0,0,0,.6'}}>
         <div className='flex w-auto h-auto border border-reddit_border bg-reddit_dark-brighter self-center mx-auto rounded-lg'>

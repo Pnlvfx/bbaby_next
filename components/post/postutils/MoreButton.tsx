@@ -14,7 +14,7 @@ function MoreButton(props:any) {
   const router = useRouter()
   const server = process.env.NEXT_PUBLIC_SERVER_URL
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
-  const {post,filePickerRefMore} = props
+  const {post,postId} = props
   const [postAuthor,setPostAuthor] = useState(false)
   const [moreDropdownVisibilityClass, setMoreDropdownVisibilityClass] = useState('hidden');
 
@@ -34,14 +34,12 @@ function MoreButton(props:any) {
   const deletePost = async() => {
     try {
       if(router.asPath !== '/') {
-        const deleteId = post._id
-        await axios.delete(`${server}/posts/${deleteId}`,{withCredentials:true})
+        await axios.delete(`${server}/posts/${postId}`,{withCredentials:true})
         router.push(`${hostname}/b/${post.community}`).then(() => {
         setDeletedSuccess(true)
         })
       } else {
-        const {deleteId} = router.query
-          const res = await axios.delete(`${server}/posts/${deleteId}`,{withCredentials:true})
+          const res = await axios.delete(`${server}/posts/${postId}`,{withCredentials:true})
           router.reload()
       }
     } catch (err) {
@@ -59,23 +57,13 @@ function MoreButton(props:any) {
     }
   }
 
-  const clickMoreButton = async() => {
-    if (router.asPath !== ('/')) {
-      toggleMoreDropdown()
-    } else {
-      filePickerRefMore.current.click()
-      toggleMoreDropdown()
-    }
-    
-  }
-
   return (
     <div>
        <ClickOutHandler onClickOut={() => setMoreDropdownVisibilityClass('hidden')}>
        <div className=''>
           <button title='Show more options' type='button' onClick={event =>{
             event.preventDefault()
-            clickMoreButton()
+            toggleMoreDropdown()
         }}>
           <div className='self-center text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm'>
             <MoreIcon style={{height: '20px', width: '20px'}} />

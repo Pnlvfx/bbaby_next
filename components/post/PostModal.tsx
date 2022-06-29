@@ -6,16 +6,25 @@ import Comment from '../comments/Comment';
 import {GrDocumentText} from 'react-icons/gr'
 import { CloseIcon } from "../utils/SVG";
 
-function PostModal(props) {
+type PostModalProps = {
+  community?: string,
+  postId: string | string[],
+  open: Boolean,
+  onClickOut: () => void
+}
+type PostProps = {
+  author?: string,
+  title?: string
+}
+
+function PostModal({community,postId,open,onClickOut}:PostModalProps) {
 
   let router = useRouter();
 
-  const [post,setPost] = useState({});
+  const [post,setPost] = useState<PostProps>({});
   const [loading,setLoading] = useState(true)
 
-  const visibleClass = props.open ? 'block' : 'hidden'
-
-  const {postId,community} = props
+  const visibleClass = open ? 'block' : 'hidden'
 
   useEffect(() => {
     if(!postId) return
@@ -37,7 +46,7 @@ function PostModal(props) {
         },
         router.pathname,{scroll:false}
         )
-        props.onClickOut()
+        onClickOut()
         setPost({})
         
       }}>
@@ -51,11 +60,11 @@ function PostModal(props) {
                 setLoading(true)
                 router.push({
                   pathname:router.pathname,
-                  query: props.community ? {community: props.community} : {}
+                  query: community ? {community: community} : {}
                 },
                 router.pathname,{scroll:false}
                 )
-                props.onClickOut()
+                onClickOut()
                 setPost({})
                 }} className="text-right ml-auto flex pt-4 pb-8">
                   <div className="mr-1">

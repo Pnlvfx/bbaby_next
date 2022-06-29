@@ -17,7 +17,7 @@ function ShareButton(props:any) {
 
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
 
-  const {community,filePickerRefShare} = props
+  const {community,postId} = props
   
   const [ShareDropdownVisibilityClass, setShareDropdownVisibilityClass] = useState('hidden');
   function toggleShareDropdown() {
@@ -34,9 +34,6 @@ function ShareButton(props:any) {
     <div>
        <button type='button' onClick={event =>{
        event.preventDefault()
-       if(router.asPath === '/') {
-        filePickerRefShare.current.click()
-       }
         toggleShareDropdown()
       }}>
         <div className='flex text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm self-center'>
@@ -51,7 +48,7 @@ function ShareButton(props:any) {
         <div className='flex bg-reddit_dark-brighter border border-reddit_border z-10 rounded-md overflow-hidden'>
           {router.asPath === '/' && (
             <div onClick={e => {e.preventDefault()}}>
-            <CopyToClipboard text={hostname + '/b/'+community+'/comments/'+router.query.shareId} onCopy={() => {
+            <CopyToClipboard text={hostname + '/b/'+community+'/comments/'+postId} onCopy={() => {
               setShareDropdownVisibilityClass('hidden')
               setValue('Link copied!')
             }}>

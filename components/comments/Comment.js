@@ -33,7 +33,6 @@ function Comment(props) {
             })
     }
 
-    
     useEffect(() => {
         refreshComments();
         },[post]);
@@ -43,14 +42,10 @@ function Comment(props) {
             refreshVotes();
             }
         },[comments.length]);
-
-        
-        
-
   return (
       <>
       {post && (
-        <Post {...post} open={true} />
+        <Post post={post} open={true} />
       )}
       
       {!!post && !!post._id && (

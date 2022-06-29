@@ -3,7 +3,7 @@ import PostForm from '../submit/PostForm'
 import TopCommunities from '../widget/TopCommunities'
 import BestPost from './postutils/BestPost'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { isMobile } from 'react-device-detect'
@@ -13,16 +13,17 @@ import Donations from '../widget/Donations'
 import PostLoading from './PostLoading'
 import { getPosts } from './APIpost'
 
-function Feed(props) {
-  const PostModal = dynamic(() => import('./PostModal'))
+type FeedProps = {
+  community?: string,
+  author?: string
+}
 
-  // GETTING COMMUNITY IF COMMUNITY PAGE
-  const {community,author} = props
-  //
+const Feed = ({community,author}:FeedProps) => {
+  const PostModal = dynamic(() => import('./PostModal'))
 
   const [postOpen, setPostOpen] = useState(false)
   const router = useRouter()
-  let postId = null
+  let postId:string[] | string = ''
 
   if(router.query.postId) {
     postId = router.query.postId;
@@ -33,17 +34,17 @@ function Feed(props) {
   }, [postId]);
 
   useEffect(() => {
-    postId= null
+    postId= ''
   },[postOpen]);
   //
 
   //INFINITE SCROLLING
-  const [posts,setPosts] = useState([])
+  const [posts,setPosts] = useState<any[]>([])
   const [loadingPosts,setLoadingPosts] = useState(false)
   const [loadingCommunity,setLoadingCommunity] = useState(true)
   
   useEffect(() => {
-    if (!posts) {
+    if (posts === []) {
       setLoadingPosts(true)
      }
   },[posts])
@@ -73,17 +74,17 @@ function Feed(props) {
   const getMorePosts = async() => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     if (community) {
-      const res = await axios.get(`${server}/posts?community=${community}&skip=${posts.length}&limit=10`)
+      const res:AxiosResponse = await axios.get(`${server}/posts?community=${community}&skip=${posts.length}&limit=10`)
       const newPosts = await res.data
-      setPosts((posts) => [...posts, ...newPosts])
+      setPosts([...posts, ...newPosts])
     } else if (author) {
-      const res = await axios.get(`${server}/posts?author=${author}&skip=${posts.length}&limit=10`)
+      const res:AxiosResponse = await axios.get(`${server}/posts?author=${author}&skip=${posts.length}&limit=10`)
       const newPosts = await res.data
-      setPosts((posts) => [...posts, ...newPosts])
+      setPosts([...posts, ...newPosts])
     } else {
-      const res = await axios.get(`${server}/posts?skip=${posts.length}&limit=10`)
+      const res:AxiosResponse = await axios.get(`${server}/posts?skip=${posts.length}&limit=10`)
       const newPosts = await res.data
-      setPosts((posts) => [...posts, ...newPosts])
+      setPosts([...posts, ...newPosts])
     }
   };
   //
@@ -111,7 +112,7 @@ function Feed(props) {
 
   return (
     <>
-    {postId && !isMobile && (
+    {postId !== '' && !isMobile && (
       <PostModal community={community} postId={postId} open={postOpen} onClickOut={() => {
         setPostOpen(false)
       }}/>
@@ -120,7 +121,7 @@ function Feed(props) {
         <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] ml-auto mr-4 flex-none overflow-hidden'>
             <div className='pb-[18px]'>
                 {!author && ( //authorPage
-                  <PostForm community={community ? community : posts?.community} allCommunity={allCommunity} />
+                  <PostForm community={community ? community : ''} allCommunity={allCommunity} />
                 )}
             </div>
             <div className='pb-4'> 
@@ -132,9 +133,7 @@ function Feed(props) {
               {/* <PostLoading />
               <PostLoading /> */}
               </>
-
             )}
-            
             {!loadingPosts && (
               <>
               <InfiniteScroll 
@@ -145,7 +144,7 @@ function Feed(props) {
               endMessage={<p></p>}
             >
             {posts.map(post => (
-                <Post key={post._id} {...post} isListing={true}/>
+                <Post key={post._id} post={post} isListing={true}/>
             ))}
             </InfiniteScroll>
             </>

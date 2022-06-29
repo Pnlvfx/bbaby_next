@@ -4,16 +4,17 @@ import {CommunityContext} from '../../components/community/CommunityContext'
 import axios from 'axios';
 import Layout from '../../components/Layout'
 import Head from 'next/head';
-import { NextPage, NextPageContext } from 'next';
+import {NextPage, NextPageContext } from 'next';
 import Feed from '../../components/post/Feed';
 
+type CommunityPg = {
+  community: string,
+}
 
-const CommunityPage: NextPage = (props) => {
+const CommunityPage: NextPage<CommunityPg> = ({community}) => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const imagePreview = '/imagePreview.png'
   const {setCommunity}: any = useContext(CommunityContext)
-
-  const {community}: any = props
 
   useEffect(() => {
     setCommunity(community)
@@ -44,7 +45,7 @@ const CommunityPage: NextPage = (props) => {
 
 export default CommunityPage
 
-export async function getServerSideProps(context: NextPageContext) {
+export const getServerSideProps = async(context: NextPageContext) => {
   
   const server = process.env.NEXT_PUBLIC_SERVER_URL
   
