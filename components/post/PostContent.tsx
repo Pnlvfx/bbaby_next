@@ -27,7 +27,7 @@ type PostContentProps = {
     }
 
   },
-  isListing?:Boolean
+  isListing?:Boolean,
 }
 
 const PostContent = ({post,isListing}:PostContentProps) => {

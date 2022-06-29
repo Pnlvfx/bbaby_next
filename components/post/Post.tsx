@@ -28,15 +28,13 @@ type Postprops = {
 
 const Post = ({post,isListing,open}:Postprops) => {
     const router = useRouter()
-
-    
     let postClasses = 'block border border-reddit_border rounded-md ' + (open ? '' : "hover:border-reddit_text")
 
     return (
     <div className='pb-3'>
         {open && (
             <div className={postClasses} >
-                <PostContent post={post}/>
+                <PostContent post={post} />
             </div>
         )}
         {!open && (
@@ -46,7 +44,7 @@ const Post = ({post,isListing,open}:Postprops) => {
                     as={!isMobile ? '/b/'+post.community+'/comments/'+post._id : undefined}
                     scroll={false}>
                     <a>
-                        <PostContent post={post} isListing={isListing}/>
+                        <PostContent post={post} isListing={isListing} />
                     </a>
                 </Link>
             </div>

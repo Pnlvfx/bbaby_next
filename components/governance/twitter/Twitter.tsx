@@ -26,24 +26,26 @@ const Twitter = () => {
         setLoading(false)
     }
     return (
-        <div>
-            <div className='mx-2 my-auto text-center'>
-                <Button onClick={() => {
-                    const listId = '1535968733537177604'
-                    const owner_screen_name = 'anonynewsitaly'
-                    setLanguage('en')
-                    getMyListTweets(listId,owner_screen_name)
-                    }} className='py-2 px-4'>English Tweet
-                </Button>
-            </div>
-            <div className='mx-2 my-auto text-center'>
-                <Button onClick={() => {
-                    const listId = '1539278403689492482'
-                    const owner_screen_name = 'Bbabystyle'
-                    setLanguage('it')
-                    getMyListTweets(listId,owner_screen_name)
-                    }} className='py-2 px-4'>ita Tweet
-                </Button>
+        <div className="">
+            <div className="flex">
+                <div className='mx-2 my-auto text-center'>
+                    <Button onClick={() => {
+                        const listId = '1535968733537177604'
+                        const owner_screen_name = 'anonynewsitaly'
+                        setLanguage('en')
+                        getMyListTweets(listId,owner_screen_name)
+                        }} className='py-2 px-4'>English Tweet
+                    </Button>
+                </div>
+                <div className='mx-2 my-auto text-center'>
+                    <Button onClick={() => {
+                        const listId = '1539278403689492482'
+                        const owner_screen_name = 'Bbabystyle'
+                        setLanguage('it')
+                        getMyListTweets(listId,owner_screen_name)
+                        }} className='py-2 px-4'>ita Tweet
+                    </Button>
+                </div>
             </div>
             <div id="diplay_tweets" className="flex pt-5 mx-0 lg:mx-10">
                 <div className="w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center mr-6">
@@ -64,9 +66,9 @@ const Twitter = () => {
                 </div>
                     {!loading && showTweets && (
                         <div className="p-2 sm:p-4">
-                        <div className="pr-0 md:pr-3 w-full sticky top-0 lg:w-[800px]">
-                            <Submit translatedTweet={translatedTweet} userRole={session.user.role} />
-                        </div>
+                            <div className="pr-0 md:pr-3 sticky top-0 w-full lg:w-[500px]">
+                                <Submit translatedTweet={translatedTweet} userRole={session.user.role} />
+                            </div>
                         </div>
                     )}
             </div>

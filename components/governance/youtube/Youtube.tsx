@@ -74,8 +74,8 @@ const Youtube = () => {
   }
   
   return (
-    <div id="display_youtube" className="w-full mx-12">
-        <div className="border border-reddit_border ml-2 bg-reddit_dark-brighter rounded-md overflow-hidden">
+    <div id="display_youtube" className="w-full mx-0 xl:mx-12">
+        <div className="border border-reddit_border ml-0 lg:ml-2 bg-reddit_dark-brighter rounded-md overflow-hidden">
           <CreateImage modalType={modalType} setModalType={setModalType} input={input} setInput={setInput}/>
           {modalType === 'create_video' && (
             <>

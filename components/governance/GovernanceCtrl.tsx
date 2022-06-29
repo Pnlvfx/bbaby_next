@@ -20,7 +20,7 @@ const GovernanceCtrl = ({children} : any) => {
         </div>
       )}
       {session?.user?.role === 1 && (
-      <div className="pl-[30px] pt-5 flex" id="main">
+      <div className="pl-[30px] pt-5 block lg:flex" id="main">
         <GovernanceMainMenù />
         {children}
       </div>
