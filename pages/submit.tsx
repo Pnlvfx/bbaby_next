@@ -1,31 +1,12 @@
-import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { NextPage, NextPageContext } from 'next';
 import Layout from '../components/Layout';
 import axios from 'axios';
-import { useRouter } from 'next/router';
 import TempSubmitWid from '../components/widget/TempSubmitWid';
 import Submit from '../components/submit/Submit';
 
 const SubmitPage:NextPage = () => {
-
-  const router = useRouter()
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
-
-  const community: any = router.query?.community ? router.query?.community : null
-
-  const [communityName,setCommunityName] = useState('')
-
-  useEffect(() => {
-    if(!router.isReady) return;
-    if(community) {
-      setCommunityName(community)
-    } else {
-      return
-    }
-  }, [router.query])
-
-  //console.log(context)
   
   return (
     <>
@@ -41,12 +22,12 @@ const SubmitPage:NextPage = () => {
         <meta name="twitter:card" content="summary" key='twcard'/>
         <meta name="twitter:image:alt" content="This image contain the logo of this website" />
         <link rel='canonical' href={hostname + '/submit'} key='canonical' />
-      </Head>
+    </Head>
       <Layout>
-      <div className=" p-2 sm:p-4 block lg:flex self-center">
+        <div className=" p-2 sm:p-4 block lg:flex self-center">
           <div className="self-center mx-auto flex">
             <div className="pr-0 md:pr-3 w-full lg:w-[800px]">
-              <Submit community={communityName} />
+              <Submit />
             </div>
             <div className="hidden lg:block pt-11 pr-3">
               <TempSubmitWid />

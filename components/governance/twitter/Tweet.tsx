@@ -1,9 +1,13 @@
 import TweetContent from "./TweetContent"
 
-const Tweet = (props:any) => {
+type TweetProps = {
+  tweet: {}
+  setTranslatedTweet: any,
+  language: string
+}
+
+const Tweet = ({tweet,setTranslatedTweet,language}:TweetProps) => {
   const postClasses = 'block border border-reddit_border rounded-md hover:border-reddit_text'
-  const tweet = props
-  const {setTranslatedTweet,language} = props
   return (
     <div className="pb-3">
       <div className={postClasses}>

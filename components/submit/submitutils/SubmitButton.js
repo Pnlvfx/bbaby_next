@@ -2,9 +2,7 @@ import {GrBold,GrEmoji} from 'react-icons/gr'
 import {GoItalic} from 'react-icons/go'
 import {BiLink} from 'react-icons/bi'
 import { useRef,useState } from 'react';
-import { AddImage } from '../utils/SVG';
-
-
+import { AddImage } from '../../utils/SVG';
 
 function SubmitButton(props) {
 

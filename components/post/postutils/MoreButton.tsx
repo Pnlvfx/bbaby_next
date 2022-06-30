@@ -9,7 +9,7 @@ import {MoreIcon} from '../../utils/SVG'
 function MoreButton(props:any) {
 
   const provider = useContext(UserContext)
-  const {session}:any = provider
+  const {session}:UserProps = provider
  
   const router = useRouter()
   const server = process.env.NEXT_PUBLIC_SERVER_URL

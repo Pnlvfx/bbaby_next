@@ -6,7 +6,7 @@ import UserContext from "../auth/UserContext"
 
 const GoogleAnalytics = () => {
   const provider = useContext(UserContext)
-  const {session}:any = provider
+  const {session}:UserProps = provider
   const router = useRouter()
   useEffect(() => { //GOOGLE ANALYTICS
     if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return
@@ -53,3 +53,7 @@ const GoogleAnalytics = () => {
 }
 
 export default GoogleAnalytics
+
+export function useAppInit() {
+  throw new Error('Function not implemented.')
+}

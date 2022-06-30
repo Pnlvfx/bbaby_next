@@ -44,7 +44,7 @@ const Feed = ({community,author}:FeedProps) => {
   const [loadingCommunity,setLoadingCommunity] = useState(true)
   
   useEffect(() => {
-    if (posts === []) {
+    if (!posts) {
       setLoadingPosts(true)
      }
   },[posts])
@@ -124,7 +124,7 @@ const Feed = ({community,author}:FeedProps) => {
                   <PostForm community={community ? community : ''} allCommunity={allCommunity} />
                 )}
             </div>
-            <div className='pb-4'> 
+            <div className='pb-4'>
               <BestPost />
             </div>
             {loadingPosts && (

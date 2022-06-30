@@ -4,7 +4,7 @@ import GovernanceMainMenù from "./GovernanceMainMenù"
 
 const GovernanceCtrl = ({children} : any) => {
   const provider = useContext(UserContext)
-  const {session}:any = provider
+  const {session} = provider
 
 
   return (

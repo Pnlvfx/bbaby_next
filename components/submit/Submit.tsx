@@ -1,32 +1,31 @@
 import axios from 'axios';
-import {useContext, useState,useEffect} from 'react'
+import React, {useContext, useState,useEffect} from 'react'
 import AuthModalContext from '../auth/AuthModalContext';
 import Button from '../utils/Button';
-import Input from '../utils/Input';
 import { useRouter } from 'next/router';
 import TextareaAutosize from 'react-textarea-autosize';
-import CommunityList from './submitutils/CommunityList';
 import ClickOutHandler from 'react-clickout-ts';
 import Image from 'next/image';
-import {MdOutlineCircle} from 'react-icons/md'
-import SubmitButton from './SubmitButton';
+import SubmitButton from './submitutils/SubmitButton';
 import {FaTrashAlt} from 'react-icons/fa'
-import {HiChevronDown,HiOutlineDocumentText} from 'react-icons/hi'
+import {HiOutlineDocumentText} from 'react-icons/hi'
 import ShowTimeMsg from '../utils/notification/ShowTimeMsg';
 import { AddImage } from '../utils/SVG';
+import CommunityDropdown from './submitutils/CommunityDropdown';
+import UserContext from '../auth/UserContext';
 
-function Submit(props) {
-    
-    const {translatedTweet,userRole} = props
+type SubmitProps = {
+    translatedTweet?: string
+    community?: string | string[]
+}
 
+function Submit({translatedTweet,community}:SubmitProps) {
+    const provider = useContext(UserContext)
+    const {session} = provider
     const authModalContext = useContext(AuthModalContext)
-
     const [startTyping,setStartTyping] = useState(false)
-
     const [title,setTitle] = useState('');
     const [body,setBody] = useState('');
-
-    const [newPostId,setNewPostId] = useState(null);
     ///image
     const [showDeleteOptions,setShowDeleteOptions] = useState(false)
     const [selectedFile, setSelectedFile] = useState(null);
@@ -36,32 +35,24 @@ function Submit(props) {
     const [imageHeight, setImageHeight] = useState()
     //
     const [loading,setLoading] = useState(false)
-
     // SHARE ON TELEGRAM
-    const [sharePostToTG,setSharePostToTG] = useState(userRole ? true : false)
-    const [sharePostToTwitter,setSharePostToTwitter] = useState(userRole ? true : false)
-
+    const [sharePostToTG,setSharePostToTG] = useState(session?.user.role === 1 ? true : false)
+    const [sharePostToTwitter,setSharePostToTwitter] = useState(session?.user.role ? true : false)
     const shareToTelegram = () => {
         setSharePostToTG(!sharePostToTG)
     }
-
     //SHARE TO TWITTER
     const shareToTwitter = () => {
         setSharePostToTwitter(!sharePostToTwitter)
     }
     //
-
     //community
-    const [activeClass, setActiveClass] = useState('border-reddit_dark-brightest')
     const [activeClassTitle, setActiveClassTitle] = useState('border-reddit_dark-brightest')
     const [activeClassBody, setActiveClassBody] = useState('border-reddit_dark-brightest')
     //community dropdown
-    const [show,setShow] = useState(false)
     const [enablePost,setEnablePost] = useState('text-opacity-40 cursor-not-allowed')
    
-    const [allCommunity,setAllCommunity] = useState([]);
-    const [selectedCommunity,setSelectedCommunity] = useState('')
-    const community = selectedCommunity
+    const [selectedCommunity,setSelectedCommunity] = useState<string | string[]| undefined>('')
     const [communityIcon,setCommunityIcon] = useState('')
     const router = useRouter()
 
@@ -84,29 +75,21 @@ function Submit(props) {
     },[selectedCommunity])
    
     useEffect(() => {
-        if(props.community) {
-            setSelectedCommunity(props.community)
+        if(community) {
+            setSelectedCommunity(community)
         }
-    },[props.community])
-
-    useEffect(() => {
-        const server = process.env.NEXT_PUBLIC_SERVER_URL
-        axios.get(server+'/communities?limit=11', {withCredentials:true})
-        .then(response => setAllCommunity(response.data));
-    }, []);
+    },[community])
 
     if(startTyping) {
-        const textarea = document.querySelector('textarea')
-        const count = document.getElementById('count')
-        textarea.onkeyup = (e) => {
-        count.innerHTML = (0 + e.target.value.length) + '/300';
-    }
+        const textarea:any = document.querySelector('textarea')
+        const count:any = document.getElementById('count')
+        textarea.onkeyup = (e: { target: { value: string | any[]; }; }) => {
+            count.innerHTML = (0 + e.target.value.length) + '/300';
+        }
     }
 
-    //console.log(selectedFile)
-    let imageId = null
-    let image = null
-    //create a post
+    let imageId = ''
+    let image = ''
     //TWITTER ERROR 
     const [value,setValue] = useState('')
     //
@@ -116,8 +99,7 @@ function Submit(props) {
             if(isImage) {
                 const data = selectedFile
                 const server = process.env.NEXT_PUBLIC_SERVER_URL
-                const res =
-                await axios.post(server+'/posts/image', {
+                const res = await axios.post(server+'/posts/image', {
                 data,
                 headers: {'Content-type': 'application/json',withCredentials:true}
                 })
@@ -125,17 +107,17 @@ function Submit(props) {
                 imageId = await res.data.imageId
                 image = await url
             }
-            const data = {title,body,community,communityIcon,image,isImage,imageHeight,imageWidth,imageId,sharePostToTG,sharePostToTwitter};
+            const data = {title,body,community:selectedCommunity,communityIcon,image,isImage,imageHeight,imageWidth,imageId,sharePostToTG,sharePostToTwitter};
             const server = process.env.NEXT_PUBLIC_SERVER_URL
             const res =  await axios.post(server+'/posts', data, {withCredentials:true})
-            if (!userRole) {
-                const {_id} = await res.data
-                setNewPostId(_id);
+            if (session?.user.role === 0) {
+                const {_id,community} = await res.data
+                router.push('/b/'+community+'/comments/'+_id)
             } else {
                 setValue('OK')
                 setLoading(false)
             }
-        } catch (err) {
+        } catch (err:any) {
             if(err.response.status === 401) {
                 authModalContext.setShow('login');
             } else if (err?.response?.data?.msg) {
@@ -146,12 +128,6 @@ function Submit(props) {
     }
     //
 
-    // set community directly to selected (happens only from communitiesinfo widget)
-    useEffect(() => {
-        if(router.query.with_community)
-        setSelectedCommunity(router.query.with_community)
-    },[])
-
     //////MY TWEEEEEEEEET
     useEffect(() => {
         if (translatedTweet) {
@@ -159,46 +135,13 @@ function Submit(props) {
         }
     },[translatedTweet])
     //
-    
-
-    if(newPostId) {
-        router.push('/b/'+community+'/comments/'+newPostId)
-    }
 
   return (
     <div className={`${loading && ('opacity-40')}`}>
         <div className='border-b border-reddit_border flex mb-4'>
             <h1 className='mb-3 pt-4 text-lg font-semibold'>Create a Post</h1>
         </div>
-            <ClickOutHandler onClickOut={() => {
-                setShow(false)
-                setActiveClass('border-reddit_dark-brightest')}}>
-                <div className='w-[300px]'>
-                <button value={'choose a community'} onClick={() => {
-                    setActiveClass('hover:border border-reddit_text')
-                    setShow(!show)
-                }} className={'border border-reddit_border flex bg-reddit_dark-brighter h-[42px] rounded-md '+activeClass}>
-                        <MdOutlineCircle className='w-10 h-10 text-reddit_text-darker mx-2 '/>
-                        <Input className='w-full h-full outline-none placeholder:text-gray-300 text-sm'
-                        placeholder={'Choose a community'}
-                        value={selectedCommunity}
-                        readOnly={true}
-                        />
-                        <HiChevronDown className='text-reddit_text-darker w-10 h-10 ml-12 mr-2'/>
-                </button>
-               
-                {show && (
-                        <div className={' border border-reddit_text absolute bg-reddit_dark-brighter z-10 text-reddit_text overflow-hidden '}>
-                            <div className='w-[300px]'>
-                                {allCommunity.map(community => (
-                                    <CommunityList key={community._id} {...community} setSelectedCommunity={setSelectedCommunity} setActiveClass={setActiveClass} setShow={setShow} />
-                                
-                                ))}
-                            </div>
-                        </div>
-                    )}
-                </div>
-                </ClickOutHandler>
+            <CommunityDropdown selectedCommunity={selectedCommunity} setSelectedCommunity={setSelectedCommunity} />
                 <div className='bg-reddit_dark-brighter rounded-md flex-none mt-2'>
                     <div className='flex mb-3 rounded-md'>
                         <button className='text-sm border-r border-reddit_border flex border-b-2 px-8 py-1 hover:bg-reddit_hover'>
@@ -228,8 +171,7 @@ function Submit(props) {
                             className='placeholder-reddit_text-darker text-[15px] pl-3 w-full leading-6 row-span-1 overflow-x-hidden h-auto resize-none overflow-auto bg-reddit_dark-brighter text-reddit_text rounded-md block outline-none'
                             placeholder={'Title'}
                             onChange={e => setTitle(e.target.value)}
-                            maxLength="300"
-                            type='text'
+                            maxLength={300}
                             value={title}/>
                             <div id='count' className='text-reddit_text-darker flex-none text-[10px] mt-1'>0/300</div>
                             </div>
@@ -290,7 +232,7 @@ function Submit(props) {
                         </>
                     )}
                                         <div className='h-24 bg-reddit_dark-brightest'>
-                                            {userRole && (
+                                            {session?.user.role && (
                                                 <div id='telegram' className='flex mx-4 pt-5'>
                                                     <input type="checkbox" id='telegram' checked={sharePostToTG} onChange={shareToTelegram} className='w-[15px] h-[15px] px-4 self-center bg-reddit_dark-brighter' style={{filter: 'invert(85%)'}}/>
                                                     <h1 className='ml-[7px] text-[13px] self-center font-bold'>Share this post on Telegram</h1>

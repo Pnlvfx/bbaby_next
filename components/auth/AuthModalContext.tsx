@@ -1,5 +1,5 @@
-import {createContext} from 'react';
+import React, {Context, createContext, SetStateAction} from 'react';
 
-const AuthModalContext = createContext({});
+const AuthModalContext:Context<{show?:boolean,setShow?:any}> = createContext({});
 
 export default AuthModalContext;

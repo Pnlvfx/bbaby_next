@@ -27,7 +27,7 @@ import NotificationButton from '../notifications/NotificationButton';
 
 function Header() {
     const provider = useContext(UserContext)
-    const {session}:any = provider
+    const {session}:UserProps = provider
 
     const router = useRouter()
     const [userDropdownVisibilityClass, setUserDropdownVisibilityClass] = useState('hidden');

@@ -8,24 +8,19 @@ import TempSubmitWid from '../../../components/widget/TempSubmitWid';
 import Submit from '../../../components/submit/Submit';
 
 const SubmitPage:NextPage = () => {
-
   const router = useRouter()
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
 
-  const community: any = router.query?.community ? router.query?.community : null
+  const community: string | string[] | undefined = router.query.community ? router.query.community : undefined
 
-  const [communityName,setCommunityName] = useState('')
+  const [communityName,setCommunityName] = useState<string | string [] | undefined>('')
 
   useEffect(() => {
     if(!router.isReady) return;
-    if(community) {
+    if(community !== undefined) {
       setCommunityName(community)
-    } else {
-      return
     }
-  }, [router.query])
-
-  //console.log(context)
+  },[community, router.isReady])
   
   return (
     <>
@@ -41,9 +36,9 @@ const SubmitPage:NextPage = () => {
         <meta name="twitter:card" content="summary" key='twcard'/>
         <meta name="twitter:image:alt" content="This image contain the logo of this website" />
         <link rel='canonical' href={hostname + '/submit'} key='canonical' />
-      </Head>
+    </Head>
       <Layout>
-      <div className=" p-2 sm:p-4 block lg:flex self-center">
+        <div className=" p-2 sm:p-4 block lg:flex self-center">
           <div className="self-center mx-auto flex">
             <div className="pr-0 md:pr-3 w-full lg:w-[800px]">
               <Submit community={communityName} />

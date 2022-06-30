@@ -13,7 +13,7 @@ import { CommunityContext } from "../community/CommunityContext";
 
 function CommunitiesInfo(props:any) {
     const provider = useContext(UserContext)
-    const {session}:any = provider
+    const {session}:UserProps = provider
     const {communityAvatar,name,description,createdAt,loading,user_is_moderator}:any = useContext(CommunityContext)
     const {community} = props
     const [descr,setDescr] = useState('')
@@ -114,7 +114,7 @@ function CommunitiesInfo(props:any) {
                       <Button onClick={() => {setShow('login')}} className='w-full py-1 mt-3'>Create a Post</Button>
                   )}
                   {user && (
-                    <Link href={`/submit?with_community=${name}`} as={'/submit'}>
+                    <Link href={`/submit`}>
                         <a className="self-center">
                             <div className="self-center">
                                 <Button className='w-full py-1 mt-3'>Create a Post</Button>

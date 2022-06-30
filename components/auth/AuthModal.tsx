@@ -15,8 +15,9 @@ import UserPreferencesModal from '../user/UserPreferencesModal';
 import AuthImage from '../../public/authImage.png'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { CloseIcon } from '../utils/SVG';
+import { NextComponentType } from 'next';
 
-function AuthModal() {
+const AuthModal:NextComponentType = () => {
     const initialState = {
         err: "",
         success: ""
@@ -49,7 +50,7 @@ function AuthModal() {
         setModalType(show);
     }
 
-    const register = async (e: any) => {
+    const register = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         setLoading(true)
         const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY
@@ -86,9 +87,9 @@ function AuthModal() {
     }
 
     // ONLY AFTER FIRST LOGIN
-    const [newUser,setNewUser] = useState(false)
+    const [newUser,setNewUser] = useState<string | null>('')
     useEffect(() => {
-        const firstLogin:any = localStorage.getItem('firstLogin')
+        const firstLogin:string | null = localStorage.getItem('firstLogin')
         setNewUser(firstLogin)
     }, [])
 

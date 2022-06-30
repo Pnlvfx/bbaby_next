@@ -1,14 +1,11 @@
 import axios from "axios"
-import { useContext, useState } from "react"
-import UserContext from "../../auth/UserContext"
+import {useState } from "react"
 import LoaderPlaceholder from "../../post/LoaderPlaceholder"
 import Submit from "../../submit/Submit"
 import Button from "../../utils/Button"
 import Tweet from "./Tweet"
 
 const Twitter = () => {
-    const provider = useContext(UserContext)
-    const {session}:any = provider
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     const [tweets,setTweets] = useState([])
     const [showTweets,setShowTweets] = useState(false)
@@ -16,9 +13,9 @@ const Twitter = () => {
   
         /// TRANSLATION
     const [language,setLanguage] = useState('')
-    const [translatedTweet,setTranslatedTweet] = useState(null)
+    const [translatedTweet,setTranslatedTweet] = useState('')
     //
-    const getMyListTweets = async(listId:any,owner_screen_name: any) => {
+    const getMyListTweets = async(listId:string,owner_screen_name:string) => {
         setLoading(true)
         const res = await axios.get(`${server}/twitter/selected-tweets?slug=${listId}&owner_screen_name=${owner_screen_name}`, {withCredentials:true})
         setTweets(res.data)
@@ -57,9 +54,9 @@ const Twitter = () => {
                         </div>
                     )}
                     {!loading && showTweets && (
-                        <div className="">
+                        <div>
                         {tweets.map((tweet: any) => (
-                            <Tweet key={tweet.id} {...tweet} setTranslatedTweet={setTranslatedTweet} language={language}/>
+                            <Tweet key={tweet.id} tweet={tweet} setTranslatedTweet={setTranslatedTweet} language={language}/>
                         ))}
                         </div>
                     )}
@@ -67,7 +64,7 @@ const Twitter = () => {
                     {!loading && showTweets && (
                         <div className="p-2 sm:p-4">
                             <div className="pr-0 md:pr-3 sticky top-0 w-full lg:w-[500px]">
-                                <Submit translatedTweet={translatedTweet} userRole={session.user.role} />
+                                <Submit translatedTweet={translatedTweet} />
                             </div>
                         </div>
                     )}

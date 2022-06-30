@@ -22,7 +22,7 @@ const governanceCtrl =  {
             const limit = 1
             const {textColor,fontSize,community,format} = req.body
             const post = await Post.findOne({"mediaInfo.isImage" : true, community: community}).sort({createdAt: -1}).limit(limit).skip(skip)
-            const texts = await Comment.find({rootId: post._id}).sort({createdAt: 1})
+            const texts = await Comment.find({rootId: post._id}).sort({createdAt: -1})
             texts.push(post)
             texts.reverse()
             let images = []
@@ -116,6 +116,7 @@ const governanceCtrl =  {
             
             await Promise.all(
                 texts.map(async (text,index) => {
+                    //const delayIndex = index + 3
                     const delay = `${index}000`
                     await wait(delay)
                     const finalImage = await _createImage(text.title ? text.title : text.body)

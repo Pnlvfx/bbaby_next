@@ -7,27 +7,17 @@ import Image from 'next/image';
 import UserContext from '../auth/UserContext';
 import {AddImage} from '../utils/SVG'
 
+type PostFormProps = {
+    community: string,
+    allCommunity: any[]
+}
 
-function PostForm(props) {
-
+function PostForm({community,allCommunity}:PostFormProps) {
     const provider = useContext(UserContext)
-    const {session} = provider
+    const {session}:UserProps = provider
 
     let router = useRouter()
-    const [url,setUrl] = useState('')
-    const [query,setQuery] = useState('')
-    const modalContext = useContext(AuthModalContext)
-
-    useEffect(() => {
-        if(router.asPath === '/') {
-            setQuery('/submit')
-            setUrl('/submit')
-        } else {
-            setQuery(`/submit?community=${props.community}`)
-            setUrl(router.asPath+'/submit')
-        }
-    },[router])
-
+    const {setShow} = useContext(AuthModalContext)
     
     return (
             <div className='border border-reddit_border p-2 rounded-md flex bg-reddit_dark-brighter mx-auto'>
@@ -49,7 +39,7 @@ function PostForm(props) {
                 </div>
                 <form className='flex-grow bg-reddit_dark-brightest border border-reddit_border hover:border-reddit_text ml-4 mr-2 rounded-md'>
                     {session && (
-                        <Link href={query} as={url}>
+                        <Link href={!community ? '/submit' : `/b/${community}/submit?community=${community}`} as={!community ? undefined : `${router.asPath}/submit`}>
                         <a>
                         <input 
                             type='text' 
@@ -61,7 +51,7 @@ function PostForm(props) {
                     {!session && (
                         <div onClick={e => {
                             e.preventDefault()
-                            modalContext.setShow('login')
+                            setShow('login')
                         }}>
                         <input 
                             type='text' 

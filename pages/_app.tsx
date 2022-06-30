@@ -1,14 +1,14 @@
 import '../styles/globals.css'
+import Head from 'next/head';
+import UserContext from '../components/auth/UserContext';
 import type { AppProps, NextWebVitalsMetric } from 'next/app'
-import AuthModalContext from '../components/auth/AuthModalContext';
 import {useState} from 'react'
+import AuthModalContext from '../components/auth/AuthModalContext';
 import {CommunityContextProvider} from '../components/community/CommunityContext';
 import {GoogleOAuthProvider} from '@react-oauth/google'
-import UserContext from '../components/auth/UserContext';
-import Head from 'next/head';
 import GoogleAnalytics from '../components/google/GoogleAnalytics';
 
-function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
+function MyApp({ Component, pageProps: {session, ...pageProps}}: AppProps) {
   const [showAuthModal,setShowAuthModal] = useState(false);
 
   return (
