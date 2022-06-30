@@ -20,6 +20,7 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
       setIsPlaying(false)
     })
   }
+  
   return (
    <>
    <div className="flex">
@@ -133,7 +134,7 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
               setImageIndex(0)
             }
           }} style={{width: input.width, height: input.height}} className='relative cursor-pointer' >
-            <Image src={input.images[imageIndex]} layout='fill' unoptimized/>
+            <Image src={input.images[imageIndex]} alt='' layout='fill' unoptimized/>
           </div>
         )}
         {input?.video && (

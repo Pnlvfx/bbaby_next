@@ -40,14 +40,9 @@ const Feed = ({community,author}:FeedProps) => {
 
   //INFINITE SCROLLING
   const [posts,setPosts] = useState<any[]>([])
-  const [loadingPosts,setLoadingPosts] = useState(false)
+  const [loadingPosts,setLoadingPosts] = useState(posts ? false : true)
   const [loadingCommunity,setLoadingCommunity] = useState(true)
-  
-  useEffect(() => {
-    if (!posts) {
-      setLoadingPosts(true)
-     }
-  },[posts])
+
 
   //GET POST FROM COMMUNITYPAGE AND HOMEPAGE
   useEffect(() => {
