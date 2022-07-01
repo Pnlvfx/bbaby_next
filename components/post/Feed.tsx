@@ -44,25 +44,23 @@ const Feed = ({community,author}:FeedProps) => {
   const [loadingCommunity,setLoadingCommunity] = useState(true)
 
 
-  //GET POST FROM COMMUNITYPAGE AND HOMEPAGE
+  //GET POST FROM COMMUNITYPAGE USER_PAGE AND HOMEPAGE
   useEffect(() => {
-    //setLoadingPosts(true)
+    setLoadingPosts(true)
     if (community) {
         getPosts({input:'community',value:community}).then(response => {
         setPosts(response.data)
-        setLoadingPosts(false)
       })
     } else if(author) {
         getPosts({input:'author',value:author}).then(response => {
         setPosts(response.data)
-        setLoadingPosts(false)
       })
     } else {  //HOME
         getPosts({}).then(response => {
         setPosts(response.data)
-        setLoadingPosts(false)
       })
     }
+    setLoadingPosts(false)
   },[])
   //
 

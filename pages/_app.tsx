@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps: {session, ...pageProps}}: AppProps) {
         <meta property="og:site_name" content="bbabystyle" />
         <meta name="twitter:creator" content="@Bbabystyle" />
       </Head>
-      {process.env.NEXT_PUBLIC_NODE_ENV === 'development' &&
+      {process.env.NEXT_PUBLIC_NODE_ENV === 'production' &&
       <GoogleAnalytics />
       }
       {/* <Script 

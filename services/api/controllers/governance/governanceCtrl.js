@@ -29,7 +29,7 @@ const governanceCtrl =  {
             const width = post.mediaInfo.dimension[1]
             const height = post.mediaInfo.dimension[0]
             let audio = []
-            let audioConcat = []
+            //let audioConcat = []
             let audioDuration = []
             let audioIndex = 0
             const path = `${PUBLIC_PATH}/youtube`
@@ -98,8 +98,9 @@ const governanceCtrl =  {
                 const writeFile = util.promisify(fs.writeFile)
                 await writeFile(audio_path, response.audioContent, 'binary')
                 const _audioDuration = await getAudioDurationInSeconds(audio_path)
+                await wait(audioIndex)
                 audio.push(audio_path) //FOR CLIENT
-                audioConcat.push(audio_path)
+                //audioConcat.push(audio_path)
                 audioDuration.push(_audioDuration)
                 return _audioDuration
             }
@@ -129,7 +130,7 @@ const governanceCtrl =  {
                     await wait(delay)
                 })
             )
-            audioconcat(audioConcat)
+            audioconcat(audio)
             .concat(`${path}/Final.mp3`)
             .on('start', function (command) {
                 console.log('ffmpeg process started:', command)
