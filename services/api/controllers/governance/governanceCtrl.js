@@ -13,7 +13,6 @@ import { google } from 'googleapis'
 import readline from 'readline'
 import {getAudioDurationInSeconds} from 'get-audio-duration'
 
-
 const governanceCtrl =  {
     createImage: async (req,res) => {
         try {
@@ -65,6 +64,7 @@ const governanceCtrl =  {
                 const finalImage = cleanImage3.replaceAll("'", "")
                 return finalImage
             }
+
             const saveImageToDisk = async(imageUrl,index) => {
                 const browser = await puppeteer.launch({
                     args: ['--no-sandbox', '--disabled-setupid-sandbox']
@@ -98,7 +98,7 @@ const governanceCtrl =  {
                 const writeFile = util.promisify(fs.writeFile)
                 await writeFile(audio_path, response.audioContent, 'binary')
                 const _audioDuration = await getAudioDurationInSeconds(audio_path)
-                audio.push(`/youtube/audio${audioIndex}.mp3`)
+                audio.push(audio_path) //FOR CLIENT
                 audioConcat.push(audio_path)
                 audioDuration.push(_audioDuration)
                 return _audioDuration
@@ -119,12 +119,13 @@ const governanceCtrl =  {
                     //const delayIndex = index + 3
                     const delay = `${index}000`
                     await wait(delay)
-                    const finalImage = await _createImage(text.title ? text.title : text.body)
                     const loop = await createAudio(text.title ? text.title : text.body)
+                    const finalImage = await _createImage(text.title ? text.title : text.body)
+                    await makeDir(path)
                     await saveImageToDisk(finalImage, index)
                     const imagePath = `${path}/image${index}.webp`
                     localImages.push({path: imagePath, loop:loop})
-                    images.push(`/youtube/image${index}.webp`) //FOR CLIENT VISUALIZE
+                    images.push(finalImage) //FOR CLIENT VISUALIZE
                     await wait(delay)
                 })
             )

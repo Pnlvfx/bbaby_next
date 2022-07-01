@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useState } from "react"
+import { SetStateAction, useState } from "react"
 import { AiOutlineLoading3Quarters } from "react-icons/ai"
 import Button from "../../utils/Button"
 import Input from "../../utils/Input"

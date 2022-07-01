@@ -2,13 +2,13 @@ import Input from "../../utils/Input"
 import { FaPause, FaPlay } from "react-icons/fa"
 import Image from "next/image"
 import {Howl} from 'howler'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
   const [imageIndex,setImageIndex] = useState(0)
   const [isPlaying,setIsPlaying] = useState(false)
+
   const soundPlay = () => {
-    console.log(input.audio)
     const sound = new Howl({
       src: [input.audio[imageIndex]]
     })
@@ -20,6 +20,7 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
       setIsPlaying(false)
     })
   }
+
   
   return (
    <>
