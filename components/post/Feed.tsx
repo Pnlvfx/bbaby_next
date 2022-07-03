@@ -40,7 +40,7 @@ const Feed = ({community,author}:FeedProps) => {
 
   //INFINITE SCROLLING
   const [posts,setPosts] = useState<any[]>([])
-  const [loadingPosts,setLoadingPosts] = useState(posts ? false : true)
+  const [loadingPosts,setLoadingPosts] = useState(true)
   const [loadingCommunity,setLoadingCommunity] = useState(true)
 
 
@@ -61,7 +61,7 @@ const Feed = ({community,author}:FeedProps) => {
       })
     }
     setLoadingPosts(false)
-  },[])
+  },[author, community])
   //
 
   const getMorePosts = async() => {
@@ -100,7 +100,7 @@ const Feed = ({community,author}:FeedProps) => {
     if (!loadingPosts) {
       refreshCommunities()
     }
-    }, [loadingPosts]);
+    }, [community, loadingPosts]);
     //
 
   return (

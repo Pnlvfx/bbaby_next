@@ -16,6 +16,6 @@
     "incremental": true,
     "typeRoots": ["@types"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/index.jsx", "pages/index.js", "components/Layout.tsx", "components/auth/UserContext.tsx", "components/auth/usersettings/each/Profile.js", "components/auth/usersettings/each/Profile.js", "components/auth/usersettings/each/Profile.js", "components/auth/Google.js", "components/post/Feed.js", "components/widget/TopCommunities.tsx", "components/submit/Submit.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/index.jsx", "pages/index.js", "components/Layout.tsx", "components/auth/UserContext.tsx", "components/auth/usersettings/each/Profile.js", "components/auth/usersettings/each/Profile.js", "components/auth/usersettings/each/Profile.js", "components/auth/Google.tsx", "components/post/Feed.js", "components/widget/TopCommunities.tsx", "components/submit/Submit.tsx"],
   "exclude": ["node_modules"]
 }

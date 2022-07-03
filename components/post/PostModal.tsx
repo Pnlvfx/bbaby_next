@@ -37,9 +37,8 @@ function PostModal({community,postId,open,onClickOut}:PostModalProps) {
   },[postId]);
 
   return (
-    <div className={"fixed top-0 left-0 right-0 z-20 flex mx-32 " +visibleClass} style={{backgroundColor:'rgba(0,0,0,1'}}>
+    <div className={"fixed top-0 left-0 right-0 z-20 flex mx-32 " + visibleClass} style={{backgroundColor:'rgba(0,0,0,1'}}>
       <ClickOutHandler onClickOut={() => {
-        setLoading(true)
         router.push({
           pathname:router.pathname,
           query: community ? {community: community} : {username: post.author}
@@ -48,7 +47,6 @@ function PostModal({community,postId,open,onClickOut}:PostModalProps) {
         )
         onClickOut()
         setPost({})
-        
       }}>
           <div className="py-[51px] w-full mx-8">
             <div className="flex">

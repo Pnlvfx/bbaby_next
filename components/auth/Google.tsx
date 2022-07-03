@@ -1,17 +1,19 @@
 import axios from 'axios'
-import {GoogleLogin} from '@react-oauth/google'
+import {CredentialResponse, GoogleLogin} from '@react-oauth/google'
 import { useRouter } from 'next/router';
-import { useContext } from 'react';
+import { SetStateAction, useContext } from 'react';
 import AuthModalContext from './AuthModalContext';
 
-function Google(props) {
+type GoogleProps = {
+  setLoading: SetStateAction<any>
+}
 
-  const {setLoading} = props
+function Google({setLoading}:GoogleProps) {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
   const router = useRouter()
   const modalContext = useContext(AuthModalContext)
 
-  const responseGoogle = async(response) => {
+  const responseGoogle = async(response: CredentialResponse) => {
       try {
         setLoading(true)
         const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY
@@ -37,14 +39,12 @@ function Google(props) {
     <div className='w-[200px]'>
     <GoogleLogin
           onSuccess={response => {responseGoogle(response)}}
-          onError={response => {responseGoogle(response)}}
-          scope={'profile,email'}
+          onError={() => {responseGoogle}}
           width={'200px'}
           size={'large'}
           type={'standard'}
           theme={'filled_black'}
           locale={'en'}
-          
     />
     </div>
   )

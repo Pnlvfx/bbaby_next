@@ -165,7 +165,7 @@ const AuthModal:NextComponentType = () => {
                                     </h2>
                                 </div>
                                 <div id='google_login' className='pb-6'>
-                                    <Google />
+                                    <Google setLoading={setLoading}/>
                                 </div>
                                 {/* <div id='reddit_login' className='pb-6'>
                                     <Reddit />
