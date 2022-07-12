@@ -8,10 +8,9 @@ import UserContext from '../auth/UserContext';
 import axios from 'axios';
 import Link from 'next/link';
 
-function UserMenu(props) {
+function UserMenu({userDropdownVisibilityClass,setUserDropdownVisibilityClass}:any) {
     const provider = useContext(UserContext)
     const {session} = provider
-    const {user} = session
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     const router = useRouter()
 
@@ -24,8 +23,7 @@ function UserMenu(props) {
     const containerClass = 'hover:bg-reddit_dark-brightest cursor-pointer'
     const buttonClass = 'text-sm p-3 pl-12 font-bold'
     
-    const {userDropdownVisibilityClass,setUserDropdownVisibilityClass} = props
-    const {setShow:setShowCommunity,setCommunity} = useContext(CommunityContext);
+    const {setShow:setShowCommunity} = useContext(CommunityContext);
 
   return (
     <div className={'absolute right-0 top-[53px] bg-reddit_dark-brighter border border-reddit_border z-10 rounded-md text-reddit_text overflow-hidden ' +userDropdownVisibilityClass}>
@@ -38,7 +36,7 @@ function UserMenu(props) {
                     </span>
                 </div>
                 <div id='button_no_icons' >
-                    {user.role === 1 && (
+                    {session?.user.role === 1 && (
                         <Link href={`/governance`}>
                             <a onClick={() => {
                                 setUserDropdownVisibilityClass('hidden');
@@ -52,7 +50,7 @@ function UserMenu(props) {
                     <div className={containerClass}>
                         <h1 className={buttonClass}>Online Status</h1>    
                     </div>
-                    <Link href={`/user/${user.username}`}>
+                    <Link href={`/user/${session?.user.username}`}>
                         <a onClick={() => {
                             setUserDropdownVisibilityClass('hidden');
                         }}>

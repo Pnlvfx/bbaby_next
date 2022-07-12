@@ -7,10 +7,9 @@ import Button from '../../utils/Button'
 const UploadVideo = ({input,setInput,setModalType}:any) => {
     const [loading,setLoading] = useState(false)
     const server = process.env.NEXT_PUBLIC_SERVER_URL
-
     const uploadVideo = async() => {
         try {
-            setLoading(true)
+            //setLoading(true)
             const data = {
                 title:input.title,
                 description:input.description,
@@ -24,7 +23,8 @@ const UploadVideo = ({input,setInput,setModalType}:any) => {
             setModalType('create_image')
             setLoading(false)
         } catch (err:any) {
-          setInput(err.message)
+          setInput({...input, err: err.message})
+          setLoading(false)
         }
     }
 

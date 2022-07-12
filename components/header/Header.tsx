@@ -18,16 +18,16 @@ import NotUserMenu from './NotUserMenu'
 import Image from 'next/image';
 import UserContext from '../auth/UserContext';
 import Logo from '../../public/logo.png'
-import HomeIcon from '../../public/home.svg'
 import {TextLogo} from '../utils/SVG'
 import { RiArrowDownSLine } from 'react-icons/ri';
 import {TbBabyCarriage} from 'react-icons/tb'
 import NotificationButton from '../notifications/NotificationButton';
+import Home from './Home';
 
 
 function Header() {
     const provider = useContext(UserContext)
-    const {session}:UserProps = provider
+    const {session} = provider
 
     const router = useRouter()
     const [userDropdownVisibilityClass, setUserDropdownVisibilityClass] = useState('hidden');
@@ -66,11 +66,8 @@ function Header() {
                     </div>  
                 </a>
             </Link>
-         {/* <div id='home_button' className='flex p-2'>
-             <img src={homeIcon} alt='' className='flex-none w-5 h-5' />
-             <h1>Home</h1>
-         </div> */}
-            <form onSubmit={doSearch} className='overflow-hidden mt-[2px] h-[38px] self-center bg-reddit_dark-brightest pl-3 flex rounded-sm border border-reddit_border flex-grow w-24 xl:ml-64 xl:mr-64 text-reddit_text-darker'>
+            <Home />
+            <form onSubmit={doSearch} className='flex-none overflow-hidden mt-[2px] h-[38px] self-center bg-reddit_dark-brightest pl-3 flex rounded-sm border border-reddit_border flex-grow w-24 xl:ml-64 xl:mr-64 text-reddit_text-darker'>
                 <SearchIcon className='h-5 w-5 self-center flex-none' />
                 <input type='text' className='placeholder:text-reddit_text-darker bg-reddit_dark-brightest placeholder:text-sm text-sm p-1 pl-2 pr-0 block focus:outline-none text-reddit_text' 
                     placeholder='Search Bbaby' 
@@ -99,7 +96,7 @@ function Header() {
                 )}
 
                 {!session && (
-                <div className='mx-2 hidden sm:block self-center'>
+                <div className='mx-2 hidden sm:block self-center flex-none'>
                     <Button outline={1} className='h-8 ml-4 w-20 mr-2 md:mr-4 md:w-24' onClick={() => setShow('login')}>
                         <p className='self-center'>Log In</p>
                     </Button>

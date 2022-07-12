@@ -7,15 +7,12 @@ import CommentPage from '../../../../components/comments/CommentPage'
 import { CommunityContext } from '../../../../components/community/CommunityContext';
 import Layout from '../../../../components/Layout';
 
-const Id: NextPage = (props) => {
+const Id: NextPage<Postprops> = ({post}) => {
     const hostname = process.env.NEXT_PUBLIC_HOSTNAME
-    const {post}: any = props
     const {setCommunity}: any = useContext(CommunityContext)
-    
-    const {community}: any = post
 
     useEffect(() => {
-      setCommunity(community)
+      setCommunity(post.community)
     },[])
 
   return (

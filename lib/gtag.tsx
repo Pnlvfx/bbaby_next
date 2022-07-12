@@ -1,5 +1,5 @@
 export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID
-// https://developers.google.com/analytics/devguides/collection/gtagjs/pages
+
 export const pageview = (url:URL) => {
   const {gtag}:any = window
   gtag('config', GA_TRACKING_ID, {
@@ -17,7 +17,6 @@ export const user = (username:string) => {
   })
 }
 
-
 type GTagEvent = {
   action: string,
   category: string,
@@ -25,7 +24,6 @@ type GTagEvent = {
   value: number
 }
 
-// https://developers.google.com/analytics/devguides/collection/gtagjs/events
 export const event = ({ action, category, label, value }:GTagEvent) => {
   const {gtag}:any = window
   gtag("event", action, {

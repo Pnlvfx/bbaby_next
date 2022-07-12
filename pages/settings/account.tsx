@@ -4,6 +4,7 @@ import { NextPageContext } from 'next';
 import axios from 'axios';
 import Layout from '../../components/Layout';
 import Head from 'next/head';
+import UserSecurity from '../../components/utils/security/UserSecurity';
 
 function account() {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
@@ -15,6 +16,7 @@ function account() {
         <link rel='canonical' href={hostname+'/settings/account'} key='canonical' />
       </Head>
       <Layout>
+        <UserSecurity>
         <div className='bg-reddit_dark-brighter flex'>
           <div className='w-full md:w-11/12 lg:w-9/12 xl:w-7/12 2xl:w-[850px] self-center mr-0 md:mr-auto ml-0 xl:ml-auto overflow-hidden'>
             <UserSettings />
@@ -22,6 +24,7 @@ function account() {
           </div>
           <div className='w-0 xl:w-[480px]'/>
         </div>
+        </UserSecurity>
       </Layout>
     </div>
   )

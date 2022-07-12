@@ -3,6 +3,7 @@ import {AiOutlinePlus} from 'react-icons/ai'
 import UserContext from '../../UserContext';
 import Image from 'next/image';
 import axios from 'axios';
+import ShowTimeMsg from '../../../utils/notification/ShowTimeMsg';
 
 
 function Profile() {
@@ -14,8 +15,7 @@ function Profile() {
     
 
     const filePickerRef = useRef(null);
-    
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
+    const [value,setValue] = useState('')
 
     const handleFileInputChange = (e) => {
         const file = e.target.files[0];
@@ -32,6 +32,7 @@ function Profile() {
     }
     
     useEffect(() => {
+        const server = process.env.NEXT_PUBLIC_SERVER_URL
         try {
             if (!change) return
             const data = {image: selectedFile, username: session.user.username}
@@ -40,10 +41,12 @@ function Profile() {
                 url: server+'/user/change_avatar',
                 data: data,
                 headers: {'Content-type': 'application/json'},
+            }).then(res => {
+                setChange(false)
+                setValue(res.data.success)
             })
-            setChange(false) 
         } catch (err) {
-            console.log(err)
+            setValue(res.data.msg)
         }
     },[change])
 
@@ -67,6 +70,7 @@ function Profile() {
                 </div>
                     <input hidden type="file" name="image" id="file_up" ref={filePickerRef} onChange={handleFileInputChange}/>
             </div>
+            <ShowTimeMsg value={value} setValue={setValue} />
     </>
   )
 }

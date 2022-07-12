@@ -4,9 +4,9 @@ import { useEffect } from "react"
 import { TwitterLogo } from "../../utils/SVG"
 
 
-const Twitter = (props:any) => {
+const Twitter = (userInfo:UserProps) => {
     const router = useRouter()
-    const {userInfo}: any = props
+    const twitterAccount = userInfo.hasExternalAccount ? userInfo?.externalAccounts?.find((provider: any) => provider.provider === 'twitter') : undefined
 
     const twitterLogin = async() => {
         try {
@@ -62,11 +62,11 @@ const Twitter = (props:any) => {
                 }
             }
         })()
-    },[])
+    },[router.query])
 
   return (
         <div id="twitter" className="mt-7">
-            {!userInfo.hasExternalAccount && (
+            {!twitterAccount && (
                 <>
                 <div className="">
                     <h1 className="">Connect to Twitter</h1>
@@ -82,7 +82,7 @@ const Twitter = (props:any) => {
                 </div>
                 </>
             )}
-            {userInfo.hasExternalAccount && (
+            {twitterAccount && (
                 <>
                 <div className="flex">
                     <div className="">
@@ -91,7 +91,7 @@ const Twitter = (props:any) => {
                     </div>
                     <div className="self-center ml-auto">
                         <div className="rounded-full px-4 py-[7px] text-xs ml-auto">
-                        <h1 className="text-reddit_text-darker">@{userInfo.externalAccounts[0].username}</h1>
+                        <h1 className="text-reddit_text-darker">@{twitterAccount?.username}</h1>
                             <button id="logout" title="logout" onClick={() => {
                                 twitterLogout()
                             }}>

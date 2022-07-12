@@ -3,28 +3,7 @@ import PostContent from './PostContent'
 import {isMobile} from 'react-device-detect'
 import { useRouter } from 'next/router'
 
-type Postprops = {
-    post: {
-        author:string,
-        title:string,
-        body:string,
-        image: string,
-        ups: number,
-        _id: string,
-        liked: string,
-        community:string,
-        communityIcon: string,
-        numComments: number,
-        createdAt: Date,
-    
-        mediaInfo: {
-          dimension: any,
-        }
-    
-      },
-      isListing:Boolean,
-      open? : Boolean
-}
+
 
 const Post = ({post,isListing,open}:Postprops) => {
     const router = useRouter()

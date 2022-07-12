@@ -1,4 +1,4 @@
-const LoaderPlaceholder = (props) => {
+const LoaderPlaceholder = (props:any) => {
       const loaderStyles = {
         width: '100%',
         overflow: 'hidden',
@@ -7,7 +7,6 @@ const LoaderPlaceholder = (props) => {
       };
 
       const loaderSwipeStyles = {
-        position: 'absolute',
         top: '0',
         left: '0',
         width: '100%',
@@ -17,7 +16,7 @@ const LoaderPlaceholder = (props) => {
     }
   return (
     <div style={loaderStyles} className=''>
-        <div style={loaderSwipeStyles}>
+        <div style={loaderSwipeStyles} className='absolute'>
           <hr className='border-reddit_border'/>
 
         </div>

@@ -6,7 +6,7 @@ import UserContext from "../auth/UserContext"
 
 const GoogleAnalytics = () => {
   const provider = useContext(UserContext)
-  const {session}:UserProps = provider
+  const {session} = provider
   const router = useRouter()
   useEffect(() => { //GOOGLE ANALYTICS
     if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return

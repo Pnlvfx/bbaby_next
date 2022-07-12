@@ -11,8 +11,8 @@ const Youtube = () => {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
   //VIDEOSHOW OPTIONS
   type VideoOptionsProps = {
-    fps: number,
-    transition: Boolean,
+    fps: number
+    transition: Boolean
     transitionDuration: number
   }
   const _videoOptions:VideoOptionsProps = {
@@ -23,18 +23,18 @@ const Youtube = () => {
   const [videoOptions,setVideoOptions] = useState(_videoOptions)
   //
   type InputProps = {
-    images: [],
-    video: string,
-    localImages: [],
-    audio: [],
-    audioDuration: [],
-    height: number,
-    width: number,
-    title: string,
-    description: string,
-    keywords: string,
-    category: string,
-    privacyStatus: string,
+    images: []
+    video: string
+    localImages: []
+    audio: []
+    finalAudio: string
+    height: number
+    width: number
+    title: string
+    description: string
+    keywords: string
+    category: string
+    privacyStatus: string
     err: string,
     success: string
   }
@@ -44,7 +44,7 @@ const Youtube = () => {
     video: '',
     localImages: [],
     audio: [],
-    audioDuration: [],
+    finalAudio: '',
     height: 0,
     width: 0,
     title: '',

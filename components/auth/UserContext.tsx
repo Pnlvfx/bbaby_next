@@ -1,5 +1,5 @@
 import {Context, createContext} from "react";
 
-const UserContext:Context<UserProps> = createContext({});
+const UserContext:Context<SessionProps> = createContext({});
 
 export default UserContext;

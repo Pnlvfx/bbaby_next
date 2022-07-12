@@ -2,15 +2,16 @@ import Input from "../../utils/Input"
 import { FaPause, FaPlay } from "react-icons/fa"
 import Image from "next/image"
 import {Howl} from 'howler'
-import { useEffect, useState } from "react"
+import {useState} from "react"
 
 const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
   const [imageIndex,setImageIndex] = useState(0)
   const [isPlaying,setIsPlaying] = useState(false)
 
   const soundPlay = () => {
+    console.log(input.finalAudio)
     const sound = new Howl({
-      src: [input.audio[imageIndex]]
+      src: [input.finalAudio]
     })
     sound.once('load', function() {
       setIsPlaying(true)
@@ -21,7 +22,6 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
     })
   }
 
-  
   return (
    <>
    <div className="flex">
@@ -89,16 +89,6 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
                   {!isPlaying && <FaPlay className="w-6 h-6"/>}
                   {isPlaying && <FaPause className="w-6 h-6"/>}
                 </button>
-              </div>
-          </div>
-          <div id="audio_duration" className="mt-2 flex">
-              <div className="self-center">
-                <h1 className="">audio_duration:</h1>
-              </div>
-              <div className="ml-auto self-center text-center">
-                <p title='audio_duration' className='p-2 font-bold w-full text-center'>
-                  {input.audioDuration[imageIndex]}
-                </p>
               </div>
           </div>
           <div id="keywords" className="mt-2 flex">

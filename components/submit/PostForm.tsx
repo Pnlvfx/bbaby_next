@@ -14,7 +14,7 @@ type PostFormProps = {
 
 function PostForm({community,allCommunity}:PostFormProps) {
     const provider = useContext(UserContext)
-    const {session}:UserProps = provider
+    const {session} = provider
 
     let router = useRouter()
     const {setShow} = useContext(AuthModalContext)

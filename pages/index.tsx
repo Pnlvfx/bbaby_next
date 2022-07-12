@@ -14,9 +14,9 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Bbabystyle - Dive into anything </title>
+        <title>Bbabystyle - free speech </title>
         <link rel="icon" href="/favicon.ico"/>
-        <meta property="og:title" content="Bbabystyle - Dive into anything" key='ogtitle' />
+        <meta property="og:title" content="Bbabystyle - free speech" key='ogtitle' />
         <meta name="description" content="Bbabystyle - Free speech is here" />
         <meta property="og:description" content="Bbabystyle - Free speech is here" key='ogdesc' />
         <meta property="og:image" content={hostname + imagePreview} key='ogimage' />

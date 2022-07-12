@@ -13,7 +13,7 @@ import { CommunityContext } from "../community/CommunityContext";
 
 function CommunitiesInfo(props:any) {
     const provider = useContext(UserContext)
-    const {session}:UserProps = provider
+    const {session} = provider
     const {communityAvatar,name,description,createdAt,loading,user_is_moderator}:any = useContext(CommunityContext)
     const {community} = props
     const [descr,setDescr] = useState('')

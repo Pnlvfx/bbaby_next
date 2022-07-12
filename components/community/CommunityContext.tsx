@@ -1,9 +1,16 @@
 import axios from "axios";
-import { createContext, useEffect, useState } from "react"
+import { createContext, SetStateAction, useEffect, useState } from "react"
 
-export const CommunityContext = createContext({});
+type CommunityContextProps = {
+    show: boolean
+    setShow: SetStateAction<Boolean>
+    community: string
+    setCommunity: SetStateAction<string>
+}
 
-export function CommunityContextProvider({children}) {
+export const CommunityContext = createContext<CommunityContextProps | any>({});
+
+export function CommunityContextProvider({children}:any) {
     const [show,setShow] = useState(false);
     const [community,setCommunity] = useState();
     const [communityInfo,setCommunityInfo] = useState({});

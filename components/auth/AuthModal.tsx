@@ -10,7 +10,6 @@ import Google from './Google'
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import Reddit from './providers/Reddit'
 import UserPreferencesModal from '../user/UserPreferencesModal';
 import AuthImage from '../../public/authImage.png'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
@@ -69,6 +68,7 @@ const AuthModal:NextComponentType = () => {
         .catch(err => {
         err.response.data.msg &&
         setStatus({err:err.response.data.msg, success: ""})
+        setLoading(false)
     })
     }
 
@@ -121,9 +121,6 @@ const AuthModal:NextComponentType = () => {
                                 <div id='google_login' className='pb-6'>
                                     <Google setLoading={setLoading} />
                                 </div>
-                                {/* <div id='reddit_login' className='pb-6'>
-                                    <Reddit />
-                                </div> */}
                                 <form onSubmit={handleSubmit}>
                                     <label>
                                         <span className='text-reddit_text-darker text-xs'>Username:</span>
@@ -167,9 +164,6 @@ const AuthModal:NextComponentType = () => {
                                 <div id='google_login' className='pb-6'>
                                     <Google setLoading={setLoading}/>
                                 </div>
-                                {/* <div id='reddit_login' className='pb-6'>
-                                    <Reddit />
-                                </div> */}
                                 <form onSubmit={handleSubmit}>
                                 <label>
                                 <span className='text-reddit_text-darker text-sm'>E-mail:</span>
@@ -185,7 +179,7 @@ const AuthModal:NextComponentType = () => {
                                     <Input type='password' className='p-2 mb-4 w-80' value={password} onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setPassword(e.target.value)} autoComplete={'off'}/>
                                 </label>
                                 {loading && (
-                                    <Button disabled className='w-80 py-2 mb-3' style={{borderRadius:'.3rem'}} onClick={() => login()}>
+                                    <Button disabled className='w-80 py-2 mb-3' style={{borderRadius:'.3rem'}}>
                                         <AiOutlineLoading3Quarters className='animate-spin mx-auto' />
                                     </Button>
                                 )}

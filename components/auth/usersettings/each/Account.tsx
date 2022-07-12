@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import Button from "../../../utils/Button";
 import {RiArrowDropDownFill} from 'react-icons/ri'
 import Twitter from "../../providers/Twitter";
+import Reddit from "../../providers/Reddit";
 
 function Account() {
 
-  const [userInfo,setUserInfo] = useState<any>(null)
+  const [userInfo,setUserInfo] = useState<UserProps>({})
   const [loading,setLoading] = useState<any>(true)
   useEffect(() => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
@@ -17,9 +18,7 @@ function Account() {
       })
   }, [])
   
-  const email = userInfo?.email
-  const country = userInfo?.country
-  
+  const {email,country} = userInfo
 
   return (
       <>
@@ -72,7 +71,10 @@ function Account() {
           <h1 className="text-reddit_text-darker text-[11px] mb-2">CONNECTED ACCOUNTS</h1>
           <hr className='p-2 border-reddit_border'/>
         </div>
-          <Twitter userInfo={userInfo} />
+        <div id="social_connection">
+          <Twitter {...userInfo}/>
+          <Reddit {...userInfo} />
+        </div>
         </div>
       )}
       </>
