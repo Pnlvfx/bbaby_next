@@ -5,7 +5,6 @@ import type { AppProps, NextWebVitalsMetric } from 'next/app'
 import {useState} from 'react'
 import AuthModalContext from '../components/auth/AuthModalContext';
 import {CommunityContextProvider} from '../components/community/CommunityContext';
-import {GoogleOAuthProvider} from '@react-oauth/google'
 import GoogleAnalytics from '../components/google/GoogleAnalytics';
 
 function MyApp({ Component, pageProps: {session, ...pageProps}}: AppProps) {
@@ -42,11 +41,9 @@ function MyApp({ Component, pageProps: {session, ...pageProps}}: AppProps) {
         crossOrigin="anonymous" /> */}
     <UserContext.Provider value={{session: session}}>
         <AuthModalContext.Provider value={{show:showAuthModal,setShow:setShowAuthModal}}>
-          <GoogleOAuthProvider clientId='527300585899-mh0q9kh2fpijep43k37oriuafsl8m9hi.apps.googleusercontent.com'>
             <CommunityContextProvider>
                 <Component {...pageProps}/>
           </CommunityContextProvider>
-          </GoogleOAuthProvider>
         </AuthModalContext.Provider>
     </UserContext.Provider>
     </>

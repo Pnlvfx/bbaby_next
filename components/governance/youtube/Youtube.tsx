@@ -22,22 +22,7 @@ const Youtube = () => {
   }
   const [videoOptions,setVideoOptions] = useState(_videoOptions)
   //
-  type InputProps = {
-    images: []
-    video: string
-    localImages: []
-    audio: []
-    finalAudio: string
-    height: number
-    width: number
-    title: string
-    description: string
-    keywords: string
-    category: string
-    privacyStatus: string
-    err: string,
-    success: string
-  }
+  
   //YOUTUBE INPUT
   const _input:InputProps = {
     images: [],

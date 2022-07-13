@@ -129,7 +129,6 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
           </div>
         )}
         {input?.video && (
-          <div className="relative" style={{width: input.width, height: input.height}} >
               <video className={`aspect-video`} 
               src={input.video}
               id='video_pre-share'
@@ -138,7 +137,6 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
               width={input.width}
               height={input.height}
               />
-          </div>
         )}
       </div>
     </div>

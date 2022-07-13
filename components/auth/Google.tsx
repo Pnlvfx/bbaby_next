@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {CredentialResponse, GoogleLogin} from '@react-oauth/google'
+import {CredentialResponse, GoogleLogin, GoogleOAuthProvider} from '@react-oauth/google'
 import { useRouter } from 'next/router';
 import { SetStateAction, useContext } from 'react';
 import AuthModalContext from './AuthModalContext';
@@ -36,16 +36,18 @@ function Google({setLoading}:GoogleProps) {
   }
 
   return (
-    <div className='w-[200px]'>
-    <GoogleLogin
-          onSuccess={response => {responseGoogle(response)}}
-          onError={() => {responseGoogle}}
-          width={'200px'}
-          size={'large'}
-          type={'standard'}
-          theme={'filled_black'}
-          locale={'en'}
-    />
+      <div className='w-[200px]'>
+        <GoogleOAuthProvider clientId='527300585899-mh0q9kh2fpijep43k37oriuafsl8m9hi.apps.googleusercontent.com'>
+          <GoogleLogin
+                onSuccess={response => {responseGoogle(response)}}
+                onError={() => {responseGoogle}}
+                width={'200px'}
+                size={'large'}
+                type={'standard'}
+                theme={'filled_black'}
+                locale={'en'}
+          />
+      </GoogleOAuthProvider>
     </div>
   )
 }

@@ -7,8 +7,8 @@ const Layout = ({children} : any) => {
   
   return (
     <div>
-        <AuthModal />
         <Header />
+        <AuthModal />
         <CommunityFormModal />
         {children}
     </div>

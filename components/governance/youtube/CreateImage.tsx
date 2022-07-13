@@ -1,8 +1,9 @@
 import axios from "axios"
-import { SetStateAction, useState } from "react"
+import {useState } from "react"
 import { AiOutlineLoading3Quarters } from "react-icons/ai"
 import Button from "../../utils/Button"
 import Input from "../../utils/Input"
+import YoutubeLogin from "./YoutubeLogin"
 
 type CreateImageProps = {
   modalType: string,
@@ -77,19 +78,14 @@ const CreateImage = ({modalType,setModalType,setInput,input}:CreateImageProps) =
                     <div className="self-center">
                       <h1 className="">Submit:</h1>
                     </div>
-                    <div className="ml-auto self-center">
-                      {loading && (
-                        <Button disabled className='w-40 h-7 mb-3 ml-auto mr-5'>
-                            <AiOutlineLoading3Quarters className='animate-spin mx-auto' />
-                        </Button>
-                      )}
-                      {!loading && (
-                        <Button type='submit' onClick={() => {
+                    <YoutubeLogin />
+                    <div className="self-center w-40 ml-3 mr-5">
+                        <Button type='submit' disabled={loading ? true : false} className='w-40 h-7 self-center' onClick={() => {
                           createImage()
-                        }} className='w-40 h-7 mb-3 ml-auto mr-5'>
-                            <h1>Create Image</h1>
+                        }}>
+                          {loading && <AiOutlineLoading3Quarters className='animate-spin mx-auto' />}
+                          {!loading && <p>Create Image</p>}
                         </Button>
-                      )}
                     </div>
                 </div>
               </>

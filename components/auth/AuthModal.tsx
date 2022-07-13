@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import Input from '../utils/Input'
 import AuthModalContext from './AuthModalContext';
 import Button from '../utils/Button'
@@ -95,8 +95,8 @@ const AuthModal:NextComponentType = () => {
 
   return (
       <>
-        <div className={'w-screen h-screen fixed top-5 left-0 z-30 flex '+ visibleClass} style={{backgroundColor:'rgba(0,0,0,.6'}}>
-            <div className='flex border border-reddit_dark-brightest bg-reddit_dark-brighter self-center mx-auto rounded-md'>
+        <div className={'w-screen h-screen fixed top-0 left-0 z-30 flex '+ visibleClass} style={{backgroundColor:'rgba(0,0,0,.6'}}>
+            <div className='mt-5 flex border border-reddit_dark-brightest bg-reddit_dark-brighter self-center mx-auto rounded-md'>
                 <div className='flex'>
                     <div className="hidden lg:block">
                         <Image src={AuthImage} alt="" width={'148px'} height={'640px'}/>

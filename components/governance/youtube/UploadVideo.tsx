@@ -1,10 +1,15 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { SetStateAction, useState } from 'react'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import Button from '../../utils/Button'
 
+type UploadVideoProps = {
+    input: InputProps
+    setInput: SetStateAction<any>
+    setModalType: SetStateAction<any>
+}
 
-const UploadVideo = ({input,setInput,setModalType}:any) => {
+const UploadVideo = ({input,setInput,setModalType}:UploadVideoProps) => {
     const [loading,setLoading] = useState(false)
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     const uploadVideo = async() => {
@@ -17,7 +22,7 @@ const UploadVideo = ({input,setInput,setModalType}:any) => {
                 categoryId:input.category,
                 privacyStatus: input.privacyStatus,
             }
-            const res = await axios.post(`${server}/governance/youtube`,data)
+            const res = await axios.post(`${server}/governance/youtube`,data, {withCredentials:true})
             console.log(res.data.VideoInfo)
             setInput({...input, success: res.data.success})
             setModalType('create_image')
@@ -37,12 +42,12 @@ const UploadVideo = ({input,setInput,setModalType}:any) => {
             <div className="ml-auto self-center">
                 {input.video && (
                 <>
-                <Button type='submit' onClick={() => {
-                    uploadVideo()
-                }} className='w-40 h-7 mb-3 ml-auto mr-5'>
-                    {loading && <AiOutlineLoading3Quarters className='animate-spin mx-auto'/>}
-                    {!loading && <h1>Upload video</h1>}
-                </Button>
+                    <Button type='submit' onClick={() => {
+                        uploadVideo()
+                    }} className='w-40 h-7 mb-3 ml-auto mr-5'>
+                        {loading && <AiOutlineLoading3Quarters className='animate-spin mx-auto'/>}
+                        {!loading && <p>Upload video</p>}
+                    </Button>
                 </>
                 )}
             </div>
