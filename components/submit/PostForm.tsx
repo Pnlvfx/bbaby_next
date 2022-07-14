@@ -1,11 +1,11 @@
 import {BiLink} from 'react-icons/bi'
 import Link from 'next/link';
 import {useRouter} from 'next/router'
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import AuthModalContext from '../auth/AuthModalContext';
 import Image from 'next/image';
 import UserContext from '../auth/UserContext';
-import {AddImage} from '../utils/SVG'
+import {AddImageIcon} from '../utils/SVG'
 
 type PostFormProps = {
     community: string,
@@ -62,7 +62,7 @@ function PostForm({community,allCommunity}:PostFormProps) {
                 </form>
                 {/* <div className='self-center mt-[6px] flex-none'> CHANGE TO A LINK
                     <button title='Create media post' className="mx-1 opacity-10 text-reddit_text-darker">
-                        <AddImage />
+                        <AddImageIcon/>
                     </button>
                     <a>
                         <BiLink className="text-reddit_text-darker w-6 h-6 mx-1 opacity-10"/>
