@@ -6,6 +6,7 @@ import Layout from '../../components/Layout'
 import Head from 'next/head';
 import {NextPage, NextPageContext } from 'next';
 import Feed from '../../components/post/Feed';
+import { useRouter } from 'next/router';
 
 type CommunityPg = {
   community: string,
@@ -15,6 +16,7 @@ const CommunityPage: NextPage<CommunityPg> = ({community}) => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const imagePreview = '/imagePreview.png'
   const {setCommunity}: any = useContext(CommunityContext)
+  const router = useRouter()
 
   useEffect(() => {
     setCommunity(community)
@@ -36,7 +38,7 @@ const CommunityPage: NextPage<CommunityPg> = ({community}) => {
         <link rel='canonical' href={hostname} key='canonical' />
       </Head>
       <Layout>
-          <BoardHeader community={community}/>
+          {!router.query.postId && <BoardHeader community={community}/>}
           <Feed community={community}/>
       </Layout>
     </div>

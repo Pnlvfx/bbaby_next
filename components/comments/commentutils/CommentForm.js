@@ -34,13 +34,13 @@ function CommentForm(props) {
     }
 
   return (
-    <div className=''>
+    <>
         {session && props.showAuthor && (
             <div className='mb-2 text-[13px] self-center'>
-                <h1 className=''>Comment as <Link href={`/user/${session.user.username}`}> 
-                    <a className='text-reddit_blue mt-[1px]'>{session.user.username}</a> 
+                <p className='self-center'>Comment as <Link href={`/user/${session.user.username}`}> 
+                    <a className='text-reddit_blue mt-[1px] self-center'>{session.user.username}</a> 
                     </Link>
-                </h1>
+                </p>
             </div>
         )}
         <form onSubmit={e => postComment(e)}>
@@ -58,7 +58,7 @@ function CommentForm(props) {
                 </div>
             </div>
         </form> 
-    </div>
+    </>
   )
 }
 

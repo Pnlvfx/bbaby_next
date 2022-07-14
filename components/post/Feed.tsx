@@ -110,6 +110,7 @@ const Feed = ({community,author}:FeedProps) => {
         setPostOpen(false)
       }}/>
     )}
+    {postId === '' && (
       <div className='flex pt-5 mx-[2px] lg:mx-10'>
         <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] ml-auto mr-4 flex-none overflow-hidden'>
             <div className='pb-[18px]'>
@@ -155,7 +156,8 @@ const Feed = ({community,author}:FeedProps) => {
               <Donations />
           </div>
         )}
-    </div>
+  </div>
+    )}
     </>
   )
 }

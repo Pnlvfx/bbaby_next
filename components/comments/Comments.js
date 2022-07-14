@@ -12,7 +12,7 @@ function Comments(props) {
 
 
   return (
-    <div className={"my-2"}>
+    <div className={"my-2 bg-reddit_dark-brighter"}>
         {comments.map(comment => { 
           const replies = props.comments.filter(c => c.parentId === comment._id)
 

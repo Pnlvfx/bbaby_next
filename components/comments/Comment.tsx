@@ -1,17 +1,19 @@
 import {useState,useEffect} from 'react'
-import axios from 'axios';
-import Post from '../post/Post';
+import axios from 'axios'
+import Post from '../post/Post'
 import RootCommentContext from './commentutils/RootCommentContext'
 import Comments from './Comments'
 import CommentForm from './commentutils/CommentForm'
 import { useRouter } from 'next/router'
 
-function Comment(props) {
+interface CommentProps {
+    post: any
+    postId: string | string[]
+}
+
+function Comment({post,postId}:CommentProps) {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
-
     const router = useRouter()
-
-    const {post,postId} = props
     const [comments,setComments] = useState([]);
 
     const [commentsTotals,setCommentsTotals] = useState(null);
@@ -25,7 +27,7 @@ function Comment(props) {
     }
 
     function refreshVotes() {
-        const commentsIds = [post._id, ...comments.map(c => c._id)];
+        const commentsIds = [post._id, ...comments.map((c:any) => c._id)];
         axios.post(server+'/votes', {commentsIds}, {withCredentials:true})
             .then(response => {
                 setCommentsTotals(response.data.commentsTotals);
@@ -43,11 +45,10 @@ function Comment(props) {
             }
         },[comments.length]);
   return (
-      <>
+      <div className='bg-reddit_dark-brighter'>
       {post && (
         <Post post={post} open={true} />
       )}
-      
       {!!post && !!post._id && (
           <>
           <hr className='border-reddit_border my-4'/>
@@ -58,7 +59,7 @@ function Comment(props) {
           </RootCommentContext.Provider>
           </>
       )}
-      </>
+      </div>
   )
 }
 

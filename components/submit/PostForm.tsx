@@ -24,7 +24,7 @@ function PostForm({community,allCommunity}:PostFormProps) {
                 <div className='flex-none rounded-full bg-gray-600 overflow-hidden w-9 h-9 border border-reddit_border'>
                     {session && (
                         <Link href={`/user/${session.user.username}`}>
-                            <a className=''>
+                            <a>
                                 <div className='w-9 h-9 relative'>
                                     <Image src={session.user.avatar} className='rounded-full' alt='' layout='fill' objectFit='cover' />
                                 </div>

@@ -11,16 +11,14 @@ import LoaderPlaceholder from "../post/LoaderPlaceholder";
 import Image from "next/image";
 import { CommunityContext } from "../community/CommunityContext";
 
-function CommunitiesInfo(props:any) {
+const CommunitiesInfo = ({community}:any) => {
     const provider = useContext(UserContext)
     const {session} = provider
     const {communityAvatar,name,description,createdAt,loading,user_is_moderator}:any = useContext(CommunityContext)
-    const {community} = props
     const [descr,setDescr] = useState('')
 
     const [commit,setCommit] = useState(false)
     
-
     const {user} = session ? session : {user: {username: ''}}
     const {setShow}:any = useContext(AuthModalContext)
     
@@ -36,15 +34,13 @@ function CommunitiesInfo(props:any) {
 
     //TEXTAREA
     const handleSave = ({name,value,previousValue}:any) => {
-        //alert(name + value + previousValue)
         setDescr(value)
         setCommit(true)
     }
     //
     
     return (
-      <div className='bg-reddit_dark-brighter shadow-lg w-[310px] h-80 ml-2 rounded-md border border-reddit_border mb-5'>
-          <div className='p-2'>
+      <div className='bg-reddit_dark-brighter h-80 ml-[10px] rounded-md border border-reddit_border min-w-[280px] mb-5 p-2 max-w-[320px]'>
               <div className="flex text-reddit_text-darker">
                 <div className="p-1 self-center">
                     {loading && <LoaderPlaceholder extraStyles={{height: '15px'}}/>}
@@ -124,7 +120,6 @@ function CommunitiesInfo(props:any) {
                   )}
               </div>
               <hr className="border-reddit_border"/>
-          </div>
       </div>
     )
   }

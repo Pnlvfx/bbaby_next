@@ -5,6 +5,7 @@ import ClickOutHandler from "react-clickout-ts";
 import Comment from '../comments/Comment';
 import {GrDocumentText} from 'react-icons/gr'
 import { CloseIcon } from "../utils/SVG";
+import CommunitiesInfo from "../widget/CommunitiesInfo";
 
 type PostModalProps = {
   community?: string,
@@ -37,52 +38,55 @@ function PostModal({community,postId,open,onClickOut}:PostModalProps) {
   },[postId]);
 
   return (
-    <div className={"fixed top-0 left-0 right-0 z-20 flex mx-32 " + visibleClass} style={{backgroundColor:'rgba(0,0,0,1'}}>
-      <ClickOutHandler onClickOut={() => {
-        router.push({
-          pathname:router.pathname,
-          query: community ? {community: community} : {username: post.author}
-        },
-        router.pathname,{scroll:false}
-        )
-        onClickOut()
-        setPost({})
-      }}>
-          <div className="py-[51px] w-full mx-8">
-            <div className="flex">
-              <div className="flex pt-4 pb-8 w-full mr-4 overflow-hidden">
-                <GrDocumentText className="w-4 h-4 text-reddit_text bg-white mr-3" />
-                <h1 className='text-sm flex-none'>{post.title}</h1>
-              </div>
-              <button title='close' id="closeButton" onClick={() => {
-                setLoading(true)
-                router.push({
-                  pathname:router.pathname,
-                  query: community ? {community: community} : {}
-                },
-                router.pathname,{scroll:false}
-                )
-                onClickOut()
-                setPost({})
-                }} className="text-right ml-auto flex pt-4 pb-8">
-                  <div className="mr-1">
-                    <CloseIcon style={{height: '20px', width: '20px'}} />
+    <div className={"left-0 right-0 z-20 flex " + visibleClass} style={{backgroundColor:'rgb(25,25,25'}}>
+      <div className="mx-[270px] bg-reddit_dark">
+        <ClickOutHandler onClickOut={() => {
+          router.push({
+            pathname:router.pathname,
+            query: community ? {community: community} : {username: post.author}
+          },
+          router.pathname,{scroll:false}
+          )
+          onClickOut()
+          setPost({})
+        }}>
+            <div className="">
+            {loading && (
+              <div>Loading...</div>
+            )}
+            {!loading && (
+              <div className="mx-28">
+                <div className="flex">
+                  <div className="flex pt-4 pb-10 w-full mr-4 overflow-hidden">
+                    <GrDocumentText className="w-4 h-4 mr-3"/>
+                    <p className='text-sm flex-none text-ellipsis'>{post.title}</p>
                   </div>
-                <h1 className="text-xs font-bold mt-[2px]">Close</h1>
-              </button>
-          </div>
-          {loading && (
-            <div>Loading...</div>
-          )}
-            <div className="bg-reddit_dark-brighter">
-              <div className="block overflow-scroll" style={{maxHeight:"calc(100vh - 200px)"}}>
-                {!loading && (
-                  <Comment post={post} postId={postId} />
-                )}
+                  <button title='close' id="closeButton" onClick={() => {
+                    setLoading(true)
+                    router.push({
+                      pathname:router.pathname,
+                      query: community ? {community: community} : {}
+                    },
+                    router.pathname,{scroll:false}
+                    )
+                    onClickOut()
+                    setPost({})
+                    }} className="text-right ml-auto flex pt-4 pb-8">
+                      <div className="mr-1">
+                        <CloseIcon style={{height: '20px', width: '20px'}} />
+                      </div>
+                    <h1 className="text-xs font-bold mt-[2px]">Close</h1>
+                  </button>
               </div>
+              <div className="flex">
+                  <Comment post={post} postId={postId}/>
+                  <CommunitiesInfo />
+              </div>
+              </div>
+            )}
             </div>
-          </div>
-      </ClickOutHandler>
+        </ClickOutHandler>
+      </div>
     </div>
   )
 }
