@@ -1,8 +1,8 @@
 import axios from 'axios';
 import Link from 'next/link';;
 import {useContext, useState} from 'react'
-import AuthModalContext from '../auth/AuthModalContext';
-import UserContext from '../auth/UserContext';
+import AuthModalContext from '../../auth/AuthModalContext';
+import UserContext from '../../auth/UserContext';
 import Button from '/components/utils/Button';
 import Textarea from '/components/utils/Textarea';
 

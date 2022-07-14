@@ -1,60 +1,55 @@
 import {GrBold,GrEmoji} from 'react-icons/gr'
 import {GoItalic} from 'react-icons/go'
 import {BiLink} from 'react-icons/bi'
-import { useRef,useState } from 'react';
-import { AddImage } from '../../utils/SVG';
+import { Dispatch, SetStateAction, useRef,useState } from 'react';
+import { AddImageIcon } from '../../utils/SVG';
 
-function SubmitButton(props) {
+interface SubmitButton {
+    title: string
+    setTitle: Dispatch<SetStateAction<string>>
+    setSelectedFile: Dispatch<SetStateAction<any>>
+    setIsImage: Dispatch<SetStateAction<boolean>>
+    setImageHeight: Dispatch<SetStateAction<number>>
+    setImageWidth: Dispatch<SetStateAction<number>>
+}
 
-    const {title,setTitle,setSelectedFile,setIsImage,setImageHeight,setImageWidth} = props
-
-    
-
+function SubmitButton({title,setTitle,setSelectedFile,setIsImage,setImageHeight,setImageWidth}:SubmitButton) {
     const Imageclass = 'p-2 text-reddit_text-darker'
     const iconClass = 'w-[22px] h-[22px]'
 
     const [showEmojis,setShowEmojis] = useState(false)
-    const filePickerRef = useRef(null)
-    
+    const filePickerRef:any = useRef(null)
     
     //add image
-    const addImageToPost = (e) => {
+    const addImageToPost = (e: any) => {
         const file = e.target.files[0];
         previewFile(file);
     };
 
-    const previewFile = (file) => {
+    const previewFile = (file: Blob) => {
         if(!file) return;
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = (event) => {
-            let image_url = event.target.result
-            let image = document.createElement("img")
+            let image_url = event?.target?.result
+            let image:any = document.createElement("img")
             image.src = image_url
 
-            image.onload = (e) => {
-                // let canvas = document.createElement("canvas")
-                // canvas.width = 800
+            image.onload = (e:any) => {
                 setImageHeight(e.target.height)
                 setImageWidth(e.target.width)
-                // let ratio = 800 / e.target.width
             }
-            //document.getElementById("wrapper").appendChild(image)
         }
         reader.onloadend = () => {
             setSelectedFile(reader.result)
         }
     }
 
-
-    
-    
-
     //emoji
-    const addEmoji = (e) => {
+    const addEmoji = (e: any) => {
         let sym = e.unified.split("-")
-        let codesArray = [];
-        sym.forEach((el) => codesArray.push("0x" + el));
+        let codesArray:any[] = [];
+        sym.forEach((el:string) => codesArray.push("0x" + el));
         let emoji = String.fromCodePoint(...codesArray)
         setTitle(title + emoji);
     }
@@ -84,7 +79,7 @@ function SubmitButton(props) {
                     filePickerRef.current.click()
                     setIsImage(true)
                 }}>
-                    <AddImage />
+                    <AddImageIcon />
                     <input type='file' hidden onChange={addImageToPost} ref={filePickerRef} />
                 </button>
             </div>

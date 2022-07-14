@@ -2,8 +2,7 @@ import Link from "next/link"
 
 const GovernanceMainMenù = () => {
   return (
-    <div>
-        <div className={'bg-reddit_dark-brighter rounded-md overflow-hidden shadow-lg w-[200px] border border-reddit_border text-sm'}>
+        <div className={'pt-1 bg-reddit_dark-brighter rounded-md overflow-hidden shadow-lg w-[200px] border border-reddit_border text-sm'}>
             <div className="font-extrabold h-[40px] bg-reddit_dark-brightest flex">
                 <p className="self-center ml-3">Authority</p>
             </div>
@@ -30,7 +29,6 @@ const GovernanceMainMenù = () => {
                 </a>
             </Link>
         </div>
-    </div>
   )
 }
 

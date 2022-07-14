@@ -10,10 +10,8 @@ const Twitter = () => {
     const [tweets,setTweets] = useState([])
     const [showTweets,setShowTweets] = useState(false)
     const [loading,setLoading] = useState(false)
-  
         /// TRANSLATION
     const [language,setLanguage] = useState('')
-    const [translatedTweet,setTranslatedTweet] = useState('')
     //
     const getMyListTweets = async(listId:string,owner_screen_name:string) => {
         setLoading(true)
@@ -22,8 +20,9 @@ const Twitter = () => {
         setShowTweets(true)
         setLoading(false)
     }
+    
     return (
-        <div className="">
+        <div>
             <div className="flex">
                 <div className='mx-2 my-auto text-center'>
                     <Button onClick={() => {
@@ -45,7 +44,7 @@ const Twitter = () => {
                 </div>
             </div>
             <div id="diplay_tweets" className="flex pt-5 mx-0 lg:mx-10">
-                <div className="w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center mr-6">
+                <div className="w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center">
                     {loading && (
                         <div>
                             {tweets.map((tweet: any) => (
@@ -56,18 +55,11 @@ const Twitter = () => {
                     {!loading && showTweets && (
                         <div>
                         {tweets.map((tweet: any) => (
-                            <Tweet key={tweet.id} tweet={tweet} setTranslatedTweet={setTranslatedTweet} language={language}/>
+                            <Tweet key={tweet.id} tweet={tweet} language={language}/>
                         ))}
                         </div>
                     )}
                 </div>
-                    {!loading && showTweets && (
-                        <div className="p-2 sm:p-4">
-                            <div className="pr-0 md:pr-3 sticky top-0 w-full lg:w-[500px]">
-                                <Submit translatedTweet={translatedTweet} />
-                            </div>
-                        </div>
-                    )}
             </div>
         </div>
     )

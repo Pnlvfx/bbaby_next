@@ -59,8 +59,8 @@ const Youtube = () => {
   }
   
   return (
-    <div id="display_youtube" className="w-full mx-0 xl:mx-12">
-        <div className="border border-reddit_border ml-0 lg:ml-2 bg-reddit_dark-brighter rounded-md overflow-hidden">
+    <div id="display_youtube" className="w-full">
+        <div className="border border-reddit_border bg-reddit_dark-brighter rounded-md overflow-hidden">
           <CreateImage modalType={modalType} setModalType={setModalType} input={input} setInput={setInput}/>
           {modalType === 'create_video' && (
             <>
@@ -83,7 +83,7 @@ const Youtube = () => {
                 <UploadVideo input={input} setInput={setInput} setModalType={setModalType} />
                 <hr className="border-reddit_border" />
               </>
-        )}
+          )}
         {input && input.err && (
           <ShowTimeMsg value={input.err} status={'error'} setValue={setInput} gov_value={input}/>
         )}

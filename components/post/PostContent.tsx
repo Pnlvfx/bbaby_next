@@ -21,7 +21,6 @@ type PostContentProps = {
     communityIcon: string,
     numComments: number,
     createdAt: Date,
-
     mediaInfo: {
       dimension: any,
     }
@@ -42,7 +41,7 @@ const PostContent = ({post,isListing}:PostContentProps) => {
   }
 
     return (
-        <div className="flex bg-reddit_dark-brighter rounded-md overflow-hidden max-h-[700px]">
+        <div className="flex bg-reddit_dark-brighter rounded-md overflow-hidden max-h-[800px]">
           <div className='bg-[#141415] w-10 flex-none'>
             <Voting ups={post.ups} postId={post._id} liked={post.liked} author={post.author} />
           </div>

@@ -24,7 +24,6 @@ const AuthModal:NextComponentType = () => {
 
     const handleSubmit = (e: any) => {
         e.preventDefault()
-        //console.log('form submitted')
     }
 
     const [loading,setLoading] = useState(false)

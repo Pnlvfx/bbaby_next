@@ -15,7 +15,6 @@ const YoutubeLogin = () => {
         }
     }
 
-
     useEffect(() => {
         if (!router.isReady) return
         if (!router.query.code && !router.query.scope) return

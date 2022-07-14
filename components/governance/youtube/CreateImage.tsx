@@ -78,7 +78,7 @@ const CreateImage = ({modalType,setModalType,setInput,input}:CreateImageProps) =
                     <div className="self-center">
                       <h1 className="">Submit:</h1>
                     </div>
-                    <YoutubeLogin />
+                    {/* <YoutubeLogin /> */}
                     <div className="self-center w-40 ml-3 mr-5">
                         <Button type='submit' disabled={loading ? true : false} className='w-40 h-7 self-center' onClick={() => {
                           createImage()

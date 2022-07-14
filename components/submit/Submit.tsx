@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useContext, useState,useEffect} from 'react'
+import {useContext, useState,useEffect, Dispatch, SetStateAction} from 'react'
 import AuthModalContext from '../auth/AuthModalContext';
 import Button from '../utils/Button';
 import { useRouter } from 'next/router';
@@ -10,17 +10,18 @@ import SubmitButton from './submitutils/SubmitButton';
 import {FaTrashAlt} from 'react-icons/fa'
 import {HiOutlineDocumentText} from 'react-icons/hi'
 import ShowTimeMsg from '../utils/notification/ShowTimeMsg';
-import { AddImage } from '../utils/SVG';
+import { AddImageIcon } from '../utils/SVG';
 import CommunityDropdown from './submitutils/CommunityDropdown';
 import UserContext from '../auth/UserContext';
-import { SubmitContext, SubmitContextProvider } from './submitutils/SubmitContext';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 type SubmitProps = {
-    translatedTweet?: string
+    newTweet?: any
+    setShowSubmit?: Dispatch<SetStateAction<boolean>>
     community?: string | string[]
 }
 
-function Submit({translatedTweet,community}:SubmitProps) {
+function Submit({newTweet,community,setShowSubmit}:SubmitProps) {
     const provider = useContext(UserContext)
     const {session} = provider
     const authModalContext = useContext(AuthModalContext)
@@ -32,8 +33,8 @@ function Submit({translatedTweet,community}:SubmitProps) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [isImage,setIsImage] = useState(false)
     //ONLY FOR VISUALIZATION
-    const [imageWidth,setImageWidth] = useState()
-    const [imageHeight, setImageHeight] = useState()
+    const [imageWidth,setImageWidth] = useState(0)
+    const [imageHeight, setImageHeight] = useState(0)
     //
     const [loading,setLoading] = useState(false)
     // SHARE ON TELEGRAM
@@ -117,6 +118,7 @@ function Submit({translatedTweet,community}:SubmitProps) {
             } else {
                 setValue('OK')
                 setLoading(false)
+                setShowSubmit ? setShowSubmit(false) : null
             }
         } catch (err:any) {
             if(err.response.status === 401) {
@@ -131,16 +133,22 @@ function Submit({translatedTweet,community}:SubmitProps) {
 
     //////MY TWEEEEEEEEET
     useEffect(() => {
-        if (translatedTweet) {
-            setTitle(translatedTweet)
+        if (newTweet.title) {
+            setTitle(newTweet.title)
+            if (newTweet.image) {
+                setIsImage(true)
+                setImageHeight(newTweet.height)
+                setImageWidth(newTweet.width)
+                setSelectedFile(newTweet.image)
+            }
         }
-    },[translatedTweet])
+    },[newTweet])
     //
 
   return (
     <div className={`${loading && ('opacity-40')}`}>
         <div className='border-b border-reddit_border flex mb-4'>
-            <h1 className='mb-3 pt-4 text-lg font-semibold'>Create a Post</h1>
+            <h1 className='mb-3 text-lg font-semibold'>Create a Post</h1>
         </div>
             <CommunityDropdown selectedCommunity={selectedCommunity} setSelectedCommunity={setSelectedCommunity} />
                 <div className='bg-reddit_dark-brighter rounded-md flex-none mt-2'>
@@ -151,12 +159,11 @@ function Submit({translatedTweet,community}:SubmitProps) {
                         </button>
                         <button className='opacity-20 text-sm border-r border-reddit_border flex border-b-2 px-3 py-1 hover:bg-reddit_hover'>
                             <div className='mt-2 mr-1'>
-                            <AddImage />
+                            <AddImageIcon />
                             </div>
                             <h1 className='py-3 font-semibold'>Images & Video</h1>
                         </button>
                     </div>
-                    {!loading && (
                         <>
                         <ClickOutHandler onClickOut={() => {
                             setActiveClassTitle('border-reddit_dark-brightest')
@@ -225,13 +232,13 @@ function Submit({translatedTweet,community}:SubmitProps) {
                                 <div className='h-12 mb-4 border-b border-reddit_border mx-3'>
                                 </div>
                                     <div className='text-right pb-4 mx-4'>
-                                        <Button outline='true' className='px-4 py-1 mr-2 opacity-20'>Save Draft</Button>
-                                        <Button onClick={() => {
-                                        createPost()
-                                        }} className={"px-4 py-1 "+enablePost}>Post</Button>
+                                        <Button outline='true' className='h-[30px] mr-2 opacity-20'><p>Save Draft</p></Button>
+                                        <Button onClick={() => {createPost()}} className={"h-[30px] " + enablePost}>
+                                            {!loading && <p>Post</p>}
+                                            {loading && <AiOutlineLoading3Quarters className='animate-spin mx-auto'/>}
+                                        </Button>
                                     </div>
                         </>
-                    )}
                                         <div className='h-24 bg-reddit_dark-brightest'>
                                             {session?.user.role && (
                                                 <div id='telegram' className='flex mx-4 pt-5'>

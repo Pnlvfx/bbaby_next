@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import ClickOutHandler from "react-clickout-ts";
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+import {CopyToClipboard} from 'react-copy-to-clipboard'
 import {AiOutlineLink} from 'react-icons/ai'
 import { ShareIcon } from '../../utils/SVG';
 import dynamic from 'next/dynamic';

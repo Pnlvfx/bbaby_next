@@ -23,7 +23,6 @@ const UploadVideo = ({input,setInput,setModalType}:UploadVideoProps) => {
                 privacyStatus: input.privacyStatus,
             }
             const res = await axios.post(`${server}/governance/youtube`,data, {withCredentials:true})
-            console.log(res.data.VideoInfo)
             setInput({...input, success: res.data.success})
             setModalType('create_image')
             setLoading(false)
@@ -35,23 +34,25 @@ const UploadVideo = ({input,setInput,setModalType}:UploadVideoProps) => {
 
   return (
     <>
-        <div id="upload_video" className="mt-2 flex p-2">
-            <div className="self-center">
-                {input.video && <h1 className="">Submit:</h1>}
-            </div>
-            <div className="ml-auto self-center">
-                {input.video && (
-                <>
-                    <Button type='submit' onClick={() => {
-                        uploadVideo()
-                    }} className='w-40 h-7 mb-3 ml-auto mr-5'>
-                        {loading && <AiOutlineLoading3Quarters className='animate-spin mx-auto'/>}
-                        {!loading && <p>Upload video</p>}
-                    </Button>
-                </>
-                )}
-            </div>
-        </div>
+    {input.video && (
+        <>
+            <div id="upload_video" className="mt-2 flex p-2">
+                <div className="self-center">
+                    <h1 className="">Submit:</h1>
+                </div>
+                <div className="ml-auto self-center">
+                    <>
+                        <Button type='submit' onClick={() => {
+                            uploadVideo()
+                        }} className='w-40 h-7 mb-3 ml-auto mr-5'>
+                            {loading && <AiOutlineLoading3Quarters className='animate-spin mx-auto'/>}
+                            {!loading && <p>Upload video</p>}
+                        </Button>
+                    </>
+                </div>
+            </div> 
+        </>
+    )}
     </>
   )
 }

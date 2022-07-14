@@ -3,10 +3,17 @@ import { NextPage, NextPageContext } from "next";
 import Layout from "../../components/Layout";
 import Twitter from "../../components/governance/twitter/Twitter";
 import GovernanceCtrl from "../../components/governance/GovernanceCtrl";
+import Head from "next/head";
 
 const TwitterPage: NextPage = () => {
+  const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   return (
     <div className="w-full h-[1000px]">
+      <Head>
+        <title>Bbabystyle - authority page - twitter</title>
+        <link rel="icon" href="/favicon.ico"/>
+        <link rel='canonical' href={`${hostname}/governance/twitter`} key='canonical' />
+      </Head>
       <Layout>
         <GovernanceCtrl>
           <Twitter />

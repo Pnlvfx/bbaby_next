@@ -3,7 +3,7 @@ import axios from 'axios';
 import Post from '../post/Post';
 import RootCommentContext from './commentutils/RootCommentContext'
 import Comments from './Comments'
-import CommentForm from '../submit/CommentForm'
+import CommentForm from './commentutils/CommentForm'
 import { useRouter } from 'next/router'
 
 function Comment(props) {

@@ -1,6 +1,6 @@
 import ReplyButton from './commentutils/ReplyButton'
 import TimeAgo from 'timeago-react'
-import CommentForm from '../submit/CommentForm';
+import CommentForm from './commentutils/CommentForm';
 import {useState, useContext} from 'react'
 import RootCommentContext from './commentutils/RootCommentContext';
 import Voting from '../voting/Voting'

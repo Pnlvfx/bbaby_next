@@ -1,6 +1,5 @@
-import { useContext} from "react"
+import { useContext } from "react"
 import UserContext from '../auth/UserContext'
-import GovernanceMainMenù from "./GovernanceMainMenù"
 
 const GovernanceCtrl = ({children} : any) => {
   const provider = useContext(UserContext)
@@ -20,8 +19,7 @@ const GovernanceCtrl = ({children} : any) => {
         </div>
       )}
       {session?.user?.role === 1 && (
-      <div className="pl-[30px] pt-5 block lg:flex" id="main">
-        <GovernanceMainMenù />
+      <div>
         {children}
       </div>
       )}

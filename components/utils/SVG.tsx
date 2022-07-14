@@ -42,7 +42,7 @@ export const TwitterLogo = (props: any) => {
     )
 }
 
-export const AddImage = (props: any) => {
+export const AddImageIcon = (props: any) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"

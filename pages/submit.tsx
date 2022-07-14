@@ -26,7 +26,7 @@ const SubmitPage:NextPage = () => {
       <Layout>
         <div className=" p-2 sm:p-4 block lg:flex self-center">
           <div className="self-center mx-auto flex">
-            <div className="pr-0 md:pr-3 w-full lg:w-[800px]">
+            <div className="pr-0 md:pr-3 w-full lg:w-[800px] pt-4">
               <Submit />
             </div>
             <div className="hidden lg:block pt-11 pr-3">
