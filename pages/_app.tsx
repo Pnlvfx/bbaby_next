@@ -6,6 +6,7 @@ import {useState} from 'react'
 import AuthModalContext from '../components/auth/AuthModalContext';
 import {CommunityContextProvider} from '../components/community/CommunityContext';
 import GoogleAnalytics from '../components/google/GoogleAnalytics';
+import { SubmitContextProvider } from '../components/submit/SubmitContext';
 
 function MyApp({ Component, pageProps: {session, ...pageProps}}: AppProps) {
   const [showAuthModal,setShowAuthModal] = useState(false);
@@ -42,7 +43,9 @@ function MyApp({ Component, pageProps: {session, ...pageProps}}: AppProps) {
     <UserContext.Provider value={{session: session}}>
         <AuthModalContext.Provider value={{show:showAuthModal,setShow:setShowAuthModal}}>
             <CommunityContextProvider>
+              <SubmitContextProvider>
                 <Component {...pageProps}/>
+              </SubmitContextProvider>
           </CommunityContextProvider>
         </AuthModalContext.Provider>
     </UserContext.Provider>

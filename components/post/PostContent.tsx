@@ -9,33 +9,17 @@ import Link from "next/link";
 import { isMobile } from "react-device-detect";
 
 type PostContentProps = {
-  post: {
-    author:string,
-    title:string,
-    body:string,
-    image: string,
-    ups: number,
-    _id: string,
-    liked: string,
-    community:string,
-    communityIcon: string,
-    numComments: number,
-    createdAt: Date,
-    mediaInfo: {
-      dimension: any,
-    }
-
-  },
+  post: PostProps,
   isListing?:Boolean,
 }
 
 const PostContent = ({post,isListing}:PostContentProps) => {
   const router = useRouter()
 
-  let height = 0
+  let height: number | undefined = 0
   let width = 0
 
-  if(post.image) {
+  if(post.mediaInfo.isImage || post.mediaInfo.isVideo) {
     height = post.mediaInfo.dimension[0]
     width = post.mediaInfo.dimension[1]
   }
@@ -75,9 +59,21 @@ const PostContent = ({post,isListing}:PostContentProps) => {
                 <pre>
                   <p style={{whiteSpace: 'pre-line',fontFamily: 'Helvetica'}} className='mb-4 break-words font-extrabold leading-6'>{post.title}</p>
                 </pre>
-                  {post.image && (
+                  {post.mediaInfo.isImage && post.mediaInfo.image && (
                     <div className="max-h-[500px] overflow-hidden container">
-                        <Image src={`${post.image}`} alt='' height={height} width={width} objectFit={'contain'} />
+                        <Image src={`${post.mediaInfo.image}`} alt='' height={height} width={width} objectFit={'contain'} />
+                    </div>
+                  )}
+                  {post.mediaInfo.isVideo && post.mediaInfo.video && (
+                    <div>
+                      <video 
+                      className={`aspect-video`} 
+                      src={post.mediaInfo.video.url}
+                      //poster={image}
+                      controls
+                      height={`${height}px`}
+                      width={`${width}px`}
+                      />
                     </div>
                   )}
                   {post.body && (

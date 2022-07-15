@@ -40,4 +40,3 @@ export function CommunityContextProvider({children}:any) {
         </CommunityContext.Provider>
     );
 }
-

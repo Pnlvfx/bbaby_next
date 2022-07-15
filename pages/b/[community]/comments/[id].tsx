@@ -22,7 +22,7 @@ const Id: NextPage<Postprops> = ({post}) => {
         <meta property="og:title" content={post.title} key='ogtitle' />
         <meta name="description" content={`${post.body}`}  />
         <meta property="og:description" content={`${post.body}`} key='ogdesc'/>
-        <meta property="og:image" content={post.image} key='ogimage' />
+        <meta property="og:image" content={post.mediaInfo.image} key='ogimage' />
         <meta property="og:url" content={hostname + '/b/' + post.community + '/comments/' + post._id} key='ogurl' />
         <meta property='og:type' content='website' key='ogtype' />
         <meta name="twitter:card" content="summary_large_image" key='twcard'/>
@@ -43,8 +43,7 @@ export async function getServerSideProps(context: NextPageContext) {
   const {query} = context
   const {id} = query
   const res = await axios.get(server+`/posts/${id}`);
-
-  const post = await res.data
+  const post = res.data
 
   //login
   const response = await axios({
@@ -52,7 +51,7 @@ export async function getServerSideProps(context: NextPageContext) {
     url: `${server}/user`,
     headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
     withCredentials:true})
-    const session = await response.data
+    const session = response.data
 
   return {
     props: {

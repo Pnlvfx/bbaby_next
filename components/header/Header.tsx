@@ -67,7 +67,7 @@ function Header() {
                 </a>
             </Link>
             <Home />
-            <form onSubmit={doSearch} className='flex-none overflow-hidden mt-[2px] h-[38px] self-center bg-reddit_dark-brightest pl-3 flex rounded-sm border border-reddit_border flex-grow w-24 xl:ml-64 xl:mr-64 text-reddit_text-darker'>
+            <form onSubmit={doSearch} className='flex-none overflow-hidden mt-[2px] h-[38px] self-center bg-reddit_dark-brightest pl-3 flex rounded-sm border border-reddit_border flex-grow w-24 2xl:ml-64 2xl:mr-64 text-reddit_text-darker'>
                 <SearchIcon className='h-5 w-5 self-center flex-none' />
                 <input type='text' className='placeholder:text-reddit_text-darker bg-reddit_dark-brightest placeholder:text-sm text-sm p-1 pl-2 pr-0 block focus:outline-none text-reddit_text' 
                     placeholder='Search Bbaby' 
@@ -123,7 +123,7 @@ function Header() {
                                     </span>
                                 </div>
                             )}
-                                <RiArrowDownSLine className='text-reddit_text-darker w-[22px] h-[22px] mr-[17px] self-center' />
+                                <RiArrowDownSLine className='text-reddit_text-darker w-[22px] h-[22px] mr-0 lg:mr-[17px] self-center' />
                         </div>
                         {/*dropdown menu for user and not*/}
                         {session && (

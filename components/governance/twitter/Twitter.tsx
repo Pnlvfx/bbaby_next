@@ -1,7 +1,6 @@
 import axios from "axios"
 import {useState } from "react"
 import LoaderPlaceholder from "../../post/LoaderPlaceholder"
-import Submit from "../../submit/Submit"
 import Button from "../../utils/Button"
 import Tweet from "./Tweet"
 
@@ -48,7 +47,7 @@ const Twitter = () => {
                     {loading && (
                         <div>
                             {tweets.map((tweet: any) => (
-                            <LoaderPlaceholder key={tweet.id} extraStyles={{height:'100px'}} />
+                                <LoaderPlaceholder key={tweet.id} extraStyles={{height:'200px'}} />
                             ))}
                         </div>
                     )}

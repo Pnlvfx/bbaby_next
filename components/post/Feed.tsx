@@ -1,5 +1,5 @@
 import Post from './Post'
-import PostForm from '../submit/PostForm'
+import PostForm from '../submit/submitutils/PostForm'
 import TopCommunities from '../widget/TopCommunities'
 import BestPost from './postutils/BestPost'
 import InfiniteScroll from 'react-infinite-scroll-component'
@@ -63,7 +63,6 @@ const Feed = ({community,author}:FeedProps) => {
     setLoadingPosts(false)
   },[author, community])
   //
-
   const getMorePosts = async() => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     if (community) {
@@ -102,6 +101,8 @@ const Feed = ({community,author}:FeedProps) => {
     }
     }, [community, loadingPosts]);
     //
+
+    console.log(posts)
 
   return (
     <>

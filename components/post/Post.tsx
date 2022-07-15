@@ -3,9 +3,13 @@ import PostContent from './PostContent'
 import {isMobile} from 'react-device-detect'
 import { useRouter } from 'next/router'
 
+interface ExtendPostProps {
+    post: PostProps
+    isListing?: boolean
+    open?: boolean
+}
 
-
-const Post = ({post,isListing,open}:Postprops) => {
+const Post = ({post,isListing,open}:ExtendPostProps) => {
     const router = useRouter()
     let postClasses = 'block border border-reddit_border rounded-md ' + (open ? '' : "hover:border-reddit_text")
 

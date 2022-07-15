@@ -1,45 +1,51 @@
 import axios from 'axios';
-import {useContext, useState,useEffect, Dispatch, SetStateAction} from 'react'
-import AuthModalContext from '../auth/AuthModalContext';
+import {useContext, useState,useEffect} from 'react'
 import Button from '../utils/Button';
-import { useRouter } from 'next/router';
 import TextareaAutosize from 'react-textarea-autosize';
 import ClickOutHandler from 'react-clickout-ts';
-import Image from 'next/image';
-import SubmitButton from './submitutils/SubmitButton';
-import {FaTrashAlt} from 'react-icons/fa'
+import SubmitButton from './each-submit-button/SubmitButton';
 import {HiOutlineDocumentText} from 'react-icons/hi'
 import ShowTimeMsg from '../utils/notification/ShowTimeMsg';
 import { AddImageIcon } from '../utils/SVG';
 import CommunityDropdown from './submitutils/CommunityDropdown';
 import UserContext from '../auth/UserContext';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { SubmitContext, SubmitContextType } from './SubmitContext';
+import Body from './submitutils/Body';
 
 type SubmitProps = {
     newTweet?: any
-    setShowSubmit?: Dispatch<SetStateAction<boolean>>
     community?: string | string[]
 }
 
-function Submit({newTweet,community,setShowSubmit}:SubmitProps) {
+const Submit = ({newTweet,community}:SubmitProps) => {
     const provider = useContext(UserContext)
     const {session} = provider
-    const authModalContext = useContext(AuthModalContext)
     const [startTyping,setStartTyping] = useState(false)
-    const [title,setTitle] = useState('');
-    const [body,setBody] = useState('');
-    ///image
-    const [showDeleteOptions,setShowDeleteOptions] = useState(false)
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [isImage,setIsImage] = useState(false)
-    //ONLY FOR VISUALIZATION
-    const [imageWidth,setImageWidth] = useState(0)
-    const [imageHeight, setImageHeight] = useState(0)
-    //
-    const [loading,setLoading] = useState(false)
+    const [activeClassTitle, setActiveClassTitle] = useState('border-reddit_dark-brightest')
+    const [activeClassBody, setActiveClassBody] = useState('border-reddit_dark-brightest')
+    const [enablePost,setEnablePost] = useState('text-opacity-40 cursor-not-allowed')
+
+    const {
+        title,
+        setTitle,
+        setHeight,
+        setWidth,
+        selectedCommunity,
+        setSelectedCommunity,
+        setCommunityIcon,
+        setSelectedFile,
+        setIsImage,
+        sharePostToTG,
+        setSharePostToTG,
+        sharePostToTwitter,
+        setSharePostToTwitter,
+        loading,
+        status,
+        setStatus,
+        createPost
+    } = useContext(SubmitContext) as SubmitContextType
     // SHARE ON TELEGRAM
-    const [sharePostToTG,setSharePostToTG] = useState(session?.user.role === 1 ? true : false)
-    const [sharePostToTwitter,setSharePostToTwitter] = useState(session?.user.role ? true : false)
     const shareToTelegram = () => {
         setSharePostToTG(!sharePostToTG)
     }
@@ -47,16 +53,6 @@ function Submit({newTweet,community,setShowSubmit}:SubmitProps) {
     const shareToTwitter = () => {
         setSharePostToTwitter(!sharePostToTwitter)
     }
-    //
-    //community
-    const [activeClassTitle, setActiveClassTitle] = useState('border-reddit_dark-brightest')
-    const [activeClassBody, setActiveClassBody] = useState('border-reddit_dark-brightest')
-    //community dropdown
-    const [enablePost,setEnablePost] = useState('text-opacity-40 cursor-not-allowed')
-   
-    const [selectedCommunity,setSelectedCommunity] = useState<string | string[]| undefined>('')
-    const [communityIcon,setCommunityIcon] = useState('')
-    const router = useRouter()
 
     useEffect(() => {
         if(startTyping && selectedCommunity) {
@@ -66,7 +62,7 @@ function Submit({newTweet,community,setShowSubmit}:SubmitProps) {
 
      //get all community info
      useEffect(() => {
-        if(selectedCommunity) {
+        if(selectedCommunity !== '') {
             const server = process.env.NEXT_PUBLIC_SERVER_URL
             const name = selectedCommunity
             axios.get(server+'/communities/'+name,{withCredentials:true})
@@ -78,7 +74,7 @@ function Submit({newTweet,community,setShowSubmit}:SubmitProps) {
    
     useEffect(() => {
         if(community) {
-            setSelectedCommunity(community)
+            setSelectedCommunity(community.toString())
         }
     },[community])
 
@@ -89,56 +85,16 @@ function Submit({newTweet,community,setShowSubmit}:SubmitProps) {
             count.innerHTML = (0 + e.target.value.length) + '/300';
         }
     }
-
-    let imageId = ''
-    let image = ''
-    //TWITTER ERROR 
-    const [value,setValue] = useState('')
-    //
-    const createPost = async() => {
-        try {
-            setLoading(true)
-            if(isImage) {
-                const data = selectedFile
-                const server = process.env.NEXT_PUBLIC_SERVER_URL
-                const res = await axios.post(server+'/posts/image', {
-                data,
-                headers: {'Content-type': 'application/json',withCredentials:true}
-                })
-                const {url} = await res.data
-                imageId = await res.data.imageId
-                image = await url
-            }
-            const data = {title,body,community:selectedCommunity,communityIcon,image,isImage,imageHeight,imageWidth,imageId,sharePostToTG,sharePostToTwitter};
-            const server = process.env.NEXT_PUBLIC_SERVER_URL
-            const res =  await axios.post(server+'/posts', data, {withCredentials:true})
-            if (session?.user.role === 0) {
-                const {_id,community} = await res.data
-                router.push('/b/'+community+'/comments/'+_id)
-            } else {
-                setValue('OK')
-                setLoading(false)
-                setShowSubmit ? setShowSubmit(false) : null
-            }
-        } catch (err:any) {
-            if(err.response.status === 401) {
-                authModalContext.setShow('login');
-            } else if (err?.response?.data?.msg) {
-            setValue(err.response.data.msg)
-            setLoading(false)
-            }
-        }
-    }
     //
 
     //////MY TWEEEEEEEEET
     useEffect(() => {
-        if (newTweet.title) {
+        if (newTweet && newTweet.title) {
             setTitle(newTweet.title)
             if (newTweet.image) {
                 setIsImage(true)
-                setImageHeight(newTweet.height)
-                setImageWidth(newTweet.width)
+                setHeight(newTweet.height)
+                setWidth(newTweet.width)
                 setSelectedFile(newTweet.image)
             }
         }
@@ -146,10 +102,11 @@ function Submit({newTweet,community,setShowSubmit}:SubmitProps) {
     //
 
   return (
-    <div className={`${loading && ('opacity-40')}`}>
-        <div className='border-b border-reddit_border flex mb-4'>
-            <h1 className='mb-3 text-lg font-semibold'>Create a Post</h1>
+        <div className={`${loading && ('opacity-40')}`}>
+        <div className=''>
+            <p className='mb-3 text-[17px] font-semibold'>Create a Post</p>
         </div>
+        <hr className='border-reddit_border mb-4'/>
             <CommunityDropdown selectedCommunity={selectedCommunity} setSelectedCommunity={setSelectedCommunity} />
                 <div className='bg-reddit_dark-brighter rounded-md flex-none mt-2'>
                     <div className='flex mb-3 rounded-md'>
@@ -187,46 +144,9 @@ function Submit({newTweet,community,setShowSubmit}:SubmitProps) {
                         
                             <div onClick={() => setActiveClassBody('hover:border border-reddit_text')} className={'mx-4 mt-2 border border-reddit_border rounded-md mb-3 ' +activeClassBody}>
                                 <div className='bg-reddit_dark-brightest h-10 overflow-hidden'>
-                                    <SubmitButton setImageHeight={setImageHeight} setImageWidth={setImageWidth} title={title} setTitle={setTitle} setSelectedFile={setSelectedFile} setIsImage={setIsImage} />    
+                                    <SubmitButton/>    
                                 </div>
-                                {!selectedFile && (
-                                     <textarea 
-                                     className='placeholder-reddit_text-darker w-full text-sm outline-none
-                                     bg-reddit_dark-brighter p-2 min-h-[135px]'
-                                     placeholder={'Text (optional)'}
-                                     onChange={e => setBody(e.target.value)}
-                                     value={body}/>
-                                )}
-                                {selectedFile && imageHeight && imageWidth && (
-                                    <ClickOutHandler onClickOut={() => setShowDeleteOptions(false)}>
-                                        <div className='relative rounded-lg my-9 mx-5'>
-                                        {showDeleteOptions && (
-                                            <div onClick={() => {
-                                                setSelectedFile(null)
-                                                setIsImage(false)
-                                                setShowDeleteOptions(false)
-                                                }} className='border border-reddit_border mx-auto w-9 h-8 hover:bg-reddit_dark-brightest cursor-pointer'>
-                                            <FaTrashAlt className='text-reddit_text-darker px-2 py-1 self-center mx-auto w-full h-full' />
-                                            </div>
-                                        )}
-                                        <div onClick={() => {
-                                                setShowDeleteOptions(true)
-                                            }}>
-                                            <div className='rounded-lg mx-auto border border-reddit_border hover:border-4 hover:border-reddit_text'>
-                                                <Image 
-                                                src={selectedFile}
-                                                alt={'DisplayImage'}
-                                                height={`${imageHeight}px`}
-                                                width={`${imageWidth}px`}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className='text-center'>
-                                            <textarea className='bg-reddit_dark-brighter' />
-                                        </div>
-                                    </div>
-                                    </ClickOutHandler>
-                                )}
+                                <Body />
                             </div>
                             </ClickOutHandler>
                                 <div className='h-12 mb-4 border-b border-reddit_border mx-3'>
@@ -253,8 +173,8 @@ function Submit({newTweet,community,setShowSubmit}:SubmitProps) {
                                         </div>
 
                     </div>
-                    {value && (
-                        <ShowTimeMsg value={value} setValue={setValue} />
+                    {status && (
+                        <ShowTimeMsg value={status} setValue={setStatus} />
                     )}
     </div>
   )

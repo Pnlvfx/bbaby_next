@@ -2,10 +2,10 @@ import {BiLink} from 'react-icons/bi'
 import Link from 'next/link';
 import {useRouter} from 'next/router'
 import { useContext } from 'react';
-import AuthModalContext from '../auth/AuthModalContext';
+import AuthModalContext from '../../auth/AuthModalContext';
 import Image from 'next/image';
-import UserContext from '../auth/UserContext';
-import {AddImageIcon} from '../utils/SVG'
+import UserContext from '../../auth/UserContext';
+import {AddImageIcon} from '../../utils/SVG'
 
 type PostFormProps = {
     community: string,

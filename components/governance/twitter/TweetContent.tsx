@@ -1,6 +1,6 @@
 import axios from "axios"
 import Image from "next/image"
-import { Dispatch, SetStateAction, useState } from "react"
+import { useState } from "react"
 import TimeAgo from "timeago-react"
 import Submit from "../../submit/Submit"
 
@@ -60,7 +60,7 @@ const TweetContent = ({tweet,language}:TweetContent) => {
                     <h1>Magic</h1>
                 </div>
             </button>
-            {showSubmit && <Submit newTweet={newTweet} setShowSubmit={setShowSubmit}/>}
+            {showSubmit && <Submit newTweet={newTweet}/>}
         </div>
         <div>
             

@@ -19,9 +19,9 @@ function CommunityList({community,setSelectedCommunity,setShow,setActiveClass}:C
         setShow(false)
         setActiveClass('border-reddit_dark-brightest')
         }}>
-          <div className="flex">
-            <Image src={community.communityAvatar} alt='' height={'30px'} width={'30px'} className='flex-none object-contain'/>
-            <h1 className="flex w-full p-2">{community.name}</h1>
+          <div className="flex p-4">
+            <Image src={community.communityAvatar} alt='' height={'40px'} width={'40px'} className='rounded-full self-center' />
+            <p className="flex w-full ml-2 self-center">{community.name}</p>
           </div>
       </button>
     </div>

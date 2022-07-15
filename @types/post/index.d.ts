@@ -1,22 +1,49 @@
 type Postprops = {
     post: {
-        author:string,
-        title:string,
-        body:string,
-        image: string,
-        ups: number,
-        _id: string,
-        liked: string,
-        community:string,
-        communityIcon: string,
-        numComments: number,
-        createdAt: Date,
-    
-        mediaInfo: {
-          dimension: any,
-        }
-    
+      _id: string
+      author:string
+      authorAvatar: string
+      title:string
+      body:string
+      community:string
+      communityIcon: string
+      mediaInfo: {
+        dimension: Array
+        isImage: boolean
+        isVideo: boolean
+        image: string
+        video: [{
+          url: string,
+          thumbnail: string
+        }]
       }
-      isListing?:Boolean,
-      open? : Boolean
+      ups: number
+      liked: string
+      numComments: number
+      createdAt: Date
+      }
 }
+
+type PostProps = {
+    _id: string
+    author:string
+    authorAvatar: string
+    title:string
+    body:string
+    community:string
+    communityIcon: string
+    mediaInfo: {
+      dimension: Array
+      isImage: boolean
+      isVideo: boolean
+      image: string
+      video: {
+        url: string,
+        thumbnail: string
+      }
+    }
+    ups: number
+    liked: string
+    numComments: number
+    createdAt: Date
+    }
