@@ -61,9 +61,7 @@ function BoardHeader(props: any) {
                             <div className="-top-4 relative ml-0 lg:ml-40 cursor-pointer" onClick={() => filePickerRef.current.click()}>
                                 <div className='w-[72px] h-[72px] rounded-full overflow-hidden border-4 relative border-white bg-reddit_blue'>
                                     {!loading && (
-                                        <div className="w-[72px] h-[72px] relative rounded-full">
-                                            <Image src={communityAvatar} alt='community header' className='rounded-full flex-none' layout="fill"/>
-                                        </div>
+                                        <Image src={communityAvatar} alt='community_header' className='rounded-full flex-none' width={72} height={72}/>
                                     )}
                                 </div>
                                 <span className="text-xs font-bold">Update icon</span>

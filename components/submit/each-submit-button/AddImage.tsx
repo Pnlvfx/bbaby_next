@@ -5,7 +5,7 @@ import { SubmitContext, SubmitContextType } from "../SubmitContext"
 const AddImage = () => {
     const containerClass = 'p-2 text-reddit_text-darker'
     const filePickerRef:any = useRef(null)
-    const {setSelectedFile,setIsImage,setHeight,setWidth} = useContext(SubmitContext) as SubmitContextType
+    const {setSelectedFile,setIsImage,setHeight,setWidth,setIsVideo} = useContext(SubmitContext) as SubmitContextType
 
     const addImageToPost = (e: any) => {
         const file = e.target.files[0];
@@ -35,6 +35,7 @@ const AddImage = () => {
         <div className={containerClass}>
         <button title='Add an image' onClick={() => {
             filePickerRef.current.click()
+            setIsVideo(false)
             setIsImage(true)
         }}>
             <AddImageIcon />

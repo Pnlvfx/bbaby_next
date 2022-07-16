@@ -1,15 +1,11 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ClickOutHandler from 'react-clickout-ts';
 import { HiChevronDown } from 'react-icons/hi';
 import { MdOutlineCircle } from 'react-icons/md';
 import Input from '../../utils/Input';
+import { SubmitContext, SubmitContextType } from '../SubmitContext';
 import CommunityList from './CommunityList';
-
-type CommunityDropdownProps = {
-  selectedCommunity?: string | string []
-  setSelectedCommunity: any
-}
 
 type AllCommunityProps = [{
         _id: string
@@ -17,10 +13,11 @@ type AllCommunityProps = [{
         name: string
 }] | []
 
-const CommunityDropdown = ({selectedCommunity,setSelectedCommunity}:CommunityDropdownProps) => {
+const CommunityDropdown = () => {
   const [show,setShow] = useState(false)
   const [activeClass, setActiveClass] = useState('border border-reddit_border')
   const [allCommunity,setAllCommunity] = useState<AllCommunityProps>([]);
+  const {selectedCommunity,setSelectedCommunity} = useContext(SubmitContext) as SubmitContextType
 
   useEffect(() => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
@@ -33,6 +30,7 @@ const CommunityDropdown = ({selectedCommunity,setSelectedCommunity}:CommunityDro
   }
   
   return (
+    <>
     <ClickOutHandler onClickOut={() => {
       setShow(false)
       setActiveClass('border border-reddit_dark-brightest')
@@ -51,16 +49,17 @@ const CommunityDropdown = ({selectedCommunity,setSelectedCommunity}:CommunityDro
             <HiChevronDown className='text-reddit_text-darker w-8 h-8 self-center mr-2'/>
         </button>
         {show && (
-          <div className={'fixed bg-reddit_dark-brighter z-30 text-reddit_text overflow-hidden '}>
+          <div className={'absolute bg-reddit_dark-brighter z-30 text-reddit_text overflow-hidden '}>
               <div className='w-[300px]'>
                   {allCommunity.map(community => (
-                      <CommunityList key={community._id} community={community} setSelectedCommunity={setSelectedCommunity} setActiveClass={setActiveClass} setShow={setShow} />
+                      <CommunityList key={community._id} community={community} setActiveClass={setActiveClass} setShow={setShow} />
                   ))}
               </div>
           </div>
         )}
       </div>
   </ClickOutHandler>
+  </>
   )
 }
 

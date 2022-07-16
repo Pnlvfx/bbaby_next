@@ -1,20 +1,22 @@
 import Image from "next/image"
-import React, { SetStateAction } from "react"
+import React, { SetStateAction, useContext } from "react"
+import { SubmitContext, SubmitContextType } from "../SubmitContext"
 
 type CommunityListProps = {
   community: {
     communityAvatar: string
     name: string
   }
-  setSelectedCommunity: React.Dispatch<SetStateAction<string>>
   setShow: React.Dispatch<SetStateAction<boolean>>
   setActiveClass: React.Dispatch<SetStateAction<string>>
 }
 
-function CommunityList({community,setSelectedCommunity,setShow,setActiveClass}:CommunityListProps) {
+const CommunityList = ({community,setShow,setActiveClass}:CommunityListProps) => {
+  const {setSelectedCommunity,setCommunityIcon} = useContext(SubmitContext) as SubmitContextType
   return (
     <div className="">
       <button value={'community'} onClick={() => {
+        setCommunityIcon(community.communityAvatar)
         setSelectedCommunity(community.name)
         setShow(false)
         setActiveClass('border-reddit_dark-brightest')
