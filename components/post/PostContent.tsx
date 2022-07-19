@@ -19,7 +19,7 @@ const PostContent = ({post,isListing}:PostContentProps) => {
   let height: number | undefined = 0
   let width = 0
 
-  if(post.mediaInfo.isImage || post.mediaInfo.isVideo) {
+  if(post?.mediaInfo?.isImage || post?.mediaInfo?.isVideo) {
     height = post.mediaInfo.dimension[0]
     width = post.mediaInfo.dimension[1]
   }
@@ -59,12 +59,12 @@ const PostContent = ({post,isListing}:PostContentProps) => {
                 <pre>
                   <p style={{whiteSpace: 'pre-line',fontFamily: 'Helvetica'}} className='mb-4 break-words font-extrabold leading-6'>{post.title}</p>
                 </pre>
-                  {post.mediaInfo.isImage && post.mediaInfo.image && (
+                  {post?.mediaInfo?.isImage && post?.mediaInfo?.image && (
                     <div className="max-h-[500px] overflow-hidden container">
                         <Image src={`${post.mediaInfo.image}`} alt='' height={height} width={width} objectFit={'contain'} />
                     </div>
                   )}
-                  {post.mediaInfo.isVideo && post.mediaInfo.video && (
+                  {post?.mediaInfo?.isVideo && post?.mediaInfo?.video && (
                     <div>
                       <video 
                       className={`aspect-video`} 

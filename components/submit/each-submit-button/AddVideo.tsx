@@ -29,16 +29,18 @@ const AddVideo = () => {
         }
     }
     return (
-        <div className={containerClass}>
-            <button title='Add a video' onClick={() => {
-                fileVideoRef.current.click()
-                setIsImage(false)
-                setIsVideo(true)
-            }}>
-                <VideoIcons />
-                <input type='file' hidden onChange={addVideoToPost} ref={fileVideoRef} />
-            </button>
-        </div>
+        <>
+            <div className={containerClass}>
+                <button title='Add a video' onClick={() => {
+                    fileVideoRef.current.click()
+                    setIsImage(false)
+                    setIsVideo(true)
+                }}>
+                    <VideoIcons />
+                    <input type='file' hidden onChange={addVideoToPost} ref={fileVideoRef} />
+                </button>
+            </div>
+        </>
     )
 }
 
