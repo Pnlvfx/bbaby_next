@@ -1,41 +1,33 @@
 import axios from "axios";
-import { createContext, SetStateAction, useEffect, useState } from "react"
+import { createContext, Dispatch, SetStateAction, useEffect, useState } from "react"
 
-type CommunityContextProps = {
+export type CommunityContextProps = {
     show: boolean
-    setShow: SetStateAction<Boolean>
-    community: string
-    setCommunity: SetStateAction<string>
+    setShow: Dispatch<SetStateAction<Boolean>>
+    getCommunity: Function;
 }
 
-export const CommunityContext = createContext<CommunityContextProps | any>({});
+export const CommunityContext = createContext<CommunityContextProps | {}>({});
 
 export function CommunityContextProvider({children}:any) {
     const [show,setShow] = useState(false);
-    const [community,setCommunity] = useState();
     const [communityInfo,setCommunityInfo] = useState({});
-    const [loading,setLoading] = useState(true)
+    const [loading,setLoading] = useState(true);
     
-
-    const refreshCommunity = () => {
-        const server = process.env.NEXT_PUBLIC_SERVER_URL
-            axios.get(server+'/communities/'+community, {withCredentials:true})
-                .then(response => {
-                    setCommunityInfo(response.data);
-                    setLoading(false)
-            })
+    const getCommunity = async (community:string) => {
+        try {
+            setLoading(true)
+            const server = process.env.NEXT_PUBLIC_SERVER_URL
+            const res = await axios.get(server+'/communities/'+community, {withCredentials:true})
+                setCommunityInfo(res.data);
+                setLoading(false)
+        } catch (err) {
+            setLoading(true)
+        }
     }
 
-
-    useEffect(() => {
-        if(community === undefined) return
-        refreshCommunity()
-    },[community])
-
-
-
     return (
-        <CommunityContext.Provider value={{show,setShow, community,setCommunity,loading, refreshCommunity, ...communityInfo}}>
+        <CommunityContext.Provider value={{show,setShow,loading, getCommunity, ...communityInfo}}>
             {children}
         </CommunityContext.Provider>
     );

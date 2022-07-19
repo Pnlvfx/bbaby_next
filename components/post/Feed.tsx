@@ -3,7 +3,7 @@ import PostForm from '../submit/submitutils/PostForm'
 import TopCommunities from '../widget/TopCommunities'
 import BestPost from './postutils/BestPost'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { isMobile } from 'react-device-detect'
@@ -66,16 +66,16 @@ const Feed = ({community,author}:FeedProps) => {
   const getMorePosts = async() => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     if (community) {
-      const res:AxiosResponse = await axios.get(`${server}/posts?community=${community}&skip=${posts.length}&limit=10`)
-      const newPosts = await res.data
+      const res = await axios.get(`${server}/posts?community=${community}&skip=${posts.length}&limit=10`)
+      const newPosts = res.data
       setPosts([...posts, ...newPosts])
     } else if (author) {
-      const res:AxiosResponse = await axios.get(`${server}/posts?author=${author}&skip=${posts.length}&limit=10`)
-      const newPosts = await res.data
+      const res = await axios.get(`${server}/posts?author=${author}&skip=${posts.length}&limit=10`)
+      const newPosts = res.data
       setPosts([...posts, ...newPosts])
     } else {
-      const res:AxiosResponse = await axios.get(`${server}/posts?skip=${posts.length}&limit=10`)
-      const newPosts = await res.data
+      const res = await axios.get(`${server}/posts?skip=${posts.length}&limit=10`)
+      const newPosts = res.data
       setPosts([...posts, ...newPosts])
     }
   };
@@ -84,7 +84,7 @@ const Feed = ({community,author}:FeedProps) => {
   // GET ALL COMMUNITY INFO
   const [allCommunity,setAllCommunity] = useState([]);
 
-  const refreshCommunities = () => {
+  const getCommunities = () => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     axios.get(`${server}/best-communities?limit=5`,{withCredentials:true})
       .then(response => {
@@ -97,12 +97,10 @@ const Feed = ({community,author}:FeedProps) => {
     if (community) return
     if (isMobile) return
     if (!loadingPosts) {
-      refreshCommunities()
+      getCommunities()
     }
     }, [community, loadingPosts]);
     //
-
-    console.log(posts)
 
   return (
     <>
@@ -153,7 +151,7 @@ const Feed = ({community,author}:FeedProps) => {
         )}
         {!community && !isMobile && (
           <div className='hidden 2-xl:flex xl:block lg:block md:hidden sm:hidden mr-auto'>
-              <TopCommunities refreshCommunities={refreshCommunities} allCommunity={allCommunity} loadingCommunity={loadingCommunity}/>
+              <TopCommunities refreshCommunities={getCommunities} allCommunity={allCommunity} loadingCommunity={loadingCommunity}/>
               <Donations />
           </div>
         )}

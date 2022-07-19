@@ -7,7 +7,7 @@ type Postprops = {
       body:string
       community:string
       communityIcon: string
-      mediaInfo: {
+      mediaInfo?: {
         dimension: Array
         isImage: boolean
         isVideo: boolean
@@ -32,7 +32,7 @@ type PostProps = {
     body:string
     community:string
     communityIcon: string
-    mediaInfo: {
+    mediaInfo?: {
       dimension: Array
       isImage: boolean
       isVideo: boolean

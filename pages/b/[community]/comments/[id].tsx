@@ -4,16 +4,16 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 import { useContext } from 'react';
 import CommentPage from '../../../../components/comments/CommentPage'
-import { CommunityContext } from '../../../../components/community/CommunityContext';
+import { CommunityContext, CommunityContextProps } from '../../../../components/community/CommunityContext';
 import Layout from '../../../../components/Layout';
 
 const Id: NextPage<Postprops> = ({post}) => {
     const hostname = process.env.NEXT_PUBLIC_HOSTNAME
-    const {setCommunity}: any = useContext(CommunityContext)
+    const {getCommunity} = useContext(CommunityContext) as CommunityContextProps
 
     useEffect(() => {
-      setCommunity(post.community)
-    },[])
+      getCommunity(post.community)
+    },[post.community])
 
   return (
     <div>
@@ -22,10 +22,10 @@ const Id: NextPage<Postprops> = ({post}) => {
         <meta property="og:title" content={post.title} key='ogtitle' />
         <meta name="description" content={`${post.body}`}  />
         <meta property="og:description" content={`${post.body}`} key='ogdesc'/>
-        <meta property="og:image" content={post.mediaInfo.image} key='ogimage' />
+        {post.mediaInfo?.isImage && <meta property="og:image" content={post?.mediaInfo?.image} key='ogimage' />}
         <meta property="og:url" content={hostname + '/b/' + post.community + '/comments/' + post._id} key='ogurl' />
         <meta property='og:type' content='website' key='ogtype' />
-        <meta name="twitter:card" content="summary_large_image" key='twcard'/>
+        <meta name="twitter:card" content={`${post.mediaInfo?.isImage ? "summary_large_image" : "summary"}`} key='twcard'/>
         <meta name="twitter:image:alt" content="" />
         <link rel='canonical' href={hostname + '/b/' + post.community + '/comments/' + post._id} key='canonical' />
       </Head>

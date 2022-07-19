@@ -11,7 +11,7 @@ import {useState} from 'react'
 import Button from '../utils/Button'
 import AuthModalContext from '../auth/AuthModalContext'
 import ClickOutHandler from "react-clickout-ts";
-import { CommunityContext } from '../community/CommunityContext';
+import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
 import { useRouter } from 'next/router';
 import UserMenu from './UserMenu'
 import NotUserMenu from './NotUserMenu'
@@ -31,7 +31,6 @@ function Header() {
 
     const router = useRouter()
     const [userDropdownVisibilityClass, setUserDropdownVisibilityClass] = useState('hidden');
-    const {setCommunity}:any = useContext(CommunityContext);
     const [searchText,setSearchText] = useState('')
     function toggleUserDropdown() {
         if (userDropdownVisibilityClass === 'hidden') {
@@ -55,8 +54,7 @@ function Header() {
             <Link href={'/'}>
                 <a className='flex' onClick={event => {
                     event.preventDefault(),
-                    router.push('/'),
-                    setCommunity()
+                    router.push('/')
                     }}>
                     <div className='relative mr-2 ml-0 lg:ml-2 self-center w-[34px] h-[34px]'>
                         <Image src={Logo} alt='logo' layout='fill'/>

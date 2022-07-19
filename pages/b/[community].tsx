@@ -1,6 +1,6 @@
 import {useContext, useEffect} from 'react'
 import BoardHeader from '../../components/header/BoardHeader'
-import {CommunityContext} from '../../components/community/CommunityContext'
+import {CommunityContext, CommunityContextProps} from '../../components/community/CommunityContext'
 import axios from 'axios';
 import Layout from '../../components/Layout'
 import Head from 'next/head';
@@ -15,12 +15,12 @@ type CommunityPg = {
 const CommunityPage: NextPage<CommunityPg> = ({community}) => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const imagePreview = '/imagePreview.png'
-  const {setCommunity}: any = useContext(CommunityContext)
+  const {getCommunity} = useContext(CommunityContext) as CommunityContextProps
   const router = useRouter()
 
   useEffect(() => {
-    setCommunity(community)
-  },[])
+    getCommunity(community)
+  },[community])
 
   return (
     <div>

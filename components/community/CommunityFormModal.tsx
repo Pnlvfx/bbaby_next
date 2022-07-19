@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import {CommunityContext} from './CommunityContext'
+import {CommunityContext, CommunityContextProps} from './CommunityContext'
 import ClickOutHandler from 'react-clickout-ts'
 import Input from "../utils/Input";
 import Button from "../utils/Button";
@@ -8,8 +8,7 @@ import { useRouter } from "next/router";
 import { CloseIcon } from "../utils/SVG";
 
 function CommunityFormModal() {
-
-    const {show,setShow} = useContext(CommunityContext)
+    const {show, setShow} = useContext(CommunityContext) as CommunityContextProps
     const visibleClass = show ? 'block' : 'hidden';
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     const router = useRouter()
@@ -53,7 +52,7 @@ function CommunityFormModal() {
                     </div>
                     <div className="p-2 pb-32">
                         <div id="community name" className="pb-6">
-                        <Input value={name} onChange={ev => setName(ev.target.value)} className=' p-[6px] w-full placeholder:text-reddit_text-darker border border-reddit_border' placeholder='b/' maxLength='21' />
+                        <Input value={name} onChange={(ev:any) => setName(ev.target.value)} className=' p-[6px] w-full placeholder:text-reddit_text-darker border border-reddit_border' placeholder='b/' maxLength='21' />
                         <h1 className="text-xs pl-[2px] pt-2 text-reddit_text-darker">max 21 characters</h1>
                         </div>
                     </div>

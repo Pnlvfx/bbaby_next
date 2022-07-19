@@ -1,22 +1,17 @@
 import { useContext } from 'react'
 import { BiUserCircle } from 'react-icons/bi';
 import {FiSettings} from 'react-icons/fi'
-import { CommunityContext } from '../community/CommunityContext';
 import AuthModalContext from '../auth/AuthModalContext'
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 
 function NotUserMenu(props) {
-
-    const router = useRouter()
     const containerClass = 'hover:bg-reddit_dark-brightest cursor-pointer'
     const buttonClass = 'text-sm p-3 pl-12 font-bold'
     const authModal = useContext(AuthModalContext);
 
 
     const {userDropdownVisibilityClass,setUserDropdownVisibilityClass} = props
-    const {setShow:setShowCommunity} = useContext(CommunityContext);
 
   return (
     <div className={'absolute right-0 top-[53px] bg-reddit_dark-brighter border border-reddit_border z-10 rounded-md text-reddit_text overflow-hidden ' +userDropdownVisibilityClass}>

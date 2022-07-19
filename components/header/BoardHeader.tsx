@@ -4,7 +4,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { CommunityContext } from "../community/CommunityContext";
 
 function BoardHeader(props: any) {
-    const {communityAvatar,cover,loading,user_is_moderator,name,refreshCommunity}: any = useContext(CommunityContext);
+    const {communityAvatar,cover,loading,user_is_moderator,name,getCommunity}: any = useContext(CommunityContext);
     const [selectedFile,setSelectedFile] = useState(communityAvatar)
     const filePickerRef: any = useRef(null)
     const server = process.env.NEXT_PUBLIC_SERVER_URL
@@ -32,7 +32,7 @@ function BoardHeader(props: any) {
             data: {image: selectedFile},
             headers: {'Content-Type': 'application/json'}
         }).then(() => {
-            refreshCommunity()
+            getCommunity()
             setSelectedFile(false)
         })
     },[selectedFile])

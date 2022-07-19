@@ -2,7 +2,7 @@ import { LogoutIcon } from '@heroicons/react/outline';
 import { useContext } from 'react'
 import { BiUserCircle } from 'react-icons/bi';
 import {GiBabyFace} from 'react-icons/gi'
-import { CommunityContext } from '../community/CommunityContext';
+import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
 import { useRouter } from 'next/router';
 import UserContext from '../auth/UserContext';
 import axios from 'axios';
@@ -23,7 +23,7 @@ function UserMenu({userDropdownVisibilityClass,setUserDropdownVisibilityClass}:a
     const containerClass = 'hover:bg-reddit_dark-brightest cursor-pointer'
     const buttonClass = 'text-sm p-3 pl-12 font-bold'
     
-    const {setShow:setShowCommunity} = useContext(CommunityContext);
+    const {setShow:setShowCommunity} = useContext(CommunityContext) as CommunityContextProps
 
   return (
     <div className={'absolute right-0 top-[53px] bg-reddit_dark-brighter border border-reddit_border z-10 rounded-md text-reddit_text overflow-hidden ' +userDropdownVisibilityClass}>
