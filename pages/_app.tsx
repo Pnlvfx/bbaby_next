@@ -5,8 +5,8 @@ import type { AppProps, NextWebVitalsMetric } from 'next/app'
 import {useState} from 'react'
 import AuthModalContext from '../components/auth/AuthModalContext';
 import {CommunityContextProvider} from '../components/community/CommunityContext';
-import GoogleAnalytics from '../components/google/GoogleAnalytics';
 import { SubmitContextProvider } from '../components/submit/SubmitContext';
+import CookieConsent from '../components/utils/validation/CookieConsent';
 
 function MyApp({ Component, pageProps: {session, ...pageProps}}: AppProps) {
   const [showAuthModal,setShowAuthModal] = useState(false);
@@ -29,9 +29,6 @@ function MyApp({ Component, pageProps: {session, ...pageProps}}: AppProps) {
         <meta property="og:site_name" content="bbabystyle" />
         <meta name="twitter:creator" content="@Bbabystyle" />
       </Head>
-      {process.env.NEXT_PUBLIC_NODE_ENV === 'production' &&
-      <GoogleAnalytics />
-      }
       {/* <Script 
         id='Adsense-id'
         data-ad-client='ca-pub-7203519143982992'
@@ -40,6 +37,7 @@ function MyApp({ Component, pageProps: {session, ...pageProps}}: AppProps) {
         onError={ (e) => { console.error('Script failed to load', e) }}
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
         crossOrigin="anonymous" /> */}
+    <CookieConsent />
     <UserContext.Provider value={{session: session}}>
         <AuthModalContext.Provider value={{show:showAuthModal,setShow:setShowAuthModal}}>
             <CommunityContextProvider>
@@ -53,7 +51,8 @@ function MyApp({ Component, pageProps: {session, ...pageProps}}: AppProps) {
   )
 }
 
-export default MyApp
+export default MyApp;
+
 
 export function reportWebVitals(metric: NextWebVitalsMetric) {
   metric.label === "web-vital" && console.log(metric);

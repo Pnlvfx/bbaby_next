@@ -13,7 +13,7 @@ function ShowTimeMsg({value,setValue,status,time,gov_value}:TimeMessage) {
 
 
   const ms = time ? time : 8000
-  const _status = status === 'error' ? 'bg-reddit_red' : 'bg-[#0079D3] w-4'
+  const _status = status === 'error' ? 'bg-reddit_red w-4' : 'bg-[#0079D3] w-4'
 
   useEffect(() => {
     if (!value) return 
