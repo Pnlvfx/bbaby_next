@@ -35,7 +35,7 @@ const SubmitPage:NextPage = () => {
         <meta property='og:type' content='website' key='ogtype' />
         <meta name="twitter:card" content="summary" key='twcard'/>
         <meta name="twitter:image:alt" content="This image contain the logo of this website" />
-        <link rel='canonical' href={hostname + '/submit'} key='canonical' />
+        <link rel='canonical' href={`${hostname}/submit`} key='canonical' />
     </Head>
       <Layout>
         <div className=" p-2 sm:p-4 block lg:flex self-center">

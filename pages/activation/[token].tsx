@@ -6,12 +6,7 @@ import axios from 'axios'
 
 
 function ActivationEmail() {
-
-    
-
-
     const router = useRouter()
-
     const activation_token = router.query.token
     const [err,setErr] = useState('')
     const [success,setSuccess] = useState('')

@@ -28,7 +28,6 @@ export default Governance;
 
 export async function getServerSideProps(context: NextPageContext) {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
-
   const response =  await axios({
     method: "get",
     url: `${server}/user`,

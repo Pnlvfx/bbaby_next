@@ -1,20 +1,24 @@
 import axios from 'axios';
 import { NextPageContext } from 'next';
 import Head from 'next/head';
+import Modqueque from '../../../../components/community/modqueque/Modqueque';
+import Layout from '../../../../components/Layout';
 
-function modqueue() {
+function ModqueuePage() {
   return (
     <div>
       <Head>
         <title>Bbabystyle - community admin page </title>
         <link rel="icon" href="/favicon.ico"/>
       </Head>
-      <h1>Admin here(soon)</h1>
+      <Layout>
+        <Modqueque />
+      </Layout>
     </div>
   )
 }
 
-export default modqueue;
+export default ModqueuePage;
 
 export async function getServerSideProps(context: NextPageContext) {
   const server = process.env.NEXT_PUBLIC_SERVER_URL

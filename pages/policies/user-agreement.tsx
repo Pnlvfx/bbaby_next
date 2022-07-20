@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import UserAgreement from '../../components/utils/policies/UserAgreement'
+import PoliciesLayout from '../../components/utils/policies/PoliciesLayout';
 
 function userAgreement() {
   return (
@@ -8,7 +8,9 @@ function userAgreement() {
         <title>Bbabystyle User Agreement</title>
         <link rel="icon" href="/favicon.ico"/>
       </Head>
-      <UserAgreement/>  
+      <PoliciesLayout>
+
+      </PoliciesLayout>
     </div>
   )
 }

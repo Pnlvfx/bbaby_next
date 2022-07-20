@@ -8,9 +8,8 @@ import UserContext from '../auth/UserContext';
 import axios from 'axios';
 import Link from 'next/link';
 
-function UserMenu({userDropdownVisibilityClass,setUserDropdownVisibilityClass}:any) {
-    const provider = useContext(UserContext)
-    const {session} = provider
+function UserMenu({showDropdown,setShowDropdown}:any) {
+    const {session} = useContext(UserContext)
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     const router = useRouter()
 
@@ -26,7 +25,9 @@ function UserMenu({userDropdownVisibilityClass,setUserDropdownVisibilityClass}:a
     const {setShow:setShowCommunity} = useContext(CommunityContext) as CommunityContextProps
 
   return (
-    <div className={'absolute right-0 top-[53px] bg-reddit_dark-brighter border border-reddit_border z-10 rounded-md text-reddit_text overflow-hidden ' +userDropdownVisibilityClass}>
+    <>
+    {showDropdown && (
+        <div className={'absolute right-0 top-[53px] bg-reddit_dark-brighter border border-reddit_border z-10 rounded-md text-reddit_text overflow-hidden'}>
         <div className='w-[280px]'>
             <div className=''>
                 <div className='p-4 pb-1'>
@@ -39,7 +40,7 @@ function UserMenu({userDropdownVisibilityClass,setUserDropdownVisibilityClass}:a
                     {session?.user.role === 1 && (
                         <Link href={`/governance`}>
                             <a onClick={() => {
-                                setUserDropdownVisibilityClass('hidden');
+                                setShowDropdown(false)
                         }}>
                                 <div className={containerClass}>
                                     <h1 className={buttonClass}>Governance</h1>    
@@ -52,7 +53,7 @@ function UserMenu({userDropdownVisibilityClass,setUserDropdownVisibilityClass}:a
                     </div>
                     <Link href={`/user/${session?.user.username}`}>
                         <a onClick={() => {
-                            setUserDropdownVisibilityClass('hidden');
+                            setShowDropdown(false)
                         }}>
                             <div className={containerClass}>
                                 <h1 className={buttonClass}>Profile</h1>    
@@ -61,7 +62,7 @@ function UserMenu({userDropdownVisibilityClass,setUserDropdownVisibilityClass}:a
                     </Link>
                     <Link href={`/settings`}>
                     <a onClick={() => {
-                        setUserDropdownVisibilityClass('hidden');
+                        setShowDropdown(false)
                     }}>
                         <div className={containerClass}>
                             <h1 className={buttonClass}>User Settings</h1>    
@@ -74,7 +75,7 @@ function UserMenu({userDropdownVisibilityClass,setUserDropdownVisibilityClass}:a
                     <div className={containerClass}>
                         <div className={'flex p-[9px] pl-4'} onClick={() => {
                                 setShowCommunity(true);
-                                setUserDropdownVisibilityClass('hidden');
+                                setShowDropdown(false)
                                 }}>
                             <GiBabyFace className='w-6 h-6 mr-2' />
                             <h1 className='font-bold text-sm mt-[2px]'>Create a community</h1>
@@ -83,7 +84,7 @@ function UserMenu({userDropdownVisibilityClass,setUserDropdownVisibilityClass}:a
                     <div className={containerClass}>
                             <Link href={'/policies/user-agreement'}>
                                 <a target='_blank' onClick={() => {
-                                    setUserDropdownVisibilityClass('hidden')
+                                    setShowDropdown(false)
                                 }}>
                                     <h1 className={buttonClass}>User Agreement</h1> 
                                 </a>   
@@ -92,7 +93,7 @@ function UserMenu({userDropdownVisibilityClass,setUserDropdownVisibilityClass}:a
                     <div className={containerClass}>
                             <Link href={'/policies/privacy-policy'}>
                                 <a target='_blank' onClick={() => {
-                                    setUserDropdownVisibilityClass('hidden');
+                                    setShowDropdown(false)
                                 }} >
                                     <h1 className={buttonClass}>Privacy Policy</h1>   
                                 </a>
@@ -103,7 +104,7 @@ function UserMenu({userDropdownVisibilityClass,setUserDropdownVisibilityClass}:a
                 <div className={containerClass}>
                     <div onClick={() => {
                         logout()
-                        setUserDropdownVisibilityClass('hidden');
+                        setShowDropdown(!showDropdown)
                         }} className={'flex p-[9px] pl-4'}>
                         <LogoutIcon className='w-6 h-6 mr-2'/>
                         <h1 className='font-bold text-sm mt-[2px]'>Log Out</h1>
@@ -115,6 +116,8 @@ function UserMenu({userDropdownVisibilityClass,setUserDropdownVisibilityClass}:a
         </div> 
             </div>
     </div>
+    )}
+    </>
   )
 }
 

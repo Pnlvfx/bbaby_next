@@ -40,7 +40,7 @@ const CookieConsent = () => {
             <p className="p-3 pl-4 text-[15px]">
               We use cookies on our website for a number of purposes, including
               analytics and performance, functionality and advertising.{' '}
-              <Link href={'/policies/cookie-notice'}>
+              <Link href={'/policies/cookies'}>
                 <a className="text-reddit_blue">
                   Learn more abour Bbaby&apos;s use of cookies.
                 </a>

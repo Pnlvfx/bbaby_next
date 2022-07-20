@@ -31,11 +31,11 @@ const CommunityPage: NextPage<CommunityPg> = ({community}) => {
         <meta name="description" content="Bbabystyle is a network of communities. There's a community for whatever you're interested in on Bbabystyle." />
         <meta property="og:description" content="Bbabystyle is a network of communities. There's a community for whatever you're interested in on Bbabystyle." key='ogdesc' />
         <meta property="og:image" content={hostname + imagePreview} key='ogimage' />
-        <meta property="og:url" content={hostname} key='ogurl' />
+        <meta property="og:url" content={`${hostname}/b/${community}`} key='ogurl' />
         <meta property='og:type' content='website' key='ogtype' />
         <meta name="twitter:card" content="summary" key='twcard'/>
         <meta name="twitter:image:alt" content="This image contain the logo of this website" />
-        <link rel='canonical' href={hostname} key='canonical' />
+        <link rel='canonical' href={`${hostname}/b/${community}`} key='canonical' />
       </Head>
       <Layout>
           {!router.query.postId && <BoardHeader community={community}/>}

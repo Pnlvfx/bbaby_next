@@ -19,7 +19,7 @@ type PostProps = {
   title?: string
 }
 
-function PostModal({community,postId,open,onClickOut}:PostModalProps) {
+const PostModal = ({community,postId,open,onClickOut}:PostModalProps) => {
 
   const router = useRouter();
 
@@ -35,7 +35,9 @@ function PostModal({community,postId,open,onClickOut}:PostModalProps) {
     axios.get(server+'/posts/'+postId, {withCredentials:true})
     .then(response => {
       setPost(response.data)
-      getCommunity(response.data.community)
+      if (!community) {
+        getCommunity(response.data.community)
+      }
       setLoading(false)
     });
   },[postId]);

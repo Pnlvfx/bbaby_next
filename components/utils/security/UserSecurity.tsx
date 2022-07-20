@@ -3,8 +3,7 @@ import { useContext, useEffect } from "react"
 import UserContext from "../../auth/UserContext"
 
 const UserSecurity = ({children}:any) => {
-  const provider = useContext(UserContext)
-  const {session} = provider
+  const {session} = useContext(UserContext)
   const router = useRouter()
 
   useEffect(() => {

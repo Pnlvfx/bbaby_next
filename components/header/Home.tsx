@@ -1,22 +1,19 @@
-import Image from 'next/image'
-import React from 'react'
 import { HiChevronDown } from 'react-icons/hi'
-import HomeIcon from '../../public/home.svg'
+import { HomeIcon } from '../utils/SVG'
 
 const Home = () => {
   return (
-    <>
-        <div id='home_button' className=' w-[255px] hidden lg:block'>
-            <button className='hover:border border-reddit_border h-[42px] self-center rounded-md w-full'>
-                <div className='flex self-center ml-1'>
-                <Image src={HomeIcon} alt='' className='flex-none self-center' width={'25px'} height={'25px'}/>
-                <h1 className='text-sm pl-2 self-center'>Home</h1>
-                <HiChevronDown className=' w-[25px] h-[25px] ml-auto mr-2'/>
-                </div>
-            </button>
+    <div id="home_button" className=" hidden w-[255px] lg:block">
+      <button className="h-[42px] w-full self-center rounded-md border-reddit_border hover:border items-center">
+        <div className="ml-1 flex self-center">
+          <HomeIcon />
+          <h1 className="self-center pl-2 text-sm font-bold">Home</h1>
+          <HiChevronDown className=" ml-auto mr-2 h-[23px] w-[23px]" />
         </div>
-    </>
+      </button>
+    </div>
   )
 }
 
 export default Home;
+
