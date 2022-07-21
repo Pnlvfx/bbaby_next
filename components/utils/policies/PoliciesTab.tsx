@@ -35,4 +35,4 @@ const PoliciesTab = ({header,underHeader,content}:PoliciesTabProps) => {
   )
 }
 
-export default PoliciesTab
+export default PoliciesTab;

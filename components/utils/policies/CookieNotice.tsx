@@ -1,12 +1,12 @@
+import Link from 'next/link'
 import PoliciesTab from './PoliciesTab'
 
 const CookieNotice = () => {
-
   return (
     <div className=" justify-center py-8 md:flex">
       <div className="w-full flex-none pt-10 font-bold md:w-[35%] lg:w-[22%]">
-        <p className='text-[18px]'>Jump to</p>
-        <ul className="ml-4 inline-block list-disc text-[14px] font-normal p-2">
+        <p className="text-[18px]">Jump to</p>
+        <ul className="ml-4 inline-block list-disc p-2 text-[14px] font-normal">
           <li className="">
             <p className="max-w-[70%] text-reddit_blue hover:underline">
               What are cookies and how does Bbaby use them?
@@ -45,15 +45,157 @@ const CookieNotice = () => {
           functional cookies, cookies related to analytics/performance and
           advertising-related cookies.
         </p>
-        <p className="mt-6 text-[14px] mb-6">
+        <p className="mt-6 mb-6 text-[14px]">
           Strictly Necessary: These cookies are necessary for our services to
           function properly and securely and cannot be switched off in our
           systems. You can set your browser to block or alert you about these
           cookies, but then some parts of the site will not work. These include:
+        </p>
+        <div className="mr-0 mb-12 border border-reddit_border text-sm">
+          <div className="p-8">
+            <div className="flex overflow-hidden">
+              <div className="mx-auto ml-4">
+                <p className="">Cookie</p>
+                <p className="my-8">token</p>
+              </div>
+              <div className="mx-auto mb-7">
+                <p>Purpose</p>
+                <p className="my-8">
+                  Stores a login token needed to act as a logged in user.
+                </p>
+              </div>
+              <div className="mx-auto">
+                <p>Expires</p>
+                <p className="my-8">2 years</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p className="mb-6 text-[14px]">
+          Functional: These cookies enable Bbaby to provide enhanced
+          functionality and personalization. If you do not allow these cookies
+          then some or all of these features may not function properly.
+        </p>
+        <p className="mb-6 text-[14px]">
+          Analytics and Performance: These cookies allow us to count visits and
+          traffic sources so we can measure and improve the performance of our
+          site. They help us to know which pages are the most and least popular
+          and see how visitors move around the site.
+        </p>
+        <p className="mb-6 text-[14px]">
+          Advertising: We use these cookies to deliver advertisements, to make
+          them more relevant and meaningful to users, and to track the
+          efficiency of our advertising campaigns, both on our services and on
+          other sites or mobile apps. Our third-party advertising partners may
+          use these cookies to build a profile of your interests and deliver
+          relevant advertising on other sites.
+        </p>
+        <p className="mb-6 text-[14px]">
+          Third-Party Cookies: Bbaby’s services also include cookies from third
+          parties that we partner with directly or indirectly. Many of these
+          third parties are companies that work with us or with advertisers who
+          advertise on Bbaby in order to help target ads or measure the results
+          of an advertising campaign.
+        </p>
+        <p className="mb-6 text-[14px]">
+          Third-Party Sites: Third parties who advertise on Bbaby may use our
+          advertising technology, including our advertising pixel, on their
+          sites. We may serve advertising cookies when you visit their sites so
+          that we can measure the effectiveness of ads on Bbaby and to show you
+          more relevant advertising. The placement of these cookies is
+          controlled by the third-party sites.
+        </p>
+        <h3 className="mb-6 text-2xl">
+          How do I control cookies and how my data is used?
+        </h3>
+        <p className="mb-6 text-[14px]">
+          There are a number of ways you can control how information is
+          collected from cookies on Bbaby and how that information is used.
+        </p>
+        <p className="mb-6 text-xl">Your browser settings</p>
+        <p className="mb-6 text-[14px]">
+          Your browser includes controls that allow you to manage the use of
+          cookies by the sites that you visit. Most browsers have features that
+          enable you to see and delete cookies stored on your device and to
+          block cookies from all or selected sites. For more information, here
+          are links to external help materials from some of the popular
+          browsers:
+        </p>
+        <ul className="ml-12 mb-6 inline-block list-disc space-y-2">
+          <li>
+            <Link
+              href={
+                'https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer'
+              }
+            >
+              <a>
+                <p className="text-[14px] text-reddit_blue hover:underline">
+                  Mozilla Firefox
+                </p>
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={
+                'https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac'
+              }
+            >
+              <a>
+                <p className="text-[14px] text-reddit_blue hover:underline">
+                  Apple Safari
+                </p>
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href={'https://support.google.com/chrome/answer/95647'}>
+              <a>
+                <p className="text-[14px] text-reddit_blue hover:underline">
+                  Google Chrome
+                </p>
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={
+                'https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09'
+              }
+            >
+              <a>
+                <p className="text-[14px] text-reddit_blue hover:underline">
+                  Microsoft Edge
+                </p>
+              </a>
+            </Link>
+          </li>
+        </ul>
+        <p className="mb-6 text-xl">Your mobile device settings</p>
+        <p className='mb-6 text-[14px]'>
+          Your mobile device may also include browser settings that allow you to
+          manage the use of cookies, especially if the device supports
+          installing apps such as iOS and Android devices. iOS and Android
+          devices also include additional device settings that control whether
+          advertising partners can use information about your app activity for
+          advertising purposes. On iOS, you can search for a setting called
+          Limit Ad Tracking. On Android, you can search for a setting called Opt
+          out of Ads Personalization.
+        </p>
+        <p className="mb-6 text-xl">Third-party opt-outs</p>
+        <p className='mb-6 text-[14px]'>
+          Your mobile device may also include browser settings that allow you to
+          manage the use of cookies, especially if the device supports
+          installing apps such as iOS and Android devices. iOS and Android
+          devices also include additional device settings that control whether
+          advertising partners can use information about your app activity for
+          advertising purposes. On iOS, you can search for a setting called
+          Limit Ad Tracking. On Android, you can search for a setting called Opt
+          out of Ads Personalization.
         </p>
       </div>
     </div>
   )
 }
 
-export default CookieNotice;
+export default CookieNotice
