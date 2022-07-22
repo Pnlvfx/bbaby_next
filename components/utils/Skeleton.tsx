@@ -1,5 +1,5 @@
 interface SkeletonProps {
-    isImage: boolean
+    isImage?: boolean
 }
 
 const Skeleton = ({isImage}:SkeletonProps) => {
