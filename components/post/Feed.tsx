@@ -1,12 +1,12 @@
-import Post from './Post'
-import PostForm from '../submit/submitutils/PostForm'
-import TopCommunities from '../widget/TopCommunities'
-import BestPost from './postutils/BestPost'
-import InfiniteScroll from 'react-infinite-scroll-component'
 import axios from 'axios'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import PostForm from '../submit/submitutils/PostForm'
+import BestPost from './postutils/BestPost'
+import Post from './Post'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { isMobile } from 'react-device-detect'
+import TopCommunities from '../widget/TopCommunities'
 import CommunitiesInfo from '../widget/CommunitiesInfo'
 import dynamic from 'next/dynamic'
 import Donations from '../widget/Donations'
@@ -143,18 +143,14 @@ const Feed = ({community,author}:FeedProps) => {
             </>
             )}
         </div>
-        {community && !isMobile && (
           <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden mr-auto'>
-            <CommunitiesInfo community={community} />
+            {community ? 
+            <CommunitiesInfo community={community} /> 
+            : 
+            <TopCommunities refreshCommunities={getCommunities} allCommunity={allCommunity} loadingCommunity={loadingCommunity}/>
+            }
             <Donations />
           </div>
-        )}
-        {!community && !isMobile && (
-          <div className='hidden 2-xl:flex xl:block lg:block md:hidden sm:hidden mr-auto'>
-              <TopCommunities refreshCommunities={getCommunities} allCommunity={allCommunity} loadingCommunity={loadingCommunity}/>
-              <Donations />
-          </div>
-        )}
   </div>
     )}
     </>

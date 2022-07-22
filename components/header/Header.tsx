@@ -39,7 +39,7 @@ function Header() {
     <header
       id="myHeader"
       className={
-        'sticky top-0 z-30 w-full border-b border-reddit_border bg-reddit_dark-brighter p-1'
+        'sticky top-0 z-30 border-b border-reddit_border bg-reddit_dark-brighter p-1'
       }
     >
       <div className="ml-0 flex lg:ml-2">
