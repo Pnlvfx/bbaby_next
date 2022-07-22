@@ -33,6 +33,7 @@
     "react-howler": "^5.2.0",
     "react-icons": "^4.3.1",
     "react-infinite-scroll-component": "^6.1.0",
+    "react-loading-skeleton": "^3.1.0",
     "react-textarea-autosize": "^8.3.4",
     "sharp": "^0.30.6",
     "timeago-react": "^3.0.5"

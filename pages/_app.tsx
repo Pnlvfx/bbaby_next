@@ -41,9 +41,7 @@ function MyApp({ Component, pageProps: {session, ...pageProps}}: AppProps) {
     <UserContext.Provider value={{session: session}}>
         <AuthModalContext.Provider value={{show:showAuthModal,setShow:setShowAuthModal}}>
             <CommunityContextProvider>
-              <SubmitContextProvider>
                 <Component {...pageProps}/>
-              </SubmitContextProvider>
           </CommunityContextProvider>
         </AuthModalContext.Provider>
     </UserContext.Provider>

@@ -18,12 +18,11 @@ type SubmitProps = {
 }
 
 const Submit = ({newTweet,community}:SubmitProps) => {
-    const provider = useContext(UserContext)
-    const {session} = provider
+    const {session} = useContext(UserContext)
     const [startTyping,setStartTyping] = useState(false)
     const [activeClassTitle, setActiveClassTitle] = useState('border-reddit_dark-brightest')
     const [activeClassBody, setActiveClassBody] = useState('border-reddit_dark-brightest')
-    const [enablePost,setEnablePost] = useState('text-opacity-40 cursor-not-allowed')
+    const [enablePost,setEnablePost] = useState(false)
 
     const {
         title,
@@ -34,6 +33,7 @@ const Submit = ({newTweet,community}:SubmitProps) => {
         setSelectedCommunity,
         setSelectedFile,
         setIsImage,
+        setIsVideo,
         sharePostToTG,
         setSharePostToTG,
         sharePostToTwitter,
@@ -54,7 +54,7 @@ const Submit = ({newTweet,community}:SubmitProps) => {
 
     useEffect(() => {
         if(startTyping && selectedCommunity) {
-            setEnablePost('text-opacity-100')
+            setEnablePost(true)
         }
     },[selectedCommunity,startTyping])
    
@@ -77,11 +77,18 @@ const Submit = ({newTweet,community}:SubmitProps) => {
     useEffect(() => {
         if (newTweet && newTweet.title) {
             setTitle(newTweet.title)
+            console.log(newTweet)
             if (newTweet.image) {
                 setIsImage(true)
                 setHeight(newTweet.height)
                 setWidth(newTweet.width)
                 setSelectedFile(newTweet.image)
+            }
+            if (newTweet.video) {
+                setIsVideo(true)
+                setHeight(newTweet.height)
+                setWidth(newTweet.width)
+                setSelectedFile(newTweet.video)
             }
         }
     },[newTweet])
@@ -135,7 +142,7 @@ const Submit = ({newTweet,community}:SubmitProps) => {
                     <hr className='mt-12 mb-4 border-reddit_border mx-3'/>
                     <div className='text-right pb-4 mx-4'>
                         <Button outline='true' className='h-[30px] mr-2 opacity-20'><p>Save Draft</p></Button>
-                        <Button onClick={() => {createPost()}} className={"h-[30px] " + enablePost}>
+                        <Button disabled={!enablePost} onClick={() => {createPost()}} className={`h-[30px] ${enablePost ? "text-opacity-100" : "text-opacity-40 cursor-not-allowed"}`}>
                             {!loading && <p>Post</p>}
                             {loading && <AiOutlineLoading3Quarters className='animate-spin mx-auto'/>}
                         </Button>

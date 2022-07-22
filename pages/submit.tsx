@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import axios from 'axios';
 import TempSubmitWid from '../components/widget/TempSubmitWid';
 import Submit from '../components/submit/Submit';
+import SubmitLayout from '../components/submit/SubmitLayout';
 
 const SubmitPage:NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
@@ -27,7 +28,7 @@ const SubmitPage:NextPage = () => {
         <div className=" p-2 sm:p-4 block lg:flex self-center">
           <div className="self-center mx-auto flex">
             <div className="pr-0 md:pr-3 w-full lg:w-[800px] pt-5">
-                <Submit />
+                <SubmitLayout />
             </div>
             <div className="hidden lg:block pt-11 pr-3">
               <TempSubmitWid />
