@@ -33,22 +33,29 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default Home;
 
 export async function getServerSideProps(context: NextPageContext) {
-  
   const server = process.env.NEXT_PUBLIC_SERVER_URL
+
+  // const res = await axios({
+  //   method: 'get',
+  //   url: `${server}/posts?limit=10&skip=0`,
+  //   headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
+  // })
+  // const post = res.data
 
   const response =  await axios({
     method: "get",
     url: `${server}/user`,
     headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
     })
-    const session = await response.data
+    const session = response.data
 
   return {
     props: {
       session: session,
+      // post: post
     }
   }
 }

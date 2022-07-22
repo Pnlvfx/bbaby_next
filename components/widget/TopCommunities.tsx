@@ -8,7 +8,7 @@ function TopCommunities(props:any) {
 
     const {allCommunity,loadingCommunity} = props
     return (
-      <div className='bg-reddit_dark-brighter shadow-lg rounded-md ml-2 w-[310px] h-96 mb-5 border border-reddit_border box-content overflow-hidden'>
+      <div className='bg-reddit_dark-brighter shadow-lg rounded-md w-[310px] h-96 mb-5 border border-reddit_border box-content overflow-hidden'>
         {loadingCommunity && (
           <LoaderPlaceholder extraStyles={{height: '80px'}} />
         )}

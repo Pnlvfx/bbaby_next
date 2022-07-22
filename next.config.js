@@ -2,13 +2,18 @@
 const NextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['res.cloudinary.com','lh3.googleusercontent.com','pbs.twimg.com'],
+    domains: [
+      'res.cloudinary.com',
+      'lh3.googleusercontent.com',
+      'pbs.twimg.com',
+      'www.paypal.com'
+    ],
   },
   i18n: {
-    locales: ["en"],
-    defaultLocale: "en"
+    locales: ['en'],
+    defaultLocale: 'en',
   },
-  productionBrowserSourceMaps: true
-};
+  productionBrowserSourceMaps: true,
+}
 
-module.exports = NextConfig;
+module.exports = NextConfig

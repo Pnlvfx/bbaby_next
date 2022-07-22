@@ -30,7 +30,7 @@ export async function getServerSideProps(context: NextPageContext) {
     url: `${server}/user`,
     headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
     })
-    const session = await response.data
+    const session = response.data
 
   return {
     props: {
