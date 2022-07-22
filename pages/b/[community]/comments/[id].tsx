@@ -25,7 +25,7 @@ const Id: NextPage<Postprops> = ({post}) => {
         {post.mediaInfo?.isImage && <meta property="og:image" content={post?.mediaInfo?.image} key='ogimage' />}
         <meta property="og:url" content={hostname + '/b/' + post.community + '/comments/' + post._id} key='ogurl' />
         <meta property='og:type' content='website' key='ogtype' />
-        <meta name="twitter:card" content={`${post.mediaInfo?.isImage ? "summary_large_image" : "summary"}`} key='twcard'/>
+        <meta name="twitter:card" content="summary_large_image" key='twcard'/>
         <meta name="twitter:image:alt" content="" />
         <link rel='canonical' href={hostname + '/b/' + post.community + '/comments/' + post._id} key='canonical' />
       </Head>

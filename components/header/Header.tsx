@@ -44,14 +44,9 @@ function Header() {
     >
       <div className="ml-0 flex lg:ml-2">
         <Link href={'/'}>
-          <a
-            className="flex"
-            onClick={(event) => {
-              event.preventDefault(), router.push('/')
-            }}
-          >
-            <div className="relative mr-2 ml-0 h-[34px] w-[34px] self-center lg:ml-2">
-              <Image src={Logo} alt="logo" layout="fill" />
+          <a className="flex items-center">
+            <div className="mr-2 ml-0 h-[34px] w-[34px] lg:ml-2">
+              <Image src={Logo} alt="logo" height={34} width={34} />
             </div>
             <div className="hidden self-center lg:block">
               <TextLogo />

@@ -1,12 +1,14 @@
-import MainButtonNav from "./MainButtonNav"
+import MainButtonNav from './MainButtonNav'
+import PoliciesHeader from './PoliciesHeader'
 
-const PoliciesLayout = ({children}:any) => {
+const PoliciesLayout = ({ children }: any) => {
   return (
-    <main className='bg-white text-reddit_dark'>
-        <MainButtonNav />
-        {children}
+    <main className="bg-white text-reddit_dark">
+      <PoliciesHeader />
+      <MainButtonNav />
+      {children}
     </main>
   )
 }
 
-export default PoliciesLayout
+export default PoliciesLayout;
