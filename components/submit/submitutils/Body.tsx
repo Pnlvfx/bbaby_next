@@ -7,7 +7,6 @@ import { FaTrashAlt } from "react-icons/fa";
 const Body = () => {
   const [showDeleteOptions,setShowDeleteOptions] = useState(false)
   const {height,width,selectedFile,setSelectedFile,isImage,setIsImage,body,setBody,isVideo} = useContext(SubmitContext) as SubmitContextType;
-  console.log(isImage,isVideo)
   return (
     <>
     {!selectedFile && (

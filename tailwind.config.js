@@ -22,7 +22,7 @@ module.exports = {
           DEFAULT: '#323334',
         },
         reddit_text: {
-          DEFAULT: 'rgb(215, 218, 220)',
+          DEFAULT: '#d7dadc',
           darker: '#818384',
         },
         reddit_hover: {

@@ -40,7 +40,7 @@ const CommunitiesInfo = ({community}:any) => {
     //
     
     return (
-      <div className='bg-reddit_dark-brighter h-80 ml-[10px] rounded-md border border-reddit_border min-w-[280px] mb-5 p-2 max-w-[320px]'>
+      <div className='bg-reddit_dark-brighter h-80 rounded-md border border-reddit_border mb-5 p-2 w-[310px]'>
               <div className="flex text-reddit_text-darker">
                 <div className="p-1 self-center">
                     {loading && <LoaderPlaceholder extraStyles={{height: '15px'}}/>}

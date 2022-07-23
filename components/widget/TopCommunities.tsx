@@ -27,7 +27,7 @@ function TopCommunities() {
     }, []);
 
     return (
-      <div className='bg-reddit_dark-brighter shadow-lg rounded-md w-[310px] h-96 mb-5 border border-reddit_border box-content overflow-hidden'>
+      <div className='mb-5 bg-reddit_dark-brighter rounded-md w-[310px] h-96 border border-reddit_border box-content overflow-hidden'>
         {loadingCommunity && (
           <LoaderPlaceholder extraStyles={{height: '80px'}} />
         )}

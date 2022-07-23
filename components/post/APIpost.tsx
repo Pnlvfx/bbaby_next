@@ -1,14 +1,10 @@
 import axios from "axios"
 
-type getPostsProps = {
-    input? : string,
-    value? : string
-  }
-export const getPosts = async({input,value}:getPostsProps) => {
+export const getPosts = async(input:string | undefined,value:string | undefined,skip:number) => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
-    let url = `${server}/posts?limit=15&skip=0`
-    if (input && value) {
-        url = `${server}/posts?${input}=${value}&limit=10&skip=0`
+    let url = `${server}/posts?limit=10&skip=${skip}`
+    if (input !== undefined && value !== undefined) {
+        url = `${server}/posts?${input}=${value}&limit=10&skip=${skip}`
     }
     const posts = await axios({
         method: 'get',

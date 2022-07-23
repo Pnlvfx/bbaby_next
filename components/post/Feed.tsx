@@ -10,6 +10,7 @@ import TopCommunities from '../widget/TopCommunities'
 import CommunitiesInfo from '../widget/CommunitiesInfo'
 import dynamic from 'next/dynamic'
 import Donations from '../widget/Donations'
+import { getPosts } from './APIpost'
 
 type FeedProps = {
   posts: any
@@ -42,19 +43,11 @@ const Feed = ({posts:ssrPost,community,author}:FeedProps) => {
 
   const getMorePosts = async() => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
-    if (community) {
-      const res = await axios.get(`${server}/posts?community=${community}&skip=${posts.length}&limit=10`)
+    const input = community ? 'community' : author ? 'author' : undefined
+    const value = community ? community : author ? author : undefined
+      const res = await getPosts(input,value,posts.length)
       const newPosts = res.data
       setPosts([...posts, ...newPosts])
-    } else if (author) {
-      const res = await axios.get(`${server}/posts?author=${author}&skip=${posts.length}&limit=10`)
-      const newPosts = res.data
-      setPosts([...posts, ...newPosts])
-    } else {
-      const res = await axios.get(`${server}/posts?skip=${posts.length}&limit=10`)
-      const newPosts = res.data
-      setPosts([...posts, ...newPosts])
-    }
   };
   //
 

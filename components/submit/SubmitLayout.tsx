@@ -1,10 +1,10 @@
 import Submit from "./Submit"
 import { SubmitContextProvider } from "./SubmitContext"
 
-const SubmitLayout = ({newTweet,communityName}:any) => {
+const SubmitLayout = ({newTweet,community}:any) => {
   return (
     <SubmitContextProvider>
-        <Submit newTweet={newTweet} community={communityName} />
+        <Submit newTweet={newTweet} community={community} />
     </SubmitContextProvider>
   )
 }

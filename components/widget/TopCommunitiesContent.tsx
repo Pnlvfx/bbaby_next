@@ -1,14 +1,13 @@
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link'
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { RiArrowUpSLine } from 'react-icons/ri';
 import AuthModalContext from '../auth/AuthModalContext';
 import Button from '../utils/Button';
 
 function TopCommunitiesContent(props:any) {
   const {setShow}: any = useContext(AuthModalContext);
-  const [subscribed,setSubscribed] = useState('')
   const {refreshCommunities} = props
   const community:any = props
 

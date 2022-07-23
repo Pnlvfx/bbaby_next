@@ -15,7 +15,7 @@ const Donations = () => {
   }
 
   return (
-    <div className="mb-5 box-content w-[310] max-w-[310px] rounded-md border border-reddit_border bg-reddit_dark-brighter">
+    <div className="mb-5 box-content w-[310px] rounded-md border border-reddit_border bg-reddit_dark-brighter">
       <div className="flex p-4">
         <div className="self-center">
           <FaRegFlag className="h-6 w-6" />

@@ -19,9 +19,10 @@ type SubmitProps = {
 
 const Submit = ({newTweet,community}:SubmitProps) => {
     const {session} = useContext(UserContext)
-    const [startTyping,setStartTyping] = useState(false)
     const [activeClassTitle, setActiveClassTitle] = useState('border-reddit_dark-brightest')
     const [activeClassBody, setActiveClassBody] = useState('border-reddit_dark-brightest')
+    const [titleLength,setTitleLength] = useState(0);
+    const maxLength = session?.user.role === 1 ? 999 : 300
     const [enablePost,setEnablePost] = useState(false)
 
     const {
@@ -53,10 +54,12 @@ const Submit = ({newTweet,community}:SubmitProps) => {
     }
 
     useEffect(() => {
-        if(startTyping && selectedCommunity) {
+        if(titleLength >= 1 && selectedCommunity) {
             setEnablePost(true)
+        } else {
+            setEnablePost(false)
         }
-    },[selectedCommunity,startTyping])
+    },[selectedCommunity,titleLength])
    
     useEffect(() => {
         if(community) {
@@ -64,20 +67,11 @@ const Submit = ({newTweet,community}:SubmitProps) => {
         }
     },[community])
 
-    if(startTyping) {
-        const textarea:any = document.querySelector('textarea')
-        const count:any = document.getElementById('count')
-        textarea.onkeyup = (e: { target: { value: string | any[]; }; }) => {
-            count.innerHTML = (0 + e.target.value.length) + '/300';
-        }
-    }
-    //
 
     //////MY TWEEEEEEEEET
     useEffect(() => {
         if (newTweet && newTweet.title) {
             setTitle(newTweet.title)
-            console.log(newTweet)
             if (newTweet.image) {
                 setIsImage(true)
                 setHeight(newTweet.height)
@@ -101,7 +95,7 @@ const Submit = ({newTweet,community}:SubmitProps) => {
             <CommunityDropdown />
             <div className='bg-reddit_dark-brighter rounded-md flex-none mt-2'>
                 <div className='flex mb-3 rounded-md'>
-                    <button className='text-sm border-r border-reddit_border flex border-b-2 px-8 py-1 hover:bg-reddit_hover'>
+                    <button className='text-sm border-r border-reddit_border flex border-b-2 px-11 py-1 hover:bg-reddit_hover'>
                         <HiOutlineDocumentText className='w-6 h-6 mt-2'/>
                         <h1 className='py-3 font-semibold'>Post</h1>
                     </button>
@@ -118,18 +112,20 @@ const Submit = ({newTweet,community}:SubmitProps) => {
                     setActiveClassBody('border-reddit_dark-brightest')
                 }}>
                     <div onClick={() => {
-                        setStartTyping(true),
                         setActiveClassTitle('hover:border border-reddit_text')
                         }}
-                            className={'rounded-md flex mx-4 break-words whitespace-pre-wrap border '+activeClassTitle}>
+                            className={'rounded-md flex mx-4 break-words whitespace-pre-wrap border '+ activeClassTitle}>
                         <div className='flex w-full p-[6px]'>
                         <TextareaAutosize
                         className='placeholder-reddit_text-darker text-[15px] pl-3 w-full leading-6 row-span-1 overflow-x-hidden h-auto resize-none overflow-auto bg-reddit_dark-brighter text-reddit_text rounded-md block outline-none'
                         placeholder={'Title'}
-                        onChange={e => setTitle(e.target.value)}
-                        maxLength={300}
+                        onChange={e => {
+                            setTitle(e.target.value)
+                            setTitleLength(e.target.value.length)
+                        }}
+                        maxLength={maxLength}
                         value={title}/>
-                        <div id='count' className='text-reddit_text-darker flex-none text-[10px] mt-1'>0/300</div>
+                        <div className='text-reddit_text-darker flex-none text-[10px] mt-1'>{titleLength}/{maxLength}</div>
                         </div>
                     </div>
                 </ClickOutHandler>

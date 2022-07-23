@@ -25,12 +25,12 @@ const SubmitPage:NextPage = () => {
         <link rel='canonical' href={hostname + '/submit'} key='canonical' />
     </Head>
       <Layout>
-        <div className=" p-2 sm:p-4 block lg:flex self-center">
-          <div className="self-center mx-auto flex">
-            <div className="pr-0 md:pr-3 w-full lg:w-[800px] pt-5">
+        <div className=" p-2 sm:p-4 block lg:flex">
+          <div className="mx-auto flex justify-center">
+            <div className="mr-0 md:mr-6 w-full lg:w-[740px] pt-5">
                 <SubmitLayout />
             </div>
-            <div className="hidden lg:block pt-11 pr-3">
+            <div className="hidden lg:block mt-11">
               <TempSubmitWid />
             </div>
           </div>
