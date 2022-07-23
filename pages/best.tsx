@@ -1,11 +1,14 @@
-import type { GetServerSideProps, NextPage, NextPageContext } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import axios from 'axios'
 import Feed from '../components/post/Feed'
 import Layout from '../components/Layout'
 
+type BestPg = {
+  posts: Postprops
+}
 
-const Home: NextPage = () => {
+const Home: NextPage<BestPg> = ({posts}) => {
 
   //metatags
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
@@ -27,7 +30,7 @@ const Home: NextPage = () => {
         <link rel='canonical' href={`${hostname}/best`} key='canonical' />
       </Head>
        <Layout>
-        <Feed />
+        <Feed posts={posts} />
       </Layout>
     </>
   )
@@ -38,6 +41,9 @@ export default Home
 export const getServerSideProps: GetServerSideProps = async(context) => {
   
   const server = process.env.NEXT_PUBLIC_SERVER_URL
+  const headers = context?.req?.headers?.cookie
+  ? { cookie: context.req.headers.cookie }
+  : undefined
 
   const response =  await axios({
     method: "get",
@@ -46,9 +52,17 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
     })
     const session = response.data
 
+    const res = await axios({
+      method: 'get',
+      url: `${server}/posts?limit=15&skip=0`,
+      headers,
+    })
+    const posts = res.data
+
   return {
     props: {
-      session: session,
+      session,
+      posts
     }
   }
 }
