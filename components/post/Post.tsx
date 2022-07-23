@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import PostContent from './PostContent'
 import {isMobile} from 'react-device-detect'
 import { useRouter } from 'next/router'
@@ -11,7 +10,10 @@ interface ExtendPostProps {
 
 const Post = ({post,isListing,open}:ExtendPostProps) => {
     const router = useRouter()
-    let postClasses = 'block border border-reddit_border rounded-md ' + (open ? '' : "hover:border-reddit_text")
+    let postClasses = 'block border border-reddit_border rounded-md cursor-pointer ' + (open ? '' : "hover:border-reddit_text");
+    const url = isMobile ? `/b/${post.community}/comments/${post._id}` : router.pathname;
+    const query = isMobile ? undefined : {postId : post._id, community: post.community, username: post.author}
+    const as = isMobile ? undefined : `/b/post.community/comments/${post._id}`
 
     return (
     <div className='pb-3'>
@@ -21,15 +23,17 @@ const Post = ({post,isListing,open}:ExtendPostProps) => {
             </div>
         )}
         {!open && (
-            <div className={postClasses} >
-                <Link 
-                    href={!isMobile ? `${router.pathname}?postId=${post._id}&community=${post.community}&username=${post.author}` : `/b/${post.community}/comments/${post._id}`} 
-                    as={!isMobile ? '/b/'+post.community+'/comments/'+post._id : undefined}
-                    scroll={false}>
-                    <a>
-                        <PostContent post={post} isListing={isListing} />
-                    </a>
-                </Link>
+            <div className={postClasses}>
+                <div onClick={e => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    router.push({
+                        pathname: url,
+                        query,
+                    }, as, {scroll: false})
+                }}>
+                    <PostContent post={post} isListing={isListing}/>
+                </div>
             </div>
         )}
     </div>

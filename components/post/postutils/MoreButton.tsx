@@ -63,6 +63,7 @@ function MoreButton(props:any) {
        <div className=''>
           <button title='Show more options' type='button' onClick={event =>{
             event.preventDefault()
+            event.stopPropagation()
             toggleMoreDropdown()
         }}>
           <div className='self-center text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm'>
@@ -77,6 +78,7 @@ function MoreButton(props:any) {
                {postAuthor && (
                  <button onClick={e => {
                    e.preventDefault()
+                   e.stopPropagation()
                    deletePost()
                  }} className='p-2 flex text-reddit_text-darker hover:bg-blue-900 w-auto lg:w-[200px]'>
                    <BsTrashFill className='w-4 h-4 mt-1 mr-2' />

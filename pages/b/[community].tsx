@@ -1,18 +1,19 @@
+import Head from 'next/head';
 import {useContext, useEffect} from 'react'
+import Layout from '../../components/Layout'
 import BoardHeader from '../../components/header/BoardHeader'
 import {CommunityContext, CommunityContextProps} from '../../components/community/CommunityContext'
 import axios from 'axios';
-import Layout from '../../components/Layout'
-import Head from 'next/head';
 import {NextPage, NextPageContext } from 'next';
 import Feed from '../../components/post/Feed';
 import { useRouter } from 'next/router';
 
 type CommunityPg = {
   community: string,
+  posts: PostProps
 }
 
-const CommunityPage: NextPage<CommunityPg> = ({community}) => {
+const CommunityPage: NextPage<CommunityPg> = ({community,posts}) => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const imagePreview = '/imagePreview.png'
   const {getCommunity} = useContext(CommunityContext) as CommunityContextProps
@@ -38,8 +39,8 @@ const CommunityPage: NextPage<CommunityPg> = ({community}) => {
         <link rel='canonical' href={`${hostname}/b/${community}`} key='canonical' />
       </Head>
       <Layout>
-          {!router.query.postId && <BoardHeader community={community}/>}
-          <Feed community={community}/>
+          {!router.query?.postId && <BoardHeader community={community}/>}
+          <Feed community={community} posts={posts} />
       </Layout>
     </div>
   )
@@ -50,9 +51,16 @@ export default CommunityPage
 export const getServerSideProps = async(context: NextPageContext) => {
   
   const server = process.env.NEXT_PUBLIC_SERVER_URL
-  
+
   const {query} = context
   const {community} = query
+
+  const res = await axios({
+    method: 'get',
+    url: `${server}/posts?community=${community}&limit=15&skip=0`,
+    headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
+  })
+  const posts = res.data
 
   const response = await axios({
     method: "get",
@@ -63,7 +71,8 @@ export const getServerSideProps = async(context: NextPageContext) => {
   return {
     props: {
       session: session,
-      community
+      community,
+      posts
     }
   }
 }

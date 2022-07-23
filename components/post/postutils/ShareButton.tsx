@@ -34,6 +34,7 @@ function ShareButton({community,postId}:ShareButtonProps) {
       <div>
         <button type='button' onClick={event =>{
         event.preventDefault()
+        event.stopPropagation()
           toggleShareDropdown()
         }}>
           <div className='flex text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm self-center'>
@@ -44,7 +45,10 @@ function ShareButton({community,postId}:ShareButtonProps) {
 
           <div className={'absolute ' + ShareDropdownVisibilityClass}>
             <div className='flex bg-reddit_dark-brighter border border-reddit_border z-10 rounded-md overflow-hidden'>
-                <div onClick={e => {e.preventDefault()}}>
+                <div onClick={e => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  }}>
                 <CopyToClipboard
                 text={hostname + '/b/'+community+'/comments/'+postId} 
                 onCopy={() => {

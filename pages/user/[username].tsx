@@ -4,8 +4,12 @@ import Head from "next/head";
 import Layout from "../../components/Layout";
 import Feed from "../../components/post/Feed";
 
-const Username:NextPage = (props) => {
-  const {author}: any = props
+type AuthorPg = {
+  author: string,
+  posts: PostProps
+}
+
+const Username:NextPage<AuthorPg> = ({author,posts}) => {
   
   return (
    <div>
@@ -13,7 +17,7 @@ const Username:NextPage = (props) => {
       <title>Bbabystyle - user profile page </title>
      </Head>
      <Layout>
-      <Feed author={author} />
+      <Feed author={author} posts={posts} />
      </Layout>
    </div>
   )
@@ -25,6 +29,15 @@ export async function getServerSideProps(context: NextPageContext) {
   
   const server = process.env.NEXT_PUBLIC_SERVER_URL
 
+  const author = context.query.username
+
+  const res = await axios({
+    method: 'get',
+    url: `${server}/posts?author=${author}&limit=15&skip=0`,
+    headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
+  })
+  const posts = res.data
+
   const response =  await axios({
     method: "get",
     url: `${server}/user`,
@@ -34,8 +47,9 @@ export async function getServerSideProps(context: NextPageContext) {
 
   return {
     props: {
-      session: session,
-      author: context.query.username
+      session,
+      author,
+      posts
     }
   }
 }

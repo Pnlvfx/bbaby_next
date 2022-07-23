@@ -10,15 +10,14 @@ import TopCommunities from '../widget/TopCommunities'
 import CommunitiesInfo from '../widget/CommunitiesInfo'
 import dynamic from 'next/dynamic'
 import Donations from '../widget/Donations'
-import PostLoading from './PostLoading'
-import { getPosts } from './APIpost'
 
 type FeedProps = {
+  posts: any
   community?: string,
   author?: string
 }
 
-const Feed = ({community,author}:FeedProps) => {
+const Feed = ({posts:ssrPost,community,author}:FeedProps) => {
   const PostModal = dynamic(() => import('./PostModal'))
 
   const [postOpen, setPostOpen] = useState(false)
@@ -39,30 +38,9 @@ const Feed = ({community,author}:FeedProps) => {
   //
 
   //INFINITE SCROLLING
-  const [posts,setPosts] = useState<any[]>([])
-  const [loadingPosts,setLoadingPosts] = useState(true)
+  const [posts,setPosts] = useState<any[]>(ssrPost)
   const [loadingCommunity,setLoadingCommunity] = useState(true)
 
-
-  //GET POST FROM COMMUNITYPAGE USER_PAGE AND HOMEPAGE
-  useEffect(() => {
-    setLoadingPosts(true)
-    if (community) {
-        getPosts({input:'community',value:community}).then(response => {
-        setPosts(response.data)
-      })
-    } else if(author) {
-        getPosts({input:'author',value:author}).then(response => {
-        setPosts(response.data)
-      })
-    } else {  //HOME
-        getPosts({}).then(response => {
-        setPosts(response.data)
-      })
-    }
-    setLoadingPosts(false)
-  },[author, community])
-  //
   const getMorePosts = async() => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     if (community) {
@@ -96,10 +74,8 @@ const Feed = ({community,author}:FeedProps) => {
   useEffect(() => {
     if (community) return
     if (isMobile) return
-    if (!loadingPosts) {
       getCommunities()
-    }
-    }, [community, loadingPosts]);
+    }, [community]);
     //
 
   return (
@@ -111,7 +87,7 @@ const Feed = ({community,author}:FeedProps) => {
     )}
     {postId === '' && (
       <div className='flex pt-5 mx-[2px] lg:mx-10'>
-        <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] ml-auto mr-4 flex-none overflow-hidden'>
+        <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] ml-auto mr-4 flex-none'>
             <div className='pb-[18px]'>
                 {!author && ( //authorPage
                   <PostForm community={community ? community : ''} allCommunity={allCommunity} />
@@ -120,14 +96,6 @@ const Feed = ({community,author}:FeedProps) => {
             <div className='pb-4'>
               <BestPost />
             </div>
-            {loadingPosts && (
-              <>
-              loading posts...
-              {/* <PostLoading />
-              <PostLoading /> */}
-              </>
-            )}
-            {!loadingPosts && (
               <>
               <InfiniteScroll 
               dataLength={posts.length}
@@ -141,7 +109,6 @@ const Feed = ({community,author}:FeedProps) => {
             ))}
             </InfiniteScroll>
             </>
-            )}
         </div>
           <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden mr-auto'>
             {community ? 
