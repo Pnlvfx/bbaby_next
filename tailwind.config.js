@@ -29,7 +29,7 @@ module.exports = {
           DEFAULT: '#2E2E30'
         },
         reddit_blue: {
-          DEFAULT: 'rgb(0,121,211)'
+          DEFAULT: '#24A0ED'
         }
       },
     },

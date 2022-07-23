@@ -9,10 +9,9 @@ import {AddImageIcon} from '../../utils/SVG'
 
 type PostFormProps = {
     community: string,
-    allCommunity: any[]
 }
 
-function PostForm({community,allCommunity}:PostFormProps) {
+function PostForm({community}:PostFormProps) {
     const provider = useContext(UserContext)
     const {session} = provider
 

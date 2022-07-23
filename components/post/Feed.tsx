@@ -39,7 +39,6 @@ const Feed = ({posts:ssrPost,community,author}:FeedProps) => {
 
   //INFINITE SCROLLING
   const [posts,setPosts] = useState<any[]>(ssrPost)
-  const [loadingCommunity,setLoadingCommunity] = useState(true)
 
   const getMorePosts = async() => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
@@ -59,25 +58,6 @@ const Feed = ({posts:ssrPost,community,author}:FeedProps) => {
   };
   //
 
-  // GET ALL COMMUNITY INFO
-  const [allCommunity,setAllCommunity] = useState([]);
-
-  const getCommunities = () => {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
-    axios.get(`${server}/best-communities?limit=5`,{withCredentials:true})
-      .then(response => {
-        setAllCommunity(response.data)
-        setLoadingCommunity(false)
-      });
-  }
-
-  useEffect(() => {
-    if (community) return
-    if (isMobile) return
-      getCommunities()
-    }, [community]);
-    //
-
   return (
     <>
     {postId !== '' && !isMobile && (
@@ -90,7 +70,7 @@ const Feed = ({posts:ssrPost,community,author}:FeedProps) => {
         <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] ml-auto mr-4 flex-none'>
             <div className='pb-[18px]'>
                 {!author && ( //authorPage
-                  <PostForm community={community ? community : ''} allCommunity={allCommunity} />
+                  <PostForm community={community ? community : ''} />
                 )}
             </div>
             <div className='pb-4'>
@@ -114,7 +94,7 @@ const Feed = ({posts:ssrPost,community,author}:FeedProps) => {
             {community ? 
             <CommunitiesInfo community={community} /> 
             : 
-            <TopCommunities refreshCommunities={getCommunities} allCommunity={allCommunity} loadingCommunity={loadingCommunity}/>
+            <TopCommunities />
             }
             <Donations />
           </div>

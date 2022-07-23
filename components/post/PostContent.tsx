@@ -35,7 +35,7 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
         />
       </div>
       <div className="w-full p-2">
-        <div className="mb-3 flex w-full truncate">
+        <div className="mb-3 flex w-full truncate h-5">
           <Link href={`/b/${post.community}`}>
             <a
               onClick={(event) => {
@@ -45,9 +45,8 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
                   pathname: '/b/' + post.community,
                 })
               }}
-              className="relative flex h-5"
+              className="relative flex"
             >
-              <div className="">
                 <Image
                   src={post.communityIcon}
                   alt=""
@@ -55,10 +54,9 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
                   height={'20px'}
                   width={'20px'}
                 />
-              </div>
-              <p className="ml-1 mt-[2px] text-xs font-bold hover:underline">
+              <span className="ml-1 mt-[2px] text-xs font-bold hover:underline">
                 b/{post.community}
-              </p>
+              </span>
             </a>
           </Link>
           <span className="px-1 text-sm">-</span>

@@ -37,13 +37,14 @@ const CookieConsent = () => {
     {showAnalytics && <GoogleAnalytics />}
       {show && (
         <div className="fixed bottom-0 z-30 flex w-full rounded-sm border border-reddit_border bg-reddit_dark-brighter font-bold lg:left-[35%] lg:right-[50%] lg:bottom-12 lg:w-[700px]">
+          <div className={'w-6 bg-['} />
           <div className={'w-6 bg-reddit_blue'} />
           <div>
             <p className="p-3 pl-4 text-[15px]">
               We use cookies on our website for a number of purposes, including
               analytics and performance, functionality and advertising.{' '}
               <Link href={'/policies/cookies'}>
-                <a className="text-reddit_blue">
+                <a className="text-[#4BB3F3]">
                   Learn more abour Bbaby&apos;s use of cookies.
                 </a>
               </Link>
@@ -53,17 +54,17 @@ const CookieConsent = () => {
                 onClick={() => {
                   acceptCookie()
                 }}
-                className="rounded-full bg-reddit_blue p-2 px-3 text-sm font-bold"
+                className="rounded-full bg-reddit_text p-2 px-3 text-sm font-bold"
               >
-                <p>Reject non-essential</p>
+                <p className='text-reddit_dark'>Reject non-essential</p>
               </button>
               <button
                 onClick={() => {
                   acceptCookie()
                 }}
-                className="rounded-full bg-reddit_blue p-2 px-3 text-sm font-bold"
+                className="rounded-full bg-reddit_text p-2 px-3 text-sm font-bold"
               >
-                <p>Accept all</p>
+                <p className='text-reddit_dark'>Accept all</p>
               </button>
             </div>
           </div>
