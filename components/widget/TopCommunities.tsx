@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import LoaderPlaceholder from '../post/LoaderPlaceholder';
-import Button from '../utils/Button';
+import { buttonClass } from '../utils/Button';
 import TopCommunitiesContent from './TopCommunitiesContent'
 
 function TopCommunities() {
@@ -57,9 +57,9 @@ function TopCommunities() {
             <div className='pt-3'>
             <Link href={`/bbaby/leaderboard`}>
               <a className='mx-auto text-center'>
-                <Button className=' mx-2 py-[6px] w-full max-w-[290px] self-center'>
+                <button className={`mx-2 py-[6px] w-full max-w-[290px] self-center ${buttonClass()}`}>
                   View All
-                </Button>
+                </button>
               </a>
             </Link>
             </div>

@@ -1,127 +1,152 @@
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { EditTextarea } from 'react-edit-text';
-import Button from '../utils/Button'
-import {MdOutlineAdminPanelSettings, MdOutlineModeEditOutline} from 'react-icons/md'
-import moment from 'moment';
-import Link from "next/link";
-import AuthModalContext from "../auth/AuthModalContext";
-import UserContext from "../auth/UserContext";
-import LoaderPlaceholder from "../post/LoaderPlaceholder";
-import Image from "next/image";
-import { CommunityContext } from "../community/CommunityContext";
+import axios from 'axios'
+import { useContext, useEffect, useState } from 'react'
+import { EditTextarea } from 'react-edit-text'
+import { buttonClass } from '../utils/Button'
+import {
+  MdOutlineAdminPanelSettings,
+  MdOutlineModeEditOutline,
+} from 'react-icons/md'
+import moment from 'moment'
+import Link from 'next/link'
+import {AuthModalContext, AuthModalContextProps} from '../auth/AuthModalContext'
+import UserContext from '../auth/UserContext'
+import LoaderPlaceholder from '../post/LoaderPlaceholder'
+import Image from 'next/image'
+import { CommunityContext, CommunityContextProps } from '../community/CommunityContext'
 
-const CommunitiesInfo = ({community}:any) => {
-    const provider = useContext(UserContext)
-    const {session} = provider
-    const {communityAvatar,name,description,createdAt,loading,user_is_moderator}:any = useContext(CommunityContext)
-    const [descr,setDescr] = useState('')
+const CommunitiesInfo = () => {
+  const {session} = useContext(UserContext)
+  const {
+    loading,
+    communityInfo,
+  } = useContext(CommunityContext) as CommunityContextProps;
+  const [descr, setDescr] = useState('')
 
-    const [commit,setCommit] = useState(false)
-    
-    const {user} = session ? session : {user: {username: ''}}
-    const {setShow}:any = useContext(AuthModalContext)
-    
-    useEffect(() => {
-        if(commit) {
-            const server = process.env.NEXT_PUBLIC_SERVER_URL
-            const data = {descr, name}
-            axios.post(server+'/communities/edit/description',data,{withCredentials:true}).then(response => {
-                setCommit(false)
-            })
-        }
-    },[commit])
+  const [commit, setCommit] = useState(false)
 
-    //TEXTAREA
-    const handleSave = ({name,value,previousValue}:any) => {
-        setDescr(value)
-        setCommit(true)
+  const { user } = session ? session : { user: { username: '' } }
+  const { setShow } = useContext(AuthModalContext) as AuthModalContextProps;
+
+  useEffect(() => {
+    if (commit) {
+      const server = process.env.NEXT_PUBLIC_SERVER_URL
+      const data = { descr, name:communityInfo.name }
+      axios.post(server + '/communities/edit/description', data, {withCredentials: true,})
+        .then((response) => {
+          setCommit(false)
+        })
     }
-    //
-    
-    return (
-      <div className='bg-reddit_dark-brighter h-80 rounded-md border border-reddit_border mb-5 p-2 w-[310px]'>
-              <div className="flex text-reddit_text-darker">
-                <div className="p-1 self-center">
-                    {loading && <LoaderPlaceholder extraStyles={{height: '15px'}}/>}
-                    {!loading && (
-                        <h1 className="font-bold text-[15px]">About community</h1>
-                    )}
-                </div>
-                    {user_is_moderator && (
-                    <Link href={`/b/${community}/about/modqueue`}>
-                        <a className="ml-auto self-center">
-                            <div className="flex mt-1 self-center">
-                                <MdOutlineAdminPanelSettings className="w-6 h-6 self-center" />
-                                <span className="text-xs p-1 font-bold self-center">MOD TOOLS</span>
-                            </div>
-                        </a>
-                    </Link>
-                )}
-              </div>
-                <div>
-                    {loading && (
-                        <LoaderPlaceholder extraStyles={{height: '32px'}} />
-                    )}
-                    {!loading && (
-                        <Link href={`/b/${community}`}>
-                            <a className='flex pt-3'>
-                                <div className=''>
-                                    <Image unoptimized src={communityAvatar} alt='' height={'32px'} width={'32px'} className="rounded-full flex-none"/>
-                                </div>
-                                <h3 className="h-12 pl-2 mt-[4px]">b/{name}</h3>
-                            </a>
-                        </Link>
-                    )}
-                </div>
-              {user_is_moderator && !loading && (
-                    <div className="flex hover:border border-reddit_text self-center">
-                                <div className="overflow-hidden self-center bg-black w-full">
-                                    <EditTextarea
-                                    name={'description'}
-                                    defaultValue={description}
-                                    onSave={handleSave}
-                                    inputClassName={'bg-reddit_dark-brighter break-words leading-6 overflow-hidden outline-none'} 
-                                    className='bg-reddit_dark-brighter break-words leading-6 overflow-hidden outline-none'
-                                    />
-                                </div>
-                                <div className="text-reddit_text-darker self-center">
-                                    <MdOutlineModeEditOutline className="w-6 h-6 self-center"/>
-                                </div>
-                    </div>
-              )} 
-              {!user_is_moderator && !loading && (
-                  <div className="flex">
-                    <div className="overflow-hidden mb-2">
-                        <span className='bg-reddit_dark-brighter break-words leading-6 overflow-hidden resize-none outline-none'>{description}</span>               
-                    </div>
-                </div>
-              )}
+  }, [commit])
 
-                <div>
-                    <hr className="border-reddit_border"></hr>
-                    <div className="py-3 text-sm">
-                        Created {moment(createdAt).format('MMM DD, YYYY')}
-                    </div>
-                    <hr className="border-reddit_border"/>
-                </div>
-              <div className="self-center">
-                  {!user && (
-                      <Button onClick={() => {setShow('login')}} className='w-full py-1 mt-3'>Create a Post</Button>
-                  )}
-                  {user && (
-                    <Link href={`/submit`}>
-                        <a className="self-center">
-                            <div className="self-center">
-                                <Button className='w-full py-1 mt-3'>Create a Post</Button>
-                            </div>
-                        </a>
-                    </Link>
-                  )}
-              </div>
-              <hr className="border-reddit_border"/>
-      </div>
-    )
+  //TEXTAREA
+  const handleSave = ({ name, value, previousValue }: any) => {
+    setDescr(value)
+    setCommit(true)
   }
-  
-  export default CommunitiesInfo;
+  //
+
+  return (
+    <div className="mb-5 h-80 w-[310px] rounded-md border border-reddit_border bg-reddit_dark-brighter p-2">
+      <div className="flex text-reddit_text-darker">
+        <div className="self-center p-1">
+          {loading && <LoaderPlaceholder extraStyles={{ height: '15px' }} />}
+          {!loading && (
+            <h1 className="text-[15px] font-bold">About community</h1>
+          )}
+        </div>
+        {communityInfo.user_is_moderator && (
+          <Link href={`/b/${communityInfo.name}/about/modqueue`}>
+            <a className="ml-auto self-center">
+              <div className="mt-1 flex self-center">
+                <MdOutlineAdminPanelSettings className="h-6 w-6 self-center" />
+                <span className="self-center p-1 text-xs font-bold">
+                  MOD TOOLS
+                </span>
+              </div>
+            </a>
+          </Link>
+        )}
+      </div>
+      <div>
+        {loading && <LoaderPlaceholder extraStyles={{ height: '32px' }} />}
+        {!loading && (
+          <Link href={`/b/${communityInfo.name}`}>
+            <a className="flex pt-3">
+              <div className="">
+                <Image
+                  unoptimized
+                  src={communityInfo.communityAvatar}
+                  alt=""
+                  height={32}
+                  width={32}
+                  className="flex-none rounded-full"
+                />
+              </div>
+              <h3 className="mt-[4px] h-12 pl-2">b/{communityInfo.name}</h3>
+            </a>
+          </Link>
+        )}
+      </div>
+      {communityInfo.user_is_moderator && !loading && (
+        <div className="flex self-center border-reddit_text hover:border">
+          <div className="w-full self-center overflow-hidden bg-black">
+            <EditTextarea
+              name={'description'}
+              defaultValue={communityInfo.description}
+              onSave={handleSave}
+              inputClassName={
+                'bg-reddit_dark-brighter break-words leading-6 overflow-hidden outline-none'
+              }
+              className="overflow-hidden break-words bg-reddit_dark-brighter leading-6 outline-none"
+            />
+          </div>
+          <div className="self-center text-reddit_text-darker">
+            <MdOutlineModeEditOutline className="h-6 w-6 self-center" />
+          </div>
+        </div>
+      )}
+      {!communityInfo.user_is_moderator && !loading && (
+        <div className="flex">
+          <div className="mb-2 overflow-hidden">
+            <p className="resize-none break-words bg-reddit_dark-brighter leading-6 outline-none text-[15px]">
+              {communityInfo.description}
+            </p>
+          </div>
+        </div>
+      )}
+
+      <div>
+
+        <hr className="border-reddit_border"></hr>
+        <div className="py-3 text-sm">
+          Created {moment(communityInfo.createdAt).format('MMM DD, YYYY')}
+        </div>
+        <hr className="border-reddit_border" />
+      </div>
+      <div className="self-center">
+        {!user && (
+          <button
+            onClick={() => {
+              setShow('login')
+            }}
+            className={`mt-3 w-full py-1${buttonClass()}`}
+          >
+            Create a Post
+          </button>
+        )}
+        {user && (
+          <Link href={`/submit`}>
+            <a className="self-center">
+              <div className="self-center">
+                <button className={`mt-3 w-full py-1 ${buttonClass()}`}>Create a Post</button>
+              </div>
+            </a>
+          </Link>
+        )}
+      </div>
+      <hr className="border-reddit_border" />
+    </div>
+  )
+}
+
+export default CommunitiesInfo

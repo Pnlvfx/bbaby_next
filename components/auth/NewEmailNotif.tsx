@@ -1,15 +1,17 @@
 import {useState} from "react";
-import Button from "../utils/Button";
+import { buttonClass } from "../utils/Button";
 import { CloseIcon } from "../utils/SVG";
 
+interface EmailNotifProps {
+    email:string
+}
 
-function NewEmailNotif(props: any) {
+const NewEmailNotif = ({email}:EmailNotifProps) => {
 
     const [isOpen,setIsOpen] = useState(true)
     if (!isOpen) {
         return null
     }
-    
 
   return (
       <>
@@ -18,7 +20,7 @@ function NewEmailNotif(props: any) {
               <div className="flex p-4">
                   <div className="">
                       <h1 className="font-bold" >Confirm your email:</h1>
-                      <h2 className="pb-2">{props.email}</h2>
+                      <h2 className="pb-2">{email}</h2>
                       <h3 className="">Check your inbox email for Bbaby&apos;s confirmation email. A current email address help ensure you don&apos;t lose access to your account</h3>
                   </div>
                   <div className="flex-none">
@@ -28,7 +30,7 @@ function NewEmailNotif(props: any) {
                   </div>
               </div>
               <div className="text-right pr-2 p-2">
-              <Button onClick={() => setIsOpen(false)} className="py-1 px-10" >Got It</Button>
+              <button onClick={() => setIsOpen(false)} className={`py-1 px-10 ${buttonClass()}`} >Got It</button>
               </div>
          </div>
      

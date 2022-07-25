@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Button from "../../../utils/Button";
+import { buttonClass } from "../../../utils/Button";
 import {RiArrowDropDownFill} from 'react-icons/ri'
 import Twitter from "../../providers/Twitter";
 import Reddit from "../../providers/Reddit";
@@ -36,7 +36,7 @@ function Account() {
               <h2 className="text-[12px] text-reddit_text-darker font-normal pt-[2px]">{email}</h2>
             </div>
             <div className="ml-auto self-center">
-              <Button outline='true' className='py-1 px-[18px]'>Change</Button>
+              <button className={`py-1 px-[18px] ${buttonClass(true)}`}>Change</button>
             </div>
         </div>
         <div id="change_password" className="mt-7 flex">
@@ -45,7 +45,7 @@ function Account() {
             <h2 className="text-[12px] text-reddit_text-darker font-normal pt-[2px]">Password must be at least 8 characters long</h2>
           </div>
           <div className="self-center ml-auto">
-            <Button outline='true' className='py-1 px-[18px]'>Change</Button>
+            <button className={`py-1 px-[18px] ${buttonClass(true)}`}>Change</button>
           </div>
         </div>
         <div id="gender" className="mt-7 flex">

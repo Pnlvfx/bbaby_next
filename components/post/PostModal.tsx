@@ -12,18 +12,14 @@ type PostModalProps = {
   community?: string,
   postId: string | string[],
   open: Boolean,
-  onClickOut: () => void
-}
-type PostProps = {
-  author?: string,
-  title?: string
+  onClickOut: Function
 }
 
 const PostModal = ({community,postId,open,onClickOut}:PostModalProps) => {
 
   const router = useRouter();
 
-  const [post,setPost] = useState<PostProps>({});
+  const [post,setPost] = useState<Postprops | any>({});
   const [loading,setLoading] = useState(true)
 
   const visibleClass = open ? 'block' : 'hidden'

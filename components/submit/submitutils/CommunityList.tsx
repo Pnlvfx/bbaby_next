@@ -8,15 +8,10 @@ type CommunityListProps = {
   setActiveClass: React.Dispatch<SetStateAction<boolean>>
 }
 
-const CommunityList = ({
-  community,
-  setShow,
-  setActiveClass,
-}: CommunityListProps) => {
+const CommunityList = ({community,setShow,setActiveClass,}: CommunityListProps) => {
   const size = 35
-  const { setSelectedCommunity, setCommunityIcon } = useContext(
-    SubmitContext
-  ) as SubmitContextType
+  const { setSelectedCommunity, setCommunityIcon } = useContext(SubmitContext) as SubmitContextType
+
   return (
       <button className='w-full hover:bg-reddit_dark-brightest mb-3'
         value={'community'}

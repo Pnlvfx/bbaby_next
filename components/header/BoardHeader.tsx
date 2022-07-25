@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Image from 'next/image'
 import { useContext, useEffect, useRef, useState } from 'react'
-import { CommunityContext } from '../community/CommunityContext'
+import { CommunityContext, CommunityContextProps } from '../community/CommunityContext'
 
 interface BoardHeaderProps {
   community: string
@@ -9,14 +9,11 @@ interface BoardHeaderProps {
 
 const BoardHeader = ({ community }: BoardHeaderProps) => {
   const {
-    communityAvatar,
-    cover,
     loading,
-    user_is_moderator,
-    name,
     getCommunity,
-  }: any = useContext(CommunityContext)
-  const [selectedFile, setSelectedFile] = useState(communityAvatar)
+    communityInfo
+  } = useContext(CommunityContext) as CommunityContextProps;
+  const [selectedFile, setSelectedFile] = useState<string | undefined>(communityInfo.communityAvatar)
   const filePickerRef: any = useRef(null)
   const server = process.env.NEXT_PUBLIC_SERVER_URL
 
@@ -29,7 +26,7 @@ const BoardHeader = ({ community }: BoardHeaderProps) => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onloadend = () => {
-      setSelectedFile(reader.result)
+      setSelectedFile(reader.result?.toString())
     }
   }
 
@@ -37,12 +34,12 @@ const BoardHeader = ({ community }: BoardHeaderProps) => {
     try {
       const res = await axios({
         method: 'POST',
-        url: `${server}/communities/${name}/change_avatar`,
+        url: `${server}/communities/${communityInfo.name}/change_avatar`,
         data: { image: selectedFile },
         headers: { 'Content-Type': 'application/json' },
       })
       getCommunity(community)
-      setSelectedFile(false)
+      setSelectedFile('')
     } catch (err: any) {}
   }
 
@@ -56,7 +53,7 @@ const BoardHeader = ({ community }: BoardHeaderProps) => {
       <div
         className="no-repeat h-48 bg-cover"
         style={{
-          backgroundImage: `url("${cover}")`,
+          backgroundImage: `url("${communityInfo.cover}")`,
           backgroundRepeat: 'no-repeat',
           backgroundColor: 'rgb(0,108,189)',
           backgroundPosition: '50%',
@@ -64,11 +61,11 @@ const BoardHeader = ({ community }: BoardHeaderProps) => {
       ></div>
       <div className="mx-auto self-center bg-reddit_dark-brighter">
         <div className="mx-5 flex">
-          {!user_is_moderator && (
+          {!communityInfo.user_is_moderator && (
             <div className="relative -top-4 ml-0 h-[72px] w-[72px] overflow-hidden rounded-full border-4 border-white bg-reddit_blue lg:ml-40">
               {!loading && (
                 <Image
-                  src={communityAvatar}
+                  src={communityInfo.communityAvatar}
                   alt="community header"
                   className="flex-none rounded-full"
                   layout="fill"
@@ -76,7 +73,7 @@ const BoardHeader = ({ community }: BoardHeaderProps) => {
               )}
             </div>
           )}
-          {user_is_moderator && (
+          {communityInfo.user_is_moderator && (
             <div
               className="relative -top-4 ml-0 cursor-pointer lg:ml-40"
               onClick={() => filePickerRef.current.click()}
@@ -84,7 +81,7 @@ const BoardHeader = ({ community }: BoardHeaderProps) => {
               <div className="relative h-[72px] w-[72px] overflow-hidden rounded-full border-4 border-white bg-reddit_blue">
                 {!loading && (
                   <Image
-                    src={communityAvatar}
+                    src={communityInfo.communityAvatar}
                     alt="community_header"
                     className="flex-none rounded-full"
                     width={72}

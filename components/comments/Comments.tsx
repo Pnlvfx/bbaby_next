@@ -5,21 +5,21 @@ import {useState, useContext} from 'react'
 import RootCommentContext from './commentutils/RootCommentContext';
 import Voting from '../voting/Voting'
 
-function Comments(props) {
+function Comments(props:any) {
   const [showForm, setShowForm] = useState(false);
-  const comments = props.comments.filter(comment => props.parentId === comment.parentId);
-  const rootCommentInfo = useContext(RootCommentContext);
+  const comments:any = props.comments.filter((comment:any) => props.parentId === comment.parentId);
+  const rootCommentInfo:any = useContext(RootCommentContext);
 
 
   return (
     <div className={"my-2 bg-reddit_dark-brighter"}>
-        {comments.map(comment => { 
-          const replies = props.comments.filter(c => c.parentId === comment._id)
+        {comments.map((comment:any) => { 
+          const replies = props.comments.filter((c:any) => c.parentId === comment._id)
 
           return(
           <div className='mb-2' key={comment._id}>
               <div className="flex mb-2">
-                  <img src={comment.authorAvatar} alt='' className="bg-gray-600 w-8 h-8 rounded-full mr-2" />
+                  <img src={comment.authorAvatar} alt='' className="w-8 h-8 rounded-full mr-2" />
                   <div className="leading-10 pr-2 text-sm font-sans">{comment.author}</div>
                   <TimeAgo className='leading-10 text-sm text-reddit_text-darker font-sans' datetime={comment.createdAt} />
               </div>
@@ -37,7 +37,7 @@ function Comments(props) {
                             rootCommentInfo.refreshComments();
                     }}
                     showAuthor={false} 
-                    onCancel={ e => setShowForm(false)} />
+                    onCancel={ (e:any) => setShowForm(false)} />
                   )}
                   {replies.length > 0 && (
                     <Comments comments={props.comments} parentId={comment._id} rootId={props.rootId} />

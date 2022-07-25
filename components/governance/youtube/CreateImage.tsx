@@ -1,8 +1,8 @@
 import axios from "axios"
 import {useState } from "react"
 import { AiOutlineLoading3Quarters } from "react-icons/ai"
-import Button from "../../utils/Button"
-import Input from "../../utils/Input"
+import { buttonClass } from "../../utils/Button"
+import { inputClass } from "../../utils/Input"
 import YoutubeLogin from "./YoutubeLogin"
 
 type CreateImageProps = {
@@ -46,7 +46,7 @@ const CreateImage = ({modalType,setModalType,setInput,input}:CreateImageProps) =
                       <h1 className="">Community:</h1>
                     </div>
                     <div className="ml-auto self-center">
-                      <Input type='text' title='community' value={value.community} onChange={(e: { target: { value: any } }) => setValue({...value,community:e.target.value})} className='p-2 font-bold'/>
+                      <input type='text' title='community' value={value.community} onChange={(e) => setValue({...value,community:e.target.value})} className={`${inputClass} p-2 font-bold`}/>
                     </div>
                 </div>
                 <div id="set_text_color" className="mt-2 flex">
@@ -54,7 +54,7 @@ const CreateImage = ({modalType,setModalType,setInput,input}:CreateImageProps) =
                       <h1 className="">Text Color:</h1>
                     </div>
                     <div className="ml-auto self-center">
-                      <Input type='text' title='text_color' value={value.textColor} onChange={(e: { target: { value: any } }) => setValue({...value,textColor:e.target.value})} className='p-2 font-bold'/>
+                      <input type='text' title='text_color' value={value.textColor} onChange={(e) => setValue({...value,textColor:e.target.value})} className={`${inputClass} p-2 font-bold`}/>
                     </div>
                 </div>
                 <div id="set_font_size" className="mt-2 flex">
@@ -62,7 +62,7 @@ const CreateImage = ({modalType,setModalType,setInput,input}:CreateImageProps) =
                       <h1 className="">Font Size:</h1>
                     </div>
                     <div className="ml-auto self-center">
-                      <Input type='text' title='font_size' value={value.fontSize} onChange={(e: { target: { value: any } }) => setValue({...value,fontSize:e.target.value})} className='p-2 font-bold'/>
+                      <input type='text' title='font_size' value={value.fontSize} onChange={(e) => setValue({...value,fontSize:e.target.value})} className={`${inputClass} p-2 font-bold`}/>
                     </div>
                 </div>
                 <div id="format" className="mt-2 flex">
@@ -70,7 +70,7 @@ const CreateImage = ({modalType,setModalType,setInput,input}:CreateImageProps) =
                       <h1 className="">Format:</h1>
                     </div>
                     <div className="ml-auto self-center">
-                      <Input type='text' title='font_size' value={value.format} onChange={(e: { target: { value: any } }) => setValue({...value,format:e.target.value})} className='p-2 font-bold'/>
+                      <input type='text' title='font_size' value={value.format} onChange={(e) => setValue({...value,format:e.target.value})} className={`${inputClass} p-2 font-bold`}/>
                     </div>
                 </div>
             </form>
@@ -80,12 +80,12 @@ const CreateImage = ({modalType,setModalType,setInput,input}:CreateImageProps) =
                     </div>
                     {/* <YoutubeLogin /> */}
                     <div className="self-center w-40 ml-3 mr-5">
-                        <Button type='submit' disabled={loading ? true : false} className='w-40 h-7 self-center' onClick={() => {
+                        <button type='submit' disabled={loading ? true : false} className={`w-40 h-7 self-center ${buttonClass()}`} onClick={() => {
                           createImage()
                         }}>
                           {loading && <AiOutlineLoading3Quarters className='animate-spin mx-auto' />}
                           {!loading && <p>Create Image</p>}
-                        </Button>
+                        </button>
                     </div>
                 </div>
               </>

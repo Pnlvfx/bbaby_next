@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useContext, useState } from "react"
 import { BiDownvote, BiUpvote } from "react-icons/bi"
-import AuthModalContext from "../auth/AuthModalContext"
+import {AuthModalContext, AuthModalContextProps} from "../auth/AuthModalContext"
 
 type Voting = {
   ups: number,
@@ -14,7 +14,7 @@ const Voting = ({ups,postId,liked,author}:Voting) => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     let dir = 0  //vote
     const [upVote,setUpVote] = useState(ups)
-    const {setShow}:any = useContext(AuthModalContext);
+    const {setShow}:any = useContext(AuthModalContext) as AuthModalContextProps;
     const [voted,setVoted] = useState(liked)   //true false or null
 
     const refreshVote = async() => {

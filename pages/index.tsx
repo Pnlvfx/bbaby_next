@@ -5,7 +5,7 @@ import Feed from '../components/post/Feed'
 import Layout from '../components/Layout'
 
 type HomePg = {
-  posts: Postprops
+  posts: PostProps
 }
 
 const Home: NextPage<HomePg> = ({ posts }) => {

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
-import AuthModalContext from "../auth/AuthModalContext";
+import {AuthModalContext, AuthModalContextProps} from "../auth/AuthModalContext";
 import UserContext from "../auth/UserContext";
 
 export const SubmitContext = createContext<SubmitContextType | {}>({})
@@ -42,7 +42,7 @@ interface SubmitContextProviderProps  {
 
 export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => {
     const {session} = useContext(UserContext)
-    const authModalContext = useContext(AuthModalContext)
+    const authModalContext = useContext(AuthModalContext) as AuthModalContextProps;
     const [title,setTitle] = useState('');
     const [body,setBody] = useState('');
     const [width,setWidth] = useState(500)

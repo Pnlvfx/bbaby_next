@@ -1,4 +1,3 @@
-import axios from 'axios'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import PostForm from '../submit/submitutils/PostForm'
 import BestPost from './postutils/BestPost'
@@ -42,7 +41,6 @@ const Feed = ({posts:ssrPost,community,author}:FeedProps) => {
   const [posts,setPosts] = useState<any[]>(ssrPost)
 
   const getMorePosts = async() => {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
     const input = community ? 'community' : author ? 'author' : undefined
     const value = community ? community : author ? author : undefined
       const res = await getPosts(input,value,posts.length)
@@ -59,8 +57,8 @@ const Feed = ({posts:ssrPost,community,author}:FeedProps) => {
       }}/>
     )}
     {postId === '' && (
-      <div className='flex pt-5 mx-[2px] lg:mx-10'>
-        <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] ml-auto mr-4 flex-none'>
+      <div className='flex justify-center pt-5 mx-[2px] lg:mx-10'>
+        <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] mr-4 flex-none'>
             <div className='pb-[18px]'>
                 {!author && ( //authorPage
                   <PostForm community={community ? community : ''} />
@@ -83,9 +81,9 @@ const Feed = ({posts:ssrPost,community,author}:FeedProps) => {
             </InfiniteScroll>
             </>
         </div>
-          <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden mr-auto'>
+          <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden'>
             {community ? 
-            <CommunitiesInfo community={community} /> 
+            <CommunitiesInfo /> 
             : 
             <TopCommunities />
             }

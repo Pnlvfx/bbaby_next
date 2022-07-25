@@ -9,11 +9,13 @@ import Layout from '../../../../components/Layout';
 
 const Id: NextPage<Postprops> = ({post}) => {
     const hostname = process.env.NEXT_PUBLIC_HOSTNAME
-    const {getCommunity} = useContext(CommunityContext) as CommunityContextProps
+    const {getCommunity} = useContext(CommunityContext) as CommunityContextProps;
 
     useEffect(() => {
       getCommunity(post.community)
     },[post.community])
+
+    console.log(post)
 
   return (
     <div>

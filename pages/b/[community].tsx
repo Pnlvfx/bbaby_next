@@ -16,7 +16,7 @@ type CommunityPg = {
 const CommunityPage: NextPage<CommunityPg> = ({community,posts}) => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const imagePreview = '/imagePreview.png'
-  const {getCommunity} = useContext(CommunityContext) as CommunityContextProps
+  const {getCommunity} = useContext(CommunityContext) as CommunityContextProps;
   const router = useRouter()
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const CommunityPage: NextPage<CommunityPg> = ({community,posts}) => {
   )
 }
 
-export default CommunityPage
+export default CommunityPage;
 
 export const getServerSideProps = async(context: NextPageContext) => {
   

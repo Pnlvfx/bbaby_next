@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useState } from "react"
 import { AiOutlineLoading3Quarters } from "react-icons/ai"
-import Button from "../../utils/Button"
+import { buttonClass } from "../../utils/Button"
 import ShowTimeMsg from "../../utils/notification/ShowTimeMsg"
 import CreateImage from './CreateImage'
 import UploadVideo from "./UploadVideo"
@@ -71,12 +71,12 @@ const Youtube = () => {
                     </div>
                     <div className="ml-auto self-center">
                         <>
-                        <Button type='submit' onClick={() => {
+                        <button type='submit' onClick={() => {
                           createVideo()
-                        }} className='w-40 h-7 mb-3 ml-auto mr-5'>
+                        }} className={`w-40 h-7 mb-3 ml-auto mr-5 ${buttonClass()}`}>
                           {loading && <AiOutlineLoading3Quarters className='animate-spin mx-auto'/>}
                           {!loading && <h1>Create Video</h1>}
-                        </Button>
+                        </button>
                         </>
                     </div>
                 </div>}

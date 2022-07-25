@@ -1,7 +1,7 @@
+import axios from 'axios'
 import Link from 'next/link'
-import { Dispatch, SetStateAction, useContext, useState } from 'react'
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
 import UserContext from '../auth/UserContext'
-import { CategoriesLists } from '../community/general/CategoriesLists'
 
 interface LeaderboardProps {
   active: number
@@ -12,6 +12,21 @@ const Leaderboard = ({active,setActive}:LeaderboardProps) => {
   const {session} = useContext(UserContext)
   const [totalShow,setTotalShow] = useState(12)
   const [showMore,setShowMore] = useState(false)
+  const [CategoriesLists,setCategoriesLists] = useState<CategoryProps[] | []>([])
+
+  const getCategories = async () => {
+    try {
+      const server = process.env.NEXT_PUBLIC_SERVER_URL;
+      const res = await axios.get(`${server}/categories`, {withCredentials:true})
+      setCategoriesLists(res.data)
+    } catch (error) {
+      
+    }
+  }
+
+  useEffect(() => {
+    getCategories()
+  },[])
 
   return (
     <div
@@ -26,18 +41,18 @@ const Leaderboard = ({active,setActive}:LeaderboardProps) => {
       {CategoriesLists.map((category, index) => (
         <>
         {index <= totalShow && (
-          <div key={index}>
-          <Link href={index === 0 ? `/bbaby/leaderboard` : `/bbaby/leaderboard/${category.replaceAll(" ", "_").toLowerCase()}`} scroll={false}>
+          <ul key={category._id}>
+          <Link href={index === 0 ? `/bbaby/leaderboard` : `/bbaby/leaderboard/${category.name.replaceAll(" ", "_").toLowerCase()}`} scroll={false}>
               <a onClick={() => {
                 setActive(index)
               }}>
                 <div className={`flex h-[40px] ${active === index ? "bg-reddit_dark-brightest font-extrabold" : "hover:bg-reddit_dark-brightest"}`}>
                     <div className={`w-[6px] ${active === index && 'bg-reddit_blue'}`} />
-                  <p className="ml-3 self-center">{category}</p>
+                  <p className="ml-3 self-center">{category.name}</p>
                 </div>
               </a>
           </Link>
-        </div>
+        </ul>
         )}
         </>
       ))}

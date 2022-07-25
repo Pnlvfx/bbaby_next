@@ -1,4 +1,4 @@
-import Input from "../../utils/Input"
+import { inputClass } from "../../utils/Input"
 import { FaPause, FaPlay } from "react-icons/fa"
 import Image from "next/image"
 import {useState} from "react"
@@ -19,7 +19,7 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
                   <h1 className="">Fps:</h1>
                 </div>
                 <div className="ml-auto self-center">
-                  <Input type='text' title='fps' value={videoOptions.fps} onChange={(e: { target: { value: any } }) => setVideoOptions({...videoOptions,fps:e.target.value})} className='p-2 font-bold'/>
+                  <input type='text' title='fps' value={videoOptions.fps} onChange={(e) => setVideoOptions({...videoOptions,fps:e.target.value})} className={`${inputClass} p-2 font-bold`}/>
                 </div>
             </div>
             <div id="transition" className="mt-2 flex">
@@ -27,7 +27,7 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
                   <h1 className="">Transition:</h1>
                 </div>
                 <div className="ml-auto self-center">
-                  <Input type='text' title='transition' value={videoOptions.transition} onChange={(e: { target: { value: boolean } }) => setVideoOptions({...videoOptions,transition:e.target.value})} className='p-2 font-bold'/>
+                  <input type='text' title='transition' value={videoOptions.transition} onChange={(e) => setVideoOptions({...videoOptions,transition:e.target.value})} className={`${inputClass} p-2 font-bold`}/>
                 </div>
             </div>
             <div id="transition_duration" className="mt-2 flex">
@@ -35,7 +35,7 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
                   <h1 className="">Transition_duration:</h1>
                 </div>
                 <div className="ml-auto self-center">
-                  <Input type='text' title='fps' value={videoOptions.transitionDuration} onChange={(e: { target: { value: number } }) => setVideoOptions({...videoOptions,transitionDuration:e.target.value})} className='p-2 font-bold'/>
+                  <input type='text' title='fps' value={videoOptions.transitionDuration} onChange={(e) => setVideoOptions({...videoOptions,transitionDuration:e.target.value})} className={`${inputClass} p-2 font-bold`}/>
                 </div>
             </div>
             <hr className="border-reddit_border" />
@@ -79,7 +79,7 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
                     <textarea 
                     title='description' 
                     value={input.description} 
-                    onChange={(e:any) => {setInput({...input,description:e.target.value})}} 
+                    onChange={(e) => {setInput({...input,description:e.target.value})}} 
                     className='p-2 font-bold w-full bg-reddit_dark-brighter min-h-[135px] max-h-[335px]'
                     />
                   </div>
@@ -89,7 +89,7 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
                     <h1 className="">Keywords:</h1>
                   </div>
                   <div className="ml-auto self-center">
-                    <Input type='text' title='keywords' value={input.keywords} onChange={(e: { target: { value: any } }) => setInput({...input,keywords:e.target.value})} className='p-2 font-bold'/>
+                    <input type='text' title='keywords' value={input.keywords} onChange={(e) => setInput({...input,keywords:e.target.value})} className={`p-2 font-bold ${inputClass}`}/>
                   </div>
               </div>
               <div id="category" className="mt-2 flex">
@@ -97,7 +97,7 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
                     <h1 className="">Category:</h1>
                   </div>
                   <div className="ml-auto self-center">
-                    <Input type='text' title='keywords' value={input.category} onChange={(e: { target: { value: any } }) => setInput({...input,category:e.target.value})} className='p-2 font-bold'/>
+                    <input type='text' title='keywords' value={input.category} onChange={(e) => setInput({...input,category:e.target.value})} className={`p-2 font-bold ${inputClass}`}/>
                   </div>
               </div>
               <div id="privacyStatus" className="mt-2 flex">
@@ -105,7 +105,7 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
                     <h1 className="">PrivacyStatus:</h1>
                   </div>
                   <div className="ml-auto self-center">
-                    <Input type='text' title='privacyStatus' value={input.privacyStatus} onChange={(e: { target: { value: any } }) => setInput({...input,privacyStatus:e.target.value})} className='p-2 font-bold'/>
+                    <input type='text' title='privacyStatus' value={input.privacyStatus} onChange={(e) => setInput({...input,privacyStatus:e.target.value})} className={`p-2 font-bold ${inputClass}`}/>
                   </div>
               </div>
             </>

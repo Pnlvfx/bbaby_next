@@ -21,15 +21,21 @@ const Home = () => {
     }
     else if (router.pathname.match('/governance')) {
       setPath("Gov")
+    } else if (router.pathname.match('/submit')) {
+      setPath('Create Post')
+    } else if (router.pathname.match('bbaby')) {
+      setPath("Top Communities")
+    } else if (router.pathname.match('search')) {
+      setPath('Search Results')
     }
   }, [router])
 
   return (
-    <div id="home_button" className=" hidden w-[255px] lg:block">
-      <button className="h-[42px] w-full rounded-md border-reddit_border hover:border">
+    <div id="home_button" className=" hidden w-[255px] lg:block h-[36px] rounded-md border-reddit_border hover:border">
+      <button className=" w-full h-full">
         <div className="ml-1 flex items-center">
           <HomeIcon />
-          <h1 className="pl-2 text-sm font-bold">{path}</h1>
+          <h1 className="ml-2 text-sm font-bold">{path}</h1>
           <HiChevronDown className=" ml-auto mr-2 h-[23px] w-[23px]" />
         </div>
       </button>

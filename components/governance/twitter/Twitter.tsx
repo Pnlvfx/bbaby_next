@@ -1,64 +1,40 @@
-import axios from "axios"
-import {useState } from "react"
-import Button from "../../utils/Button"
-import Tweet from "./Tweet"
+import { useEffect, useState } from 'react'
 import Skeleton from '../../utils/Skeleton'
+import { anonList, getMyListTweets } from './APItwitter'
+import Tweet from './Tweet'
+import TwMainMenu from './TwMainMenu'
 
 const Twitter = () => {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
-    const [tweets,setTweets] = useState([])
-    const [showTweets,setShowTweets] = useState(true)
-    const [loading,setLoading] = useState(false)
-        /// TRANSLATION
-    const [language,setLanguage] = useState('')
-    //
-    const getMyListTweets = async(listId:string,owner_screen_name:string) => {
-        setShowTweets(true)
-        setLoading(true)
-        const res = await axios.get(`${server}/twitter/selected-tweets?slug=${listId}&owner_screen_name=${owner_screen_name}`, {withCredentials:true})
-        setTweets(res.data)
-        setLoading(false)
-    }
-    
-    return (
-        <div>
-            <div className="flex justify-center mt-0 lg:mt-3">
-                <div className='mx-2 my-auto text-center'>
-                    <Button onClick={() => {
-                        const listId = '1535968733537177604'
-                        const owner_screen_name = 'anonynewsitaly'
-                        setLanguage('en')
-                        getMyListTweets(listId,owner_screen_name)
-                        }} className='py-2 px-4'>English Tweet
-                    </Button>
-                </div>
-                <div className='mx-2 my-auto text-center'>
-                    <Button onClick={() => {
-                        const listId = '1539278403689492482'
-                        const owner_screen_name = 'Bbabystyle'
-                        setLanguage('it')
-                        getMyListTweets(listId,owner_screen_name)
-                        }} className='py-2 px-4'>ita Tweet
-                    </Button>
-                </div>
-            </div>
-            <div id="diplay_tweets" className="flex pt-5 mx-0 lg:mx-10 justify-center">
-                <div className="w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] self-center">
-                    {showTweets && (
-                        <ul>
-                        {tweets.map((tweet: any) => (
-                            <Tweet key={tweet.id} tweet={tweet} language={language} />
-                        ))}
-                        <Skeleton />
-                        </ul>
-                    )}
-                </div>
-                <div className="w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] ml-4">
-                    <Skeleton />
-                </div>
-            </div>
-        </div>
-    )
-    }
+  const [tweets, setTweets] = useState<any[]>([])
+  const [language, setLanguage] = useState('en')
 
-    export default Twitter;
+  useEffect(() => {
+    getMyListTweets(anonList).then(res => {
+      setTweets(res)
+    })
+  }, [])
+
+  return (
+    <div id="diplay_tweets" className="mx-0 flex justify-center pt-5 lg:mx-10">
+      <div className="w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px]">
+        <div className="mb-4">
+          <TwMainMenu
+            setLanguage={setLanguage}
+            setTweets={setTweets}
+          />
+        </div>
+        <ul>
+          {tweets.length >= 1
+            ? tweets.map((tweet: any) => (
+                <Tweet key={tweet.id} tweet={tweet} language={language} />
+              ))
+            : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((_, idx) => (
+                <Skeleton key={idx} />
+              ))}
+        </ul>
+      </div>
+    </div>
+  )
+}
+
+export default Twitter

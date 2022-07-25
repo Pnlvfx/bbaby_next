@@ -13,4 +13,5 @@ interface CommunityProps {
     user_is_subscriber: boolean
     number_of_posts: number
     subscriberCount: number
+    createdAt: Date
 }

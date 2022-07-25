@@ -1,5 +1,5 @@
 import {useContext, useState,useEffect} from 'react'
-import Button from '../utils/Button';
+import { buttonClass } from '../utils/Button';
 import TextareaAutosize from 'react-textarea-autosize';
 import ClickOutHandler from 'react-clickout-ts';
 import SubmitButton from './each-submit-button/SubmitButton';
@@ -137,11 +137,11 @@ const Submit = ({newTweet,community}:SubmitProps) => {
                 </div>
                     <hr className='mt-12 mb-4 border-reddit_border mx-3'/>
                     <div className='text-right pb-4 mx-4'>
-                        <Button outline='true' className='h-[30px] mr-2 opacity-20'><p>Save Draft</p></Button>
-                        <Button disabled={!enablePost} onClick={() => {createPost()}} className={`h-[30px] ${enablePost ? "text-opacity-100" : "text-opacity-40 cursor-not-allowed"}`}>
+                        <button className={`h-[30px] mr-2 opacity-20 ${buttonClass(true)}`}><p>Save Draft</p></button>
+                        <button disabled={!enablePost} onClick={() => {createPost()}} className={`h-[30px] ${buttonClass()} ${enablePost ? "text-opacity-100" : "text-opacity-40 cursor-not-allowed"}`}>
                             {!loading && <p>Post</p>}
                             {loading && <AiOutlineLoading3Quarters className='animate-spin mx-auto'/>}
-                        </Button>
+                        </button>
                     </div>
                 </>
                 <div className='h-24 bg-reddit_dark-brightest'>

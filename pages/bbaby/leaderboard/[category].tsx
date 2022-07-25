@@ -23,7 +23,7 @@ const CategoryPage = () => {
         <link rel='canonical' href={`${hostname}/bbaby/leaderboard`} key='canonical' />
         </Head>
         <Layout>
-      <Leaderboard active={active} setActive={setActive} />
+        <Leaderboard active={active} setActive={setActive} />
       </Layout>
     </div>
   )

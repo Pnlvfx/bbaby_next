@@ -2,7 +2,7 @@ import {BiLink} from 'react-icons/bi'
 import Link from 'next/link';
 import {useRouter} from 'next/router'
 import { useContext } from 'react';
-import AuthModalContext from '../../auth/AuthModalContext';
+import {AuthModalContext, AuthModalContextProps} from '../../auth/AuthModalContext';
 import Image from 'next/image';
 import UserContext from '../../auth/UserContext';
 import {AddImageIcon} from '../../utils/SVG'
@@ -12,11 +12,10 @@ type PostFormProps = {
 }
 
 function PostForm({community}:PostFormProps) {
-    const provider = useContext(UserContext)
-    const {session} = provider
+    const {session} = useContext(UserContext)
 
     let router = useRouter()
-    const {setShow} = useContext(AuthModalContext)
+    const {setShow} = useContext(AuthModalContext) as AuthModalContextProps;
     
     return (
             <div className='border border-reddit_border p-2 rounded-md flex bg-reddit_dark-brighter mx-auto'>

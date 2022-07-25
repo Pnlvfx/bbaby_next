@@ -5,12 +5,11 @@ import axios from "axios";
 import Layout from "../../components/Layout";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
-
+import { search } from "../../components/header/search/APisearch";
 
 const SearchResultPage = () => {
 
   const router = useRouter();
-  const {text} = router.query
   const [posts, setPosts] = useState<any[]>([]);
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const imagePreview = '/imagePreview.png'
@@ -18,10 +17,9 @@ const SearchResultPage = () => {
 
   useEffect(() => {
     if (router.query) {
-      const server = process.env.NEXT_PUBLIC_SERVER_URL
-      axios.get(server+'/search?phrase='+text, {withCredentials:true})
-      .then(response => {
-        setPosts(response.data.posts);
+      const {text} = router.query
+      search(text).then(res => {
+        setPosts(res);
         //setCommunities(response.data.communities);
       })
     }

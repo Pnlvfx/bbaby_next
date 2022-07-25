@@ -7,7 +7,7 @@ import CommentForm from './commentutils/CommentForm'
 import { useRouter } from 'next/router'
 
 interface CommentProps {
-    post: any
+    post: PostProps
     postId: string | string[]
 }
 
@@ -19,7 +19,7 @@ function Comment({post,postId}:CommentProps) {
     const [commentsTotals,setCommentsTotals] = useState(null);
     const [userVotes,setUserVotes] = useState(null);
 
-    function refreshComments() {
+    const refreshComments = () => {
         axios.get(server+'/comments/root/'+postId)
         .then(response => {
         setComments(response.data)
@@ -44,6 +44,7 @@ function Comment({post,postId}:CommentProps) {
             refreshVotes();
             }
         },[comments.length]);
+        
   return (
       <div className='bg-reddit_dark-brighter'>
       {post && (

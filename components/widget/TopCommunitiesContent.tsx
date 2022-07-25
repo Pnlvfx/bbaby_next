@@ -3,11 +3,11 @@ import Image from 'next/image';
 import Link from 'next/link'
 import { useContext } from 'react';
 import { RiArrowUpSLine } from 'react-icons/ri';
-import AuthModalContext from '../auth/AuthModalContext';
-import Button from '../utils/Button';
+import {AuthModalContext, AuthModalContextProps} from '../auth/AuthModalContext';
+import { buttonClass } from '../utils/Button';
 
 function TopCommunitiesContent(props:any) {
-  const {setShow}: any = useContext(AuthModalContext);
+  const {setShow} = useContext(AuthModalContext) as AuthModalContextProps;
   const {refreshCommunities} = props
   const community:any = props
 
@@ -52,20 +52,20 @@ function TopCommunitiesContent(props:any) {
               </div>
               <div className='self-center ml-auto mr-2'>
                 {!community.user_is_subscriber && (
-                  <Button onClick={(e: { preventDefault: () => void; }) => {
+                  <button onClick={(e) => {
                     e.preventDefault()
                       subscribe()
-                  }} className='py-[3px] px-4 mx-1'>
+                  }} className={`py-[3px] px-4 mx-1 ${buttonClass()}`}>
                     <p className='text-xs'>Join</p>
-                  </Button>
+                  </button>
                 )}
                 {community.user_is_subscriber && (
-                   <Button outline='true' onClick={(e: { preventDefault: () => void; }) => {
+                   <button onClick={(e: { preventDefault: () => void; }) => {
                     e.preventDefault()
                       subscribe()
-                  }} className='py-[3px] px-4 mx-1'>
+                  }} className={`py-[3px] px-4 mx-1 ${buttonClass(true)}`}>
                     <span className='text-xs'>Joined</span>
-                  </Button>
+                  </button>
                 )}
               </div>
             </div>

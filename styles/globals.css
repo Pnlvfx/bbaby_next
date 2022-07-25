@@ -21,3 +21,29 @@
         
     }
   }
+
+
+  .loading {
+    position: relative;
+
+  }
+
+  .loading::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width:100%;
+    background-image: linear-gradient(to left, transparent, rgb(26,26,27),transparent);
+    animation: loading-ans 1s linear infinite;
+  }
+
+  @keyframes loading-ans {
+    0%{
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+  }

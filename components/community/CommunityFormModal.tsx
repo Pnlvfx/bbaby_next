@@ -1,17 +1,15 @@
 import { useContext, useState } from 'react'
 import { CommunityContext, CommunityContextProps } from './CommunityContext'
 import ClickOutHandler from 'react-clickout-ts'
-import Input from '../utils/Input'
-import Button from '../utils/Button'
+import { inputClass } from '../utils/Input'
+import { buttonClass } from '../utils/Button'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { CloseIcon } from '../utils/SVG'
 import { showErrMsg } from '../utils/validation/Notification'
 
 function CommunityFormModal() {
-  const { show, setShow } = useContext(
-    CommunityContext
-  ) as CommunityContextProps
+  const { show, setShow } = useContext(CommunityContext) as CommunityContextProps;
 
   const initialState = {
     err: '',
@@ -75,12 +73,12 @@ function CommunityFormModal() {
             </div>
             <div className="p-2 pb-32">
               <div id="community name" className="mb-2">
-                <Input
+                <input
                   value={name}
-                  onChange={(ev: any) => setName(ev.target.value)}
-                  className=" w-full border border-reddit_border p-[6px] placeholder:text-reddit_text-darker"
+                  onChange={(ev) => setName(ev.target.value)}
+                  className={`${inputClass} w-full border border-reddit_border p-[6px] placeholder:text-reddit_text-darker`}
                   placeholder="b/"
-                  maxLength="21"
+                  maxLength={21}
                 />
                 <p className="pl-[2px] pt-2 text-xs text-reddit_text-darker">
                   max 21 characters
@@ -90,16 +88,15 @@ function CommunityFormModal() {
             </div>
             <div className="flex bg-[#343536] p-4 pb-12">
               <div className="absolute right-2">
-                <Button
+                <button
                   onClick={() => setShow(false)}
-                  outline
-                  className="mr-2 py-1 px-4"
+                  className={`mr-2 py-1 px-4 ${buttonClass(true)}`}
                 >
                   Cancel
-                </Button>
-                <Button onClick={() => create()} className="py-1">
+                </button>
+                <button onClick={() => create()} className={`py-1 ${buttonClass()}`}>
                   <p>Create a community</p>
-                </Button>
+                </button>
               </div>
             </div>
           </div>

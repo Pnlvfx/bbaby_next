@@ -1,5 +1,21 @@
-import React, {Context, createContext, SetStateAction} from 'react';
+import {createContext, Dispatch, SetStateAction, useState} from 'react';
 
-const AuthModalContext:Context<{show?:boolean,setShow?:any}> = createContext({});
+export type AuthModalContextProps = {
+    show: "hidden" | "login" | "register" | "reset-your-password"
+    setShow: Dispatch<SetStateAction<"hidden" | "login" | "register" | "reset-your-password">>
+}
 
-export default AuthModalContext;
+export const AuthModalContext = createContext<AuthModalContextProps | {}>({});
+
+interface AuthModalContextProviderProps {
+    children: React.ReactNode
+}
+
+export const AuthModalContextProvider = ({children}:AuthModalContextProviderProps) => {
+    const [show,setShow] = useState('hidden');  //TYPE: hidden, login, register, forgot your password
+    return (
+        <AuthModalContext.Provider value={{show,setShow}}>
+            {children}
+        </AuthModalContext.Provider>
+    )
+}

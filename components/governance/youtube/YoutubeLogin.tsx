@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
-import Button from "../../utils/Button"
+import { buttonClass } from "../../utils/Button"
 
 const YoutubeLogin = () => {
     const router = useRouter()
@@ -28,11 +28,11 @@ const YoutubeLogin = () => {
     return (
         <>
             <div className="ml-auto self-center">
-                <Button outline={true} type='submit' className='w-40 h-7 self-center' onClick={() => {
+                <button type='submit' className={`w-40 h-7 self-center ${buttonClass(true)}`} onClick={() => {
                     youtubeLogin()
                 }} >
                     <p>Youtube Login</p>
-                </Button>
+                </button>
             </div>
         </>
     )

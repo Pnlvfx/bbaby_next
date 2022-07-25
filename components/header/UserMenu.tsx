@@ -22,14 +22,13 @@ function UserMenu({showDropdown,setShowDropdown}:any) {
     const containerClass = 'hover:bg-reddit_dark-brightest cursor-pointer'
     const buttonClass = 'text-sm p-3 pl-12 font-bold'
     
-    const {setShow:setShowCommunity} = useContext(CommunityContext) as CommunityContextProps
+    const {setShow:setShowCommunity} = useContext(CommunityContext) as CommunityContextProps;
 
   return (
     <>
     {showDropdown && (
         <div className={'absolute right-0 top-[53px] bg-reddit_dark-brighter border border-reddit_border z-10 rounded-md text-reddit_text overflow-hidden'}>
         <div className='w-[280px]'>
-            <div className=''>
                 <div className='p-4 pb-1'>
                     <span className="text-sm flex text-reddit_text-darker">
                         <BiUserCircle className='w-6 h-6' />
@@ -113,7 +112,6 @@ function UserMenu({showDropdown,setShowDropdown}:any) {
                     <div>
                         <h1 className='text-xs p-4 pt-3 text-reddit_text-darker'>2022 Bbabystyle.Inc. All rights reserved</h1>
                     </div>
-        </div> 
             </div>
     </div>
     )}

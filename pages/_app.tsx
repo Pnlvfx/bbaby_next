@@ -2,14 +2,11 @@ import '../styles/globals.css'
 import Head from 'next/head';
 import UserContext from '../components/auth/UserContext';
 import type { AppProps, NextWebVitalsMetric } from 'next/app'
-import {useState} from 'react'
-import AuthModalContext from '../components/auth/AuthModalContext';
+import { AuthModalContextProvider } from '../components/auth/AuthModalContext';
 import {CommunityContextProvider} from '../components/community/CommunityContext';
-import { SubmitContextProvider } from '../components/submit/SubmitContext';
 import CookieConsent from '../components/utils/validation/CookieConsent';
 
 function MyApp({ Component, pageProps: {session, ...pageProps}}: AppProps) {
-  const [showAuthModal,setShowAuthModal] = useState(false);
 
   return (
     <>
@@ -39,11 +36,11 @@ function MyApp({ Component, pageProps: {session, ...pageProps}}: AppProps) {
         crossOrigin="anonymous" /> */}
     <CookieConsent />
     <UserContext.Provider value={{session: session}}>
-        <AuthModalContext.Provider value={{show:showAuthModal,setShow:setShowAuthModal}}>
+        <AuthModalContextProvider>
             <CommunityContextProvider>
                 <Component {...pageProps}/>
           </CommunityContextProvider>
-        </AuthModalContext.Provider>
+        </AuthModalContextProvider>
     </UserContext.Provider>
     </>
   )

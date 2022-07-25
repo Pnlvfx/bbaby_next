@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
-import Button from "../utils/Button";
+import { buttonClass } from "../utils/Button";
 import Logo from '../../public/logo.png'
 
 const UserPreferencesModal = (props: any) => {
@@ -31,26 +31,26 @@ const UserPreferencesModal = (props: any) => {
               <h2 className="text-reddit_text-darker">Bbaby will never share this information and uses it to improve what content you see.</h2>
             </div>
             <div className="mx-4 py-4">
-              <Button outline='true' className='px-8 py-3 w-full mb-2' onCLick={() => {
+              <button className={`px-8 py-3 w-full mb-2 ${buttonClass(true)}`} onClick={() => {
                 setUserGender('woman')
-              }} >Woman</Button>
-              <Button outline='true' className='px-8 py-3 w-full mb-2' onCLick={() => {
+              }} >Woman</button>
+              <button className={`px-8 py-3 w-full mb-2 ${buttonClass(true)}`} onClick={() => {
                 setUserGender('man')
-              }}>Man</Button>
-              <Button outline='true' className='px-8 py-3 w-full mb-2' onCLick={() => {
+              }}>Man</button>
+              <button className={`px-8 py-3 w-full mb-2 ${buttonClass(true)}`} onClick={() => {
                 setUserGender('not-set')
-              }}>Non-binary</Button>
-              <Button outline='true' className='px-8 py-3 w-full mb-2' onCLick={() => {
+              }}>Non-binary</button>
+              <button className={`px-8 py-3 w-full mb-2 ${buttonClass(true)}`} onClick={() => {
                 setUserGender('not-set')
-              }}>I refer to myself as...</Button>
-              <Button outline='true' className='px-8 py-3 w-full mb-2' onCLick={() => {
+              }}>I refer to myself as...</button>
+              <button className={`px-8 py-3 w-full mb-2 ${buttonClass(true)}`} onClick={() => {
                 setUserGender('not-set')
-              }}>I prefer not to say</Button>
+              }}>I prefer not to say</button>
             </div>
             <div className="mx-4 py-8">
-              <Button className='px-8 py-3 w-full' onClick={() => {
+              <button className={`px-8 py-3 w-full ${buttonClass()}`} onClick={() => {
                 setModalType('userInterest')
-              }} >Continue</Button>
+              }} >Continue</button>
             </div>
             </>
           )}
@@ -60,10 +60,10 @@ const UserPreferencesModal = (props: any) => {
               <h1>We are working to improve your user experience...</h1>
             </div>
             <div className="mx-4 py-8">
-              <Button className='px-8 py-3 w-full' onClick={() => {
+              <button className={`px-8 py-3 w-full ${buttonClass()}`} onClick={() => {
                 localStorage.removeItem('firstLogin')
                 setNewUser(false)
-              }} >Continue</Button>
+              }} >Continue</button>
             </div>
             </>
           )}

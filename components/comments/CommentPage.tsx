@@ -3,7 +3,7 @@ import Donations from '../widget/Donations'
 import Comment from './Comment'
 
 
-  function CommentPage({post}:Postprops) {
+  const CommentPage = ({post}:any) => {
 
   return (
       <div className='flex pt-3 mx-0 lg:mx-10'>
@@ -13,7 +13,7 @@ import Comment from './Comment'
           </div>
         </div>
         <div className='hidden 2-xl:flex xl:block lg:block md:hidden sm:hidden mr-auto'>
-          <CommunitiesInfo community={post.community} />
+          <CommunitiesInfo />
           <Donations />
           </div>
       </div>

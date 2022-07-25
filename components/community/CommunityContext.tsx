@@ -1,15 +1,17 @@
 import axios from "axios";
-import { createContext, Dispatch, SetStateAction, useEffect, useState } from "react"
+import { createContext, Dispatch, SetStateAction, useState } from "react"
 
 export type CommunityContextProps = {
     show: boolean
+    loading: boolean
     setShow: Dispatch<SetStateAction<Boolean>>
     getCommunity: Function;
+    communityInfo: CommunityProps;
 }
 
 export const CommunityContext = createContext<CommunityContextProps | {}>({});
 
-export function CommunityContextProvider({children}:any) {
+export const CommunityContextProvider = ({children}:any) => {
     const [show,setShow] = useState(false);
     const [communityInfo,setCommunityInfo] = useState({});
     const [loading,setLoading] = useState(true);
@@ -27,7 +29,7 @@ export function CommunityContextProvider({children}:any) {
     }
 
     return (
-        <CommunityContext.Provider value={{show,setShow,loading, getCommunity, ...communityInfo}}>
+        <CommunityContext.Provider value={{show,setShow,loading, getCommunity, communityInfo}}>
             {children}
         </CommunityContext.Provider>
     );
