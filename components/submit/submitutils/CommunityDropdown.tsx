@@ -4,7 +4,7 @@ import ClickOutHandler from 'react-clickout-ts'
 import { HiChevronDown } from 'react-icons/hi'
 import { MdOutlineCircle } from 'react-icons/md'
 import UserContext from '../../auth/UserContext'
-import { getCommunities } from '../../community/APicommunity'
+import { getUserPrefCommunities } from '../../community/APicommunity'
 import { CommunityContext, CommunityContextProps } from '../../community/CommunityContext'
 import { inputClass } from '../../utils/Input'
 import { SubmitContext, SubmitContextType } from '../SubmitContext'
@@ -31,7 +31,7 @@ const CommunityDropdown = () => {
     } else {
       setTimeout(() => {
         console.log('communities')
-        getCommunities().then(res => {
+        getUserPrefCommunities().then(res => {
           setAllCommunity(res)
         })
       },850)

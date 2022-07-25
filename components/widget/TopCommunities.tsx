@@ -1,72 +1,78 @@
-import axios from 'axios';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { isMobile } from 'react-device-detect';
-import LoaderPlaceholder from '../post/LoaderPlaceholder';
-import { buttonClass } from '../utils/Button';
+import axios from 'axios'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { isMobile } from 'react-device-detect'
+import { buttonClass } from '../utils/Button'
 import TopCommunitiesContent from './TopCommunitiesContent'
 
-function TopCommunities() {
-  const [allCommunity,setAllCommunity] = useState<CommunityProps[] | []>([]);
-  const [loadingCommunity,setLoadingCommunity] = useState(true)
+const TopCommunities = () => {
+  const [allCommunity, setAllCommunity] = useState<CommunityProps[] | []>([])
+  const [loadingCommunity, setLoadingCommunity] = useState(true)
 
-  const getCommunities = () => {
+  const getBestCommunities = () => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
-    axios.get(`${server}/best-communities?limit=5`,{withCredentials:true})
-      .then(response => {
+    axios
+      .get(`${server}/best-communities?limit=5`, { withCredentials: true })
+      .then((response) => {
         setAllCommunity(response.data)
         setLoadingCommunity(false)
-      });
+      })
   }
 
   useEffect(() => {
     if (isMobile) return
     setTimeout(() => {
-      getCommunities()
-    },500)
-    }, []);
+      getBestCommunities()
+    }, 500)
+  }, [])
 
-    return (
-      <div className='mb-5 bg-reddit_dark-brighter rounded-md w-[310px] h-96 border border-reddit_border box-content overflow-hidden'>
-        {loadingCommunity && (
-          <LoaderPlaceholder extraStyles={{height: '80px'}} />
-        )}
-        {!loadingCommunity && (
-           <div style={{backgroundImage: `url("/topCommunitiesIcon.webp")`,
-                backgroundPosition: '50%',
-                backgroundRepeat: 'no-repeat',
-                height: '70px',
-                position: 'relative'}}>
-          </div>
-        )}
-          {loadingCommunity && (
-          <div className='h-[50px]'>
-            <LoaderPlaceholder extraStyles={{height: '50px'}} />
-            <LoaderPlaceholder extraStyles={{height: '50px'}} />
-            <LoaderPlaceholder extraStyles={{height: '50px'}} />
-            <LoaderPlaceholder extraStyles={{height: '50px'}} />
-            <LoaderPlaceholder extraStyles={{height: '50px'}} />
-          </div>
-          )}
-          {!loadingCommunity && (
-          <>
-            {allCommunity.map((community,index) => (
-              community.rank = index + 1,
-              <TopCommunitiesContent key={community._id} {...community} refreshCommunities={getCommunities}/>
-            ))}
-            <div className='pt-3'>
-            <Link href={`/bbaby/leaderboard`}>
-              <a className='mx-auto text-center'>
-                <button className={`mx-2 py-[6px] w-full max-w-[290px] self-center ${buttonClass()}`}>
+  return (
+    <div className="mb-5 box-content h-96 w-[310px] rounded-md border border-reddit_border bg-reddit_dark-brighter overflow-hidden">
+        <div className={`${loadingCommunity && "loading"}`}
+          style={{
+            backgroundImage: loadingCommunity ? "#030303" : `url("/topCommunitiesIcon.webp")`,
+            backgroundPosition: '50%',
+            backgroundRepeat: 'no-repeat',
+            height: '70px',
+            position: 'relative',
+          }}
+        />
+        <>
+          {allCommunity.length >= 1 ? allCommunity.map(
+            (community, index) => {
+              const rank = index + 1
+              return(
+              (
+                <TopCommunitiesContent
+                  key={community._id}
+                  rank={rank}
+                  community={community}
+                  getBestCommunities={getBestCommunities}
+                />
+              )
+            )}
+          ) : 
+          [1,2,3,4,5].map((_,idx) => (
+            <div key={idx} className={`h-[51px] ${loadingCommunity && "loading overflow-hidden"}`}>
+              <hr className='border-reddit_border' />
+            </div>
+          ))
+          }
+          <div className={`${loadingCommunity && "loading"} mt-3 mx-2 h-[32px]`}>
+            {!loadingCommunity && <Link href={`/bbaby/leaderboard`}>
+              <a className="text-center">
+                <button
+                  className={`w-full h-[32px] ${buttonClass()}`}
+                >
                   View All
                 </button>
               </a>
-            </Link>
-            </div>
-          </>
-          )}
-      </div>
-    )
-  }
-  
-  export default TopCommunities;
+            </Link>}
+          </div>
+        </>
+    </div>
+  )
+}
+
+export default TopCommunities;
+

@@ -6,10 +6,14 @@ import { RiArrowUpSLine } from 'react-icons/ri';
 import {AuthModalContext, AuthModalContextProps} from '../auth/AuthModalContext';
 import { buttonClass } from '../utils/Button';
 
-function TopCommunitiesContent(props:any) {
+interface TopCommunitiesContentProps {
+  community: CommunityProps
+  getBestCommunities: Function
+  rank: number
+}
+
+function TopCommunitiesContent({community,getBestCommunities,rank}:TopCommunitiesContentProps) {
   const {setShow} = useContext(AuthModalContext) as AuthModalContextProps;
-  const {refreshCommunities} = props
-  const community:any = props
 
   const loader = () => {
     return `${community.communityAvatar}?w=20px&q=25`
@@ -25,7 +29,7 @@ function TopCommunitiesContent(props:any) {
         data,
         withCredentials:true
       })
-      refreshCommunities()
+      getBestCommunities()
     } catch (err:any) {
       if (err.response.status === 401) {
         setShow('login')
@@ -39,7 +43,7 @@ function TopCommunitiesContent(props:any) {
           <a>
             <div className='flex p-1 h-[50px]'>
               <div className='self-center mx-3 font-extrabold'>
-                  <h1 className='text-sm'>{community.rank}</h1>
+                  <h1 className='text-sm'>{rank}</h1>
               </div>
               <div className='self-center'>
                 <RiArrowUpSLine className='w-5 h-5 text-green-500 mr-2' />

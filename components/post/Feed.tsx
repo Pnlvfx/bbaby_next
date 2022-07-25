@@ -84,7 +84,7 @@ const Feed = ({posts:ssrPost,community,author}:FeedProps) => {
           <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden'>
             {community ? 
             <CommunitiesInfo /> 
-            : 
+            :
             <TopCommunities />
             }
             <Donations />
