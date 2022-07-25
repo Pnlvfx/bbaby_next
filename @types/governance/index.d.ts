@@ -1,8 +1,8 @@
 interface InputProps {
-    images: []
+    images: Array
     video: string
-    localImages: []
-    audio: []
+    localImages: Array
+    audio: Array
     finalAudio: string
     height: number
     width: number

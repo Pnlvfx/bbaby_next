@@ -37,7 +37,6 @@ const CookieConsent = () => {
     {showAnalytics && <GoogleAnalytics />}
       {show && (
         <div className="fixed bottom-0 z-30 flex w-full rounded-sm border border-reddit_border bg-reddit_dark-brighter font-bold lg:left-[35%] lg:right-[50%] lg:bottom-12 lg:w-[700px]">
-          <div className={'w-6 bg-['} />
           <div className={'w-6 bg-reddit_blue'} />
           <div>
             <p className="p-3 pl-4 text-[15px]">

@@ -6,7 +6,7 @@ import { TwitterLogo } from "../../utils/SVG"
 
 const Twitter = (userInfo:UserProps) => {
     const router = useRouter()
-    const twitterAccount = userInfo.hasExternalAccount ? userInfo?.externalAccounts?.find((provider: any) => provider.provider === 'twitter') : undefined
+    const twitterAccount = userInfo.hasExternalAccount ? userInfo?.externalAccounts?.find((provider) => provider.provider === 'twitter') : undefined
 
     const twitterLogin = async() => {
         try {

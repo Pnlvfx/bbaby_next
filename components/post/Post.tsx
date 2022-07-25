@@ -13,7 +13,7 @@ const Post = ({post,isListing,open}:ExtendPostProps) => {
     let postClasses = `block border border-reddit_border rounded-md ${open && "hover:border-reddit_text"} ${isListing && "cursor-pointer"}`;
     const url = isMobile ? `/b/${post.community}/comments/${post._id}` : router.pathname;
     const query = isMobile ? undefined : {postId : post._id, community: post.community, username: post.author}
-    const as = isMobile ? undefined : `/b/post.community/comments/${post._id}`
+    const as = isMobile ? undefined : `/b/${post.community}/comments/${post._id}`
 
     return (
     <div className='pb-3'>

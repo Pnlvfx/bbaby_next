@@ -14,15 +14,15 @@ const BoardHeader = ({ community }: BoardHeaderProps) => {
     communityInfo
   } = useContext(CommunityContext) as CommunityContextProps;
   const [selectedFile, setSelectedFile] = useState<string | undefined>(communityInfo.communityAvatar)
-  const filePickerRef: any = useRef(null)
+  const filePickerRef = useRef(null)
   const server = process.env.NEXT_PUBLIC_SERVER_URL
 
-  const handleFileInputChange = (e: { target: { files: any } }) => {
+  const handleFileInputChange = (e) => {
     const file = e.target.files[0]
     previewFile(file)
   }
 
-  const previewFile = (file: any) => {
+  const previewFile = (file: Blob) => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onloadend = () => {
@@ -76,7 +76,10 @@ const BoardHeader = ({ community }: BoardHeaderProps) => {
           {communityInfo.user_is_moderator && (
             <div
               className="relative -top-4 ml-0 cursor-pointer lg:ml-40"
-              onClick={() => filePickerRef.current.click()}
+              onClick={() => {
+                filePickerRef !== null &&
+                filePickerRef.current.click()}
+              }
             >
               <div className="relative h-[72px] w-[72px] overflow-hidden rounded-full border-4 border-white bg-reddit_blue">
                 {!loading && (

@@ -8,7 +8,7 @@ import Reddit from "../../providers/Reddit";
 function Account() {
 
   const [userInfo,setUserInfo] = useState<UserProps>({})
-  const [loading,setLoading] = useState<any>(true)
+  const [loading,setLoading] = useState(true)
   useEffect(() => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     axios.get(`${server}/user/about`, {withCredentials:true})

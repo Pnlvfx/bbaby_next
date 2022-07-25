@@ -2,8 +2,7 @@ import { useContext } from "react"
 import UserContext from '../auth/UserContext'
 
 const GovernanceCtrl = ({children} : any) => {
-  const provider = useContext(UserContext)
-  const {session} = provider
+  const {session} = useContext(UserContext)
 
 
   return (

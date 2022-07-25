@@ -7,7 +7,7 @@ import { buttonClass } from '../utils/Button';
 import TopCommunitiesContent from './TopCommunitiesContent'
 
 function TopCommunities() {
-  const [allCommunity,setAllCommunity] = useState([]);
+  const [allCommunity,setAllCommunity] = useState<CommunityProps[] | []>([]);
   const [loadingCommunity,setLoadingCommunity] = useState(true)
 
   const getCommunities = () => {
@@ -50,7 +50,7 @@ function TopCommunities() {
           )}
           {!loadingCommunity && (
           <>
-            {allCommunity.map((community:any,index:any) => (
+            {allCommunity.map((community,index) => (
               community.rank = index + 1,
               <TopCommunitiesContent key={community._id} {...community} refreshCommunities={getCommunities}/>
             ))}
