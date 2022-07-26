@@ -1,7 +1,6 @@
 import axios from "axios"
 import {useState } from "react"
-import { AiOutlineLoading3Quarters } from "react-icons/ai"
-import { buttonClass } from "../../utils/Button"
+import { buttonClass, Spinner } from "../../utils/Button"
 import { inputClass } from "../../utils/Input"
 import YoutubeLogin from "./YoutubeLogin"
 
@@ -83,7 +82,7 @@ const CreateImage = ({modalType,setModalType,setInput,input}:CreateImageProps) =
                         <button type='submit' disabled={loading ? true : false} className={`w-40 h-7 self-center ${buttonClass()}`} onClick={() => {
                           createImage()
                         }}>
-                          {loading && <AiOutlineLoading3Quarters className='animate-spin mx-auto' />}
+                          {loading && <Spinner />}
                           {!loading && <p>Create Image</p>}
                         </button>
                     </div>

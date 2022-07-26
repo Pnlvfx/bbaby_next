@@ -1,7 +1,10 @@
-import axios from 'axios'
-import Image from 'next/image'
-import { useContext, useEffect, useRef, useState } from 'react'
-import { CommunityContext, CommunityContextProps } from '../community/CommunityContext'
+import axios from 'axios';
+import Image from 'next/image';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { AuthModalContext, AuthModalContextProps } from '../auth/AuthModalContext';
+import { subscribe } from '../community/APicommunity';
+import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
+import { buttonClass } from '../utils/Button';
 
 interface BoardHeaderProps {
   community: string
@@ -13,6 +16,7 @@ const BoardHeader = ({ community }: BoardHeaderProps) => {
     getCommunity,
     communityInfo
   } = useContext(CommunityContext) as CommunityContextProps;
+  const authModal = useContext(AuthModalContext) as AuthModalContextProps;
   const [selectedFile, setSelectedFile] = useState<string | undefined>(communityInfo.communityAvatar)
   const filePickerRef = useRef<HTMLInputElement>(null)
   const server = process.env.NEXT_PUBLIC_SERVER_URL
@@ -25,6 +29,11 @@ const BoardHeader = ({ community }: BoardHeaderProps) => {
     }
   }
 
+  const doSubscribe = async () => {
+    const join = await subscribe(communityInfo.name, authModal.setShow)
+    const refresh = await getCommunity(communityInfo.name)
+  }
+
   const changeAvatar = async () => {
     try {
       const res = await axios({
@@ -35,11 +44,13 @@ const BoardHeader = ({ community }: BoardHeaderProps) => {
       })
       getCommunity(community)
       setSelectedFile('')
-    } catch (err: any) {}
+    } catch (err) {
+
+    }
   }
 
   useEffect(() => {
-    if (!selectedFile) return
+    if (!selectedFile) return;
     changeAvatar()
   }, [selectedFile])
 
@@ -54,9 +65,10 @@ const BoardHeader = ({ community }: BoardHeaderProps) => {
           backgroundPosition: '50%',
         }}
       ></div>
-      <div className="mx-auto self-center bg-reddit_dark-brighter">
+      <div className="bg-reddit_dark-brighter">
         <div className="mx-5 flex">
           {!communityInfo.user_is_moderator && (
+            <>
             <div className="relative -top-4 ml-0 h-[72px] w-[72px] overflow-hidden rounded-full border-4 border-white bg-reddit_blue lg:ml-40">
               {!loading && (
                 <Image
@@ -67,14 +79,12 @@ const BoardHeader = ({ community }: BoardHeaderProps) => {
                 />
               )}
             </div>
+            </>
           )}
           {communityInfo.user_is_moderator && (
-            <div
-              className="relative -top-4 ml-0 cursor-pointer lg:ml-40"
-              onClick={() => {
+            <div className="relative -top-4 ml-0 cursor-pointer lg:ml-40" onClick={() => {
                 filePickerRef && filePickerRef?.current?.click()}
-              }
-            >
+              }>
               <div className="relative h-[72px] w-[72px] overflow-hidden rounded-full border-4 border-white bg-reddit_blue">
                 {!loading && (
                   <Image
@@ -102,11 +112,17 @@ const BoardHeader = ({ community }: BoardHeaderProps) => {
               />
             </div>
           )}
-          <div className="pt-2 pl-4">
-            <h1 className="mx-auto text-2xl font-bold">{community}</h1>
-            <h2 className="mt-1 text-sm text-reddit_text-darker">
-              b/{community}
-            </h2>
+          <div className='flex mt-2'>
+          <div className="ml-4">
+            <h1 className="text-2xl font-bold">{communityInfo.name}</h1>
+            <h2 className="mt-1 text-sm text-reddit_text-darker">b/{community}</h2>
+          </div>
+          <button onClick={(e) => {
+            e.preventDefault()
+            doSubscribe()
+          }} className={`${buttonClass(communityInfo.user_is_subscriber ? true : false)} h-[32px] mx-6 w-[96px] mt-1`}>
+            <p>{communityInfo.user_is_subscriber ? "Joined" : "Join"}</p>
+          </button>
           </div>
         </div>
       </div>
@@ -114,4 +130,5 @@ const BoardHeader = ({ community }: BoardHeaderProps) => {
   )
 }
 
-export default BoardHeader
+export default BoardHeader;
+

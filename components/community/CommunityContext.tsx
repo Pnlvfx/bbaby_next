@@ -1,5 +1,6 @@
 import axios from "axios";
-import { createContext, Dispatch, SetStateAction, useState } from "react"
+import { useRouter } from "next/router";
+import { createContext, Dispatch, SetStateAction, useEffect, useState } from "react"
 
 export type CommunityContextProps = {
     show: boolean
@@ -27,6 +28,17 @@ export const CommunityContextProvider = ({children}:any) => {
             setLoading(true)
         }
     }
+
+    const router = useRouter()
+  
+    useEffect(() => {
+        if (!router.isReady) return
+      if (!router.query.community) {
+        setTimeout(() => {
+            setCommunityInfo({})
+        },450)
+      }
+    },[router])
 
     return (
         <CommunityContext.Provider value={{show,setShow,loading, getCommunity, communityInfo}}>

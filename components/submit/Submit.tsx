@@ -1,5 +1,5 @@
 import {useContext, useState,useEffect} from 'react'
-import { buttonClass } from '../utils/Button';
+import { buttonClass, Spinner } from '../utils/Button';
 import TextareaAutosize from 'react-textarea-autosize';
 import ClickOutHandler from 'react-clickout-ts';
 import SubmitButton from './each-submit-button/SubmitButton';
@@ -8,7 +8,6 @@ import ShowTimeMsg from '../utils/notification/ShowTimeMsg';
 import { AddImageIcon } from '../utils/SVG';
 import CommunityDropdown from './submitutils/CommunityDropdown';
 import UserContext from '../auth/UserContext';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { SubmitContext, SubmitContextType } from './SubmitContext';
 import Body from './submitutils/Body';
 
@@ -19,6 +18,7 @@ type SubmitProps = {
 
 const Submit = ({newTweet,community}:SubmitProps) => {
     const {session} = useContext(UserContext)
+    const [activeButton,setActiveButton] = useState('Post')
     const [activeClassTitle, setActiveClassTitle] = useState('border-reddit_dark-brightest')
     const [activeClassBody, setActiveClassBody] = useState('border-reddit_dark-brightest')
     const [titleLength,setTitleLength] = useState(0);
@@ -95,9 +95,11 @@ const Submit = ({newTweet,community}:SubmitProps) => {
             <CommunityDropdown />
             <div className='bg-reddit_dark-brighter rounded-md flex-none mt-2'>
                 <div className='flex mb-3 rounded-md'>
-                    <button className='text-sm border-r border-reddit_border flex border-b-2 px-11 py-1 hover:bg-reddit_hover'>
-                        <HiOutlineDocumentText className='w-6 h-6 mt-2'/>
-                        <h1 className='py-3 font-semibold'>Post</h1>
+                    <button className={`border-r border-reddit_border hover:bg-reddit_hover`}>
+                        <div className={`${activeButton === 'Post' && "border-b-2 border-reddit_text"} flex items-center px-11 h-full`}>
+                        <HiOutlineDocumentText className='w-6 h-6 mr-1'/>
+                        <p className='font-bold text-sm'>Post</p>
+                        </div>
                     </button>
                     <button className='opacity-20 text-sm border-r border-reddit_border flex border-b-2 px-3 py-1 hover:bg-reddit_hover'>
                         <div className='mt-2 mr-1'>
@@ -138,9 +140,13 @@ const Submit = ({newTweet,community}:SubmitProps) => {
                     <hr className='mt-12 mb-4 border-reddit_border mx-3'/>
                     <div className='text-right pb-4 mx-4'>
                         <button className={`h-[30px] mr-2 opacity-20 ${buttonClass(true)}`}><p>Save Draft</p></button>
-                        <button disabled={!enablePost} onClick={() => {createPost()}} className={`h-[30px] ${buttonClass()} ${enablePost ? "text-opacity-100" : "text-opacity-40 cursor-not-allowed"}`}>
+                        <button disabled={!enablePost} onClick={(e) => {
+                            e.preventDefault()
+                            createPost()
+                            }} 
+                            className={`h-[30px] ${buttonClass()} ${enablePost ? "text-opacity-100" : "text-opacity-40 cursor-not-allowed"}`}>
                             {!loading && <p>Post</p>}
-                            {loading && <AiOutlineLoading3Quarters className='animate-spin mx-auto'/>}
+                            {loading && <Spinner />}
                         </button>
                     </div>
                 </>

@@ -1,12 +1,13 @@
-import axios from "axios";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import ClickOutHandler from "react-clickout-ts";
 import Comment from '../comments/Comment';
 import {GrDocumentText} from 'react-icons/gr'
 import { CloseIcon } from "../utils/SVG";
 import CommunitiesInfo from "../widget/CommunitiesInfo";
 import { CommunityContext, CommunityContextProps } from "../community/CommunityContext";
+import Donations from "../widget/Donations";
+import { getPost } from "./APIpost";
 
 type PostModalProps = {
   community?: string,
@@ -16,76 +17,80 @@ type PostModalProps = {
 }
 
 const PostModal = ({community,postId,open,onClickOut}:PostModalProps) => {
-
   const router = useRouter();
-
   const [post,setPost] = useState<Postprops | any>({});
   const [loading,setLoading] = useState(true)
-
   const visibleClass = open ? 'block' : 'hidden'
   const {getCommunity} = useContext(CommunityContext) as CommunityContextProps;
 
   useEffect(() => {
     if(!postId) return
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
-    axios.get(server+'/posts/'+postId, {withCredentials:true})
-    .then(response => {
-      setPost(response.data)
+    getPost(postId)
+    .then(res => {
+      setPost(res)
       if (!community) {
-        getCommunity(response.data.community)
+        getCommunity(res.community)
       }
       setLoading(false)
     });
   },[postId]);
 
+
+  const [isCategoryDropdownOpen,setIsCategoryDropdownOpen] = useState(false)
+
+  const clickOut = () => {
+    if (isCategoryDropdownOpen) return
+    router.push({
+      pathname:router.pathname,
+      query: community ? {community: community} : {username: post.author}
+    },
+    router.pathname,{scroll:false}
+    )
+    onClickOut()
+    setPost({})
+  }
+
   return (
-    <div className={"w-full z-20 flex items-center " + visibleClass} style={{backgroundColor:'rgb(25,25,25'}}>
-      <div className="mx-[270px] bg-reddit_dark items-center">
-        <ClickOutHandler onClickOut={() => {
-          router.push({
-            pathname:router.pathname,
-            query: community ? {community: community} : {username: post.author}
-          },
-          router.pathname,{scroll:false}
-          )
-          onClickOut()
-          setPost({})
+    <div className={"w-full z-20 flex items-center justify-center " + visibleClass} style={{backgroundColor:'rgb(25,25,25'}}>
+      <ClickOutHandler onClickOut={() => {
+        clickOut()
         }}>
-            {loading && (
-              <div>Loading...</div>
-            )}
-            {!loading && (
-              <div className="mx-28">
-                <div className="flex">
-                  <div className="flex pt-4 pb-10 w-full mr-4 overflow-hidden">
-                    <GrDocumentText className="w-4 h-4"/>
-                    <p className='text-sm flex-none text-ellipsis'>{post.title}</p>
+      <div className="bg-reddit_dark items-center w-[75%] max-w-[1300px] justify-center flex">
+          <div className="w-[85%]">
+            {!loading ? (<div className="flex justify-center">
+              <div className={`flex pt-4 pb-10 w-full overflow-hidden`}>
+                <GrDocumentText className="w-4 h-4 text-reddit_text"/>
+                <p className='text-sm flex-none text-ellipsis'>{post.title}</p>
+              </div>
+              <button title='close' id="closeButton" onClick={() => {
+                setLoading(true)
+                router.push({
+                  pathname:router.pathname,
+                  query: community ? {community: community} : {username: post.author}
+                },
+                router.pathname,{scroll:false}
+                )
+                onClickOut()
+                setPost({})
+                }} className="text-right ml-auto flex pt-4 pb-8">
+                  <div className="mr-1">
+                    <CloseIcon style={{height: 20, width: 20}} />
                   </div>
-                  <button title='close' id="closeButton" onClick={() => {
-                    setLoading(true)
-                    router.push({
-                      pathname:router.pathname,
-                      query: community ? {community: community} : {}
-                    },
-                    router.pathname,{scroll:false}
-                    )
-                    onClickOut()
-                    setPost({})
-                    }} className="text-right ml-auto flex pt-4 pb-8">
-                      <div className="mr-1">
-                        <CloseIcon style={{height: '20px', width: '20px'}} />
-                      </div>
-                    <h1 className="text-xs font-bold mt-[2px]">Close</h1>
-                  </button>
+                <h1 className="text-xs font-bold mt-[2px]">Close</h1>
+              </button>
+          </div>) : (<div id="loading" className="h-76 pt-4 pb-10 w-[99%] overflow-hidden loading" />)}
+          {!loading ? (
+            <div className="block lg:flex space-x-4 justify-center">
+            <Comment post={post} postId={postId}/>
+              <div className="hidden lg:block">
+                <CommunitiesInfo isCategoryDropdownOpen={isCategoryDropdownOpen} setIsCategoryDropdownOpen={setIsCategoryDropdownOpen} />
+                <Donations />
               </div>
-              <div className="flex">
-                  <Comment post={post} postId={postId}/>
-                  <CommunitiesInfo />
-              </div>
-              </div>
-            )}
-        </ClickOutHandler>
+          </div>
+          ) : (<div id="loading-2" className="h-full" />)}
+          </div>
       </div>
+      </ClickOutHandler>
     </div>
   )
 }

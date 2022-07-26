@@ -5,17 +5,22 @@ import {useState, useContext} from 'react'
 import RootCommentContext from './commentutils/RootCommentContext';
 import Voting from '../voting/Voting'
 
-function Comments(props:any) {
+interface CommentsProps {
+  parentId: string
+  rootId: string
+  comments: CommentProps[]
+}
+
+const Comments = ({parentId,rootId,comments:propsComments}:CommentsProps) => {
   const [showForm, setShowForm] = useState(false);
-  const comments:any = props.comments.filter((comment:any) => props.parentId === comment.parentId);
+  const comments = propsComments.filter((comment) => parentId === comment.parentId);
   const rootCommentInfo:any = useContext(RootCommentContext);
 
 
   return (
     <div className={"my-2 bg-reddit_dark-brighter"}>
         {comments.map((comment:any) => { 
-          const replies = props.comments.filter((c:any) => c.parentId === comment._id)
-
+          const replies = propsComments.filter((c) => c.parentId === comment._id)
           return(
           <div className='mb-2' key={comment._id}>
               <div className="flex mb-2">
@@ -33,14 +38,14 @@ function Comments(props:any) {
                     <ReplyButton type={"button"} onClick={() => {setShowForm(comment._id)}}>Reply</ReplyButton>
                   </div>
                     {comment._id === showForm && (
-                    <CommentForm parentId={comment._id} rootId={props.rootId} onSubmit={() => {setShowForm(false);
+                    <CommentForm parentId={comment._id} rootId={rootId} onSubmit={() => {setShowForm(false);
                             rootCommentInfo.refreshComments();
                     }}
                     showAuthor={false} 
                     onCancel={ (e:any) => setShowForm(false)} />
                   )}
                   {replies.length > 0 && (
-                    <Comments comments={props.comments} parentId={comment._id} rootId={props.rootId} />
+                    <Comments comments={propsComments} parentId={comment._id} rootId={rootId} />
                   )}
                 </div>
               </div>

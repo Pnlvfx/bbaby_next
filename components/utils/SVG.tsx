@@ -136,7 +136,7 @@ export const CloseIcon = (props: any) => {
   )
 }
 
-export const VideoIcons = (props: any) => {
+export const VideoIcon = (props: any) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -10,13 +10,13 @@ interface ExtendPostProps {
 
 const Post = ({post,isListing,open}:ExtendPostProps) => {
     const router = useRouter()
-    let postClasses = `block border border-reddit_border rounded-md ${open && "hover:border-reddit_text"} ${isListing && "cursor-pointer"}`;
+    let postClasses = `block border rounded-md ${!open && "hover:border-reddit_text border-reddit_border cursor-pointer"} ${open && "border-none"}`;
     const url = isMobile ? `/b/${post.community}/comments/${post._id}` : router.pathname;
     const query = isMobile ? undefined : {postId : post._id, community: post.community, username: post.author}
     const as = isMobile ? undefined : `/b/${post.community}/comments/${post._id}`
 
     return (
-    <div className='pb-3'>
+    <div className={`${isListing && "mb-3"}`}>
         {open && (
             <div className={postClasses} >
                 <PostContent post={post} />

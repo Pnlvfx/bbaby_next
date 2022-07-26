@@ -1,5 +1,5 @@
 import { useContext, useRef } from 'react'
-import { VideoIcons } from '../../utils/SVG'
+import { VideoIcon } from '../../utils/SVG'
 import { SubmitContext, SubmitContextType } from '../SubmitContext'
 
 const AddVideo = () => {
@@ -39,7 +39,9 @@ const AddVideo = () => {
           setIsVideo(true)
         }}
       >
-        <VideoIcons />
+        <div className='h-6 w-6'>
+          <VideoIcon />
+        </div>
         <input
           type="file"
           hidden

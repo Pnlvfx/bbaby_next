@@ -38,7 +38,7 @@ const Feed = ({posts:ssrPost,community,author}:FeedProps) => {
   //
 
   //INFINITE SCROLLING
-  const [posts,setPosts] = useState<any[]>(ssrPost)
+  const [posts,setPosts] = useState<PostProps[]>(ssrPost)
 
   const getMorePosts = async() => {
     const input = community ? 'community' : author ? 'author' : undefined
@@ -58,7 +58,7 @@ const Feed = ({posts:ssrPost,community,author}:FeedProps) => {
     )}
     {postId === '' && (
       <div className='flex justify-center pt-5 mx-[2px] lg:mx-10'>
-        <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] mr-4 flex-none'>
+        <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] lg:mr-4 flex-none'>
             <div className='pb-[18px]'>
                 {!author && ( //authorPage
                   <PostForm community={community ? community : ''} />
@@ -81,7 +81,7 @@ const Feed = ({posts:ssrPost,community,author}:FeedProps) => {
             </InfiniteScroll>
             </>
         </div>
-          <div className='hidden 2-xl:block xl:block lg:block md:hidden sm:hidden'>
+          <div className='hidden lg:block'>
             {community ? 
             <CommunitiesInfo /> 
             :

@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { SetStateAction, useState } from 'react'
-import { AiOutlineLoading3Quarters } from 'react-icons/ai'
-import { buttonClass } from '../../utils/Button'
+import { buttonClass, Spinner } from '../../utils/Button'
 
 type UploadVideoProps = {
     input: InputProps
@@ -45,7 +44,7 @@ const UploadVideo = ({input,setInput,setModalType}:UploadVideoProps) => {
                         <button type='submit' onClick={() => {
                             uploadVideo()
                         }} className={`w-40 h-7 mb-3 ml-auto mr-5 ${buttonClass()}`}>
-                            {loading && <AiOutlineLoading3Quarters className='animate-spin mx-auto'/>}
+                            {loading && <Spinner />}
                             {!loading && <p>Upload video</p>}
                         </button>
                     </>

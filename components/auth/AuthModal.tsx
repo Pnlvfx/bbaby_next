@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useState, useContext, useEffect } from 'react'
 import {AuthModalContext, AuthModalContextProps} from './AuthModalContext'
-import { buttonClass } from '../utils/Button'
+import { buttonClass, Spinner } from '../utils/Button'
 import { showErrMsg } from '../utils/validation/Notification'
 import NewEmailNotif from './NewEmailNotif'
 import ResetYourPassword from './ResetYourPassword'
@@ -11,7 +11,6 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import UserPreferencesModal from '../user/UserPreferencesModal'
 import AuthImage from '../../public/authImage.png'
-import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import { CloseIcon } from '../utils/SVG'
 import { NextComponentType } from 'next'
 import { authInput } from './authInput'
@@ -144,7 +143,7 @@ const AuthModal: NextComponentType = () => {
                         className={`mb-3 h-[37px] w-full ${buttonClass()}`}
                         onClick={() => login()}
                       >
-                        {loading && <AiOutlineLoading3Quarters className="mx-auto animate-spin" />}
+                        {loading && <Spinner />}
                         {!loading && <h1>Log In</h1>}
                       </button>
                   </form>
@@ -212,7 +211,7 @@ const AuthModal: NextComponentType = () => {
                           register()
                         }}
                       >
-                        {loading && <AiOutlineLoading3Quarters className="mx-auto animate-spin" />}
+                        {loading && <Spinner />}
                         {!loading && <h1>Sign Up</h1>}
                       </button>
                   </form>

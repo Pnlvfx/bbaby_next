@@ -1,7 +1,8 @@
 import axios from "axios"
 
+const server = process.env.NEXT_PUBLIC_SERVER_URL
+
 export const getPosts = async(input:string | undefined,value:string | undefined,skip:number) => {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
     let url = `${server}/posts?limit=10&skip=${skip}`
     if (input !== undefined && value !== undefined) {
         url = `${server}/posts?${input}=${value}&limit=10&skip=${skip}`
@@ -13,3 +14,9 @@ export const getPosts = async(input:string | undefined,value:string | undefined,
     })
     return posts
 }
+
+
+export const getPost = async (postId:string | string[]) => {
+    const res = await axios.get(`${server}/posts/${postId}`, {withCredentials:true})
+    return res.data
+  }

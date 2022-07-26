@@ -2,6 +2,7 @@ import axios from 'axios'
 import Link from 'next/link'
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
 import UserContext from '../auth/UserContext'
+import { getCategories } from '../cotegory/APIcategory'
 
 interface LeaderboardProps {
   active: number
@@ -14,18 +15,10 @@ const Leaderboard = ({active,setActive}:LeaderboardProps) => {
   const [showMore,setShowMore] = useState(false)
   const [CategoriesLists,setCategoriesLists] = useState<CategoryProps[] | []>([])
 
-  const getCategories = async () => {
-    try {
-      const server = process.env.NEXT_PUBLIC_SERVER_URL;
-      const res = await axios.get(`${server}/categories`, {withCredentials:true})
-      setCategoriesLists(res.data)
-    } catch (error) {
-      
-    }
-  }
-
   useEffect(() => {
-    getCategories()
+    getCategories().then(res => {
+      setCategoriesLists(res)
+    })
   },[])
 
   return (

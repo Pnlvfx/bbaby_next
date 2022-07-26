@@ -6,8 +6,8 @@ import { AuthModalContextProvider } from '../components/auth/AuthModalContext';
 import {CommunityContextProvider} from '../components/community/CommunityContext';
 import CookieConsent from '../components/utils/validation/CookieConsent';
 
-function MyApp({ Component, pageProps: {session, ...pageProps}}: AppProps) {
-
+const MyApp = ({ Component, pageProps: {session, ...pageProps}}: AppProps) => {
+ 
   return (
     <>
       <Head>

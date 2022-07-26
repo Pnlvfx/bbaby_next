@@ -13,4 +13,6 @@ interface CommunityProps {
     user_is_subscriber: boolean
     number_of_posts: number
     createdAt: Date
+    category: string
+    sub_categories: string[]
 }

@@ -15,8 +15,6 @@ const Id: NextPage<Postprops> = ({post}) => {
       getCommunity(post.community)
     },[post.community])
 
-    console.log(post)
-
   return (
     <div>
        <Head>
@@ -43,22 +41,27 @@ export default Id
 export async function getServerSideProps(context: NextPageContext) {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
   const {query} = context
+  const headers = context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined
   const {id} = query
-  const res = await axios.get(server+`/posts/${id}`);
+  const res = await axios({
+    method: 'get',
+    url: server+`/posts/${id}`,
+    headers
+  });
   const post = res.data
 
   //login
   const response = await axios({
     method: "get",
     url: `${server}/user`,
-    headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
-    withCredentials:true})
+    headers,
+  })
     const session = response.data
 
   return {
     props: {
-      session: session,
-      post: post
+      session,
+      post
     }
   }
 }

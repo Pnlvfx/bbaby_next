@@ -4,7 +4,7 @@ import ClickOutHandler from 'react-clickout-ts'
 import { HiChevronDown } from 'react-icons/hi'
 import { MdOutlineCircle } from 'react-icons/md'
 import UserContext from '../../auth/UserContext'
-import { getUserPrefCommunities } from '../../community/APicommunity'
+import { getUserPrefCommunities, searchCommunity } from '../../community/APicommunity'
 import { CommunityContext, CommunityContextProps } from '../../community/CommunityContext'
 import { inputClass } from '../../utils/Input'
 import { SubmitContext, SubmitContextType } from '../SubmitContext'
@@ -20,21 +20,32 @@ const CommunityDropdown = () => {
   const {getCommunity,communityInfo} = useContext(CommunityContext) as CommunityContextProps
 
   const chooseCommunity = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault()
     setSelectedCommunity(e?.currentTarget.value)
   }
 
-
-  useEffect(() => {
+  useEffect(() => {  ///FIRST CALL  USER PREF COMMUNITY.
     if (selectedCommunity) {
-      console.log('community')
       getCommunity(selectedCommunity)
     } else {
       setTimeout(() => {
-        console.log('communities')
         getUserPrefCommunities().then(res => {
           setAllCommunity(res)
         })
       },850)
+    }
+  },[])
+
+  useEffect(() => { ///SEARCH
+    if (!selectedCommunity) return
+    const timer = setTimeout(() => {
+      searchCommunity(selectedCommunity).then((res) => {
+        console.log(res)
+        setAllCommunity(res)
+      })
+    },500)
+    return () => {
+      clearTimeout(timer)
     }
   },[selectedCommunity])
 
@@ -51,20 +62,21 @@ const CommunityDropdown = () => {
             value={'choose a community'}
             onClick={() => {
               setActiveClass(true)
-              setShow(!show)
+              setShow(true)
             }}>
             <div className='mx-2 flex items-center h-full w-full'>
-              {!communityInfo ? <MdOutlineCircle className="h-[22px] w-[22px] text-reddit_text-darker" /> :
-              communityInfo && show ? <BiSearch className="h-[22px] w-[22px] text-reddit_text-darker" /> :
+              {!communityInfo?.communityAvatar && show ? <BiSearch className="h-[22px] w-[22px] text-reddit_text-darker" /> :
+              !communityInfo.communityAvatar && !show ? <MdOutlineCircle className="h-[22px] w-[22px] text-reddit_text-darker" /> :
+              communityInfo?.communityAvatar && show ? <BiSearch className="h-[22px] w-[22px] text-reddit_text-darker" /> :
               <Image src={communityInfo.communityAvatar} width={22} height={22} className='rounded-full' alt='' />
               }
             <input
               className={`${inputClass} h-[50%] w-full ml-2 text-sm outline-none placeholder:text-gray-300 font-bold`}
               placeholder={show ? 'Search communities' : 'Choose a community'}
               value={selectedCommunity}
-              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              onChange={(e) => {
                 chooseCommunity(e)
-              }
+              }}
             />
             <HiChevronDown className="h-[29px] w-[29px] text-reddit_text-darker" />
             </div>
