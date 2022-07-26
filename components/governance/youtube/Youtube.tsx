@@ -5,6 +5,7 @@ import ShowTimeMsg from '../../utils/notification/ShowTimeMsg'
 import CreateImage from './CreateImage'
 import UploadVideo from './UploadVideo'
 import CreateVideo from './CreateVideo'
+import GovNews from './GovNews'
 
 const Youtube = () => {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
@@ -36,7 +37,7 @@ const Youtube = () => {
     success: '',
   }
   const [input, setInput] = useState(_input)
-  const [modalType, setModalType] = useState('create_image') // create_image // create_video
+  const [modalType, setModalType] = useState('news') // create_image // create_video 
   const [loading, setLoading] = useState(false)
   //
   const createVideo = async () => {
@@ -57,7 +58,9 @@ const Youtube = () => {
 
   return (
     <main className="overflow-hidden rounded-md border border-reddit_border bg-reddit_dark-brighter">
-      
+      {modalType === 'news' && (
+        <GovNews />
+      )}
       <CreateImage
         modalType={modalType}
         setModalType={setModalType}
