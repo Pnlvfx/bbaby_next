@@ -26,7 +26,7 @@ const LeaderboardPage = () => {
         <link rel='canonical' href={`${hostname}/bbaby/leaderboard`} key='canonical' />
       </Head>
       <Layout>
-      <Leaderboard active={0} setActive={setActive} />
+        <Leaderboard active={active} setActive={setActive} />
       </Layout>
     </div>
   )

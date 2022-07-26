@@ -17,11 +17,15 @@ const CommunityDropdown = () => {
   const [activeClass, setActiveClass] = useState(false)
   const [allCommunity, setAllCommunity] = useState<CommunityProps[] | []>([])
   const { selectedCommunity, setSelectedCommunity } = useContext(SubmitContext) as SubmitContextType
-  const {getCommunity,communityInfo} = useContext(CommunityContext) as CommunityContextProps
+  const {getCommunity,communityInfo,setShow:setShowCommunityForm} = useContext(CommunityContext) as CommunityContextProps
 
   const chooseCommunity = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault()
     setSelectedCommunity(e?.currentTarget.value)
+  }
+
+  const createNewCommunity = () => {
+    setShowCommunityForm(true);
   }
 
   useEffect(() => {  ///FIRST CALL  USER PREF COMMUNITY.
@@ -107,8 +111,11 @@ const CommunityDropdown = () => {
                   <hr className='border-reddit_border my-2' />
                   <div className='flex items-center'>
                     <p className='px-2 py-1 text-[11px] font-bold text-reddit_text-darker'>YOUR COMMUNITIES</p>
-                    <button className='ml-auto mr-1'>
-                      <p className='text-[13px] font-bold'>Create new</p>
+                    <button onClick={() => {
+                      setShow(false)
+                      setShowCommunityForm(true);
+                    }} className='ml-auto hover:bg-reddit_dark-brightest rounded-full'>
+                      <p className='text-[13px] font-bold px-2 py-1'>Create new</p>
                     </button>
                   </div>
                 {allCommunity.map((community) => (

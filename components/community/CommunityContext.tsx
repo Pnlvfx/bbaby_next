@@ -12,7 +12,11 @@ export type CommunityContextProps = {
 
 export const CommunityContext = createContext<CommunityContextProps | {}>({});
 
-export const CommunityContextProvider = ({children}:any) => {
+interface CommunityContextProviderProps {
+    children : React.ReactNode
+}
+
+export const CommunityContextProvider = ({children}:CommunityContextProviderProps) => {
     const [show,setShow] = useState(false);
     const [communityInfo,setCommunityInfo] = useState({});
     const [loading,setLoading] = useState(true);

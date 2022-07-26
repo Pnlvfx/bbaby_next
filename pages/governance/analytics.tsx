@@ -1,29 +1,29 @@
-import axios from "axios";
-import { NextPage, NextPageContext } from "next";
-import Layout from "../../components/Layout";
-import GovernanceCtrl from "../../components/governance/GovernanceCtrl";
-import Head from "next/head";
-import GovernanceMainMenù from "../../components/governance/GovernanceMainMenù";
+import axios from 'axios'
+import { NextPageContext } from 'next'
+import Head from 'next/head'
+import React from 'react'
+import GovernanceCtrl from '../../components/governance/GovernanceCtrl'
+import Layout from '../../components/Layout'
 
-const Governance: NextPage = () => {
+const AnalyticsPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   return (
-    <>
+    <div>
       <Head>
         <title>Bbabystyle - authority page</title>
         <link rel="icon" href="/favicon.ico"/>
-        <link rel='canonical' href={`${hostname}/governance`} key='canonical' />
+        <link rel='canonical' href={`${hostname}/governance/analytics`} key='canonical' />
       </Head>
-        <Layout>
-          <GovernanceCtrl>
-            
-          </GovernanceCtrl>
-        </Layout>
-    </>
+      <Layout>
+        <GovernanceCtrl>
+          
+        </GovernanceCtrl>
+      </Layout>
+    </div>
   )
 }
 
-export default Governance;
+export default AnalyticsPage;
 
 export async function getServerSideProps(context: NextPageContext) {
   const server = process.env.NEXT_PUBLIC_SERVER_URL

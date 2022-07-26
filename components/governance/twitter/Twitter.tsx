@@ -15,7 +15,7 @@ const Twitter = () => {
   }, [])
 
   return (
-    <div id="diplay_tweets" className="mx-0 flex justify-center pt-5 lg:mx-10">
+    <div id="diplay_tweets" className="mx-0 flex justify-center lg:mx-10">
       <div className="w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px]">
         <div className="mb-4">
           <TwMainMenu

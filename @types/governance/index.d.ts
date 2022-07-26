@@ -14,3 +14,9 @@ interface InputProps {
     err: string,
     success: string
 }
+
+type VideoOptionsProps = {
+    fps: number
+    transition: Boolean
+    transitionDuration: number
+  }

@@ -1,4 +1,3 @@
-import axios from 'axios'
 import Link from 'next/link'
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
 import UserContext from '../auth/UserContext'
@@ -24,7 +23,7 @@ const Leaderboard = ({active,setActive}:LeaderboardProps) => {
   return (
     <div
       className={
-        'w-[200px] overflow-hidden rounded-md border border-reddit_border bg-reddit_dark-brighter pt-1 text-sm shadow-lg'
+        'w-[200px] overflow-hidden rounded-md border border-reddit_border bg-reddit_dark-brighter pt-1 text-sm'
       }
     >
       <div className="flex h-[40px] bg-reddit_dark-brightest font-extrabold">

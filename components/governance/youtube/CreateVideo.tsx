@@ -1,10 +1,17 @@
-import { inputClass } from "../../utils/Input"
-import { FaPause, FaPlay } from "react-icons/fa"
-import Image from "next/image"
-import {useState} from "react"
-import ReactHowler from 'react-howler'
+import { inputClass } from "../../utils/Input";
+import { FaPause, FaPlay } from "react-icons/fa";
+import Image from "next/image";
+import {Dispatch, SetStateAction, useState} from "react";
+import ReactHowler from 'react-howler';
 
-const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
+interface CreateVideoProps {
+  setVideoOptions: Dispatch<SetStateAction<VideoOptionsProps>>
+  input: InputProps
+  setInput: Dispatch<SetStateAction<InputProps>>
+  videoOptions: VideoOptionsProps
+}
+
+const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:CreateVideoProps) => {
   const [imageIndex,setImageIndex] = useState(0)
   const [isPlaying,setIsPlaying] = useState(false)
 
@@ -66,7 +73,7 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:any) => {
                   <textarea 
                   title='title' 
                   value={input.title} 
-                  onChange={(e:any) => {setInput({...input,title:e.target.value})}} 
+                  onChange={(e) => {setInput({...input,title:e.target.value})}} 
                   className='p-2 font-bold w-full bg-reddit_dark-brighter min-h-[100px] max-h-[335px]'
                   />
                 </div>
