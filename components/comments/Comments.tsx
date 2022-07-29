@@ -16,10 +16,9 @@ const Comments = ({parentId,rootId,comments:propsComments}:CommentsProps) => {
   const comments = propsComments.filter((comment) => parentId === comment.parentId);
   const rootCommentInfo:any = useContext(RootCommentContext);
 
-
   return (
     <div className={"my-2 bg-reddit_dark-brighter"}>
-        {comments.map((comment:any) => { 
+        {comments.map((comment) => { 
           const replies = propsComments.filter((c) => c.parentId === comment._id)
           return(
           <div className='mb-2' key={comment._id}>
@@ -37,7 +36,7 @@ const Comments = ({parentId,rootId,comments:propsComments}:CommentsProps) => {
                     <Voting commentId={comment._id} />
                     <ReplyButton type={"button"} onClick={() => {setShowForm(comment._id)}}>Reply</ReplyButton>
                   </div>
-                    {comment._id === showForm && (
+                    {!!comment._id === showForm && (
                     <CommentForm parentId={comment._id} rootId={rootId} onSubmit={() => {setShowForm(false);
                             rootCommentInfo.refreshComments();
                     }}

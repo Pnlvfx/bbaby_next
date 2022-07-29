@@ -41,7 +41,7 @@ const CommunitiesInfo = ({isCategoryDropdownOpen,setIsCategoryDropdownOpen}:Comm
   }, [commit])
 
   //TEXTAREA
-  const handleSave = ({ name, value, previousValue }: any) => {
+  const handleSave = ({ name, value, previousValue }) => {
     setDescr(value)
     setCommit(true)
   }

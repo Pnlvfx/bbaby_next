@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
-import Skeleton from './Skeleton'
-import { anonList, getMyListTweets } from './APItwitter'
-import Tweet from './Tweet'
-import TwMainMenu from './TwMainMenu'
+import { useEffect, useState } from 'react';
+import Skeleton from './Skeleton';
+import { anonList, getMyListTweets } from './APItwitter';
+import Tweet from './Tweet';
+import TwMainMenu from './TwMainMenu';
 
 const Twitter = () => {
   const [tweets, setTweets] = useState<any[]>([])

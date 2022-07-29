@@ -1,7 +1,11 @@
-import MainButtonNav from './MainButtonNav'
-import PoliciesHeader from './PoliciesHeader'
+import MainButtonNav from './MainButtonNav';
+import PoliciesHeader from './PoliciesHeader';
 
-const PoliciesLayout = ({ children }: any) => {
+interface PoliciesLayoutProps {
+  children: React.ReactNode
+}
+
+const PoliciesLayout = ({ children }: PoliciesLayoutProps) => {
   return (
     <main className="bg-white text-reddit_dark">
       <PoliciesHeader />

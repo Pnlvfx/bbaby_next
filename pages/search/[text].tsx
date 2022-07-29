@@ -10,7 +10,7 @@ import { search } from "../../components/header/search/APisearch";
 const SearchResultPage = () => {
 
   const router = useRouter();
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<PostProps[] | []>([]);
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const imagePreview = '/imagePreview.png'
 

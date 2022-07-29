@@ -1,25 +1,26 @@
-import { useContext, useRef } from 'react'
-import { VideoIcon } from '../../utils/SVG'
-import { SubmitContext, SubmitContextType } from '../SubmitContext'
+import { useContext, useRef } from 'react';
+import { VideoIcon } from '../../utils/SVG';
+import { SubmitContext, SubmitContextType } from '../SubmitContext';
 
 const AddVideo = () => {
   const containerClass = 'p-2 text-reddit_text-darker'
   const { setSelectedFile, setIsVideo, setWidth, setHeight, setIsImage } =
     useContext(SubmitContext) as SubmitContextType
-  const fileVideoRef: any = useRef(null)
+  const fileVideoRef = useRef<HTMLInputElement>(null)
   const addVideoToPost = (e: any) => {
     const file = e?.target?.files[0]
     previewVideo(file)
   }
-  const previewVideo = (file: Blob) => {
+  const previewVideo = (file: File) => {
     if (!file) return
     const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onload = (event) => {
       const video_url = event.target?.result
-      let video: any = document.createElement('video')
+      let video = document.createElement('video')
       video.preload = 'metadata'
-      video.src = video_url
+      if (!video_url) return
+      video.src = video_url.toString();
       video.addEventListener('loadedmetadata', function () {
         setWidth(video.videoWidth)
         setHeight(video.videoHeight)
@@ -34,7 +35,8 @@ const AddVideo = () => {
       <button
         title="Add a video"
         onClick={() => {
-          fileVideoRef.current.click()
+          fileVideoRef && 
+          fileVideoRef?.current?.click()
           setIsImage(false)
           setIsVideo(true)
         }}

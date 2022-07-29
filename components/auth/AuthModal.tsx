@@ -1,5 +1,5 @@
-import axios from 'axios'
-import { useState, useContext, useEffect } from 'react'
+import axios from 'axios';
+import { useState, useContext, useEffect, FormEvent } from 'react'
 import {AuthModalContext, AuthModalContextProps} from './AuthModalContext'
 import { buttonClass, Spinner } from '../utils/Button'
 import { showErrMsg } from '../utils/validation/Notification'
@@ -33,7 +33,7 @@ const AuthModal: NextComponentType = () => {
   const { show, setShow } = modalContext;
   const visibleClass = show === 'hidden' ? 'hidden' : 'block'
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault()
   }
 
@@ -82,18 +82,18 @@ const AuthModal: NextComponentType = () => {
       })
       localStorage.setItem('isLogged', 'true')
       router.reload()
-    } catch (err: any) {
+    } catch (err:any) {
       err.response.data.msg &&
         setStatus({ err: err.response.data.msg, success: '' })
-      setLoading(false)
+        setLoading(false)
     }
   }
 
   // ONLY AFTER FIRST LOGIN
-  const [newUser, setNewUser] = useState<string | null>('')
+  const [newUser, setNewUser] = useState('')
   useEffect(() => {
     const firstLogin = localStorage.getItem('firstLogin')
-    setNewUser(firstLogin)
+    setNewUser(firstLogin ? firstLogin : '')
   }, [])
 
   return (
@@ -128,7 +128,7 @@ const AuthModal: NextComponentType = () => {
                   <div id="google_login" className="pb-6">
                     <Google setLoading={setLoading} />
                   </div>
-                  <form method="post" autoComplete='on' onSubmit={handleSubmit}>
+                  <form method="post" autoComplete='on' onSubmit={(handleSubmit)}>
                     {authInput('username','text',status,username,setUsername,'username')}
                     {status.err && showErrMsg(status.err)}
                     {authInput('password','password',status,password,setPassword,'current-password')}

@@ -6,7 +6,8 @@ const CookieConsent = () => {
   const [show, setShow] = useState(false)
   const [showAnalytics,setShowAnalytics] = useState(false);
   const acceptCookie = () => {
-    const cookie:any = process.env.NEXT_PUBLIC_COOKIE_CONSENT_SECRET
+    const cookie = process.env.NEXT_PUBLIC_COOKIE_CONSENT_SECRET
+    if (!cookie) return;
     document.cookie =
       `eu_cookie = ${encodeURI(cookie)}; max-age =` + 30 * 98 * 100 * 600
     setShow(false)

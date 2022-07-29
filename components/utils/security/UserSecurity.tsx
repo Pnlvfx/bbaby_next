@@ -2,7 +2,11 @@ import { useRouter } from "next/router"
 import { useContext, useEffect } from "react"
 import UserContext from "../../auth/UserContext"
 
-const UserSecurity = ({children}:any) => {
+interface Props {
+  children : React.ReactNode
+}
+
+const UserSecurity = ({children}:Props) => {
   const {session} = useContext(UserContext)
   const router = useRouter()
 
@@ -18,4 +22,4 @@ const UserSecurity = ({children}:any) => {
   )
 }
 
-export default UserSecurity
+export default UserSecurity;
