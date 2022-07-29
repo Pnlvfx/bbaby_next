@@ -62,7 +62,7 @@ function CommunityFormModal() {
         <div className="rounded-md border border-reddit_border bg-reddit_dark-brighter w-[88%]  max-w-[525px]">
           <div className='mx-3'>
             <div className="flex my-4 items-center">
-                <h1 className="font-semibold">Create a community</h1>
+                <p className="font-semibold">Create a community</p>
                 <button className="ml-auto" onClick={() => close()}>
                     <CloseIcon style={{ height: '16px', width: '16px' }} />
                 </button>

@@ -16,31 +16,26 @@ import { NextComponentType } from 'next'
 import { authInput } from './authInput'
 
 const AuthModal: NextComponentType = () => {
+  const server = process.env.NEXT_PUBLIC_SERVER_URL
   const initialState = {
     err: '',
     success: '',
   }
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
+  const [status, setStatus] = useState(initialState)
+  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  // IF NEW USER
+  const [EmailTo, setEmailTo] = useState('')
+  const modalContext = useContext(AuthModalContext) as AuthModalContextProps;
+  const { show, setShow } = modalContext;
+  const visibleClass = show === 'hidden' ? 'hidden' : 'block'
 
   const handleSubmit = (e:any) => {
     e.preventDefault()
   }
-
-  const [loading, setLoading] = useState(false)
-  const router = useRouter()
-  const [status, setStatus] = useState(initialState)
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
-
-  const [email, setEmail] = useState('')
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-
-  // IF NEW USER
-  const [EmailTo, setEmailTo] = useState('')
-
-  const modalContext = useContext(AuthModalContext) as AuthModalContextProps;
-  const { show, setShow } = modalContext
-
-  const visibleClass = show === 'hidden' ? 'hidden' : 'block'
 
   const register = async () => {
     setLoading(true)
@@ -97,7 +92,7 @@ const AuthModal: NextComponentType = () => {
   // ONLY AFTER FIRST LOGIN
   const [newUser, setNewUser] = useState<string | null>('')
   useEffect(() => {
-    const firstLogin: string | null = localStorage.getItem('firstLogin')
+    const firstLogin = localStorage.getItem('firstLogin')
     setNewUser(firstLogin)
   }, [])
 
@@ -110,9 +105,9 @@ const AuthModal: NextComponentType = () => {
               <Image src={AuthImage} alt="" layout="fill" />
             </div>
             <div className="mt-20 ml-6 max-w-[320px] flex-none">
-              <h1 className="mb-2 text-2xl">
+              <p className="mb-2 text-2xl">
                 {show === 'login' ? 'Login' : show === 'register' ? 'Sign up' : ''}
-              </h1>
+              </p>
               {show === 'login' && (
                 <>
                   <p className="pb-4 text-sm">
@@ -141,14 +136,17 @@ const AuthModal: NextComponentType = () => {
                         disabled={loading}
                         type="submit"
                         className={`mb-3 h-[37px] w-full ${buttonClass()}`}
-                        onClick={() => login()}
+                        onClick={(e) => {
+                          e.preventDefault()
+                          login()
+                        }}
                       >
                         {loading && <Spinner />}
-                        {!loading && <h1>Log In</h1>}
+                        {!loading && <p>Log In</p>}
                       </button>
                   </form>
                   <div>
-                    <h1 className="mb-6 text-sm">
+                    <p className="mb-6 text-sm">
                       Forgot your{' '}
                       <button className="text-blue-400">username</button> or{' '}
                       <button
@@ -158,7 +156,7 @@ const AuthModal: NextComponentType = () => {
                         password
                       </button>{' '}
                       ?
-                    </h1>
+                    </p>
                   </div>
                     <div className="mt-3 text-sm mb-24">
                       New to Bbaby?{' '}
@@ -212,7 +210,7 @@ const AuthModal: NextComponentType = () => {
                         }}
                       >
                         {loading && <Spinner />}
-                        {!loading && <h1>Sign Up</h1>}
+                        {!loading && <p>Sign Up</p>}
                       </button>
                   </form>
                   <div className="mt-3 text-sm mb-24">

@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
-import { useContext, useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import ClickOutHandler from "react-clickout-ts";
 import Comment from '../comments/Comment';
-import {GrDocumentText} from 'react-icons/gr'
+import {GrDocumentText} from 'react-icons/gr';
 import { CloseIcon } from "../utils/SVG";
 import CommunitiesInfo from "../widget/CommunitiesInfo";
 import { CommunityContext, CommunityContextProps } from "../community/CommunityContext";
@@ -10,15 +10,15 @@ import Donations from "../widget/Donations";
 import { getPost } from "./APIpost";
 
 type PostModalProps = {
-  community?: string,
-  postId: string | string[],
-  open: Boolean,
+  community?: string
+  postId: string
+  open: boolean
   onClickOut: Function
 }
 
 const PostModal = ({community,postId,open,onClickOut}:PostModalProps) => {
   const router = useRouter();
-  const [post,setPost] = useState<Postprops | any>({});
+  const [post,setPost] = useState<PostProps>({} as PostProps);
   const [loading,setLoading] = useState(true)
   const visibleClass = open ? 'block' : 'hidden'
   const {getCommunity} = useContext(CommunityContext) as CommunityContextProps;
@@ -42,12 +42,12 @@ const PostModal = ({community,postId,open,onClickOut}:PostModalProps) => {
     if (isCategoryDropdownOpen) return
     router.push({
       pathname:router.pathname,
-      query: community ? {community: community} : {username: post.author}
+      query: community ? {community: community} : {username: post?.author}
     },
     router.pathname,{scroll:false}
     )
     onClickOut()
-    setPost({})
+    setPost({} as PostProps)
   }
 
   return (
@@ -63,15 +63,7 @@ const PostModal = ({community,postId,open,onClickOut}:PostModalProps) => {
                 <p className='text-sm flex-none text-ellipsis'>{post.title}</p>
               </div>
               <button title='close' id="closeButton" onClick={() => {
-                setLoading(true)
-                router.push({
-                  pathname:router.pathname,
-                  query: community ? {community: community} : {username: post.author}
-                },
-                router.pathname,{scroll:false}
-                )
-                onClickOut()
-                setPost({})
+                clickOut()
                 }} className="text-right ml-auto flex pt-4 pb-8">
                   <div className="mr-1">
                     <CloseIcon style={{height: 20, width: 20}} />

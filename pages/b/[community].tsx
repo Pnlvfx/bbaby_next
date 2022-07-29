@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import {useContext, useEffect} from 'react'
-import Layout from '../../components/Layout'
+import Layout from '../../components/main/Layout'
 import BoardHeader from '../../components/header/BoardHeader'
 import {CommunityContext, CommunityContextProps} from '../../components/community/CommunityContext'
 import axios from 'axios';

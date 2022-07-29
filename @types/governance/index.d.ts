@@ -11,12 +11,35 @@ interface InputProps {
     keywords: string
     category: string
     privacyStatus: string
-    err: string,
-    success: string
+    msg: string
 }
 
 type VideoOptionsProps = {
-    fps: number
-    transition: Boolean
-    transitionDuration: number
+    fps: string
+    transition: string
+    transitionDuration: string
   }
+
+  interface PexelsProps {
+    id: number
+    width: number
+    height: number
+    url: string
+    photographer: string
+    photographer_url: stringstring
+    photographer_id: number
+    avg_color: string
+    src: {
+        landscape: string
+        large: string
+        medium: string
+        original: string
+        potrait: string
+        small: string
+        tiny: string
+    },
+    liked: false,
+    alt: string
+  }
+
+  type modalType = 'create_image' | 'create_video'

@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import axios from 'axios';
 import Head from 'next/head';
-import Layout from '../../../components/Layout';
+import Layout from '../../../components/main/Layout';
 import Leaderboard from '../../../components/leaderboard/Leaderboard';
 import { useState } from 'react';
 

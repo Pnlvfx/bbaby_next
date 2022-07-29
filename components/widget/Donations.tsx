@@ -22,14 +22,14 @@ const Donations = () => {
         </div>
         <div className="ml-4 text-sm">
           <div className="self-center font-bold">
-            <h1>Bbaby</h1>
+            <p>Bbaby</p>
           </div>
           <div className="self-center">
-            <h1 className="flex break-words">
+            <p className="flex break-words">
               If you want to help us develop a social platform where everyone
               can share without censorship,
-            </h1>
-            <h2>Consider making a small PayPal donation</h2>
+            </p>
+            <p>Consider making a small PayPal donation</p>
           </div>
         </div>
       </div>

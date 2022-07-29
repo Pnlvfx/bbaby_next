@@ -79,12 +79,12 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
           </div>
         </div>
         <pre>
-          <p
+          <h1
             style={{ whiteSpace: 'pre-line', fontFamily: 'Helvetica' }}
             className="mb-4 break-words font-extrabold leading-6"
           >
             {post.title}
-          </p>
+          </h1>
         </pre>
         {post?.mediaInfo?.isImage && post?.mediaInfo?.image && (
           <div className="container max-h-[500px] overflow-hidden">
@@ -102,10 +102,10 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
             <video
               className={`aspect-video`}
               src={post.mediaInfo.video.url}
-              //poster={image}
+              poster={post.mediaInfo.video.url.replace('mp4', 'jpg')}
               controls
-              height={`${height}px`}
-              width={`${width}px`}
+              height={height}
+              width={width}
             />
           </div>
         )}
@@ -153,7 +153,7 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
             >
               <div className="flex self-center rounded-sm p-2 text-sm text-reddit_text-darker hover:bg-reddit_hover">
                 <CommentIcon style={{ height: '20px', width: '20px' }} />
-                <h1 className="ml-1">{post.numComments} Comments</h1>
+                <p className="ml-1">{post.numComments} Comments</p>
               </div>
             </a>
           </Link>

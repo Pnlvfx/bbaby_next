@@ -27,7 +27,7 @@ const TwMainMenu = ({ setLanguage, setTweets }: TwMainMenuProps) => {
         >
           <div className="flex h-5 items-center space-x-1">
             <FaSpaceShuttle className="h-5 w-5 -rotate-90" />
-            <h1 className="text-sm font-bold">English</h1>
+            <p className="text-sm font-bold">English</p>
           </div>
         </button>
         <button
@@ -45,7 +45,7 @@ const TwMainMenu = ({ setLanguage, setTweets }: TwMainMenuProps) => {
         >
           <div className="flex h-5 items-center space-x-1">
             <FaSpaceShuttle className="h-5 w-5 -rotate-90" />
-            <h1 className="text-sm font-bold">Italian</h1>
+            <p className="text-sm font-bold">Italian</p>
           </div>
         </button>
       </div>

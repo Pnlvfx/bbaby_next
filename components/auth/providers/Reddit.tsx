@@ -26,7 +26,7 @@ const Reddit = (userInfo:UserProps) => {
             {!redditAccount && (
                 <>
                 <div>
-                    <h1>Connect to Reddit</h1>
+                    <p>Connect to Reddit</p>
                     <h2 className="text-[11px] text-reddit_text-darker font-normal pt-[2px]">Connect a Reddit account to enable the choiche to post your content on Reddit. We will never share to Reddit without your permission</h2>
                 </div>
                 <div className="self-center mt-4">
@@ -42,12 +42,12 @@ const Reddit = (userInfo:UserProps) => {
                 <>
                 <div className="flex">
                     <div>
-                        <h1>Connected to Reddit</h1>
+                        <p>Connected to Reddit</p>
                         <h2 className="text-[11px] text-reddit_text-darker font-normal pt-[2px]">You can now choose to see your reddit feed from bbabystyle user-page</h2>
                     </div>
                     <div className="self-center ml-auto">
                         <div className="rounded-full px-4 py-[7px] text-xs ml-auto">
-                            <h1 className="text-reddit_text-darker">@{redditAccount?.username}</h1>
+                            <p className="text-reddit_text-darker">@{redditAccount?.username}</p>
                             <button id="logout" title="logout" onClick={() => {
                                 
                             }} >

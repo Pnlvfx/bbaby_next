@@ -18,7 +18,6 @@ function NotUserMenu({showDropdown,setShowDropdown}:any) {
             <div className=''>
                 <div id='buttons_with_icon' className=''>
                     <div className='p-3'>
-
                     </div>
                     <div className={containerClass}>
                         <div className={'flex p-[10px] pl-4'} onClick={() => {

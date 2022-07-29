@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import {useEffect, useState} from 'react'
 import Post from '../../components/post/Post' 
 import axios from "axios";
-import Layout from "../../components/Layout";
+import Layout from "../../components/main/Layout";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { search } from "../../components/header/search/APisearch";

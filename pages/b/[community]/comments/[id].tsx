@@ -5,9 +5,13 @@ import { useEffect } from 'react';
 import { useContext } from 'react';
 import CommentPage from '../../../../components/comments/CommentPage'
 import { CommunityContext, CommunityContextProps } from '../../../../components/community/CommunityContext';
-import Layout from '../../../../components/Layout';
+import Layout from '../../../../components/main/Layout';
 
-const Id: NextPage<Postprops> = ({post}) => {
+interface PostIdPageProps {
+  post: PostProps
+}
+
+const Id: NextPage<PostIdPageProps> = ({post}) => {
     const hostname = process.env.NEXT_PUBLIC_HOSTNAME
     const {getCommunity} = useContext(CommunityContext) as CommunityContextProps;
 
@@ -23,6 +27,7 @@ const Id: NextPage<Postprops> = ({post}) => {
         <meta name="description" content={`${post.body}`}  />
         <meta property="og:description" content={`${post.body}`} key='ogdesc'/>
         {post.mediaInfo?.isImage && <meta property="og:image" content={post?.mediaInfo?.image} key='ogimage' />}
+        {post.mediaInfo?.isVideo && <meta property="og:image" content={post?.mediaInfo?.video.url.replace('mp4', 'jpg')} key='ogimage' />}
         <meta property="og:url" content={hostname + '/b/' + post.community + '/comments/' + post._id} key='ogurl' />
         <meta property='og:type' content='website' key='ogtype' />
         <meta name="twitter:card" content="summary_large_image" key='twcard'/>
@@ -36,20 +41,13 @@ const Id: NextPage<Postprops> = ({post}) => {
   )
 }
 
-export default Id
+export default Id;
 
 export async function getServerSideProps(context: NextPageContext) {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
   const {query} = context
   const headers = context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined
   const {id} = query
-  const res = await axios({
-    method: 'get',
-    url: server+`/posts/${id}`,
-    headers
-  });
-  const post = res.data
-
   //login
   const response = await axios({
     method: "get",
@@ -57,6 +55,13 @@ export async function getServerSideProps(context: NextPageContext) {
     headers,
   })
     const session = response.data
+
+  const res = await axios({
+    method: 'get',
+    url: server+`/posts/${id}`,
+    headers
+  });
+  const post = res.data
 
   return {
     props: {

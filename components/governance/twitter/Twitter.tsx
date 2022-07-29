@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Skeleton from '../../utils/Skeleton'
+import Skeleton from './Skeleton'
 import { anonList, getMyListTweets } from './APItwitter'
 import Tweet from './Tweet'
 import TwMainMenu from './TwMainMenu'

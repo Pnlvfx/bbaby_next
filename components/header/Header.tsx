@@ -16,7 +16,6 @@ import { TbBabyCarriage } from 'react-icons/tb'
 import NotificationButton from '../notifications/NotificationButton'
 import Home from './Home'
 import SearchBar from './search/SearchBar'
-import { className } from '../utils/className'
 
 function Header() {
   const { session } = useContext(UserContext)
@@ -24,6 +23,10 @@ function Header() {
   const height = 48
   const boxIconSize = 32
 
+  const className = {
+    buttonHeader: 'items-center justify-center hover:bg-reddit_dark-brightest h-[32px] w-[32px] flex',
+    icon: 'h-[20px] w-[20px] text-[#D7DADC]'
+  }
   const { setShow } = useContext(AuthModalContext) as AuthModalContextProps;
 
   return (

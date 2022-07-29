@@ -2,7 +2,7 @@ import axios from 'axios';
 import { NextPageContext } from 'next';
 import Head from 'next/head';
 import Modqueque from '../../../../components/community/modqueque/Modqueque';
-import Layout from '../../../../components/Layout';
+import Layout from '../../../../components/main/Layout';
 
 function ModqueuePage() {
   return (

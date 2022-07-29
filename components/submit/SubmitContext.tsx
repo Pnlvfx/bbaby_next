@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
 import {AuthModalContext, AuthModalContextProps} from "../auth/AuthModalContext";
 import UserContext from "../auth/UserContext";
+import { TimeMsgContext, TimeMsgContextProps } from "../main/TimeMsgContext";
 
 export const SubmitContext = createContext<SubmitContextType | {}>({})
 
@@ -35,8 +36,6 @@ interface SubmitContextProviderProps  {
     setSharePostToTwitter: Dispatch<SetStateAction<boolean>>
     loading: boolean
     setLoading: Dispatch<SetStateAction<boolean>>
-    status: string
-    setStatus: Dispatch<SetStateAction<string>>
     createPost: Function
     }
 
@@ -55,8 +54,10 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
     const [sharePostToTG,setSharePostToTG] = useState(session?.user.role === 1 ? true : false)
     const [sharePostToTwitter,setSharePostToTwitter] = useState(session?.user.role ? true : false)
     const [loading,setLoading] = useState(false)
-    const [status,setStatus] = useState('')
+    
     const router = useRouter()
+    const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
+
 
     const createPost = async() => {
         try {
@@ -68,14 +69,14 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
                 const {_id,community} = res.data
                 router.push('/b/'+community+'/comments/'+_id)
             } else {
-                setStatus('ok')
+                setMessage({value:'Post created successfully',status: 'success'})
                 setLoading(false)
             }
         } catch (err:any) {
             if(err.response.status === 401) {
                 authModalContext.setShow('login');
             } else if (err?.response?.data?.msg) {
-            setStatus(err.response.data.msg)
+            setMessage({value: err.response.data.msg, status: 'error'})
             setLoading(false)
             //setShowSubmit(false)
             }
@@ -107,8 +108,6 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
             setSharePostToTwitter,
             loading,
             setLoading,
-            status,
-            setStatus,
             createPost
             }}>
             {children}

@@ -29,28 +29,29 @@ const Body = () => {
                   <FaTrashAlt className='text-reddit_text-darker px-2 py-1 self-center mx-auto w-full h-full' />
                   </div>
               )}
-              <div onClick={() => {
-                      setShowDeleteOptions(true)
-                  }}>
-                  <div className='rounded-lg mx-auto border border-reddit_border hover:border-4 hover:border-reddit_text'>
-                    {isImage && (
-                      <Image
-                      src={selectedFile}
-                      alt={'DisplayImage'}
-                      height={`${height}px`}
-                      width={`${width}px`}
-                      />
-                    )}
-                    {isVideo && (
-                      <video className={`aspect-video`} 
-                      src={selectedFile}
-                      //poster={image}
-                      controls
-                      height={`${height}px`}
-                      width={`${width}px`}
-                      />
-                    )}
-                  </div>
+              <div onClick={(e) => {
+                e.preventDefault()
+                setShowDeleteOptions(true)
+              }}>
+                <div className='rounded-lg mx-auto border border-reddit_border hover:border-4 hover:border-reddit_text'>
+                  {isImage && (
+                    <Image
+                    src={selectedFile}
+                    alt={'DisplayImage'}
+                    height={`${height}px`}
+                    width={`${width}px`}
+                    />
+                  )}
+                  {isVideo && (
+                    <video className={`aspect-video`} 
+                    src={selectedFile}
+                    //poster={image}
+                    controls
+                    height={`${height}px`}
+                    width={`${width}px`}
+                    />
+                  )}
+                </div>
               </div>
               <div className='text-center'>
                   <textarea className='bg-reddit_dark-brighter' />

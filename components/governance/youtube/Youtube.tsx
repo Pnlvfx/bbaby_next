@@ -1,25 +1,23 @@
-import axios from 'axios'
-import { useState } from 'react'
-import { buttonClass, Spinner } from '../../utils/Button'
-import ShowTimeMsg from '../../utils/notification/ShowTimeMsg'
-import CreateImage from './CreateImage'
-import UploadVideo from './UploadVideo'
-import CreateVideo from './CreateVideo'
-import GovNews from './GovNews'
+import axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
+import { buttonClass, Spinner } from '../../utils/Button';
+import CreateImage from './CreateImage';
+import UploadVideo from './UploadVideo';
+import CreateVideo from './CreateVideo';
+import { useRouter } from 'next/router';
+import { getOneNews } from '../../mynews/APInews';
+import { YoutubeContext, YoutubeContextProps } from './YoutubeContext';
+import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
 
 const Youtube = () => {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
-  //VIDEOSHOW OPTIONS
-
+  const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
   const _videoOptions: VideoOptionsProps = {
-    fps: 24,
-    transition: true,
-    transitionDuration: 1, // seconds
+    fps: '24',
+    transition: 'true',
+    transitionDuration: '1', // seconds
   }
   const [videoOptions, setVideoOptions] = useState(_videoOptions)
-  //
-
-  //YOUTUBE INPUT
   const _input: InputProps = {
     images: [],
     video: '',
@@ -33,13 +31,28 @@ const Youtube = () => {
     keywords: '',
     category: '',
     privacyStatus: '',
-    err: '',
-    success: '',
+    msg: ''
   }
   const [input, setInput] = useState(_input)
-  const [modalType, setModalType] = useState('news') // create_image // create_video 
+  const [modalType, setModalType] = useState<modalType>('create_image')
   const [loading, setLoading] = useState(false)
-  //
+  const router = useRouter()
+  const {setNews} = useContext(YoutubeContext) as YoutubeContextProps;
+
+  useEffect(() => { //GET THE NEWS FROM THE QUERY
+    if (!router.isReady) return
+    if (!router.query.newsId) {
+      if (!router.query.code) {
+        router.push('/news')
+      }
+    } else {
+      getOneNews(router.query.newsId.toString()).then((res) => {
+        setNews(res.data);
+    })
+    }
+  }, [router])
+
+
   const createVideo = async () => {
     try {
       setLoading(true)
@@ -47,20 +60,18 @@ const Youtube = () => {
       const res = await axios.post(`${server}/governance/create-video`, data, {
         withCredentials: true,
       })
-      setInput({ ...input, video: res.data.video, success: res.data.success })
+      setMessage({value:res.data.msg, status: 'success'})
+      setInput({ ...input, video: res.data.video})
       setLoading(false)
     } catch (err: any) {
       err?.response?.data?.msg &&
-        setInput({ ...input, err: err.response.data.msg })
-      setLoading(false)
+        setMessage({value: err.response.data.msg, status: 'error'})
+        setLoading(false)
     }
   }
 
   return (
-    <main className="overflow-hidden rounded-md border border-reddit_border bg-reddit_dark-brighter">
-      {modalType === 'news' && (
-        <GovNews />
-      )}
+    <main>
       <CreateImage
         modalType={modalType}
         setModalType={setModalType}
@@ -77,10 +88,7 @@ const Youtube = () => {
           />
           {!input.video && (
             <div id="create_video" className="mt-2 flex p-2">
-              <div className="self-center">
-                <h1 className="">Submit:</h1>
-              </div>
-              <div className="ml-auto self-center">
+              <div className="ml-auto">
                 <>
                   <button
                     type="submit"
@@ -90,7 +98,7 @@ const Youtube = () => {
                     className={`mb-3 ml-auto mr-5 h-7 w-40 ${buttonClass()}`}
                   >
                     {loading && <Spinner />}
-                    {!loading && <h1>Create Video</h1>}
+                    {!loading && <p>Create Video</p>}
                   </button>
                 </>
               </div>
@@ -103,21 +111,6 @@ const Youtube = () => {
           />
           <hr className="border-reddit_border" />
         </>
-      )}
-      {input && input.err && (
-        <ShowTimeMsg
-          value={input.err}
-          status={'error'}
-          setValue={setInput}
-          gov_value={input}
-        />
-      )}
-      {input && input.success && (
-        <ShowTimeMsg
-          value={input.success}
-          setValue={setInput}
-          gov_value={input}
-        />
       )}
     </main>
   )

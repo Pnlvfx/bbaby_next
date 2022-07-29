@@ -3,7 +3,7 @@ import { NextPageContext } from 'next';
 import Head from 'next/head';
 import Profile from '../../components/auth/usersettings/each/Profile'
 import UserSettings from '../../components/auth/usersettings/UserSettings'
-import Layout from '../../components/Layout';
+import Layout from '../../components/main/Layout';
 import UserSecurity from '../../components/utils/security/UserSecurity';
 
 function profile() {

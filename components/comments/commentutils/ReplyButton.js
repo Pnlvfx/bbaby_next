@@ -9,7 +9,7 @@ function ReplyButton(props) {
       <div className='mr-1'>
         <CommentIcon style={{height: '20px', width: '20px'}} />
       </div>
-        <h1 className=''>Reply</h1>
+        <p className=''>Reply</p>
     </button>
 
   )

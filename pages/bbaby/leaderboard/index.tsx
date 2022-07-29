@@ -2,7 +2,7 @@ import axios from "axios"
 import { NextPageContext } from "next"
 import Head from "next/head"
 import { useState } from "react"
-import Layout from "../../../components/Layout"
+import Layout from "../../../components/main/Layout"
 import Leaderboard from "../../../components/leaderboard/Leaderboard"
 
 const LeaderboardPage = () => {

@@ -8,7 +8,7 @@ import UserContext from '../../auth/UserContext';
 import {AddImageIcon} from '../../utils/SVG'
 
 type PostFormProps = {
-    community: string,
+    community?: string
 }
 
 function PostForm({community}:PostFormProps) {

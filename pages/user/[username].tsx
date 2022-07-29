@@ -1,7 +1,7 @@
 import axios from "axios";
 import { NextPage, NextPageContext } from "next";
 import Head from "next/head";
-import Layout from "../../components/Layout";
+import Layout from "../../components/main/Layout";
 import Feed from "../../components/post/Feed";
 
 type AuthorPg = {

@@ -7,23 +7,16 @@ import UserContext from '../../auth/UserContext';
 import {MoreIcon} from '../../utils/SVG'
 
 function MoreButton(props:any) {
-
-  const provider = useContext(UserContext)
-  const {session} = provider
- 
+  const {session} = useContext(UserContext)
   const router = useRouter()
   const server = process.env.NEXT_PUBLIC_SERVER_URL
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const {post,postId} = props
   const [postAuthor,setPostAuthor] = useState(false)
-  const [moreDropdownVisibilityClass, setMoreDropdownVisibilityClass] = useState('hidden');
-
-  // message
-  const [deletedSuccess,setDeletedSuccess] = useState(false)
-  //
+  const [moreDropdownVisibilityClass, setMoreDropdownVisibilityClass] = useState(false);
 
   useEffect(() => {
-    if(moreDropdownVisibilityClass === 'hidden') return
+    if(!moreDropdownVisibilityClass) return
       if(session?.user?.username === post.author) {
         setPostAuthor(true)
       } else {
@@ -36,7 +29,6 @@ function MoreButton(props:any) {
       if(router.asPath !== '/') {
         await axios.delete(`${server}/posts/${postId}`,{withCredentials:true})
         router.push(`${hostname}/b/${post.community}`).then(() => {
-        setDeletedSuccess(true)
         })
       } else {
           const res = await axios.delete(`${server}/posts/${postId}`,{withCredentials:true})
@@ -46,34 +38,21 @@ function MoreButton(props:any) {
 
     }
   }
-  
-  
-
-  function toggleMoreDropdown() {
-    if (moreDropdownVisibilityClass === 'hidden') {
-      setMoreDropdownVisibilityClass('block');
-    }else {
-      setMoreDropdownVisibilityClass('hidden')
-    }
-  }
 
   return (
     <div>
-       <ClickOutHandler onClickOut={() => setMoreDropdownVisibilityClass('hidden')}>
+       <ClickOutHandler onClickOut={() => setMoreDropdownVisibilityClass(false)}>
        <div className=''>
           <button title='Show more options' type='button' onClick={event =>{
             event.preventDefault()
             event.stopPropagation()
-            toggleMoreDropdown()
+            setMoreDropdownVisibilityClass(!moreDropdownVisibilityClass)
         }}>
           <div className='self-center text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm'>
             <MoreIcon style={{height: '20px', width: '20px'}} />
           </div>
          </button>
-   
-   
-   
-         <div className={'absolute ' + moreDropdownVisibilityClass}>
+         <div className={`absolute ${moreDropdownVisibilityClass ? "block" : "hidden"}`}>
            <div className='flex bg-reddit_dark-brighter border border-reddit_border z-10 rounded-md'>
                {postAuthor && (
                  <button onClick={e => {
@@ -87,9 +66,6 @@ function MoreButton(props:any) {
                )}
           </div>
            </div>
-           {/* {deletedSuccess && (
-             <ShowTimeMsg />
-           )} */}
        </div>
        </ClickOutHandler>
    </div>

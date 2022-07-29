@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { NextPage, NextPageContext } from 'next';
-import Layout from '../../../components/Layout';
+import Layout from '../../../components/main/Layout';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import TempSubmitWid from '../../../components/widget/TempSubmitWid';

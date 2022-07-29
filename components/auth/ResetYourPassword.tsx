@@ -17,9 +17,9 @@ function ResetYourPassword() {
         <div className='rounded-full'>
             <Image src={Logo} alt="" width={'40px'} height={'40px'}/>
         </div>
-        <h1 className='font-bold'>Reset your password</h1>
+        <p className='font-bold'>Reset your password</p>
         <div className='w-[600px] pr-48 pt-1'>
-            <h1>Tell us the username and email address associated with your Bbabystyle account, and we&apos;ll send you an email with a link to reset your password.</h1>
+            <p>Tell us the username and email address associated with your Bbabystyle account, and we&apos;ll send you an email with a link to reset your password.</p>
         </div>
             <div className='pt-4'>
                 <label>
@@ -39,7 +39,7 @@ function ResetYourPassword() {
             </div>
                 <button className="text-reddit_blue font-bold text-xs">FORGOT USERNAME?</button>
                 <div>
-                    <h1 className='text-sm pt-4'>Don&apos;t have an email or need assistance loggin in? Get help.</h1>
+                    <p className='text-sm pt-4'>Don&apos;t have an email or need assistance loggin in? Get help.</p>
                 </div>
                 <div className='pt-4 flex pb-24'>
                 {/* <button className="text-sm text-blue-500 ml-1 font-semibold" onClick={() => setShow('login')}>LOG IN</button>

@@ -21,36 +21,28 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:CreateVideoPr
       <form className="p-2 w-full text-sm">
           {!input?.video && (
             <>
-              <div id="fps" className="mt-2 flex">
-                <div className="self-center">
-                  <h1 className="">Fps:</h1>
-                </div>
-                <div className="ml-auto self-center">
-                  <input type='text' title='fps' value={videoOptions.fps} onChange={(e) => setVideoOptions({...videoOptions,fps:e.target.value})} className={`${inputClass} p-2 font-bold`}/>
+              <div id="fps" className="mt-2 flex items-center">
+                  <p className="">Fps:</p>
+                <div className="ml-auto">
+                  <input type='number' title='fps' value={videoOptions.fps} onChange={(e) => setVideoOptions({...videoOptions,fps:e.target.value})} className={`${inputClass} p-2 font-bold`}/>
                 </div>
             </div>
             <div id="transition" className="mt-2 flex">
-                <div className="self-center">
-                  <h1 className="">Transition:</h1>
-                </div>
-                <div className="ml-auto self-center">
+                  <p className="">Transition:</p>
+                <div className="ml-auto">
                   <input type='text' title='transition' value={videoOptions.transition} onChange={(e) => setVideoOptions({...videoOptions,transition:e.target.value})} className={`${inputClass} p-2 font-bold`}/>
                 </div>
             </div>
             <div id="transition_duration" className="mt-2 flex">
-                <div className="self-center">
-                  <h1 className="">Transition_duration:</h1>
-                </div>
-                <div className="ml-auto self-center">
-                  <input type='text' title='fps' value={videoOptions.transitionDuration} onChange={(e) => setVideoOptions({...videoOptions,transitionDuration:e.target.value})} className={`${inputClass} p-2 font-bold`}/>
+                  <p className="">Transition_duration:</p>
+                <div className="ml-auto">
+                  <input type='text' title='transition_duration' value={videoOptions.transitionDuration} onChange={(e) => setVideoOptions({...videoOptions,transitionDuration:e.target.value})} className={`${inputClass} p-2 font-bold`}/>
                 </div>
             </div>
-            <hr className="border-reddit_border" />
+            <hr className="border-reddit_border mt-4" />
             <div id="audio" className="mt-2 flex">
-              <div className="self-center">
-                <h1 className="">Audio:</h1>
-              </div>
-              <div className="ml-auto self-center">
+                <p className="">Audio:</p>
+              <div className="ml-auto">
               <ReactHowler src={input.finalAudio} playing={isPlaying} onEnd={() => setIsPlaying(false)} />
                 <button onClick={e => {
                   e.preventDefault()
@@ -67,7 +59,7 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:CreateVideoPr
             <>
               <div id="set_title" className="mt-2 flex">
                 <div>
-                  <h1 className="mt-[8px]">Title:</h1>
+                  <p className="mt-[8px]">Title:</p>
                 </div>
                 <div className="ml-auto w-full self-center">
                   <textarea 
@@ -80,7 +72,7 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:CreateVideoPr
               </div>
               <div id="set_description" className="mt-2 flex">
                   <div>
-                    <h1 className="mt-[8px]">Description:</h1>
+                    <p className="mt-[8px]">Description:</p>
                   </div>
                   <div className="ml-auto w-full self-center">
                     <textarea 
@@ -93,7 +85,7 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:CreateVideoPr
               </div>
               <div id="keywords" className="mt-2 flex">
                   <div className="self-center">
-                    <h1 className="">Keywords:</h1>
+                    <p className="">Keywords:</p>
                   </div>
                   <div className="ml-auto self-center">
                     <input type='text' title='keywords' value={input.keywords} onChange={(e) => setInput({...input,keywords:e.target.value})} className={`p-2 font-bold ${inputClass}`}/>
@@ -101,7 +93,7 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:CreateVideoPr
               </div>
               <div id="category" className="mt-2 flex">
                   <div className="self-center">
-                    <h1 className="">Category:</h1>
+                    <p className="">Category:</p>
                   </div>
                   <div className="ml-auto self-center">
                     <input type='text' title='keywords' value={input.category} onChange={(e) => setInput({...input,category:e.target.value})} className={`p-2 font-bold ${inputClass}`}/>
@@ -109,7 +101,7 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:CreateVideoPr
               </div>
               <div id="privacyStatus" className="mt-2 flex">
                   <div className="self-center">
-                    <h1 className="">PrivacyStatus:</h1>
+                    <p className="">PrivacyStatus:</p>
                   </div>
                   <div className="ml-auto self-center">
                     <input type='text' title='privacyStatus' value={input.privacyStatus} onChange={(e) => setInput({...input,privacyStatus:e.target.value})} className={`p-2 font-bold ${inputClass}`}/>

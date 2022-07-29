@@ -1,9 +1,11 @@
 import Youtube from '../../components/governance/youtube/Youtube'
 import axios from "axios";
 import { NextPage, NextPageContext } from "next";
-import Layout from "../../components/Layout";
+import Layout from "../../components/main/Layout";
 import GovernanceCtrl from "../../components/governance/GovernanceCtrl";
 import Head from 'next/head';
+import GovernanceMainMenù from '../../components/governance/GovernanceMainMenù';
+import { YoutubeContextProvider } from '../../components/governance/youtube/YoutubeContext';
 
 const Governance: NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
@@ -16,7 +18,10 @@ const Governance: NextPage = () => {
       </Head>
       <Layout>
         <GovernanceCtrl>
-          <Youtube />
+          <GovernanceMainMenù />
+          <YoutubeContextProvider>
+            <Youtube /> 
+          </YoutubeContextProvider>
         </GovernanceCtrl>
       </Layout>
     </div>

@@ -1,9 +1,10 @@
 import axios from "axios";
 import { NextPage, NextPageContext } from "next";
-import Layout from "../../components/Layout";
+import Layout from "../../components/main/Layout";
 import Twitter from "../../components/governance/twitter/Twitter";
 import GovernanceCtrl from "../../components/governance/GovernanceCtrl";
 import Head from "next/head";
+import GovernanceMainMenù from "../../components/governance/GovernanceMainMenù";
 
 const TwitterPage: NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
@@ -16,6 +17,7 @@ const TwitterPage: NextPage = () => {
       </Head>
       <Layout>
         <GovernanceCtrl>
+          <GovernanceMainMenù />
           <Twitter />
         </GovernanceCtrl>
       </Layout>

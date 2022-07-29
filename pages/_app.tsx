@@ -5,6 +5,7 @@ import type { AppProps, NextWebVitalsMetric } from 'next/app'
 import { AuthModalContextProvider } from '../components/auth/AuthModalContext';
 import {CommunityContextProvider} from '../components/community/CommunityContext';
 import CookieConsent from '../components/utils/validation/CookieConsent';
+import { TimeMsgContextProvider } from '../components/main/TimeMsgContext';
 
 const MyApp = ({ Component, pageProps: {session, ...pageProps}}: AppProps) => {
  
@@ -38,7 +39,9 @@ const MyApp = ({ Component, pageProps: {session, ...pageProps}}: AppProps) => {
     <UserContext.Provider value={{session: session}}>
         <AuthModalContextProvider>
             <CommunityContextProvider>
+              <TimeMsgContextProvider>
                 <Component {...pageProps}/>
+              </TimeMsgContextProvider>
           </CommunityContextProvider>
         </AuthModalContextProvider>
     </UserContext.Provider>

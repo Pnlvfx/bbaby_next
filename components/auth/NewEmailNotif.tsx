@@ -19,7 +19,7 @@ const NewEmailNotif = ({email}:EmailNotifProps) => {
           <div className="bg-reddit_blue h-3"/>
               <div className="flex p-4">
                   <div className="">
-                      <h1 className="font-bold" >Confirm your email:</h1>
+                      <p className="font-bold" >Confirm your email:</p>
                       <h2 className="pb-2">{email}</h2>
                       <h3 className="">Check your inbox email for Bbaby&apos;s confirmation email. A current email address help ensure you don&apos;t lose access to your account</h3>
                   </div>

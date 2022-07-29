@@ -18,5 +18,5 @@ export const getPosts = async(input:string | undefined,value:string | undefined,
 
 export const getPost = async (postId:string | string[]) => {
     const res = await axios.get(`${server}/posts/${postId}`, {withCredentials:true})
-    return res.data
+    return res.data as PostProps;
   }

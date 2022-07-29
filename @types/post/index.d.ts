@@ -21,7 +21,3 @@ type PostProps = {
     numComments: number
     createdAt: Date
     }
-
-    interface Postprops {
-      post: PostProps
-    }

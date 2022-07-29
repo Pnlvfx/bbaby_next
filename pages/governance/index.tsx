@@ -1,6 +1,6 @@
 import axios from "axios";
 import { NextPage, NextPageContext } from "next";
-import Layout from "../../components/Layout";
+import Layout from "../../components/main/Layout";
 import GovernanceCtrl from "../../components/governance/GovernanceCtrl";
 import Head from "next/head";
 import GovernanceMainMenù from "../../components/governance/GovernanceMainMenù";
@@ -16,7 +16,7 @@ const Governance: NextPage = () => {
       </Head>
         <Layout>
           <GovernanceCtrl>
-            
+            <GovernanceMainMenù />
           </GovernanceCtrl>
         </Layout>
     </>

@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import TimeAgo from 'timeago-react'
 import SubmitLayout from '../../submit/SubmitLayout'
+import { translate } from '../APIgov'
 
 interface TweetContent {
   tweet: any
@@ -17,16 +18,12 @@ const TweetContent = ({ tweet, language }: TweetContent) => {
   const width = tweet?.extended_entities?.media[0]?.sizes.large.w
   const [newTweet, setNewTweet] = useState({})
   const [showSubmit, setShowSubmit] = useState(false)
+  const text = tweet.full_text
 
-  const translate = async () => {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
-    const data = { text: tweet.full_text }
-    const res = await axios.post(
-      `${server}/governance/translate-tweet?lang=${language}`,
-      data
-    )
+  const doTranslate = async () => {
+    const res = await translate(text,language)
     setNewTweet({
-      title: res.data,
+      title: res,
       image: image ? image : null,
       width: width ? width : null,
       height: height ? height : null,
@@ -34,6 +31,7 @@ const TweetContent = ({ tweet, language }: TweetContent) => {
     })
   }
 
+  console.log(tweet)
   return (
     <div className="flex overflow-hidden rounded-md bg-reddit_dark-brighter">
       <div className="p-2 w-full">
@@ -88,13 +86,13 @@ const TweetContent = ({ tweet, language }: TweetContent) => {
             if (showSubmit) {
               setShowSubmit(false)
             } else {
-              translate()
+              doTranslate()
               setShowSubmit(true)
             }
           }}
         >
           <div className="flex rounded-sm p-2 text-sm text-[#717273] hover:bg-reddit_hover">
-            <h1>Magic</h1>
+            <p>Magic</p>
           </div>
         </button>
         {showSubmit && <SubmitLayout newTweet={newTweet} />}

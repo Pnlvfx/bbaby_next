@@ -2,7 +2,7 @@ import UserSettings from '../../components/auth/usersettings/UserSettings'
 import Account from '../../components/auth/usersettings/each/Account'
 import axios from 'axios';
 import { NextPageContext } from 'next';
-import Layout from '../../components/Layout';
+import Layout from '../../components/main/Layout';
 import Head from 'next/head';
 import UserSecurity from '../../components/utils/security/UserSecurity';
 

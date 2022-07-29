@@ -1,12 +1,15 @@
-import axios from 'axios'
-import { Dispatch, SetStateAction, useState } from 'react'
-import { buttonClass, Spinner } from '../../utils/Button'
-import { inputClass } from '../../utils/Input'
-import YoutubeLogin from './YoutubeLogin'
+import axios from 'axios';
+import { Dispatch, SetStateAction, useContext, useState } from 'react';
+import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
+import { buttonClass, Spinner } from '../../utils/Button';
+import { inputClass } from '../../utils/Input';
+import { YoutubeContext, YoutubeContextProps } from './YoutubeContext';
+import YoutubeLogin from './YoutubeLogin';
+import YoutubeNewsCard from './YoutubeNewsCard';
 
 type CreateImageProps = {
   modalType: string
-  setModalType: Dispatch<SetStateAction<string>>
+  setModalType: Dispatch<SetStateAction<modalType>>
   setInput: Dispatch<SetStateAction<InputProps>>
   input: InputProps
 }
@@ -18,6 +21,7 @@ const CreateImage = ({
   input,
 }: CreateImageProps) => {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
+  const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
   const _value = {
     textColor: 'rgb(26, 26, 27)',
     community: 'Italy',
@@ -26,55 +30,50 @@ const CreateImage = ({
   }
   const [value, setValue] = useState(_value)
   const [loading, setLoading] = useState(false)
+  const {news,descriptionArrayToSend} = useContext(YoutubeContext) as YoutubeContextProps;
+
   const createImage = async () => {
     try {
       setLoading(true)
       const data = {
         textColor: value.textColor,
-        community: value.community,
+        newsId: news?._id,
+        description: descriptionArrayToSend,
         fontSize: value.fontSize,
         format: value.format,
       }
       const res = await axios.post(`${server}/governance/create-image`, data, {
         withCredentials: true,
       })
+      setMessage({value: res.data.msg, status: 'success'})
       setInput(res.data)
       setModalType('create_video')
       setLoading(false)
     } catch (err: any) {
       err.response.data.msg &&
-        setInput({ ...input, err: err.response.data.msg })
-      setLoading(false)
+        setMessage({value: err.response.data.msg, status: 'error' })
+        setLoading(false)
     }
   }
+
+  console.log(input)
+
+
   return (
     <>
       {modalType === 'create_image' && (
-        <>
-          <form className="w-[350px] p-2 text-sm">
-            <div id="set_community" className="mt-2 flex">
-              <div className="self-center">
-                <h1 className="">Community:</h1>
-              </div>
-              <div className="ml-auto self-center">
-                <input
-                  type="text"
-                  title="community"
-                  value={value.community}
-                  onChange={(e) =>
-                    setValue({ ...value, community: e.target.value })
-                  }
-                  className={`${inputClass} p-2 font-bold`}
-                />
-              </div>
+        <div className='flex mt-5'>
+        <YoutubeNewsCard />
+          <form className="w-full mx-2 p-2">
+            <div id="news_id" className="flex">
+                <p>News id:</p>
+                <p className='ml-auto font-bold'>{news?._id}</p>
             </div>
             <div id="set_text_color" className="mt-2 flex">
-              <div className="self-center">
-                <h1 className="">Text Color:</h1>
-              </div>
-              <div className="ml-auto self-center">
+                <p className="">Text Color:</p>
+              <div className="ml-auto">
                 <input
-                  type="text"
+                  type="color"
                   title="text_color"
                   value={value.textColor}
                   onChange={(e) =>
@@ -85,9 +84,7 @@ const CreateImage = ({
               </div>
             </div>
             <div id="set_font_size" className="mt-2 flex">
-              <div className="self-center">
-                <h1 className="">Font Size:</h1>
-              </div>
+                <p className="">Font Size:</p>
               <div className="ml-auto self-center">
                 <input
                   type="text"
@@ -101,9 +98,7 @@ const CreateImage = ({
               </div>
             </div>
             <div id="format" className="mt-2 flex">
-              <div className="self-center">
-                <h1 className="">Format:</h1>
-              </div>
+                <p className="">Format:</p>
               <div className="ml-auto self-center">
                 <input
                   type="text"
@@ -116,16 +111,12 @@ const CreateImage = ({
                 />
               </div>
             </div>
-            <div id="create_image" className="mt-2 flex p-2">
-              <div className="self-center">
-                <h1 className="">Submit:</h1>
-              </div>
-              {/* <YoutubeLogin /> */}
-              <div className="ml-3 mr-5 w-40 self-center">
+            <div id="create_image" className="mt-4">
+              <div className="flex justify-end">
                 <button
                   type="submit"
                   disabled={loading ? true : false}
-                  className={`h-7 w-40 self-center ${buttonClass()}`}
+                  className={`h-7 w-40 ${buttonClass()}`}
                   onClick={() => {
                     createImage()
                   }}
@@ -136,10 +127,11 @@ const CreateImage = ({
               </div>
             </div>
           </form>
-        </>
+        </div>
       )}
     </>
   )
 }
 
-export default CreateImage
+export default CreateImage;
+

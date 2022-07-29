@@ -4,7 +4,6 @@ import TextareaAutosize from 'react-textarea-autosize';
 import ClickOutHandler from 'react-clickout-ts';
 import SubmitButton from './each-submit-button/SubmitButton';
 import {HiOutlineDocumentText} from 'react-icons/hi'
-import ShowTimeMsg from '../utils/notification/ShowTimeMsg';
 import { AddImageIcon } from '../utils/SVG';
 import CommunityDropdown from './submitutils/CommunityDropdown';
 import UserContext from '../auth/UserContext';
@@ -40,8 +39,6 @@ const Submit = ({newTweet,community}:SubmitProps) => {
         sharePostToTwitter,
         setSharePostToTwitter,
         loading,
-        status,
-        setStatus,
         createPost
     } = useContext(SubmitContext) as SubmitContextType
     // SHARE ON TELEGRAM
@@ -142,6 +139,7 @@ const Submit = ({newTweet,community}:SubmitProps) => {
                         <button className={`h-[30px] mr-2 opacity-20 ${buttonClass(true)}`}><p>Save Draft</p></button>
                         <button disabled={!enablePost} onClick={(e) => {
                             e.preventDefault()
+                            e.stopPropagation()
                             createPost()
                             }} 
                             className={`h-[30px] ${buttonClass()} ${enablePost ? "text-opacity-100" : "text-opacity-40 cursor-not-allowed"}`}>
@@ -163,9 +161,6 @@ const Submit = ({newTweet,community}:SubmitProps) => {
                     </div>
                 </div>
             </div>
-                    {status && (
-                        <ShowTimeMsg value={status} setValue={setStatus} />
-                    )}
     </div>
   )
 }

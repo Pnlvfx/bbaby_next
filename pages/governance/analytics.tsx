@@ -3,7 +3,8 @@ import { NextPageContext } from 'next'
 import Head from 'next/head'
 import React from 'react'
 import GovernanceCtrl from '../../components/governance/GovernanceCtrl'
-import Layout from '../../components/Layout'
+import GovernanceMainMenù from '../../components/governance/GovernanceMainMenù'
+import Layout from '../../components/main/Layout'
 
 const AnalyticsPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
@@ -16,7 +17,7 @@ const AnalyticsPage = () => {
       </Head>
       <Layout>
         <GovernanceCtrl>
-          
+          <GovernanceMainMenù />
         </GovernanceCtrl>
       </Layout>
     </div>

@@ -2,7 +2,7 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import axios from 'axios'
 import Feed from '../components/post/Feed'
-import Layout from '../components/Layout'
+import Layout from '../components/main/Layout'
 
 type BestPg = {
   posts: PostProps

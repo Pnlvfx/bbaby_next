@@ -52,7 +52,7 @@ const Feed = ({posts:ssrPost,community,author}:FeedProps) => {
   return (
     <>
     {postId !== '' && !isMobile && (
-      <PostModal community={community} postId={postId} open={postOpen} onClickOut={() => {
+      <PostModal community={community} postId={postId.toString()} open={postOpen} onClickOut={() => {
         setPostOpen(false)
       }}/>
     )}

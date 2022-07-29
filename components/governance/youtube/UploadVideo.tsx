@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { SetStateAction, useState } from 'react'
+import { SetStateAction, useContext, useState } from 'react'
+import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext'
 import { buttonClass, Spinner } from '../../utils/Button'
 
 type UploadVideoProps = {
@@ -11,6 +12,7 @@ type UploadVideoProps = {
 const UploadVideo = ({input,setInput,setModalType}:UploadVideoProps) => {
     const [loading,setLoading] = useState(false)
     const server = process.env.NEXT_PUBLIC_SERVER_URL
+    const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
     const uploadVideo = async() => {
         try {
             setLoading(true)
@@ -22,11 +24,11 @@ const UploadVideo = ({input,setInput,setModalType}:UploadVideoProps) => {
                 privacyStatus: input.privacyStatus,
             }
             const res = await axios.post(`${server}/governance/youtube`,data, {withCredentials:true})
-            setInput({...input, success: res.data.success})
+            setMessage({value: res.data.msg, status: 'success'})
             setModalType('create_image')
             setLoading(false)
         } catch (err:any) {
-          setInput({...input, err: err.message})
+          setMessage({value: err.message, status: 'error'})
           setLoading(false)
         }
     }
@@ -36,10 +38,7 @@ const UploadVideo = ({input,setInput,setModalType}:UploadVideoProps) => {
     {input.video && (
         <>
             <div id="upload_video" className="mt-2 flex p-2">
-                <div className="self-center">
-                    <h1 className="">Submit:</h1>
-                </div>
-                <div className="ml-auto self-center">
+                <div className="ml-auto">
                     <>
                         <button type='submit' onClick={() => {
                             uploadVideo()

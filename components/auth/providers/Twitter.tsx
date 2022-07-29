@@ -69,7 +69,7 @@ const Twitter = (userInfo:UserProps) => {
             {!twitterAccount && (
                 <>
                 <div className="">
-                    <h1 className="">Connect to Twitter</h1>
+                    <p className="">Connect to Twitter</p>
                     <h2 className="text-[11px] text-reddit_text-darker font-normal pt-[2px]">Connect a Twitter account to enable the choice to tweet your new posts and display a link on your profile. We will never post to Twitter without your permission.</h2>
                 </div>
                  <div className="self-center mt-4">
@@ -77,7 +77,7 @@ const Twitter = (userInfo:UserProps) => {
                         twitterLogin()
                     }} className="rounded-full px-4 py-[7px] text-sm font-bold bg-[#1D96E1] flex ml-auto">
                         <TwitterLogo />
-                        <h1 className="self-center text-reddit_dark">Connect to Twitter</h1>
+                        <p className="self-center text-reddit_dark">Connect to Twitter</p>
                     </button>
                 </div>
                 </>
@@ -86,12 +86,12 @@ const Twitter = (userInfo:UserProps) => {
                 <>
                 <div className="flex">
                     <div className="">
-                        <h1 className="">Connected to Twitter</h1>
+                        <p className="">Connected to Twitter</p>
                         <h2 className="text-[11px] text-reddit_text-darker font-normal pt-[2px]">You can now choose to share your posts to Twitter from the new post composer.</h2>
                     </div>
                     <div className="self-center ml-auto">
                         <div className="rounded-full px-4 py-[7px] text-xs ml-auto">
-                        <h1 className="text-reddit_text-darker">@{twitterAccount?.username}</h1>
+                        <p className="text-reddit_text-darker">@{twitterAccount?.username}</p>
                             <button id="logout" title="logout" onClick={() => {
                                 twitterLogout()
                             }}>
