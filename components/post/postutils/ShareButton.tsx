@@ -16,16 +16,15 @@ function ShareButton({community,postId}:ShareButtonProps) {
   const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
 
   return (
-    <div>
+    <>
       <ClickOutHandler onClickOut={() => setShareDropdownVisibilityClass(false)}>
-      <div>
         <button type='button' onClick={event =>{
         event.preventDefault()
         event.stopPropagation()
           setShareDropdownVisibilityClass(!ShareDropdownVisibilityClass)
         }}>
           <div className='flex text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm items-center'>
-            <ShareIcon style={{height: '20px', width: '20px'}} />
+            <ShareIcon style={{height: 20, width: 20}} />
             <h1 className='ml-1'>Share</h1>
           </div>
         </button>
@@ -49,9 +48,8 @@ function ShareButton({community,postId}:ShareButtonProps) {
               </div>
           </div>
         </div>
-      </div>
       </ClickOutHandler>
-   </div>
+   </>
   )
 }
 

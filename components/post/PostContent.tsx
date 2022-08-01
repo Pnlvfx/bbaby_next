@@ -35,7 +35,7 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
         />
       </div>
       <div className="w-full p-2">
-        <div className="mb-3 flex w-full truncate h-5">
+        <div id='post_header' className="mb-3 flex w-full items-center h-5">
           <Link href={`/b/${post.community}`}>
             <a
               onClick={(event) => {
@@ -45,22 +45,22 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
                   pathname: '/b/' + post.community,
                 })
               }}
-              className="relative flex"
+              className="flex items-center space-x-2"
             >
                 <Image
                   src={post.communityIcon}
                   alt=""
                   className="rounded-full"
-                  height={'20px'}
-                  width={'20px'}
+                  height={20}
+                  width={20}
                 />
-              <span className="ml-1 mt-[2px] text-xs font-bold hover:underline">
+              <span className="text-xs font-bold hover:underline">
                 b/{post.community}
               </span>
             </a>
           </Link>
-          <span className="px-1 text-sm">-</span>
-          <div className="mt-[3px] truncate text-xs text-reddit_text-darker">
+          <span className="mx-1 text-sm">-</span>
+          <div className="truncate text-xs text-reddit_text-darker">
             <span>Posted by</span>{' '}
             <Link href={`/user/${post.author}`}>
               <a
@@ -70,24 +70,19 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
                   router.push(`/user/${post.author}`)
                 }}
               >
-                <span className="text-ellipsis hover:underline">
+                <span className="hover:underline">
                   b/{post.author}
                 </span>
               </a>
             </Link>{' '}
-            <TimeAgo datetime={post.createdAt} className="text-ellipsis" />
+            <TimeAgo datetime={post.createdAt} className="truncate" />
           </div>
         </div>
-        <pre>
-          <h1
-            style={{ whiteSpace: 'pre-line', fontFamily: 'Helvetica' }}
-            className="mb-4 break-words font-extrabold leading-6"
-          >
+          <h1 className="whitespace-pre-wrap mb-4 break-words font-extrabold leading-6">
             {post.title}
           </h1>
-        </pre>
         {post?.mediaInfo?.isImage && post?.mediaInfo?.image && (
-          <div className="container max-h-[500px] overflow-hidden">
+          <div className="container max-h-[500px]">
             <Image
               src={`${post.mediaInfo.image}`}
               alt=""
@@ -110,13 +105,13 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
           </div>
         )}
         {post.body && (
-          <pre className="resize-x-none flex-none break-words text-sm leading-6">
-            <p style={{ whiteSpace: 'pre-line', fontFamily: 'Helvetica' }}>
+          <div className="resize-x-none flex-none break-words text-sm leading-6">
+            <p className='whitespace-pre-wrap'>
               {post.body}
             </p>
-          </pre>
+          </div>
         )}
-        <div className="flex self-center">
+        <div className="flex h-[36px]">
           <Link
             href={`/b/${post.community}/comments/${post._id}`}
             scroll={false}
@@ -151,8 +146,8 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
                 }
               }}
             >
-              <div className="flex self-center rounded-sm p-2 text-sm text-reddit_text-darker hover:bg-reddit_hover">
-                <CommentIcon style={{ height: '20px', width: '20px' }} />
+              <div className="flex items-center rounded-sm p-2 text-sm text-reddit_text-darker hover:bg-reddit_hover">
+                <CommentIcon style={{ height: 20, width: 20 }} />
                 <p className="ml-1">{post.numComments} Comments</p>
               </div>
             </a>

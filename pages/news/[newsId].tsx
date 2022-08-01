@@ -3,6 +3,8 @@ import { NextPage, NextPageContext } from 'next'
 import Head from 'next/head'
 import React from 'react'
 import Layout from '../../components/main/Layout'
+import MyNewsCard from '../../components/mynews/MyNewsCard'
+import Donations from '../../components/widget/Donations'
 
 interface NewsIdPageProps {
   news: NewsProps
@@ -42,7 +44,14 @@ const NewsIdPage: NextPage<NewsIdPageProps> = ({news}) => {
         <link rel="canonical" href={`${hostname}/news/${news._id}`} key="canonical" />
       </Head>
       <Layout>
-
+        <div className='flex mt-5 justify-center mx-[0px] lg:mx-10'>
+          <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[750px] mr-4 flex-none'>
+            <MyNewsCard news={news} />
+          </div>
+          <div className='hidden lg:block'>
+            <Donations />
+          </div>
+        </div>
       </Layout>
     </div>
   )

@@ -53,13 +53,13 @@ const CookieNotice = () => {
         </p>
         <div className="mr-0 mb-12 border border-reddit_border text-sm">
           <div className="p-8">
-            <div className="flex overflow-hidden">
-              <div className="mx-auto ml-4">
+            <div className="flex overflow-hidden space-x-5 justify-center">
+              <div className="mx-auto lg:ml-4">
                 <p className="">Cookie</p>
                 <p className="my-8">token</p>
               </div>
               <div className="mx-auto mb-7">
-                <p>Purpose</p>
+                <p className='text-center'>Purpose</p>
                 <p className="my-8">
                   Stores a login token needed to act as a logged in user.
                 </p>

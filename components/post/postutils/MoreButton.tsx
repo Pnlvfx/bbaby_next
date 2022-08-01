@@ -40,16 +40,15 @@ function MoreButton(props:any) {
   }
 
   return (
-    <div>
+    <>
        <ClickOutHandler onClickOut={() => setMoreDropdownVisibilityClass(false)}>
-       <div className=''>
           <button title='Show more options' type='button' onClick={event =>{
             event.preventDefault()
             event.stopPropagation()
             setMoreDropdownVisibilityClass(!moreDropdownVisibilityClass)
         }}>
           <div className='self-center text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm'>
-            <MoreIcon style={{height: '20px', width: '20px'}} />
+            <MoreIcon style={{height: 20, width: 20}} />
           </div>
          </button>
          <div className={`absolute ${moreDropdownVisibilityClass ? "block" : "hidden"}`}>
@@ -66,9 +65,8 @@ function MoreButton(props:any) {
                )}
           </div>
            </div>
-       </div>
        </ClickOutHandler>
-   </div>
+   </>
   )
 }
 

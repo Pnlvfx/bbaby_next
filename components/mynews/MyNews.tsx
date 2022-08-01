@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import BestPost from "../post/postutils/BestPost";
-import PostForm from "../submit/submitutils/PostForm";
 import MyNewsCard from "./MyNewsCard";
 
 const MyNews = () => {
@@ -22,14 +21,11 @@ const MyNews = () => {
   return (
     <div className="flex justify-center pt-5 mx-[2px] lg:mx-[10px]">
       <div className="w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] lg:mr-4 flex-none">
-        <div className='pb-[18px]'>
-            <PostForm />
-        </div>
         <div className="mb-4">
           <BestPost />
         </div>
         {news.map((n) => (
-          <MyNewsCard key={n._id} {...n} />
+          <MyNewsCard key={n._id} news={n} isListing={true} />
         ))}
       </div>
     </div>

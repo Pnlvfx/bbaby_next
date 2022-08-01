@@ -34,7 +34,7 @@ const Comments = ({parentId,rootId,comments:propsComments}:CommentsProps) => {
                   </pre>
                   <div className='flex p-2 pl-0 w-auto'>
                     <Voting commentId={comment._id} />
-                    <ReplyButton type={"button"} onClick={() => {setShowForm(comment._id)}}>Reply</ReplyButton>
+                    <ReplyButton type={"button"} onClick={() => {setShowForm(!!comment._id)}}>Reply</ReplyButton>
                   </div>
                     {!!comment._id === showForm && (
                     <CommentForm parentId={comment._id} rootId={rootId} onSubmit={() => {setShowForm(false);

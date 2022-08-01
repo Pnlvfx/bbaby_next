@@ -1,6 +1,8 @@
+import PoliciesHeader from "../../components/utils/policies/PoliciesHeader";
+
 const LoginPage = () => {
   return (
-    <div>index</div>
+   <PoliciesHeader />
   )
 }
 
