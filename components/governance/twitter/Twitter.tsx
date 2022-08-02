@@ -5,7 +5,7 @@ import Tweet from './Tweet';
 import TwMainMenu from './TwMainMenu';
 
 const Twitter = () => {
-  const [tweets, setTweets] = useState<any[]>([])
+  const [tweets, setTweets] = useState<TweetProps[]>([])
   const [language, setLanguage] = useState('en')
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const Twitter = () => {
         </div>
         <ul>
           {tweets.length >= 1
-            ? tweets.map((tweet: any) => (
+            ? tweets.map((tweet) => (
                 <Tweet key={tweet.id} tweet={tweet} language={language} />
               ))
             : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((_, idx) => (

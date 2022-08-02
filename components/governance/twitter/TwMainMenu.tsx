@@ -4,7 +4,7 @@ import { anonList, bbabyList, getMyListTweets } from './APItwitter'
 
 interface TwMainMenuProps {
   setLanguage: Dispatch<SetStateAction<string>>
-  setTweets: Dispatch<SetStateAction<Array<any>>>
+  setTweets: Dispatch<SetStateAction<TweetProps[]>>
 }
 
 const TwMainMenu = ({ setLanguage, setTweets }: TwMainMenuProps) => {

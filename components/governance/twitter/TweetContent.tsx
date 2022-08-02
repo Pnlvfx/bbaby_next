@@ -1,4 +1,3 @@
-import axios from 'axios'
 import Image from 'next/image'
 import { useState } from 'react'
 import TimeAgo from 'timeago-react'
@@ -6,7 +5,7 @@ import SubmitLayout from '../../submit/SubmitLayout'
 import { translate } from '../APIgov'
 
 interface TweetContent {
-  tweet: any
+  tweet: TweetProps
   language: string
 }
 
@@ -19,6 +18,7 @@ const TweetContent = ({ tweet, language }: TweetContent) => {
   const [newTweet, setNewTweet] = useState({})
   const [showSubmit, setShowSubmit] = useState(false)
   const text = tweet.full_text
+  const user_avatar = tweet.user.profile_image_url_https
 
   const doTranslate = async () => {
     const res = await translate(text,language)
@@ -38,7 +38,7 @@ const TweetContent = ({ tweet, language }: TweetContent) => {
         <div className="mb-3 flex w-full h-[24px]">
           <div className="h-5 w-5 overflow-hidden rounded-full">
             <Image
-              src={tweet.user.profile_image_url_https}
+              src={user_avatar}
               alt="twitter_user_image"
               width={'20px'}
               height={'20px'}
@@ -60,7 +60,7 @@ const TweetContent = ({ tweet, language }: TweetContent) => {
           <h3 className="mb-4 break-words text-lg">{tweet.full_text}</h3>
         </div>
         <div className="max-h-[500px] overflow-hidden">
-          {type === 'photo' && (
+          {type === 'photo' && image && (
             <Image
               src={image}
               height={height}
@@ -72,7 +72,6 @@ const TweetContent = ({ tweet, language }: TweetContent) => {
             <video
               className={`aspect-video`}
               src={video}
-              poster={image}
               controls
               width={width}
               height={height}
@@ -101,4 +100,5 @@ const TweetContent = ({ tweet, language }: TweetContent) => {
   )
 }
 
-export default TweetContent
+export default TweetContent;
+

@@ -13,7 +13,7 @@ const GovernanceMainMenù = () => {
     ? 0
     : router.pathname.match('youtube')
     ? 1
-    : router.pathname.match('youtube')
+    : router.pathname.match('twitter')
     ? 2
     : router.pathname.match('news')
     ? 3

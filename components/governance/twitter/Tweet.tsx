@@ -1,11 +1,11 @@
 import TweetContent from "./TweetContent"
 
-type TweetProps = {
-  tweet: {}
+type TweetPageProps = {
+  tweet: TweetProps
   language: string
 }
 
-const Tweet = ({tweet,language}:TweetProps) => {
+const Tweet = ({tweet,language}:TweetPageProps) => {
   const postClasses = 'block border border-reddit_border rounded-md hover:border-reddit_text mb-3'
   return (
       <div className={postClasses}>

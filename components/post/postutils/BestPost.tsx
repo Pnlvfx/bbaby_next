@@ -16,40 +16,31 @@ const BestPost = () => {
     }
   },[router])
   return (
-    <div className="">
       <div className="flex space-x-3 rounded-md border border-reddit_border bg-reddit_dark-brighter py-[13px] px-2">
-        <div className={`text-reddit_text-darker rounded-full py-1 px-3 hover:bg-reddit_dark-brightest 
-        ${active === 0 && 'bg-reddit_dark-brightest font-bold text-white'}`}
-        >
           <Link href={'/'} as={'/best'}>
             <a onClick={(e) => {
               e.preventDefault();
               setActive(0);
               router.push('/', '/best')
-            }} className="flex items-center space-x-1">
+            }} className={`text-reddit_text-darker 
+            ${active === 0 && 'bg-reddit_dark-brightest font-bold text-white'} rounded-full py-1 px-3 hover:bg-reddit_dark-brightest flex items-center space-x-1`}>
               <FaSpaceShuttle className="h-5 w-5 -rotate-90" />
               <p className="text-sm">Best</p>
             </a>
           </Link>
-        </div>
-        <div
-          className={`text-reddit_text-darker rounded-full py-1 px-3 hover:bg-reddit_dark-brightest ${
-            active === 1 && 'bg-reddit_dark-brightest font-bold text-white'
-          }`}
-        >
           <Link href={'/news'}>
             <a onClick={(e) => {
               e.preventDefault()
               setActive(1);
               router.push('/news')
-            }} className="flex items-center space-x-1">
+            }} className={`text-reddit_text-darker rounded-full py-1 px-3 hover:bg-reddit_dark-brightest ${
+              active === 1 && 'bg-reddit_dark-brightest font-bold text-white'
+            } flex items-center space-x-1`}>
               <IoNewspaperOutline className="h-5 w-5 -rotate-90" />
               <p className="text-sm">News</p>
             </a>
           </Link>
-        </div>
       </div>
-    </div>
   )
 }
 
