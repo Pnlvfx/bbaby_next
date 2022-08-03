@@ -10,11 +10,40 @@ type AuthorPg = {
 }
 
 const Username:NextPage<AuthorPg> = ({author,posts}) => {
-  
+  const hostname = process.env.NEXT_PUBLIC_HOSTNAME
+  const title = `${author}`
+  const description = `${author}`
+  const url = `${hostname}/user/${author}`
+
   return (
    <div>
      <Head>
-      <title>Bbabystyle - user profile page </title>
+      <title>{title} (u/{title}) - Bbabystyle</title>
+      <link rel="icon" href="/favicon.ico" />
+        <meta
+          property="og:title"
+          content={title}
+          key="ogtitle"
+        />
+        <meta name="description" content={description} />
+        <meta
+          property="og:description"
+          content={description}
+          key="ogdesc"
+        />
+        <meta
+          property="og:image"
+          content={hostname}
+          key="ogimage"
+        />
+        <meta property="og:url" content={url} key="ogurl" />
+        <meta property="og:type" content="profile" key="ogtype" />
+        <meta name="twitter:card" content="summary" key="twcard" />
+        <meta
+          name="twitter:image:alt"
+          content=""
+        />
+        <link rel="canonical" href={url} key="canonical" />
      </Head>
      <Layout>
       <Feed author={author} posts={posts} />

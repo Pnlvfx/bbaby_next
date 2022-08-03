@@ -114,7 +114,7 @@ const BoardHeader = ({ community }: BoardHeaderProps) => {
           )}
           <div className='flex mt-2'>
           <div className="ml-4">
-            <h1 className="text-2xl font-bold">{communityInfo.name}</h1>
+            <p className="text-2xl font-bold">{communityInfo.name}</p>
             <h2 className="mt-1 text-sm text-reddit_text-darker">b/{community}</h2>
           </div>
           <button onClick={(e) => {

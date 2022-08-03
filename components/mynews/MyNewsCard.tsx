@@ -26,6 +26,7 @@ const MyNewsCard = ({news,isListing}:MyNewsCardProps) => {
     <div className="border border-reddit_border rounded-md mb-3 bg-reddit_dark-brighter flex justify-center">
         <div onClick={(e) => {
             e.preventDefault();
+            e.stopPropagation();
             isListing ? router.push(`/news/${news._id}`) : null
         }} className={`${isListing && "cursor-pointer"} p-2`}>
             <p className="font-bold mb-2">{news.title}</p>
@@ -44,6 +45,7 @@ const MyNewsCard = ({news,isListing}:MyNewsCardProps) => {
                     <Link href={`/governance/youtube`}>
                         <a onClick={(e) => {
                             e.preventDefault();
+                            e.stopPropagation();
                             router.push({
                                 pathname:`/governance/youtube`,
                                 query: {newsId: news._id}

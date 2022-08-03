@@ -1,11 +1,11 @@
 import axios from "axios"
-import { NextPageContext } from "next"
+import { NextPage, NextPageContext } from "next"
 import Head from "next/head"
 import { useState } from "react"
 import Layout from "../../../components/main/Layout"
 import Leaderboard from "../../../components/leaderboard/Leaderboard"
 
-const LeaderboardPage = () => {
+const LeaderboardPage:NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const imagePreview = '/imagePreview.png'
   const [active,setActive] = useState(0)
@@ -13,7 +13,7 @@ const LeaderboardPage = () => {
   return (
     <div>
       <Head>
-        <title>Today&apos;s Top Communities </title>
+        <title>Today&apos;s Top Communities</title>
         <link rel="icon" href="/favicon.ico"/>
         <meta property="og:title" content="Today's Top Communities" key='ogtitle' />
         <meta name="description" content="Bbabystyle - all best communities" />
@@ -26,7 +26,7 @@ const LeaderboardPage = () => {
         <link rel='canonical' href={`${hostname}/bbaby/leaderboard`} key='canonical' />
       </Head>
       <Layout>
-        <Leaderboard active={active} setActive={setActive} />
+        <Leaderboard />
       </Layout>
     </div>
   )
@@ -35,7 +35,6 @@ const LeaderboardPage = () => {
 export default LeaderboardPage;
 
 export async function getServerSideProps(context: NextPageContext) {
-  
     const server = process.env.NEXT_PUBLIC_SERVER_URL
   
     const response =  await axios({

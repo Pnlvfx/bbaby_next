@@ -9,8 +9,6 @@ const YoutubeDescription = ({ description }:YoutubeDescriptionProps) => {
     const [selected,setSelected] = useState(false)
     const {descriptionArrayToSend} = useContext(YoutubeContext) as YoutubeContextProps;
 
-    console.log(descriptionArrayToSend);
-
     const select = () => {
       if (selected) {
         setSelected(false);

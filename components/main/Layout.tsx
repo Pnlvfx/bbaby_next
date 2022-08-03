@@ -13,10 +13,10 @@ const Layout = ({children} : LayoutProps) => {
   return (
     <div>
         <Header />
+        {children}
         <AuthModal />
         <CommunityFormModal />
         <TimeMsg />
-        {children}
     </div>
   )
 }

@@ -23,7 +23,7 @@ function NotUserMenu({showDropdown,setShowDropdown}:any) {
                         <div className={'flex p-[10px] pl-4'} onClick={() => {
                                 }}>
                             <FiSettings className='w-5 h-5 mr-2' />
-                            <h1 className='font-bold text-sm mt-[2px]'>Settings</h1>
+                            <p className='font-bold text-sm mt-[2px]'>Settings</p>
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@ function NotUserMenu({showDropdown,setShowDropdown}:any) {
                                 <a target='_blank' onClick={() => {
                                     setShowDropdown(false)
                                 }}>
-                                    <h1 className={buttonClass}>User Agreement</h1> 
+                                    <p className={buttonClass}>User Agreement</p> 
                                 </a>   
                             </Link>
                     </div>
@@ -43,15 +43,15 @@ function NotUserMenu({showDropdown,setShowDropdown}:any) {
                                 <a target='_blank' onClick={() => {
                                     setShowDropdown(false)
                                 }} >
-                                    <h1 className={buttonClass}>Privacy Policy</h1>   
+                                    <p className={buttonClass}>Privacy Policy</p>   
                                 </a>
                             </Link> 
                     </div>
                     <div className={containerClass}>
-                    <h1 className={buttonClass}>Content Policy</h1>    
+                    <p className={buttonClass}>Content Policy</p>    
                     </div>
                     <div className={containerClass}>
-                    <h1 className={buttonClass}>Moderator Guidelines</h1>    
+                    <p className={buttonClass}>Moderator Guidelines</p>    
                     </div>
                 </div>    
                 <hr className='border-reddit_border my-3 mb-4'/>  
@@ -61,11 +61,11 @@ function NotUserMenu({showDropdown,setShowDropdown}:any) {
                         setShowDropdown(false)
                         }} className={'flex p-[9px] pl-4'}>
                         <BiUserCircle className='w-6 h-6 mr-2'/>
-                        <h1 className='font-bold text-sm mt-[2px]'>Sign Up or Log In</h1>
+                        <p className='font-bold text-sm mt-[2px]'>Sign Up or Log In</p>
                     </div>
                 </div>
                     <div>
-                        <h1 className='text-xs p-4 pt-3 text-reddit_text-darker'>2022 Bbabystyle.Inc. All rights reserved</h1>
+                        <p className='text-xs p-4 pt-3 text-reddit_text-darker'>2022 Bbabystyle.Inc. All rights reserved</p>
                     </div>
         </div> 
             </div>

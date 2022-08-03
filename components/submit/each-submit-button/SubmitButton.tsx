@@ -32,7 +32,7 @@ const SubmitButton = () => {
                 <AddVideo />
                 <div className={containerClass + ' w-[80px] flex pt-0 ml-auto p-1'}>
                     <button className='hidden lg:block'>
-                        <h1 className='text-xs text-reddit_text font-bold'>Markdown Mode</h1>
+                        <p className='text-xs text-reddit_text font-bold'>Markdown Mode</p>
                     </button>     
                 </div>
             </div>

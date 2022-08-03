@@ -11,7 +11,7 @@ import { HomeIcon } from '../utils/SVG'
 import {TiNews} from 'react-icons/ti';
 
 const Home = () => {
-  const [path,setPath] = useState('    ')
+  const [path,setPath] = useState(<h1 className="ml-2 text-sm font-bold">Home</h1>)
   const [icon,setIcon] = useState(<HomeIcon className='w-5 h-5' />)
   const {communityInfo} = useContext(CommunityContext) as CommunityContextProps;
   const {session} = useContext(UserContext) as SessionProps;
@@ -19,45 +19,51 @@ const Home = () => {
 
   useEffect(() => {
     if (router.pathname === '/' || router.pathname === '/best') {
-      setPath('Home')
+      setPath(<h1 className="ml-2 text-sm font-bold">Home</h1>)
       setIcon(<HomeIcon />)
     } else if(router.query.community) {
-      setPath(`b/${router.query.community}`)
+      setPath(<span className="ml-2 text-sm font-bold">b/{router.query.community}</span>)
       setIcon(
-        <Image className='rounded-full' src={communityInfo.communityAvatar} alt='' height={20} width={20} />
+        <div className='w-5 h-5 rounded-full bg-gray-800'>
+            <Image className='rounded-full' src={communityInfo.communityAvatar} alt='' height={20} width={20} />
+        </div>
       )
     }
     else if (router.query.username) {
-      setPath(`u/${router.query.username}`)
+      setPath(<h1 className="ml-2 text-sm font-bold">u/{router.query.username}</h1>)
     }
     else if (session && router.pathname.match('/settings')) {
-      setPath("User Settings")
-      setIcon(<Image className='rounded-full' src={session.user.avatar} alt='' height={20} width={20} />)
+      setPath(<span className="ml-2 text-sm font-bold">User Settings</span>)
+      setIcon(
+        <div className='w-5 h-5 rounded-full bg-gray-800'>
+          <Image className='rounded-full' src={session.user.avatar} alt='' height={20} width={20} />
+        </div>
+      )
     }
     else if (router.pathname.match('/governance')) {
-      setPath("Gov")
+      setPath(<h1 className="ml-2 text-sm font-bold">Gov</h1>)
       setIcon(<TbBabyCarriage className='w-5 h-5' />)
     } else if (router.pathname.match('/submit')) {
-      setPath('Create Post')
+      setPath(<span className="ml-2 text-sm font-bold">Create Post</span>)
       setIcon(<AiOutlinePlus className='w-5 h-5' />)
     } else if (router.pathname.match('bbaby')) {
-      setPath("Top Communities")
+      setPath(<span className="ml-2 text-sm font-bold">Top Communities</span>)
       setIcon(<AiOutlineOrderedList className='w-5 h-5' />)
     } else if (router.pathname.match('search')) {
-      setPath('Search Results')
+      setPath(<h1 className="ml-2 text-sm font-bold">Search Results</h1>)
       setIcon(<BsSearch className='w-5 h-5' />)
     } else if (router.pathname.match('news')) {
-      setPath('News')
+      setPath(<span className="ml-2 text-sm font-bold">News</span>)
       setIcon(<TiNews className='w-5 h-5' />)
     }
-  }, [router])
+  }, [router,communityInfo,session])
 
   return (
     <div id="home_button" className=" hidden w-[255px] lg:block h-[36px] rounded-md border-reddit_border hover:border">
       <button className=" w-full h-full">
         <div className="ml-1 flex items-center">
           {icon}
-          <p className="ml-2 text-sm font-bold">{path}</p>
+          {path}
           <HiChevronDown className=" ml-auto mr-2 h-[23px] w-[23px]" />
         </div>
       </button>

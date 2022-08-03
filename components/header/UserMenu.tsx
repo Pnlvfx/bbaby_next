@@ -32,7 +32,7 @@ function UserMenu({showDropdown,setShowDropdown}:any) {
                 <div className='p-4 pb-1'>
                     <span className="text-sm flex text-reddit_text-darker">
                         <BiUserCircle className='w-6 h-6' />
-                        <h1 className='text-sm pt-[3px] pl-2'>My Stuff</h1>
+                        <p className='text-sm pt-[3px] pl-2'>My Stuff</p>
                     </span>
                 </div>
                 <div id='button_no_icons' >
@@ -42,20 +42,20 @@ function UserMenu({showDropdown,setShowDropdown}:any) {
                                 setShowDropdown(false)
                         }}>
                                 <div className={containerClass}>
-                                    <h1 className={buttonClass}>Governance</h1>    
+                                    <p className={buttonClass}>Governance</p>    
                                 </div>
                             </a>
                         </Link>
                     )}
                     <div className={containerClass}>
-                        <h1 className={buttonClass}>Online Status</h1>    
+                        <p className={buttonClass}>Online Status</p>    
                     </div>
                     <Link href={`/user/${session?.user.username}`}>
                         <a onClick={() => {
                             setShowDropdown(false)
                         }}>
                             <div className={containerClass}>
-                                <h1 className={buttonClass}>Profile</h1>    
+                                <p className={buttonClass}>Profile</p>    
                             </div>
                         </a>
                     </Link>
@@ -64,7 +64,7 @@ function UserMenu({showDropdown,setShowDropdown}:any) {
                         setShowDropdown(false)
                     }}>
                         <div className={containerClass}>
-                            <h1 className={buttonClass}>User Settings</h1>    
+                            <p className={buttonClass}>User Settings</p>    
                         </div>
                     </a>
                     </Link>
@@ -77,7 +77,7 @@ function UserMenu({showDropdown,setShowDropdown}:any) {
                                 setShowDropdown(false)
                                 }}>
                             <GiBabyFace className='w-6 h-6 mr-2' />
-                            <h1 className='font-bold text-sm mt-[2px]'>Create a community</h1>
+                            <p className='font-bold text-sm mt-[2px]'>Create a community</p>
                         </div>
                     </div>
                     <div className={containerClass}>
@@ -85,7 +85,7 @@ function UserMenu({showDropdown,setShowDropdown}:any) {
                                 <a target='_blank' onClick={() => {
                                     setShowDropdown(false)
                                 }}>
-                                    <h1 className={buttonClass}>User Agreement</h1> 
+                                    <p className={buttonClass}>User Agreement</p> 
                                 </a>   
                             </Link>
                     </div>
@@ -94,7 +94,7 @@ function UserMenu({showDropdown,setShowDropdown}:any) {
                                 <a target='_blank' onClick={() => {
                                     setShowDropdown(false)
                                 }} >
-                                    <h1 className={buttonClass}>Privacy Policy</h1>   
+                                    <p className={buttonClass}>Privacy Policy</p>   
                                 </a>
                             </Link> 
                     </div>
@@ -106,11 +106,11 @@ function UserMenu({showDropdown,setShowDropdown}:any) {
                         setShowDropdown(!showDropdown)
                         }} className={'flex p-[9px] pl-4'}>
                         <LogoutIcon className='w-6 h-6 mr-2'/>
-                        <h1 className='font-bold text-sm mt-[2px]'>Log Out</h1>
+                        <p className='font-bold text-sm mt-[2px]'>Log Out</p>
                     </div>
                 </div>
                     <div>
-                        <h1 className='text-xs p-4 pt-3 text-reddit_text-darker'>2022 Bbabystyle.Inc. All rights reserved</h1>
+                        <p className='text-xs p-4 pt-3 text-reddit_text-darker'>2022 Bbabystyle.Inc. All rights reserved</p>
                     </div>
             </div>
     </div>

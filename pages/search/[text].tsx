@@ -4,16 +4,16 @@ import Post from '../../components/post/Post'
 import axios from "axios";
 import Layout from "../../components/main/Layout";
 import Head from "next/head";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import { search } from "../../components/header/search/APisearch";
 
-const SearchResultPage = () => {
-
+const SearchResultPage:NextPage = () => {
   const router = useRouter();
   const [posts, setPosts] = useState<PostProps[] | []>([]);
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
-  const imagePreview = '/imagePreview.png'
-
+  const imagePreview = '/imagePreview.png';
+  const title = `Bbabystyle.com: search result`
+  const url = `${hostname}/search`
 
   useEffect(() => {
     if (router.query) {
@@ -23,26 +23,27 @@ const SearchResultPage = () => {
         //setCommunities(response.data.communities);
       })
     }
-  },[router.query])
+  },[router])
+
   return (
     <>
       <Head>
-        <title>Bbabystyle.com: search result</title>
+        <title>{title}</title>
         <link rel="icon" href="/favicon.ico"/>
-        <meta property="og:title" content="Bbabystyle.com: search result" key='ogtitle' />
+        <meta property="og:title" content={title} key='ogtitle' />
         <meta name="description" content="Bbabystyle is a network of communities. There's a community for whatever you're interested in on Bbabystyle." />
         <meta property="og:description" content="Bbabystyle is a network of communities. There's a community for whatever you're interested in on Bbabystyle." key='ogdesc' />
         <meta property="og:image" content={hostname + imagePreview} key='ogimage' />
-        <meta property="og:url" content={hostname} key='ogurl' />
+        <meta property="og:url" content={url} key='ogurl' />
         <meta property='og:type' content='website' key='ogtype' />
         <meta name="twitter:card" content="summary" key='twcard'/>
         <meta name="twitter:image:alt" content="This image contain the logo of this website" />
-        <link rel='canonical' href={`${hostname}`} key='canonical' />
+        <link rel='canonical' href={url} key='canonical' />
       </Head>
       <Layout>
         <div>
         {posts.map(post => (
-          <Post key={post._id} post={post}/>
+          <Post key={post._id} post={post} isListing={true} />
         ))}
       </div>
       </Layout>
@@ -65,7 +66,7 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
 
   return {
     props: {
-      session: session,
+      session,
     }
   }
 }

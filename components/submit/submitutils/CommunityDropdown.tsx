@@ -44,7 +44,6 @@ const CommunityDropdown = () => {
     if (!selectedCommunity) return
     const timer = setTimeout(() => {
       searchCommunity(selectedCommunity).then((res) => {
-        console.log(res)
         setAllCommunity(res)
       })
     },500)

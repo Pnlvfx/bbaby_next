@@ -6,7 +6,7 @@ import axios from 'axios';
 import UserContext from '../../auth/UserContext';
 import {MoreIcon} from '../../utils/SVG'
 
-function MoreButton(props:any) {
+const MoreButton = (props:any)  => {
   const {session} = useContext(UserContext)
   const router = useRouter()
   const server = process.env.NEXT_PUBLIC_SERVER_URL
@@ -60,7 +60,7 @@ function MoreButton(props:any) {
                    deletePost()
                  }} className='p-2 flex text-reddit_text-darker hover:bg-blue-900 w-auto lg:w-[200px]'>
                    <BsTrashFill className='w-4 h-4 mt-1 mr-2' />
-                   <h1 className='text-sm'>Delete</h1>
+                   <p className='text-sm'>Delete</p>
                  </button>
                )}
           </div>

@@ -30,7 +30,14 @@ const CreateVideo = ({setVideoOptions,input,setInput,videoOptions}:CreateVideoPr
             <div id="transition" className="mt-2 flex">
                   <p className="">Transition:</p>
                 <div className="ml-auto">
-                  <input type='text' title='transition' value={videoOptions.transition} onChange={(e) => setVideoOptions({...videoOptions,transition:e.target.value})} className={`${inputClass} p-2 font-bold`}/>
+                  <input 
+                  type='text' 
+                  title='transition' 
+                  value={videoOptions.transition} 
+                  onChange={(e) => {
+                    setVideoOptions({...videoOptions,transition:e.target.value})
+                    }}
+                  className={`${inputClass} p-2 font-bold`}/>
                 </div>
             </div>
             <div id="transition_duration" className="mt-2 flex">

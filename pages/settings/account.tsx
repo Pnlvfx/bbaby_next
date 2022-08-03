@@ -1,36 +1,66 @@
 import UserSettings from '../../components/auth/usersettings/UserSettings'
 import Account from '../../components/auth/usersettings/each/Account'
-import { NextPageContext } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import axios from 'axios';
 import Layout from '../../components/main/Layout';
 import Head from 'next/head';
 import UserSecurity from '../../components/utils/security/UserSecurity';
+import { useContext } from 'react';
+import UserContext from '../../components/auth/UserContext';
 
-function account() {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME
+const AccountPage:NextPage = () => {
+  const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
+  const {session} = useContext(UserContext) as SessionProps;
+  const title = 'Bbabystyle Settings'
+  const description = `${session?.user.username}`
+  const url = `${hostname}/settings/account`
+  const imagePreview = `${hostname}/imagePreview.png`;
+  
   return (
     <div>
       <Head>
-        <title>Bbabystyle - Settings </title>
-        <link rel="icon" href="/favicon.ico"/>
-        <link rel='canonical' href={hostname+'/settings/account'} key='canonical' />
+      <title>{title}</title>
+        <link rel="icon" href="/favicon.ico" />
+        <meta
+          property="og:title"
+          content={title}
+          key="ogtitle"
+        />
+        <meta name="description" content={description} />
+        <meta
+          property="og:description"
+          content={description}
+          key="ogdesc"
+        />
+        <meta
+          property="og:image"
+          content={imagePreview}
+          key="ogimage"
+        />
+        <meta property="og:url" content={url} key="ogurl" />
+        <meta property="og:type" content="profile" key="ogtype" />
+        <meta name="twitter:card" content="summary" key="twcard" />
+        <meta
+          name="twitter:image:alt"
+          content=""
+        />
+        <link rel='canonical' href={url} key='canonical' />
       </Head>
       <Layout>
         <UserSecurity>
-        <div className='bg-reddit_dark-brighter flex'>
-          <div className='w-full md:w-11/12 lg:w-9/12 xl:w-7/12 2xl:w-[850px] self-center mr-0 md:mr-auto ml-0 xl:ml-auto overflow-hidden'>
+        <main className='bg-reddit_dark-brighter flex justify-center'>
+          <div className='w-[60%] max-w-[1350px]'>
             <UserSettings />
             <Account />
           </div>
-          <div className='w-0 xl:w-[480px]'/>
-        </div>
+        </main>
         </UserSecurity>
       </Layout>
     </div>
   )
 }
 
-export default account;
+export default AccountPage;
 
 export async function getServerSideProps(context: NextPageContext) {
   const server = process.env.NEXT_PUBLIC_SERVER_URL

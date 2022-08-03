@@ -2,6 +2,7 @@ import {useState,useEffect} from 'react'
 import {showErrMsg,showSuccessMsg} from '../../components/utils/validation/Notification'
 import {useRouter} from 'next/router'
 import axios from 'axios'
+import Head from 'next/head'
 
 
 
@@ -29,6 +30,9 @@ function ActivationEmail() {
     },[activation_token,router.isReady])
   return (
     <div>
+        <Head>
+            
+        </Head>
         {err && showErrMsg(err)}
         {success && showSuccessMsg(success)}
     </div>

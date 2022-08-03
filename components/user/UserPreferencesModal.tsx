@@ -19,7 +19,7 @@ const UserPreferencesModal = (props: any) => {
             {modalType === 'userGender' && (
                <button className="right-0 pb-7">
                <div className="mx-4 right-2 absolute">
-                 <h1 className="text-reddit_blue text-lg">Skip</h1>
+                 <p className="text-reddit_blue text-lg">Skip</p>
                </div>
                </button>
             )}
@@ -27,8 +27,8 @@ const UserPreferencesModal = (props: any) => {
           {modalType === 'userGender' && (
             <>
             <div className="px-4">
-              <h1 className="text-xl">Which of the following best describes you?</h1>
-              <h2 className="text-reddit_text-darker">Bbaby will never share this information and uses it to improve what content you see.</h2>
+              <p className="text-xl">Which of the following best describes you?</p>
+              <p className="text-reddit_text-darker">Bbaby will never share this information and uses it to improve what content you see.</p>
             </div>
             <div className="mx-4 py-4">
               <button className={`px-8 py-3 w-full mb-2 ${buttonClass(true)}`} onClick={() => {
@@ -57,7 +57,7 @@ const UserPreferencesModal = (props: any) => {
           {modalType === 'userInterest' && (
             <>
             <div>
-              <h1>We are working to improve your user experience...</h1>
+              <p>We are working to improve your user experience...</p>
             </div>
             <div className="mx-4 py-8">
               <button className={`px-8 py-3 w-full ${buttonClass()}`} onClick={() => {

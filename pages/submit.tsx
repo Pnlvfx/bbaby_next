@@ -6,22 +6,24 @@ import TempSubmitWid from '../components/widget/TempSubmitWid'
 import SubmitLayout from '../components/submit/SubmitLayout'
 
 const SubmitPage: NextPage = () => {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME
+  const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
+  const title = 'Submit to Bbabystyle';
+  const description = 'Create your own article here. Choose an existing community or create your own and start change the world.'
 
   return (
     <>
       <Head>
-        <title>Submit to bbabystyle</title>
+        <title>{title}</title>
         <link rel="icon" href="/favicon.ico" />
         <meta
           property="og:title"
-          content="Submit to Bbabystyle"
+          content={title}
           key="ogtitle"
         />
-        <meta name="description" content="Bbabystyle - Submit" />
+        <meta name="description" content={description} />
         <meta
           property="og:description"
-          content="Bbabystyle - Submit, it's free"
+          content={description}
           key="ogdesc"
         />
         <meta
@@ -39,7 +41,7 @@ const SubmitPage: NextPage = () => {
         <link rel="canonical" href={hostname + '/submit'} key="canonical" />
       </Head>
       <Layout>
-        <div className=" block p-2 sm:p-4 lg:flex">
+        <div className="block p-2 sm:p-4 lg:flex">
           <div className="mx-auto flex justify-center">
             <div className="mr-0 w-full pt-5 md:mr-6 lg:w-[740px]">
               <SubmitLayout />
@@ -70,7 +72,7 @@ export async function getServerSideProps(context: NextPageContext) {
   const session = response.data
   return {
     props: {
-      session: session,
+      session,
     },
   }
 }

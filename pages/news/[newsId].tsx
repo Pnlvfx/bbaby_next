@@ -12,7 +12,6 @@ interface NewsIdPageProps {
 
 const NewsIdPage: NextPage<NewsIdPageProps> = ({news}) => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
-  console.log(news)
   return (
     <div>
       <Head>

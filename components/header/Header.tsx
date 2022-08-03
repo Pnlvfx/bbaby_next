@@ -96,7 +96,7 @@ function Header() {
               )}
               {session && (
                 <div className="mr-0 flex items-center lg:mr-16 h-full">
-                  <div className="relative h-5 w-5 border border-reddit_border ml-2">
+                  <div className="relative h-5 w-5 border border-reddit_border ml-2 mr-1">
                     <Image
                       src={session.user.avatar}
                       alt=""

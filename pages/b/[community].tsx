@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import {useContext, useEffect} from 'react'
-import Layout from '../../components/main/Layout'
-import BoardHeader from '../../components/header/BoardHeader'
-import {CommunityContext, CommunityContextProps} from '../../components/community/CommunityContext'
+import {useContext, useEffect} from 'react';
+import Layout from '../../components/main/Layout';
+import BoardHeader from '../../components/header/BoardHeader';
+import {CommunityContext, CommunityContextProps} from '../../components/community/CommunityContext';
 import axios from 'axios';
 import {NextPage, NextPageContext } from 'next';
 import Feed from '../../components/post/Feed';
@@ -14,9 +14,9 @@ type CommunityPg = {
 }
 
 const CommunityPage: NextPage<CommunityPg> = ({community,posts}) => {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME
-  const imagePreview = '/imagePreview.png'
-  const {getCommunity} = useContext(CommunityContext) as CommunityContextProps;
+  const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
+  const imagePreview = '/imagePreview.png';
+  const {getCommunity,communityInfo} = useContext(CommunityContext) as CommunityContextProps;
   const router = useRouter()
 
   useEffect(() => {
@@ -29,13 +29,13 @@ const CommunityPage: NextPage<CommunityPg> = ({community,posts}) => {
         <title>{community}</title>
         <link rel="icon" href="/favicon.ico"/>
         <meta property="og:title" content={community} key='ogtitle' />
-        <meta name="description" content="Bbabystyle is a network of communities. There's a community for whatever you're interested in on Bbabystyle." />
-        <meta property="og:description" content="Bbabystyle is a network of communities. There's a community for whatever you're interested in on Bbabystyle." key='ogdesc' />
+        <meta name="description" content={communityInfo.description} />
+        <meta property="og:description" content={communityInfo.description} key='ogdesc' />
         <meta property="og:image" content={hostname + imagePreview} key='ogimage' />
         <meta property="og:url" content={`${hostname}/b/${community}`} key='ogurl' />
         <meta property='og:type' content='website' key='ogtype' />
         <meta name="twitter:card" content="summary" key='twcard'/>
-        <meta name="twitter:image:alt" content="This image contain the logo of this website" />
+        <meta name="twitter:image:alt" content="" />
         <link rel='canonical' href={`${hostname}/b/${community}`} key='canonical' />
       </Head>
       <Layout>
@@ -49,11 +49,10 @@ const CommunityPage: NextPage<CommunityPg> = ({community,posts}) => {
 export default CommunityPage;
 
 export const getServerSideProps = async(context: NextPageContext) => {
-  
   const server = process.env.NEXT_PUBLIC_SERVER_URL
 
   const {query} = context
-  const {community} = query
+  const {community} = query;
 
   const res = await axios({
     method: 'get',

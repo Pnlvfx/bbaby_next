@@ -40,7 +40,7 @@ const Profile = () => {
         method: 'POST',
         url: server + '/user/change_avatar',
         data: data,
-        headers: { 'Content-type': 'application/json' },
+        headers: { 'Content-type': 'application/json' }
       }).then((res) => {
         setChange(false)
         setMessage({ value: res.data.success, status: 'success' })
@@ -52,29 +52,23 @@ const Profile = () => {
   }, [change])
 
   return (
-    <>
-      <div>
-        <p className="py-4 px-5 text-[19px] font-semibold">
-          Costumize profile
-        </p>
-        <h2 className=" px-4 pt-4 pb-1 text-[11px] font-bold text-reddit_text-darker">
-          PROFILE INFORMATION
-        </h2>
-        <hr className="mx-4 w-1/2 border-reddit_border" />
+    <div className='max-w-[800px] font-semibold space-y-6 mt-6'>
+        <p className="text-[19px]">Costumize profile</p>
+        <div>
+          <p className="text-[11px] text-reddit_text-darker">PROFILE INFORMATION</p>
+          <hr className="border-reddit_border mt-1" />
+        </div>
+      <div className='space-y-4'>
+        <div>
+          <p className="text-[11px] text-reddit_text-darker">IMAGES</p>
+          <hr className="mt-1 border-reddit_border" />
+        </div>
+        <div>
+          <p className="text-sm font-bold">Avatar and banner image</p>
+          <p className="text-sm text-reddit_text-darker">Images must be .png or .jpg format</p>
+        </div>
       </div>
-      <div>
-        <p className="px-4 pt-4 pb-1 text-[11px] font-bold text-reddit_text-darker">
-          IMAGES
-        </p>
-        <hr className="mx-4 w-1/2 border-reddit_border" />
-        <p className="p-4 pt-6 pb-0 text-sm font-bold">
-          Avatar and banner image
-        </p>
-        <p className="p-4 pt-0 text-sm text-reddit_text-darker">
-          Images must be .png or .jpg format
-        </p>
-      </div>
-      <div className="p-6">
+      <div className="">
         {selectedFile && (
           <div
             onClick={() => {
@@ -95,7 +89,7 @@ const Profile = () => {
           onChange={handleFileInputChange}
         />
       </div>
-    </>
+    </div>
   )
 }
 

@@ -1,60 +1,16 @@
-import Link from 'next/link'
-import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
-import UserContext from '../auth/UserContext'
-import { getCategories } from '../cotegory/APIcategory'
+import LeaderboardMenu from "./LeaderboardMenu"
 
-interface LeaderboardProps {
-  active: number
-  setActive: Dispatch<SetStateAction<number>>
-}
-
-const Leaderboard = ({active,setActive}:LeaderboardProps) => {
-  const {session} = useContext(UserContext)
-  const [totalShow,setTotalShow] = useState(12)
-  const [showMore,setShowMore] = useState(false)
-  const [CategoriesLists,setCategoriesLists] = useState<CategoryProps[] | []>([])
-
-  useEffect(() => {
-    getCategories().then(res => {
-      setCategoriesLists(res)
-    })
-  },[])
-
+const Leaderboard = () => {
   return (
-    <div
-      className={
-        'w-[200px] overflow-hidden rounded-md border border-reddit_border bg-reddit_dark-brighter pt-1 text-sm'
-      }
-    >
-      <div className="flex h-[40px] bg-reddit_dark-brightest font-extrabold">
-        <p className="ml-3 self-center">Categories</p>
+    <div>
+      <div className="w-full h-24 flex items-center bg-reddit_dark-brighter">
+        <div className="w-[70%] mx-auto">
+          <h1 className="text-2xl font-bold ">Today&apos;s Top Growing Communities</h1>
+          <h2 className="text-xs text-reddit_text-darker">Browse bbaby&apos;s top growing communities. Find the top communities in your favorite category.</h2>
+        </div>
       </div>
-      <hr className="border-reddit_border" />
-      {CategoriesLists.map((category, index) => (
-        <>
-        {index <= totalShow && (
-          <ul key={category._id}>
-          <Link href={index === 0 ? `/bbaby/leaderboard` : `/bbaby/leaderboard/${category.name.replaceAll(" ", "_").toLowerCase()}`} scroll={false}>
-              <a onClick={() => {
-                setActive(index)
-              }}>
-                <div className={`flex h-[40px] ${active === index ? "bg-reddit_dark-brightest font-extrabold" : "hover:bg-reddit_dark-brightest"}`}>
-                    <div className={`w-[6px] ${active === index && 'bg-reddit_blue'}`} />
-                  <p className="ml-3 self-center">{category.name}</p>
-                </div>
-              </a>
-          </Link>
-        </ul>
-        )}
-        </>
-      ))}
-      <div className='w-full items-center text-center'>
-        <button onClick={() => {
-          setTotalShow(totalShow === 12 ? CategoriesLists.length : 12)
-          setShowMore(!showMore)
-        }} className='rounded-full px-3 text-sm hover:bg-reddit_dark-brightest w-full'>
-          <p className='font-bold py-1'>{showMore ? "Show Less" : "Show More"}</p>
-        </button>
+      <div className="flex justify-center mt-4">
+        <LeaderboardMenu />
       </div>
     </div>
   )

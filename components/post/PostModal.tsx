@@ -68,7 +68,7 @@ const PostModal = ({community,postId,open,onClickOut}:PostModalProps) => {
                   <div className="mr-1">
                     <CloseIcon style={{height: 20, width: 20}} />
                   </div>
-                <h1 className="text-xs font-bold mt-[2px]">Close</h1>
+                <p className="text-xs font-bold mt-[2px]">Close</p>
               </button>
           </div>) : (<div id="loading" className="h-76 pt-4 pb-10 w-[99%] overflow-hidden loading" />)}
           {!loading ? (

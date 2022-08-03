@@ -57,14 +57,14 @@ const Feed = ({posts:ssrPost,community,author}:FeedProps) => {
       }}/>
     )}
     {postId === '' && (
-      <div className='flex justify-center pt-5 mx-[2px] lg:mx-10'>
+      <div className='flex justify-center mt-5 mx-[2px] lg:mx-10'>
         <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] lg:mr-4 flex-none'>
-            <div className='pb-[18px]'>
+            <div className='mb-[18px]'>
                 {!author && ( //authorPage
                   <PostForm community={community ? community : ''} />
                 )}
             </div>
-            <div className='pb-4'>
+            <div className='mb-4'>
               <BestPost />
             </div>
               <>
@@ -72,7 +72,7 @@ const Feed = ({posts:ssrPost,community,author}:FeedProps) => {
               dataLength={posts.length}
               next={getMorePosts}
               hasMore={true}
-              loader={<h4></h4>}
+              loader={<p></p>}
               endMessage={<p></p>}
             >
             {posts.map(post => (

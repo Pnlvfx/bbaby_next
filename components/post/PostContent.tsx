@@ -78,9 +78,10 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
             <TimeAgo datetime={post.createdAt} className="truncate" />
           </div>
         </div>
-          <h1 className="whitespace-pre-wrap mb-4 break-words font-extrabold leading-6">
-            {post.title}
-          </h1>
+          {isListing ? 
+          <p className="whitespace-pre-wrap mb-4 break-words font-extrabold leading-6">{post.title}</p>
+           : 
+           <h1 className="whitespace-pre-wrap mb-4 break-words font-extrabold leading-6">{post.title}</h1>}
         {post?.mediaInfo?.isImage && post?.mediaInfo?.image && (
           <div className="container max-h-[500px]">
             <Image

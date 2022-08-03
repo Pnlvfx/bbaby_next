@@ -11,7 +11,7 @@ interface PostIdPageProps {
   post: PostProps
 }
 
-const Id: NextPage<PostIdPageProps> = ({post}) => {
+const IdPage: NextPage<PostIdPageProps> = ({post}) => {
     const hostname = process.env.NEXT_PUBLIC_HOSTNAME
     const {getCommunity} = useContext(CommunityContext) as CommunityContextProps;
 
@@ -41,7 +41,7 @@ const Id: NextPage<PostIdPageProps> = ({post}) => {
   )
 }
 
-export default Id;
+export default IdPage;
 
 export async function getServerSideProps(context: NextPageContext) {
   const server = process.env.NEXT_PUBLIC_SERVER_URL

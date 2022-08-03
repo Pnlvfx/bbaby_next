@@ -25,7 +25,7 @@ function ShareButton({community,postId}:ShareButtonProps) {
         }}>
           <div className='flex text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm items-center'>
             <ShareIcon style={{height: 20, width: 20}} />
-            <h1 className='ml-1'>Share</h1>
+            <p className='ml-1'>Share</p>
           </div>
         </button>
           <div className={`absolute ${ShareDropdownVisibilityClass ? "block" : "hidden"} `}>

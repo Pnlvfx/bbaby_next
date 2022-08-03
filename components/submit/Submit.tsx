@@ -87,7 +87,7 @@ const Submit = ({newTweet,community}:SubmitProps) => {
 
   return (
         <div className={`${loading && ('opacity-40')}`}>
-            <p className='mb-3 text-[17px] font-semibold'>Create a Post</p>
+            <h1 className='mb-3 text-[17px] font-semibold'>Create a Post{'       '}</h1>
         <hr className='border-reddit_border mb-4'/>
             <CommunityDropdown />
             <div className='bg-reddit_dark-brighter rounded-md flex-none mt-2'>
@@ -102,7 +102,7 @@ const Submit = ({newTweet,community}:SubmitProps) => {
                         <div className='mt-2 mr-1'>
                         <AddImageIcon />
                         </div>
-                        <h1 className='py-3 font-semibold'>Images & Video</h1>
+                        <p className='py-3 font-semibold'>Images & Video</p>
                     </button>
                 </div>
                 <>
@@ -152,12 +152,12 @@ const Submit = ({newTweet,community}:SubmitProps) => {
                     {session?.user.role && (
                         <div id='telegram' className='flex mx-4 pt-5'>
                             <input type="checkbox" id='telegram' checked={sharePostToTG} onChange={shareToTelegram} className='w-[15px] h-[15px] px-4 self-center bg-reddit_dark-brighter' style={{filter: 'invert(85%)'}}/>
-                            <h1 className='ml-[7px] text-[13px] self-center font-bold'>Share this post on Telegram</h1>
+                            <p className='ml-[7px] text-[13px] self-center font-bold'>Share this post on Telegram</p>
                         </div>
                     )}
                     <div id='twitter' className='flex mx-4 pt-3'>
                         <input type="checkbox" id='telegram' checked={sharePostToTwitter} onChange={shareToTwitter} className='w-[15px] h-[15px] px-4 self-center bg-reddit_dark-brighter' style={{filter: 'invert(85%)'}}/>
-                        <h1 className='ml-[7px] text-[13px] self-center font-bold'>Share this post on Twitter</h1>
+                        <p className='ml-[7px] text-[13px] self-center font-bold'>Share this post on Twitter</p>
                     </div>
                 </div>
             </div>

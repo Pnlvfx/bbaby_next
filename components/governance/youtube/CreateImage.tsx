@@ -11,14 +11,12 @@ type CreateImageProps = {
   modalType: string
   setModalType: Dispatch<SetStateAction<modalType>>
   setInput: Dispatch<SetStateAction<InputProps>>
-  input: InputProps
 }
 
 const CreateImage = ({
   modalType,
   setModalType,
-  setInput,
-  input,
+  setInput
 }: CreateImageProps) => {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
   const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
@@ -56,20 +54,17 @@ const CreateImage = ({
     }
   }
 
-  console.log(input)
-
-
   return (
     <>
       {modalType === 'create_image' && (
         <div className='flex mt-5'>
         <YoutubeNewsCard />
-          <form className="w-full mx-2 p-2">
-            <div id="news_id" className="flex">
+          <form className="w-full mx-2 p-2 bg-reddit_dark-brighter space-y-4">
+            <div id="news_id" className="flex items-center">
                 <p>News id:</p>
-                <p className='ml-auto font-bold'>{news?._id}</p>
+                <p className='ml-auto font-bold text-reddit_red'>{news?._id}</p>
             </div>
-            <div id="set_text_color" className="mt-2 flex">
+            <div id="set_text_color" className="flex items-center">
                 <p className="">Text Color:</p>
               <div className="ml-auto">
                 <input
@@ -83,23 +78,23 @@ const CreateImage = ({
                 />
               </div>
             </div>
-            <div id="set_font_size" className="mt-2 flex">
+            <div id="set_font_size" className="flex items-center">
                 <p className="">Font Size:</p>
-              <div className="ml-auto self-center">
+              <div className="ml-auto">
                 <input
-                  type="text"
+                  type="number"
                   title="font_size"
                   value={value.fontSize}
                   onChange={(e) =>
                     setValue({ ...value, fontSize: e.target.value })
                   }
-                  className={`${inputClass} p-2 font-bold`}
+                  className={`${inputClass} p-2 font-bold text-right`}
                 />
               </div>
             </div>
-            <div id="format" className="mt-2 flex">
+            <div id="format" className="flex items-center">
                 <p className="">Format:</p>
-              <div className="ml-auto self-center">
+              <div className="ml-auto">
                 <input
                   type="text"
                   title="font_size"
@@ -107,12 +102,11 @@ const CreateImage = ({
                   onChange={(e) =>
                     setValue({ ...value, format: e.target.value })
                   }
-                  className={`${inputClass} p-2 font-bold`}
+                  className={`${inputClass} p-2 font-bold text-right`}
                 />
               </div>
             </div>
-            <div id="create_image" className="mt-4">
-              <div className="flex justify-end">
+              <div id='button_submit' className="flex items-center justify-end">
                 <button
                   type="submit"
                   disabled={loading ? true : false}
@@ -124,7 +118,6 @@ const CreateImage = ({
                   {loading && <Spinner />}
                   {!loading && <p>Create Image</p>}
                 </button>
-              </div>
             </div>
           </form>
         </div>

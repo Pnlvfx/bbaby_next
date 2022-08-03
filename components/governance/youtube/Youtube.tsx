@@ -14,8 +14,8 @@ const Youtube = () => {
   const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
   const _videoOptions: VideoOptionsProps = {
     fps: '24',
-    transition: 'true',
-    transitionDuration: '1', // seconds
+    transition: 'false',
+    transitionDuration: '0', // seconds
   }
   const [videoOptions, setVideoOptions] = useState(_videoOptions)
   const _input: InputProps = {
@@ -57,9 +57,7 @@ const Youtube = () => {
     try {
       setLoading(true)
       const data = { _videoOptions: videoOptions, images: input.localImages }
-      const res = await axios.post(`${server}/governance/create-video`, data, {
-        withCredentials: true,
-      })
+      const res = await axios.post(`${server}/governance/create-video`, data, {withCredentials: true})
       setMessage({value:res.data.msg, status: 'success'})
       setInput({ ...input, video: res.data.video})
       setLoading(false)
@@ -75,7 +73,6 @@ const Youtube = () => {
       <CreateImage
         modalType={modalType}
         setModalType={setModalType}
-        input={input}
         setInput={setInput}
       />
       {modalType === 'create_video' && (

@@ -1,6 +1,6 @@
-import { useRouter } from "next/router"
-import { useContext, useEffect } from "react"
-import UserContext from "../../auth/UserContext"
+import { useRouter } from "next/router";
+import { useContext, useEffect } from "react";
+import UserContext from "../../auth/UserContext";
 
 interface Props {
   children : React.ReactNode
@@ -11,10 +11,11 @@ const UserSecurity = ({children}:Props) => {
   const router = useRouter()
 
   useEffect(() => {
-    if(!session?.user && !session?.user.username) {
+    if(!session) {
       router.push('/')
     }
   },[session])
+
   return (
         <>
         {children}

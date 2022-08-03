@@ -30,8 +30,6 @@ const TweetContent = ({ tweet, language }: TweetContent) => {
       video: video ? video : null,
     })
   }
-
-  console.log(tweet)
   return (
     <div className="flex overflow-hidden rounded-md bg-reddit_dark-brighter">
       <div className="p-2 w-full">

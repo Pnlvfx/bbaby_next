@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { NextPageContext } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
 import Modqueque from '../../../../components/community/modqueque/Modqueque';
 import Layout from '../../../../components/main/Layout';
 
-function ModqueuePage() {
+const ModqueuePage:NextPage = () => {
   return (
     <div>
       <Head>
@@ -31,7 +31,7 @@ export async function getServerSideProps(context: NextPageContext) {
     const session = response.data
   return {
     props: {
-      session: session,
+      session,
     }
   }
 }

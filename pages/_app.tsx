@@ -26,6 +26,7 @@ const MyApp = ({ Component, pageProps: {session, ...pageProps}}: AppProps) => {
         <meta name="mobile-web-app-capable" content="yes" />
         <meta property="og:site_name" content="bbabystyle" />
         <meta name="twitter:creator" content="@Bbabystyle" />
+        <meta name='theme-color' content='#1a1a1b' />
       </Head>
       {/* <Script 
         id='Adsense-id'

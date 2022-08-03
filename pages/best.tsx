@@ -48,7 +48,7 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
   const response =  await axios({
     method: "get",
     url: `${server}/user`,
-    headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
+    headers,
     })
     const session = response.data
 

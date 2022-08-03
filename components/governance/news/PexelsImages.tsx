@@ -22,7 +22,6 @@ const PexelsImages = () => {
         `${server}/governance/pexels?text=${searchPexels}&page=${pageSearch}`,
         { withCredentials: true }
       )
-      console.log(res.data)
       setPexelsImage(res.data.photos)
       setLoading(false); 
     } catch (err) {

@@ -9,24 +9,25 @@ type HomePg = {
 }
 
 const Home: NextPage<HomePg> = ({ posts }) => {
-  //metatags
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const imagePreview = '/imagePreview.png'
+  const title = "Bbabystyle - Free speech"
+  const description = 'Bbabystyle is a network where you can create your community and start to talk about whatever you want.'
 
   return (
     <>
       <Head>
-        <title>Bbabystyle - free speech </title>
+        <title>{title}</title>
         <link rel="icon" href="/favicon.ico" />
         <meta
           property="og:title"
-          content="Bbabystyle - free speech"
+          content={title}
           key="ogtitle"
         />
-        <meta name="description" content="Bbabystyle - Free speech is here" />
+        <meta name="description" content={description} />
         <meta
           property="og:description"
-          content="Bbabystyle - Free speech is here"
+          content={description}
           key="ogdesc"
         />
         <meta
@@ -50,7 +51,8 @@ const Home: NextPage<HomePg> = ({ posts }) => {
   )
 }
 
-export default Home
+export default Home;
+
 
 export async function getServerSideProps(context: NextPageContext) {
   const server = process.env.NEXT_PUBLIC_SERVER_URL

@@ -29,7 +29,7 @@ function TopCommunitiesContent({community,getBestCommunities,rank}:TopCommunitie
         <Link href={'/b/'+community.name}>
           <a>
             <div className='flex items-center p-1 h-[50px]'>
-                <h1 className='text-sm font-extrabold mx-3'>{rank}</h1>
+                <p className='text-sm font-extrabold mx-3'>{rank}</p>
                 <RiArrowUpSLine className='w-5 h-5 text-green-500 mr-2' />
                 <Image loader={loader} src={community.communityAvatar} alt='' width={'30px'} height={'30px'} className='rounded-full'/>          
                 <p className="ml-2 font-bold text-sm">b/{community.name}</p>

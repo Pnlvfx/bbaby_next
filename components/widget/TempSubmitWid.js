@@ -11,9 +11,9 @@ function TempSubmitWid() {
         }}>
           </div>
           
-               <h1 className="text-reddit_text-darker text-sm">Please be mindful of bbaby content policy</h1>    
+               <p className="text-reddit_text-darker text-sm">Please be mindful of bbaby content policy</p>    
       </div>
     )
   }
   
-  export default TempSubmitWid
+  export default TempSubmitWid;
