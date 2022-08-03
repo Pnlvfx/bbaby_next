@@ -51,7 +51,7 @@ const CommunitiesInfo = ({isCategoryDropdownOpen,setIsCategoryDropdownOpen}:Comm
     <div className="mb-5 min-h-[320px] w-[310px] rounded-md border border-reddit_border bg-reddit_dark-brighter overflow-hidden">
       <div className='mx-2'>
       <div className={`mt-1 flex items-center text-reddit_text-darker h-[30.5px] ${loading && "loading"}`}>
-            <p className={`text-[15px] font-bold p-1`}>About community</p>
+            {!loading && <p className={`text-[15px] font-bold p-1`}>About community</p>}
         {communityInfo.user_is_moderator && (  //MODQUEQUE BUTTON
           <Link href={`/b/${communityInfo.name}/about/modqueue`}>
             <a className="ml-auto">
