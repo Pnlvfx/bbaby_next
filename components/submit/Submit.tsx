@@ -87,22 +87,20 @@ const Submit = ({newTweet,community}:SubmitProps) => {
 
   return (
         <div className={`${loading && ('opacity-40')}`}>
-            <h1 className='mb-3 text-[17px] font-semibold'>Create a Post{'       '}</h1>
-        <hr className='border-reddit_border mb-4'/>
+            <h1 className='mb-3 text-[17px] font-semibold'>Create a Post</h1>
+            <hr className='border-reddit_border mb-4'/>
             <CommunityDropdown />
             <div className='bg-reddit_dark-brighter rounded-md flex-none mt-2'>
-                <div className='flex mb-3 rounded-md'>
+                <div className='flex mb-3 rounded-md h-[51px]'>
                     <button className={`border-r border-reddit_border hover:bg-reddit_hover`}>
                         <div className={`${activeButton === 'Post' && "border-b-2 border-reddit_text"} flex items-center px-11 h-full`}>
-                        <HiOutlineDocumentText className='w-6 h-6 mr-1'/>
-                        <p className='font-bold text-sm'>Post</p>
+                            <HiOutlineDocumentText className='w-6 h-6 mr-1'/>
+                            <p className='font-bold text-sm'>Post</p>
                         </div>
                     </button>
-                    <button className='opacity-20 text-sm border-r border-reddit_border flex border-b-2 px-3 py-1 hover:bg-reddit_hover'>
-                        <div className='mt-2 mr-1'>
+                    <button className='opacity-20 border-r border-reddit_border flex items-center border-b-2 hover:bg-reddit_hover h-full px-3'>
                         <AddImageIcon />
-                        </div>
-                        <p className='py-3 font-semibold'>Images & Video</p>
+                        <p className='font-semibold text-sm'>Images & Video</p>
                     </button>
                 </div>
                 <>
@@ -114,17 +112,17 @@ const Submit = ({newTweet,community}:SubmitProps) => {
                         setActiveClassTitle('hover:border border-reddit_text')
                         }}
                             className={'rounded-md flex mx-4 break-words whitespace-pre-wrap border '+ activeClassTitle}>
-                        <div className='flex w-full p-[6px]'>
-                        <TextareaAutosize
-                        className='placeholder-reddit_text-darker text-[15px] pl-3 w-full leading-6 row-span-1 overflow-x-hidden h-auto resize-none overflow-auto bg-reddit_dark-brighter text-reddit_text rounded-md block outline-none'
-                        placeholder={'Title'}
-                        onChange={e => {
-                            setTitle(e.target.value)
-                            setTitleLength(e.target.value.length)
-                        }}
-                        maxLength={maxLength}
-                        value={title}/>
-                        <div className='text-reddit_text-darker flex-none text-[10px] mt-1'>{titleLength}/{maxLength}</div>
+                        <div className='flex w-full p-[6px] items-center'>
+                            <TextareaAutosize
+                            className='placeholder-reddit_text-darker text-[15px] pl-3 w-full leading-6 row-span-1 h-auto resize-none bg-reddit_dark-brighter text-reddit_text rounded-md outline-none'
+                            placeholder={'Title'}
+                            onChange={e => {
+                                setTitle(e.target.value)
+                                setTitleLength(e.target.value.length)
+                            }}
+                            maxLength={maxLength}
+                            value={title}/>
+                            <p className='text-reddit_text-darker text-[12px] mr-1 font-bold'>{titleLength}/{maxLength}</p>
                         </div>
                     </div>
                 </ClickOutHandler>

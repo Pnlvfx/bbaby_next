@@ -94,16 +94,15 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
           </div>
         )}
         {post?.mediaInfo?.isVideo && post?.mediaInfo?.video && (
-          <div>
-            <video
-              className={`aspect-video`}
-              src={post.mediaInfo.video.url}
-              poster={post.mediaInfo.video.url.replace('mp4', 'jpg')}
-              controls
-              height={height}
-              width={width}
-            />
-          </div>
+          <video
+          style={{backgroundColor: 'rgb(0,0,0)'}}
+            className={`aspect-video`}
+            src={post.mediaInfo.video.url}
+            poster={post.mediaInfo.video.url.replace('mp4', 'jpg')}
+            controls
+            height={height}
+            width={width}
+          />
         )}
         {post.body && (
           <div className="resize-x-none flex-none break-words text-sm leading-6">

@@ -3,6 +3,7 @@ import { NextPage, NextPageContext } from "next";
 import Head from "next/head";
 import Layout from "../../components/main/Layout";
 import Feed from "../../components/post/Feed";
+import AuthorHeaderPage from "../../components/user/AuthorHeaderPage";
 
 type AuthorPg = {
   author: string,
@@ -46,6 +47,7 @@ const Username:NextPage<AuthorPg> = ({author,posts}) => {
         <link rel="canonical" href={url} key="canonical" />
      </Head>
      <Layout>
+      <AuthorHeaderPage />
       <Feed author={author} posts={posts} />
      </Layout>
    </div>

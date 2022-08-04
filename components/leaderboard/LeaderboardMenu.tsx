@@ -1,7 +1,7 @@
-import Link from 'next/link'
-import { useContext, useEffect, useState } from 'react'
-import UserContext from '../auth/UserContext'
-import { getCategories } from '../cotegory/APIcategory'
+import Link from 'next/link';
+import { useContext, useEffect, useState } from 'react';
+import UserContext from '../auth/UserContext';
+import { getCategories } from '../cotegory/APIcategory';
 
 const LeaderboardMenu = () => {
   const {session} = useContext(UserContext)
@@ -15,6 +15,8 @@ const LeaderboardMenu = () => {
       setCategoriesLists(res)
     })
   },[])
+
+  console.log(CategoriesLists)
 
   return (
     <div className={'w-[200px] overflow-hidden rounded-md border border-reddit_border bg-reddit_dark-brighter text-sm'}>

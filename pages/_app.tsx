@@ -6,6 +6,7 @@ import { AuthModalContextProvider } from '../components/auth/AuthModalContext';
 import {CommunityContextProvider} from '../components/community/CommunityContext';
 import CookieConsent from '../components/utils/validation/CookieConsent';
 import { TimeMsgContextProvider } from '../components/main/TimeMsgContext';
+import * as gtag from '../lib/gtag'
 
 const MyApp = ({ Component, pageProps: {session, ...pageProps}}: AppProps) => {
  
@@ -36,11 +37,11 @@ const MyApp = ({ Component, pageProps: {session, ...pageProps}}: AppProps) => {
         onError={ (e) => { console.error('Script failed to load', e) }}
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
         crossOrigin="anonymous" /> */}
-    <CookieConsent />
     <UserContext.Provider value={{session: session}}>
         <AuthModalContextProvider>
             <CommunityContextProvider>
               <TimeMsgContextProvider>
+                <CookieConsent />
                 <Component {...pageProps}/>
               </TimeMsgContextProvider>
           </CommunityContextProvider>
@@ -52,7 +53,8 @@ const MyApp = ({ Component, pageProps: {session, ...pageProps}}: AppProps) => {
 
 export default MyApp;
 
-
 export function reportWebVitals(metric: NextWebVitalsMetric) {
-  metric.label === "web-vital" && console.log(metric);
+  setTimeout(() => {
+    gtag.analyticsWebVitals({id:metric.id,name:metric.name,label:metric.label,value:metric.value})
+  },500)
 }

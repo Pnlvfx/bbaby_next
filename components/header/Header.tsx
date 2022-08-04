@@ -52,7 +52,7 @@ function Header() {
         <Home />
         <SearchBar />
         {session && (
-          <div id="user_icons" className="hidden md:flex items-center space-x-2">
+          <div id="user_icons" className="flex items-center space-x-2">
             {session.user.role === 1 && (
               <Link href={'/governance'}>
                 <a className={className.buttonHeader}>

@@ -5,6 +5,7 @@ import GoogleAnalytics from '../../google/GoogleAnalytics'
 const CookieConsent = () => {
   const [show, setShow] = useState(false)
   const [showAnalytics,setShowAnalytics] = useState(false);
+
   const acceptCookie = () => {
     const cookie = process.env.NEXT_PUBLIC_COOKIE_CONSENT_SECRET
     if (!cookie) return;
@@ -30,7 +31,7 @@ const CookieConsent = () => {
         if (check === undefined) {
             setShow(true)
         }
-    },500)
+    },100)
   }, [])
 
   return (
@@ -45,7 +46,7 @@ const CookieConsent = () => {
               analytics and performance, functionality and advertising.{' '}
               <Link href={'/policies/cookies'}>
                 <a className="text-[#4BB3F3]">
-                  Learn more abour Bbaby&apos;s use of cookies.
+                  Learn more about Bbaby&apos;s use of cookies.
                 </a>
               </Link>
             </p>
@@ -74,4 +75,5 @@ const CookieConsent = () => {
   )
 }
 
-export default CookieConsent
+export default CookieConsent;
+

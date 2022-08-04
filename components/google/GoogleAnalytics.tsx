@@ -1,15 +1,13 @@
+import { NextWebVitalsMetric } from "next/app"
 import { useRouter } from "next/router"
 import Script from "next/script"
-import { useContext, useEffect } from "react"
+import { useEffect } from "react"
 import * as gtag from '../../lib/gtag'
-import UserContext from "../auth/UserContext"
 
 const GoogleAnalytics = () => {
-  const provider = useContext(UserContext)
-  const {session} = provider
   const router = useRouter()
-  useEffect(() => { //GOOGLE ANALYTICS
-    if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return
+  useEffect(() => {
+    //if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return
     const handleRouteChange = (url: URL) => {
       gtag.pageview(url)
     }
@@ -21,15 +19,9 @@ const GoogleAnalytics = () => {
     }
   },[router.events])
 
-  useEffect(() => {
-    if (!session) return
-    gtag.user(session.user.username)
-  },[session])
-
   return (
     <>
       <Script
-          async
           strategy="afterInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
       />
