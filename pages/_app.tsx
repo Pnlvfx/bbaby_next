@@ -36,7 +36,7 @@ const MyApp = ({ Component, pageProps: {session, ...pageProps}}: AppProps) => {
         onError={ (e) => { console.error('Script failed to load', e) }}
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
         crossOrigin="anonymous" /> */}
-    <UserContext.Provider value={{session: session}}>
+    <UserContext.Provider value={{session}}>
         <AuthModalContextProvider>
             <CommunityContextProvider>
               <TimeMsgContextProvider>

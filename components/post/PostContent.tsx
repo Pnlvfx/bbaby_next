@@ -1,12 +1,13 @@
-import TimeAgo from 'timeago-react'
-import ShareButton from './postutils/ShareButton'
-import { useRouter } from 'next/router'
-import MoreButton from './postutils/MoreButton'
-import Image from 'next/image'
-import Voting from './Voting'
-import { CommentIcon } from '../utils/SVG'
-import Link from 'next/link'
-import { isMobile } from 'react-device-detect'
+import TimeAgo from 'timeago-react';
+import ShareButton from './postutils/ShareButton';
+import { useRouter } from 'next/router';
+import MoreButton from './postutils/MoreButton';
+import Image from 'next/image';
+import Voting from './Voting';
+import { CommentIcon } from '../utils/SVG';
+import Link from 'next/link';
+import { isMobile } from 'react-device-detect';
+import { useState } from 'react';
 
 type PostContentProps = {
   post: PostProps
@@ -15,6 +16,7 @@ type PostContentProps = {
 
 const PostContent = ({ post, isListing }: PostContentProps) => {
   const router = useRouter()
+  const [enableControl,setEnableControl] = useState(false) //ENABLE VIDEO CONTROL ON HOVER
 
   let height: number | undefined = 0
   let width = 0
@@ -94,12 +96,12 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
           </div>
         )}
         {post?.mediaInfo?.isVideo && post?.mediaInfo?.video && (
-          <video
-          style={{backgroundColor: 'rgb(0,0,0)'}}
+          <video onMouseOver={() => setEnableControl(true)}
+            style={{backgroundColor: 'rgb(0,0,0)'}}
             className={`aspect-video`}
             src={post.mediaInfo.video.url}
             poster={post.mediaInfo.video.url.replace('mp4', 'jpg')}
-            controls
+            controls={enableControl}
             height={height}
             width={width}
           />
