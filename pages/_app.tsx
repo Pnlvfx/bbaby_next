@@ -1,12 +1,11 @@
 import '../styles/globals.css'
 import Head from 'next/head';
 import UserContext from '../components/auth/UserContext';
-import type { AppProps, NextWebVitalsMetric } from 'next/app'
+import type { AppProps } from 'next/app'
 import { AuthModalContextProvider } from '../components/auth/AuthModalContext';
 import {CommunityContextProvider} from '../components/community/CommunityContext';
 import CookieConsent from '../components/utils/validation/CookieConsent';
 import { TimeMsgContextProvider } from '../components/main/TimeMsgContext';
-import * as gtag from '../lib/gtag'
 
 const MyApp = ({ Component, pageProps: {session, ...pageProps}}: AppProps) => {
  
@@ -53,8 +52,8 @@ const MyApp = ({ Component, pageProps: {session, ...pageProps}}: AppProps) => {
 
 export default MyApp;
 
-export function reportWebVitals(metric: NextWebVitalsMetric) {
-  setTimeout(() => {
-    gtag.analyticsWebVitals({id:metric.id,name:metric.name,label:metric.label,value:metric.value})
-  },500)
-}
+// export function reportWebVitals(metric: NextWebVitalsMetric) {
+//   setTimeout(() => {
+//     gtag.analyticsWebVitals({id:metric.id,name:metric.name,label:metric.label,value:metric.value})
+//   },500)
+// }
