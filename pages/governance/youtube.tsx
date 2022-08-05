@@ -1,6 +1,5 @@
 import Youtube from '../../components/governance/youtube/Youtube'
-import axios from "axios";
-import { NextPage, NextPageContext } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import Layout from "../../components/main/Layout";
 import GovernanceCtrl from "../../components/governance/GovernanceCtrl";
 import Head from 'next/head';
@@ -30,20 +29,19 @@ const Governance: NextPage = () => {
 
 export default Governance;
 
-export async function getServerSideProps(context: NextPageContext) {
-  
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
-
-  const response =  await axios({
-    method: "get",
-    url: `${server}/user`,
-    headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
-    })
-    const session = response.data
+export const getServerSideProps: GetServerSideProps = async(context) => {
+  const server = process.env.NEXT_PUBLIC_SERVER_URL;
+  const headers = context?.req?.headers?.cookie ? { cookie: context.req.headers.cookie } : undefined;
+  const url = `${server}/user`
+  const response = await fetch(url, {
+    method: 'get',
+    headers
+  })
+  const session = await response.json();
 
   return {
     props: {
-      session: session,
-    }
+      session,
+    },
   }
 }

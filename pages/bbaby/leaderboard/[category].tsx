@@ -1,5 +1,4 @@
 import { GetServerSideProps, NextPage } from 'next';
-import axios from 'axios';
 import Head from 'next/head';
 import Layout from '../../../components/main/Layout';
 import Leaderboard from '../../../components/leaderboard/Leaderboard';
@@ -35,20 +34,21 @@ const CategoryPage:NextPage<Props> = ({category}) => {
 export default CategoryPage;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
-    const {category} = context.query;
-  
-    const response =  await axios({
-      method: "get",
-      url: `${server}/user`,
-      headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
-      })
-      const session = response.data
-  
-    return {
-      props: {
-        session,
-        category
-      }
-    }
+  const server = process.env.NEXT_PUBLIC_SERVER_URL;
+  const headers = context?.req?.headers?.cookie ? { cookie: context.req.headers.cookie } : undefined;
+  const url = `${server}/user`
+  const response = await fetch(url, {
+    method: 'get',
+    headers
+  })
+  const session = await response.json();
+
+  const {category} = context.query;
+
+  return {
+    props: {
+      session,
+      category
+    },
   }
+}

@@ -1,12 +1,11 @@
-import axios from 'axios'
-import { NextPageContext } from 'next'
+import { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import React from 'react'
 import GovernanceCtrl from '../../components/governance/GovernanceCtrl'
 import GovernanceMainMenù from '../../components/governance/GovernanceMainMenù'
 import Layout from '../../components/main/Layout'
 
-const AnalyticsPage = () => {
+const AnalyticsPage:NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   return (
     <div>
@@ -26,18 +25,19 @@ const AnalyticsPage = () => {
 
 export default AnalyticsPage;
 
-export async function getServerSideProps(context: NextPageContext) {
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
-  const response =  await axios({
-    method: "get",
-    url: `${server}/user`,
-    headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
-    })
-    const session = response.data
+export const getServerSideProps: GetServerSideProps = async(context) => {
+  const server = process.env.NEXT_PUBLIC_SERVER_URL;
+  const headers = context?.req?.headers?.cookie ? { cookie: context.req.headers.cookie } : undefined;
+  const url = `${server}/user`
+  const response = await fetch(url, {
+    method: 'get',
+    headers
+  })
+  const session = await response.json();
 
   return {
     props: {
-      session: session,
-    }
+      session,
+    },
   }
 }

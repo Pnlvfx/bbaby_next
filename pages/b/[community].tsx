@@ -3,8 +3,7 @@ import {useContext, useEffect} from 'react';
 import Layout from '../../components/main/Layout';
 import BoardHeader from '../../components/header/BoardHeader';
 import {CommunityContext, CommunityContextProps} from '../../components/community/CommunityContext';
-import axios from 'axios';
-import {NextPage, NextPageContext } from 'next';
+import {GetServerSideProps, NextPage } from 'next';
 import Feed from '../../components/post/Feed';
 import { useRouter } from 'next/router';
 
@@ -48,28 +47,29 @@ const CommunityPage: NextPage<CommunityPg> = ({community,posts}) => {
 
 export default CommunityPage;
 
-export const getServerSideProps = async(context: NextPageContext) => {
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
+export const getServerSideProps: GetServerSideProps = async(context) => {
+  const server = process.env.NEXT_PUBLIC_SERVER_URL;
+  const {community} = context.query;
+  const headers = context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined
+  const sessionUrl = `${server}/user`
+  const postsUrl = `${server}/posts?community=${community}&limit=15&skip=0`
 
-  const {query} = context
-  const {community} = query;
-
-  const res = await axios({
-    method: 'get',
-    url: `${server}/posts?community=${community}&limit=15&skip=0`,
-    headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
-  })
-  const posts = res.data
-
-  const response = await axios({
+  const response = await fetch(sessionUrl, {
     method: "get",
-    url: `${server}/user`,
-    headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
-    withCredentials:true})
-    const session = response.data
+    headers
+  })
+
+  const session = await response.json();
+
+  const res = await fetch(postsUrl, {
+    method: 'get',
+    headers
+  })
+  const posts = await res.json();
+
   return {
     props: {
-      session: session,
+      session,
       community,
       posts
     }

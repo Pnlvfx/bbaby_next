@@ -18,7 +18,7 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
   const router = useRouter()
   const [enableControl,setEnableControl] = useState(false) //ENABLE VIDEO CONTROL ON HOVER
 
-  let height: number | undefined = 0
+  let height = 0
   let width = 0
 
   if (post?.mediaInfo?.isImage || post?.mediaInfo?.isVideo) {
@@ -33,7 +33,6 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
           ups={post.ups}
           postId={post._id}
           liked={post.liked}
-          author={post.author}
         />
       </div>
       <div className="w-full p-2">
@@ -96,12 +95,16 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
           </div>
         )}
         {post?.mediaInfo?.isVideo && post?.mediaInfo?.video && (
-          <video onMouseOver={() => setEnableControl(true)}
+          <video 
+            onMouseOver={() => setEnableControl(true)}
+            onMouseOut={() => setEnableControl(false)}
             style={{backgroundColor: 'rgb(0,0,0)'}}
             className={`aspect-video`}
             src={post.mediaInfo.video.url}
             poster={post.mediaInfo.video.url.replace('mp4', 'jpg')}
             controls={enableControl}
+            autoPlay={true}
+            muted={true}
             height={height}
             width={width}
           />

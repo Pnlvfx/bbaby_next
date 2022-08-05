@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
-import { NextPage, NextPageContext } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import Layout from '../../../components/main/Layout';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import TempSubmitWid from '../../../components/widget/TempSubmitWid';
 import SubmitLayout from '../../../components/submit/SubmitLayout';
@@ -55,18 +54,19 @@ const SubmitPage:NextPage = () => {
 
 export default SubmitPage;
 
-export async function getServerSideProps(context: NextPageContext) {
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
+export const getServerSideProps: GetServerSideProps = async(context) => {
+  const server = process.env.NEXT_PUBLIC_SERVER_URL;
+  const headers = context?.req?.headers?.cookie ? { cookie: context.req.headers.cookie } : undefined;
+  const url = `${server}/user`
+  const response = await fetch(url, {
+    method: 'get',
+    headers
+  })
+  const session = await response.json();
 
-  const response = await axios({
-    method: "get",
-    url: `${server}/user`,
-    headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
-    withCredentials:true})
-    const session = response.data
   return {
     props: {
       session,
-    }
+    },
   }
 }

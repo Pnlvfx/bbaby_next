@@ -1,7 +1,8 @@
+import { NextPage } from 'next';
 import Head from 'next/head';
 import PoliciesLayout from '../../components/utils/policies/PoliciesLayout';
 
-function userAgreement() {
+const UserAgreementPage:NextPage = () => {
   return (
     <div>
       <Head>
@@ -15,4 +16,4 @@ function userAgreement() {
   )
 }
 
-export default userAgreement;
+export default UserAgreementPage;

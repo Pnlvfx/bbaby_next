@@ -1,5 +1,4 @@
-import axios from 'axios'
-import { NextPage, NextPageContext } from 'next'
+import { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import { useContext } from 'react'
 import UserContext from '../../components/auth/UserContext'
@@ -61,21 +60,19 @@ const ProfilePage:NextPage = () => {
 
 export default ProfilePage;
 
-export async function getServerSideProps(context: NextPageContext) {
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
-
-  const response = await axios({
+export const getServerSideProps: GetServerSideProps = async(context) => {
+  const server = process.env.NEXT_PUBLIC_SERVER_URL;
+  const headers = context?.req?.headers?.cookie ? { cookie: context.req.headers.cookie } : undefined;
+  const url = `${server}/user`
+  const response = await fetch(url, {
     method: 'get',
-    url: `${server}/user`,
-    headers: context?.req?.headers?.cookie
-      ? { cookie: context.req.headers.cookie }
-      : undefined,
-    withCredentials: true,
+    headers
   })
-  const session = await response.data
+  const session = await response.json();
+
   return {
     props: {
-      session: session,
+      session,
     },
   }
 }

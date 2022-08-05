@@ -1,11 +1,10 @@
-import axios from 'axios';
-import { NextPageContext } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import React from 'react'
 import Layout from '../../components/main/Layout';
 import MyNews from '../../components/mynews/MyNews';
 
-const MyNewsPage = () => {
+const MyNewsPage:NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const imagePreview = '/imagePreview.png'
   return (
@@ -48,18 +47,19 @@ const MyNewsPage = () => {
 export default MyNewsPage;
 
 
-export async function getServerSideProps(context: NextPageContext) {
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
+export const getServerSideProps: GetServerSideProps = async(context) => {
+  const server = process.env.NEXT_PUBLIC_SERVER_URL;
+  const headers = context?.req?.headers?.cookie ? { cookie: context.req.headers.cookie } : undefined;
+  const url = `${server}/user`
+  const response = await fetch(url, {
+    method: 'get',
+    headers
+  })
+  const session = await response.json();
 
-  const response = await axios({
-    method: "get",
-    url: `${server}/user`,
-    headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
-    withCredentials:true})
-    const session = response.data
   return {
     props: {
-      session: session,
-    }
+      session,
+    },
   }
 }

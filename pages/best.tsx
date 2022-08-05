@@ -1,6 +1,5 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import axios from 'axios'
 import Feed from '../components/post/Feed'
 import Layout from '../components/main/Layout'
 
@@ -39,30 +38,29 @@ const Home: NextPage<BestPg> = ({posts}) => {
 export default Home
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-  
   const server = process.env.NEXT_PUBLIC_SERVER_URL
+  const sessionUrl = `${server}/user`
+  const postUrl = `${server}/posts?limit=15&skip=0`
   const headers = context?.req?.headers?.cookie
-  ? { cookie: context.req.headers.cookie }
-  : undefined
+    ? { cookie: context.req.headers.cookie }
+    : undefined
 
-  const response =  await axios({
-    method: "get",
-    url: `${server}/user`,
+  const response = await fetch(sessionUrl, {
+    method: 'get',
     headers,
-    })
-    const session = response.data
+  })
+  const session = await response.json()
 
-    const res = await axios({
-      method: 'get',
-      url: `${server}/posts?limit=15&skip=0`,
-      headers,
-    })
-    const posts = res.data
+  const res = await fetch(postUrl, {
+    method: 'get',
+    headers,
+  })
+  const posts = await res.json();
 
   return {
     props: {
       session,
-      posts
-    }
+      posts,
+    },
   }
 }

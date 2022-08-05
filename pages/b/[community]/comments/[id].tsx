@@ -1,5 +1,4 @@
-import axios from 'axios';
-import type { NextPage, NextPageContext } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head';
 import { useEffect } from 'react';
 import { useContext } from 'react';
@@ -43,25 +42,25 @@ const IdPage: NextPage<PostIdPageProps> = ({post}) => {
 
 export default IdPage;
 
-export async function getServerSideProps(context: NextPageContext) {
+export const getServerSideProps: GetServerSideProps = async(context) => {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
-  const {query} = context
-  const headers = context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined
-  const {id} = query
-  //login
-  const response = await axios({
+  const {id} = context.query
+  const headers = context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined;
+  const sessionUrl = `${server}/user`
+  const postUrl = `${server}/posts/${id}`
+
+  const response = await fetch(sessionUrl, {
     method: "get",
-    url: `${server}/user`,
     headers,
   })
-    const session = response.data
+  
+  const session = await response.json();
 
-  const res = await axios({
+  const res = await fetch(postUrl, {
     method: 'get',
-    url: server+`/posts/${id}`,
     headers
   });
-  const post = res.data
+  const post = await res.json();
 
   return {
     props: {

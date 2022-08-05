@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { NextPageContext } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react'
@@ -8,7 +8,7 @@ import { NewsContextProvider } from '../../components/governance/news/NewsContex
 import NewsPage from '../../components/governance/news/NewsPage';
 import Layout from '../../components/main/Layout';
 
-const NewsPagee = () => {
+const NewsPagee:NextPage = () => {
     const router = useRouter()
     const hostname = process.env.NEXT_PUBLIC_HOSTNAME
     const [description,setDescription] = useState('')
@@ -55,18 +55,19 @@ const NewsPagee = () => {
 
 export default NewsPagee;
 
-export async function getServerSideProps(context: NextPageContext) {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
-    const response =  await axios({
-      method: "get",
-      url: `${server}/user`,
-      headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
-      })
-      const session = response.data
-  
-    return {
-      props: {
-        session: session,
-      }
-    }
+export const getServerSideProps: GetServerSideProps = async(context) => {
+  const server = process.env.NEXT_PUBLIC_SERVER_URL;
+  const headers = context?.req?.headers?.cookie ? { cookie: context.req.headers.cookie } : undefined;
+  const url = `${server}/user`
+  const response = await fetch(url, {
+    method: 'get',
+    headers
+  })
+  const session = await response.json();
+
+  return {
+    props: {
+      session,
+    },
+  }
 }

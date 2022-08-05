@@ -1,12 +1,12 @@
-import { useState, useRef, useContext, useEffect, ChangeEvent } from 'react'
-import { AiOutlinePlus } from 'react-icons/ai'
-import UserContext from '../../UserContext'
-import Image from 'next/image'
-import axios from 'axios'
+import { useState, useRef, useContext, useEffect, ChangeEvent } from 'react';
+import { AiOutlinePlus } from 'react-icons/ai';
+import UserContext from '../../UserContext';
+import Image from 'next/image';
+import axios from 'axios';
 import {
   TimeMsgContext,
   TimeMsgContextProps,
-} from '../../../main/TimeMsgContext'
+} from '../../../main/TimeMsgContext';
 
 const Profile = () => {
   const { session } = useContext(UserContext)
@@ -30,6 +30,8 @@ const Profile = () => {
       setChange(true)
     }
   }
+
+  
 
   useEffect(() => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL

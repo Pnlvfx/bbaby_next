@@ -25,7 +25,7 @@ const Home = () => {
       setPath(<span className="ml-2 text-sm font-bold">b/{router.query.community}</span>)
       setIcon(
         <div className='w-5 h-5 rounded-full bg-gray-800'>
-            <Image className='rounded-full' src={communityInfo.communityAvatar} alt='' height={20} width={20} />
+            {communityInfo.communityAvatar && <Image className='rounded-full' src={communityInfo.communityAvatar} alt='' height={20} width={20} />}
         </div>
       )
     }

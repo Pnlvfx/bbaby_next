@@ -1,23 +1,44 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { buttonClass } from "../../../utils/Button";
 import {RiArrowDropDownFill} from 'react-icons/ri'
 import Twitter from "../../providers/Twitter";
 import Reddit from "../../providers/Reddit";
 import { NextComponentType } from "next";
+import { TimeMsgContext, TimeMsgContextProps } from "../../../main/TimeMsgContext";
+import { useRouter } from "next/router";
 
 const Account:NextComponentType = () => {
 
   const [userInfo,setUserInfo] = useState<UserProps>({})
   const [loading,setLoading] = useState(true)
+  const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const router = useRouter();
+
+  const getUserInfo = async () => {
+    try {
+      const server = process.env.NEXT_PUBLIC_SERVER_URL;
+      const url = `${server}/user/about`
+      const res = await fetch(url, {
+        method: 'get',
+        credentials: 'include'
+      })
+      if (res.ok) {
+        const _userInfo = await res.json()
+        setUserInfo(_userInfo);
+        setLoading(false); 
+      } else {
+        const error = await res.json();
+        setMessage({value: error.msg, status: 'error'})
+        router.push('/')
+      }
+    } catch (err) {
+      console.log(err);
+      router.push('/');
+    }
+  }
 
   useEffect(() => {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
-    axios.get(`${server}/user/about`, {withCredentials:true})
-      .then(response => {
-        setUserInfo(response.data)
-        setLoading(false)
-      })
+    getUserInfo();
   }, [])
   
   const {email,country} = userInfo;

@@ -38,12 +38,13 @@ function PostForm({community}:PostFormProps) {
                 <form className='flex-grow bg-reddit_dark-brightest border border-reddit_border hover:border-reddit_text ml-4 mr-2 rounded-md'>
                     {session && (
                         <Link href={!community ? '/submit' : `/b/${community}/submit?community=${community}`} as={!community ? undefined : `${router.asPath}/submit`}>
-                        <a>
-                        <input 
-                            type='text' 
-                            className='bg-reddit_dark-brightest p-2 px-3 text-sm block w-full rounded-md placeholder:text-reddit_text-darker' 
-                            placeholder='Create Post'/>
-                        </a>
+                            <a>
+                                <input 
+                                    type='text' 
+                                    className='bg-reddit_dark-brightest p-2 px-3 text-sm block w-full rounded-md placeholder:text-reddit_text-darker' 
+                                    placeholder='Create Post'
+                                />
+                            </a>
                         </Link>
                     )}
                     {!session && (

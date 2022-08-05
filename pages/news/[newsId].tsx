@@ -1,5 +1,4 @@
-import axios from 'axios'
-import { NextPage, NextPageContext } from 'next'
+import { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import React from 'react'
 import Layout from '../../components/main/Layout'
@@ -58,28 +57,25 @@ const NewsIdPage: NextPage<NewsIdPageProps> = ({news}) => {
 
 export default NewsIdPage;
 
-export async function getServerSideProps(context: NextPageContext) {
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
-  const {query} = context
-  const headers = context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined
+export const getServerSideProps: GetServerSideProps = async(context) => {
+  const server = process.env.NEXT_PUBLIC_SERVER_URL;
+  const {query} = context;
+  const headers = context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined;
+  const sessionUrl = `${server}/user`;
 
-  const response = await axios({
+  const response = await fetch(sessionUrl, {
     method: 'get',
-    url: `${server}/user`,
-    headers: context?.req?.headers?.cookie
-      ? { cookie: context.req.headers.cookie }
-      : undefined,
-    withCredentials: true,
-  })
-  const session = response.data
-
-  const {newsId} = query
-  const res = await axios({
-    method: 'get',
-    url:`${server}/news/${newsId}`,
     headers
   })
-  const news = res.data
+  const session = await response.json();
+
+  const {newsId} = query;
+  const newsUrl = `${server}/news/${newsId}`
+  const res = await fetch(newsUrl, {
+    method: 'get',
+    headers
+  })
+  const news = await res.json();
   return {
     props: {
       session,

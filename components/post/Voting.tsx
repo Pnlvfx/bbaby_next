@@ -7,17 +7,16 @@ type Voting = {
   ups: number,
   postId: string,
   liked: string,
-  author: string
 }
 
-const Voting = ({ups,postId,liked,author}:Voting) => {
+const Voting = ({ups,postId,liked}:Voting) => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     let dir = 0  //vote
     const [upVote,setUpVote] = useState(ups)
-    const {setShow}:any = useContext(AuthModalContext) as AuthModalContextProps;
+    const {setShow} = useContext(AuthModalContext) as AuthModalContextProps;
     const [voted,setVoted] = useState(liked)   //true false or null
 
-    const refreshVote = async() => {
+    const refreshVote = async () => {
       try {
         const res = await axios.post(`${server}/posts/${postId}/vote`,{dir}, {withCredentials:true})
         if(dir === 1) {
@@ -25,20 +24,15 @@ const Voting = ({ups,postId,liked,author}:Voting) => {
             setVoted('null')  //if user have already voted
           } else {
             setVoted('true') //vote normall
-            // socket.emit("sendNotification", { // USE WITH AXIOS
-            //   userHasVoted: session.user.username,
-            //   toUser: author 
-            // })
           }
-          setUpVote(res.data.vote)
         } else {
           if(voted === 'false') {
             setVoted('null')
           } else {
             setVoted('false')
           }
-          setUpVote(res.data.vote)
         }
+        setUpVote(res.data.vote)
       } catch (err:any) {
         if(err.response.status === 401) {
           setShow('login');

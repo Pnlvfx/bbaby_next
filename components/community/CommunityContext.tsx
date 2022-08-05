@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useRouter } from "next/router";
 import { createContext, Dispatch, SetStateAction, useEffect, useState } from "react"
 
@@ -20,20 +19,28 @@ export const CommunityContextProvider = ({children}:CommunityContextProviderProp
     const [show,setShow] = useState(false);
     const [communityInfo,setCommunityInfo] = useState({});
     const [loading,setLoading] = useState(true);
+    const router = useRouter()
     
     const getCommunity = async (community:string) => {
         try {
             setLoading(true)
-            const server = process.env.NEXT_PUBLIC_SERVER_URL
-            const res = await axios.get(server+'/communities/'+community, {withCredentials:true})
-                setCommunityInfo(res.data);
+            const server = process.env.NEXT_PUBLIC_SERVER_URL;
+            const url = `${server}/communities/${community}`
+            const res = await fetch(url, {
+                method: 'get',
+                credentials: 'include'
+            })
+            if (res.ok) {
+                const data = await res.json();
+                setCommunityInfo(data);
                 setLoading(false)
+            } else {
+                setLoading(true);
+            }
         } catch (err) {
             setLoading(true)
         }
     }
-
-    const router = useRouter()
   
     useEffect(() => {
         if (!router.isReady) return

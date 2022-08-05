@@ -1,8 +1,9 @@
+import { NextPage } from 'next';
 import Head from 'next/head';
 import PoliciesLayout from '../../components/utils/policies/PoliciesLayout';
 import PrivacyPolicies from '../../components/utils/policies/PrivacyPolicies'
 
-function privacyPolicy() {
+const PrivacyPolicyPage:NextPage = () => {
   return (
       <div>
         <Head>
@@ -16,4 +17,4 @@ function privacyPolicy() {
   )
 }
 
-export default privacyPolicy;
+export default PrivacyPolicyPage;

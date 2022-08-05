@@ -1,7 +1,6 @@
 import UserSettings from '../../components/auth/usersettings/UserSettings'
 import Account from '../../components/auth/usersettings/each/Account'
-import { NextPage, NextPageContext } from 'next';
-import axios from 'axios';
+import { GetServerSideProps, NextPage } from 'next';
 import Layout from '../../components/main/Layout';
 import Head from 'next/head';
 import UserSecurity from '../../components/utils/security/UserSecurity';
@@ -62,18 +61,19 @@ const AccountPage:NextPage = () => {
 
 export default AccountPage;
 
-export async function getServerSideProps(context: NextPageContext) {
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
+export const getServerSideProps: GetServerSideProps = async(context) => {
+  const server = process.env.NEXT_PUBLIC_SERVER_URL;
+  const headers = context?.req?.headers?.cookie ? { cookie: context.req.headers.cookie } : undefined;
+  const url = `${server}/user`
+  const response = await fetch(url, {
+    method: 'get',
+    headers
+  })
+  const session = await response.json();
 
-  const response = await axios({
-    method: "get",
-    url: `${server}/user`,
-    headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
-    withCredentials:true})
-    const session = response.data
   return {
     props: {
-      session: session,
-    }
+      session,
+    },
   }
 }

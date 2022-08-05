@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import {useEffect, useState} from 'react'
 import Post from '../../components/post/Post' 
-import axios from "axios";
 import Layout from "../../components/main/Layout";
 import Head from "next/head";
 import { GetServerSideProps, NextPage } from "next";
@@ -54,19 +53,18 @@ const SearchResultPage:NextPage = () => {
 export default SearchResultPage;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-  
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
-
-  const response =  await axios({
-    method: "get",
-    url: `${server}/user`,
-    headers: context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined,
-    })
-    const session = response.data
+  const server = process.env.NEXT_PUBLIC_SERVER_URL;
+  const headers = context?.req?.headers?.cookie ? { cookie: context.req.headers.cookie } : undefined;
+  const url = `${server}/user`
+  const response = await fetch(url, {
+    method: 'get',
+    headers
+  })
+  const session = await response.json();
 
   return {
     props: {
       session,
-    }
+    },
   }
 }
