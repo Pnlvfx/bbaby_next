@@ -40,13 +40,9 @@ const AuthModal: NextComponentType = () => {
   const register = async () => {
     try {
       setLoading(true)
-      const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY
-      const userIpInfo = await axios.get(
-        `https://extreme-ip-lookup.com/json?key=${IP_API_KEY}`
-      )
-      const { country, countryCode, city, region, lat, lon } =
-      userIpInfo.data
-  
+      const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY;
+      const userIpInfo = await axios.get(`https://extreme-ip-lookup.com/json?key=${IP_API_KEY}`);
+      const { country, countryCode, city, region, lat, lon } =userIpInfo.data
       const data = {
         email,
         username,
@@ -65,7 +61,6 @@ const AuthModal: NextComponentType = () => {
           setShow('hidden')
           router.reload()
     } catch (err:any) {
-      console.log(err);
       err.response.data.msg &&
           setStatus({ err: err.response.data.msg, success: '' })
       setLoading(false)
@@ -83,7 +78,7 @@ const AuthModal: NextComponentType = () => {
       router.reload()
     } catch (err:any) {
       err.response.data.msg &&
-        setStatus({ err: err.response.data.msg, success: '' })
+        setStatus({ err: err.response.data.msg, success: ''})
         setLoading(false)
     }
   }
@@ -223,9 +218,7 @@ const AuthModal: NextComponentType = () => {
                   </div>
                 </>
               )}
-              {show === 'reset-your-password' && (
-                            <ResetYourPassword/>
-                        )}
+              {show === 'reset-your-password' && <ResetYourPassword/>}
             </div>
           </div>
           <div id="closeButton" className="mr-3 mt-3 h-7 w-7 text-right">

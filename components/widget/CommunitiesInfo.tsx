@@ -1,18 +1,17 @@
-import axios from 'axios'
-import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
-import { EditTextarea } from 'react-edit-text'
-import { buttonClass } from '../utils/Button'
+import axios from 'axios';
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
+import { EditTextarea } from 'react-edit-text';
+import { buttonClass } from '../utils/Button';
 import {
   MdOutlineAdminPanelSettings,
   MdOutlineModeEditOutline,
   MdDateRange
-} from 'react-icons/md'
-import moment from 'moment'
-import Link from 'next/link'
-import {AuthModalContext, AuthModalContextProps} from '../auth/AuthModalContext'
-import UserContext from '../auth/UserContext'
-import { CommunityContext, CommunityContextProps } from '../community/CommunityContext'
-import CategoriesDropdown from './community-info/CategoriesDropdown'
+} from 'react-icons/md';
+import Link from 'next/link';
+import {AuthModalContext, AuthModalContextProps} from '../auth/AuthModalContext';
+import UserContext from '../auth/UserContext';
+import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
+import CategoriesDropdown from './community-info/CategoriesDropdown';
 
 export interface CommunitiesInfoProps {
   isCategoryDropdownOpen? : boolean
@@ -28,6 +27,7 @@ const CommunitiesInfo = ({isCategoryDropdownOpen,setIsCategoryDropdownOpen}:Comm
   const [descr, setDescr] = useState('')
   const [commit, setCommit] = useState(false)
   const { setShow } = useContext(AuthModalContext) as AuthModalContextProps;
+  const [created,setCreated] = useState('')
 
   useEffect(() => {
     if (commit) {
@@ -46,6 +46,12 @@ const CommunitiesInfo = ({isCategoryDropdownOpen,setIsCategoryDropdownOpen}:Comm
     setCommit(true)
   }
   //
+
+  useEffect(() => {   //CONSTRUCT DATA
+    if (!communityInfo.createdAt) return;
+    const date = new Date(communityInfo.createdAt)
+    setCreated(date.toLocaleString('en-us', {day: 'numeric', month: 'short', year: 'numeric'}));
+  },[communityInfo.createdAt])
 
   return (
     <div className="mb-5 min-h-[320px] w-[310px] rounded-md border border-reddit_border bg-reddit_dark-brighter overflow-hidden">
@@ -90,10 +96,12 @@ const CommunitiesInfo = ({isCategoryDropdownOpen,setIsCategoryDropdownOpen}:Comm
         <p className='font-bold'>{communityInfo.subscribers}</p>
         <p className='font-bold text-xs'>Fans</p>
         <hr className="border-reddit_border"></hr>
+        {communityInfo.createdAt && 
         <div className="py-3 items-center space-x-2 w-full flex">
           <MdDateRange style={{width: 18,height: 18}} />
-          <p className='text-sm'>Created {moment(communityInfo.createdAt).format('MMM DD, YYYY')}</p>
+          <p className='text-sm'>Created {created}</p>
         </div>
+        }
         <hr className="border-reddit_border" />
       </div>
       {communityInfo.user_is_moderator && 

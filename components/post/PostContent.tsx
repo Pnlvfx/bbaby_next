@@ -84,20 +84,27 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
            : 
            <h1 className="whitespace-pre-wrap mb-4 break-words font-extrabold leading-6">{post.title}</h1>}
         {post?.mediaInfo?.isImage && post?.mediaInfo?.image && (
-          <div className="container max-h-[500px]">
+          <div className="max-h-[500px]">
             <Image
               src={`${post.mediaInfo.image}`}
               alt=""
               height={height}
               width={width}
-              objectFit={'contain'}
             />
           </div>
         )}
         {post?.mediaInfo?.isVideo && post?.mediaInfo?.video && (
           <video 
-            onMouseOver={() => setEnableControl(true)}
-            onMouseOut={() => setEnableControl(false)}
+            onMouseOver={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              setEnableControl(true)
+            }}
+            onMouseOut={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              setEnableControl(false)
+            }}
             style={{backgroundColor: 'rgb(0,0,0)'}}
             className={`aspect-video`}
             src={post.mediaInfo.video.url}
