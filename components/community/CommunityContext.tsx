@@ -44,7 +44,7 @@ export const CommunityContextProvider = ({children}:CommunityContextProviderProp
   
     useEffect(() => {
         if (!router.isReady) return
-      if (!router.query.community) {
+        if (!router.query.community) {
         setTimeout(() => {
             setCommunityInfo({})
         },450)

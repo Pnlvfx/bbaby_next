@@ -5,6 +5,7 @@ import LinkPreviewLoader from '../../utils/link-preview/LinkPreviewLoader'
 
 const GovNewsFeed = () => {
   const [urls, setUrls] = useState<string[] | []>([])
+  
   const getLinks = async () => {
     try {
       const server = process.env.NEXT_PUBLIC_SERVER_URL

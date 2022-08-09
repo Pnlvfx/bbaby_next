@@ -8,7 +8,7 @@ const Twitter = (userInfo:UserProps) => {
     const router = useRouter()
     const twitterAccount = userInfo.hasExternalAccount ? userInfo?.externalAccounts?.find((provider) => provider.provider === 'twitter') : undefined
 
-    const twitterLogin = async() => {
+    const twitterGetToken = async() => {
         try {
             const server = process.env.NEXT_PUBLIC_SERVER_URL
             const res = await axios({
@@ -41,13 +41,14 @@ const Twitter = (userInfo:UserProps) => {
 
     useEffect(() => {
         (async() => {
-            const {oauth_token, oauth_verifier} = router.query
+            const {oauth_token, oauth_verifier} = router.query;
+            const server = process.env.NEXT_PUBLIC_SERVER_URL;
+            const url = `${server}/twitter/oauth/access_token`;
             if (oauth_token && oauth_verifier) {
                 try {
-                    const server = process.env.NEXT_PUBLIC_SERVER_URL
                     await axios({
                         method: 'POST',
-                        url: `${server}/twitter/oauth/access_token`,
+                        url,
                         data: {oauth_token, oauth_verifier},
                         withCredentials:true
                     })
@@ -74,7 +75,7 @@ const Twitter = (userInfo:UserProps) => {
                 </div>
                  <div className="self-center mt-4">
                     <button onClick={() => {
-                        twitterLogin()
+                        twitterGetToken()
                     }} className="rounded-full px-4 py-[7px] text-sm font-bold bg-[#1D96E1] flex ml-auto">
                         <TwitterLogo />
                         <p className="self-center text-reddit_dark">Connect to Twitter</p>

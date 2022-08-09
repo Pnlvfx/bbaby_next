@@ -172,4 +172,5 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
   )
 }
 
-export default PostContent
+export default PostContent;
+

@@ -1,9 +1,9 @@
-import axios from "axios"
-import { useRouter } from "next/router"
-import { useEffect } from "react"
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Reddit = (userInfo:UserProps) => {
-    const redditAccount = userInfo.hasExternalAccount ? userInfo.externalAccounts?.find((provider: any) => provider.provider === 'reddit') : undefined
+    const redditAccount = userInfo.hasExternalAccount ? userInfo.externalAccounts?.find((provider) => provider.provider === 'reddit') : undefined
     const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID
     const uri = process.env.NEXT_PUBLIC_HOSTNAME + '/settings'    //reddit
     const router = useRouter()
@@ -13,11 +13,11 @@ const Reddit = (userInfo:UserProps) => {
     }
 
     useEffect(() => {
-        if (!router.isReady) return
-        if (!router.query.code && !router.query.state) return
-        const server = process.env.NEXT_PUBLIC_SERVER_URL
+        if (!router.isReady) return;
+        if (!router.query.code && !router.query.state) return;
+        const server = process.env.NEXT_PUBLIC_SERVER_URL;
         axios.get(`${server}/reddit_login?code=${router.query.code}`, {withCredentials:true}).then(response => {
-            
+            window.location.href = '/settings'
         })
     },[router.isReady, router.query.code, router.query.state])
 

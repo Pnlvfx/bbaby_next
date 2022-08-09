@@ -7,6 +7,7 @@ const GovernanceMainMenù = () => {
     { title: 'Youtube', url: '/governance/youtube' },
     { title: 'Twitter', url: '/governance/twitter' },
     { title: 'BBCNews', url: '/governance/news' },
+    { title: 'Reddit', url: '/governance/reddit' },
   ]
   const router = useRouter()
   const active = router.pathname.match('analytics')
@@ -17,6 +18,8 @@ const GovernanceMainMenù = () => {
     ? 2
     : router.pathname.match('news')
     ? 3
+    : router.pathname.match('reddit')
+    ? 4
     : 0
   return (
     <div

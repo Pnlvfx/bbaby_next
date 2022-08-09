@@ -6,7 +6,7 @@ type TweetPageProps = {
 }
 
 const Tweet = ({tweet,language}:TweetPageProps) => {
-  const postClasses = 'block border border-reddit_border rounded-md hover:border-reddit_text mb-3'
+  const postClasses = 'border border-reddit_border rounded-md hover:border-reddit_text mb-3'
   return (
       <div className={postClasses}>
           <TweetContent tweet={tweet} language={language} />

@@ -1,16 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Skeleton from './Skeleton';
 import { anonList, getMyListTweets } from './APItwitter';
 import Tweet from './Tweet';
 import TwMainMenu from './TwMainMenu';
+import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
 
 const Twitter = () => {
   const [tweets, setTweets] = useState<TweetProps[]>([])
   const [language, setLanguage] = useState('en')
+  const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
 
   useEffect(() => {
     getMyListTweets(anonList).then(res => {
-      setTweets(res)
+      setTweets(res.data)
+    }).catch((err) => {
+      err && err.response.data.msg && (
+        setMessage({value: err.response.data.msg, status: 'error'})
+      )
     })
   }, [])
 
