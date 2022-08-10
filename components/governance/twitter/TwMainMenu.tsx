@@ -1,6 +1,7 @@
 import { FaSpaceShuttle } from 'react-icons/fa'
-import { Dispatch, SetStateAction, useState } from 'react'
-import { anonList, bbabyList, getMyListTweets } from './APItwitter'
+import { Dispatch, SetStateAction, useContext, useState } from 'react'
+import { anonList, bbabyList, getMyListTweets, query } from './APItwitter'
+import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext'
 
 interface TwMainMenuProps {
   setLanguage: Dispatch<SetStateAction<string>>
@@ -9,17 +10,29 @@ interface TwMainMenuProps {
 
 const TwMainMenu = ({ setLanguage, setTweets }: TwMainMenuProps) => {
   const [active, setActive] = useState(0)
+  const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
+
+  const changeTweet = async (lang:string,list:query) => {
+    try {
+      setTweets([])
+      setLanguage(lang)
+      getMyListTweets(list).then(res => {
+        setTweets(res.data)
+        setActive(0)
+      })
+    } catch (err:any) {
+      err && err.response.data.msg && (
+        setMessage({value: err.response.data.msg, status: 'error'})
+      )
+    }
+  }
+
   return (
     <div className="">
       <div className="flex space-x-3 rounded-md border border-reddit_border bg-reddit_dark-brighter py-[13px] px-2">
         <button
           onClick={() => {
-            setTweets([])
-            setLanguage('en')
-            getMyListTweets(anonList).then(res => {
-              setTweets(res)
-              setActive(0)
-            })
+            changeTweet('en', anonList)
           }}
           className={`rounded-full py-1 px-3 hover:bg-reddit_dark-brightest ${
             active === 0 && 'bg-reddit_dark-brightest'
@@ -32,12 +45,7 @@ const TwMainMenu = ({ setLanguage, setTweets }: TwMainMenuProps) => {
         </button>
         <button
           onClick={() => {
-            setTweets([])
-            setLanguage('it')
-            getMyListTweets(bbabyList).then(res => {
-              setTweets(res)
-              setActive(1)
-            })
+            changeTweet('it', bbabyList)
           }}
           className={`rounded-full py-1 px-3 hover:bg-reddit_dark-brightest ${
             active === 1 && 'bg-reddit_dark-brightest'

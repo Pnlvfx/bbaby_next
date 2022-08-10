@@ -9,14 +9,33 @@ const Reddit = (userInfo:UserProps) => {
     const router = useRouter()
 
     const redditLogin = () => {
-        window.open(`https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&response_type=code&state=bbabystyle&redirect_uri=${uri}&duration=permanent&scope=identity,submit,save,vote`,'_self')
+        window.open(`https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&response_type=code&state=bbabystyle&redirect_uri=${uri}&duration=permanent&scope=*`,'_self')
+    }
+
+    const redditLogout = async () => {
+        try {
+            const server = process.env.NEXT_PUBLIC_SERVER_URL;
+            const url = `${server}/reddit_logout`;
+            const res = await fetch(url, {
+                method: 'get',
+                credentials: 'include',
+            })
+            if (res.ok) {
+                router.reload();
+            } else {
+
+            }
+        } catch (err:any) {
+            alert(err)
+        }
     }
 
     useEffect(() => {
         if (!router.isReady) return;
         if (!router.query.code && !router.query.state) return;
         const server = process.env.NEXT_PUBLIC_SERVER_URL;
-        axios.get(`${server}/reddit_login?code=${router.query.code}`, {withCredentials:true}).then(response => {
+        const url = `${server}/reddit_login?code=${router.query.code}`
+        axios.get(url, {withCredentials:true}).then(response => {
             window.location.href = '/settings'
         })
     },[router.isReady, router.query.code, router.query.state])
@@ -49,7 +68,7 @@ const Reddit = (userInfo:UserProps) => {
                         <div className="rounded-full px-4 py-[7px] text-xs ml-auto">
                             <p className="text-reddit_text-darker">@{redditAccount?.username}</p>
                             <button id="logout" title="logout" onClick={() => {
-                                
+                                redditLogout()
                             }} >
                                 <p className="self-center text-center text-reddit_orange mt-2">(disconnect)</p>
                             </button>

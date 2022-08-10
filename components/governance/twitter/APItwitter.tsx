@@ -11,7 +11,7 @@ export const bbabyList = {
   owner_screen_name: 'Bbabystyle',
 }
 
-interface query {
+export interface query {
   listId: string
   owner_screen_name: string
 }

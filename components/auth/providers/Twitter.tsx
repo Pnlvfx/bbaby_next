@@ -69,18 +69,14 @@ const Twitter = (userInfo:UserProps) => {
         <div id="twitter" className="mt-7">
             {!twitterAccount && (
                 <>
-                <div className="">
                     <p className="">Connect to Twitter</p>
-                    <h2 className="text-[11px] text-reddit_text-darker font-normal pt-[2px]">Connect a Twitter account to enable the choice to tweet your new posts and display a link on your profile. We will never post to Twitter without your permission.</h2>
-                </div>
-                 <div className="self-center mt-4">
+                    <p className="text-[11px] text-reddit_text-darker font-normal pt-[2px]">Connect a Twitter account to enable the choice to tweet your new posts and display a link on your profile. We will never post to Twitter without your permission.</p>
                     <button onClick={() => {
                         twitterGetToken()
-                    }} className="rounded-full px-4 py-[7px] text-sm font-bold bg-[#1D96E1] flex ml-auto">
+                    }} className="rounded-full px-4 py-[7px] text-sm font-bold bg-[#1D96E1] flex ml-auto mt-4">
                         <TwitterLogo />
                         <p className="self-center text-reddit_dark">Connect to Twitter</p>
                     </button>
-                </div>
                 </>
             )}
             {twitterAccount && (
@@ -90,7 +86,7 @@ const Twitter = (userInfo:UserProps) => {
                         <p className="">Connected to Twitter</p>
                         <h2 className="text-[11px] text-reddit_text-darker font-normal pt-[2px]">You can now choose to share your posts to Twitter from the new post composer.</h2>
                     </div>
-                    <div className="self-center ml-auto">
+                    <div className="ml-auto">
                         <div className="rounded-full px-4 py-[7px] text-xs ml-auto">
                         <p className="text-reddit_text-darker">@{twitterAccount?.username}</p>
                             <button id="logout" title="logout" onClick={() => {
@@ -107,4 +103,4 @@ const Twitter = (userInfo:UserProps) => {
   )
 }
 
-export default Twitter
+export default Twitter;

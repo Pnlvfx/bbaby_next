@@ -7,7 +7,7 @@ import Voting from './Voting';
 import { CommentIcon } from '../utils/SVG';
 import Link from 'next/link';
 import { isMobile } from 'react-device-detect';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type PostContentProps = {
   post: PostProps
