@@ -22,21 +22,3 @@ export const event = ({ action, category, label, value } : GTagEvent) => {
     value,
   });
 };
-
-type WebVitalsProps = {
-  id: string
-  name: string
-  label: string
-  value: number
-}
-
-export const analyticsWebVitals = ({id, name, label, value}:WebVitalsProps) => {
-  const {gtag} = window
-  gtag('event', name, {
-    event_category: 
-    label === 'web-vital' ? 'Web Vitals' : 'Bbaby costum metrics',
-    value: Math.round(name === 'CLS' ? value * 1000 : value),
-    event_label: id,
-    non_interaction: true,
-  })
-}
