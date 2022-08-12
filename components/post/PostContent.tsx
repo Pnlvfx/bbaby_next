@@ -36,7 +36,7 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
         />
       </div>
       <div className="w-full p-2">
-        <div id='post_header' className="mb-3 flex w-full items-center h-5">
+        <div className="mb-3 flex w-full items-center h-5">
           <Link href={`/b/${post.community}`}>
             <a
               onClick={(event) => {

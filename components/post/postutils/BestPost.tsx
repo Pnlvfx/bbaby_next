@@ -23,7 +23,7 @@ const BestPost = () => {
               setActive(0);
               router.push('/', '/best')
             }} className={`text-reddit_text-darker 
-            ${active === 0 && 'bg-reddit_dark-brightest font-bold text-white'} rounded-full py-1 px-3 hover:bg-reddit_dark-brightest flex items-center space-x-1`}>
+            ${active === 0 && 'bg-reddit_dark-brightest font-bold text-reddit_text'} rounded-full py-1 px-3 hover:bg-reddit_dark-brightest flex items-center space-x-1`}>
               <FaSpaceShuttle className="h-5 w-5 -rotate-90" />
               <p className="text-sm">Best</p>
             </a>
