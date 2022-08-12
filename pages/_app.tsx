@@ -1,13 +1,14 @@
 import '../styles/globals.css'
 import Head from 'next/head';
 import UserContext from '../components/auth/UserContext';
-import type { AppProps } from 'next/app'
+import type { AppProps, NextWebVitalsMetric } from 'next/app'
 import { AuthModalContextProvider } from '../components/auth/AuthModalContext';
 import {CommunityContextProvider} from '../components/community/CommunityContext';
 import CookieConsent from '../components/utils/validation/CookieConsent';
 import { TimeMsgContextProvider } from '../components/main/TimeMsgContext';
 import GoogleAdsense from '../components/google/GoogleAdsense';
 import { useRouter } from 'next/router';
+import { analyticsWebVitals } from '../lib/gtag';
 
 const MyApp = ({ Component, pageProps: {session, ...pageProps}}: AppProps) => {
   const router = useRouter();
@@ -52,3 +53,9 @@ const MyApp = ({ Component, pageProps: {session, ...pageProps}}: AppProps) => {
 }
 
 export default MyApp;
+
+export const reportWebVitals = (metric: NextWebVitalsMetric) => {
+  const production = process.env.NODE_ENV === 'production' ? true : false
+  production && 
+  analyticsWebVitals({id:metric.id,name:metric.name,label:metric.label,value:metric.value})
+}

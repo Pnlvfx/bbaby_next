@@ -17,11 +17,7 @@ const GoogleAnalytics = () => {
       router.events.off('hashChangeComplete', handleRouteChange)
     }
   },[router.events])
-
-  useEffect(() => {
-    gtag.analyticsWebVitals()
-  },[])
-
+  
   return (
     <>
       <Script
