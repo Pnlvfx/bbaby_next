@@ -7,9 +7,12 @@ import {CommunityContextProvider} from '../components/community/CommunityContext
 import CookieConsent from '../components/utils/validation/CookieConsent';
 import { TimeMsgContextProvider } from '../components/main/TimeMsgContext';
 import GoogleAdsense from '../components/google/GoogleAdsense';
+import { useRouter } from 'next/router';
 
 const MyApp = ({ Component, pageProps: {session, ...pageProps}}: AppProps) => {
+  const router = useRouter();
   const production = process.env.NODE_ENV === 'production' ? true : false
+  const pathNotUsed = router.pathname.includes('activation') ? true : false
   return (
     <>
       <Head>
@@ -33,7 +36,7 @@ const MyApp = ({ Component, pageProps: {session, ...pageProps}}: AppProps) => {
           <AuthModalContextProvider>
               <CommunityContextProvider>
                 <TimeMsgContextProvider>
-                  {production && (
+                  {production && !pathNotUsed && (
                     <>
                     <GoogleAdsense />
                     <CookieConsent />
