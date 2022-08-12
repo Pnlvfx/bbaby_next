@@ -1,7 +1,7 @@
 export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID
 
 export const pageview = (url:URL) => {
-  const {gtag}:any = window
+  const {gtag} = window
   gtag('config', GA_TRACKING_ID, {
     page_path: url,
   });
@@ -14,12 +14,12 @@ type GTagEvent = {
   value: number
 }
 
-export const event = ({ action, category, label, value }:GTagEvent) => {
-  const {gtag}:any = window
+export const event = ({ action, category, label, value } : GTagEvent) => {
+  const {gtag} = window
   gtag("event", action, {
     event_category: category,
     event_label: label,
-    value: value,
+    value,
   });
 };
 
@@ -31,7 +31,7 @@ type WebVitalsProps = {
 }
 
 export const analyticsWebVitals = ({id, name, label, value}:WebVitalsProps) => {
-  const {gtag}:any = window
+  const {gtag} = window
   gtag('event', name, {
     event_category: 
     label === 'web-vital' ? 'Web Vitals' : 'Bbaby costum metrics',

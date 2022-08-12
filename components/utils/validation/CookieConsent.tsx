@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import GoogleAnalytics from '../../google/GoogleAnalytics'
 
 const CookieConsent = () => {
@@ -26,13 +26,11 @@ const CookieConsent = () => {
   }
 
   useEffect(() => {
-    setTimeout(() => {
-        const check = checkIfCookieExist()
-        if (check === undefined) {
-            setShow(true)
-        }
-    },100)
-  }, [])
+    const check = checkIfCookieExist()
+    if (check === undefined) {
+        setShow(true)
+    }
+  }, [show])
 
   return (
     <>

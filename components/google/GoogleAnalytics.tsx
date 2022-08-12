@@ -1,8 +1,7 @@
-import { NextWebVitalsMetric } from "next/app"
 import { useRouter } from "next/router"
 import Script from "next/script"
 import { useEffect } from "react"
-import * as gtag from '../../lib/gtag'
+import * as gtag from '../../lib/gtag';
 
 const GoogleAnalytics = () => {
   const router = useRouter()
@@ -18,6 +17,10 @@ const GoogleAnalytics = () => {
       router.events.off('hashChangeComplete', handleRouteChange)
     }
   },[router.events])
+
+  useEffect(() => {
+    gtag.analyticsWebVitals()
+  },[])
 
   return (
     <>
@@ -44,7 +47,7 @@ const GoogleAnalytics = () => {
   )
 }
 
-export default GoogleAnalytics
+export default GoogleAnalytics;
 
 export function useAppInit() {
   throw new Error('Function not implemented.')

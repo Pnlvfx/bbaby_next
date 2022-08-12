@@ -6,9 +6,10 @@ import { AuthModalContextProvider } from '../components/auth/AuthModalContext';
 import {CommunityContextProvider} from '../components/community/CommunityContext';
 import CookieConsent from '../components/utils/validation/CookieConsent';
 import { TimeMsgContextProvider } from '../components/main/TimeMsgContext';
+import GoogleAdsense from '../components/google/GoogleAdsense';
 
 const MyApp = ({ Component, pageProps: {session, ...pageProps}}: AppProps) => {
- 
+  const production = process.env.NODE_ENV === 'production' ? true : false
   return (
     <>
       <Head>
@@ -28,32 +29,23 @@ const MyApp = ({ Component, pageProps: {session, ...pageProps}}: AppProps) => {
         <meta name="twitter:creator" content="@Bbabystyle" />
         <meta name='theme-color' content='#1a1a1b' />
       </Head>
-      {/* <Script 
-        id='Adsense-id'
-        data-ad-client='ca-pub-7203519143982992'
-        async
-        strategy="afterInteractive"
-        onError={ (e) => { console.error('Script failed to load', e) }}
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-        crossOrigin="anonymous" /> */}
-    <UserContext.Provider value={{session}}>
-        <AuthModalContextProvider>
-            <CommunityContextProvider>
-              <TimeMsgContextProvider>
-                <CookieConsent />
-                <Component {...pageProps}/>
-              </TimeMsgContextProvider>
-          </CommunityContextProvider>
-        </AuthModalContextProvider>
-    </UserContext.Provider>
+      <UserContext.Provider value={{session}}>
+          <AuthModalContextProvider>
+              <CommunityContextProvider>
+                <TimeMsgContextProvider>
+                  {production && (
+                    <>
+                    <GoogleAdsense />
+                    <CookieConsent />
+                    </>
+                  )}
+                  <Component {...pageProps}/>
+                </TimeMsgContextProvider>
+            </CommunityContextProvider>
+          </AuthModalContextProvider>
+      </UserContext.Provider>
     </>
   )
 }
 
 export default MyApp;
-
-// export function reportWebVitals(metric: NextWebVitalsMetric) {
-//   setTimeout(() => {
-//     gtag.analyticsWebVitals({id:metric.id,name:metric.name,label:metric.label,value:metric.value})
-//   },500)
-// }

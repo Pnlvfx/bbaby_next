@@ -47,6 +47,19 @@ const PrivacyPolicies = () => {
     },
   ]
 
+  const content3 = [
+    {
+      title: 'Linked services',
+      body: 'If you authorize or link a third-party service (e.g., an unofficial mobile app client) to access your Bbaby account, Bbaby receives information about your use of that service when it uses that authorization. Linking services may also cause the other service to send us information about your account with that service. For example, if you sign in to Bbaby with a third-party identity provider, that provider may share an email address with us. Information sharing with linked services is described later in this section.',
+      key: 1,
+    },
+    {
+      title: 'Information collected from integrations',
+      body: `We also may receive information about you, including log and usage data and cookie information, from third-party sites that integrate our Services, including our embeds and advertising technology. For example, when you visit a site that uses Bbaby embeds, we may receive information about the web page you visited. Similarly, if an advertiser incorporates Bbaby’s ad technology, Bbaby may receive limited information about your activity on the advertiser’s site or app, such as whether you bought something from the advertiser. You can control how we use this information to personalize the Services for you as described in Your Choices - Controlling Advertising and Analytics below.`,
+      key: 2,
+    }
+  ]
+
   return (
     <div className=" justify-center py-8 md:flex">
       <div className="sticky w-full flex-none pt-10 font-bold md:w-[35%] lg:w-[22%]">
@@ -84,6 +97,12 @@ const PrivacyPolicies = () => {
           header="Information We Collect Automatically"
           underHeader="When you access or use our Services, we may also automatically collect information about you. This includes:	"
           content={content2}
+        />
+        <PoliciesTab
+          header="Information We Collect From Other Sources"
+          underHeader="We may receive information about you from other sources, including from other users and third parties, and combine that information with the other information we have about you. For example, we may receive demographic or interest information about you from third parties, including advertisers (such as the fact that an advertiser is interested in showing you an ad), and combine it with our own data using a common account identifier such as a hash of an email address or a mobile-device ID. You can control how we use this information to personalize the Services for you as described in Your Choices - Controlling Advertising and Analytics below.
+          "
+          content={content3}
         />
       </div>
     </div>

@@ -26,7 +26,9 @@ const LinkPreview = ({url,index}:LinkPreviewInputProps) => {
 
 
   return (
-    <div className='border border-reddit_border rounded-md mb-3 bg-reddit_dark-brighter xl:mx-2 max-w-[700px] h-[550px] overflow-clip'>
+    <>
+    {news && news.image && news.title && (
+        <div className='border border-reddit_border rounded-md mb-3 bg-reddit_dark-brighter xl:mx-2 max-w-[700px] h-[550px] overflow-clip'>
         <Link href={`/governance/${index}?url=${url}&imageUrl=${news.image}&title=${news.title}`}>
             <a>
                 <div className='p-2'>
@@ -43,6 +45,8 @@ const LinkPreview = ({url,index}:LinkPreviewInputProps) => {
             </a>
         </Link>
     </div>
+    )}
+    </>
   )
 }
 

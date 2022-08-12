@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 import PoliciesLayout from '../../components/utils/policies/PoliciesLayout';
+import UserAgreement from '../../components/utils/policies/UserAgreement';
 
 const UserAgreementPage:NextPage = () => {
   return (
@@ -10,7 +11,7 @@ const UserAgreementPage:NextPage = () => {
         <link rel="icon" href="/favicon.ico"/>
       </Head>
       <PoliciesLayout>
-
+        <UserAgreement />
       </PoliciesLayout>
     </div>
   )
