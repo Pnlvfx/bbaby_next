@@ -86,6 +86,9 @@ function Header() {
         <div id='user_dropdown' className='h-[44px] mt-1 mb-1 lg:ml-2'>
           <ClickOutHandler onClickOut={() => setShowDropdown(false)}>
             <button
+            aria-expanded='false'
+            aria-haspopup='true'
+            id='USER_DROPDOWN'
               className="flex items-center h-[44px] border border-transparent hover:border-reddit_border rounded-md"
               onClick={() => setShowDropdown(!showDropdown)}
             >
