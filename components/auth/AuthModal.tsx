@@ -1,19 +1,19 @@
 import axios from 'axios';
-import { useState, useContext, useEffect, FormEvent } from 'react'
-import {AuthModalContext, AuthModalContextProps} from './AuthModalContext'
-import { buttonClass, Spinner } from '../utils/Button'
-import { showErrMsg } from '../utils/validation/Notification'
-import NewEmailNotif from './NewEmailNotif'
-import ResetYourPassword from './ResetYourPassword'
-import Google from './Google'
-import Link from 'next/link'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-import UserPreferencesModal from '../user/UserPreferencesModal'
-import AuthImage from '../../public/authImage.png'
-import { CloseIcon } from '../utils/SVG'
-import { NextComponentType } from 'next'
-import { authInput } from './authInput'
+import { useState, useContext, useEffect, FormEvent } from 'react';
+import {AuthModalContext, AuthModalContextProps} from './AuthModalContext';
+import { buttonClass, Spinner } from '../utils/Button';
+import { showErrMsg } from '../utils/validation/Notification';
+import NewEmailNotif from './NewEmailNotif';
+import ResetYourPassword from './ResetYourPassword';
+import Google from './Google';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import UserPreferencesModal from '../user/UserPreferencesModal';
+import AuthImage from '../../public/authImage.png';
+import { CloseIcon } from '../utils/SVG';
+import { NextComponentType } from 'next';
+import { authInput } from './authInput';
 
 const AuthModal: NextComponentType = () => {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
@@ -41,8 +41,12 @@ const AuthModal: NextComponentType = () => {
     try {
       setLoading(true)
       const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY;
-      const userIpInfo = await axios.get(`https://extreme-ip-lookup.com/json?key=${IP_API_KEY}`);
-      const { country, countryCode, city, region, lat, lon } =userIpInfo.data
+      const IPUrl = `https://extreme-ip-lookup.com/json?key=${IP_API_KEY}`
+      const res1 = await fetch(IPUrl, {
+        method: 'get',
+      });
+      const userIpInfo = await res1.json();
+      const { country, countryCode, city, region, lat, lon } = userIpInfo
       const data = {
         email,
         username,
@@ -54,7 +58,13 @@ const AuthModal: NextComponentType = () => {
         lat,
         lon,
       }
-      const res = await axios.post(server + '/register', data, { withCredentials: true })
+      const url = `${server}/register`
+      const res2 = await axios({
+        method: 'post',
+        url,
+        data,
+        withCredentials: true
+        })
           setStatus({ err: '', success: 'registration completed' })
           localStorage.setItem('isLogged', 'true')
           setEmailTo(email)

@@ -1,18 +1,27 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext'
 import LinkPreview from '../../utils/link-preview/LinkPreview'
 import LinkPreviewLoader from '../../utils/link-preview/LinkPreviewLoader'
 
 const GovNewsFeed = () => {
   const [urls, setUrls] = useState<string[] | []>([])
+  const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
   
   const getLinks = async () => {
     try {
-      const server = process.env.NEXT_PUBLIC_SERVER_URL
-      const res = await axios.get(`${server}/governance/BBCnews`, {
-        withCredentials: true,
+      const server = process.env.NEXT_PUBLIC_SERVER_URL;
+      const url = `${server}/governance/BBCnews`
+      const res = await fetch(url, {
+      method: 'get',
+      credentials: 'include'
       })
-      setUrls(res.data)
+      if (res.ok) {
+        const newsss = await res.json()
+        setUrls(newsss)
+      } else {
+        const error = await res.json();
+        setMessage({value: error.msg, status: 'error', time: 40000})
+      }
     } catch (err) {
       
     }

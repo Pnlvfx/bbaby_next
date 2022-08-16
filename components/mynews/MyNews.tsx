@@ -8,7 +8,7 @@ const MyNews = () => {
 
 
   const getNews = async () => {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
+    const server = process.env.NEXT_PUBLIC_SERVER_URL;
     const res = await axios.get(`${server}/news`, {withCredentials: true});
     setNews(res.data);
   }

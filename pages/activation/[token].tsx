@@ -16,6 +16,7 @@ function ActivationEmail() {
             if(!router.isReady) return;
             if(activation_token){
                 const server = process.env.NEXT_PUBLIC_SERVER_URL
+                
                 const activationEmail = async () => {
                     try {
                         const res = await axios.post(server+'/activation', {activation_token} )

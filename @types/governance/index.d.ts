@@ -1,8 +1,8 @@
 interface InputProps {
-    images: Array
+    images: Array<any>
     video: string
-    localImages: Array
-    audio: Array
+    localImages: Array<any>
+    audio: Array<any>
     finalAudio: string
     height: number
     width: number
@@ -43,3 +43,11 @@ type VideoOptionsProps = {
   }
 
   type modalType = 'create_image' | 'create_video'
+
+
+  type ValueProps = {
+    textColor: string
+    community: string
+    fontSize: string
+    format: string
+  }

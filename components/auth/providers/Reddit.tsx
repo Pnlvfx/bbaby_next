@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
@@ -30,14 +29,26 @@ const Reddit = (userInfo:UserProps) => {
         }
     }
 
+    const getCredentials = async () => {
+        try {
+            const server = process.env.NEXT_PUBLIC_SERVER_URL;
+            const url = `${server}/reddit_login?code=${router.query.code}`
+            const res = await fetch(url ,{
+                method: 'get',
+                credentials: 'include'
+            })
+            if (res.ok) {
+                const redirect = window.location.href = '/settings'
+            }
+        } catch (err) {
+            
+        }
+    }
+
     useEffect(() => {
         if (!router.isReady) return;
         if (!router.query.code && !router.query.state) return;
-        const server = process.env.NEXT_PUBLIC_SERVER_URL;
-        const url = `${server}/reddit_login?code=${router.query.code}`
-        axios.get(url, {withCredentials:true}).then(response => {
-            window.location.href = '/settings'
-        })
+        getCredentials()
     },[router.isReady, router.query.code, router.query.state])
 
     return (

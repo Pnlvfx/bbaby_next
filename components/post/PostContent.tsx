@@ -7,7 +7,7 @@ import Voting from './Voting';
 import { CommentIcon } from '../utils/SVG';
 import Link from 'next/link';
 import { isMobile } from 'react-device-detect';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 type PostContentProps = {
   post: PostProps
@@ -84,7 +84,7 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
            : 
            <h1 className="whitespace-pre-wrap mb-4 break-words font-extrabold leading-6">{post.title}</h1>}
         {post?.mediaInfo?.isImage && post?.mediaInfo?.image && (
-          <div className="max-h-[500px]">
+          <div className="max-h-[500px] overflow-hidden">
             <Image
               src={`${post.mediaInfo.image}`}
               alt=""

@@ -5,11 +5,10 @@ import { buttonClass, Spinner } from '../../utils/Button'
 
 type UploadVideoProps = {
     input: InputProps
-    setInput: SetStateAction<any>
     setModalType: SetStateAction<any>
 }
 
-const UploadVideo = ({input,setInput,setModalType}:UploadVideoProps) => {
+const UploadVideo = ({input,setModalType}:UploadVideoProps) => {
     const [loading,setLoading] = useState(false)
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;

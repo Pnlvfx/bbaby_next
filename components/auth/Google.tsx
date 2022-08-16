@@ -17,14 +17,16 @@ function Google({setLoading}:GoogleProps) {
       try {
         setLoading(true)
         const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY
-        const userIpInfo = await axios.get(`https://extreme-ip-lookup.com/json?key=${IP_API_KEY}`)
-        const {country,countryCode,city,region,lat,lon} = await userIpInfo.data
-        // data: {country,countryCode,city,region}
-
-        const res = await axios.post(server+'/google_login', {tokenId: response.credential, data: {country,countryCode,city,region,lat,lon}},{withCredentials:true})
+        const url = `https://extreme-ip-lookup.com/json?key=${IP_API_KEY}`
+        const res1 = await fetch(url, {
+          method: 'get',
+        })
+        const userIpInfo = await res1.json();
+        const {country,countryCode,city,region,lat,lon} = await userIpInfo
+        const res2 = await axios.post(server+'/google_login', {tokenId: response.credential, data: {country,countryCode,city,region,lat,lon}}, {withCredentials:true})
         localStorage.setItem('isLogged', 'true')
         modalContext.setShow('hidden')
-        if(res.data.msg === "newUser") {
+        if(res2.data.msg === "newUser") {
           localStorage.setItem('firstLogin', 'true')
           router.reload()
         } else {

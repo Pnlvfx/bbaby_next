@@ -1,5 +1,3 @@
-import axios from "axios"
-
 const server = process.env.NEXT_PUBLIC_SERVER_URL
 
 export const getPosts = async(input:string | undefined,value:string | undefined,skip:number) => {
@@ -7,16 +5,21 @@ export const getPosts = async(input:string | undefined,value:string | undefined,
     if (input !== undefined && value !== undefined) {
         url = `${server}/posts?${input}=${value}&limit=10&skip=${skip}`
     }
-    const posts = await axios({
+    const res = await fetch(url, {
         method: 'get',
-        url: url,
-        withCredentials:true
+        credentials: 'include'
     })
+    const posts = res.json();
     return posts
 }
 
 
 export const getPost = async (postId:string | string[]) => {
-    const res = await axios.get(`${server}/posts/${postId}`, {withCredentials:true})
-    return res.data as PostProps;
+    const url = `${server}/posts/${postId}`
+    const res = await fetch(url, {
+        method: 'get',
+        credentials: 'include'
+        })
+        const post = await res.json()
+    return post as PostProps;
   }

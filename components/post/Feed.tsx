@@ -44,7 +44,7 @@ const Feed = ({posts:ssrPost,community,author}:FeedProps) => {
     const input = community ? 'community' : author ? 'author' : undefined
     const value = community ? community : author ? author : undefined
       const res = await getPosts(input,value,posts.length)
-      const newPosts = res.data
+      const newPosts = res
       setPosts([...posts, ...newPosts])
   };
   //

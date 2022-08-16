@@ -47,7 +47,7 @@ const Youtube = () => {
       }
     } else {
       getOneNews(router.query.newsId.toString()).then((res) => {
-        setNews(res.data);
+        setNews(res);
     })
     }
   }, [router])
@@ -103,7 +103,6 @@ const Youtube = () => {
           )}
           <UploadVideo
             input={input}
-            setInput={setInput}
             setModalType={setModalType}
           />
           <hr className="border-reddit_border" />
