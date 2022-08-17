@@ -18,12 +18,8 @@ const CookieConsent = () => {
       const cookiePair = cookieArray[i].split('=')
       if ('eu_cookie' == cookiePair[0].trim()) {
         return decodeURIComponent(cookiePair[1])
-      } else return undefined
+      }
     }
-  }
-
-  const getCookie = (name:string) => {
-    document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || undefined
   }
 
   useEffect(() => {
