@@ -10,7 +10,6 @@ const Governance: NextPage = () => {
     <>
       <Head>
         <title>Bbabystyle - authority page</title>
-        <link rel="icon" href="/favicon.ico"/>
         <link rel='canonical' href={`${hostname}/governance`} key='canonical' />
       </Head>
         <Layout>

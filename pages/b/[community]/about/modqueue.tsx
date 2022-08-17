@@ -8,7 +8,6 @@ const ModqueuePage:NextPage = () => {
     <div>
       <Head>
         <title>Bbabystyle - community admin page </title>
-        <link rel="icon" href="/favicon.ico"/>
       </Head>
       <Layout>
         <Modqueque />

@@ -11,7 +11,6 @@ const govNewsPage:NextPage = () => {
     <div>
         <Head>
         <title>Bbabystyle - authority page</title>
-        <link rel="icon" href="/favicon.ico"/>
         <link rel='canonical' href={`${hostname}/governance/news`} key='canonical' />
       </Head>
         <Layout>

@@ -1,5 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
+import { useContext } from "react";
+import UserContext from "../../components/auth/UserContext";
 import Layout from "../../components/main/Layout";
 import Feed from "../../components/post/Feed";
 import AuthorHeaderPage from "../../components/user/AuthorHeaderPage";
@@ -14,36 +16,24 @@ const Username:NextPage<AuthorPg> = ({author,posts}) => {
   const title = `${author}`
   const description = `${author}`
   const url = `${hostname}/user/${author}`
+  const {session} = useContext(UserContext) as SessionProps;
+  const imagePreview = session?.user.avatar
+  const card = 'summary_large_image';
 
   return (
    <div>
      <Head>
-      <title>{title} (u/{title}) - Bbabystyle</title>
-      <link rel="icon" href="/favicon.ico" />
-        <meta
-          property="og:title"
-          content={title}
-          key="ogtitle"
-        />
-        <meta name="description" content={description} />
-        <meta
-          property="og:description"
-          content={description}
-          key="ogdesc"
-        />
-        <meta
-          property="og:image"
-          content={hostname}
-          key="ogimage"
-        />
-        <meta property="og:url" content={url} key="ogurl" />
-        <meta property="og:type" content="profile" key="ogtype" />
-        <meta name="twitter:card" content="summary" key="twcard" />
-        <meta
-          name="twitter:image:alt"
-          content=""
-        />
-        <link rel="canonical" href={url} key="canonical" />
+      <title>{title}</title>
+      <meta name="description" content={description} key={'description'} />
+      <meta property='og:ttl' content='600' key={'ogttl'} />
+      <meta property="og:site_name" content="bbabystyle" key={'ogsite_name'} />
+      <meta property="twitter:card" content={card} key="twcard" />
+      <meta property="og:title" content={title} key="ogtitle" />
+      <meta property="og:description" content={description} key="ogdesc" />
+      <meta property="og:image" content={imagePreview} key="ogimage" />
+      <meta property="og:url" content={url} key="ogurl" />
+      <meta property="og:type" content="website" key="ogtype" />
+      <link rel='canonical' href={url} key='canonical' />
      </Head>
      <Layout>
       <AuthorHeaderPage />

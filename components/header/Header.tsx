@@ -1,26 +1,25 @@
-import { useContext } from 'react'
-import { PlusIcon, UserIcon } from '@heroicons/react/outline'
-import Link from 'next/link'
-import { useState } from 'react'
-import { buttonClass } from '../utils/Button'
-import {AuthModalContext, AuthModalContextProps} from '../auth/AuthModalContext'
-import ClickOutHandler from 'react-clickout-ts'
-import UserMenu from './UserMenu'
-import NotUserMenu from './NotUserMenu'
-import Image from 'next/image'
-import UserContext from '../auth/UserContext'
-import Logo from '../../public/logo.png'
-import { TextLogo } from '../utils/SVG'
-import { RiArrowDownSLine } from 'react-icons/ri'
-import { TbBabyCarriage } from 'react-icons/tb'
-import NotificationButton from '../notifications/NotificationButton'
-import Home from './Home'
-import SearchBar from './search/SearchBar'
+import { useContext, useState } from 'react';
+import { PlusIcon, UserIcon } from '@heroicons/react/outline';
+import Link from 'next/link';
+import { buttonClass } from '../utils/Button';
+import {AuthModalContext, AuthModalContextProps} from '../auth/AuthModalContext';
+import ClickOutHandler from 'react-clickout-ts';
+import UserMenu from './UserMenu';
+import NotUserMenu from './NotUserMenu';
+import Image from 'next/image';
+import UserContext from '../auth/UserContext';
+import Logo from '../../public/logo.png';
+import { TextLogo } from '../utils/SVG';
+import { RiArrowDownSLine } from 'react-icons/ri';
+import { TbBabyCarriage } from 'react-icons/tb';
+import NotificationButton from '../notifications/NotificationButton';
+import Home from './Home';
+import SearchBar from './search/SearchBar';
+import { NextComponentType } from 'next';
 
-function Header() {
-  const { session } = useContext(UserContext)
+const Header:NextComponentType = () => {
   const [showDropdown, setShowDropdown] = useState(false)
-  const height = 48
+  const { session } = useContext(UserContext) as SessionProps;
   const boxIconSize = 32
 
   const className = {
@@ -33,7 +32,7 @@ function Header() {
     <header
       id="myHeader"
       className={`sticky top-0 z-30 border-b border-reddit_border bg-reddit_dark-brighter`}
-      style={{ height }}
+      style={{ height: 48 }}
     >
       <div className="mx-1 flex h-full items-center lg:mx-3">
         <Link href={'/'}>
@@ -43,6 +42,7 @@ function Header() {
               alt="logo"
               height={boxIconSize}
               width={boxIconSize}
+              placeholder='blur'
             />
             <div className="hidden lg:block">
               <TextLogo />
@@ -83,7 +83,7 @@ function Header() {
             </button>
           </div>
         )}
-        <div id='user_dropdown' className='h-[44px] mt-1 mb-1 lg:ml-2'>
+        <div id='user_dropdown' className='h-[44px] lg:ml-2'>
           <ClickOutHandler onClickOut={() => setShowDropdown(false)}>
             <button
             aria-expanded='false'
@@ -105,7 +105,6 @@ function Header() {
                       src={session.user.avatar}
                       alt=""
                       layout="fill"
-                      objectFit="cover"
                     />
                   </div>
                   <span className="w-50 hidden px-1 text-sm font-semibold md:block">

@@ -9,19 +9,25 @@ interface Props {
 
 const CategoryPage:NextPage<Props> = ({category}) => {
     const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
+    const title = "Today's Top Communities"
+    const description = 'Bbabystyle - all best communities'
     const url = `${hostname}/bbaby/leaderboard/${category}`
+    const imagePreview = `${hostname}/imagePreview.png`
+    const card = 'summary'
   return (
     <div>
         <Head>
-        <title>Today&apos;s Top Communities</title>
-        <link rel="icon" href="/favicon.ico"/>
-        <meta property="og:title" content="Today's Top Communities" key='ogtitle' />
-        <meta name="description" content="Bbabystyle - all best communities" />
-        <meta property="og:description" content="Bbabystyle - all best communities" key='ogdesc' />
-        <meta property="og:url" content={url} key='ogurl' />
-        <meta property='og:type' content='website' key='ogtype' />
-        <meta name="twitter:card" content="summary" key='twcard'/>
-        <meta name="twitter:image:alt" content="This image contain the logo of this website" />
+        <title>{title}</title>
+        <meta name='robots' content='noindex' />
+        <meta name="description" content={description} key={'description'} />
+        <meta property='og:ttl' content='600' key={'ogttl'} />
+        <meta property="og:site_name" content="bbabystyle" />
+        <meta property="twitter:card" content={card} key="twcard" />
+        <meta property="og:title" content={title} key="ogtitle" />
+        <meta property="og:description" content={description} key="ogdesc" />
+        <meta property="og:image" content={imagePreview} key="ogimage" />
+        <meta property="og:url" content={url} key="ogurl" />
+        <meta property="og:type" content="website" key="ogtype" />
         <link rel='canonical' href={url} key='canonical' />
         </Head>
         <Layout>

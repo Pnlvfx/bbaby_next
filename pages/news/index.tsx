@@ -1,41 +1,31 @@
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import React from 'react'
+import React from 'react';
 import Layout from '../../components/main/Layout';
 import MyNews from '../../components/mynews/MyNews';
 
 const MyNewsPage:NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
-  const imagePreview = '/imagePreview.png'
+  const imagePreview = `${hostname}/imagePreview.png`
+  const title = "Bbabystyle - News in italiano"
+  const description = "Bbabystyle - News in italiano"
+  const url = `${hostname}/news`
+  const card = 'summary';
+  
   return (
     <div>
       <Head>
-      <title>Bbabystyle - News in italiano </title>
-        <link rel="icon" href="/favicon.ico" />
-        <meta
-          property="og:title"
-          content="Bbabystyle - News in italiano"
-          key="ogtitle"
-        />
-        <meta name="description" content="Bbabystyle - News in italiano" />
-        <meta
-          property="og:description"
-          content="Bbabystyle - News in italiano"
-          key="ogdesc"
-        />
-        <meta
-          property="og:image"
-          content={hostname + imagePreview}
-          key="ogimage"
-        />
-        <meta property="og:url" content={hostname} key="ogurl" />
+        <title>{title}</title>
+        <meta name="description" content={description} key={'description'} />
+        <meta property='og:ttl' content='600' key={'ogttl'} />
+        <meta property="og:site_name" content="bbabystyle" />
+        <meta property="twitter:card" content={card} key="twcard" />
+        <meta property="og:title" content={title} key="ogtitle" />
+        <meta property="og:description" content={description} key="ogdesc" />
+        <meta property="og:image" content={imagePreview} key="ogimage" />
+        <meta property="og:url" content={url} key="ogurl" />
         <meta property="og:type" content="website" key="ogtype" />
-        <meta name="twitter:card" content="summary" key="twcard" />
-        <meta
-          name="twitter:image:alt"
-          content="This image contain the logo of this website"
-        />
-        <link rel="canonical" href={`${hostname}/news`} key="canonical" />
+        <link rel='canonical' href={url} key='canonical' />
       </Head>
       <Layout>
         <MyNews />

@@ -8,7 +8,6 @@ const UserAgreementPage:NextPage = () => {
     <div>
       <Head>
         <title>Bbabystyle User Agreement</title>
-        <link rel="icon" href="/favicon.ico"/>
       </Head>
       <PoliciesLayout>
         <UserAgreement />

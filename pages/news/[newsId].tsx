@@ -11,35 +11,27 @@ interface NewsIdPageProps {
 
 const NewsIdPage: NextPage<NewsIdPageProps> = ({news}) => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
+  const {title} = news;
+  const description = news.description.substring(0, 250);
+  const imagePreview = news.mediaInfo.image
+  const url = `${hostname}/news/${news._id}`;
+  const card = 'summary_large_image'
+
   return (
     <div>
       <Head>
-        <title>{news.title}</title>
-        <link rel="icon" href="/favicon.ico" />
-        <meta
-          property="og:title"
-          content={news.title}
-          key="ogtitle"
-        />
-        <meta name="description" content={news.description.substring(0,250)} />
-        <meta
-          property="og:description"
-          content={news.description.substring(0,250)}
-          key="ogdesc"
-        />
-        <meta
-          property="og:image"
-          content={news.mediaInfo.image}
-          key="ogimage"
-        />
-        <meta property="og:url" content={`${hostname}/news/${news._id}`} key="ogurl" />
+        <title>{title}</title>
+        <meta name="description" content={description} key={'description'} />
+        <meta property='og:ttl' content='600' key={'ogttl'} />
+        <meta property="og:site_name" content="bbabystyle" />
+        <meta property="twitter:card" content={card} key="twcard" />
+        <meta property="og:title" content={title} key="ogtitle" />
+        <meta property="og:description" content={description} key="ogdesc" />
+        <meta property="og:image" content={imagePreview} key="ogimage" />
+        <meta property="og:url" content={url} key="ogurl" />
         <meta property="og:type" content="website" key="ogtype" />
-        <meta name="twitter:card" content="summary" key="twcard" />
-        <meta
-          name="twitter:image:alt"
-          content={news.mediaInfo.alt}
-        />
-        <link rel="canonical" href={`${hostname}/news/${news._id}`} key="canonical" />
+        <link rel='canonical' href={url} key='canonical' />
+        <meta name="twitter:image:alt" content={news.mediaInfo.alt} />
       </Head>
       <Layout>
         <div className='flex mt-5 justify-center mx-[0px] lg:mx-10'>

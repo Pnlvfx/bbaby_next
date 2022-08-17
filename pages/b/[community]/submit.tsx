@@ -7,34 +7,37 @@ import TempSubmitWid from '../../../components/widget/TempSubmitWid';
 import SubmitLayout from '../../../components/submit/SubmitLayout';
 
 const SubmitPage:NextPage = () => {
-  const router = useRouter()
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
   const title = 'Submit to Bbabystyle';
   const description = 'Create your own article here. Choose an existing community or create your own and start change the world.'
-  const community: string | string[] | undefined = router.query.community ? router.query.community : undefined
-  const [communityName,setCommunityName] = useState<string | string [] | undefined>('')
+  const imagePreview = `${hostname}/imagePreview.png`
+  const url = `${hostname}/submit`
+  const card = 'summary'
+  const router = useRouter()
+  const {community} = router.query
+  const [communityName,setCommunityName] = useState('')
 
   useEffect(() => {
     if(!router.isReady) return;
     if(community !== undefined) {
-      setCommunityName(community)
+      setCommunityName(community.toString())
     }
   },[community, router.isReady])
   
   return (
     <>
     <Head>
-        <title>{title}</title>
-        <link rel="icon" href="/favicon.ico"/>
-        <meta property="og:title" content={title} key='ogtitle' />
-        <meta name="description" content={description} />
-        <meta property="og:description" content={description} key='ogdesc'/>
-        <meta property="og:image" content={hostname + '/imagePreview.png'} key='ogimage' />
-        <meta property="og:url" content={hostname + '/submit'} key='ogurl' />
-        <meta property='og:type' content='website' key='ogtype' />
-        <meta name="twitter:card" content="summary" key='twcard'/>
-        <meta name="twitter:image:alt" content="" />
-        <link rel='canonical' href={`${hostname}/submit`} key='canonical' />
+      <title>{title}</title>
+      <meta name="description" content={description} key={'description'} />
+      <meta property='og:ttl' content='600' key={'ogttl'} />
+      <meta property="og:site_name" content="bbabystyle" />
+      <meta property="twitter:card" content={card} key="twcard" />
+      <meta property="og:title" content={title} key="ogtitle" />
+      <meta property="og:description" content={description} key="ogdesc" />
+      <meta property="og:image" content={imagePreview} key="ogimage" />
+      <meta property="og:url" content={url} key="ogurl" />
+      <meta property="og:type" content="website" key="ogtype" />
+      <link rel='canonical' href={url} key='canonical' />
     </Head>
       <Layout>
         <div className="p-2 sm:p-4 block lg:flex">

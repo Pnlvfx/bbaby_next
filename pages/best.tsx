@@ -10,23 +10,27 @@ type BestPg = {
 const Home: NextPage<BestPg> = ({posts}) => {
 
   //metatags
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME
-  const imagePreview = '/imagePreview.png'
+  const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
+  const title = "Bbabystyle - Free speech";
+  const imagePreview = `${hostname}/imagePreview.png`;
+  const description = 'Bbabystyle is a network where you can create your community and start to talk about whatever you want.';
+  const card = 'summary';
+  const url = hostname
 
   return (
     <>
       <Head>
-        <title>Bbabystyle - free spech </title>
-        <link rel="icon" href="/favicon.ico"/>
-        <meta property="og:title" content="Bbabystyle - free speech" key='ogtitle' />
-        <meta name="description" content="Bbabystyle - Best post" />
-        <meta property="og:description" content="Bbabystyle - Best Post" key='ogdesc' />
-        <meta property="og:image" content={hostname + imagePreview} key='ogimage' />
-        <meta property="og:url" content={`${hostname}/best`} key='ogurl' />
-        <meta property='og:type' content='website' key='ogtype' />
-        <meta name="twitter:card" content="summary" key='twcard'/>
-        <meta name="twitter:image:alt" content="This image contain the logo of this website" />
-        <link rel='canonical' href={`${hostname}/best`} key='canonical' />
+        <title>{title}</title>
+        <meta name="description" content={description} key={'description'} />
+        <meta property='og:ttl' content='600' key={'ogttl'} />
+        <meta property="og:site_name" content="bbabystyle" key={'ogsite_name'} />
+        <meta property="twitter:card" content={card} key="twcard" />
+        <meta property="og:title" content={title} key="ogtitle" />
+        <meta property="og:description" content={description} key="ogdesc" />
+        <meta property="og:image" content={imagePreview} key="ogimage" />
+        <meta property="og:url" content={url} key="ogurl" />
+        <meta property="og:type" content="website" key="ogtype" />
+        <link rel='canonical' href={url} key='canonical' />
       </Head>
        <Layout>
         <Feed posts={posts} />

@@ -14,8 +14,12 @@ type CommunityPg = {
 
 const CommunityPage: NextPage<CommunityPg> = ({community,posts}) => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
-  const imagePreview = '/imagePreview.png';
   const {getCommunity,communityInfo} = useContext(CommunityContext) as CommunityContextProps;
+  const title = community
+  const description = communityInfo.description;
+  const imagePreview = posts.communityIcon
+  const url = `${hostname}/b/${community}`
+  const card = 'summary'
   const router = useRouter()
 
   useEffect(() => {
@@ -25,17 +29,17 @@ const CommunityPage: NextPage<CommunityPg> = ({community,posts}) => {
   return (
     <div>
       <Head>
-        <title>{community}</title>
-        <link rel="icon" href="/favicon.ico"/>
-        <meta property="og:title" content={community} key='ogtitle' />
-        <meta name="description" content={communityInfo.description} />
-        <meta property="og:description" content={communityInfo.description} key='ogdesc' />
-        <meta property="og:image" content={hostname + imagePreview} key='ogimage' />
-        <meta property="og:url" content={`${hostname}/b/${community}`} key='ogurl' />
-        <meta property='og:type' content='website' key='ogtype' />
-        <meta name="twitter:card" content="summary" key='twcard'/>
-        <meta name="twitter:image:alt" content="" />
-        <link rel='canonical' href={`${hostname}/b/${community}`} key='canonical' />
+        <title>{title}</title>
+        <meta name="description" content={description} key={'description'} />
+        <meta property='og:ttl' content='600' key={'ogttl'} />
+        <meta property="og:site_name" content="bbabystyle" />
+        <meta property="twitter:card" content={card} key="twcard" />
+        <meta property="og:title" content={title} key="ogtitle" />
+        <meta property="og:description" content={description} key="ogdesc" />
+        <meta property="og:image" content={imagePreview} key="ogimage" />
+        <meta property="og:url" content={url} key="ogurl" />
+        <meta property="og:type" content="website" key="ogtype" />
+        <link rel='canonical' href={url} key='canonical' />
       </Head>
       <Layout>
           {!router.query?.postId && <BoardHeader community={community}/>}

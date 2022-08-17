@@ -8,7 +8,6 @@ const PrivacyPolicyPage:NextPage = () => {
       <div>
         <Head>
         <title>Bbabystyle Privacy Policy</title>
-        <link rel="icon" href="/favicon.ico"/>
         </Head>
         <PoliciesLayout>
           <PrivacyPolicies />

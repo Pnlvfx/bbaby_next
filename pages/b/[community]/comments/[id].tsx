@@ -11,7 +11,11 @@ interface PostIdPageProps {
 }
 
 const IdPage: NextPage<PostIdPageProps> = ({post}) => {
-    const hostname = process.env.NEXT_PUBLIC_HOSTNAME
+    const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
+    const {title} = post
+    const description = post.body
+    const url = `${hostname}/b/${post.community}/comments/${post._id}`
+    const card = 'summary_large_image';
     const {getCommunity} = useContext(CommunityContext) as CommunityContextProps;
 
     useEffect(() => {
@@ -21,17 +25,17 @@ const IdPage: NextPage<PostIdPageProps> = ({post}) => {
   return (
     <div>
        <Head>
-        <title>{post.title}</title>
-        <meta property="og:title" content={post.title} key='ogtitle' />
-        <meta name="description" content={`${post.body}`}  />
-        <meta property="og:description" content={`${post.body}`} key='ogdesc'/>
+        <title>{title}</title>
+        <meta property="og:title" content={title} key='ogtitle' />
+        <meta property='og:ttl' content='600' key={'ogttl'} />
+        <meta name="description" content={description}  />
+        <meta property="og:description" content={description} key='ogdesc'/>
         {post.mediaInfo?.isImage && <meta property="og:image" content={post?.mediaInfo?.image} key='ogimage' />}
         {post.mediaInfo?.isVideo && <meta property="og:image" content={post?.mediaInfo?.video.url.replace('mp4', 'jpg')} key='ogimage' />}
-        <meta property="og:url" content={hostname + '/b/' + post.community + '/comments/' + post._id} key='ogurl' />
+        <meta property="og:url" content={url} key='ogurl' />
         <meta property='og:type' content='website' key='ogtype' />
-        <meta name="twitter:card" content="summary_large_image" key='twcard'/>
-        <meta name="twitter:image:alt" content="" />
-        <link rel='canonical' href={hostname + '/b/' + post.community + '/comments/' + post._id} key='canonical' />
+        <meta name="twitter:card" content={card} key='twcard'/>
+        <link rel='canonical' href={url} key='canonical' />
       </Head>
       <Layout>
         <CommentPage post={post}/>

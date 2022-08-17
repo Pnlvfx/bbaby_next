@@ -1,43 +1,31 @@
 import Head from 'next/head';
-import { GetServerSideProps, NextPage } from 'next'
-import Layout from '../components/main/Layout'
-import TempSubmitWid from '../components/widget/TempSubmitWid'
-import SubmitLayout from '../components/submit/SubmitLayout'
+import { GetServerSideProps, NextPage } from 'next';
+import Layout from '../components/main/Layout';
+import TempSubmitWid from '../components/widget/TempSubmitWid';
+import SubmitLayout from '../components/submit/SubmitLayout';
 
 const SubmitPage: NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
+  const url = `${hostname}/submit`
   const title = 'Submit to Bbabystyle';
-  const description = 'Create your own article here. Choose an existing community or create your own and start change the world.'
+  const imagePreview = `${hostname}/imagePreview.png`;
+  const description = 'Create your post. Choose an existing community or create your own and start to share your content.'
+  const card = 'summary';
 
   return (
     <>
       <Head>
         <title>{title}</title>
-        <link rel="icon" href="/favicon.ico" />
-        <meta
-          property="og:title"
-          content={title}
-          key="ogtitle"
-        />
-        <meta name="description" content={description} />
-        <meta
-          property="og:description"
-          content={description}
-          key="ogdesc"
-        />
-        <meta
-          property="og:image"
-          content={hostname + '/imagePreview.png'}
-          key="ogimage"
-        />
-        <meta property="og:url" content={hostname + '/submit'} key="ogurl" />
+        <meta name="description" content={description} key={'description'} />
+        <meta property='og:ttl' content='600' key={'ogttl'} />
+        <meta property="og:site_name" content="bbabystyle" key={'ogsite_name'} />
+        <meta property="twitter:card" content={card} key="twcard" />
+        <meta property="og:title" content={title} key="ogtitle" />
+        <meta property="og:description" content={description} key="ogdesc" />
+        <meta property="og:image" content={imagePreview} key="ogimage" />
+        <meta property="og:url" content={url} key="ogurl" />
         <meta property="og:type" content="website" key="ogtype" />
-        <meta name="twitter:card" content="summary" key="twcard" />
-        <meta
-          name="twitter:image:alt"
-          content="This image contain the logo of this website"
-        />
-        <link rel="canonical" href={hostname + '/submit'} key="canonical" />
+        <link rel='canonical' href={url} key='canonical' />
       </Head>
       <Layout>
         <div className="block p-2 sm:p-4 lg:flex">
@@ -57,7 +45,7 @@ const SubmitPage: NextPage = () => {
 
 export default SubmitPage
 
-export const getServerSideProps: GetServerSideProps = async(context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const server = process.env.NEXT_PUBLIC_SERVER_URL;
   const headers = context?.req?.headers?.cookie ? { cookie: context.req.headers.cookie } : undefined;
   const url = `${server}/user`

@@ -9,7 +9,6 @@ const CookiesPage:NextPage = () => {
     <div>
       <Head>
         <title>Bbabystyle Cookies Policy</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <PoliciesLayout>
         <CookieNotice />

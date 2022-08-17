@@ -12,37 +12,23 @@ const UserSettingsPage:NextPage = () => {
   const {session} = useContext(UserContext) as SessionProps;
   const title = 'Bbabystyle Settings'
   const description = `${session?.user.username}`
-  const url = `${hostname}/settings`
-  const imagePreview = `${hostname}/imagePreview.png`;
+  const url = `${hostname}/settings`;
+  const imagePreview = session?.user.avatar;
+  const card = 'summary'
   
   return (
     <div>
       <Head>
         <title>{title}</title>
-        <link rel="icon" href="/favicon.ico" />
-        <meta
-          property="og:title"
-          content={title}
-          key="ogtitle"
-        />
-        <meta name="description" content={description} />
-        <meta
-          property="og:description"
-          content={description}
-          key="ogdesc"
-        />
-        <meta
-          property="og:image"
-          content={imagePreview}
-          key="ogimage"
-        />
+        <meta name="description" content={description} key={'description'} />
+        <meta property='og:ttl' content='600' key={'ogttl'} />
+        <meta property="og:site_name" content="bbabystyle" key={'ogsite_name'} />
+        <meta property="twitter:card" content={card} key="twcard" />
+        <meta property="og:title" content={title} key="ogtitle" />
+        <meta property="og:description" content={description} key="ogdesc" />
+        <meta property="og:image" content={imagePreview} key="ogimage" />
         <meta property="og:url" content={url} key="ogurl" />
-        <meta property="og:type" content="profile" key="ogtype" />
-        <meta name="twitter:card" content="summary" key="twcard" />
-        <meta
-          name="twitter:image:alt"
-          content=""
-        />
+        <meta property="og:type" content="website" key="ogtype" />
         <link rel='canonical' href={url} key='canonical' />
       </Head>
       <Layout>

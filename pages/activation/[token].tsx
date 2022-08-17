@@ -32,7 +32,8 @@ function ActivationEmail() {
   return (
     <div>
         <Head>
-            
+            <title>Account activation</title>
+            <meta name='robots' content='noindex' />
         </Head>
         {err && showErrMsg(err)}
         {success && showSuccessMsg(success)}

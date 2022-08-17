@@ -40,7 +40,6 @@ const RedditPage = () => {
     <div>
       <Head>
         <title>Bbabystyle - authority page - Reddit</title>
-        <link rel="icon" href="/favicon.ico" />
         <link
           rel="canonical"
           href={`${hostname}/governance/reddit`}

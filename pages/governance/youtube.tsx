@@ -12,7 +12,6 @@ const Governance: NextPage = () => {
     <div className="w-full h-[1000px]">
       <Head>
         <title>Bbabystyle - authority page - youtube</title>
-        <link rel="icon" href="/favicon.ico"/>
         <link rel='canonical' href={`${hostname}/governance/youtube`} key='canonical' />
       </Head>
       <Layout>
