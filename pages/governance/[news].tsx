@@ -1,4 +1,3 @@
-import axios, { AxiosResponse } from 'axios';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -15,17 +14,25 @@ const NewsPagee:NextPage = () => {
 
     const getArticle = async () => {
         const server = process.env.NEXT_PUBLIC_SERVER_URL
-        const data = {url: router.query.url,imageUrl: router.query.imageUrl}
-        const res = await axios.post(`${server}/governance/news/article`, data, {withCredentials:true})
-        return res as AxiosResponse
+        const serverUrl = `${server}/governance/news/article`
+        const {url,imageUrl} = router.query
+        const body = JSON.stringify({url,imageUrl})
+        const res = await fetch(serverUrl, {
+          method: 'post',
+          body,
+          headers: {Accept: 'application/json', "Content-Type": 'application/json'},
+          credentials: 'include'
+        })
+        const article = res.json();
+        return article
     }
 
     useEffect(() => {
         if (!router.isReady) return;
         let ignore = false;
         if (!ignore) {
-          getArticle().then((res) => {
-            setDescription(res.data.toString().replaceAll(',', ''))
+          getArticle().then((article) => {
+            setDescription(article.toString().replaceAll(',', ''))
         })
         }
         return () => {

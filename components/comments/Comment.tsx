@@ -20,14 +20,14 @@ const Comment = ({post,postId}:CommentRootProps) => {
     const [commentsTotals,setCommentsTotals] = useState(null);
     const [userVotes,setUserVotes] = useState(null);
 
-    const refreshComments = () => {
-        axios.get(server+'/comments/root/'+postId)
+    const refreshComments = async () => {
+        const response = await axios.get(server+'/comments/root/'+postId)
         .then(response => {
         setComments(response.data)
         })
     }
 
-    function refreshVotes() {
+    const refreshVotes = () => {
         const commentsIds = [post._id, ...comments.map((c) => c._id)];
         axios.post(server+'/votes', {commentsIds}, {withCredentials:true})
             .then(response => {
@@ -61,13 +61,15 @@ const Comment = ({post,postId}:CommentRootProps) => {
                 </div>
                 <div className='my-4'>
                     <hr className='border-reddit_border' />
-                    {comments.length <= 1 && <div className='w-full min-h-[600px] flex justify-center items-center'>
+                    {comments.length < 1 && (
+                    <div className='w-full min-h-[600px] flex justify-center items-center'>
                         <div className='text-center'>
-                        <GoCommentDiscussion className='my-3 w-[28px] h-[28px] text-reddit_text-darker mx-auto' />
-                        <p className='font-bold text-reddit_text-darker'>No Comments yet</p>
-                        <p className='mt-1 text-reddit_text-darker font-bold text-sm'>Be the first to share what you think!</p>
+                            <GoCommentDiscussion className='my-3 w-[28px] h-[28px] text-reddit_text-darker mx-auto' />
+                            <p className='font-bold text-reddit_text-darker'>No Comments yet</p>
+                            <p className='mt-1 text-reddit_text-darker font-bold text-sm'>Be the first to share what you think!</p>
                         </div>
-                    </div>}
+                    </div>
+                    )}
                 </div>
                 <RootCommentContext.Provider value={{refreshComments,refreshVotes,commentsTotals,userVotes}}>
                     <Comments parentId={post._id} rootId={post._id} comments={comments}/>

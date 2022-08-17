@@ -30,7 +30,7 @@ const Comments = ({parentId,rootId,comments:propsComments}:CommentsProps) => {
               <div className='border-l-2 border-reddit_text-darker p-3' style={{marginLeft:'18px'}}>
                 <div className='pl-4 -mt-4'>
                   <pre className='text-sm leading-6 break-words resize-x-none flex-none'>
-                    <p style={{whiteSpace: 'pre-line',fontFamily: 'Helvetica'}}>{comment.body}</p>
+                    <p className='whitespace-pre-wrap'>{comment.body}</p>
                   </pre>
                   <div className='flex p-2 pl-0 w-auto'>
                     <Voting commentId={comment._id} />

@@ -42,7 +42,6 @@ const Header:NextComponentType = () => {
               alt="logo"
               height={boxIconSize}
               width={boxIconSize}
-              placeholder='blur'
             />
             <div className="hidden lg:block">
               <TextLogo />

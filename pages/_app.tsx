@@ -8,14 +8,12 @@ import CookieConsent from '../components/utils/validation/CookieConsent';
 import { TimeMsgContextProvider } from '../components/main/TimeMsgContext';
 import GoogleAdsense from '../components/google/GoogleAdsense';
 import { useRouter } from 'next/router';
+import GoogleAnalytics from '../components/google/GoogleAnalytics';
 
-const MyApp = ({
-  Component,
-  pageProps: { session, ...pageProps },
-}: AppProps) => {
-  const router = useRouter()
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME
-  const production = process.env.NODE_ENV === 'production' ? true : false
+const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps) => {
+  const router = useRouter();
+  const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
+  const production = process.env.NODE_ENV === 'production' ? true : false;
   const pathNotUsed = router.pathname.includes('activation')
     ? true
     : router.pathname.includes('governance')
@@ -50,12 +48,9 @@ const MyApp = ({
         <AuthModalContextProvider>
           <CommunityContextProvider>
             <TimeMsgContextProvider>
-              {production && !pathNotUsed && (
-                <>
-                  <GoogleAdsense />
-                  <CookieConsent />
-                </>
-              )}
+              <CookieConsent />
+              <GoogleAnalytics />
+              <GoogleAdsense />
               <Component {...pageProps} />
             </TimeMsgContextProvider>
           </CommunityContextProvider>

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useState, useContext, useEffect, FormEvent } from 'react';
 import {AuthModalContext, AuthModalContextProps} from './AuthModalContext';
 import { buttonClass, Spinner } from '../utils/Button';
@@ -14,6 +13,8 @@ import AuthImage from '../../public/authImage.png';
 import { CloseIcon } from '../utils/SVG';
 import { NextComponentType } from 'next';
 import { authInput } from './authInput';
+import { getUserIP } from './APIauth';
+import * as gtag from '../../lib/gtag';
 
 const AuthModal: NextComponentType = () => {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
@@ -40,14 +41,9 @@ const AuthModal: NextComponentType = () => {
   const register = async () => {
     try {
       setLoading(true)
-      const IP_API_KEY = process.env.NEXT_PUBLIC_IP_LOOKUP_API_KEY;
-      const IPUrl = `https://extreme-ip-lookup.com/json?key=${IP_API_KEY}`
-      const res1 = await fetch(IPUrl, {
-        method: 'get',
-      });
-      const userIpInfo = await res1.json();
-      const { country, countryCode, city, region, lat, lon } = userIpInfo
-      const data = {
+      const userIpInfo = await getUserIP();
+      const { country, countryCode, city, region, lat, lon } = userIpInfo;
+      const body = JSON.stringify({
         email,
         username,
         password,
@@ -57,47 +53,75 @@ const AuthModal: NextComponentType = () => {
         region,
         lat,
         lon,
-      }
-      const url = `${server}/register`
-      const res2 = await axios({
+      })
+      const url = `${server}/register`;
+      const headers =  {Accept: 'application/json', "Content-Type": 'application/json'};
+      const res2 = await fetch(url, {
         method: 'post',
-        url,
-        data,
-        withCredentials: true
+        body,
+        headers,
+        credentials: 'include'
         })
+        if (res2.ok) {
           setStatus({ err: '', success: 'registration completed' })
           localStorage.setItem('isLogged', 'true')
           setEmailTo(email)
           setShow('hidden')
           router.reload()
-    } catch (err:any) {
-      err.response.data.msg &&
-          setStatus({ err: err.response.data.msg, success: '' })
-      setLoading(false)
+        } else {
+          const error = await res2.json();
+          setStatus({ err: error.msg, success: '' })
+          setLoading(false);
+        }
+    } catch (err) {
+        setStatus({ err: 'Unknown error', success: '' })
+        setLoading(false)
     }
   }
 
   const login = async () => {
     try {
       setLoading(true)
-      const data = { username, password }
-      const res = await axios.post(`${server}/login`, data, {
-        withCredentials: true,
+      const body = JSON.stringify({ username, password })
+      const url = `${server}/login`
+      const headers =  {Accept: 'application/json', "Content-Type": 'application/json'};
+      const res = await fetch(url, {
+        method: 'post',
+        body,
+        headers,
+        credentials: 'include'
       })
-      localStorage.setItem('isLogged', 'true')
-      router.reload()
-    } catch (err:any) {
-      err.response.data.msg &&
-        setStatus({ err: err.response.data.msg, success: ''})
+      if (res.ok) {
+        localStorage.setItem('isLogged', 'true')
+        gtag.loginAnalytics();
+        router.reload()
+      } else {
+        const error = await res.json();
+        setStatus({ err: error.msg, success: ''})
+        setLoading(false)
+      }
+    } catch (err) {
+        setStatus({ err: 'Unknown error', success: ''})
         setLoading(false)
     }
+  }
+
+  const closeModal = async () => {
+    setShow('hidden')
+    setEmail('')
+    setPassword('')
+    setUsername('')
+    setStatus(initialState)
+    setLoading(false);
   }
 
   // ONLY AFTER FIRST LOGIN
   const [newUser, setNewUser] = useState('')
   useEffect(() => {
     const firstLogin = localStorage.getItem('firstLogin')
-    setNewUser(firstLogin ? firstLogin : '')
+    if (firstLogin) {
+      setNewUser(firstLogin)
+    }
   }, [])
 
   return (
@@ -232,14 +256,8 @@ const AuthModal: NextComponentType = () => {
             </div>
           </div>
           <div id="closeButton" className="mr-3 mt-3 h-7 w-7 text-right">
-            <button
-              className=""
-              onClick={() => {
-                setShow('hidden')
-                setEmail('')
-                setPassword('')
-                setUsername('')
-                setStatus(initialState)
+            <button onClick={() => {
+                closeModal();
               }}
             >
               <div className="p-1">

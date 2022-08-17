@@ -1,10 +1,8 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react';
-import GoogleAnalytics from '../../google/GoogleAnalytics'
 
 const CookieConsent = () => {
   const [show, setShow] = useState(false)
-  const [showAnalytics,setShowAnalytics] = useState(false);
 
   const acceptCookie = () => {
     const cookie = process.env.NEXT_PUBLIC_COOKIE_CONSENT_SECRET
@@ -19,14 +17,18 @@ const CookieConsent = () => {
     for (let i = 0; i < cookieArray.length; i++) {
       const cookiePair = cookieArray[i].split('=')
       if ('eu_cookie' == cookiePair[0].trim()) {
-        setShowAnalytics(true)
         return decodeURIComponent(cookiePair[1])
-      }
+      } else return undefined
     }
+  }
+
+  const getCookie = (name:string) => {
+    document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || undefined
   }
 
   useEffect(() => {
     const check = checkIfCookieExist()
+    console.log(check)
     if (check === undefined) {
         setShow(true)
     }
@@ -34,7 +36,6 @@ const CookieConsent = () => {
 
   return (
     <>
-    {showAnalytics && <GoogleAnalytics />}
       {show && (
         <div className="fixed bottom-0 z-30 flex w-full rounded-sm border border-reddit_border bg-reddit_dark-brighter font-bold lg:left-[35%] lg:right-[50%] lg:bottom-12 lg:w-[700px]">
           <div className={'w-6 bg-reddit_blue'} />

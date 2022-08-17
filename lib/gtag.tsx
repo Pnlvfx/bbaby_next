@@ -1,4 +1,4 @@
-export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID
+export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export const pageview = (url:URL) => {
   const {gtag} = window
@@ -22,3 +22,15 @@ export const event = ({ action, category, label, value } : GTagEvent) => {
     value,
   });
 };
+
+export const loginAnalytics = () => {
+  const {gtag} = window
+  gtag('event', 'login')
+}
+
+export const googleLoginAnalytics = () => {
+  const {gtag} = window
+  gtag('event', 'login', {
+    method: 'google'
+  })
+}
