@@ -40,7 +40,6 @@ const Home: NextPage<HomePg> = ({ posts }) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
   const NODE_ENV = process.env.NEXT_PUBLIC_NODE_ENV;
   if (NODE_ENV === 'production') {
     const host = context.req.headers?.host
@@ -48,7 +47,7 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
       return {
         redirect: {
           permanent: true,
-          destination: hostname
+          destination: `https://www.${host}`
         }
       }
     }
