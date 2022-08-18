@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 
-const siteUrl = "https://www.bbabystyle.com";
+const siteUrl = process.env.NEXT_PUBLIC_HOSTNAME;
 
 module.exports = {
     siteUrl,
