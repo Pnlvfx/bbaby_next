@@ -41,14 +41,17 @@ export default Home;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
-  const regex = /^www/
-  if (context.req.headers.host?.match(regex) === null) {
-    return {
-      redirect: {
-        permanent: true,
-        destination: hostname
+  const NODE_ENV = process.env.NEXT_PUBLIC_NODE_ENV
+  if (NODE_ENV === 'production') {
+    const regex = /^www/
+    if (context.req.headers.host?.match('www') === null) {
+      return {
+        redirect: {
+          permanent: true,
+          destination: hostname
+        }
       }
-    }
+    } 
   }
   const server = process.env.NEXT_PUBLIC_SERVER_URL;
   const sessionUrl = `${server}/user`;
