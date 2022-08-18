@@ -37,7 +37,7 @@ const Username:NextPage<AuthorPg> = ({author,posts}) => {
      </Head>
      <Layout>
       <AuthorHeaderPage />
-      <Feed author={author} posts={posts} />
+        <Feed author={author} posts={posts} />
      </Layout>
    </div>
   )
