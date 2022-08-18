@@ -43,7 +43,6 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
   const NODE_ENV = process.env.NEXT_PUBLIC_NODE_ENV
   if (NODE_ENV === 'production') {
-    const regex = /^www/
     const host = context.req.headers.host?.match('www')
     if (!host) {
       return {
