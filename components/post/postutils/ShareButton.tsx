@@ -4,13 +4,14 @@ import {CopyToClipboard} from 'react-copy-to-clipboard'
 import {AiOutlineLink} from 'react-icons/ai'
 import { ShareIcon } from '../../utils/SVG';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
+import { shareAnalytics } from '../../../lib/gtag';
 
 type ShareButtonProps = {
   community: string,
   postId: string
 }
 
-function ShareButton({community,postId}:ShareButtonProps) {
+const ShareButton = ({community,postId}:ShareButtonProps) => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const [ShareDropdownVisibilityClass, setShareDropdownVisibilityClass] = useState(false);
   const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
@@ -35,10 +36,11 @@ function ShareButton({community,postId}:ShareButtonProps) {
                   e.stopPropagation()
                   }}>
                 <CopyToClipboard
-                text={hostname + '/b/'+community+'/comments/'+postId} 
+                text={hostname + '/b/'+community+'/comments/'+postId}
                 onCopy={() => {
                   setShareDropdownVisibilityClass(false)
                   setMessage({value: 'Link copied!', time: 8000, status: 'success'})
+                  shareAnalytics();
                 }}>
                   <div className='flex py-2 pl-2 pr-12 text-reddit_text-darker'>
                   <AiOutlineLink className='w-5 h-5 mr-1 mt-[3px]' />

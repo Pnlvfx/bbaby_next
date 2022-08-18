@@ -18,8 +18,8 @@ type SubmitProps = {
 const Submit = ({newTweet,community}:SubmitProps) => {
     const {session} = useContext(UserContext)
     const [activeButton,setActiveButton] = useState('Post')
-    const [activeClassTitle, setActiveClassTitle] = useState('border-reddit_dark-brightest')
-    const [activeClassBody, setActiveClassBody] = useState('border-reddit_dark-brightest')
+    const [activeClassTitle, setActiveClassTitle] = useState(false)
+    const [activeClassBody, setActiveClassBody] = useState(false)
     const [titleLength,setTitleLength] = useState(0);
     const maxLength = session?.user.role === 1 ? 999 : 300
     const [enablePost,setEnablePost] = useState(false)
@@ -40,7 +40,7 @@ const Submit = ({newTweet,community}:SubmitProps) => {
         setSharePostToTwitter,
         loading,
         createPost
-    } = useContext(SubmitContext) as SubmitContextType
+    } = useContext(SubmitContext) as SubmitContextType;
     // SHARE ON TELEGRAM
     const shareToTelegram = () => {
         setSharePostToTG(!sharePostToTG)
@@ -103,15 +103,16 @@ const Submit = ({newTweet,community}:SubmitProps) => {
                         <p className='font-semibold text-sm'>Images & Video</p>
                     </button>
                 </div>
-                <>
                 <ClickOutHandler onClickOut={() => {
-                    setActiveClassTitle('border-reddit_dark-brightest')
-                    setActiveClassBody('border-reddit_dark-brightest')
+                    setActiveClassTitle(false)
+                    setActiveClassBody(false)
                 }}>
-                    <div onClick={() => {
-                        setActiveClassTitle('hover:border border-reddit_text')
+                    <div 
+                        className={`rounded-md flex mx-4 border break-words whitespace-pre-wrap ${activeClassTitle ? 'border-reddit_text' : 'border-reddit_border'}`}
+                        onClick={() => {
+                            setActiveClassTitle(true)
                         }}
-                            className={'rounded-md flex mx-4 break-words whitespace-pre-wrap border '+ activeClassTitle}>
+                    >
                         <div className='flex w-full p-[6px] items-center'>
                             <TextareaAutosize
                             className='placeholder-reddit_text-darker text-[15px] pl-3 w-full leading-6 row-span-1 h-auto resize-none bg-reddit_dark-brighter text-reddit_text rounded-md outline-none'
@@ -126,7 +127,8 @@ const Submit = ({newTweet,community}:SubmitProps) => {
                         </div>
                     </div>
                 </ClickOutHandler>
-                <div onClick={() => setActiveClassBody('hover:border border-reddit_text')} className={'mx-4 mt-2 border border-reddit_border rounded-md mb-3 ' +activeClassBody}>
+                <div className={`mx-4 mt-2 border overflow-hidden border-reddit_border rounded-md mb-3 ${activeClassBody ? 'border-reddit_text' : 'border-reddit_border'}`}
+                    onClick={() => setActiveClassBody(true)}>
                     <div className='bg-reddit_dark-brightest h-10 overflow-hidden'>
                         <SubmitButton/>    
                     </div>
@@ -145,7 +147,6 @@ const Submit = ({newTweet,community}:SubmitProps) => {
                             {loading && <Spinner />}
                         </button>
                     </div>
-                </>
                 <div className='h-24 bg-reddit_dark-brightest'>
                     {session?.user.role && (
                         <div id='telegram' className='flex mx-4 pt-5'>

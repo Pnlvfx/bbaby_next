@@ -24,7 +24,6 @@ const CookieConsent = () => {
 
   useEffect(() => {
     const check = checkIfCookieExist()
-    console.log(check)
     if (check === undefined) {
         setShow(true)
     }

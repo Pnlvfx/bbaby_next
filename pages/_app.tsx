@@ -48,10 +48,10 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps) => {
         <AuthModalContextProvider>
           <CommunityContextProvider>
             <TimeMsgContextProvider>
+              <Component {...pageProps} />
               <CookieConsent />
               <GoogleAnalytics />
               <GoogleAdsense />
-              <Component {...pageProps} />
             </TimeMsgContextProvider>
           </CommunityContextProvider>
         </AuthModalContextProvider>

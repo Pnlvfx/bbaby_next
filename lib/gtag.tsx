@@ -34,3 +34,8 @@ export const googleLoginAnalytics = () => {
     method: 'google'
   })
 }
+
+export const shareAnalytics = () => {
+  const {gtag} = window
+  gtag('event', 'share')
+}

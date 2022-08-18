@@ -1,11 +1,11 @@
 import axios from 'axios'
-import { SetStateAction, useContext, useState } from 'react'
+import { Dispatch, SetStateAction, useContext, useState } from 'react'
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext'
 import { buttonClass, Spinner } from '../../utils/Button'
 
 type UploadVideoProps = {
     input: InputProps
-    setModalType: SetStateAction<any>
+    setModalType: Dispatch<SetStateAction<'create_image' | 'create_video'>>
 }
 
 const UploadVideo = ({input,setModalType}:UploadVideoProps) => {

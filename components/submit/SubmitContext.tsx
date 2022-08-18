@@ -44,8 +44,8 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
     const authModalContext = useContext(AuthModalContext) as AuthModalContextProps;
     const [title,setTitle] = useState('');
     const [body,setBody] = useState('');
-    const [width,setWidth] = useState(500)
-    const [height, setHeight] = useState(500)
+    const [width,setWidth] = useState(0)
+    const [height, setHeight] = useState(0)
     const [selectedCommunity,setSelectedCommunity] = useState('')
     const [communityIcon,setCommunityIcon] = useState('')
     const [selectedFile, setSelectedFile] = useState(null)

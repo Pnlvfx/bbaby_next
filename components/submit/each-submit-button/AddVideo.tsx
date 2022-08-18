@@ -1,13 +1,15 @@
-import { useContext, useRef } from 'react';
+import { ChangeEvent, useContext, useRef } from 'react';
+import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
 import { VideoIcon } from '../../utils/SVG';
 import { SubmitContext, SubmitContextType } from '../SubmitContext';
 
 const AddVideo = () => {
+  const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
   const containerClass = 'p-2 text-reddit_text-darker'
-  const { setSelectedFile, setIsVideo, setWidth, setHeight, setIsImage } =
-    useContext(SubmitContext) as SubmitContextType
+  const { setSelectedFile,selectedFile, setIsVideo, setWidth, setHeight, setIsImage } = useContext(SubmitContext) as SubmitContextType;
   const fileVideoRef = useRef<HTMLInputElement>(null)
-  const addVideoToPost = (e: any) => {
+  const addVideoToPost = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return setMessage({value: 'Please select at least one video.', status: 'error'})
     const file = e?.target?.files[0]
     previewVideo(file)
   }
@@ -21,7 +23,7 @@ const AddVideo = () => {
       video.preload = 'metadata'
       if (!video_url) return
       video.src = video_url.toString();
-      video.addEventListener('loadedmetadata', function () {
+      video.addEventListener('loadedmetadata', () => {
         setWidth(video.videoWidth)
         setHeight(video.videoHeight)
       })
@@ -30,6 +32,7 @@ const AddVideo = () => {
       setSelectedFile(reader.result)
     }
   }
+
   return (
     <div className={containerClass}>
       <button
@@ -46,6 +49,7 @@ const AddVideo = () => {
         </div>
         <input
           type="file"
+          accept='video/*'
           hidden
           onChange={addVideoToPost}
           ref={fileVideoRef}
@@ -55,4 +59,5 @@ const AddVideo = () => {
   )
 }
 
-export default AddVideo
+export default AddVideo;
+

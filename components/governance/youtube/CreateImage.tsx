@@ -3,17 +3,14 @@ import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
 import { buttonClass, Spinner } from '../../utils/Button';
 import { inputClass } from '../../utils/Input';
 import { YoutubeContext, YoutubeContextProps } from './YoutubeContext';
-import YoutubeLogin from './YoutubeLogin';
 import YoutubeNewsCard from './YoutubeNewsCard';
 
 type CreateImageProps = {
-  modalType: string
   setModalType: Dispatch<SetStateAction<modalType>>
   setInput: Dispatch<SetStateAction<InputProps>>
 }
 
 const CreateImage = ({
-  modalType,
   setModalType,
   setInput
 }: CreateImageProps) => {
@@ -64,68 +61,64 @@ const CreateImage = ({
   }
 
   return (
-    <>
-      {modalType === 'create_image' && (
-        <div className='flex mt-5'>
-          <YoutubeNewsCard {...value} />
-          <form className="w-full p-2 bg-reddit_dark-brighter space-y-4 rounded-md border border-reddit_border">
-            <div id="news_id" className="flex items-center">
-                <p>News id:</p>
-                <p className={`ml-auto font-bold text-reddit_red`}>{news._id}</p>
-            </div>
-            <div id="text_color" className="flex items-center">
-              <p className="">Text Color:</p>
-              <input
-                type="color"
-                title="text_color"
-                value={value.textColor}
-                className={`${inputClass} font-bold ml-auto`}
-                onChange={(e) =>
-                  setValue({ ...value, textColor: e.target.value })
-                }
-              />
-            </div>
-            <div id="font_size" className="flex items-center">
-                <p className="">Font Size:</p>
-                  <input
-                    type="number"
-                    title="font_size"
-                    value={value.fontSize}
-                    onChange={(e) =>
-                      setValue({ ...value, fontSize: e.target.value })
-                    }
-                    className={`${inputClass} font-bold text-right ml-auto`}
-                  />
-            </div>
-            <div id="format" className="flex items-center">
-                <p className="">Format:</p>
-                <input
-                  type="text"
-                  title="font_size"
-                  value={value.format}
-                  onChange={(e) =>
-                    setValue({ ...value, format: e.target.value })
-                  }
-                  className={`${inputClass} font-bold text-right ml-auto`}
-                />
-            </div>
-            <div id='button_submit' className="flex items-center justify-center">
-              <button
-                type="submit"
-                disabled={loading ? true : false}
-                className={`h-7 w-40 ${buttonClass()}`}
-                onClick={() => {
-                  createImage()
-                }}
-              >
-                {loading && <Spinner />}
-                {!loading && <p>Create Image</p>}
-              </button>
-          </div>
-          </form>
+    <div className='flex mt-5'>
+      <YoutubeNewsCard {...value} />
+      <form className="w-full p-2 bg-reddit_dark-brighter space-y-4 rounded-md border border-reddit_border">
+        <div id="news_id" className="flex items-center">
+            <p>News id:</p>
+            <p className={`ml-auto font-bold text-reddit_red`}>{news._id}</p>
         </div>
-      )}
-    </>
+        <div id="text_color" className="flex items-center">
+          <p className="">Text Color:</p>
+          <input
+            type="color"
+            title="text_color"
+            value={value.textColor}
+            className={`${inputClass} font-bold ml-auto`}
+            onChange={(e) =>
+              setValue({ ...value, textColor: e.target.value })
+            }
+          />
+        </div>
+        <div id="font_size" className="flex items-center">
+            <p className="">Font Size:</p>
+              <input
+                type="number"
+                title="font_size"
+                value={value.fontSize}
+                onChange={(e) =>
+                  setValue({ ...value, fontSize: e.target.value })
+                }
+                className={`${inputClass} font-bold text-right ml-auto`}
+              />
+        </div>
+        <div id="format" className="flex items-center">
+            <p className="">Format:</p>
+            <input
+              type="text"
+              title="font_size"
+              value={value.format}
+              onChange={(e) =>
+                setValue({ ...value, format: e.target.value })
+              }
+              className={`${inputClass} font-bold text-right ml-auto`}
+            />
+        </div>
+        <div id='button_submit' className="flex items-center justify-center">
+          <button
+            type="submit"
+            disabled={loading ? true : false}
+            className={`h-7 w-40 ${buttonClass()}`}
+            onClick={() => {
+              createImage()
+            }}
+          >
+            {loading && <Spinner />}
+            {!loading && <p>Create Image</p>}
+          </button>
+      </div>
+      </form>
+    </div>
   )
 }
 

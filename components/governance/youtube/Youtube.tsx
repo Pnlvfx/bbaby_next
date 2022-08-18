@@ -8,8 +8,9 @@ import { useRouter } from 'next/router';
 import { getOneNews } from '../../mynews/APInews';
 import { YoutubeContext, YoutubeContextProps } from './YoutubeContext';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
+import { NextComponentType } from 'next';
 
-const Youtube = () => {
+const Youtube:NextComponentType = () => {
   const server = process.env.NEXT_PUBLIC_SERVER_URL
   const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
   const _videoOptions: VideoOptionsProps = {
@@ -57,7 +58,13 @@ const Youtube = () => {
     try {
       setLoading(true)
       const data = { _videoOptions: videoOptions, images: input.localImages }
-      const res = await axios.post(`${server}/governance/create-video`, data, {withCredentials: true})
+      const url = `${server}/governance/create-video`
+      const res = await axios({
+        method: 'post',
+        url,
+        data,
+        withCredentials: true
+      })
       setMessage({value:res.data.msg, status: 'success'})
       setInput({ ...input, video: res.data.video})
       setLoading(false)
@@ -70,11 +77,12 @@ const Youtube = () => {
 
   return (
     <main>
-      <CreateImage
-        modalType={modalType}
-        setModalType={setModalType}
-        setInput={setInput}
-      />
+      {modalType === 'create_image' && (
+        <CreateImage
+          setModalType={setModalType}
+          setInput={setInput}
+        />
+      )}
       {modalType === 'create_video' && (
         <>
           <CreateVideo
@@ -112,4 +120,5 @@ const Youtube = () => {
   )
 }
 
-export default Youtube
+export default Youtube;
+
