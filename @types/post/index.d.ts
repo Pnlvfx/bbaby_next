@@ -20,4 +20,5 @@ type PostProps = {
     liked: string
     numComments: number
     createdAt: Date
+    updatedAt: Date
     }

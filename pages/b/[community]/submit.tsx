@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
-import { GetServerSideProps, NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Layout from '../../../components/main/Layout';
 import { useRouter } from 'next/router';
 import TempSubmitWid from '../../../components/widget/TempSubmitWid';

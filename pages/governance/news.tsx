@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from "next"
+import type { GetServerSideProps, NextPage } from "next"
 import Head from "next/head"
 import GovernanceCtrl from "../../components/governance/GovernanceCtrl"
 import GovernanceMainMenù from "../../components/governance/GovernanceMainMenù"
@@ -11,6 +11,7 @@ const govNewsPage:NextPage = () => {
     <div>
         <Head>
         <title>Bbabystyle - authority page</title>
+        <meta name='robots' content='noindex' />
         <link rel='canonical' href={`${hostname}/governance/news`} key='canonical' />
       </Head>
         <Layout>

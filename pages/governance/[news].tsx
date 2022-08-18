@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react'
@@ -9,7 +9,7 @@ import Layout from '../../components/main/Layout';
 
 const NewsPagee:NextPage = () => {
     const router = useRouter()
-    const hostname = process.env.NEXT_PUBLIC_HOSTNAME
+    const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
     const [description,setDescription] = useState('')
 
     const getArticle = async () => {
@@ -43,8 +43,9 @@ const NewsPagee:NextPage = () => {
   return (
     <div>
         <Head>
-        <title>Bbabystyle - authority-onlypage</title>
-        <link rel='canonical' href={`${hostname}/governance`} key='canonical' />
+          <title>Bbabystyle - authority-onlypage</title>
+          <meta name='robots' content='noindex' />
+          <link rel='canonical' href={`${hostname}/governance`} key='canonical' />
         </Head>
         <Layout>
             <GovernanceCtrl>

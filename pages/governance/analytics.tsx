@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import React from 'react'
 import GovernanceCtrl from '../../components/governance/GovernanceCtrl'
@@ -6,11 +6,15 @@ import GovernanceMainMenù from '../../components/governance/GovernanceMainMenù
 import Layout from '../../components/main/Layout'
 
 const AnalyticsPage:NextPage = () => {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME
+  const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
+
+  
+
   return (
     <div>
       <Head>
         <title>Bbabystyle - authority page</title>
+        <meta name='robots' content='noindex' />
         <link rel='canonical' href={`${hostname}/governance/analytics`} key='canonical' />
       </Head>
       <Layout>
@@ -33,7 +37,6 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
     headers
   })
   const session = await response.json();
-
   return {
     props: {
       session,

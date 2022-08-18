@@ -5,12 +5,14 @@ import { useContext } from 'react';
 import CommentPage from '../../../../components/comments/CommentPage'
 import { CommunityContext, CommunityContextProps } from '../../../../components/community/CommunityContext';
 import Layout from '../../../../components/main/Layout';
+import Errorpage404 from '../../../404';
 
 interface PostIdPageProps {
   post: PostProps
+  error: boolean
 }
 
-const IdPage: NextPage<PostIdPageProps> = ({post}) => {
+const IdPage: NextPage<PostIdPageProps> = ({post,error}) => {
     const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
     const {title} = post
     const description = post.body
@@ -21,6 +23,10 @@ const IdPage: NextPage<PostIdPageProps> = ({post}) => {
     useEffect(() => {
       getCommunity(post.community)
     },[post.community])
+
+    if (error) {
+      return <Errorpage404 />
+    }
 
   return (
     <div>
@@ -64,11 +70,15 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
     method: 'get',
     headers
   });
+
   const post = await res.json();
+  const error = res.ok ? false : true;
+  console.log(post)
 
   return {
     props: {
       session,
+      error,
       post
     }
   }

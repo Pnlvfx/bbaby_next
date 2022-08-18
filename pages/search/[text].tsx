@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react'
 import Post from '../../components/post/Post' 
 import Layout from "../../components/main/Layout";
 import Head from "next/head";
-import { GetServerSideProps, NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import { search } from "../../components/header/search/APisearch";
 
 const SearchResultPage:NextPage = () => {

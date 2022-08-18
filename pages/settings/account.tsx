@@ -1,6 +1,6 @@
 import UserSettings from '../../components/auth/usersettings/UserSettings'
 import Account from '../../components/auth/usersettings/each/Account'
-import { GetServerSideProps, NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Layout from '../../components/main/Layout';
 import Head from 'next/head';
 import UserSecurity from '../../components/utils/security/UserSecurity';

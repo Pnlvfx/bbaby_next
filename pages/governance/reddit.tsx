@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useContext, useEffect, useState } from 'react';
 import GovernanceCtrl from '../../components/governance/GovernanceCtrl';
@@ -6,7 +6,7 @@ import GovernanceMainMenù from '../../components/governance/GovernanceMainMenù
 import Layout from '../../components/main/Layout';
 import { TimeMsgContext, TimeMsgContextProps } from '../../components/main/TimeMsgContext';
 
-const RedditPage = () => {
+const RedditPage:NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
   const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
   const [redditPosts,setRedditPosts] = useState([])
@@ -40,6 +40,7 @@ const RedditPage = () => {
     <div>
       <Head>
         <title>Bbabystyle - authority page - Reddit</title>
+        <meta name='robots' content='noindex' />
         <link
           rel="canonical"
           href={`${hostname}/governance/reddit`}

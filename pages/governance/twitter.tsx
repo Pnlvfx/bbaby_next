@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Layout from "../../components/main/Layout";
 import Twitter from "../../components/governance/twitter/Twitter";
 import GovernanceCtrl from "../../components/governance/GovernanceCtrl";
@@ -11,6 +11,7 @@ const TwitterPage: NextPage = () => {
     <div className="w-full h-[1000px]">
       <Head>
         <title>Bbabystyle - authority page - twitter</title>
+        <meta name='robots' content='noindex' />
         <link rel='canonical' href={`${hostname}/governance/twitter`} key='canonical' />
       </Head>
       <Layout>

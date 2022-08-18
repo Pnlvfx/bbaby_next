@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Layout from "../../components/main/Layout";
 import GovernanceCtrl from "../../components/governance/GovernanceCtrl";
 import Head from "next/head";
@@ -10,6 +10,7 @@ const Governance: NextPage = () => {
     <>
       <Head>
         <title>Bbabystyle - authority page</title>
+        <meta name='robots' content='noindex' />
         <link rel='canonical' href={`${hostname}/governance`} key='canonical' />
       </Head>
         <Layout>

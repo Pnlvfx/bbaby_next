@@ -1,6 +1,14 @@
 /** @type {import('next').NextConfig} */
 const NextConfig = {
   reactStrictMode: true,
+  // // redirects: async () => [
+  // //   {
+  // //     source: '/',
+  // //     has: [{type: 'host', value: 'localhost'}],
+  // //     destination: 'https://www.bbabystyle.com',
+  // //     permanent: true
+  // //   }
+  // // ],
   images: {
     domains: [
       'res.cloudinary.com',

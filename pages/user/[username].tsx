@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { useContext } from "react";
 import UserContext from "../../components/auth/UserContext";
@@ -61,8 +61,8 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
   const res =  await fetch(postUrl, {
     method: "get",
     headers
-    })
-    const posts = await res.json()
+  })
+  const posts = await res.json()
 
   return {
     props: {

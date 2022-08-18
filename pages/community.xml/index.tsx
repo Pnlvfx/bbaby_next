@@ -5,13 +5,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     const hostname = process.env.NEXT_PUBLIC_HOSTNAME
 
-    const response = await fetch(`${server}/sitemaps`);
-    const posts:PostProps[] = await response.json();
+    const response = await fetch(`${server}/sitemaps?type='community'`);
+    const communities:CommunityProps[] = await response.json();
 
-    const fields : ISitemapField[] = posts.map(post => ({
-        loc: hostname+`/b/${post.community}/comments/${post._id}`,
+    const fields : ISitemapField[] = communities.map(community => ({
+        loc: hostname+`/b/${community.name}`,
         priority: 1,
-        lastmod: new Date(post.createdAt).toISOString()
+        //lastmod: new Date(post.updatedAt).toISOString()
 }));
 
     return getServerSideSitemap(ctx, fields)

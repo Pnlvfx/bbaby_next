@@ -3,7 +3,7 @@ import {useContext, useEffect} from 'react';
 import Layout from '../../components/main/Layout';
 import BoardHeader from '../../components/header/BoardHeader';
 import {CommunityContext, CommunityContextProps} from '../../components/community/CommunityContext';
-import {GetServerSideProps, NextPage } from 'next';
+import type {GetServerSideProps, NextPage } from 'next';
 import Feed from '../../components/post/Feed';
 import { useRouter } from 'next/router';
 

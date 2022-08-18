@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Layout from '../../../components/main/Layout';
 import Leaderboard from '../../../components/leaderboard/Leaderboard';

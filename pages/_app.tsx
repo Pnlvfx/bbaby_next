@@ -6,7 +6,6 @@ import { AuthModalContextProvider } from '../components/auth/AuthModalContext';
 import { CommunityContextProvider } from '../components/community/CommunityContext';
 import CookieConsent from '../components/utils/validation/CookieConsent';
 import { TimeMsgContextProvider } from '../components/main/TimeMsgContext';
-import GoogleAdsense from '../components/google/GoogleAdsense';
 import { useRouter } from 'next/router';
 import GoogleAnalytics from '../components/google/GoogleAnalytics';
 
@@ -51,7 +50,6 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps) => {
               <Component {...pageProps} />
               <CookieConsent />
               <GoogleAnalytics />
-              <GoogleAdsense />
             </TimeMsgContextProvider>
           </CommunityContextProvider>
         </AuthModalContextProvider>
