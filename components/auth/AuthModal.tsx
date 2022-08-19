@@ -15,9 +15,9 @@ import { NextComponentType } from 'next';
 import { authInput } from './authInput';
 import { getUserIP } from './APIauth';
 import * as gtag from '../../lib/gtag';
+import { loginUrl, registerUrl } from '../../lib/url';
 
 const AuthModal: NextComponentType = () => {
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
   const initialState = {
     err: '',
     success: '',
@@ -54,9 +54,8 @@ const AuthModal: NextComponentType = () => {
         lat,
         lon,
       })
-      const url = `${server}/register`;
       const headers =  {Accept: 'application/json', "Content-Type": 'application/json'};
-      const res2 = await fetch(url, {
+      const res2 = await fetch(registerUrl, {
         method: 'post',
         body,
         headers,
@@ -83,9 +82,8 @@ const AuthModal: NextComponentType = () => {
     try {
       setLoading(true)
       const body = JSON.stringify({ username, password })
-      const url = `${server}/login`
       const headers =  {Accept: 'application/json', "Content-Type": 'application/json'};
-      const res = await fetch(url, {
+      const res = await fetch(loginUrl, {
         method: 'post',
         body,
         headers,

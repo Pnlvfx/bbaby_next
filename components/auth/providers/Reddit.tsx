@@ -1,7 +1,10 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { reddit_logoutUrl, reddit_loginUrl } from "../../../lib/url";
+import { TimeMsgContext, TimeMsgContextProps } from "../../main/TimeMsgContext";
 
 const Reddit = (userInfo:UserProps) => {
+    const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
     const redditAccount = userInfo.hasExternalAccount ? userInfo.externalAccounts?.find((provider) => provider.provider === 'reddit') : undefined
     const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID
     const uri = process.env.NEXT_PUBLIC_HOSTNAME + '/settings'    //reddit
@@ -13,9 +16,7 @@ const Reddit = (userInfo:UserProps) => {
 
     const redditLogout = async () => {
         try {
-            const server = process.env.NEXT_PUBLIC_SERVER_URL;
-            const url = `${server}/reddit_logout`;
-            const res = await fetch(url, {
+            const res = await fetch(reddit_logoutUrl, {
                 method: 'get',
                 credentials: 'include',
             })
@@ -29,27 +30,28 @@ const Reddit = (userInfo:UserProps) => {
         }
     }
 
-    const getCredentials = async () => {
+    const getCredentials = async (code:string) => {
         try {
-            const server = process.env.NEXT_PUBLIC_SERVER_URL;
-            const url = `${server}/reddit_login?code=${router.query.code}`
-            const res = await fetch(url ,{
+            const res = await fetch(reddit_loginUrl(code) ,{
                 method: 'get',
                 credentials: 'include'
             })
             if (res.ok) {
                 const redirect = window.location.href = '/settings'
+            } else {
+                setMessage({value: 'Something went wrong!', status: 'error'})
             }
         } catch (err) {
-            
+            setMessage({value: 'Something went wrong!', status: 'error'})
         }
     }
 
     useEffect(() => {
         if (!router.isReady) return;
-        if (!router.query.code && !router.query.state) return;
-        getCredentials()
-    },[router.isReady, router.query.code, router.query.state])
+        const {code} = router.query;
+        if (!code) return;
+        getCredentials(code.toString())
+    },[router])
 
     return (
         <div className="mt-7">

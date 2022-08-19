@@ -1,12 +1,12 @@
-import axios from "axios";
-
 const server = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export const getCategories = async () => {
     try {
-      const res = await axios.get(`${server}/categories`, {withCredentials:true})
-      return res.data
+      const url = `${server}/categories`
+      const res = await fetch(url)
+      const categories = res.json();
+      return categories;
     } catch (error) {
-      console.log(error)
+      return error;
     }
   }

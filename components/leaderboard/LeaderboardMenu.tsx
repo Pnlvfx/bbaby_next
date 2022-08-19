@@ -4,7 +4,7 @@ import UserContext from '../auth/UserContext';
 import { getCategories } from '../cotegory/APIcategory';
 
 const LeaderboardMenu = () => {
-  const {session} = useContext(UserContext)
+  const {session} = useContext(UserContext) as SessionProps;
   const [totalShow,setTotalShow] = useState(12);
   const [active,setActive] = useState(0)
   const [showMore,setShowMore] = useState(false)

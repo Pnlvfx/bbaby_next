@@ -18,7 +18,7 @@ export const subscribe = async(communityName:string,setShow:Dispatch<SetStateAct
         withCredentials:true
       })
     } catch (err:any) {
-      if (err.response.status === 401) {
+      if (err.response.status === 401 || 400) {
         setShow('login')
       }
     }

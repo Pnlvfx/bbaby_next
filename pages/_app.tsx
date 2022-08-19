@@ -6,18 +6,11 @@ import { AuthModalContextProvider } from '../components/auth/AuthModalContext';
 import { CommunityContextProvider } from '../components/community/CommunityContext';
 import CookieConsent from '../components/utils/validation/CookieConsent';
 import { TimeMsgContextProvider } from '../components/main/TimeMsgContext';
-import { useRouter } from 'next/router';
 import GoogleAnalytics from '../components/google/GoogleAnalytics';
 
 const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps) => {
-  const router = useRouter();
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
   const production = process.env.NODE_ENV === 'production' ? true : false;
-  const pathNotUsed = router.pathname.includes('activation')
-    ? true
-    : router.pathname.includes('governance')
-    ? true
-    : false
     
   return (
     <>
@@ -49,7 +42,7 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps) => {
             <TimeMsgContextProvider>
               <Component {...pageProps} />
               <CookieConsent />
-              <GoogleAnalytics />
+              {production && <GoogleAnalytics />}
             </TimeMsgContextProvider>
           </CommunityContextProvider>
         </AuthModalContextProvider>

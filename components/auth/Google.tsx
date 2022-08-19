@@ -5,13 +5,13 @@ import { Dispatch, SetStateAction, useContext } from 'react';
 import {AuthModalContext, AuthModalContextProps} from './AuthModalContext';
 import { getUserIP } from './APIauth';
 import { googleLoginAnalytics } from '../../lib/gtag';
+import { google_loginUrl } from '../../lib/url';
 
 type GoogleProps = {
   setLoading: Dispatch<SetStateAction<boolean>>
 }
 
 const Google = ({setLoading}:GoogleProps) => {
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
   const router = useRouter()
   const modalContext = useContext(AuthModalContext) as AuthModalContextProps;
 
@@ -20,10 +20,9 @@ const Google = ({setLoading}:GoogleProps) => {
         setLoading(true)
         const userIpInfo = await getUserIP();
         const {country,countryCode,city,region,lat,lon} = await userIpInfo
-        const url = `${server}/google_login`;
         const res2 = await axios({
           method:'post',
-          url,
+          url: google_loginUrl,
           data: {tokenId: response.credential, data: {country,countryCode,city,region,lat,lon}},
           withCredentials:true
         })
