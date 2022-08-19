@@ -47,7 +47,8 @@ export default Username;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
   const author = context.query.username;
-  const server = process.env.NEXT_PUBLIC_SERVER_URL;
+  const production = process.env.NODE_ENV === 'production' ? true : false
+  const server = production ? process.env.NEXT_PUBLIC_SERVER_URL : `http://${context.req.headers.host?.replace('3000', '4000')}`;
   const headers = context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined
   const sessionUrl = `${server}/user`
   const postUrl = `${server}/posts?author=${author}&limit=15&skip=0`

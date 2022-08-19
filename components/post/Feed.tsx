@@ -22,6 +22,7 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
   const PostModal = dynamic(() => import('./PostModal'))
   const [postOpen, setPostOpen] = useState(false)
   const router = useRouter()
+  const production = process.env.NODE_ENV === 'production' ? true : false;
   let postId: string[] | string = ''
 
   if (router.query.postId) {
@@ -71,7 +72,7 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
             <div className="mb-4">
               <BestPost />
             </div>
-            <GoogleAdsense2 />
+            {production && <GoogleAdsense2 />}
             <>
               <InfiniteScroll
                 dataLength={posts.length}

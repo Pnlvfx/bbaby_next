@@ -10,7 +10,6 @@ type Voting = {
 }
 
 const Voting = ({ups,postId,liked}:Voting) => {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
     let dir = 0  //vote
     const [upVote,setUpVote] = useState(ups)
     const {setShow} = useContext(AuthModalContext) as AuthModalContextProps;
@@ -18,6 +17,7 @@ const Voting = ({ups,postId,liked}:Voting) => {
 
     const refreshVote = async () => {
       try {
+        const server = process.env.NEXT_PUBLIC_SERVER_URL
         const res = await axios.post(`${server}/posts/${postId}/vote`,{dir}, {withCredentials:true})
         if(dir === 1) {
           if(voted === 'true') {

@@ -3,9 +3,7 @@ import  {useContext} from 'react'
 import RootCommentContext from "../comments/commentutils/RootCommentContext";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
 
-function Voting(props) {
-
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
+const Voting = (props) => {
 
   const {commentsTotals, userVotes,refreshVotes} = useContext(RootCommentContext);
   const {commentId} = props;
@@ -22,6 +20,7 @@ function Voting(props) {
     if(directionNumber === userVote) {
       direction = 'unvote';
     }
+    const server = process.env.NEXT_PUBLIC_SERVER_URL
     const url = server+'/vote/'+props.commentId+'/'+direction
     axios.get(url, {withCredentials:true})
       .then(() => {

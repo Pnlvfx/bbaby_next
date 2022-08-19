@@ -1,4 +1,3 @@
-import axios from 'axios'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { isMobile } from 'react-device-detect'
@@ -9,18 +8,20 @@ const TopCommunities = () => {
   const [allCommunity, setAllCommunity] = useState<CommunityProps[] | []>([])
   const [loadingCommunity, setLoadingCommunity] = useState(true)
 
-  const getBestCommunities = () => {
+  const getBestCommunities = async () => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
-    axios
-      .get(`${server}/best-communities?limit=5`, { withCredentials: true })
-      .then((response) => {
-        setAllCommunity(response.data)
-        setLoadingCommunity(false)
-      })
+    const url = `${server}/best-communities?limit=5`
+    const res = await fetch(url, {
+      method: 'get',
+      credentials: 'include'
+    })
+    const communities = await res.json();
+    setAllCommunity(communities);
+    setLoadingCommunity(false)
   }
 
   useEffect(() => {
-    if (isMobile) return
+    if (isMobile) return;
     setTimeout(() => {
       getBestCommunities()
     }, 500)

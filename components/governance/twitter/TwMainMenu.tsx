@@ -17,7 +17,7 @@ const TwMainMenu = ({ setLanguage, setTweets }: TwMainMenuProps) => {
       setTweets([])
       setLanguage(lang)
       getMyListTweets(list).then(res => {
-        setTweets(res.data)
+        setTweets(res)
         setActive(0)
       })
     } catch (err:any) {

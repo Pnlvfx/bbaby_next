@@ -1,6 +1,4 @@
-import axios from 'axios'
-
-const server = process.env.NEXT_PUBLIC_SERVER_URL
+const server = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export const anonList = {
   listId: '1535968733537177604',
@@ -17,9 +15,16 @@ export interface query {
 }
 
 export const getMyListTweets = async (query: query) => {
-  const res = await axios.get(
-    `${server}/twitter/selected-tweets?slug=${query.listId}&owner_screen_name=${query.owner_screen_name}`,
-    { withCredentials: true }
-  )
-  return res
+  const url = `${server}/twitter/selected-tweets?slug=${query.listId}&owner_screen_name=${query.owner_screen_name}`
+  const res = await fetch(url, {
+    method: 'get',
+    credentials: 'include'
+  })
+  if (res.ok) {
+    const tweets = await res.json();
+    console.log(tweets);
+    return tweets
+  } else {
+    console.log(res.redirected)
+  }
 }

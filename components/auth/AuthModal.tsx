@@ -151,9 +151,7 @@ const AuthModal: NextComponentType = () => {
                     </Link>
                     .
                   </p>
-                  <div id="google_login" className="pb-6">
-                    <Google setLoading={setLoading} />
-                  </div>
+                  <Google setLoading={setLoading} />
                   <form method="post" autoComplete='on' onSubmit={(handleSubmit)}>
                     {authInput('username','text',status,username,setUsername,'username')}
                     {status.err && showErrMsg(status.err)}
@@ -213,9 +211,7 @@ const AuthModal: NextComponentType = () => {
                     </Link>
                     .
                   </p>
-                  <div id="google_login" className="pb-6">
-                    <Google setLoading={setLoading} />
-                  </div>
+                  <Google setLoading={setLoading} />
                   <form
                     autoComplete="off"
                     noValidate

@@ -12,9 +12,9 @@ type GoogleProps = {
 }
 
 const Google = ({setLoading}:GoogleProps) => {
+  const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
   const router = useRouter()
   const modalContext = useContext(AuthModalContext) as AuthModalContextProps;
-
   const responseGoogle = async (response: CredentialResponse) => {
       try {
         setLoading(true)
@@ -33,16 +33,18 @@ const Google = ({setLoading}:GoogleProps) => {
           localStorage.setItem('firstLogin', 'true')
           router.reload()
         } else {
-           router.reload()
+          router.reload()
         }
       } catch (err) {
         console.log(err)
       }
   }
 
+  if (!GOOGLE_CLIENT_ID) return null;
+
   return (
-      <div className='w-[200px]'>
-        <GoogleOAuthProvider clientId='527300585899-mh0q9kh2fpijep43k37oriuafsl8m9hi.apps.googleusercontent.com'>
+      <div className='w-[200px] mb-6 overflow-hidden'>
+        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
           <GoogleLogin
                 onSuccess={response => {responseGoogle(response)}}
                 onError={() => {responseGoogle}}
@@ -51,7 +53,6 @@ const Google = ({setLoading}:GoogleProps) => {
                 type={'standard'}
                 theme={'filled_black'}
                 locale={'en'}
-
           />
       </GoogleOAuthProvider>
     </div>

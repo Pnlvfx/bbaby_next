@@ -12,11 +12,9 @@ const Twitter = () => {
 
   useEffect(() => {
     getMyListTweets(anonList).then(res => {
-      setTweets(res.data)
+      setTweets(res)
     }).catch((err) => {
-      err && err.response.data.msg && (
-        setMessage({value: err.response.data.msg, status: 'error'})
-      )
+      console.log(err);
     })
   }, [])
 
