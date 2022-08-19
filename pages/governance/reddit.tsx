@@ -14,7 +14,7 @@ const RedditPage:NextPage = () => {
   const getRedditPosts = async () => {
     try {
       const server = process.env.NEXT_PUBLIC_SERVER_URL;
-      const url = `${server}/reddit_posts`
+      const url = `${server}/reddit/posts`
       const res = await fetch(url, {
         method: 'get',
         credentials: 'include'

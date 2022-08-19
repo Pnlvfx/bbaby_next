@@ -10,7 +10,7 @@ const TopCommunities = () => {
 
   const getBestCommunities = async () => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
-    const url = `${server}/best-communities?limit=5`
+    const url = `${server}/communities/best-communities?limit=5`
     const res = await fetch(url, {
       method: 'get',
       credentials: 'include'

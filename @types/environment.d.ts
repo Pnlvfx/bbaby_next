@@ -9,5 +9,6 @@ namespace NodeJS {
     NEXT_PUBLIC_PAYPAL_CLIENT_ID: string
     NEXT_PUBLIC_LINK_PREVIEW_URL: string
     NEXT_PUBLIC_NODE_ENV: 'development' | 'production'
+    GOOGLE_CLIENT_ID: string
   }
 }

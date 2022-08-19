@@ -3,30 +3,30 @@ import Head from 'next/head'
 import React from 'react'
 import GovernanceCtrl from '../../components/governance/GovernanceCtrl'
 import GovernanceMainMenù from '../../components/governance/GovernanceMainMenù'
+import Homepage from '../../components/governance/main/Homepage'
 import Layout from '../../components/main/Layout'
 
-const AnalyticsPage:NextPage = () => {
+const AuthorityPage:NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
-
   
-
   return (
     <div>
       <Head>
         <title>Bbabystyle - authority page</title>
         <meta name='robots' content='noindex' />
-        <link rel='canonical' href={`${hostname}/governance/analytics`} key='canonical' />
+        <link rel='canonical' href={`${hostname}/governance/bbaby`} key='canonical' />
       </Head>
       <Layout>
         <GovernanceCtrl>
           <GovernanceMainMenù />
+          <Homepage />
         </GovernanceCtrl>
       </Layout>
     </div>
   )
 }
 
-export default AnalyticsPage;
+export default AuthorityPage;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
   const production = process.env.NODE_ENV === 'production' ? true : false

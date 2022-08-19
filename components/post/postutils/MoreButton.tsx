@@ -9,7 +9,6 @@ import {MoreIcon} from '../../utils/SVG'
 const MoreButton = (props:any)  => {
   const {session} = useContext(UserContext)
   const router = useRouter()
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const {post,postId} = props
   const [postAuthor,setPostAuthor] = useState(false)
@@ -25,9 +24,10 @@ const MoreButton = (props:any)  => {
   },[moreDropdownVisibilityClass])
 
   const deletePost = async() => {
+    const server = process.env.NEXT_PUBLIC_SERVER_URL
     try {
       if(router.asPath !== '/') {
-        await axios.delete(`${server}/posts/${postId}`,{withCredentials:true})
+        await axios.delete(`${server}/posts/${postId}`, {withCredentials:true})
         router.push(`${hostname}/b/${post.community}`).then(() => {
         })
       } else {

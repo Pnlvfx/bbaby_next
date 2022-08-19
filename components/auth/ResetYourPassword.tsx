@@ -1,16 +1,24 @@
 import { inputClass } from '../utils/Input'
-import {useState,useContext, SetStateAction} from 'react'
+import {useState, useContext} from 'react'
 import { buttonClass } from '../utils/Button';
 import { AuthModalContextProps, AuthModalContext } from './AuthModalContext';
 import Image from 'next/image';
 import Logo from '../../public/logo.png'
 
 function ResetYourPassword() {
-
     const [email,setEmail] = useState('');
     const [username,setUsername] = useState('');
     const modalContext = useContext(AuthModalContext) as AuthModalContextProps;
-    const {setShow} = modalContext
+
+    const resetPassword = async () => {
+        const server = process.env.NEXT_PUBLIC_SERVER_URL;
+        const url = `${server}/user/forgot`;
+        const res = await fetch(url, {
+            method: 'post',
+            body: JSON.stringify('')
+        })
+        const bo = await res.json();
+    }
 
   return (
     <div className=''>
@@ -33,8 +41,12 @@ function ResetYourPassword() {
                 </label>
             </div>
             <div>
-                <button className={`w-48 py-2 mb-3 ${buttonClass()}`} onClick={() => null}>
-                    Reset Password
+                <button 
+                className={`w-48 py-2 mb-3 ${buttonClass()}`} 
+                onClick={() => {
+                    resetPassword();
+                }}>
+                    <p>Reset Password</p>
                 </button>
             </div>
                 <button className="text-reddit_blue font-bold text-xs">FORGOT USERNAME?</button>

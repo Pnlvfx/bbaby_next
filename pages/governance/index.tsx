@@ -3,6 +3,7 @@ import Layout from "../../components/main/Layout";
 import GovernanceCtrl from "../../components/governance/GovernanceCtrl";
 import Head from "next/head";
 import GovernanceMainMenù from "../../components/governance/GovernanceMainMenù";
+import Homepage from "../../components/governance/main/Homepage";
 
 const Governance: NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
@@ -16,6 +17,7 @@ const Governance: NextPage = () => {
         <Layout>
           <GovernanceCtrl>
             <GovernanceMainMenù />
+            <Homepage />
           </GovernanceCtrl>
         </Layout>
     </>
