@@ -43,7 +43,7 @@ const SubmitPage: NextPage = () => {
   )
 }
 
-export default SubmitPage
+export default SubmitPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const server = process.env.NEXT_PUBLIC_SERVER_URL;
