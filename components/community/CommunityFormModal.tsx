@@ -15,17 +15,17 @@ function CommunityFormModal() {
     err: '',
     success: '',
   }
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
   const router = useRouter()
   const [name, setName] = useState('')
   const [loading,setLoading] = useState(false)
   const [status, setStatus] = useState(initialState)
 
   const create = async () => {
-    try {  
+    try {
+      const server = process.env.NEXT_PUBLIC_SERVER_URL
       setLoading(true)
       const data = { name }
-      const res = await axios.post(server + '/communities', data, {withCredentials: true,})
+      const res = await axios.post(server + '/communities', data, {withCredentials: true})
       setShow(false);
       router.push({
         pathname: `/b/${name}`,

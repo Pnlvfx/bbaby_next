@@ -16,6 +16,7 @@ import { authInput } from './authInput';
 import { getUserIP } from './APIauth';
 import * as gtag from '../../lib/gtag';
 import { loginUrl, registerUrl } from '../../lib/url';
+import { postRequestHeaders } from '../main/config';
 
 const AuthModal: NextComponentType = () => {
   const initialState = {
@@ -54,11 +55,10 @@ const AuthModal: NextComponentType = () => {
         lat,
         lon,
       })
-      const headers =  {Accept: 'application/json', "Content-Type": 'application/json'};
       const res2 = await fetch(registerUrl, {
         method: 'post',
         body,
-        headers,
+        headers: postRequestHeaders,
         credentials: 'include'
         })
         if (res2.ok) {
@@ -82,11 +82,10 @@ const AuthModal: NextComponentType = () => {
     try {
       setLoading(true)
       const body = JSON.stringify({ username, password })
-      const headers =  {Accept: 'application/json', "Content-Type": 'application/json'};
       const res = await fetch(loginUrl, {
         method: 'post',
         body,
-        headers,
+        headers: postRequestHeaders,
         credentials: 'include'
       })
       if (res.ok) {

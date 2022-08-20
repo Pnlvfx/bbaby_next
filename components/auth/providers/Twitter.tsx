@@ -1,7 +1,7 @@
 import axios from "axios"
-import { useRouter } from "next/router"
-import { useEffect } from "react"
-import { TwitterLogo } from "../../utils/SVG"
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { TwitterLogo } from "../../utils/SVG";
 
 
 const Twitter = (userInfo:UserProps) => {

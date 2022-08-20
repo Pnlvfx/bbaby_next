@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useContext, useState } from 'react';
+import { postRequestHeaders } from '../../main/config';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
 import { buttonClass, Spinner } from '../../utils/Button';
 import { inputClass } from '../../utils/Input';
@@ -40,7 +41,7 @@ const CreateImage = ({
       const res = await fetch(url, {
         method: 'post',
         body,
-        headers: {Accept: 'application/json', "Content-Type": 'application/json'},
+        headers: postRequestHeaders,
         credentials: 'include'
       })
       if (res.ok) {

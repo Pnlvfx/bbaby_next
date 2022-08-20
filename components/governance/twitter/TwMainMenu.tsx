@@ -17,8 +17,14 @@ const TwMainMenu = ({ setLanguage, setTweets }: TwMainMenuProps) => {
       setTweets([])
       setLanguage(lang)
       getMyListTweets(list).then(res => {
-        setTweets(res)
-        setActive(0)
+        res.json().then((_tweets) => {
+          if (res.ok) {
+            setTweets(_tweets)
+            setActive(0)
+          } else {
+            setMessage({value: _tweets.msg, status: 'error'})
+          }
+        })
       })
     } catch (err:any) {
       err && err.response.data.msg && (

@@ -1,3 +1,5 @@
+import Router from "next/router";
+
 const server = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export const anonList = {
@@ -20,11 +22,8 @@ export const getMyListTweets = async (query: query) => {
     method: 'get',
     credentials: 'include'
   })
-  if (res.ok) {
-    const tweets = await res.json();
-    console.log(tweets);
-    return tweets
-  } else {
-    console.log(res.redirected)
+  if (res.status === 401) {
+    Router.push('/settings')
   }
+  return res;
 }

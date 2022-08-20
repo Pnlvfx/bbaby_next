@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import GovernanceCtrl from '../../components/governance/GovernanceCtrl';
 import { NewsContextProvider } from '../../components/governance/news/NewsContext';
 import NewsPage from '../../components/governance/news/NewsPage';
+import { postRequestHeaders } from '../../components/main/config';
 import Layout from '../../components/main/Layout';
 
 const NewsPagee:NextPage = () => {
@@ -20,7 +21,7 @@ const NewsPagee:NextPage = () => {
         const res = await fetch(serverUrl, {
           method: 'post',
           body,
-          headers: {Accept: 'application/json', "Content-Type": 'application/json'},
+          headers: postRequestHeaders,
           credentials: 'include'
         })
         const article = res.json();

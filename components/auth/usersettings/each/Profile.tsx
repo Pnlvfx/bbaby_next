@@ -34,15 +34,16 @@ const Profile = () => {
   
 
   useEffect(() => {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
+    const server = process.env.NEXT_PUBLIC_SERVER_URL;
     try {
       if (!change) return
       const data = { image: selectedFile, username: session?.user.username }
       axios({
         method: 'POST',
-        url: server + '/user/change_avatar',
+        url: `${server}/user/change_avatar`,
         data: data,
-        headers: { 'Content-type': 'application/json' }
+        headers: { 'Content-type': 'application/json' },
+        withCredentials: true
       }).then((res) => {
         setChange(false)
         setMessage({ value: res.data.success, status: 'success' })
@@ -84,6 +85,7 @@ const Profile = () => {
         )}
         <input
           hidden
+          accept='image/png, image/jpeg'
           type="file"
           name="image"
           id="file_up"

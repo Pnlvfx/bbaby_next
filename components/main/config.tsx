@@ -9,3 +9,5 @@ export const COLORS = {
     text_darker: '#818384',
     blue: '#24A0ED'
 }
+
+export const postRequestHeaders =  {Accept: 'application/json', "Content-Type": 'application/json'};

@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
+import { youtubeAccessTokenUrl, youtubeLoginUrl } from "../../../lib/url";
 import { TimeMsgContext, TimeMsgContextProps } from "../../main/TimeMsgContext";
 import { buttonClass } from "../../utils/Button";
 
@@ -9,9 +10,7 @@ const YoutubeLogin = () => {
     const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
     const youtubeLogin = async () => {
         try {
-            const server = process.env.NEXT_PUBLIC_SERVER_URL;
-            const url = `${server}/governance/youtube/login`
-            const res = await fetch(url, {
+            const res = await fetch(youtubeLoginUrl, {
                 method: 'get',
                 credentials: 'include'
             })
@@ -27,14 +26,29 @@ const YoutubeLogin = () => {
         }
     }
 
+    const getAccessToken = async (code: string) => {
+        try {
+            const body = JSON.stringify({code})
+            const res = await fetch(youtubeAccessTokenUrl, {
+                method: 'post',
+                body,
+                credentials: 'include',
+            })
+            if (res.ok) {
+                router.replace('/governance/youtube', undefined, {shallow: true});
+            } else {
+                const error = await res.json();
+                setMessage({value: error.msg, status: 'error'})
+            }
+        } catch (err) {
+            setMessage({value: 'Something went wrong!', status: 'error'});
+        }
+    }
+
     useEffect(() => {
-        if (!router.isReady) return
-        if (!router.query.code && !router.query.scope) return
-        const server = process.env.NEXT_PUBLIC_SERVER_URL
-        const data = {code: router.query.code}
-        axios.post(`${server}/governance/youtube/access_token`, data, {withCredentials:true}).then(response => {
-            router.push('/governance/youtube')
-        })
+        if (!router.isReady) return;
+        if (!router.query.code) return;
+        getAccessToken(router.query.code.toString());
     },[router])
 
     return (

@@ -42,7 +42,7 @@ const CommunityPage: NextPage<CommunityPg> = ({community,posts}) => {
         <link rel='canonical' href={url} key='canonical' />
       </Head>
       <Layout>
-          {!router.query?.postId && <BoardHeader community={community}/>}
+          {!router.query?.postId && <BoardHeader />}
           <Feed community={community} posts={posts} />
       </Layout>
     </div>

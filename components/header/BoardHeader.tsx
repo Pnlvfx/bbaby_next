@@ -1,16 +1,13 @@
 import axios from 'axios';
 import Image from 'next/image';
 import { useContext, useEffect, useRef, useState } from 'react';
+import { communityUrl } from '../../lib/url';
 import { AuthModalContext, AuthModalContextProps } from '../auth/AuthModalContext';
 import { subscribe } from '../community/APicommunity';
 import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
 import { buttonClass } from '../utils/Button';
 
-interface BoardHeaderProps {
-  community: string
-}
-
-const BoardHeader = ({ community }: BoardHeaderProps) => {
+const BoardHeader = () => {
   const {
     loading,
     getCommunity,
@@ -38,11 +35,12 @@ const BoardHeader = ({ community }: BoardHeaderProps) => {
     try {
       const res = await axios({
         method: 'POST',
-        url: `${server}/communities/${communityInfo.name}/change_avatar`,
+        url: communityUrl.change_avatar(communityInfo.name),
         data: { image: selectedFile },
         headers: { 'Content-Type': 'application/json' },
+        withCredentials: true
       })
-      getCommunity(community)
+      getCommunity(communityInfo.name)
       setSelectedFile('')
     } catch (err) {
 
@@ -101,6 +99,7 @@ const BoardHeader = ({ community }: BoardHeaderProps) => {
                 hidden
                 type="file"
                 name="image"
+                accept='image/png, image/jpeg'
                 id="file_up"
                 ref={filePickerRef}
                 onChange={(e) => {
@@ -115,7 +114,7 @@ const BoardHeader = ({ community }: BoardHeaderProps) => {
           <div className='flex mt-2'>
           <div className="ml-4">
             <p className="text-2xl font-bold">{communityInfo.name}</p>
-            <h2 className="mt-1 text-sm text-reddit_text-darker">b/{community}</h2>
+            <h2 className="mt-1 text-sm text-reddit_text-darker">b/{communityInfo.name}</h2>
           </div>
           <button onClick={(e) => {
             e.preventDefault()
