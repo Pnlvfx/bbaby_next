@@ -10,7 +10,7 @@ const LinkPreview = ({url,index}:LinkPreviewInputProps) => {
     const [news,setNews] = useState<LinkPreviewProps>({})
 
     const fetcher = async () => {
-        const server = process.env.NEXT_PUBLIC_LINK_PREVIEW_URL    /////localhost:8000 for the local
+        const server = process.env.API_LINK_PREVIEW_URL  /////localhost:8000 for the local
         const response = await fetch(`${server}/v2?url=${url}`);
         const json = await response.json()
         const newsInfo = json.metadata

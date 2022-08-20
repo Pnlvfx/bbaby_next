@@ -15,7 +15,8 @@ const NextConfig = {
     defaultLocale: 'en',
   },
   env: {
-    GOOGLE_CLIENT_ID: '527300585899-mh0q9kh2fpijep43k37oriuafsl8m9hi.apps.googleusercontent.com'
+    GOOGLE_CLIENT_ID: '527300585899-mh0q9kh2fpijep43k37oriuafsl8m9hi.apps.googleusercontent.com',
+    API_LINK_PREVIEW_URL: 'https://bbaby-link-preview.herokuapp.com',
   },
   productionBrowserSourceMaps: true,
 }
