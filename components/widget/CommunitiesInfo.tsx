@@ -12,6 +12,8 @@ import {AuthModalContext, AuthModalContextProps} from '../auth/AuthModalContext'
 import UserContext from '../auth/UserContext';
 import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
 import CategoriesDropdown from './community-info/CategoriesDropdown';
+import { communityUrl } from '../../lib/url';
+import {postRequestHeaders} from '../main/config';
 
 export interface CommunitiesInfoProps {
   isCategoryDropdownOpen? : boolean
@@ -31,9 +33,14 @@ const CommunitiesInfo = ({isCategoryDropdownOpen,setIsCategoryDropdownOpen}:Comm
 
   useEffect(() => {
     if (commit) {
-      const server = process.env.NEXT_PUBLIC_SERVER_URL
       const data = { descr, name:communityInfo.name }
-      axios.post(server + '/communities/edit/description', data, {withCredentials: true,})
+      axios({
+        method: 'post',
+        headers: postRequestHeaders,
+        url: communityUrl.update_description,
+        data,
+        withCredentials: true
+      })
         .then((response) => {
           setCommit(false)
         })

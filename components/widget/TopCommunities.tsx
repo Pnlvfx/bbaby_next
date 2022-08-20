@@ -1,23 +1,29 @@
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { isMobile } from 'react-device-detect'
-import { buttonClass } from '../utils/Button'
-import TopCommunitiesContent from './TopCommunitiesContent'
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { isMobile } from 'react-device-detect';
+import { buttonClass } from '../utils/Button';
+import TopCommunitiesContent from './TopCommunitiesContent';
 
 const TopCommunities = () => {
   const [allCommunity, setAllCommunity] = useState<CommunityProps[] | []>([])
   const [loadingCommunity, setLoadingCommunity] = useState(true)
 
   const getBestCommunities = async () => {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
-    const url = `${server}/communities/best-communities?limit=5`
-    const res = await fetch(url, {
-      method: 'get',
-      credentials: 'include'
-    })
-    const communities = await res.json();
-    setAllCommunity(communities);
-    setLoadingCommunity(false)
+    try {
+      const server = process.env.NEXT_PUBLIC_SERVER_URL
+      const url = `${server}/communities/best-communities?limit=5`
+      const res = await fetch(url, {
+        method: 'get',
+        credentials: 'include'
+      })
+      if (res.ok) {
+        const communities = await res.json();
+        setAllCommunity(communities);
+        setLoadingCommunity(false)
+      } 
+    } catch (error) {
+      
+    }
   }
 
   useEffect(() => {

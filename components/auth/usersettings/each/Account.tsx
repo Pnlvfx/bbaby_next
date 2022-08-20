@@ -6,6 +6,7 @@ import Reddit from "../../providers/Reddit";
 import { NextComponentType } from "next";
 import { TimeMsgContext, TimeMsgContextProps } from "../../../main/TimeMsgContext";
 import { useRouter } from "next/router";
+import { userAPIurl } from "../../../../lib/url";
 
 const Account:NextComponentType = () => {
 
@@ -16,9 +17,7 @@ const Account:NextComponentType = () => {
 
   const getUserInfo = async () => {
     try {
-      const server = process.env.NEXT_PUBLIC_SERVER_URL;
-      const url = `${server}/user/about`
-      const res = await fetch(url, {
+      const res = await fetch(userAPIurl.userInfo, {
         method: 'get',
         credentials: 'include'
       })

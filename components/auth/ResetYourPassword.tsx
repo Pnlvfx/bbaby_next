@@ -1,9 +1,11 @@
-import { inputClass } from '../utils/Input'
-import {useState, useContext} from 'react'
+import { inputClass } from '../utils/Input';
+import {useState, useContext} from 'react';
 import { buttonClass } from '../utils/Button';
 import { AuthModalContextProps, AuthModalContext } from './AuthModalContext';
 import Image from 'next/image';
-import Logo from '../../public/logo.png'
+import Logo from '../../public/logo.png';
+import { userAPIurl } from '../../lib/url';
+import { postRequestHeaders } from '../main/config';
 
 function ResetYourPassword() {
     const [email,setEmail] = useState('');
@@ -11,10 +13,9 @@ function ResetYourPassword() {
     const modalContext = useContext(AuthModalContext) as AuthModalContextProps;
 
     const resetPassword = async () => {
-        const server = process.env.NEXT_PUBLIC_SERVER_URL;
-        const url = `${server}/user/forgot`;
-        const res = await fetch(url, {
+        const res = await fetch(userAPIurl.reset_password, {
             method: 'post',
+            headers: postRequestHeaders,
             body: JSON.stringify('')
         })
         const bo = await res.json();

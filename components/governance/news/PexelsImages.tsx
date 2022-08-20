@@ -1,4 +1,3 @@
-import axios from 'axios'
 import Image from 'next/image'
 import { useContext, useState } from 'react';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
@@ -7,25 +6,36 @@ import { inputClass } from '../../utils/Input'
 import { NewsContext, NewsContextProps } from './NewsContext'
 
 const PexelsImages = () => {
-  const [searchPexels, setSearchPexels] = useState('')
-  const [pageSearch, setPageSearch] = useState('1')
-  const [pexelsImage, setPexelsImage] = useState<PexelsProps[] | []>([])
-  const {setMediaInfo} = useContext(NewsContext) as NewsContextProps;
+  const [searchPexels, setSearchPexels] = useState('');
+  const [pageSearch, setPageSearch] = useState('1');
   const [loading,setLoading] = useState(false);
+  const [pexelsImage, setPexelsImage] = useState<PexelsProps[] | []>([]);
+  const {setMediaInfo} = useContext(NewsContext) as NewsContextProps;
   const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
 
   const searchPexelsImages = async () => {
     try {
-      const server = process.env.NEXT_PUBLIC_SERVER_URL
+      const server = process.env.NEXT_PUBLIC_SERVER_URL;
+      const url = `${server}/governance/pexels?text=${searchPexels}&page=${pageSearch}`
       setLoading(true)
-      const res = await axios.get(
-        `${server}/governance/pexels?text=${searchPexels}&page=${pageSearch}`,
-        { withCredentials: true }
-      )
-      setPexelsImage(res.data.photos)
-      setLoading(false); 
+      const res = await fetch(url,{
+        method: 'get',
+        credentials: 'include'
+      })
+      if (res.ok) {
+        const photos = await res.json();
+        setPexelsImage(photos);
+        setLoading(false);
+      } else {
+        const error = await res.json();
+        setMessage({value: error.msg, status: 'error'});
+        setLoading(false);
+      }
     } catch (err) {
-      console.log(err);
+      if (err instanceof Error) {
+        setMessage({value: err.message, status: 'error'})
+        setLoading(false);
+      }
     }
   }
 

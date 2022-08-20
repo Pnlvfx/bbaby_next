@@ -1,14 +1,14 @@
-import Image from 'next/image'
-import { useContext, useEffect, useState } from 'react'
-import ClickOutHandler from 'react-clickout-ts'
-import { HiChevronDown } from 'react-icons/hi'
-import { MdOutlineCircle } from 'react-icons/md'
-import UserContext from '../../auth/UserContext'
-import { getUserPrefCommunities, searchCommunity } from '../../community/APicommunity'
-import { CommunityContext, CommunityContextProps } from '../../community/CommunityContext'
-import { inputClass } from '../../utils/Input'
-import { SubmitContext, SubmitContextType } from '../SubmitContext'
-import CommunityList from './CommunityList'
+import Image from 'next/image';
+import { useContext, useEffect, useState } from 'react';
+import ClickOutHandler from 'react-clickout-ts';
+import { HiChevronDown } from 'react-icons/hi';
+import { MdOutlineCircle } from 'react-icons/md';
+import UserContext from '../../auth/UserContext';
+import { getUserPrefCommunities, searchCommunity } from '../../community/APicommunity';
+import { CommunityContext, CommunityContextProps } from '../../community/CommunityContext';
+import { inputClass } from '../../utils/Input';
+import { SubmitContext, SubmitContextType } from '../SubmitContext';
+import CommunityList from './CommunityList';
 import {BiSearch} from 'react-icons/bi';
 
 const CommunityDropdown = () => {
@@ -29,6 +29,7 @@ const CommunityDropdown = () => {
   }
 
   useEffect(() => {  ///FIRST CALL  USER PREF COMMUNITY.
+    if (!session) return;
     if (selectedCommunity) {
       getCommunity(selectedCommunity)
     } else {
@@ -41,7 +42,8 @@ const CommunityDropdown = () => {
   },[])
 
   useEffect(() => { ///SEARCH
-    if (!selectedCommunity) return
+    if (!selectedCommunity) return;
+    if (!session) return;
     const timer = setTimeout(() => {
       searchCommunity(selectedCommunity).then((res) => {
         setAllCommunity(res)
@@ -136,4 +138,5 @@ const CommunityDropdown = () => {
   )
 }
 
-export default CommunityDropdown
+export default CommunityDropdown;
+

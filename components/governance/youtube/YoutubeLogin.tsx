@@ -1,4 +1,3 @@
-import axios from "axios"
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import { youtubeAccessTokenUrl, youtubeLoginUrl } from "../../../lib/url";

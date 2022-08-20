@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from 'react'
-import { isMobile } from 'react-device-detect'
-import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext'
-import { translate } from '../APIgov'
-import GovSubmitNews from './GovSubmitNews'
-import { NewsContext, NewsContextProps } from './NewsContext'
-import PexelsImages from './PexelsImages'
+import { useContext, useEffect, useState } from 'react';
+import { isMobile } from 'react-device-detect';
+import { translate } from '../../API/governanceAPI';
+import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
+import GovSubmitNews from './GovSubmitNews';
+import { NewsContext, NewsContextProps } from './NewsContext';
+import PexelsImages from './PexelsImages';
 
 interface NewPageProps {
   title: string
@@ -27,11 +27,26 @@ const NewsPage = ({
     if (!mediaInfo.image) {
       setMessage({value: 'Please select the image before!', status: 'error', time: 15000});
     } else {
-      const t = await translate(originalTitle, language)
-      const d = await translate(originalDescription, language)
-      setTitle(t)
-      setDescription(d)
-      setlevel('submit')
+      const res1 = await translate(originalTitle, language)
+      const res2 = await translate(originalDescription, language)
+      if (!res1 || !res2) return setMessage({value: `That's strange!`})
+      if (res1.ok && res2.ok) {
+        if (res1 instanceof Response && res2 instanceof Response) {
+          const title = await res1.json();
+          const description = await res2.json();
+          setTitle(title);
+          setDescription(description)
+          setlevel('submit')
+        }
+      } else {
+        if (res1 instanceof Response && res2 instanceof Response) {
+          const error = await res1.json();
+          setMessage({value: error.msg, status: 'error'})
+        } else {
+          const error = res1 as FetchError
+          setMessage({value: error.msg, status: 'error'})
+        }
+      }
     }
   }
 
@@ -59,8 +74,9 @@ const NewsPage = ({
             <div
               id="title"
               className="cursor-pointer"
-              onClick={() => {
-                openSubmit()
+              onClick={(e) => {
+                e.preventDefault();
+                openSubmit();
               }}
             >
               <p className="mb-4 text-center text-2xl font-bold">

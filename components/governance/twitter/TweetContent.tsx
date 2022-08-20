@@ -1,8 +1,9 @@
-import Image from 'next/image'
-import { useState } from 'react'
-import TimeAgo from 'timeago-react'
-import SubmitLayout from '../../submit/SubmitLayout'
-import { translate } from '../APIgov'
+import Image from 'next/image';
+import { useContext, useState } from 'react';
+import TimeAgo from 'timeago-react';
+import { translate } from '../../API/governanceAPI';
+import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
+import SubmitLayout from '../../submit/SubmitLayout';
 
 interface TweetContent {
   tweet: TweetProps
@@ -10,6 +11,7 @@ interface TweetContent {
 }
 
 const TweetContent = ({ tweet, language }: TweetContent) => {
+  const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
   const type = tweet?.extended_entities?.media[0]?.type
   const video = tweet?.extended_entities?.media[0]?.video_info?.variants[0].url
   const image = video ? null : tweet?.extended_entities?.media[0]?.media_url_https
@@ -21,14 +23,28 @@ const TweetContent = ({ tweet, language }: TweetContent) => {
   const user_avatar = tweet.user.profile_image_url_https
 
   const doTranslate = async () => {
-    const res = await translate(text,language)
-    setNewTweet({
-      title: res,
-      image: image ? image : null,
-      width: width ? width : null,
-      height: height ? height : null,
-      video: video ? video : null,
-    })
+    const res = await translate(text, language);
+    if (!res) return setMessage({value: `That's strange!`, status: 'error'});
+    if (res.ok) {
+      if (res instanceof Response) {
+        const tweetTitle = await res.json();
+        setNewTweet({
+          title: tweetTitle,
+          image: image ? image : null,
+          width: width ? width : null,
+          height: height ? height : null,
+          video: video ? video : null,
+        })
+        setShowSubmit(true);
+        }
+    } else {
+      if (res instanceof Response) {
+        const error = await res.json();
+        setMessage({value: error.msg, status: 'error'})
+      } else {
+        setMessage({value: res.msg})
+      }
+    }
   }
   return (
     <div className="flex overflow-hidden rounded-md bg-reddit_dark-brighter">
@@ -84,7 +100,6 @@ const TweetContent = ({ tweet, language }: TweetContent) => {
               setShowSubmit(false)
             } else {
               doTranslate()
-              setShowSubmit(true)
             }
           }}
         >

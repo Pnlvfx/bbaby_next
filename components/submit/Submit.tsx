@@ -1,4 +1,4 @@
-import {useContext, useState,useEffect} from 'react'
+import {useContext, useState,useEffect} from 'react';
 import { buttonClass, Spinner } from '../utils/Button';
 import TextareaAutosize from 'react-textarea-autosize';
 import ClickOutHandler from 'react-clickout-ts';

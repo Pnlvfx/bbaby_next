@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
-import { reddit_logoutUrl, reddit_loginUrl } from "../../../lib/url";
+import { redditAPIurl } from "../../../lib/url";
 import { TimeMsgContext, TimeMsgContextProps } from "../../main/TimeMsgContext";
 
 const Reddit = (userInfo:UserProps) => {
@@ -16,7 +16,7 @@ const Reddit = (userInfo:UserProps) => {
 
     const redditLogout = async () => {
         try {
-            const res = await fetch(reddit_logoutUrl, {
+            const res = await fetch(redditAPIurl.logout, {
                 method: 'get',
                 credentials: 'include',
             })
@@ -32,7 +32,7 @@ const Reddit = (userInfo:UserProps) => {
 
     const getCredentials = async (code:string) => {
         try {
-            const res = await fetch(reddit_loginUrl(code) ,{
+            const res = await fetch(redditAPIurl.login(code) ,{
                 method: 'get',
                 credentials: 'include'
             })

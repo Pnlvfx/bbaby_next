@@ -3,10 +3,8 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import UserContext from '../../UserContext';
 import Image from 'next/image';
 import axios from 'axios';
-import {
-  TimeMsgContext,
-  TimeMsgContextProps,
-} from '../../../main/TimeMsgContext';
+import { TimeMsgContext, TimeMsgContextProps } from '../../../main/TimeMsgContext';
+import { postRequestHeaders } from '../../../main/config';
 
 const Profile = () => {
   const { session } = useContext(UserContext)
@@ -42,7 +40,7 @@ const Profile = () => {
         method: 'POST',
         url: `${server}/user/change_avatar`,
         data: data,
-        headers: { 'Content-type': 'application/json' },
+        headers: postRequestHeaders,
         withCredentials: true
       }).then((res) => {
         setChange(false)
