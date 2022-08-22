@@ -5,7 +5,6 @@ import { useContext } from "react";
 import { AiOutlineRead } from "react-icons/ai";
 import {FcVideoProjector} from 'react-icons/fc';
 import UserContext from "../auth/UserContext";
-
 interface MyNewsCardProps {
     news: NewsProps
     isListing?: boolean

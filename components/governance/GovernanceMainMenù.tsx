@@ -4,15 +4,12 @@ import { useRouter } from 'next/router'
 const GovernanceMainMenù = () => {
   const menu = [
     { title: 'Bbaby', url: '/governance/bbaby' },
-    { title: 'Youtube', url: '/governance/youtube' },
     { title: 'Twitter', url: '/governance/twitter' },
     { title: 'BBCNews', url: '/governance/news' },
     { title: 'Reddit', url: '/governance/reddit' },
   ]
   const router = useRouter()
   const active = router.pathname.match('bbaby')
-    ? 0
-    : router.pathname.match('youtube')
     ? 1
     : router.pathname.match('twitter')
     ? 2
