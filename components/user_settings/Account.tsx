@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { buttonClass } from "../../../utils/Button";
+import { buttonClass } from "../utils/Button";
 import {RiArrowDropDownFill} from 'react-icons/ri'
-import Twitter from "../../providers/Twitter";
-import Reddit from "../../providers/Reddit";
+import TwitterLogin from "../auth/providers/TwitterLogin";
+import RedditLogin from "../auth/providers/RedditLogin";
 import { NextComponentType } from "next";
-import { TimeMsgContext, TimeMsgContextProps } from "../../../main/TimeMsgContext";
+import { TimeMsgContext, TimeMsgContextProps } from "../main/TimeMsgContext";
 import { useRouter } from "next/router";
-import { userAPIurl } from "../../../../lib/url";
+import { userAPIurl } from "../../lib/url";
 
 const Account:NextComponentType = () => {
 
@@ -96,8 +96,8 @@ const Account:NextComponentType = () => {
             <hr className='mt-1 border-reddit_border'/>
           </div>
           <div id="social_connection" className="pb-[2000px]">
-            <Twitter {...userInfo}/>
-            <Reddit {...userInfo} />
+            <TwitterLogin {...userInfo}/>
+            <RedditLogin {...userInfo} />
           </div>
         </div>
       )}

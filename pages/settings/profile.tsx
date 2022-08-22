@@ -1,11 +1,12 @@
-import type { GetServerSideProps, NextPage } from 'next'
+import type { NextPage, NextPageContext } from 'next'
 import Head from 'next/head'
 import { useContext } from 'react'
 import UserContext from '../../components/auth/UserContext'
-import Profile from '../../components/auth/usersettings/each/Profile'
-import UserSettings from '../../components/auth/usersettings/UserSettings'
+import Profile from '../../components/user_settings/Profile'
+import UserSettings from '../../components/user_settings/UserSettings'
 import Layout from '../../components/main/Layout'
 import UserSecurity from '../../components/utils/security/UserSecurity'
+import { getSession } from '../../components/API/ssrAPI'
 
 const ProfilePage:NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
@@ -47,16 +48,13 @@ const ProfilePage:NextPage = () => {
 
 export default ProfilePage;
 
-export const getServerSideProps: GetServerSideProps = async(context) => {
-  const production = process.env.NODE_ENV === 'production' ? true : false
-  const server = production ? process.env.NEXT_PUBLIC_SERVER_URL : `http://${context.req.headers.host?.replace('3000', '4000')}`;
-  const headers = context?.req?.headers?.cookie ? { cookie: context.req.headers.cookie } : undefined;
-  const url = `${server}/user`
-  const response = await fetch(url, {
-    method: 'get',
-    headers
-  })
-  const session = await response.json();
+export const getServerSideProps = async (context: NextPageContext) => {
+  let session = null;
+  try {
+    session = await getSession(context);
+  } catch (err) {
+    
+  }
 
   return {
     props: {

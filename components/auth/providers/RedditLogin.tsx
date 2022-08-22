@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react";
 import { redditAPIurl } from "../../../lib/url";
 import { TimeMsgContext, TimeMsgContextProps } from "../../main/TimeMsgContext";
 
-const Reddit = (userInfo:UserProps) => {
+const RedditLogin = (userInfo:UserProps) => {
     const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
     const redditAccount = userInfo.hasExternalAccount ? userInfo.externalAccounts?.find((provider) => provider.provider === 'reddit') : undefined
     const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID
@@ -94,4 +94,4 @@ const Reddit = (userInfo:UserProps) => {
         )
     }
 
-export default Reddit;
+export default RedditLogin;

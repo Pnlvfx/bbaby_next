@@ -112,51 +112,45 @@ const CreateVideo = ({
             </form>
           )}
           {input?.video && (
-            <form className="w-full text-sm text-center">
+            <form className="w-full text-sm text-center flex">
               <video
                 className={`aspect-video`}
                 src={input.video}
                 id="video_pre-share"
                 poster={input.images[0]}
-                controls
+                controls={true}
                 width={input.width}
                 height={input.height}
               />
-              <div id="set_title" className="mt-2 flex">
-                <div>
-                  <p className="mt-[8px]">Title:</p>
+              <div id='flex' style={{width: '100%', marginLeft: 12}} >
+                <div id="set_title" className="mt-2 flex items-center">
+                  <p>Title:</p>
+                  <div className='w-full text-center'>
+                    <textarea
+                      title="title"
+                      value={input.title}
+                      onChange={(e) => {
+                        setInput({ ...input, title: e.target.value })
+                      }}
+                      className="w-full text-center bg-reddit_dark-brighter font-bold"
+                    />
+                  </div>
                 </div>
-                <div className="ml-auto w-full self-center">
-                  <textarea
-                    title="title"
-                    value={input.title}
-                    onChange={(e) => {
-                      setInput({ ...input, title: e.target.value })
-                    }}
-                    className="max-h-[335px] min-h-[100px] w-full bg-reddit_dark-brighter p-2 font-bold"
-                  />
+                <div id="set_description" className="mt-2 flex">
+                  <p>Description:</p>
+                  <div className="w-full">
+                    <textarea
+                      title="description"
+                      value={input.description}
+                      onChange={(e) => {
+                        setInput({ ...input, description: e.target.value })
+                      }}
+                      className="whitespace-pre-wrap max-h-[335px] min-h-[135px] ml-3 w-full bg-reddit_dark-brighter font-bold"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div id="set_description" className="mt-2 flex">
-                <div>
-                  <p className="mt-[8px]">Description:</p>
-                </div>
-                <div className="ml-auto w-full self-center">
-                  <textarea
-                    title="description"
-                    value={input.description}
-                    onChange={(e) => {
-                      setInput({ ...input, description: e.target.value })
-                    }}
-                    className="max-h-[335px] min-h-[135px] w-full bg-reddit_dark-brighter p-2 font-bold"
-                  />
-                </div>
-              </div>
-              <div id="keywords" className="mt-2 flex">
-                <div className="self-center">
-                  <p className="">Keywords:</p>
-                </div>
-                <div className="ml-auto self-center">
+                <div id="keywords" className="mt-2 flex">
+                  <p>Keywords:</p>
                   <input
                     type="text"
                     title="keywords"
@@ -164,15 +158,11 @@ const CreateVideo = ({
                     onChange={(e) =>
                       setInput({ ...input, keywords: e.target.value })
                     }
-                    className={`p-2 font-bold ${inputClass}`}
+                    className={`ml-auto font-bold ${inputClass}`}
                   />
                 </div>
-              </div>
-              <div id="category" className="mt-2 flex">
-                <div className="self-center">
+                <div id="category" className="mt-2 flex">
                   <p className="">Category:</p>
-                </div>
-                <div className="ml-auto self-center">
                   <input
                     type="text"
                     title="keywords"
@@ -180,15 +170,11 @@ const CreateVideo = ({
                     onChange={(e) =>
                       setInput({ ...input, category: e.target.value })
                     }
-                    className={`p-2 font-bold ${inputClass}`}
+                    className={`ml-auto font-bold ${inputClass}`}
                   />
                 </div>
-              </div>
-              <div id="privacyStatus" className="mt-2 flex">
-                <div className="self-center">
-                  <p className="">PrivacyStatus:</p>
-                </div>
-                <div className="ml-auto self-center">
+                <div id="privacyStatus" className="mt-2 flex">
+                  <p>PrivacyStatus:</p>
                   <input
                     type="text"
                     title="privacyStatus"
@@ -196,7 +182,7 @@ const CreateVideo = ({
                     onChange={(e) =>
                       setInput({ ...input, privacyStatus: e.target.value })
                     }
-                    className={`p-2 font-bold ${inputClass}`}
+                    className={`ml-auto font-bold ${inputClass}`}
                   />
                 </div>
               </div>

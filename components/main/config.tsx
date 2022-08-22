@@ -10,4 +10,7 @@ export const COLORS = {
     blue: '#24A0ED'
 }
 
-export const postRequestHeaders =  {Accept: 'application/json', "Content-Type": 'application/json'};
+export const postRequestHeaders =  {
+    Accept: 'application/json', 
+    'Content-Type': 'application/json'
+};

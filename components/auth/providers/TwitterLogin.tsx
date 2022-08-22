@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { TwitterLogo } from "../../utils/SVG";
 
 
-const Twitter = (userInfo:UserProps) => {
+const TwitterLogin = (userInfo:UserProps) => {
     const router = useRouter()
     const twitterAccount = userInfo.hasExternalAccount ? userInfo?.externalAccounts?.find((provider) => provider.provider === 'twitter') : undefined
 
@@ -103,4 +103,4 @@ const Twitter = (userInfo:UserProps) => {
   )
 }
 
-export default Twitter;
+export default TwitterLogin;

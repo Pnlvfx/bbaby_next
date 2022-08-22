@@ -17,6 +17,7 @@ const NextConfig = {
   env: {
     GOOGLE_CLIENT_ID: '527300585899-mh0q9kh2fpijep43k37oriuafsl8m9hi.apps.googleusercontent.com',
     API_LINK_PREVIEW_URL: 'https://bbaby-link-preview.herokuapp.com',
+    YOUTUBE_CLIENT_ID: '56658651654-j4f0trpq3fejbpkssqndnlqh074mqt8l.apps.googleusercontent.com',
   },
   productionBrowserSourceMaps: true,
 }

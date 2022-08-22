@@ -8,7 +8,7 @@ import {
   MdDateRange
 } from 'react-icons/md';
 import Link from 'next/link';
-import {AuthModalContext, AuthModalContextProps} from '../auth/AuthModalContext';
+import {AuthModalContext, AuthModalContextProps} from '../auth/modal/AuthModalContext';
 import UserContext from '../auth/UserContext';
 import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
 import CategoriesDropdown from './community-info/CategoriesDropdown';
@@ -21,7 +21,7 @@ export interface CommunitiesInfoProps {
 }
 
 const CommunitiesInfo = ({isCategoryDropdownOpen,setIsCategoryDropdownOpen}:CommunitiesInfoProps) => {
-  const {session} = useContext(UserContext)
+  const {session} = useContext(UserContext) as SessionProps;
   const {
     loading,
     communityInfo,

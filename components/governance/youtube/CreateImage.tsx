@@ -56,8 +56,13 @@ const CreateImage = ({
         setLoading(false)
       }
     } catch (err) {
-      setMessage({value: "Something went wrong!", status: 'error'})
-      setLoading(false);
+      if (err instanceof Error) {
+        setMessage({value: err.message, status: 'error'})
+        setLoading(false);
+      } else {
+        setMessage({value: "Something went wrong!", status: 'error'})
+        setLoading(false);
+      }
     }
   }
 

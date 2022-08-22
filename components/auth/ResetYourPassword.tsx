@@ -1,7 +1,7 @@
 import { inputClass } from '../utils/Input';
 import {useState, useContext} from 'react';
 import { buttonClass } from '../utils/Button';
-import { AuthModalContextProps, AuthModalContext } from './AuthModalContext';
+import { AuthModalContextProps, AuthModalContext } from './modal/AuthModalContext';
 import Image from 'next/image';
 import Logo from '../../public/logo.png';
 import { userAPIurl } from '../../lib/url';

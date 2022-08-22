@@ -16,7 +16,7 @@ type SubmitProps = {
 }
 
 const Submit = ({newTweet,community}:SubmitProps) => {
-    const {session} = useContext(UserContext)
+    const {session} = useContext(UserContext) as SessionProps;
     const [activeButton,setActiveButton] = useState('Post')
     const [activeClassTitle, setActiveClassTitle] = useState(false)
     const [activeClassBody, setActiveClassBody] = useState(false)

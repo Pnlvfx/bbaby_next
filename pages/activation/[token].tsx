@@ -16,21 +16,20 @@ const ActivationEmail:NextPage = () => {
     const [success,setSuccess] = useState('')
 
     useEffect(() => {
-            if(!router.isReady) return;
-            if(activation_token){
-                const server = process.env.NEXT_PUBLIC_SERVER_URL
-                
-                const activationEmail = async () => {
-                    try {
-                        const res = await axios.post(server+'/activation', {activation_token} )
-                        setSuccess(res.data.msg)
-                    } catch (err:any) {
-                        err.response.data.msg && setErr(err.response.data.msg)
-                    }
+        if(!router.isReady) return;
+        if(activation_token){
+            const server = process.env.NEXT_PUBLIC_SERVER_URL
+            
+            const activationEmail = async () => {
+                try {
+                    const res = await axios.post(server+'/activation', {activation_token} )
+                    setSuccess(res.data.msg)
+                } catch (err:any) {
+                    err.response.data.msg && setErr(err.response.data.msg)
                 }
-                activationEmail()
             }
-
+            activationEmail()
+        }
     },[activation_token,router.isReady])
   return (
     <div>

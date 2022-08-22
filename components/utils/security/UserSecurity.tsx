@@ -7,7 +7,7 @@ interface Props {
 }
 
 const UserSecurity = ({children}:Props) => {
-  const {session} = useContext(UserContext)
+  const {session} = useContext(UserContext) as SessionProps;
   const router = useRouter()
 
   useEffect(() => {

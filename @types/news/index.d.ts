@@ -1,11 +1,3 @@
-interface LinkPreviewProps {
-    description?: string
-    hostname?: string
-    image?: string
-    siteName?: string
-    title?: string
-}
-
 interface mediaInfoProps {
     isImage?: boolean
     isVideo?: boolean

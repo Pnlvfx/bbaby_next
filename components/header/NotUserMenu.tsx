@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { BiUserCircle } from 'react-icons/bi';
 import {FiSettings} from 'react-icons/fi'
-import {AuthModalContext, AuthModalContextProps} from '../auth/AuthModalContext'
+import {AuthModalContext, AuthModalContextProps} from '../auth/modal/AuthModalContext'
 import Link from 'next/link';
 
 

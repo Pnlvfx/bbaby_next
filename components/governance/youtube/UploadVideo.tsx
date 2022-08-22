@@ -1,7 +1,7 @@
-import axios from 'axios'
-import { Dispatch, SetStateAction, useContext, useState } from 'react'
-import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext'
-import { buttonClass, Spinner } from '../../utils/Button'
+import { Dispatch, SetStateAction, useContext, useState } from 'react';
+import { postRequestHeaders } from '../../main/config';
+import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
+import { buttonClass, Spinner } from '../../utils/Button';
 
 type UploadVideoProps = {
     input: InputProps
@@ -15,21 +15,38 @@ const UploadVideo = ({input,setModalType}:UploadVideoProps) => {
     const uploadVideo = async() => {
         try {
             setLoading(true)
-            const data = {
+            const body = JSON.stringify({
                 title:input.title,
                 description:input.description,
                 tags:input.keywords,
                 categoryId:input.category,
                 privacyStatus: input.privacyStatus,
+            })
+            const url = `${server}/governance/youtube`;
+            const res = await fetch(url, {
+                method: 'post',
+                headers: postRequestHeaders,
+                body,
+                credentials: 'include'
+            })
+            const response = await res.json();
+            if (res.ok) {
+                setMessage({value: response.msg, status: 'success'})
+                setModalType('create_image')
+                setLoading(false)
+                } else {
+                    setMessage({value: response.msg, status: 'error'})
+                    setLoading(false)
+                }
+        } catch (err) {
+            if (err instanceof Error) {
+                setMessage({value: err.message, status: 'error'})
+                setLoading(false)
+            } else {
+                setMessage({value: "That's strange!", status: 'error'})
+                setLoading(false)
             }
-            const res = await axios.post(`${server}/governance/youtube`,data, {withCredentials:true})
-            setMessage({value: res.data.msg, status: 'success'})
-            setModalType('create_image')
-            setLoading(false)
-        } catch (err:any) {
-          setMessage({value: err.message, status: 'error'})
-          setLoading(false)
-        }
+            }
     }
 
   return (
@@ -38,14 +55,16 @@ const UploadVideo = ({input,setModalType}:UploadVideoProps) => {
         <>
             <div id="upload_video" className="mt-2 flex p-2">
                 <div className="ml-auto">
-                    <>
-                        <button type='submit' onClick={() => {
+                    <button
+                        disabled={loading}
+                        className={`w-40 h-7 mb-3 ml-auto mr-5 ${buttonClass()}${loading ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                        type='submit'
+                        onClick={() => {
                             uploadVideo()
-                        }} className={`w-40 h-7 mb-3 ml-auto mr-5 ${buttonClass()}`}>
-                            {loading && <Spinner />}
-                            {!loading && <p>Upload video</p>}
-                        </button>
-                    </>
+                        }}>
+                        {loading && <Spinner />}
+                        {!loading && <p>Upload video</p>}
+                    </button>
                 </div>
             </div> 
         </>

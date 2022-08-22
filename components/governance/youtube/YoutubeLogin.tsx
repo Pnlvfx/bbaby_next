@@ -1,54 +1,16 @@
 import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
-import { youtubeAccessTokenUrl, youtubeLoginUrl } from "../../../lib/url";
-import { TimeMsgContext, TimeMsgContextProps } from "../../main/TimeMsgContext";
 import { buttonClass } from "../../utils/Button";
 
 const YoutubeLogin = () => {
     const router = useRouter()
-    const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
     const youtubeLogin = async () => {
-        try {
-            const res = await fetch(youtubeLoginUrl, {
-                method: 'get',
-                credentials: 'include'
-            })
-            if (res.ok) {
-                const redirect = await res.json();
-                router.push(redirect)
-            } else {
-                const error = await res.json();
-                setMessage({value: error.msg, status: 'error'})
-            }
-        } catch (err) {
-            setMessage({value: 'Something went wrong!', status: 'error'})
-        }
+        const base_url = 'https://accounts.google.com/o/oauth2/v2/auth'
+        const YOUTUBE_CLIENT_ID = process.env.YOUTUBE_CLIENT_ID;
+        const SCOPES = ['https://www.googleapis.com/auth/youtube.upload']
+        const redirectUrl = window.location.href;
+        const googleAuth = `${base_url}?access_type=offline&scope=${SCOPES}&prompt=consent&response_type=code&client_id=${YOUTUBE_CLIENT_ID}&redirect_uri=${redirectUrl}&state=bbabystyle`
+        router.push(googleAuth)
     }
-
-    const getAccessToken = async (code: string) => {
-        try {
-            const body = JSON.stringify({code})
-            const res = await fetch(youtubeAccessTokenUrl, {
-                method: 'post',
-                body,
-                credentials: 'include',
-            })
-            if (res.ok) {
-                router.replace('/governance/youtube', undefined, {shallow: true});
-            } else {
-                const error = await res.json();
-                setMessage({value: error.msg, status: 'error'})
-            }
-        } catch (err) {
-            setMessage({value: 'Something went wrong!', status: 'error'});
-        }
-    }
-
-    useEffect(() => {
-        if (!router.isReady) return;
-        if (!router.query.code) return;
-        getAccessToken(router.query.code.toString());
-    },[router])
 
     return (
         <>

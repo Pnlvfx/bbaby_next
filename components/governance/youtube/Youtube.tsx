@@ -1,17 +1,13 @@
-import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { buttonClass, Spinner } from '../../utils/Button';
 import CreateImage from './CreateImage';
 import UploadVideo from './UploadVideo';
 import CreateVideo from './CreateVideo';
-import { useRouter } from 'next/router';
-import { getOneNews } from '../../mynews/APInews';
-import { YoutubeContext, YoutubeContextProps } from './YoutubeContext';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
 import { NextComponentType } from 'next';
+import { postRequestHeaders } from '../../main/config';
 
 const Youtube:NextComponentType = () => {
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
   const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
   const _videoOptions: VideoOptionsProps = {
     fps: '24',
@@ -37,41 +33,36 @@ const Youtube:NextComponentType = () => {
   const [input, setInput] = useState(_input)
   const [modalType, setModalType] = useState<modalType>('create_image')
   const [loading, setLoading] = useState(false)
-  const router = useRouter()
-  const {setNews} = useContext(YoutubeContext) as YoutubeContextProps;
-
-  useEffect(() => { //GET THE NEWS FROM THE QUERY
-    if (!router.isReady) return
-    if (!router.query.newsId) {
-      if (!router.query.code) {
-        router.push('/news')
-      }
-    } else {
-      getOneNews(router.query.newsId.toString()).then((res) => {
-        setNews(res);
-    })
-    }
-  }, [router])
 
 
   const createVideo = async () => {
+    const server = process.env.NEXT_PUBLIC_SERVER_URL
+    setLoading(true)
     try {
-      setLoading(true)
-      const data = { _videoOptions: videoOptions, images: input.localImages }
+      const body = JSON.stringify({ _videoOptions: videoOptions, images: input.localImages })
       const url = `${server}/governance/create-video`
-      const res = await axios({
+      const res = await fetch(url,{
         method: 'post',
-        url,
-        data,
-        withCredentials: true
+        headers: postRequestHeaders,
+        body,
+        credentials: 'include'
       })
-      setMessage({value:res.data.msg, status: 'success'})
-      setInput({ ...input, video: res.data.video})
+      if (res.ok) {
+        const response = await res.json();
+        setMessage({value:response.msg, status: 'success'})
+        setInput({ ...input, video: response.video})
+      } else {
+        const error = await res.json();
+        setMessage({value: error.msg, status: 'error'})
+      }
       setLoading(false)
-    } catch (err: any) {
-      err?.response?.data?.msg &&
-        setMessage({value: err.response.data.msg, status: 'error'})
-        setLoading(false)
+    } catch (err) {
+      if (err instanceof Error) {
+        setMessage({value: err.message, status: 'error'})
+      } else {
+        setMessage({value: `That's strange!`, status: 'error'})
+      }
+      setLoading(false)
     }
   }
 
@@ -113,7 +104,6 @@ const Youtube:NextComponentType = () => {
             input={input}
             setModalType={setModalType}
           />
-          <hr className="border-reddit_border" />
         </>
       )}
     </main>

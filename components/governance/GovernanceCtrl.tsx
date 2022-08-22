@@ -7,7 +7,7 @@ interface GovernanceCtrlProps {
 }
 
 const GovernanceCtrl = ({children} : GovernanceCtrlProps) => {
-  const {session} = useContext(UserContext)
+  const {session} = useContext(UserContext) as SessionProps;
 
   return (
     <>

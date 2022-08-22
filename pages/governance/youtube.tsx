@@ -1,13 +1,20 @@
 import Youtube from '../../components/governance/youtube/Youtube'
-import type { GetServerSideProps, NextPage } from "next";
+import type { NextPage, NextPageContext } from "next";
 import Layout from "../../components/main/Layout";
 import GovernanceCtrl from "../../components/governance/GovernanceCtrl";
 import Head from 'next/head';
 import GovernanceMainMenù from '../../components/governance/GovernanceMainMenù';
 import { YoutubeContextProvider } from '../../components/governance/youtube/YoutubeContext';
+import { getOneNews } from '../../components/mynews/APInews';
+import { getSession } from '../../components/API/ssrAPI';
 
-const Governance: NextPage = () => {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME
+interface NewsPropsPage {
+  news: NewsProps
+}
+
+const Governance: NextPage<NewsPropsPage> = ({ news}) => {
+  const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
+
   return (
     <div className="w-full h-[1000px]">
       <Head>
@@ -18,7 +25,7 @@ const Governance: NextPage = () => {
       <Layout>
         <GovernanceCtrl>
           <GovernanceMainMenù />
-          <YoutubeContextProvider>
+          <YoutubeContextProvider ssrNews={news} >
             <Youtube /> 
           </YoutubeContextProvider>
         </GovernanceCtrl>
@@ -29,20 +36,26 @@ const Governance: NextPage = () => {
 
 export default Governance;
 
-export const getServerSideProps: GetServerSideProps = async(context) => {
-  const production = process.env.NODE_ENV === 'production' ? true : false
-  const server = production ? process.env.NEXT_PUBLIC_SERVER_URL : `http://${context.req.headers.host?.replace('3000', '4000')}`;
-  const headers = context?.req?.headers?.cookie ? { cookie: context.req.headers.cookie } : undefined;
-  const url = `${server}/user`
-  const response = await fetch(url, {
-    method: 'get',
-    headers
-  })
-  const session = await response.json();
+export const getServerSideProps = async(context: NextPageContext) => {
+  const {newsId} = context.query;
+  let news = null
+  let session = null;
+  try {
+    session = await getSession(context);
+  } catch (err) {
+    
+  }
+  if (newsId) {
+    const res = await getOneNews(newsId.toString(), context);
+    news = await res.json(); //single
+  } else {
+    
+  }
 
   return {
     props: {
       session,
+      news
     },
   }
 }

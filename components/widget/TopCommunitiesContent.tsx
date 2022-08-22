@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link'
 import { useContext } from 'react';
 import { RiArrowUpSLine } from 'react-icons/ri';
-import {AuthModalContext, AuthModalContextProps} from '../auth/AuthModalContext';
+import {AuthModalContext, AuthModalContextProps} from '../auth/modal/AuthModalContext';
 import { subscribe } from '../community/APicommunity';
 import { buttonClass } from '../utils/Button';
 

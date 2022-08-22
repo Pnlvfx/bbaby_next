@@ -1,4 +1,5 @@
 interface FetchError {
-    ok: boolean
+    ok: false
     msg: string
 }
+

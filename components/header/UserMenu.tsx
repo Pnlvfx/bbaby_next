@@ -9,7 +9,7 @@ import axios from 'axios';
 import Link from 'next/link';
 
 function UserMenu({showDropdown,setShowDropdown}:any) {
-    const {session} = useContext(UserContext)
+    const {session} = useContext(UserContext) as SessionProps;
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     const router = useRouter()
 

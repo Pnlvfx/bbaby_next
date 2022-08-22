@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useContext, useState } from 'react';
 import TimeAgo from 'timeago-react';
-import { translate } from '../../API/governanceAPI';
+import { translate } from '../../API/governance/governanceAPI';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
 import SubmitLayout from '../../submit/SubmitLayout';
 
@@ -24,7 +24,6 @@ const TweetContent = ({ tweet, language }: TweetContent) => {
 
   const doTranslate = async () => {
     const res = await translate(text, language);
-    if (!res) return setMessage({value: `That's strange!`, status: 'error'});
     if (res.ok) {
       if (res instanceof Response) {
         const tweetTitle = await res.json();

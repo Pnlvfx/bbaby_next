@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
-import {AuthModalContext, AuthModalContextProps} from "../auth/AuthModalContext";
+import {AuthModalContext, AuthModalContextProps} from "../auth/modal/AuthModalContext";
 import UserContext from "../auth/UserContext";
 import { TimeMsgContext, TimeMsgContextProps } from "../main/TimeMsgContext";
 
@@ -40,7 +40,7 @@ interface SubmitContextProviderProps  {
     }
 
 export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => {
-    const {session} = useContext(UserContext)
+    const {session} = useContext(UserContext) as SessionProps;
     const authModalContext = useContext(AuthModalContext) as AuthModalContextProps;
     const [title,setTitle] = useState('');
     const [body,setBody] = useState('');

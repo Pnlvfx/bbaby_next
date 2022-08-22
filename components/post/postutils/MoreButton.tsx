@@ -7,7 +7,7 @@ import UserContext from '../../auth/UserContext';
 import {MoreIcon} from '../../utils/SVG'
 
 const MoreButton = (props:any)  => {
-  const {session} = useContext(UserContext)
+  const {session} = useContext(UserContext) as SessionProps;
   const router = useRouter()
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const {post,postId} = props

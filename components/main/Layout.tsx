@@ -7,7 +7,7 @@ interface LayoutProps {
 }
 
 const Layout = ({children} : LayoutProps) => {
-  const AuthModal = dynamic(() => import('../auth/AuthModal'))
+  const AuthModal = dynamic(() => import('../auth/modal/AuthModal'))
   const CommunityFormModal = dynamic(() => import('../community/CommunityFormModal'))
   
   return (

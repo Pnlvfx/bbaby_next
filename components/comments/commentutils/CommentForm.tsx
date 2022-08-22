@@ -20,7 +20,7 @@ function CommentForm({
   onCancel,
   showAuthor
 }: CommentFormProps) {
-  const { session } = useContext(UserContext)
+  const { session } = useContext(UserContext) as SessionProps;
 
   const server = process.env.NEXT_PUBLIC_SERVER_URL
   const [commentBody, setCommentBody] = useState('')

@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
-import type { GetServerSideProps, NextPage } from 'next';
+import type { GetServerSideProps, NextPage, NextPageContext } from 'next';
 import Layout from '../../../components/main/Layout';
 import { useRouter } from 'next/router';
 import TempSubmitWid from '../../../components/widget/TempSubmitWid';
 import SubmitLayout from '../../../components/submit/SubmitLayout';
+import { getSession } from '../../../components/API/ssrAPI';
 
 const SubmitPage:NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
@@ -57,16 +58,13 @@ const SubmitPage:NextPage = () => {
 
 export default SubmitPage;
 
-export const getServerSideProps: GetServerSideProps = async(context) => {
-  const production = process.env.NODE_ENV === 'production' ? true : false
-  const server = production ? process.env.NEXT_PUBLIC_SERVER_URL : `http://${context.req.headers.host?.replace('3000', '4000')}`;
-  const headers = context?.req?.headers?.cookie ? { cookie: context.req.headers.cookie } : undefined;
-  const url = `${server}/user`
-  const response = await fetch(url, {
-    method: 'get',
-    headers
-  })
-  const session = await response.json();
+export const getServerSideProps = async (context: NextPageContext) => {
+  let session = null;
+  try {
+    session = await getSession(context);
+  } catch (err) {
+    
+  }
 
   return {
     props: {

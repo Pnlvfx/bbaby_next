@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useContext, useState } from "react"
 import { BiDownvote, BiUpvote } from "react-icons/bi"
-import {AuthModalContext, AuthModalContextProps} from "../auth/AuthModalContext"
+import {AuthModalContext, AuthModalContextProps} from "../auth/modal/AuthModalContext"
 
 type Voting = {
   ups: number,

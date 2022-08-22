@@ -1,6 +1,7 @@
-import type { GetServerSideProps, NextPage } from 'next'
+import type { NextPage, NextPageContext } from 'next'
 import Head from 'next/head'
 import React from 'react'
+import { getSession, ssrHeaders } from '../../components/API/ssrAPI'
 import Layout from '../../components/main/Layout'
 import MyNewsCard from '../../components/mynews/MyNewsCard'
 import Donations from '../../components/widget/Donations'
@@ -49,24 +50,19 @@ const NewsIdPage: NextPage<NewsIdPageProps> = ({news}) => {
 
 export default NewsIdPage;
 
-export const getServerSideProps: GetServerSideProps = async(context) => {
-  const production = process.env.NODE_ENV === 'production' ? true : false
-  const server = production ? process.env.NEXT_PUBLIC_SERVER_URL : `http://${context.req.headers.host?.replace('3000', '4000')}`;
-  const {query} = context;
-  const headers = context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined;
-  const sessionUrl = `${server}/user`;
-
-  const response = await fetch(sessionUrl, {
-    method: 'get',
-    headers
-  })
-  const session = await response.json();
-
-  const {newsId} = query;
+export const getServerSideProps = async(context: NextPageContext) => {
+  const server = process.env.NEXT_PUBLIC_SERVER_URL;
+  const {newsId} = context.query;
+  let session = null;
+  try {
+    session = await getSession(context);
+  } catch (err) {
+    
+  }
   const newsUrl = `${server}/news/${newsId}`
   const res = await fetch(newsUrl, {
     method: 'get',
-    headers
+    headers: ssrHeaders(context)
   })
   const news = await res.json();
   return {

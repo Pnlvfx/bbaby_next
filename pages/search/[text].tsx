@@ -3,8 +3,9 @@ import {useEffect, useState} from 'react'
 import Post from '../../components/post/Post' 
 import Layout from "../../components/main/Layout";
 import Head from "next/head";
-import type { GetServerSideProps, NextPage } from "next";
+import type { NextPage, NextPageContext } from "next";
 import { search } from "../../components/header/search/APisearch";
+import { getSession } from "../../components/API/ssrAPI";
 
 const SearchResultPage:NextPage = () => {
   const router = useRouter();
@@ -54,16 +55,13 @@ const SearchResultPage:NextPage = () => {
 
 export default SearchResultPage;
 
-export const getServerSideProps: GetServerSideProps = async(context) => {
-  const production = process.env.NODE_ENV === 'production' ? true : false
-  const server = production ? process.env.NEXT_PUBLIC_SERVER_URL : `http://${context.req.headers.host?.replace('3000', '4000')}`;
-  const headers = context?.req?.headers?.cookie ? { cookie: context.req.headers.cookie } : undefined;
-  const url = `${server}/user`
-  const response = await fetch(url, {
-    method: 'get',
-    headers
-  })
-  const session = await response.json();
+export const getServerSideProps = async (context: NextPageContext) => {
+  let session = null;
+  try {
+    session = await getSession(context);
+  } catch (err) {
+    
+  }
 
   return {
     props: {

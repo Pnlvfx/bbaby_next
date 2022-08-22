@@ -2,7 +2,7 @@ import axios from 'axios';
 import Image from 'next/image';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { communityUrl } from '../../lib/url';
-import { AuthModalContext, AuthModalContextProps } from '../auth/AuthModalContext';
+import { AuthModalContext, AuthModalContextProps } from '../auth/modal/AuthModalContext';
 import { subscribe } from '../community/APicommunity';
 import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
 import { buttonClass } from '../utils/Button';

@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { PlusIcon, UserIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 import { buttonClass } from '../utils/Button';
-import {AuthModalContext, AuthModalContextProps} from '../auth/AuthModalContext';
+import {AuthModalContext, AuthModalContextProps} from '../auth/modal/AuthModalContext';
 import ClickOutHandler from 'react-clickout-ts';
 import UserMenu from './UserMenu';
 import NotUserMenu from './NotUserMenu';

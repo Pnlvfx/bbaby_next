@@ -12,7 +12,7 @@ import CommunityList from './CommunityList';
 import {BiSearch} from 'react-icons/bi';
 
 const CommunityDropdown = () => {
-  const { session } = useContext(UserContext)
+  const { session } = useContext(UserContext) as SessionProps;
   const [show, setShow] = useState(false)
   const [activeClass, setActiveClass] = useState(false)
   const [allCommunity, setAllCommunity] = useState<CommunityProps[] | []>([])

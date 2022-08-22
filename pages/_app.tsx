@@ -2,7 +2,7 @@ import '../styles/globals.css';
 import Head from 'next/head';
 import UserContext from '../components/auth/UserContext';
 import type { AppProps } from 'next/app';
-import { AuthModalContextProvider } from '../components/auth/AuthModalContext';
+import { AuthModalContextProvider } from '../components/auth/modal/AuthModalContext';
 import { CommunityContextProvider } from '../components/community/CommunityContext';
 import CookieConsent from '../components/utils/validation/CookieConsent';
 import { TimeMsgContextProvider } from '../components/main/TimeMsgContext';

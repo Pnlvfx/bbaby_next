@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
-import { translate } from '../../API/governanceAPI';
+import { translate } from '../../API/governance/governanceAPI';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
 import GovSubmitNews from './GovSubmitNews';
 import { NewsContext, NewsContextProps } from './NewsContext';
@@ -12,24 +12,23 @@ interface NewPageProps {
   image: string
 }
 
-const NewsPage = ({
-  title: originalTitle,
-  description: originalDescription,
-  image,
-}: NewPageProps) => {
+const NewsPage = ({ title: originalTitle, description: originalDescription, image }: NewPageProps) => {
   const isEdit = 'w-full lg:w-8/12 xl:w-5/12 2xl:w-[850px]'
   const language = 'en'
   const [level, setlevel] = useState<'read' | 'image' | 'mobileImage' | 'submit' | 'comments'>('read')
   const { setTitle, setDescription, mediaInfo } = useContext(NewsContext) as NewsContextProps
   const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
 
+  const openPexelsImageForm = async () => {
+    setlevel('image')
+  }
+
   const openSubmit = async () => {
     if (!mediaInfo.image) {
-      setMessage({value: 'Please select the image before!', status: 'error', time: 15000});
+      openPexelsImageForm()
     } else {
       const res1 = await translate(originalTitle, language)
       const res2 = await translate(originalDescription, language)
-      if (!res1 || !res2) return setMessage({value: `That's strange!`})
       if (res1.ok && res2.ok) {
         if (res1 instanceof Response && res2 instanceof Response) {
           const title = await res1.json();
@@ -50,12 +49,8 @@ const NewsPage = ({
     }
   }
 
-  const openPexelsImageForm = async () => {
-    setlevel('image')
-  }
-
   useEffect(() => {
-    //setmobile image
+    if (!isMobile) return;
     if (level === 'image') {
       if (isMobile) {
         setlevel('mobileImage')
@@ -84,8 +79,9 @@ const NewsPage = ({
               </p>
             </div>
             <div title='Open pexels search'
-              onClick={() => {
-                openPexelsImageForm()
+              onClick={(e) => {
+                e.preventDefault();
+                openPexelsImageForm();
               }}
               className="flex cursor-pointer justify-center"
             >
