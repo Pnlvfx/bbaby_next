@@ -12,7 +12,7 @@ interface CEOProps {
     description: string;
     type: 'article' | 'website'
     twitter_card: string
-    image: string | null
+    image: string | undefined
 }
 
 const CEO = ({

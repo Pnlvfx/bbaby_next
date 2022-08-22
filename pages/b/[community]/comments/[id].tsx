@@ -21,7 +21,7 @@ const IdPage: NextPage<PostIdPageProps> = ({post,error}) => {
     const twitter_card = 'summary_large_image';
     const type = 'article'
     const {getCommunity} = useContext(CommunityContext) as CommunityContextProps;
-    const og_image = post.mediaInfo?.isImage ? post.mediaInfo.image : post.mediaInfo?.isVideo ? post.mediaInfo.video.url.replace('mp4', 'jpg') : null
+    const og_image = post.mediaInfo?.isImage ? post.mediaInfo.image : post.mediaInfo?.isVideo ? post.mediaInfo.video.url.replace('mp4', 'jpg') : undefined
 
     useEffect(() => {
       getCommunity(post.community)
