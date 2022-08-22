@@ -9,10 +9,27 @@ interface CEOProps {
     * Must be the canonical url.
     */
     url: string
-    description: string;
-    type: 'article' | 'website'
-    twitter_card: string
+    /**
+    * Use article for articles and website for the rest of your pages.
+    */
     image: string | undefined
+    /**
+    * use the main image if present
+    */
+    description: string;
+    /**
+    * Use article for articles and website for the rest of your pages.
+    */
+    type: 'article' | 'website'
+    /**
+    * The locale of the current page
+    */
+    locale: string
+    /**
+    * Use article for articles and website for the rest of your pages.
+    */
+    twitter_card: string
+
 }
 
 const CEO = ({

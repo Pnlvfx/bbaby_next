@@ -1,33 +1,31 @@
-import Head from 'next/head';
 import type { NextPage, NextPageContext } from 'next';
+import { siteUrl } from '../components/main/config';
+import CEO from '../components/main/CEO';
 import Layout from '../components/main/Layout';
 import TempSubmitWid from '../components/widget/TempSubmitWid';
 import SubmitLayout from '../components/submit/SubmitLayout';
 import { getSession } from '../components/API/ssrAPI';
 
 const SubmitPage: NextPage = () => {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
-  const url = `${hostname}/submit`
+  const url = `${siteUrl}/submit`
   const title = 'Submit to Bbabystyle';
-  const imagePreview = `${hostname}/imagePreview.png`;
+  const image = `${siteUrl}/imagePreview.png`;
   const description = 'Create your post. Choose an existing community or create your own and start to share your content.'
-  const card = 'summary';
+  const twitter_card = 'summary';
+  const type = 'website';
+  const locale = 'en-US';
 
   return (
     <>
-      <Head>
-        <title>{title}</title>
-        <meta name="description" content={description} key={'description'} />
-        <meta property='og:ttl' content='600' key={'ogttl'} />
-        <meta property="og:site_name" content="bbabystyle" key={'ogsite_name'} />
-        <meta property="twitter:card" content={card} key="twcard" />
-        <meta property="og:title" content={title} key="ogtitle" />
-        <meta property="og:description" content={description} key="ogdesc" />
-        <meta property="og:image" content={imagePreview} key="ogimage" />
-        <meta property="og:url" content={url} key="ogurl" />
-        <meta property="og:type" content="website" key="ogtype" />
-        <link rel='canonical' href={url} key='canonical' />
-      </Head>
+      <CEO
+        title={title}
+        url={url}
+        description={description}
+        twitter_card={twitter_card}
+        type={type}
+        image={image}
+        locale={locale}
+      />
       <Layout>
         <div className="block p-2 sm:p-4 lg:flex">
           <div className="mx-auto flex justify-center">
