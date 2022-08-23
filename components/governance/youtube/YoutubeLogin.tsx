@@ -8,7 +8,7 @@ const YoutubeLogin = () => {
         const YOUTUBE_CLIENT_ID = process.env.YOUTUBE_CLIENT_ID;
         const SCOPES = ['https://www.googleapis.com/auth/youtube.upload']
         const redirectUrl = window.location.href;
-        const googleAuth = `${base_url}?access_type=offline&scope=${SCOPES}&prompt=consent&response_type=code&client_id=${YOUTUBE_CLIENT_ID}&redirect_uri=${redirectUrl}&state=bbabystyle`
+        const googleAuth = `${base_url}?scope=${SCOPES}&response_type=code&client_id=${YOUTUBE_CLIENT_ID}&redirect_uri=${redirectUrl}&state=bbabystyle`
         router.push(googleAuth)
     }
 

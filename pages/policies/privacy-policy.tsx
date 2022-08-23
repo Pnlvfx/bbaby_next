@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import PoliciesLayout from '../../components/utils/policies/PoliciesLayout';
-import PrivacyPolicies from '../../components/utils/policies/PrivacyPolicies';
+import PoliciesLayout from '../../components/policies/PoliciesLayout';
+import PrivacyPolicies from '../../components/policies/PrivacyPolicies';
 
 const PrivacyPolicyPage:NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;

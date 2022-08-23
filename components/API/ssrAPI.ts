@@ -1,12 +1,14 @@
 import { NextPageContext } from "next";
 
 export const ssrHeaders = (context: NextPageContext) => {
-    const cookie = context?.req?.headers?.cookie ? { 
+    const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
+    const headers = context?.req?.headers?.cookie ? { 
         cookie: context.req.headers.cookie,
         Accept: 'application/json',
-        'Content-Type' : 'application/json'
+        'Content-Type' : 'application/json',
+        'origin': hostname
      } : undefined;
-    return cookie;
+    return headers;
 }
 
 export const getSession = async (context : NextPageContext) => {

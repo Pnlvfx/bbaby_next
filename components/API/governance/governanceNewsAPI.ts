@@ -1,17 +1,22 @@
 import { NextPageContext } from "next";
+import { postRequestHeaders } from "../../main/config";
+import { LinkPreviewProps } from "../../utils/LinkPreview";
 import { ssrHeaders } from "../ssrAPI";
 
-export const getBBCLinks = async (context: NextPageContext) => {
+export const getBBCLinks = async (limit : string | number, skip : string | number, context?: NextPageContext) => {
     try {
       const server = process.env.NEXT_PUBLIC_SERVER_URL;
-      const url = `${server}/governance/BBCnews`
+      const headers = context ? ssrHeaders(context) : postRequestHeaders;
+      const ssr = context ? 'ssr' : null;
+      const url = `${server}/governance/BBCnews?limit=${limit}&skip=${skip}&ssr=${ssr}`;
       const res = await fetch(url, {
       method: 'get',
-      headers: ssrHeaders(context),
+      headers,
+      credentials : 'include'
       })
       const data = await res.json()
       if (res.ok) {
-        return data as string[];
+        return data as LinkPreviewProps[];
       } else {
         throw new Error(data.msg);
       }

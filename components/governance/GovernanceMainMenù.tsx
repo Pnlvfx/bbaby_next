@@ -10,13 +10,13 @@ const GovernanceMainMenù = () => {
   ]
   const router = useRouter()
   const active = router.pathname.match('bbaby')
-    ? 1
+    ? 0
     : router.pathname.match('twitter')
-    ? 2
+    ? 1
     : router.pathname.match('news')
-    ? 3
+    ? 2
     : router.pathname.match('reddit')
-    ? 4
+    ? 3
     : 0
   return (
     <div

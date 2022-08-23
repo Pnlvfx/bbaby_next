@@ -2,6 +2,7 @@ import type { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
 import React from 'react';
 import { getSession } from '../../components/API/ssrAPI';
+import FeedLayout from '../../components/main/FeedLayout';
 import Layout from '../../components/main/Layout';
 import { getMyNews } from '../../components/mynews/APInews';
 import MyNewsCard from '../../components/mynews/MyNewsCard';
@@ -35,16 +36,14 @@ const MyNewsPage:NextPage<MyNewsPageProps> = ({myNews}) => {
         <link rel='canonical' href={url} key='canonical' />
       </Head>
       <Layout>
-      <div className="flex justify-center pt-5 mx-[2px] lg:mx-[10px]">
-        <div className="w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px] lg:mr-4 flex-none">
+        <FeedLayout>
           <div className="mb-4">
             <BestPost />
           </div>
           {myNews.map((news) => (
             <MyNewsCard key={news._id} news={news} isListing={true} />
           ))}
-        </div>
-      </div>
+        </FeedLayout>
       </Layout>
     </div>
   )
@@ -55,7 +54,7 @@ export default MyNewsPage;
 
 export const getServerSideProps = async (context: NextPageContext) => {
   let session = null;
-  let myNews = null;
+  let myNews: [] | NewsProps[] = [];
   try {
     session = await getSession(context);
     myNews = await getMyNews(context);

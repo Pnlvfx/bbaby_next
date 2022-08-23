@@ -37,7 +37,7 @@ const Home: NextPage<BestPg> = ({posts}) => {
   )
 }
 
-export default Home
+export default Home;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
   const production = process.env.NODE_ENV === 'production' ? true : false

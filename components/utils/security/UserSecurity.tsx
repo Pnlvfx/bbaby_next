@@ -12,7 +12,7 @@ const UserSecurity = ({children}:Props) => {
 
   useEffect(() => {
     if(!session) {
-      router.push('/')
+      router.push('/');
     }
   },[session])
 

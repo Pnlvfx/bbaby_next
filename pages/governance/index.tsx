@@ -8,6 +8,7 @@ import { getYoutubeAccessToken } from "../../components/API/governance/youtubeAP
 import { useContext, useEffect } from "react";
 import { TimeMsgContext, TimeMsgContextProps } from "../../components/main/TimeMsgContext";
 import { useRouter } from "next/router";
+import { getSession } from "../../components/API/ssrAPI";
 
 interface YoutubeError {
   error?: string
@@ -32,8 +33,8 @@ const Governance: NextPage<YoutubeError> = ({error, youtube}) => {
   }, [router, error])
 
   useEffect(() => {
-    if (!youtube) return
-    if (!router.isReady) return
+    if (!youtube) return;
+    if (!router.isReady) return;
     setMessage({value: youtube, status: 'success'})
     router.replace('/governance', undefined, {shallow: false});
 
@@ -62,19 +63,16 @@ const Governance: NextPage<YoutubeError> = ({error, youtube}) => {
 export default Governance;
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  const production = process.env.NODE_ENV === 'production' ? true : false
-  const server = production ? process.env.NEXT_PUBLIC_SERVER_URL : `http://${context.req?.headers.host?.replace('3000', '4000')}`;
-  const headers = context?.req?.headers?.cookie ? { cookie: context.req.headers.cookie } : undefined;
-  const url = `${server}/user`
-  const response = await fetch(url, {
-    method: 'get',
-    headers
-  })
-  const session = await response.json();
-
   const {code} = context.query;
-  let error = ''
+  let session = null;
   let youtube = ''
+  let error = ''
+  try {
+    session = await getSession(context);
+    
+  } catch (error) {
+    
+  }
   if (code) {
     const res = await getYoutubeAccessToken(code.toString(), context);
     if (res.ok) {

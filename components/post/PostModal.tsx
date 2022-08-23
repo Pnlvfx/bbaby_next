@@ -11,7 +11,7 @@ import { getPost } from "./APIpost";
 
 type PostModalProps = {
   community?: string
-  postId: string
+  postId?: string
   open: boolean
   onClickOut: Function
 }
@@ -24,7 +24,7 @@ const PostModal = ({community,postId,open,onClickOut}:PostModalProps) => {
   const {getCommunity} = useContext(CommunityContext) as CommunityContextProps;
 
   useEffect(() => {
-    if(!postId) return
+    if(!postId) return;
     getPost(postId)
     .then(res => {
       setPost(res)
@@ -49,6 +49,8 @@ const PostModal = ({community,postId,open,onClickOut}:PostModalProps) => {
     onClickOut()
     setPost({} as PostProps)
   }
+
+  if (!postId) return null;
 
   return (
     <div className={"w-full z-20 flex items-center justify-center " + visibleClass} style={{backgroundColor:'rgb(25,25,25'}}>

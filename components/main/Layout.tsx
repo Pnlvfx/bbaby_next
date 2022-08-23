@@ -1,22 +1,24 @@
 import Header from '../header/Header';
-import dynamic from 'next/dynamic';
+import { lazy, Suspense } from 'react';
 
 interface LayoutProps {
   children: React.ReactNode
 }
 
 const Layout = ({children} : LayoutProps) => {
-  const AuthModal = dynamic(() => import('../auth/modal/AuthModal'))
-  const CommunityFormModal = dynamic(() => import('../community/CommunityFormModal'))
-  const TimeMsg = dynamic(() => import('./TimeMsg'));
+  const AuthModal = lazy(() => import('../auth/modal/AuthModal'))
+  const CommunityFormModal = lazy(() => import('../community/CommunityFormModal'))
+  const TimeMsg = lazy(() => import('./TimeMsg'));
   
   return (
     <div>
       <Header />
       {children}
-      <AuthModal />
-      <CommunityFormModal />
-      <TimeMsg />
+      <Suspense fallback={<div />}>
+        <AuthModal />
+        <CommunityFormModal />
+        <TimeMsg />
+      </Suspense>
     </div>
   )
 }

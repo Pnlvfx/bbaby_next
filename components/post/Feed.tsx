@@ -1,7 +1,7 @@
-import InfiniteScroll from 'react-infinite-scroll-component'
-import PostForm from '../submit/submitutils/PostForm'
-import BestPost from './postutils/BestPost'
-import Post from './Post'
+import InfiniteScroll from 'react-infinite-scroll-component';
+import PostForm from '../submit/submitutils/PostForm';
+import BestPost from './postutils/BestPost';
+import Post from './Post';
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { isMobile } from 'react-device-detect'
@@ -11,6 +11,7 @@ import dynamic from 'next/dynamic'
 import Donations from '../widget/Donations'
 import { getPosts } from './APIpost'
 import GoogleAdsense2 from '../google/GoogleAdsense2'
+import FeedLayout from '../main/FeedLayout';
 
 type FeedProps = {
   posts: any
@@ -19,7 +20,7 @@ type FeedProps = {
 }
 
 const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
-  const PostModal = dynamic(() => import('./PostModal'))
+  const [posts, setPosts] = useState<PostProps[]>(ssrPost)
   const [postOpen, setPostOpen] = useState(false)
   const router = useRouter()
   const production = process.env.NODE_ENV === 'production' ? true : false;
@@ -39,7 +40,6 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
   //
 
   //INFINITE SCROLLING
-  const [posts, setPosts] = useState<PostProps[]>(ssrPost)
   const getMorePosts = async () => {
     const input = community ? 'community' : author ? 'author' : undefined
     const value = community ? community : author ? author : undefined
@@ -48,6 +48,7 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
     setPosts([...posts, ...newPosts])
   }
   //
+  const PostModal = dynamic(() => import('./PostModal'))
 
   return (
     <>
@@ -62,9 +63,9 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
         />
       )}
       {postId === '' && (
-        <div className="mx-[2px] mt-5 flex justify-center lg:mx-10">
-          <div className="w-full flex-none lg:mr-4 lg:w-7/12 xl:w-5/12 2xl:w-[650px]">
-            {!author && (
+        <>
+        <FeedLayout>
+          {!author && (
               <div className="mb-[18px]">
                 <PostForm community={community ? community : ''} />
               </div>
@@ -72,7 +73,7 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
             <div className="mb-4">
               <BestPost />
             </div>
-            {production && <GoogleAdsense2 />}
+            {/* {production && <GoogleAdsense2 />} */}
             <>
               <InfiniteScroll
                 dataLength={posts.length}
@@ -86,12 +87,10 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
                 ))}
               </InfiniteScroll>
             </>
-          </div>
-          <div className="hidden lg:block">
             {community ? <CommunitiesInfo /> : <TopCommunities />}
             <Donations />
-          </div>
-        </div>
+        </FeedLayout>
+        </>
       )}
     </>
   )

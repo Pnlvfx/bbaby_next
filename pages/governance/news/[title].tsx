@@ -7,7 +7,6 @@ import GovernanceCtrl from '../../../components/governance/GovernanceCtrl';
 import { NewsContextProvider } from '../../../components/governance/news/NewsContext';
 import NewsPage from '../../../components/governance/news/NewsPage';
 import Layout from '../../../components/main/Layout';
-import Errorpage404 from '../../404';
 import Errorpage from '../../500';
 
 interface NewsIdProps {
@@ -41,13 +40,15 @@ const NewsPagee:NextPage<NewsIdProps> = ({description}) => {
 export default NewsPagee;
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  const {url, imageUrl} = context.query;
-  if (!url || !imageUrl) return Errorpage404
+  console.log(context.query.link);
+  const {link, imageUrl} = context.query;
   let session = null;
   let description = null;
   try {
+    if (!link) throw new Error('Missing link parameter!')
+    if (!imageUrl) throw new Error('Missing imageUrl parameters!')
     session = await getSession(context);
-    description = await getArticle(url.toString(), imageUrl.toString(), context)
+    description = await getArticle(link.toString(), imageUrl.toString(), context)
   } catch (err) {
     Errorpage
   }

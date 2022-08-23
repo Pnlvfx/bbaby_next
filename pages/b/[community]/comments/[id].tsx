@@ -1,5 +1,4 @@
 import type { GetServerSideProps, NextPage } from 'next'
-import Head from 'next/head';
 import { useEffect } from 'react';
 import { useContext } from 'react';
 import CommentPage from '../../../../components/comments/CommentPage'

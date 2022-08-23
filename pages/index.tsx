@@ -1,7 +1,8 @@
-import type { GetServerSideProps, NextPage } from 'next';
+import type { NextPage, NextPageContext } from 'next';
 import Feed from '../components/post/Feed';
 import Layout from '../components/main/Layout';
 import CEO from '../components/main/CEO';
+import { getSession, ssrHeaders } from '../components/API/ssrAPI';
 
 type HomePg = {
   posts: PostProps
@@ -37,26 +38,23 @@ const Home: NextPage<HomePg> = ({ posts }) => {
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async(context) => {
-  const production = process.env.NODE_ENV === 'production' ? true : false
-  const server = production ? process.env.NEXT_PUBLIC_SERVER_URL : `http://${context.req.headers.host?.replace('3000', '4000')}`;
-  const sessionUrl = `${server}/user`;
+export const getServerSideProps = async(context : NextPageContext) => {
+  const server = process.env.NEXT_PUBLIC_SERVER_URL
   const postUrl = `${server}/posts?limit=15&skip=0`;
-  const headers = context?.req?.headers?.cookie
-    ? { cookie: context.req.headers.cookie }
-    : undefined
-
-  const response = await fetch(sessionUrl, {
-    method: 'get',
-    headers,
-  })
-  const session = await response.json()
-
-  const res = await fetch(postUrl, {
-    method: 'get',
-    headers,
-  })
-  const posts = await res.json();
+  let session = null;
+  let posts = [];
+  try {
+    session = await getSession(context);
+    const res = await fetch(postUrl, {
+      method: 'get',
+      headers : ssrHeaders(context),
+    })
+    if (res.ok) {
+      posts = await res.json();
+    }
+  } catch (error) {
+    
+  }
 
   return {
     props: {

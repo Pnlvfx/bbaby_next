@@ -2,11 +2,11 @@ import { NextPageContext } from "next";
 import { postRequestHeaders } from "../main/config";
 import { ssrHeaders } from "./ssrAPI";
 
-export const getArticle = async (url: string,imageUrl: string, context?: NextPageContext ) => {
+export const getArticle = async (link: string,imageUrl: string, context?: NextPageContext ) => {
     try {
         const server = process.env.NEXT_PUBLIC_SERVER_URL
         const serverUrl = `${server}/governance/news/article`
-        const body = JSON.stringify({url, imageUrl})
+        const body = JSON.stringify({link, imageUrl})
         const headers = context ? ssrHeaders(context) : postRequestHeaders
         const res = await fetch(serverUrl, {
             method: 'post',
@@ -15,6 +15,7 @@ export const getArticle = async (url: string,imageUrl: string, context?: NextPag
             credentials: 'include'
         })
         const article = await res.json();
+        console.log(article)
         if (!res.ok) {
             throw new Error(article.msg)
         }

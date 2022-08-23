@@ -24,7 +24,7 @@ interface CEOProps {
     /**
     * The locale of the current page
     */
-    locale: string
+    locale?: string
     /**
     * Use article for articles and website for the rest of your pages.
     */
