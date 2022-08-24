@@ -8,6 +8,7 @@ import { CommentIcon } from '../utils/SVG';
 import Link from 'next/link';
 import { isMobile } from 'react-device-detect';
 import { useState } from 'react';
+import VideoPlayer from '../utils/video/VideoPlayer';
 
 type PostContentProps = {
   post: PostProps
@@ -16,7 +17,6 @@ type PostContentProps = {
 
 const PostContent = ({ post, isListing }: PostContentProps) => {
   const router = useRouter()
-  const [enableControl,setEnableControl] = useState(false) //ENABLE VIDEO CONTROL ON HOVER
 
   let height = 0
   let width = 0
@@ -94,24 +94,9 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
           </div>
         )}
         {post?.mediaInfo?.isVideo && post?.mediaInfo?.video && (
-          <video 
-            onMouseOver={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              setEnableControl(true)
-            }}
-            onMouseOut={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              setEnableControl(false)
-            }}
-            style={{backgroundColor: 'rgb(0,0,0)'}}
-            className={`aspect-video`}
+          <VideoPlayer 
             src={post.mediaInfo.video.url}
             poster={post.mediaInfo.video.url.replace('mp4', 'jpg')}
-            controls={enableControl}
-            autoPlay={true}
-            muted={true}
             height={height}
             width={width}
           />

@@ -9,7 +9,7 @@ const SubmitButton = () => {
     const iconClass = 'w-[24px] h-[24px]'
 
     return (
-        <div>
+        <>
             <div className='flex ml-1'>
                 <div className={containerClass}>
                     <button title='Bold'>
@@ -36,8 +36,8 @@ const SubmitButton = () => {
                     </button>     
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
-export default SubmitButton
+export default SubmitButton;

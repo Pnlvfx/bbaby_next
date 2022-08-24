@@ -61,12 +61,30 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
 
     const createPost = async() => {
         try {
-            setLoading(true)
-            const server = process.env.NEXT_PUBLIC_SERVER_URL
-            const data = {title,body,community:selectedCommunity,communityIcon,selectedFile,isImage,isVideo,height,width,sharePostToTG,sharePostToTwitter}
-            const res = await axios.post(`${server}/posts`, data, {withCredentials:true})
+            setLoading(true);
+            const server = process.env.NEXT_PUBLIC_SERVER_URL;
+            const url = `${server}/posts`
+            const data = {
+                title,
+                body,
+                community:selectedCommunity,
+                communityIcon,
+                selectedFile,
+                isImage,
+                isVideo,
+                height,
+                width,
+                sharePostToTG,
+                sharePostToTwitter
+            }
+            const res = await axios({
+                method: 'post',
+                url,
+                data,
+                withCredentials:true
+            })
             if (session?.user.role === 0) {
-                const {_id,community} = res.data
+                const {_id, community} = res.data
                 router.push('/b/'+community+'/comments/'+_id)
             } else {
                 setMessage({value:'Post created successfully',status: 'success'})

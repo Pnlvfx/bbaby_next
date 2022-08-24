@@ -5,11 +5,14 @@ import { SubmitContext, SubmitContextType } from '../SubmitContext';
 
 const AddVideo = () => {
   const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const errMessage = `Sorry, we accept only images (.png, .jpeg, .gif) and videos (.mp4, .mov)`
   const containerClass = 'p-2 text-reddit_text-darker'
-  const { setSelectedFile,selectedFile, setIsVideo, setWidth, setHeight, setIsImage } = useContext(SubmitContext) as SubmitContextType;
+  const { setSelectedFile, setIsVideo, setWidth, setHeight, setIsImage } = useContext(SubmitContext) as SubmitContextType;
   const fileVideoRef = useRef<HTMLInputElement>(null)
+
+
   const addVideoToPost = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return setMessage({value: 'Please select at least one video.', status: 'error'})
+    if (!e.target.files) return setMessage({value: errMessage, status: 'error'})
     const file = e?.target?.files[0]
     previewVideo(file)
   }
@@ -18,10 +21,10 @@ const AddVideo = () => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onload = (event) => {
-      const video_url = event.target?.result
+      const video_url = event.target?.result;
+      if (!video_url) return;
       let video = document.createElement('video')
       video.preload = 'metadata'
-      if (!video_url) return
       video.src = video_url.toString();
       video.addEventListener('loadedmetadata', () => {
         setWidth(video.videoWidth)

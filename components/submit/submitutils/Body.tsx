@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { SubmitContext, SubmitContextType } from "../SubmitContext";
 import ClickOutHandler from 'react-clickout-ts';
 import { FaTrashAlt } from "react-icons/fa";
+import VideoPlayer from "../../utils/video/VideoPlayer";
 
 const Body = () => {
   const [showDeleteOptions,setShowDeleteOptions] = useState(false)
@@ -42,12 +43,11 @@ const Body = () => {
                     />
                   )}
                   {isVideo && (
-                    <video style={{backgroundColor: 'rgb(0,0,0)'}} className={`aspect-video rounded-md`} 
-                    src={selectedFile}
-                    //poster={image}
-                    controls={true}
-                    height={height}
-                    width={width}
+                    <VideoPlayer 
+                      src={selectedFile}
+                      poster={''}
+                      height={height}
+                      width={width}
                     />
                   )}
                 </div>

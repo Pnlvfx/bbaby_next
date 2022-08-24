@@ -67,7 +67,8 @@ const Submit = ({newTweet,community}:SubmitProps) => {
 
     //////MY TWEEEEEEEEET
     useEffect(() => {
-        if (newTweet && newTweet.title) {
+        if (!newTweet) return;
+        if (newTweet.title) {
             setTitle(newTweet.title)
             if (newTweet.image) {
                 setIsImage(true)
