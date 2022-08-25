@@ -1,19 +1,19 @@
-import type { GetServerSideProps, NextPage, NextPageContext } from "next";
+import type { NextPage, NextPageContext } from "next";
 import Layout from "../../components/main/Layout";
 import Twitter from "../../components/governance/twitter/Twitter";
 import GovernanceCtrl from "../../components/governance/GovernanceCtrl";
 import Head from "next/head";
 import GovernanceMainMenù from "../../components/governance/GovernanceMainMenù";
 import { getSession } from "../../components/API/ssrAPI";
+import { siteUrl } from "../../components/main/config";
 
 const TwitterPage: NextPage = () => {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   return (
-    <div className="w-full h-[1000px]">
+    <>
       <Head>
         <title>Bbabystyle - authority page - twitter</title>
         <meta name='robots' content='noindex' />
-        <link rel='canonical' href={`${hostname}/governance/twitter`} key='canonical' />
+        <link rel='canonical' href={`${siteUrl}/governance/twitter`} key='canonical' />
       </Head>
       <Layout>
         <GovernanceCtrl>
@@ -21,7 +21,7 @@ const TwitterPage: NextPage = () => {
           <Twitter />
         </GovernanceCtrl>
       </Layout>
-    </div>
+    </>
   )
 }
 

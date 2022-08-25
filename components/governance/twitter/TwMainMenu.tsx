@@ -1,7 +1,8 @@
 import { FaSpaceShuttle } from 'react-icons/fa'
 import { Dispatch, SetStateAction, useContext, useState } from 'react'
-import { anonList, bbabyList, getMyListTweets, query } from './APItwitter'
+import { anonList, bbabyList, getMyListTweets, query } from '../../API/governance/twitterAPI'
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext'
+import { catchErrorWithMessage } from '../../API/common'
 
 interface TwMainMenuProps {
   setLanguage: Dispatch<SetStateAction<string>>
@@ -10,34 +11,25 @@ interface TwMainMenuProps {
 
 const TwMainMenu = ({ setLanguage, setTweets }: TwMainMenuProps) => {
   const [active, setActive] = useState(0)
-  const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
 
   const changeTweet = async (lang:string,list:query) => {
     try {
-      setTweets([])
-      setLanguage(lang)
-      getMyListTweets(list).then(res => {
-        res.json().then((_tweets) => {
-          if (res.ok) {
-            setTweets(_tweets)
-            setActive(0)
-          } else {
-            setMessage({value: _tweets.msg, status: 'error'})
-          }
-        })
-      })
-    } catch (err:any) {
-      err && err.response.data.msg && (
-        setMessage({value: err.response.data.msg, status: 'error'})
-      )
+      setTweets([]);
+      setLanguage(lang);
+      const res = await getMyListTweets(list);
+      console.log(res)
+      setTweets(res);
+    } catch (err) {
+      catchErrorWithMessage(err, message);
     }
   }
 
   return (
-    <div className="">
       <div className="flex space-x-3 rounded-md border border-reddit_border bg-reddit_dark-brighter py-[13px] px-2">
         <button
           onClick={() => {
+            setActive(0);
             changeTweet('en', anonList)
           }}
           className={`rounded-full py-1 px-3 hover:bg-reddit_dark-brightest ${
@@ -51,6 +43,7 @@ const TwMainMenu = ({ setLanguage, setTweets }: TwMainMenuProps) => {
         </button>
         <button
           onClick={() => {
+            setActive(1)
             changeTweet('it', bbabyList)
           }}
           className={`rounded-full py-1 px-3 hover:bg-reddit_dark-brightest ${
@@ -63,7 +56,6 @@ const TwMainMenu = ({ setLanguage, setTweets }: TwMainMenuProps) => {
           </div>
         </button>
       </div>
-    </div>
   )
 }
 

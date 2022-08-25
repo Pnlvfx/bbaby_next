@@ -7,7 +7,7 @@ interface UseGoogleOneTapLoginOptions {
     onError?: () => void;
     promptMomentNotification?: MomenListener;
     cancel_on_tap_outside?: boolean;
-    hosted_domain?: string;
+    hosted_domain?: string
 }
 
 const UseGoogleOneTapLogin = ({
@@ -39,7 +39,7 @@ const UseGoogleOneTapLogin = ({
                 onSuccessRef.current(credentialResponse);
             },
             hosted_domain,
-            cancel_on_tap_outside
+            cancel_on_tap_outside,
         });
         window.google?.accounts.id.prompt(promptMomentNotificationRef.current);
 

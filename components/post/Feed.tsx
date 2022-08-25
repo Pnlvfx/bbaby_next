@@ -2,9 +2,9 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import PostForm from '../submit/submitutils/PostForm';
 import BestPost from './postutils/BestPost';
 import Post from './Post';
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import { isMobile } from 'react-device-detect'
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { isMobile } from 'react-device-detect';
 import TopCommunities from '../widget/TopCommunities'
 import CommunitiesInfo from '../widget/CommunitiesInfo'
 import dynamic from 'next/dynamic'
@@ -13,7 +13,7 @@ import { getPosts } from './APIpost'
 import GoogleAdsense2 from '../google/GoogleAdsense2'
 
 type FeedProps = {
-  posts: any
+  posts: PostProps[]
   community?: string
   author?: string
 }

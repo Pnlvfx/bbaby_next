@@ -1,4 +1,3 @@
-import { NextRouter } from "next/router";
 import { CredentialResponse } from "../../../../../@types/google";
 import { googleLoginAnalytics } from "../../../../../lib/gtag";
 import { google_loginUrl } from "../../../../../lib/url";
@@ -6,6 +5,8 @@ import { getUserIP } from "../../../../API/oauthAPI";
 import { postRequestHeaders } from "../../../../main/config";
 import { TimeMsgContextProps } from "../../../../main/TimeMsgContext";
 import { AuthModalContextProps } from "../../../modal/AuthModalContext";
+import type { NextRouter } from "next/router";
+import { catchErrorWithMessage } from "../../../../API/common";
 
 export const googleLogin = async (
     response: CredentialResponse, 
@@ -22,7 +23,7 @@ export const googleLogin = async (
           headers: postRequestHeaders,
           body,
           credentials: 'include'
-        })
+        });
         if (res.ok) {
           localStorage.setItem('isLogged', 'true')
           modalContext.setShow('hidden')
@@ -33,10 +34,6 @@ export const googleLogin = async (
           message.setMessage({value: error, status: 'error'})
         }
       } catch (err) {
-        if (err instanceof Error) {
-          message.setMessage({value: err.message, status: 'error'})
-        } else {
-          message.setMessage({value: `That's strange!`, status: 'error'})
-        }
+       catchErrorWithMessage(err, message);
       }
-  }
+}

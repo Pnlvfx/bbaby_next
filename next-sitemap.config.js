@@ -1,9 +1,9 @@
 /** @type {import('next-sitemap').IConfig} */
 
-const sitemapBaseUrl = 'https://www.bbabystyle.com'
+const siteUrl = 'https://www.bbabystyle.com'
 
 module.exports = {
-  siteUrl: sitemapBaseUrl,
+  siteUrl,
   generateRobotsTxt: true,
   robotsTxtOptions: {
     additionalSitemaps: [

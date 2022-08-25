@@ -3,10 +3,9 @@ interface SkeletonProps {
 }
 
 const Skeleton = ({isImage}:SkeletonProps) => {
-  const postClasses =
-    'block border border-reddit_border rounded-md hover:border-reddit_text mb-3'
-
-    const min_height = '120px' // text-lg x 2
+  const postClasses = 'block border border-reddit_border rounded-md hover:border-reddit_text mb-3'
+  const min_height = '120px' // text-lg x 2
+  
   return (
     <div className={postClasses}>
       <div className="flex overflow-hidden rounded-md bg-reddit_dark-brighter relative">

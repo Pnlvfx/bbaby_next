@@ -7,7 +7,7 @@ const NextConfig = {
       'lh3.googleusercontent.com',
       'pbs.twimg.com',
       'www.paypal.com',
-      "images.pexels.com",
+      "images.pexels.com"
     ],
   },
   i18n: {

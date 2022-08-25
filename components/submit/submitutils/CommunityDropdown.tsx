@@ -37,7 +37,7 @@ const CommunityDropdown = () => {
         getUserPrefCommunities().then(res => {
           setAllCommunity(res)
         })
-      },850)
+      },450)
     }
   },[])
 

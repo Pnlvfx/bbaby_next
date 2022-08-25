@@ -8,7 +8,7 @@ import AuthorHeaderPage from "../../components/user/AuthorHeaderPage";
 
 type AuthorPg = {
   author: string,
-  posts: PostProps
+  posts: PostProps[]
 }
 
 const Username:NextPage<AuthorPg> = ({author,posts}) => {

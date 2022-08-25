@@ -5,7 +5,7 @@ import Layout from '../components/main/Layout'
 import { siteUrl } from '../components/main/config'
 
 type BestPg = {
-  posts: PostProps
+  posts: PostProps[]
 }
 
 const Home: NextPage<BestPg> = ({posts}) => {

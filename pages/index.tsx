@@ -6,7 +6,7 @@ import Feed from '../components/post/Feed';
 import { siteUrl } from '../components/main/config';
 
 type HomePg = {
-  posts: PostProps
+  posts: PostProps[]
 }
 
 const Home: NextPage<HomePg> = ({ posts }) => {

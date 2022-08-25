@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 
 type CommunityPg = {
   community: string,
-  posts: PostProps
+  posts: PostProps[]
 }
 
 const CommunityPage: NextPage<CommunityPg> = ({community,posts}) => {
@@ -17,7 +17,7 @@ const CommunityPage: NextPage<CommunityPg> = ({community,posts}) => {
   const {getCommunity,communityInfo} = useContext(CommunityContext) as CommunityContextProps;
   const title = community
   const description = communityInfo.description;
-  const imagePreview = posts.communityIcon
+  const imagePreview = '/imagePreview.png';
   const url = `${hostname}/b/${community}`
   const card = 'summary'
   const router = useRouter()

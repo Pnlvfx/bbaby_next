@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import UserContext from '../auth/UserContext';
-import GovernanceMainMenù from "./GovernanceMainMenù";
 
 interface GovernanceCtrlProps {
   children: React.ReactNode
