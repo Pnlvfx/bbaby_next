@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import { CloseIcon } from '../utils/SVG'
 import { showErrMsg } from '../utils/validation/Notification'
 
-function CommunityFormModal() {
+const CommunityFormModal = () => {
   const { show, setShow } = useContext(CommunityContext) as CommunityContextProps;
 
   const initialState = {

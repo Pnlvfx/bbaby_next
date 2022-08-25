@@ -7,8 +7,8 @@ import Voting from './Voting';
 import { CommentIcon } from '../utils/SVG';
 import Link from 'next/link';
 import { isMobile } from 'react-device-detect';
-import { useState } from 'react';
 import VideoPlayer from '../utils/video/VideoPlayer';
+import { COLORS } from '../main/config';
 
 type PostContentProps = {
   post: PostProps
@@ -16,8 +16,6 @@ type PostContentProps = {
 }
 
 const PostContent = ({ post, isListing }: PostContentProps) => {
-  const router = useRouter()
-
   let height = 0
   let width = 0
 
@@ -26,8 +24,17 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
     width = post.mediaInfo.dimension[1]
   }
 
+  const router = useRouter()
+
   return (
-    <div className="flex max-h-[800px] overflow-hidden rounded-md bg-reddit_dark-brighter">
+    <div style={{
+      backgroundColor: COLORS.brighter,
+      display: 'flex',
+      maxHeight: 800,
+      overflow: 'hidden',
+      borderRadius: 6
+      }}
+    >
       <div className="w-10 flex-none bg-[#141415]">
         <Voting
           ups={post.ups}
@@ -35,7 +42,7 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
           liked={post.liked}
         />
       </div>
-      <div className="w-full p-2">
+      <div style={{width: '100%', padding: 8}}>
         <div className="mb-3 flex w-full items-center h-5">
           <Link href={`/b/${post.community}`}>
             <a
@@ -51,7 +58,7 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
                 <Image
                   src={post.communityIcon}
                   alt=""
-                  className="rounded-full"
+                  style={{borderRadius: 9999}}
                   height={20}
                   width={20}
                 />

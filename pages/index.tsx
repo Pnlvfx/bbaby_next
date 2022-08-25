@@ -3,26 +3,25 @@ import CEO from '../components/main/CEO';
 import { getSession, ssrHeaders } from '../components/API/ssrAPI';
 import Layout from '../components/main/Layout';
 import Feed from '../components/post/Feed';
+import { siteUrl } from '../components/main/config';
 
 type HomePg = {
   posts: PostProps
 }
 
 const Home: NextPage<HomePg> = ({ posts }) => {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME
-  const image = `${hostname}/imagePreview.png`
+  const image = `${siteUrl}/imagePreview.png`
   const title = "Bbabystyle - Free speech"
   const type = 'website'
   const description = 'Bbabystyle is a network where you can create your community and start to talk about whatever you want.'
   const twitter_card = 'summary';
-  const url = hostname;
   const locale = 'en-US'
 
   return (
     <>
     <CEO
       title={title}
-      url={url}
+      url={siteUrl}
       description={description}
       twitter_card={twitter_card}
       type={type}

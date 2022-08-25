@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 const CookieConsent = () => {
   const [show, setShow] = useState(false);
-  const domain = process.env.NODE_ENV === 'production' ? '.bbabystyle' : 'localhost'
+  const domain = process.env.NODE_ENV === 'production' ? '.bbabystyle.com' : 'localhost'
   const acceptCookie = () => {
     const cookie = process.env.NEXT_PUBLIC_COOKIE_CONSENT_SECRET;
     document.cookie =

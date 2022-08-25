@@ -1,15 +1,15 @@
 import type { GetServerSideProps } from "next";
 import { getServerSideSitemap, ISitemapField } from "next-sitemap";
+import { siteUrl } from "../../components/main/config";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
-    const hostname = process.env.NEXT_PUBLIC_HOSTNAME
 
     const response = await fetch(`${server}/sitemaps`);
-    const posts:PostProps[] = await response.json();
+    const posts: PostProps[] = await response.json();
 
     const fields : ISitemapField[] = posts.map(post => ({
-        loc: hostname+`/b/${post.community}/comments/${post._id}`,
+        loc: `${siteUrl}/b/${post.community}/comments/${post._id}`,
         priority: 1,
         lastmod: new Date(post.createdAt).toISOString()
 }));

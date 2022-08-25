@@ -1,9 +1,9 @@
+import Head from 'next/head'
+import type { NextPage } from 'next'
 import {useState,useEffect} from 'react'
 import {showErrMsg,showSuccessMsg} from '../../components/utils/validation/Notification'
 import {useRouter} from 'next/router'
 import axios from 'axios'
-import Head from 'next/head'
-import type { NextPage } from 'next'
 
 
 

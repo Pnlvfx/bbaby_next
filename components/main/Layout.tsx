@@ -1,5 +1,4 @@
 import Header from '../header/Header';
-import { lazy, Suspense } from 'react';
 import UseGoogleOneTapLogin from '../auth/providers/google/hooks/useGoogleOneTapLogin';
 import dynamic from 'next/dynamic';
 
@@ -11,6 +10,7 @@ const Layout = ({children} : LayoutProps) => {
   const AuthModal = dynamic(() => import('../auth/modal/AuthModal'))
   const CommunityFormModal = dynamic(() => import('../community/CommunityFormModal'))
   const TimeMsg = dynamic(() => import('./TimeMsg'));
+  const hosted_domain = process.env.NODE_ENV === 'production' ? '.bbabystyle' : 'localhost';
   
   return (
     <>
@@ -21,7 +21,7 @@ const Layout = ({children} : LayoutProps) => {
         <CommunityFormModal />
         <TimeMsg />
     </div>
-    {/* {UseGoogleOneTapLogin({onSuccess: ((res) => console.log('ook'))})} */}
+    {UseGoogleOneTapLogin({onSuccess: ((res) => console.log('ook')), hosted_domain})}
     </>
   )
 }

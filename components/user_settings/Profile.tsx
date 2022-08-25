@@ -34,7 +34,8 @@ const Profile = () => {
   useEffect(() => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL;
     try {
-      if (!change) return
+      if (!change) return;
+      const url = `${server}/user/change_avatar`;
       const data = { image: selectedFile, username: session?.user.username }
       axios({
         method: 'POST',

@@ -8,8 +8,6 @@ const Voting = (props) => {
   const {commentsTotals, userVotes,refreshVotes} = useContext(RootCommentContext);
   const {commentId} = props;
 
-  
-
   const total = commentsTotals && commentId in commentsTotals ? commentsTotals[commentId] : 0;
   const userVote = userVotes && commentId in userVotes ? userVotes[commentId] : 0;
 
