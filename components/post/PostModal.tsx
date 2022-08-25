@@ -11,7 +11,7 @@ import { getPost } from "./APIpost";
 
 type PostModalProps = {
   community?: string
-  postId?: string
+  postId: string
   open: boolean
   onClickOut: Function
 }
@@ -34,7 +34,6 @@ const PostModal = ({community,postId,open,onClickOut}:PostModalProps) => {
       setLoading(false)
     });
   },[postId]);
-
 
   const [isCategoryDropdownOpen,setIsCategoryDropdownOpen] = useState(false)
 

@@ -1,7 +1,7 @@
-import { createContext, Dispatch, SetStateAction, useState } from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useState } from "react";
 
 interface TimeMsgContextProviderProps {
-    children: React.ReactNode
+    children: ReactNode
 }
 
 interface messageProps {

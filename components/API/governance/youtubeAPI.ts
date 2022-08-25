@@ -32,7 +32,7 @@ export const getYoutubeAccessToken = async (code: string, context: NextPageConte
             method: 'post',
             body,
             headers: context ? ssrHeaders(context) : postRequestHeaders
-        })
+        });
         if (res.ok) {
             return res;
         } else {

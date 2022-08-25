@@ -19,10 +19,10 @@ type FeedProps = {
 }
 
 const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
-  const [posts, setPosts] = useState<PostProps[]>(ssrPost)
+  const PostModal = dynamic(() => import('./PostModal'))
   const [postOpen, setPostOpen] = useState(false)
   const router = useRouter()
-  const production = process.env.NODE_ENV === 'production' ? true : false;
+  
   let postId: string[] | string = ''
 
   if (router.query.postId) {
@@ -39,6 +39,7 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
   //
 
   //INFINITE SCROLLING
+  const [posts, setPosts] = useState<PostProps[]>(ssrPost)
   const getMorePosts = async () => {
     const input = community ? 'community' : author ? 'author' : undefined
     const value = community ? community : author ? author : undefined
@@ -47,11 +48,10 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
     setPosts([...posts, ...newPosts])
   }
   //
-  const PostModal = dynamic(() => import('./PostModal'))
 
   return (
     <>
-      {postId !== '' && !isMobile && (
+      {postId !== '' && (
         <PostModal
           community={community}
           postId={postId.toString()}

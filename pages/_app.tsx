@@ -8,6 +8,7 @@ import CookieConsent from '../components/utils/validation/CookieConsent';
 import { TimeMsgContextProvider } from '../components/main/TimeMsgContext';
 import GoogleAnalytics from '../components/google/GoogleAnalytics';
 import { siteUrl } from '../components/main/config';
+import { GoogleOAuthProvider } from '../components/auth/providers/google/GoogleOAuthProvider';
 
 const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps) => {
   const production = process.env.NODE_ENV === 'production' ? true : false;
@@ -37,15 +38,17 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps) => {
               content={`default-src 'self' https://extreme-ip-lookup.com https://*.google-analytics.com https://www.googletagmanager.com https://accounts.google.com ${server} https://apis.google.com 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: w3.org/svg/2000 https://*; child-src https://accounts.google.com;`}/> */}
       </Head>
       <UserContext.Provider value={{ session }}>
-        <AuthModalContextProvider>
-          <CommunityContextProvider>
-            <TimeMsgContextProvider>
-              <Component {...pageProps} />
-              <CookieConsent />
-              {production && <GoogleAnalytics />}
-            </TimeMsgContextProvider>
-          </CommunityContextProvider>
-        </AuthModalContextProvider>
+        <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
+          <AuthModalContextProvider>
+            <CommunityContextProvider>
+              <TimeMsgContextProvider>
+                <Component {...pageProps} />
+                <CookieConsent />
+                {production && <GoogleAnalytics />}
+              </TimeMsgContextProvider>
+            </CommunityContextProvider>
+          </AuthModalContextProvider>
+        </GoogleOAuthProvider>
       </UserContext.Provider>
     </>
   )

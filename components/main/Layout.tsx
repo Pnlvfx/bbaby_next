@@ -1,25 +1,28 @@
 import Header from '../header/Header';
 import { lazy, Suspense } from 'react';
+import UseGoogleOneTapLogin from '../auth/providers/google/hooks/useGoogleOneTapLogin';
+import dynamic from 'next/dynamic';
 
 interface LayoutProps {
   children: React.ReactNode
 }
 
 const Layout = ({children} : LayoutProps) => {
-  const AuthModal = lazy(() => import('../auth/modal/AuthModal'))
-  const CommunityFormModal = lazy(() => import('../community/CommunityFormModal'))
-  const TimeMsg = lazy(() => import('./TimeMsg'));
+  const AuthModal = dynamic(() => import('../auth/modal/AuthModal'))
+  const CommunityFormModal = dynamic(() => import('../community/CommunityFormModal'))
+  const TimeMsg = dynamic(() => import('./TimeMsg'));
   
   return (
+    <>
     <div>
       <Header />
       {children}
-      <Suspense fallback={<div />}>
         <AuthModal />
         <CommunityFormModal />
         <TimeMsg />
-      </Suspense>
     </div>
+    {/* {UseGoogleOneTapLogin({onSuccess: ((res) => console.log('ook'))})} */}
+    </>
   )
 }
 

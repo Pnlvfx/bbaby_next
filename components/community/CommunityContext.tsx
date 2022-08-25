@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { createContext, Dispatch, SetStateAction, useEffect, useState } from "react"
+import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react"
 
 export type CommunityContextProps = {
     show: boolean
@@ -12,10 +12,10 @@ export type CommunityContextProps = {
 export const CommunityContext = createContext<CommunityContextProps | {}>({});
 
 interface CommunityContextProviderProps {
-    children : React.ReactNode
+    children : ReactNode
 }
 
-export const CommunityContextProvider = ({children}:CommunityContextProviderProps) => {
+export const CommunityContextProvider = ({children}: CommunityContextProviderProps) => {
     const [show,setShow] = useState(false);
     const [communityInfo,setCommunityInfo] = useState({});
     const [loading,setLoading] = useState(true);

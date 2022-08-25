@@ -72,18 +72,7 @@ export default GovNewsPage;
 
 export const getServerSideProps = async(context: NextPageContext) => {
   let session = null;
-  let ssrBBCnews: BBCnewsProps[] | [
-    'loading',
-    'loading',
-    'loading',
-    'loading',
-    'loading',
-    'loading',
-    'loading',
-    'loading',
-    'loading',
-    'loading',
-  ] = [
+  let ssrBBCnews: any = [
     'loading',
     'loading',
     'loading',
@@ -97,7 +86,7 @@ export const getServerSideProps = async(context: NextPageContext) => {
   ];
   try {
     session = await getSession(context);
-    //ssrBBCnews = await getBBCLinks(10, 0, context);
+    ssrBBCnews = await getBBCLinks(10, 0, context);
   } catch (err) {
     Errorpage
   }

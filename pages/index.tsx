@@ -1,8 +1,8 @@
 import type { NextPage, NextPageContext } from 'next';
-import Feed from '../components/post/Feed';
-import Layout from '../components/main/Layout';
 import CEO from '../components/main/CEO';
 import { getSession, ssrHeaders } from '../components/API/ssrAPI';
+import Layout from '../components/main/Layout';
+import Feed from '../components/post/Feed';
 
 type HomePg = {
   posts: PostProps
@@ -55,6 +55,8 @@ export const getServerSideProps = async(context : NextPageContext) => {
   } catch (error) {
     
   }
+
+  //context.res?.setHeader('set-cookie', 'session_tracker=sdnguigndfuigdfnguifdgndfgiudfgnfiugdf')
 
   return {
     props: {

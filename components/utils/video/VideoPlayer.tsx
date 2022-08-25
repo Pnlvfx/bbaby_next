@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, VideoHTMLAttributes } from "react";
 
 type VideoPlayer = {
     src: string
@@ -8,14 +8,16 @@ type VideoPlayer = {
 }
 
 const VideoPlayer = ({src, poster, width, height} : VideoPlayer) => {
-  const videoRef = useRef(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [controls, setControls] = useState(false);
-  const [autoplay, setAutoplay] = useState(false);
 
   const callback = (entries: IntersectionObserverEntry[]) => {
     const [entry] = entries;
-    console.log(entry.isIntersecting)
-    setAutoplay(entry.isIntersecting);
+    if (entry.isIntersecting) {
+      videoRef.current?.play()
+    } else {
+      videoRef?.current?.pause()
+    }
   }
 
   useEffect(() => {
@@ -51,8 +53,9 @@ const VideoPlayer = ({src, poster, width, height} : VideoPlayer) => {
         src={src}
         poster={poster}
         controls={controls}
-        autoPlay={autoplay}
-        muted={true}
+        autoPlay={false}
+        muted
+        playsInline
         height={height}
         width={width}
       />
