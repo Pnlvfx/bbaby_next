@@ -2,14 +2,15 @@ import Header from '../header/Header';
 import UseGoogleOneTapLogin from '../auth/providers/google/hooks/useGoogleOneTapLogin';
 import dynamic from 'next/dynamic';
 import { googleLogin } from '../auth/providers/google/hooks/googleLogin';
-import { useContext } from 'react';
+import { ReactNode, useContext } from 'react';
 import { AuthModalContext, AuthModalContextProps } from '../auth/modal/AuthModalContext';
 import { useRouter } from 'next/router';
 import { TimeMsgContext, TimeMsgContextProps } from './TimeMsgContext';
 import UserContext from '../auth/UserContext';
+import CookieConsent from '../utils/validation/CookieConsent';
 
 interface LayoutProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 const Layout = ({children} : LayoutProps) => {
@@ -24,13 +25,14 @@ const Layout = ({children} : LayoutProps) => {
   
   return (
     <>
-    <div>
+    <>
       <Header />
       {children}
-        <AuthModal />
-        <CommunityFormModal />
-        <TimeMsg />
-    </div>
+      <CookieConsent />
+      <AuthModal />
+      <CommunityFormModal />
+      <TimeMsg />
+    </>
     {!session && UseGoogleOneTapLogin({
       onSuccess: ((response) => googleLogin(response, modalContext, router, message)),
       cancel_on_tap_outside: false,

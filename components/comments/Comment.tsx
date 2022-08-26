@@ -12,7 +12,7 @@ interface CommentRootProps {
     postId: string | string[]
 }
 
-const Comment = ({post,postId}:CommentRootProps) => {
+const Comment = ({post, postId}:CommentRootProps) => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     const router = useRouter()
     const [comments,setComments] = useState<CommentProps[] | []>([]);

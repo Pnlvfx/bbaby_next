@@ -12,7 +12,7 @@ interface CEOProps {
     /**
     * Use article for articles and website for the rest of your pages.
     */
-    image: string | undefined
+    image?: string
     /**
     * use the main image if present
     */
@@ -29,7 +29,18 @@ interface CEOProps {
     * Use article for articles and website for the rest of your pages.
     */
     twitter_card: string
-
+    /**
+    * The locale of the current page
+    */
+    video?: string
+    /**
+    * The locale of the current page
+    */
+    height?: string
+    /**
+    * The locale of the current page
+    */
+    width?: string
 }
 
 const CEO = ({
@@ -39,7 +50,9 @@ const CEO = ({
     twitter_card,
     type,
     image,
-
+    video,
+    width,
+    height
 }:CEOProps) => {
   return (
     <Head>
@@ -50,7 +63,15 @@ const CEO = ({
       <meta property="twitter:card" content={twitter_card} key="twcard" />
       <meta property="og:title" content={title} key="ogtitle" />
       <meta property="og:description" content={description} key="ogdesc" />
-      <meta property="og:image" content={image} key="ogimage" />
+      {image && (
+        <>
+          <meta property="og:image" content={image} key="ogimage" />
+          <meta property='og:image:width' content={width} />
+          <meta property='og:image:height' content={height} />
+          <meta property="twitter:image" content={image} />
+        </>
+      )}
+      {video && <meta property="og:video" content={video} />}
       <meta property="og:url" content={url} key="ogurl" />
       <meta property="og:type" content={type} key="ogtype" />
       <link rel='canonical' href={url} key='canonical' />

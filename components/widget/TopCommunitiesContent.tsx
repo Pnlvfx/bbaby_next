@@ -12,7 +12,7 @@ interface TopCommunitiesContentProps {
   rank: number
 }
 
-function TopCommunitiesContent({community,getBestCommunities,rank}:TopCommunitiesContentProps) {
+const TopCommunitiesContent = ({community,getBestCommunities,rank}:TopCommunitiesContentProps) => {
   const {setShow} = useContext(AuthModalContext) as AuthModalContextProps;
 
   const loader = () => {
@@ -20,12 +20,16 @@ function TopCommunitiesContent({community,getBestCommunities,rank}:TopCommunitie
   }
 
   const doSubscribe = async () => {
+   try {
     const join = await subscribe(community.name,setShow)
     const refresh = await getBestCommunities()
+   } catch (err) {
+    
+   }
   }
 
   return (
-      <div className=''>
+      <>
         <Link href={'/b/'+community.name}>
           <a>
             <div className='flex items-center p-1 h-[50px]'>
@@ -46,7 +50,7 @@ function TopCommunitiesContent({community,getBestCommunities,rank}:TopCommunitie
           </a>
         </Link>
         <hr className='border-reddit_border'/>
-      </div>
+      </>
   )
 }
 

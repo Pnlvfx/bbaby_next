@@ -36,30 +36,32 @@ const VideoPlayer = ({src, poster, width, height} : VideoPlayer) => {
   }, [videoRef])
 
   return (
-    <>
-      <video
-        ref={videoRef}
-        onMouseOver={(e) => {
-          e.preventDefault()
-          e.stopPropagation()
-          setControls(true);
-        }}
-        onMouseOut={(e) => {
-          e.preventDefault()
-          e.stopPropagation()
-          setControls(false)
-        }}
-        style={{backgroundColor: 'rgb(0,0,0)', aspectRatio: '16/9'}}
-        src={src}
-        poster={poster}
-        controls={controls}
-        autoPlay={false}
-        muted
-        playsInline
-        height={height}
-        width={width}
-      />
-    </>
+    <div className="justify-center w-full flex bg-black max-h-600">
+      <div className="mx-10">
+        <video
+          ref={videoRef}
+          onMouseOver={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            setControls(true);
+          }}
+          onMouseOut={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            setControls(false)
+          }}
+          style={{backgroundColor: 'rgb(0,0,0)', maxHeight: 500}}
+          src={src}
+          poster={poster}
+          controls={controls}
+          autoPlay={false}
+          muted
+          playsInline
+          height={height}
+          width={width}
+        />
+      </div>
+    </div>
   )
 }
 

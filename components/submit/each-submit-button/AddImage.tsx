@@ -57,7 +57,7 @@ const AddImage = () => {
         <AddImageIcon />
         <input
           type="file"
-          accept='image/png, image/jpeg'
+          accept='image/png, image/jpeg, image/webp'
           hidden
           onChange={addImageToPost}
           ref={filePickerRef}

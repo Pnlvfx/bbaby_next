@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { useContext, useState } from 'react';
 import TimeAgo from 'timeago-react'
 import { translate } from '../../API/governance/governanceAPI'
-import { COLORS } from '../../main/config';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext'
 import SubmitLayout from '../../submit/SubmitLayout'
 import VideoPlayer from '../../utils/video/VideoPlayer'
@@ -49,14 +48,18 @@ const Tweet = ({ username, screen_name, created_at, title, type, video, image, w
       }
     }
   }
+
+  if (!video) return null;
+
   return (
       <li className="mb-3 rounded-md bg-reddit_dark-brighter hover:border-reddit_text flex overflow-hidden border border-reddit_border">
         <div className="w-full p-2">
           <div className="mb-3 flex h-[24px] w-full">
-            <div className="h-5 w-5 overflow-hidden rounded-full">
+            <div className="max-h-[500px] h-5 w-5 overflow-hidden rounded-full flex">
               <Image
                 src={user_avatar}
                 alt="twitter_user_image"
+                objectFit='contain'
                 width={'20px'}
                 height={'20px'}
               />
@@ -71,15 +74,16 @@ const Tweet = ({ username, screen_name, created_at, title, type, video, image, w
             />
           </div>
           <h1 className="mb-4 break-words text-lg">{title}</h1>
-          <div className="max-h-[500px] overflow-hidden">
+          <div className="max-h-[650px] overflow-hidden">
             {type === 'photo' && image && width && height && (
               <Image
                 src={image}
                 height={height}
-                alt="twitter_image"
+                alt=""
                 width={width}
               />
             )}
+            </div>
             {type === 'video' && video && width && height && (
               <VideoPlayer 
                 src={video}
@@ -88,7 +92,6 @@ const Tweet = ({ username, screen_name, created_at, title, type, video, image, w
                 height={height}
               />
             )}
-          </div>
           <button
             type="button"
             onClick={(e) => {
@@ -100,9 +103,7 @@ const Tweet = ({ username, screen_name, created_at, title, type, video, image, w
               }
             }}
           >
-            <div className="flex rounded-sm p-2 text-sm text-[#717273] hover:bg-reddit_hover">
-              <p>Magic</p>
-            </div>
+            <p className='text-sm text-[#717273] p-2'>Magic</p>
           </button>
           {showSubmit && <SubmitLayout newTweet={newTweet} />}
         </div>

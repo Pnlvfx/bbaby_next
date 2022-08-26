@@ -4,7 +4,7 @@ const Testvideo = () => {
   return (
     <>
       <VideoPlayer 
-      src='http://localhost:8080/videos'
+      src='http://localhost:4000/videos'
       poster=''
       height={599}
       width={599}

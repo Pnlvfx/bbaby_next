@@ -16,16 +16,7 @@ type PostContentProps = {
 }
 
 const PostContent = ({ post, isListing }: PostContentProps) => {
-  let height = 0
-  let width = 0
-
-  if (post?.mediaInfo?.isImage || post?.mediaInfo?.isVideo) {
-    height = post.mediaInfo.dimension[0]
-    width = post.mediaInfo.dimension[1]
-  }
-
   const router = useRouter()
-
   return (
     <div style={{
       backgroundColor: COLORS.brighter,
@@ -36,16 +27,13 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
       }}
     >
       <div className="w-10 flex-none bg-[#141415]">
-        <Voting
-          ups={post.ups}
-          postId={post._id}
-          liked={post.liked}
-        />
+        <Voting ups={post.ups} postId={post._id} liked={post.liked} />
       </div>
       <div style={{width: '100%', padding: 8}}>
-        <div className="mb-3 flex w-full items-center h-5">
+        <div className={`mb-3 flex w-full items-center h-5 ${!post.community && !post.communityIcon && !post.author && 'loading overflow-hidden'}`}>
           <Link href={`/b/${post.community}`}>
             <a
+              className="flex items-center space-x-2"
               onClick={(event) => {
                 event.preventDefault()
                 event.stopPropagation()
@@ -53,23 +41,23 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
                   pathname: '/b/' + post.community,
                 })
               }}
-              className="flex items-center space-x-2"
             >
-                <Image
-                  src={post.communityIcon}
-                  alt=""
-                  style={{borderRadius: 9999}}
-                  height={20}
-                  width={20}
-                />
-              <span className="text-xs font-bold hover:underline">
-                b/{post.community}
-              </span>
+                {post.communityIcon && 
+                <div className='bg-reddit_dark-brightest w-5 h-5 rounded-full'>
+                  <Image
+                    role={'presentation'}
+                    src={post.communityIcon}
+                    alt=""
+                    style={{borderRadius: 9999}}
+                    height={20}
+                    width={20}
+                  />
+                </div>}
+              <span className={`text-xs font-bold hover:underline`}> {post.community ? 'b/' + post.community + ' ' + '-' + ' ' : null}</span>
             </a>
           </Link>
-          <span className="mx-1 text-sm">-</span>
-          <div className="truncate text-xs text-reddit_text-darker">
-            <span>Posted by</span>{' '}
+          <div className="ml-1 truncate text-xs text-reddit_text-darker">
+            <span>{post.title && 'Posted by'}</span>{' '}
             <Link href={`/user/${post.author}`}>
               <a
                 onClick={(event) => {
@@ -78,25 +66,30 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
                   router.push(`/user/${post.author}`)
                 }}
               >
-                <span className="hover:underline">
-                  b/{post.author}
-                </span>
+                <span className="hover:underline">{post.author && 'u/' + post.author}</span>
               </a>
             </Link>{' '}
-            <TimeAgo datetime={post.createdAt} className="truncate" />
+            {post.createdAt && <TimeAgo datetime={post.createdAt} className="truncate" />}
           </div>
         </div>
           {isListing ? 
-          <p className="whitespace-pre-wrap mb-4 break-words font-extrabold leading-6">{post.title}</p>
+          <p className={`overflow-hidden min-h-[24px] whitespace-pre-wrap mb-4 break-words font-extrabold leading-6 ${!post.title && 'loading'}`}>{post.title}</p>
            : 
-           <h1 className="whitespace-pre-wrap mb-4 break-words font-extrabold leading-6">{post.title}</h1>}
+           <h1 className={`overflow-hidden min-h-[24px] whitespace-pre-wrap mb-4 break-words font-extrabold leading-6 ${!post.title && 'loading'}`}>{post.title}</h1>}
         {post?.mediaInfo?.isImage && post?.mediaInfo?.image && (
-          <div className="max-h-[500px] overflow-hidden">
+          <div className="max-h-[500px] w-full items-center overflow-hidden flex justify-center">
             <Image
               src={`${post.mediaInfo.image}`}
               alt=""
-              height={height}
-              width={width}
+              style={{
+                maxWidth: '100%',
+                position: 'relative',
+                display: 'block'
+                
+              }}
+              height={post.mediaInfo.dimension[0]}
+              width={post.mediaInfo.dimension[1]}
+              objectFit='contain'
             />
           </div>
         )}
@@ -104,9 +97,9 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
           <VideoPlayer 
             src={post.mediaInfo.video.url}
             poster={post.mediaInfo.video.url.replace('mp4', 'jpg')}
-            height={height}
-            width={width}
-          />
+            height={post.mediaInfo.dimension[0]}
+            width={post.mediaInfo.dimension[1]}
+        />
         )}
         {post.body && (
           <div className="resize-x-none flex-none break-words text-sm leading-6">

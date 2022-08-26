@@ -20,7 +20,12 @@ const IdPage: NextPage<PostIdPageProps> = ({post,error}) => {
     const twitter_card = 'summary_large_image';
     const type = 'article'
     const {getCommunity} = useContext(CommunityContext) as CommunityContextProps;
-    const og_image = post.mediaInfo?.isImage ? post.mediaInfo.image : post.mediaInfo?.isVideo ? post.mediaInfo.video.url.replace('mp4', 'jpg') : undefined
+    const og_image = post.mediaInfo?.isImage ?
+     post.mediaInfo.image : 
+     post.mediaInfo?.isVideo ? 
+     post.mediaInfo.video.url.replace('mp4', 'jpg') : 
+     undefined;
+     const og_video = post.mediaInfo?.isVideo ? post.mediaInfo.video.url : undefined
 
     useEffect(() => {
       getCommunity(post.community)
@@ -39,6 +44,9 @@ const IdPage: NextPage<PostIdPageProps> = ({post,error}) => {
         twitter_card={twitter_card}
         type={type}
         image={og_image}
+        video={og_video}
+        width={post.mediaInfo?.dimension[1].toString()}
+        height={post.mediaInfo?.dimension[0].toString()}
       />
       <Layout>
         <CommentPage post={post}/>

@@ -21,7 +21,7 @@ const TopCommunities = () => {
         setAllCommunity(communities);
         setLoadingCommunity(false)
       } 
-    } catch (error) {
+    } catch (err) {
       
     }
   }

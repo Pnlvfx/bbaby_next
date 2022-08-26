@@ -51,7 +51,7 @@ const Voting = ({ups,postId,liked}:Voting) => {
     }
 
   return (
-      <div className="pt-2 text-center">
+      <div className="mt-2 text-center">
         <div className="cursor-pointer" onClick={event => {
           event.preventDefault()
           event.stopPropagation()
@@ -59,7 +59,7 @@ const Voting = ({ups,postId,liked}:Voting) => {
         }}>
           <BiUpvote className={`w-6 h-6 text-reddit_text-darker hover:text-blue-600 text-center mx-auto && ${voted === "true" && "text-blue-600"}`}/>
         </div>
-          <span className="text-sm">{upVote}</span>
+          <span className="text-sm">{upVote ? upVote : 0}</span>
         <div className="cursor-pointer" onClick={event => {
           event.preventDefault()
           event.stopPropagation()

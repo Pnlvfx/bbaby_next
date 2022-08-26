@@ -27,7 +27,7 @@ const CommunityPage: NextPage<CommunityPg> = ({community,posts}) => {
   },[community])
 
   return (
-    <div>
+    <>
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} key={'description'} />
@@ -45,7 +45,7 @@ const CommunityPage: NextPage<CommunityPg> = ({community,posts}) => {
           {!router.query?.postId && <BoardHeader />}
           <Feed community={community} posts={posts} />
       </Layout>
-    </div>
+    </>
   )
 }
 

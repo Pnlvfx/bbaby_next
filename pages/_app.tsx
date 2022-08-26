@@ -4,15 +4,12 @@ import UserContext from '../components/auth/UserContext';
 import type { AppProps } from 'next/app';
 import { AuthModalContextProvider } from '../components/auth/modal/AuthModalContext';
 import { CommunityContextProvider } from '../components/community/CommunityContext';
-import CookieConsent from '../components/utils/validation/CookieConsent';
 import { TimeMsgContextProvider } from '../components/main/TimeMsgContext';
 import GoogleAnalytics from '../components/google/GoogleAnalytics';
 import { siteUrl } from '../components/main/config';
 import { GoogleOAuthProvider } from '../components/auth/providers/google/GoogleOAuthProvider';
 
 const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps) => {
-  const production = process.env.NODE_ENV === 'production' ? true : false;
-    
   return (
     <>
       <Head>
@@ -27,7 +24,7 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps) => {
         <link rel='apple-touch-icon' sizes='152x152' href={`${siteUrl}/apple-touch-icon-152x152.png`} />
         <link rel='apple-touch-icon' sizes='180x180' href={`${siteUrl}/apple-touch-icon-180x180.png`} />
         <meta name="theme-color" content="#1a1a1b" />
-        <link rel="icon" type='image/png' href="/favicon.ico" />
+        <link rel="icon" type='image/png' href={`${siteUrl}/favicon.ico`} />
         <meta name="application-name" content="bbabystyle" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -43,8 +40,7 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps) => {
             <CommunityContextProvider>
               <TimeMsgContextProvider>
                 <Component {...pageProps} />
-                <CookieConsent />
-                {production && <GoogleAnalytics />}
+                {process.env.NEXT_PUBLIC_NODE_ENV === 'production' && <GoogleAnalytics />}
               </TimeMsgContextProvider>
             </CommunityContextProvider>
           </AuthModalContextProvider>

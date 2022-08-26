@@ -4,6 +4,7 @@ export const catchError = (err : unknown) => {
     if (err instanceof Error) {
         throw new Error(err.message);
     } else {
+        console.log(err);
         throw new Error("API error");
     }
 }

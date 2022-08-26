@@ -11,6 +11,7 @@ import dynamic from 'next/dynamic'
 import Donations from '../widget/Donations'
 import { getPosts } from './APIpost'
 import GoogleAdsense2 from '../google/GoogleAdsense2'
+import Skeleton from '../governance/twitter/Skeleton';
 
 type FeedProps = {
   posts: PostProps[]
@@ -19,9 +20,10 @@ type FeedProps = {
 }
 
 const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
+  const PostModal = dynamic(() => import('./PostModal'))
   const [posts, setPosts] = useState<PostProps[]>(ssrPost)
   const [postOpen, setPostOpen] = useState(false)
-  const router = useRouter()
+  const router = useRouter();
   
   let postId: string[] | string = ''
 
@@ -49,11 +51,11 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
   }
   //
 
-  const PostModal = dynamic(() => import('./PostModal'))
+  console.log(posts)
   
   return (
     <>
-      {postId !== '' && isMobile && (
+      {postId !== '' && !isMobile && (
         <PostModal
           community={community}
           postId={postId.toString()}
@@ -64,7 +66,7 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
         />
       )}
       {postId === '' && (
-        <div className="mx-[2px] mt-5 flex justify-center lg:mx-10">
+        <div className="mx-[2px] lg:mx-10 mt-5 flex justify-center">
           <div className="w-full lg:w-7/12  lg:mr-4 2xl:w-[650px] flex-none">
             {!author && (
               <div className="mb-[18px]">
@@ -75,19 +77,19 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
               <BestPost />
             </div>
             {/* {production && <GoogleAdsense2 />} */}
-            <>
-              <InfiniteScroll
-                dataLength={posts.length}
-                next={getMorePosts}
-                hasMore={true}
-                loader={<p></p>}
-                endMessage={<p></p>}
-              >
-                {posts.map((post) => (
-                  <Post key={post._id} post={post} isListing={true} />
-                ))}
-              </InfiniteScroll>
-            </>
+           {posts.length > 14 ? 
+           <InfiniteScroll
+              dataLength={posts.length}
+              next={getMorePosts}
+              hasMore={true}
+              loader={<></>}
+              endMessage={<></>}
+            >
+              {posts.map((post) => <Post key={post._id} post={post} isListing={true} />)}
+            </InfiniteScroll> 
+            : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((_, idx) => (
+              <Skeleton isImage={true} key={idx} />
+            ))}
           </div>
           <div className="hidden lg:block">
             {community ? <CommunitiesInfo /> : <TopCommunities />}

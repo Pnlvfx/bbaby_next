@@ -20,7 +20,6 @@ const PostModal = ({community,postId,open,onClickOut}:PostModalProps) => {
   const router = useRouter();
   const [post,setPost] = useState<PostProps>({} as PostProps);
   const [loading,setLoading] = useState(true)
-  const visibleClass = open ? 'block' : 'hidden'
   const {getCommunity} = useContext(CommunityContext) as CommunityContextProps;
 
   useEffect(() => {
@@ -52,7 +51,7 @@ const PostModal = ({community,postId,open,onClickOut}:PostModalProps) => {
   if (!postId) return null;
 
   return (
-    <div className={"w-full z-20 flex items-center justify-center " + visibleClass} style={{backgroundColor:'rgb(25,25,25'}}>
+    <div className={`w-full z-20 flex items-center justify-center ${open ? 'block' : 'hidden'}`} style={{backgroundColor:'rgb(25,25,25'}}>
       <ClickOutHandler onClickOut={() => {
         clickOut()
         }}>

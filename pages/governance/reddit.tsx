@@ -1,15 +1,19 @@
-import type { GetServerSideProps, NextPage, NextPageContext } from 'next';
+import type { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
 import { useContext, useEffect, useState } from 'react';
+import { catchErrorWithMessage } from '../../components/API/common';
 import { getSession } from '../../components/API/ssrAPI';
 import GovernanceCtrl from '../../components/governance/GovernanceCtrl';
 import GovernanceMainMenù from '../../components/governance/GovernanceMainMenù';
+import RedditFeed from '../../components/governance/reddit/RedditFeed';
 import Layout from '../../components/main/Layout';
 import { TimeMsgContext, TimeMsgContextProps } from '../../components/main/TimeMsgContext';
+import BestPost from '../../components/post/postutils/BestPost';
+import PostForm from '../../components/submit/submitutils/PostForm';
 
 const RedditPage:NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
-  const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
   const [redditPosts,setRedditPosts] = useState([])
 
   const getRedditPosts = async () => {
@@ -21,15 +25,24 @@ const RedditPage:NextPage = () => {
         credentials: 'include'
       })
       if (res.ok) {
-        const p = await res.json()
-        setRedditPosts(p)
+        const p = await res.json();
+        setRedditPosts(p.data.children)
       } else {
-        setMessage({value: res.statusText, status: 'error'})
+        message.setMessage({value: res.statusText, status: 'error'})
       }
     } catch (err) {
-      
+      catchErrorWithMessage(err, message);
     }
   }
+
+  useEffect(() => {
+    const res = async () => {
+      await getRedditPosts();
+    }
+    res();
+  }, []);
+
+  if (!redditPosts) return null;
 
   return (
     <div>
@@ -45,11 +58,11 @@ const RedditPage:NextPage = () => {
       <Layout>
         <GovernanceCtrl>
           <GovernanceMainMenù />
-          <button onClick={() => {
-            getRedditPosts()
-          }}>
-            temp post call
-          </button>
+            <RedditFeed 
+            postForm={<PostForm />}
+            bestPost={<BestPost />}
+            posts={redditPosts}
+            />
         </GovernanceCtrl>
       </Layout>
     </div>

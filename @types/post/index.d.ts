@@ -7,7 +7,7 @@ type PostProps = {
     community:string
     communityIcon: string
     mediaInfo?: {
-      dimension: Array
+      dimension: Array<number>
       isImage: boolean
       isVideo: boolean
       image: string

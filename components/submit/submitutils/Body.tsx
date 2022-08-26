@@ -30,14 +30,19 @@ const Body = () => {
                     <FaTrashAlt className='text-reddit_text-darker px-2 py-1 mx-auto w-full h-full' />
                   </div>
               )}
-                <div onClick={(e) => {
+                <div className='rounded-lg border flex justify-center border-reddit_border hover:border-4 hover:border-reddit_text' 
+                onClick={(e) => {
                   e.preventDefault()
                   setShowDeleteOptions(true)
-                }} className='rounded-lg border flex justify-center border-reddit_border hover:border-4 hover:border-reddit_text'>
+                }}>
                   {isImage && (
                     <Image
                     src={selectedFile}
                     alt={'DisplayImage'}
+                    className='z-0'
+                    style={{
+                      maxWidth: '100%',
+                    }}
                     height={height}
                     width={width}
                     />

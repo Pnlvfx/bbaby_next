@@ -5,6 +5,7 @@ import Tweet from './Tweet';
 import TwMainMenu from './TwMainMenu';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
 import { catchErrorWithMessage } from '../../API/common';
+import TwitterWidget from './TwitterWidget';
 
 const Twitter = () => {
   const [tweets, setTweets] = useState<TweetProps[]>([]);
@@ -25,13 +26,10 @@ const Twitter = () => {
   }, [])
 
   return (
-    <div id="diplay_tweets" className="mx-0 flex justify-center lg:mx-10">
+    <div id="diplay_tweets" className="mx-0 lg:mx-10 flex justify-center">
       <div className="w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px]">
         <div style={{marginBottom: 16}}>
-          <TwMainMenu
-            setLanguage={setLanguage}
-            setTweets={setTweets}
-          />
+          <TwMainMenu setLanguage={setLanguage} setTweets={setTweets} />
         </div>
         <ul>
           {tweets.length > 8
@@ -49,8 +47,8 @@ const Twitter = () => {
                     undefined : 
                     tweet?.extended_entities?.media[0]?.media_url_https
                   }
-                  width={tweet?.extended_entities?.media[0]?.sizes.large.h}
-                  height={tweet?.extended_entities?.media[0]?.sizes.large.w}
+                  width={tweet?.extended_entities?.media[0]?.sizes.large.w}
+                  height={tweet?.extended_entities?.media[0]?.sizes.large.h}
                   user_avatar={tweet.user.profile_image_url_https}
                   language={language} 
                 />
@@ -59,6 +57,9 @@ const Twitter = () => {
                 <Skeleton key={idx} />
               ))}
         </ul>
+        <div className='hidden lg:block'>
+          <TwitterWidget />
+        </div>
       </div>
     </div>
   )

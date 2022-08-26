@@ -1,3 +1,4 @@
+import Router from "next/router";
 import { catchError } from "../common";
 
 const server = process.env.NEXT_PUBLIC_SERVER_URL;
@@ -24,7 +25,8 @@ export const getMyListTweets = async (query: query) => {
       credentials: 'include'
     })
     const data = await res.json();
-    if (!data) catchError(data.msg);
+    if (res.status === 401) Router.push('/settings')
+    if (!res.ok) catchError(data.msg);
     return data as TweetProps[];
   } catch (err) {
     return catchError(err)
