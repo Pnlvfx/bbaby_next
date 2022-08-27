@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { TimeMsgContext, TimeMsgContextProps } from './TimeMsgContext';
 import UserContext from '../auth/UserContext';
 import CookieConsent from '../utils/validation/CookieConsent';
+import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
 
 interface LayoutProps {
   children: ReactNode
@@ -22,6 +23,7 @@ const Layout = ({children} : LayoutProps) => {
   const router = useRouter();
   const message = useContext(TimeMsgContext) as TimeMsgContextProps;
   const {session} = useContext(UserContext) as SessionProps;
+  const communityContext = useContext(CommunityContext) as CommunityContextProps;
   
   return (
     <>
@@ -29,8 +31,8 @@ const Layout = ({children} : LayoutProps) => {
       <Header />
       {children}
       <CookieConsent />
-      <AuthModal />
-      <CommunityFormModal />
+      {!session && modalContext.show !== 'hidden' &&  <AuthModal />}
+      {session && communityContext.show && <CommunityFormModal />}
       <TimeMsg />
     </>
     {!session && UseGoogleOneTapLogin({

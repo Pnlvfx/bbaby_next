@@ -6,10 +6,10 @@ import {AuthModalContext, AuthModalContextProps} from "../auth/modal/AuthModalCo
 type Voting = {
   ups: number,
   postId: string,
-  liked: string,
+  liked: boolean | null,
 }
 
-const Voting = ({ups,postId,liked}:Voting) => {
+const Voting = ({ups,postId,liked}: Voting) => {
     let dir = 0  //vote
     const [upVote,setUpVote] = useState(ups)
     const {setShow} = useContext(AuthModalContext) as AuthModalContextProps;
@@ -18,23 +18,28 @@ const Voting = ({ups,postId,liked}:Voting) => {
     const refreshVote = async () => {
       try {
         const server = process.env.NEXT_PUBLIC_SERVER_URL
-        const res = await axios.post(`${server}/posts/${postId}/vote`,{dir}, {withCredentials:true})
+        const res = await axios({
+          method: 'POST',
+          url: `${server}/posts/${postId}/vote`,
+          data: {dir},
+          withCredentials: true
+        })
         if(dir === 1) {
-          if(voted === 'true') {
-            setVoted('null')  //if user have already voted
+          if(voted === true) {
+            setVoted(null)  //if user have already voted
           } else {
-            setVoted('true') //vote normall
+            setVoted(true) //vote normall
           }
         } else {
-          if(voted === 'false') {
-            setVoted('null')
+          if(voted === false) {
+            setVoted(null)
           } else {
-            setVoted('false')
+            setVoted(false)
           }
         }
         setUpVote(res.data.vote)
       } catch (err:any) {
-        if(err.response.status === 401) {
+        if(err.response.status === 401 || 400) {
           setShow('login');
       }
       }
@@ -57,7 +62,7 @@ const Voting = ({ups,postId,liked}:Voting) => {
           event.stopPropagation()
           handleVoteUp()
         }}>
-          <BiUpvote className={`w-6 h-6 text-reddit_text-darker hover:text-blue-600 text-center mx-auto && ${voted === "true" && "text-blue-600"}`}/>
+          <BiUpvote className={`w-6 h-6 text-reddit_text-darker hover:text-blue-600 text-center mx-auto && ${voted === true && "text-blue-600"}`}/>
         </div>
           <span className="text-sm">{upVote ? upVote : 0}</span>
         <div className="cursor-pointer" onClick={event => {
@@ -65,7 +70,7 @@ const Voting = ({ups,postId,liked}:Voting) => {
           event.stopPropagation()
           handleVoteDown()
         }}>
-          <BiDownvote className={`w-6 h-6 text-reddit_text-darker hover:text-reddit_orange mx-auto && ${voted === "false" && "text-reddit_orange"}`}/>
+          <BiDownvote className={`w-6 h-6 text-reddit_text-darker hover:text-reddit_orange mx-auto && ${voted === false && "text-reddit_orange"}`}/>
         </div>   
       </div>    
   )

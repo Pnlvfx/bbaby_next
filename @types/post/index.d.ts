@@ -17,7 +17,7 @@ type PostProps = {
       }
     }
     ups: number
-    liked: string
+    liked: null | boolean
     numComments: number
     createdAt: Date
     updatedAt: Date

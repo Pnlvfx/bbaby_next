@@ -81,15 +81,8 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
             <Image
               src={`${post.mediaInfo.image}`}
               alt=""
-              style={{
-                maxWidth: '100%',
-                position: 'relative',
-                display: 'block'
-                
-              }}
               height={post.mediaInfo.dimension[0]}
               width={post.mediaInfo.dimension[1]}
-              objectFit='contain'
             />
           </div>
         )}

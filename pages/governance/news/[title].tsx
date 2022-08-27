@@ -6,32 +6,34 @@ import { getSession } from '../../../components/API/ssrAPI';
 import GovernanceCtrl from '../../../components/governance/GovernanceCtrl';
 import { NewsContextProvider } from '../../../components/governance/news/NewsContext';
 import NewsPage from '../../../components/governance/news/NewsPage';
+import { siteUrl } from '../../../components/main/config';
 import Layout from '../../../components/main/Layout';
-import Errorpage from '../../500';
 
 interface NewsIdProps {
   description: string
 }
 
 const NewsPagee:NextPage<NewsIdProps> = ({description}) => {
-    const router = useRouter()
-    const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
-
+  const router = useRouter()
   return (
     <div>
         <Head>
           <title>Bbabystyle - authority-onlypage</title>
           <meta name='robots' content='noindex' />
-          <link rel='canonical' href={`${hostname}/governance`} key='canonical' />
+          <link rel='canonical' href={`${siteUrl}/governance`} key='canonical' />
         </Head>
         <Layout>
-            <GovernanceCtrl>
-                {router && router.query.imageUrl && router.query.title && (
-                  <NewsContextProvider>
-                    <NewsPage title={router.query.title?.toString()} image={router.query.imageUrl?.toString()} description={description} />
-                  </NewsContextProvider>
-                )}
-            </GovernanceCtrl>
+          <GovernanceCtrl>
+              {router && router.query.imageUrl && router.query.title && (
+                <NewsContextProvider>
+                  <NewsPage 
+                    title={router.query.title?.toString()} 
+                    image={router.query.imageUrl?.toString()} 
+                    description={description} 
+                  />
+                </NewsContextProvider>
+              )}
+          </GovernanceCtrl>
         </Layout>
     </div>
   )
@@ -40,7 +42,6 @@ const NewsPagee:NextPage<NewsIdProps> = ({description}) => {
 export default NewsPagee;
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  console.log(context.query.link);
   const {link, imageUrl} = context.query;
   let session = null;
   let description = null;
@@ -50,7 +51,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     session = await getSession(context);
     description = await getArticle(link.toString(), imageUrl.toString(), context)
   } catch (err) {
-    Errorpage
+    
   }
 
   return {

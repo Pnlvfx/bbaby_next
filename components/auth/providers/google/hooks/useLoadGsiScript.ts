@@ -37,7 +37,6 @@ const UseLoadGsiScript = (options: UseLoadGsiScriptOptions = {}): boolean => {
         };
 
         document.body.appendChild(scriptTag);
-        console.log('ij')
         
         return () => {
             document.body.removeChild(scriptTag);

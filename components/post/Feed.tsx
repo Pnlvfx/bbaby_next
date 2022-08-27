@@ -50,8 +50,6 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
     setPosts([...posts, ...newPosts])
   }
   //
-
-  console.log(posts)
   
   return (
     <>
@@ -77,7 +75,7 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
               <BestPost />
             </div>
             {/* {production && <GoogleAdsense2 />} */}
-           {posts.length > 14 ? 
+           {posts.length > 6 ? 
            <InfiniteScroll
               dataLength={posts.length}
               next={getMorePosts}

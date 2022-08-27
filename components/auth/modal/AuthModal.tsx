@@ -121,8 +121,6 @@ const AuthModal: NextComponentType = () => {
     }
   }, [])
 
-  if (show === 'hidden') return null;
-
   return (
     <>
       <div className={'top-0 left-0 z-30 flex h-screen w-screen ' + visibleClass} style={{position: 'fixed', backgroundColor: 'rgba(0,0,0,.6' }}>

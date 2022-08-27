@@ -3,9 +3,10 @@ import {useContext, useEffect} from 'react';
 import Layout from '../../components/main/Layout';
 import BoardHeader from '../../components/header/BoardHeader';
 import {CommunityContext, CommunityContextProps} from '../../components/community/CommunityContext';
-import type {GetServerSideProps, NextPage } from 'next';
+import type {GetServerSideProps, NextPage, NextPageContext } from 'next';
 import Feed from '../../components/post/Feed';
 import { useRouter } from 'next/router';
+import { getSession, ssrHeaders } from '../../components/API/ssrAPI';
 
 type CommunityPg = {
   community: string,
@@ -51,32 +52,32 @@ const CommunityPage: NextPage<CommunityPg> = ({community,posts}) => {
 
 export default CommunityPage;
 
-export const getServerSideProps: GetServerSideProps = async(context) => {
-  const production = process.env.NODE_ENV === 'production' ? true : false
-  const server = production ? process.env.NEXT_PUBLIC_SERVER_URL : `http://${context.req.headers.host?.replace('3000', '4000')}`;
+export const getServerSideProps = async(context: NextPageContext) => {
   const {community} = context.query;
-  const headers = context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined
-  const sessionUrl = `${server}/user`
-  const postsUrl = `${server}/posts?community=${community}&limit=15&skip=0`
+  const server = process.env.NEXT_PUBLIC_SERVER_URL
+  const postUrl = `${server}/posts?community=${community}&limit=15&skip=0`;
+  let session = null;
+  let posts = [];
+  try {
+    session = await getSession(context);
+    const res = await fetch(postUrl, {
+      method: 'get',
+      headers : ssrHeaders(context),
+    })
+    if (res.ok) {
+      posts = await res.json();
+    }
+  } catch (err) {
+    
+  }
 
-  const response = await fetch(sessionUrl, {
-    method: "get",
-    headers
-  })
-
-  const session = await response.json();
-
-  const res = await fetch(postsUrl, {
-    method: 'get',
-    headers
-  })
-  const posts = await res.json();
+  //context.res?.setHeader('set-cookie', 'session_tracker=sdnguigndfuigdfnguifdgndfgiudfgnfiugdf')
 
   return {
     props: {
       session,
       community,
-      posts
-    }
+      posts,
+    },
   }
 }

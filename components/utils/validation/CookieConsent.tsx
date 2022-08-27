@@ -30,6 +30,8 @@ const CookieConsent = () => {
     }, 30)
   }, [show])
 
+  if (!show) return null;
+
   return (
     <div className={`${show ? 'block' : 'hidden'}`}>
       <div className="fixed bottom-0 z-30 flex w-full rounded-sm border border-reddit_border bg-reddit_dark-brighter font-bold lg:left-[35%] lg:right-[50%] lg:bottom-12 lg:w-[700px]">

@@ -1,6 +1,7 @@
-import type { GetServerSideProps, NextPage } from "next";
+import type { NextPage, NextPageContext } from "next";
 import Head from "next/head";
 import { useContext } from "react";
+import { getSession, ssrHeaders } from "../../components/API/ssrAPI";
 import UserContext from "../../components/auth/UserContext";
 import Layout from "../../components/main/Layout";
 import Feed from "../../components/post/Feed";
@@ -45,31 +46,32 @@ const Username:NextPage<AuthorPg> = ({author,posts}) => {
 
 export default Username;
 
-export const getServerSideProps: GetServerSideProps = async(context) => {
+export const getServerSideProps = async(context: NextPageContext) => {
   const author = context.query.username;
-  const production = process.env.NODE_ENV === 'production' ? true : false
-  const server = production ? process.env.NEXT_PUBLIC_SERVER_URL : `http://${context.req.headers.host?.replace('3000', '4000')}`;
-  const headers = context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined
-  const sessionUrl = `${server}/user`
-  const postUrl = `${server}/posts?author=${author}&limit=15&skip=0`
+  const server = process.env.NEXT_PUBLIC_SERVER_URL
+  const postUrl = `${server}/posts?author=${author}&limit=15&skip=0`;
+  let session = null;
+  let posts = [];
+  try {
+    session = await getSession(context);
+    const res = await fetch(postUrl, {
+      method: 'get',
+      headers : ssrHeaders(context),
+    })
+    if (res.ok) {
+      posts = await res.json();
+    }
+  } catch (err) {
+    
+  }
 
-  const response = await fetch(sessionUrl, {
-    method: 'get',
-    headers
-  })
-  const session = await response.json();
-
-  const res =  await fetch(postUrl, {
-    method: "get",
-    headers
-  })
-  const posts = await res.json()
+  //context.res?.setHeader('set-cookie', 'session_tracker=sdnguigndfuigdfnguifdgndfgiudfgnfiugdf')
 
   return {
     props: {
       session,
       author,
-      posts
-    }
+      posts,
+    },
   }
 }

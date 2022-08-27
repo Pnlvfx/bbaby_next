@@ -51,7 +51,7 @@ export const getServerSideProps = async(context : NextPageContext) => {
     if (res.ok) {
       posts = await res.json();
     }
-  } catch (error) {
+  } catch (err) {
     
   }
 

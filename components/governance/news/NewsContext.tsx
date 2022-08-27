@@ -1,12 +1,15 @@
-import axios from "axios";
 import { useRouter } from "next/router";
-import { createContext, Dispatch, SetStateAction, useState } from "react";
+import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
+import { catchErrorWithMessage } from "../../API/common";
+import { TimeMsgContext, TimeMsgContextProps } from "../../main/TimeMsgContext";
 
 interface NewsContextProviderProps {
     children: React.ReactNode
 }
 
 export interface NewsContextProps {
+    level: 'read' | 'image' | 'submit' | 'comments'
+    setlevel: Dispatch<SetStateAction<'read' | 'image' | 'submit' | 'comments'>>
     title: string
     setTitle: Dispatch<SetStateAction<string>>
     description: string
@@ -25,34 +28,50 @@ export interface NewsContextProps {
 export const NewsContext = createContext({})
 
 export const NewsContextProvider = ({children}:NewsContextProviderProps) => {
+    const [level, setlevel] = useState<'read' | 'image' | 'submit' | 'comments'>('read')
     const [title,setTitle] = useState('');
     const [description,setDescription] = useState('');
     const [mediaInfo,setMediaInfo] = useState({});
     const [loading,setLoading] = useState(false);
     const router = useRouter();
+    const message = useContext(TimeMsgContext) as TimeMsgContextProps;
 
     const createNews = async () => {
         try {
             const server = process.env.NEXT_PUBLIC_SERVER_URL
-            const data = {title,description,mediaInfo}
+            const body = JSON.stringify({title,description,mediaInfo})
+            const url = `${server}/governance/news`
             setLoading(true)
-            const res = await axios.post(`${server}/governance/news`, data, {withCredentials:true})
-            setLoading(false)
-            router.push(`/news/${res.data._id}`)
-        } catch (err) {
-            if (err instanceof Error)
-            if (axios.isAxiosError(err)) {
-                setLoading(false);
-                console.log(err.message)
+            const res = await fetch(url, {
+                method: 'POST',
+                body,
+                credentials: 'include'
+            })
+            const data = await res.json();
+            if (!res.ok) {
+
             } else {
                 setLoading(false)
-                console.log(err)
+                router.push(`/news/${data._id}`)
             }
+        } catch (err) {
+            catchErrorWithMessage(err, message);
         }
     }
 
     return (
-        <NewsContext.Provider value={{title,setTitle,description,setDescription,mediaInfo,setMediaInfo,loading,createNews}}>
+        <NewsContext.Provider value={{
+            level,
+            setlevel,
+            title,
+            setTitle,
+            description,
+            setDescription,
+            mediaInfo,
+            setMediaInfo,
+            loading,
+            createNews
+            }}>
             {children}
         </NewsContext.Provider>
     );

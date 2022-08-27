@@ -120,14 +120,12 @@ const CommunityDropdown = () => {
                     </button>
                   </div>
                 {allCommunity.map((community) => (
-                  <>
-                    <CommunityList
-                      key={community._id}
-                      community={community}
-                      setActiveClass={setActiveClass}
-                      setShow={setShow}
-                    />
-                  </>
+                  <CommunityList
+                    key={community._id}
+                    community={community}
+                    setActiveClass={setActiveClass}
+                    setShow={setShow}
+                  />
                 ))}
               </div>
             </div>

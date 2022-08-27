@@ -1,17 +1,17 @@
 import Image from 'next/image';
 import { useContext, useState } from 'react';
 import TimeAgo from 'timeago-react'
-import { translate } from '../../API/governance/governanceAPI'
-import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext'
-import SubmitLayout from '../../submit/SubmitLayout'
-import VideoPlayer from '../../utils/video/VideoPlayer'
+import { translate } from '../../API/governance/governanceAPI';
+import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
+import SubmitLayout from '../../submit/SubmitLayout';
+import VideoPlayer from '../../utils/video/VideoPlayer';
 
 type TweetPageProps = {
   user_avatar: string
   language: string
   username: string
   screen_name: string
-  created_at: Date
+  created_at: string
   title: string
   type?: string
   video?: string
@@ -36,20 +36,19 @@ const Tweet = ({ username, screen_name, created_at, title, type, video, image, w
           width: width ? width : null,
           height: height ? height : null,
           video: video ? video : null,
+          type: type ? type : null
         })
         setShowSubmit(true)
       }
     } else {
       if (res instanceof Response) {
         const error = await res.json()
-        setMessage({ value: error.msg, status: 'error' })
+        setMessage({ value: error.msg, status: 'error' });
       } else {
-        setMessage({ value: res.msg })
+        setMessage({ value: res.msg });
       }
     }
   }
-
-  if (!video) return null;
 
   return (
       <li className="mb-3 rounded-md bg-reddit_dark-brighter hover:border-reddit_text flex overflow-hidden border border-reddit_border">
@@ -63,15 +62,10 @@ const Tweet = ({ username, screen_name, created_at, title, type, video, image, w
                 width={'20px'}
                 height={'20px'}
               />
-            </div>
+          </div>
             <span className="ml-1 text-sm font-bold leading-6">{username}{` - `}</span>
-            <span className="ml-1 text-xs font-bold leading-6 text-reddit_text-darker">
-              @{screen_name}
-            </span>
-            <TimeAgo
-              datetime={created_at}
-              className="ml-1 text-ellipsis text-xs text-reddit_text-darker leading-6"
-            />
+            <span className="ml-1 text-xs font-bold leading-6 text-reddit_text-darker">@{screen_name}</span>
+            <TimeAgo datetime={created_at} className="ml-1 text-ellipsis text-xs text-reddit_text-darker leading-6" />
           </div>
           <h1 className="mb-4 break-words text-lg">{title}</h1>
           <div className="max-h-[650px] overflow-hidden">
@@ -84,16 +78,15 @@ const Tweet = ({ username, screen_name, created_at, title, type, video, image, w
               />
             )}
             </div>
-            {type === 'video' && video && width && height && (
+            {type === 'video' && video && image && width && height && (
               <VideoPlayer 
                 src={video}
-                poster={''}
+                poster={image}
                 width={width}
                 height={height}
               />
             )}
-          <button
-            type="button"
+          <button type="button"
             onClick={(e) => {
               e.preventDefault()
               if (showSubmit) {
@@ -102,8 +95,9 @@ const Tweet = ({ username, screen_name, created_at, title, type, video, image, w
                 doTranslate()
               }
             }}
+            className='hover:bg-reddit_dark-brightest flex justify-center items-center'
           >
-            <p className='text-sm text-[#717273] p-2'>Magic</p>
+            <p className='text-sm text-[#717273] py-2 px-4'>Magic</p>
           </button>
           {showSubmit && <SubmitLayout newTweet={newTweet} />}
         </div>

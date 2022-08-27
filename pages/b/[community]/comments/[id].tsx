@@ -45,8 +45,8 @@ const IdPage: NextPage<PostIdPageProps> = ({post,error}) => {
         type={type}
         image={og_image}
         video={og_video}
-        width={post.mediaInfo?.dimension[1].toString()}
-        height={post.mediaInfo?.dimension[0].toString()}
+        width={post.mediaInfo?.dimension[1]?.toString()}
+        height={post.mediaInfo?.dimension[0]?.toString()}
       />
       <Layout>
         <CommentPage post={post}/>

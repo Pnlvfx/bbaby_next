@@ -1,8 +1,9 @@
-import axios from "axios";
 import { useRouter } from "next/router";
 import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
+import { catchErrorWithMessage } from "../API/common";
 import {AuthModalContext, AuthModalContextProps} from "../auth/modal/AuthModalContext";
 import UserContext from "../auth/UserContext";
+import { postRequestHeaders } from "../main/config";
 import { TimeMsgContext, TimeMsgContextProps } from "../main/TimeMsgContext";
 
 export const SubmitContext = createContext<SubmitContextType | {}>({})
@@ -56,7 +57,7 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
     const [loading,setLoading] = useState(false)
     
     const router = useRouter()
-    const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
+    const message = useContext(TimeMsgContext) as TimeMsgContextProps;
 
 
     const createPost = async() => {
@@ -64,10 +65,10 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
             setLoading(true);
             const server = process.env.NEXT_PUBLIC_SERVER_URL;
             const url = `${server}/posts`
-            const data = {
+            const _body = JSON.stringify({
                 title,
                 body,
-                community:selectedCommunity,
+                community: selectedCommunity,
                 communityIcon,
                 selectedFile,
                 isImage,
@@ -76,28 +77,33 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
                 width,
                 sharePostToTG,
                 sharePostToTwitter
-            }
-            const res = await axios({
-                method: 'post',
-                url,
-                data,
-                withCredentials:true
             })
-            if (session?.user.role === 0) {
-                const {_id, community} = res.data
-                router.push('/b/'+community+'/comments/'+_id)
+            const res = await fetch(url, {
+                method: 'post',
+                body: _body,
+                headers: postRequestHeaders,
+                credentials: 'include'
+            })
+            const data = await res.json();
+            if (res.ok) {
+                if (session?.user.role === 0) {
+                    const {_id, community} = data;
+                    router.push('/b/'+community+'/comments/'+_id)
+                } else {
+                    message.setMessage({value:'Post created successfully',status: 'success'})
+                    setLoading(false)
+                }
             } else {
-                setMessage({value:'Post created successfully',status: 'success'})
-                setLoading(false)
+                if (res.status === 401) {
+                    authModalContext.setShow('login');
+                } else {
+                    catchErrorWithMessage(data?.msg, message);
+                    setLoading(false);
+                }
             }
-        } catch (err:any) {
-            if(err.response.status === 401) {
-                authModalContext.setShow('login');
-            } else if (err?.response?.data?.msg) {
-            setMessage({value: err.response.data.msg, status: 'error'})
-            setLoading(false)
-            //setShowSubmit(false)
-            }
+        } catch (err) {
+            catchErrorWithMessage(err, message);
+            setLoading(false);
         }
     }
     return (

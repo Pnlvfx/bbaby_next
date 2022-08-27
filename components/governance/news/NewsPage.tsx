@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
-import { isMobile } from 'react-device-detect';
+import { useContext } from 'react';
 import { translate } from '../../API/governance/governanceAPI';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
 import GovSubmitNews from './GovSubmitNews';
@@ -13,13 +12,11 @@ interface NewPageProps {
 }
 
 const NewsPage = ({ title: originalTitle, description: originalDescription, image }: NewPageProps) => {
-  const isEdit = 'w-full lg:w-8/12 xl:w-5/12 2xl:w-[850px]'
-  const language = 'en'
-  const [level, setlevel] = useState<'read' | 'image' | 'mobileImage' | 'submit' | 'comments'>('read')
-  const { setTitle, setDescription, mediaInfo } = useContext(NewsContext) as NewsContextProps
+  
+  const { level, setlevel, setTitle, setDescription, mediaInfo } = useContext(NewsContext) as NewsContextProps
   const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
 
-  const openPexelsImageForm = async () => {
+  const openPexelsImageForm = () => {
     setlevel('image')
   }
 
@@ -27,8 +24,8 @@ const NewsPage = ({ title: originalTitle, description: originalDescription, imag
     if (!mediaInfo.image) {
       openPexelsImageForm()
     } else {
-      const res1 = await translate(originalTitle, language)
-      const res2 = await translate(originalDescription, language)
+      const res1 = await translate(originalTitle, 'en')
+      const res2 = await translate(originalDescription, 'en')
       if (res1.ok && res2.ok) {
         if (res1 instanceof Response && res2 instanceof Response) {
           const title = await res1.json();
@@ -49,19 +46,9 @@ const NewsPage = ({ title: originalTitle, description: originalDescription, imag
     }
   }
 
-  useEffect(() => {
-    if (!isMobile) return;
-    if (level === 'image') {
-      if (isMobile) {
-        setlevel('mobileImage')
-      }
-    }
-  }, [level])
-
   return (
     <div className="mt-4 flex justify-center">
-      <div className={`${isEdit}`}>
-        {level !== 'mobileImage' && (
+      <div className={`w-full lg:w-8/12 xl:w-5/12 2xl:w-[850px]`}>
           <div
             id="article"
             className="rounded-md border border-reddit_border bg-reddit_dark-brighter hover:border-reddit_text lg:ml-4"
@@ -89,14 +76,13 @@ const NewsPage = ({ title: originalTitle, description: originalDescription, imag
             </div>
             <p className="whitespace-pre-wrap">{originalDescription}</p>
           </div>
-        )}
       </div>
       {level === 'image' && <PexelsImages />}
-      {level === 'mobileImage' && <PexelsImages />}
       {level === 'submit' && <GovSubmitNews />}
     </div>
   )
 }
 
 export default NewsPage;
+
 

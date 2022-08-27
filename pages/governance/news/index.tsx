@@ -6,18 +6,13 @@ import { getSession } from "../../../components/API/ssrAPI";
 import GovernanceCtrl from "../../../components/governance/GovernanceCtrl";
 import GovernanceMainMenù from "../../../components/governance/GovernanceMainMenù";
 import LinkPreview, { LinkPreviewLoader, LinkPreviewProps } from "../../../components/utils/LinkPreview";
-import Errorpage from "../../500";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { siteUrl } from "../../../components/main/config";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { catchError } from "../../../components/API/common";
 
-type BBCnewsProps = {
-  ssrBBCnews: LinkPreviewProps[]
-}
-
-const GovNewsPage:NextPage<BBCnewsProps> = ({ssrBBCnews}) => {
-  const [BBCnews, setBBCnews] = useState(ssrBBCnews);
+const GovNewsPage:NextPage = () => {
+  const [BBCnews, setBBCnews] = useState<LinkPreviewProps[] | []>([]);
   const url = `${siteUrl}/governance/news`;
 
   const getMore = async () => {
@@ -30,6 +25,12 @@ const GovNewsPage:NextPage<BBCnewsProps> = ({ssrBBCnews}) => {
       catchError(err)
     }
   }
+
+  useEffect(() => {
+    getBBCLinks(10, 0).then((res) => {
+      setBBCnews(res);
+    })
+  },[])
 
   return (
     <>
@@ -50,16 +51,12 @@ const GovNewsPage:NextPage<BBCnewsProps> = ({ssrBBCnews}) => {
                 endMessage={<p></p>}
               >
                 <ul className="md:space-x-auto grid-cols-1 md:grid-cols-3" style={{width: '100%', marginTop: 20, display: 'grid'}}>
-                  {BBCnews.map((news, key) => (
-                    <div key={key}>
-                      {news.title && news.description && news.image ? (
-                        <LinkPreview title={news.title} description={news.description} image={news.image} link={news.link} />
-                      ) : (
-                        <LinkPreviewLoader />
-                      )}
-                    </div>
-                    ))
-                  }
+                  {BBCnews.length > 9 ?
+                   BBCnews.map((news, key) => (
+                      <LinkPreview key={key} title={news.title} description={news.description} image={news.image} link={news.link} />
+                    )) : [1, 2, 3, 4, 5, 6, 7, 8, 9].map((_, idx) => (
+                      <LinkPreviewLoader key={idx} />
+                    ))}
                 </ul>
               </InfiniteScroll>
         </GovernanceCtrl>
@@ -70,31 +67,17 @@ const GovNewsPage:NextPage<BBCnewsProps> = ({ssrBBCnews}) => {
 
 export default GovNewsPage;
 
-export const getServerSideProps = async(context: NextPageContext) => {
+export const getServerSideProps = async (context: NextPageContext) => {
   let session = null;
-  let ssrBBCnews: any = [
-    'loading',
-    'loading',
-    'loading',
-    'loading',
-    'loading',
-    'loading',
-    'loading',
-    'loading',
-    'loading',
-    'loading',
-  ];
   try {
     session = await getSession(context);
-    ssrBBCnews = await getBBCLinks(10, 0, context);
   } catch (err) {
-    Errorpage
+    
   }
 
   return {
     props: {
       session,
-      ssrBBCnews
     },
   }
 }

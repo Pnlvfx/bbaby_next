@@ -14,9 +14,7 @@ const Post = ({post, isListing, open}:ExtendPostProps) => {
     const url = isMobile ? `/b/${post.community}/comments/${post._id}` : router.pathname;
     const query = isMobile ? undefined : {postId : post._id, community: post.community, username: post.author}
     const as = isMobile ? undefined : `/b/${post.community}/comments/${post._id}`
-
-    console.log(post);
-
+    
     return (
     <div style={{marginBottom: isListing ? 12 : 0}} >
         {open && (

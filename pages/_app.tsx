@@ -24,7 +24,7 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps) => {
         <link rel='apple-touch-icon' sizes='152x152' href={`${siteUrl}/apple-touch-icon-152x152.png`} />
         <link rel='apple-touch-icon' sizes='180x180' href={`${siteUrl}/apple-touch-icon-180x180.png`} />
         <meta name="theme-color" content="#1a1a1b" />
-        <link rel="icon" type='image/png' href={`${siteUrl}/favicon.ico`} />
+        <link rel="icon" type='image/png' href={`/favicon.ico`} />
         <meta name="application-name" content="bbabystyle" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />

@@ -2,16 +2,18 @@ import { NextPageContext } from "next";
 
 export const ssrHeaders = (context: NextPageContext) => {
     const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
+    const user_agent = context.req?.headers['user-agent'] ? context.req.headers['user-agent'] : ''
     const headers = context?.req?.headers?.cookie ? { 
         cookie: context.req.headers.cookie,
         Accept: 'application/json',
         'Content-Type' : 'application/json',
-        'origin': hostname
+        'origin': hostname,
+        'user-agent': user_agent
      } : undefined;
     return headers;
 }
 
-export const getSession = async (context : NextPageContext) => {
+export const getSession = async (context: NextPageContext) => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL;
     const url = `${server}/user`;
     try {

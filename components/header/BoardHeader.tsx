@@ -16,7 +16,6 @@ const BoardHeader = () => {
   const authModal = useContext(AuthModalContext) as AuthModalContextProps;
   const [selectedFile, setSelectedFile] = useState<string | undefined>(communityInfo.communityAvatar)
   const filePickerRef = useRef<HTMLInputElement>(null)
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
 
   const previewFile = (file:File) => {
     const reader = new FileReader()

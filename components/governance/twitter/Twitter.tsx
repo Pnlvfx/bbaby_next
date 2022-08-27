@@ -28,29 +28,25 @@ const Twitter = () => {
   return (
     <div id="diplay_tweets" className="mx-0 lg:mx-10 flex justify-center">
       <div className="w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px]">
-        <div style={{marginBottom: 16}}>
+        <div className='mb-4'>
           <TwMainMenu setLanguage={setLanguage} setTweets={setTweets} />
         </div>
         <ul>
-          {tweets.length > 8
-            ? tweets.map((tweet) => (
-                <Tweet 
+          {tweets.length > 8 ? 
+          tweets.map((tweet) => (
+                <Tweet
                   key={tweet.id}
                   username={tweet?.user.name}
                   screen_name={tweet.user.screen_name}
                   created_at={tweet.created_at}
                   title={tweet.full_text}
                   type={tweet?.extended_entities?.media[0]?.type}
-                  video={tweet?.extended_entities?.media[0]?.video_info?.variants[0].url}
-                  image={
-                  tweet?.extended_entities?.media[0]?.video_info?.variants[0].url ?
-                    undefined : 
-                    tweet?.extended_entities?.media[0]?.media_url_https
-                  }
+                  video={tweet?.extended_entities?.media[0]?.video_info?.variants[1]?.url}
+                  image={tweet?.extended_entities?.media[0]?.media_url_https}
                   width={tweet?.extended_entities?.media[0]?.sizes.large.w}
                   height={tweet?.extended_entities?.media[0]?.sizes.large.h}
                   user_avatar={tweet.user.profile_image_url_https}
-                  language={language} 
+                  language={language}
                 />
               ))
             : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((_, idx) => (

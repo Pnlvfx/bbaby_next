@@ -15,7 +15,7 @@ type SubmitProps = {
     community?: string | string[]
 }
 
-const Submit = ({newTweet,community}:SubmitProps) => {
+const Submit = ({newTweet, community}:SubmitProps) => {
     const {session} = useContext(UserContext) as SessionProps;
     const [activeButton,setActiveButton] = useState('Post')
     const [activeClassTitle, setActiveClassTitle] = useState(false)
@@ -70,17 +70,17 @@ const Submit = ({newTweet,community}:SubmitProps) => {
         if (!newTweet) return;
         if (newTweet.title) {
             setTitle(newTweet.title)
-            if (newTweet.image) {
+            if (newTweet.type === 'image') {
                 setIsImage(true)
                 setHeight(newTweet.height)
                 setWidth(newTweet.width)
                 setSelectedFile(newTweet.image)
             }
-            if (newTweet.video) {
+            if (newTweet.type === 'video') {
                 setIsVideo(true)
                 setHeight(newTweet.height)
                 setWidth(newTweet.width)
-                setSelectedFile(newTweet.video)
+                setSelectedFile(newTweet.video);
             }
         }
     },[newTweet])
