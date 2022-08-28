@@ -1,6 +1,7 @@
 import axios from "axios"
 import { Dispatch, SetStateAction } from "react";
 import { communityUrl } from "../../lib/url";
+import { postRequestHeaders } from "../main/config";
 
 const server = process.env.NEXT_PUBLIC_SERVER_URL
 
@@ -19,6 +20,7 @@ export const subscribe = async(communityName:string,setShow:Dispatch<SetStateAct
       const res = await axios({
         method: 'POST',
         url: `${server}/communities/subscribe`,
+        headers: postRequestHeaders,
         data,
         withCredentials:true
       })
@@ -33,8 +35,9 @@ export const subscribe = async(communityName:string,setShow:Dispatch<SetStateAct
     try {
       const data = {category: categoryName}
       const res = await axios({
-        method: 'post',
+        method: 'POST',
         url: `${server}/communities/${name}/category`,
+        headers: postRequestHeaders,
         data,
         withCredentials:true
       })
@@ -46,7 +49,8 @@ export const subscribe = async(communityName:string,setShow:Dispatch<SetStateAct
 export const searchCommunity = async (text:string) => {
   try {
     const res = await axios({
-      method: 'post',
+      method: 'POST',
+      headers: postRequestHeaders,
       url: `${server}/communities/search?phrase=${text}`,
       data: {},
       withCredentials:true

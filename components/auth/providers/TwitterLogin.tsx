@@ -1,4 +1,3 @@
-import axios from "axios"
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { postRequestHeaders } from "../../main/config";

@@ -63,7 +63,6 @@ const Submit = ({newTweet, community}:SubmitProps) => {
             setSelectedCommunity(community.toString())
         }
     },[community])
-    console.log(newTweet)
 
 
     //////MY TWEEEEEEEEET

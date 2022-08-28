@@ -1,7 +1,6 @@
-import type { GetServerSideProps, NextPage, NextPageContext } from "next"
+import type { NextPage, NextPageContext } from "next"
 import Head from "next/head"
 import { useState } from "react"
-import Layout from "../../../components/main/Layout"
 import Leaderboard from "../../../components/leaderboard/Leaderboard"
 import { getSession } from "../../../components/API/ssrAPI"
 

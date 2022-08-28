@@ -15,7 +15,6 @@ export const getArticle = async (link: string,imageUrl: string, context?: NextPa
             credentials: 'include'
         })
         const article = await res.json();
-        console.log(article)
         if (!res.ok) {
             throw new Error(article.msg)
         }

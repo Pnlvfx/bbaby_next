@@ -7,7 +7,6 @@ import GovernanceCtrl from '../../../components/governance/GovernanceCtrl';
 import { NewsContextProvider } from '../../../components/governance/news/NewsContext';
 import NewsPage from '../../../components/governance/news/NewsPage';
 import { siteUrl } from '../../../components/main/config';
-import Layout from '../../../components/main/Layout';
 
 interface NewsIdProps {
   description: string

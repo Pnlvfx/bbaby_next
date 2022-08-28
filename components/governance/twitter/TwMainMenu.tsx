@@ -18,7 +18,6 @@ const TwMainMenu = ({ setLanguage, setTweets }: TwMainMenuProps) => {
       setTweets([]);
       setLanguage(lang);
       const res = await getMyListTweets(list);
-      console.log(res)
       setTweets(res);
     } catch (err) {
       catchErrorWithMessage(err, message);

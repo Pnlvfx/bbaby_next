@@ -6,7 +6,6 @@ import { getSession } from '../../components/API/ssrAPI';
 import GovernanceCtrl from '../../components/governance/GovernanceCtrl';
 import GovernanceMainMenù from '../../components/governance/GovernanceMainMenù';
 import RedditFeed from '../../components/governance/reddit/RedditFeed';
-import Layout from '../../components/main/Layout';
 import { TimeMsgContext, TimeMsgContextProps } from '../../components/main/TimeMsgContext';
 import BestPost from '../../components/post/postutils/BestPost';
 import PostForm from '../../components/submit/submitutils/PostForm';

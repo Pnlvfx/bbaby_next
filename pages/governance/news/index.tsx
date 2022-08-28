@@ -1,6 +1,5 @@
 import type { NextPage, NextPageContext } from "next";
 import Head from "next/head";
-import Layout from "../../../components/main/Layout";
 import { getBBCLinks } from "../../../components/API/governance/governanceNewsAPI";
 import { getSession } from "../../../components/API/ssrAPI";
 import GovernanceCtrl from "../../../components/governance/GovernanceCtrl";

@@ -16,8 +16,6 @@ const LeaderboardMenu = () => {
     })
   },[])
 
-  console.log(CategoriesLists)
-
   return (
     <div className={'w-[200px] overflow-hidden rounded-md border border-reddit_border bg-reddit_dark-brighter text-sm'}>
       <div className="flex items-center h-[40px] bg-reddit_dark-brightest font-extrabold">

@@ -6,13 +6,14 @@ import Comments from './Comments'
 import CommentForm from './commentutils/CommentForm'
 import { useRouter } from 'next/router'
 import { GoCommentDiscussion } from 'react-icons/go'
+import { catchError } from '../API/common'
 
 interface CommentRootProps {
     post: PostProps
     postId: string | string[]
 }
 
-const Comment = ({post, postId}:CommentRootProps) => {
+const Comment = ({post, postId}: CommentRootProps) => {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     const router = useRouter()
     const [comments,setComments] = useState<CommentProps[] | []>([]);
@@ -21,10 +22,18 @@ const Comment = ({post, postId}:CommentRootProps) => {
     const [userVotes,setUserVotes] = useState(null);
 
     const refreshComments = async () => {
-        const response = await axios.get(server+'/comments/root/'+postId)
-        .then(response => {
-        setComments(response.data)
-        })
+        try {
+            const url = `${server}/comments/root/${postId}`;
+            const response = await fetch(url, {
+                method: 'GET',
+            })
+            const data = await response.json();
+            if (response.ok) {
+                setComments(data);
+            }
+        } catch (err) {
+           
+        }
     }
 
     const refreshVotes = () => {

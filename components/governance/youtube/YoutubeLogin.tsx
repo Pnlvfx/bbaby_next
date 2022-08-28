@@ -12,13 +12,6 @@ const YoutubeLogin = () => {
         const googleAuth = `${base_url}?scope=${SCOPES}&response_type=code&client_id=${YOUTUBE_CLIENT_ID}&redirect_uri=${redirectUrl}&state=bbabystyle`
         router.push(googleAuth)
     }
-
-    useEffect(() => {
-        setTimeout(() => {
-            console.log(window.location.href);
-        },600)
-    }, [])
-
     return (
         <>
         <div className="ml-auto self-center">

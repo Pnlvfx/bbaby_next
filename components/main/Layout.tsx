@@ -31,6 +31,8 @@ const Layout = ({children} : LayoutProps) => {
     if (!router.isReady) return;
     if (router.pathname.match('/policies') || router.pathname.match('/login')) {
       setHeader(<PoliciesHeader />)
+    } else {
+      setHeader(<Header />)
     }
 
   }, [router])
