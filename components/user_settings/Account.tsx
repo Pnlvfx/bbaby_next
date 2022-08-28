@@ -5,42 +5,28 @@ import TwitterLogin from "../auth/providers/TwitterLogin";
 import RedditLogin from "../auth/providers/RedditLogin";
 import { NextComponentType } from "next";
 import { TimeMsgContext, TimeMsgContextProps } from "../main/TimeMsgContext";
-import { useRouter } from "next/router";
-import { userAPIurl } from "../../lib/url";
+import { catchErrorWithMessage } from "../API/common";
+import { getUserInfo } from "./user_settingsAPI";
 
 const Account:NextComponentType = () => {
 
   const [userInfo,setUserInfo] = useState<UserProps>({})
   const [loading,setLoading] = useState(true)
-  const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
-  const router = useRouter();
+  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
 
-  const getUserInfo = async () => {
+  const _getUserInfo = async () => {
     try {
-      const res = await fetch(userAPIurl.userInfo, {
-        method: 'get',
-        credentials: 'include'
-      })
-      if (res.ok) {
-        const _userInfo = await res.json()
-        setUserInfo(_userInfo);
-        setLoading(false); 
-      } else {
-        const error = await res.json();
-        setMessage({value: error.msg, status: 'error'})
-        router.push('/')
-      }
+      const user_info = await getUserInfo();
+      setUserInfo(user_info);
+      setLoading(false);
     } catch (err) {
-      console.log(err);
-      router.push('/');
+      catchErrorWithMessage(err, message)
     }
   }
 
   useEffect(() => {
-    getUserInfo();
+    _getUserInfo();
   }, [])
-  
-  const {email,country} = userInfo;
 
   return (
       <>
@@ -57,7 +43,7 @@ const Account:NextComponentType = () => {
           <div id="change_email_address" className="mt-7 flex items-center">
             <div>
               <p>Email address</p>
-              <p className="text-[12px] text-reddit_text-darker font-normal pt-[2px]">{email}</p>
+              <p className="text-[12px] text-reddit_text-darker font-normal pt-[2px]">{userInfo.email}</p>
             </div>
             <div className="ml-auto">
               <button className={`py-1 px-[18px] ${buttonClass(true)}`}>Change</button>
@@ -88,7 +74,7 @@ const Account:NextComponentType = () => {
               <p className="text-[12px] text-reddit_text-darker font-normal pt-[2px]">This is your primary location.</p>
             </div>
             <div className="ml-auto">
-              <div className='py-5 text-sm px-[28px]'>{country}</div>
+              <div className='py-5 text-sm px-[28px]'>{userInfo.country}</div>
             </div>
           </div>
           <div id="separator">

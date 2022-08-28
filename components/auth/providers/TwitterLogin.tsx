@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { postRequestHeaders } from "../../main/config";
 import { TwitterLogo } from "../../utils/SVG";
 
 
@@ -10,14 +11,19 @@ const TwitterLogin = (userInfo:UserProps) => {
 
     const twitterGetToken = async() => {
         try {
-            const server = process.env.NEXT_PUBLIC_SERVER_URL
-            const res = await axios({
+            const server = process.env.NEXT_PUBLIC_SERVER_URL;
+            const url = `${server}/twitter/oauth/request_token`
+            const res = await fetch(url, {
                 method: 'POST',
-                url: `${server}/twitter/oauth/request_token`,
-                withCredentials:true
-            })
-            const {oauth_token} = await res.data
-            router.push(`https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`)
+                headers: postRequestHeaders,
+                credentials: 'include'
+            });
+            const data = await res.json();
+            if (res.ok) {
+                router.push(`https://api.twitter.com/oauth/authenticate?oauth_token=${data.oauth_token}`)
+            } else {
+
+            }
         } catch (err) {
             console.error(err)
         }
@@ -27,12 +33,15 @@ const TwitterLogin = (userInfo:UserProps) => {
         (async () => {
             try {
                 const server = process.env.NEXT_PUBLIC_SERVER_URL
-                await axios({
+                const url = `${server}/twitter/logout`
+                const res = await fetch(url, {
                     method: 'POST',
-                    url: `${server}/twitter/logout`,
-                    withCredentials:true
+                    headers: postRequestHeaders,
+                    credentials: 'include'
                 })
-                router.reload()
+                if (res.ok) {
+                    router.reload()
+                }
             } catch (err) {
                 console.error(err)
             }
@@ -42,22 +51,27 @@ const TwitterLogin = (userInfo:UserProps) => {
     useEffect(() => {
         (async() => {
             const {oauth_token, oauth_verifier} = router.query;
-            const server = process.env.NEXT_PUBLIC_SERVER_URL;
-            const url = `${server}/twitter/oauth/access_token`;
             if (oauth_token && oauth_verifier) {
+                const server = process.env.NEXT_PUBLIC_SERVER_URL;
+                const url = `${server}/twitter/oauth/access_token`;
+                const body = JSON.stringify({oauth_token, oauth_verifier})
                 try {
-                    await axios({
+                    await fetch(url, {
                         method: 'POST',
-                        url,
-                        data: {oauth_token, oauth_verifier},
-                        withCredentials:true
+                        headers: postRequestHeaders,
+                        credentials: 'include',
+                        body
                     })
-                    const {data: {screen_name}} = await axios({
+                    const url2 = `${server}/twitter/user/info`
+                    const res2 = await fetch(url2, {
                         method: 'GET',
-                        url: `${server}/twitter/user/info`,
-                        withCredentials:true
+                        credentials: 'include'
                     });
-                    window.location.href = '/settings'
+                    if (res2.ok) {
+                        window.location.href = '/settings'
+                    } else {
+                        
+                    }
                 } catch (err) {
                     console.error(err)
                 }

@@ -22,19 +22,17 @@ const NewsPagee:NextPage<NewsIdProps> = ({description}) => {
           <meta name='robots' content='noindex' />
           <link rel='canonical' href={`${siteUrl}/governance`} key='canonical' />
         </Head>
-        <Layout>
-          <GovernanceCtrl>
-              {router && router.query.imageUrl && router.query.title && (
-                <NewsContextProvider>
-                  <NewsPage 
-                    title={router.query.title?.toString()} 
-                    image={router.query.imageUrl?.toString()} 
-                    description={description} 
-                  />
-                </NewsContextProvider>
-              )}
-          </GovernanceCtrl>
-        </Layout>
+        <GovernanceCtrl>
+            {router && router.query.imageUrl && router.query.title && (
+              <NewsContextProvider>
+                <NewsPage 
+                  title={router.query.title?.toString()} 
+                  image={router.query.imageUrl?.toString()} 
+                  description={description} 
+                />
+              </NewsContextProvider>
+            )}
+        </GovernanceCtrl>
     </div>
   )
 }

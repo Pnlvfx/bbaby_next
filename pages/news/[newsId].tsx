@@ -2,7 +2,6 @@ import type { NextPage, NextPageContext } from 'next'
 import Head from 'next/head'
 import React from 'react'
 import { getSession, ssrHeaders } from '../../components/API/ssrAPI'
-import Layout from '../../components/main/Layout'
 import MyNewsCard from '../../components/mynews/MyNewsCard'
 import Donations from '../../components/widget/Donations'
 
@@ -34,7 +33,6 @@ const NewsIdPage: NextPage<NewsIdPageProps> = ({news}) => {
         <link rel='canonical' href={url} key='canonical' />
         <meta name="twitter:image:alt" content={news.mediaInfo.alt} />
       </Head>
-      <Layout>
         <div className='flex mt-5 justify-center mx-[0px] lg:mx-10'>
           <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[750px] mr-4 flex-none'>
             <MyNewsCard news={news} />
@@ -43,7 +41,6 @@ const NewsIdPage: NextPage<NewsIdPageProps> = ({news}) => {
             <Donations />
           </div>
         </div>
-      </Layout>
     </div>
   )
 }

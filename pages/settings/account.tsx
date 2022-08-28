@@ -1,7 +1,6 @@
 import UserSettings from '../../components/user_settings/UserSettings'
 import Account from '../../components/user_settings/Account'
 import type { NextPage, NextPageContext } from 'next';
-import Layout from '../../components/main/Layout';
 import Head from 'next/head';
 import UserSecurity from '../../components/utils/security/UserSecurity';
 import { useContext } from 'react';
@@ -32,16 +31,14 @@ const AccountPage:NextPage = () => {
         <meta property="og:type" content="website" key="ogtype" />
         <link rel='canonical' href={url} key='canonical' />
       </Head>
-      <Layout>
-        <UserSecurity>
-        <main className='bg-reddit_dark-brighter flex justify-center'>
-          <div className='w-[60%] max-w-[1350px]'>
-            <UserSettings />
-            <Account />
-          </div>
-        </main>
-        </UserSecurity>
-      </Layout>
+      <UserSecurity>
+      <main className='bg-reddit_dark-brighter flex justify-center'>
+        <div className='w-[60%] max-w-[1350px]'>
+          <UserSettings />
+          <Account />
+        </div>
+      </main>
+      </UserSecurity>
     </div>
   )
 }

@@ -3,7 +3,6 @@ import Head from "next/head";
 import { useContext } from "react";
 import { getSession, ssrHeaders } from "../../components/API/ssrAPI";
 import UserContext from "../../components/auth/UserContext";
-import Layout from "../../components/main/Layout";
 import Feed from "../../components/post/Feed";
 import AuthorHeaderPage from "../../components/user/AuthorHeaderPage";
 
@@ -36,10 +35,8 @@ const Username:NextPage<AuthorPg> = ({author,posts}) => {
       <meta property="og:type" content="website" key="ogtype" />
       <link rel='canonical' href={url} key='canonical' />
      </Head>
-     <Layout>
-      <AuthorHeaderPage />
-        <Feed author={author} posts={posts} />
-     </Layout>
+    <AuthorHeaderPage />
+    <Feed author={author} posts={posts} />
    </div>
   )
 }

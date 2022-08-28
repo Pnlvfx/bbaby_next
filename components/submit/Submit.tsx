@@ -63,6 +63,7 @@ const Submit = ({newTweet, community}:SubmitProps) => {
             setSelectedCommunity(community.toString())
         }
     },[community])
+    console.log(newTweet)
 
 
     //////MY TWEEEEEEEEET
@@ -70,7 +71,7 @@ const Submit = ({newTweet, community}:SubmitProps) => {
         if (!newTweet) return;
         if (newTweet.title) {
             setTitle(newTweet.title)
-            if (newTweet.type === 'image') {
+            if (newTweet.type === 'photo') {
                 setIsImage(true)
                 setHeight(newTweet.height)
                 setWidth(newTweet.width)

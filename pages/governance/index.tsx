@@ -1,5 +1,4 @@
 import type { NextPage, NextPageContext } from "next";
-import Layout from "../../components/main/Layout";
 import GovernanceCtrl from "../../components/governance/GovernanceCtrl";
 import Head from "next/head";
 import GovernanceMainMenù from "../../components/governance/GovernanceMainMenù";
@@ -50,12 +49,10 @@ const Governance: NextPage<YoutubeError> = ({error, youtube}) => {
         <meta name='robots' content='noindex' />
         <link rel='canonical' href={`${hostname}/governance`} key='canonical' />
       </Head>
-        <Layout>
           <GovernanceCtrl>
             <GovernanceMainMenù />
             <Homepage />
           </GovernanceCtrl>
-        </Layout>
     </>
   )
 }

@@ -4,7 +4,6 @@ import { useContext } from 'react';
 import CommentPage from '../../../../components/comments/CommentPage'
 import { CommunityContext, CommunityContextProps } from '../../../../components/community/CommunityContext';
 import CEO from '../../../../components/main/CEO';
-import Layout from '../../../../components/main/Layout';
 import Errorpage404 from '../../../404';
 
 interface PostIdPageProps {
@@ -36,7 +35,7 @@ const IdPage: NextPage<PostIdPageProps> = ({post,error}) => {
     }
 
   return (
-    <div>
+    <>
       <CEO 
         title={title}
         url={url}
@@ -48,10 +47,8 @@ const IdPage: NextPage<PostIdPageProps> = ({post,error}) => {
         width={post.mediaInfo?.dimension[1]?.toString()}
         height={post.mediaInfo?.dimension[0]?.toString()}
       />
-      <Layout>
-        <CommentPage post={post}/>
-      </Layout>
-    </div>
+      <CommentPage post={post}/>
+    </>
   )
 }
 

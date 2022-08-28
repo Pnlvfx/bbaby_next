@@ -4,7 +4,6 @@ import { useContext } from 'react'
 import UserContext from '../../components/auth/UserContext'
 import Profile from '../../components/user_settings/Profile'
 import UserSettings from '../../components/user_settings/UserSettings'
-import Layout from '../../components/main/Layout'
 import UserSecurity from '../../components/utils/security/UserSecurity'
 import { getSession } from '../../components/API/ssrAPI'
 
@@ -32,16 +31,14 @@ const ProfilePage:NextPage = () => {
         <meta property="og:type" content="website" key="ogtype" />
         <link rel='canonical' href={url} key='canonical' />
       </Head>
-      <Layout>
-        <UserSecurity>
-          <main className="flex bg-reddit_dark-brighter justify-center">
-            <div className='w-[60%] max-w-[1350px]'>
-              <UserSettings />
-              <Profile />
-            </div>
-          </main>
-        </UserSecurity>
-      </Layout>
+      <UserSecurity>
+        <main className="flex bg-reddit_dark-brighter justify-center">
+          <div className='w-[60%] max-w-[1350px]'>
+            <UserSettings />
+            <Profile />
+          </div>
+        </main>
+      </UserSecurity>
     </div>
   )
 }

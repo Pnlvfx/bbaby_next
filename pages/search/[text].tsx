@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import {useEffect, useState} from 'react'
 import Post from '../../components/post/Post' 
-import Layout from "../../components/main/Layout";
 import Head from "next/head";
 import type { NextPage, NextPageContext } from "next";
 import { search } from "../../components/header/search/APisearch";
@@ -42,13 +41,11 @@ const SearchResultPage:NextPage = () => {
         <meta property="og:type" content="website" key="ogtype" />
         <link rel='canonical' href={url} key='canonical' />
       </Head>
-      <Layout>
-        <div>
-        {posts.map(post => (
-          <Post key={post._id} post={post} isListing={true} />
-        ))}
-      </div>
-      </Layout>
+      <div>
+      {posts.map(post => (
+        <Post key={post._id} post={post} isListing={true} />
+      ))}
+    </div>
     </>
   )
 }

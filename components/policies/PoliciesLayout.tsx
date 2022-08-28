@@ -8,7 +8,6 @@ interface PoliciesLayoutProps {
 const PoliciesLayout = ({ children }: PoliciesLayoutProps) => {
   return (
     <main className="bg-white text-reddit_dark">
-      <PoliciesHeader />
       <MainButtonNav />
       {children}
     </main>

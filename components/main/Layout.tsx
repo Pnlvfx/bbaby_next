@@ -2,13 +2,14 @@ import Header from '../header/Header';
 import UseGoogleOneTapLogin from '../auth/providers/google/hooks/useGoogleOneTapLogin';
 import dynamic from 'next/dynamic';
 import { googleLogin } from '../auth/providers/google/hooks/googleLogin';
-import { ReactNode, useContext } from 'react';
+import { ReactNode, useContext, useEffect, useState } from 'react';
 import { AuthModalContext, AuthModalContextProps } from '../auth/modal/AuthModalContext';
 import { useRouter } from 'next/router';
 import { TimeMsgContext, TimeMsgContextProps } from './TimeMsgContext';
 import UserContext from '../auth/UserContext';
 import CookieConsent from '../utils/validation/CookieConsent';
 import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
+import PoliciesHeader from '../policies/PoliciesHeader';
 
 interface LayoutProps {
   children: ReactNode
@@ -24,18 +25,30 @@ const Layout = ({children} : LayoutProps) => {
   const message = useContext(TimeMsgContext) as TimeMsgContextProps;
   const {session} = useContext(UserContext) as SessionProps;
   const communityContext = useContext(CommunityContext) as CommunityContextProps;
+  const [header, setHeader] = useState(<Header />)
+  
+  useEffect(() => {
+    if (!router.isReady) return;
+    if (router.pathname.match('/policies') || router.pathname.match('/login')) {
+      setHeader(<PoliciesHeader />)
+    }
+
+  }, [router])
   
   return (
     <>
     <>
-      <Header />
+      {header}
       {children}
       <CookieConsent />
       {!session && modalContext.show !== 'hidden' &&  <AuthModal />}
       {session && communityContext.show && <CommunityFormModal />}
       <TimeMsg />
     </>
-    {!session && UseGoogleOneTapLogin({
+    {!session && 
+    !router.pathname.match('/policies') && 
+    !router.pathname.match('/login') && 
+    UseGoogleOneTapLogin({
       onSuccess: ((response) => googleLogin(response, modalContext, router, message)),
       cancel_on_tap_outside: false,
       hosted_domain

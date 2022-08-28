@@ -9,11 +9,10 @@ const LoginPage = () => {
   return (
     <div>
       <Head>
-        <title>{' '}{title}</title>
+        <title>{title}</title>
         <link rel='canonical' href={url} key='canonical' />
         <meta name="description" content={description} key={'description'} />
       </Head>
-      <PoliciesHeader />
     </div>
   )
 }

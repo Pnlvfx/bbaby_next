@@ -1,7 +1,6 @@
 import type { NextPage, NextPageContext } from 'next';
 import { siteUrl } from '../components/main/config';
 import CEO from '../components/main/CEO';
-import Layout from '../components/main/Layout';
 import TempSubmitWid from '../components/widget/TempSubmitWid';
 import SubmitLayout from '../components/submit/SubmitLayout';
 import { getSession } from '../components/API/ssrAPI';
@@ -26,18 +25,16 @@ const SubmitPage: NextPage = () => {
         image={image}
         locale={locale}
       />
-      <Layout>
-        <div className="block p-2 sm:p-4 lg:flex">
-          <div className="mx-auto flex justify-center">
-            <div className="mr-0 w-full pt-5 md:mr-6 lg:w-[740px]">
-              <SubmitLayout />
-            </div>
-            <div className="mt-11 hidden lg:block">
-              <TempSubmitWid />
-            </div>
+      <div className="block p-2 sm:p-4 lg:flex">
+        <div className="mx-auto flex justify-center">
+          <div className="mr-0 w-full pt-5 md:mr-6 lg:w-[740px]">
+            <SubmitLayout />
+          </div>
+          <div className="mt-11 hidden lg:block">
+            <TempSubmitWid />
           </div>
         </div>
-      </Layout>
+      </div>
     </>
   )
 }

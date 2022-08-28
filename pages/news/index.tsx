@@ -2,7 +2,6 @@ import type { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
 import React from 'react';
 import { getSession } from '../../components/API/ssrAPI';
-import Layout from '../../components/main/Layout';
 import { getMyNews } from '../../components/mynews/APInews';
 import MyNewsCard from '../../components/mynews/MyNewsCard';
 import BestPost from '../../components/post/postutils/BestPost';
@@ -34,7 +33,6 @@ const MyNewsPage:NextPage<MyNewsPageProps> = ({myNews}) => {
         <meta property="og:type" content="website" key="ogtype" />
         <link rel='canonical' href={url} key='canonical' />
       </Head>
-      <Layout>
       <div className="mx-[2px] mt-5 flex justify-center lg:mx-10">
           <div className="w-full lg:w-7/12  lg:mr-4 2xl:w-[650px] flex-none">
             <div className="mb-4">
@@ -45,7 +43,6 @@ const MyNewsPage:NextPage<MyNewsPageProps> = ({myNews}) => {
             ))}
           </div>
       </div>
-      </Layout>
     </div>
   )
 }

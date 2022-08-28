@@ -55,7 +55,6 @@ const RedditPage:NextPage = () => {
           key="canonical"
         />
       </Head>
-      <Layout>
         <GovernanceCtrl>
           <GovernanceMainMenù />
             <RedditFeed 
@@ -64,7 +63,6 @@ const RedditPage:NextPage = () => {
             posts={redditPosts}
             />
         </GovernanceCtrl>
-      </Layout>
     </div>
   )
 }

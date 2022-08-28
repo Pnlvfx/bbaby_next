@@ -1,9 +1,8 @@
 import Head from 'next/head';
 import {useContext, useEffect} from 'react';
-import Layout from '../../components/main/Layout';
 import BoardHeader from '../../components/header/BoardHeader';
 import {CommunityContext, CommunityContextProps} from '../../components/community/CommunityContext';
-import type {GetServerSideProps, NextPage, NextPageContext } from 'next';
+import type { NextPage, NextPageContext } from 'next';
 import Feed from '../../components/post/Feed';
 import { useRouter } from 'next/router';
 import { getSession, ssrHeaders } from '../../components/API/ssrAPI';
@@ -42,10 +41,8 @@ const CommunityPage: NextPage<CommunityPg> = ({community,posts}) => {
         <meta property="og:type" content="website" key="ogtype" />
         <link rel='canonical' href={url} key='canonical' />
       </Head>
-      <Layout>
-          {!router.query?.postId && <BoardHeader />}
-          <Feed community={community} posts={posts} />
-      </Layout>
+        {!router.query?.postId && <BoardHeader />}
+        <Feed community={community} posts={posts} />
     </>
   )
 }

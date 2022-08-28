@@ -16,9 +16,7 @@ const ModqueuePage:NextPage<ModqueuePageProps> = ({community}) => {
         <title>Bbabystyle - community admin page </title>
         <link rel='canonical' href={url} key='canonical' />
       </Head>
-      <Layout>
-        <Modqueque />
-      </Layout>
+      <Modqueque />
     </div>
   )
 }

@@ -30,7 +30,7 @@ interface TweetProps {
                     w: number
                 }
             }
-            type: 'video' | 'image'
+            type: 'video' | 'photo' | 'image'
             video_info?: {
                 aspect_ratio: [16, 9]
                 duration_millis: number

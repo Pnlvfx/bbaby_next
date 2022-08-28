@@ -1,6 +1,5 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import Layout from '../../../components/main/Layout';
 import Leaderboard from '../../../components/leaderboard/Leaderboard';
 
 interface Props {
@@ -30,9 +29,7 @@ const CategoryPage:NextPage<Props> = ({category}) => {
         <meta property="og:type" content="website" key="ogtype" />
         <link rel='canonical' href={url} key='canonical' />
         </Head>
-        <Layout>
-          <Leaderboard />
-        </Layout>
+        <Leaderboard />
     </div>
   )
 }

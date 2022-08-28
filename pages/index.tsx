@@ -1,7 +1,6 @@
 import type { NextPage, NextPageContext } from 'next';
 import CEO from '../components/main/CEO';
 import { getSession, ssrHeaders } from '../components/API/ssrAPI';
-import Layout from '../components/main/Layout';
 import Feed from '../components/post/Feed';
 import { siteUrl } from '../components/main/config';
 
@@ -28,9 +27,7 @@ const Home: NextPage<HomePg> = ({ posts }) => {
       image={image}
       locale={locale}
     />
-    <Layout>
-      <Feed posts={posts} />
-    </Layout>
+    <Feed posts={posts} />
     </>
   )
 }

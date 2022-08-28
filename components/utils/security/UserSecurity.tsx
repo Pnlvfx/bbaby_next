@@ -16,6 +16,8 @@ const UserSecurity = ({children}:Props) => {
     }
   },[session])
 
+  if (!session) return null;
+
   return (
         <>
         {children}

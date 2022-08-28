@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-function UserSettings() {
+const UserSettings = () => {
   const [active, setActive] = useState(0)
   const router = useRouter()
 

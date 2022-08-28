@@ -1,6 +1,5 @@
 import Youtube from '../../components/governance/youtube/Youtube'
 import type { NextPage, NextPageContext } from "next";
-import Layout from "../../components/main/Layout";
 import GovernanceCtrl from "../../components/governance/GovernanceCtrl";
 import Head from 'next/head';
 import GovernanceMainMenù from '../../components/governance/GovernanceMainMenù';
@@ -43,14 +42,12 @@ const Governance: NextPage<NewsPropsPage> = ({ news, auth }) => {
         <meta name='robots' content='noindex' />
         <link rel='canonical' href={`${hostname}/governance/youtube`} key='canonical' />
       </Head>
-      <Layout>
         <GovernanceCtrl>
           <GovernanceMainMenù />
           <YoutubeContextProvider ssrNews={news} >
             <Youtube /> 
           </YoutubeContextProvider>
         </GovernanceCtrl>
-      </Layout>
     </div>
   )
 }

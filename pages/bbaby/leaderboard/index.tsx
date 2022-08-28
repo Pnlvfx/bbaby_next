@@ -30,9 +30,7 @@ const LeaderboardPage:NextPage = () => {
         <meta property="og:type" content="website" key="ogtype" />
         <link rel='canonical' href={url} key='canonical' />
       </Head>
-      <Layout>
         <Leaderboard />
-      </Layout>
     </div>
   )
 }

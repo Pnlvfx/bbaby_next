@@ -1,5 +1,4 @@
 import type { NextPage, NextPageContext } from "next";
-import Layout from "../../components/main/Layout";
 import Twitter from "../../components/governance/twitter/Twitter";
 import GovernanceCtrl from "../../components/governance/GovernanceCtrl";
 import Head from "next/head";
@@ -15,12 +14,10 @@ const TwitterPage: NextPage = () => {
         <meta name='robots' content='noindex' />
         <link rel='canonical' href={`${siteUrl}/governance/twitter`} key='canonical' />
       </Head>
-      <Layout>
-        <GovernanceCtrl>
-          <GovernanceMainMenù />
-          <Twitter />
-        </GovernanceCtrl>
-      </Layout>
+      <GovernanceCtrl>
+        <GovernanceMainMenù />
+        <Twitter />
+      </GovernanceCtrl>
     </>
   )
 }

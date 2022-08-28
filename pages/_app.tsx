@@ -8,6 +8,7 @@ import { TimeMsgContextProvider } from '../components/main/TimeMsgContext';
 import GoogleAnalytics from '../components/google/GoogleAnalytics';
 import { siteUrl } from '../components/main/config';
 import { GoogleOAuthProvider } from '../components/auth/providers/google/GoogleOAuthProvider';
+import Layout from '../components/main/Layout';
 
 const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps) => {
   return (
@@ -39,8 +40,10 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps) => {
           <AuthModalContextProvider>
             <CommunityContextProvider>
               <TimeMsgContextProvider>
-                <Component {...pageProps} />
-                {process.env.NEXT_PUBLIC_NODE_ENV === 'production' && <GoogleAnalytics />}
+                <Layout>
+                  <Component {...pageProps} />
+                  {process.env.NEXT_PUBLIC_NODE_ENV === 'production' && <GoogleAnalytics />}
+                </Layout>
               </TimeMsgContextProvider>
             </CommunityContextProvider>
           </AuthModalContextProvider>

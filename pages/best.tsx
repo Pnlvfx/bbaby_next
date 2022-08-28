@@ -1,7 +1,6 @@
 import type { NextPage, NextPageContext } from 'next'
 import Head from 'next/head'
 import Feed from '../components/post/Feed'
-import Layout from '../components/main/Layout'
 import { siteUrl } from '../components/main/config'
 import { getSession, ssrHeaders } from '../components/API/ssrAPI'
 
@@ -31,9 +30,7 @@ const Home: NextPage<BestPg> = ({posts}) => {
         <meta property="og:type" content="website" key="ogtype" />
         <link rel='canonical' href={url} key='canonical' />
       </Head>
-       <Layout>
-        <Feed posts={posts} />
-      </Layout>
+      <Feed posts={posts} />
     </>
   )
 }

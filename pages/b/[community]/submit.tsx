@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
-import type { GetServerSideProps, NextPage, NextPageContext } from 'next';
-import Layout from '../../../components/main/Layout';
+import type { NextPage, NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import TempSubmitWid from '../../../components/widget/TempSubmitWid';
 import SubmitLayout from '../../../components/submit/SubmitLayout';
@@ -40,18 +39,16 @@ const SubmitPage:NextPage = () => {
       <meta property="og:type" content="website" key="ogtype" />
       <link rel='canonical' href={url} key='canonical' />
     </Head>
-      <Layout>
-        <div className="p-2 sm:p-4 block lg:flex">
-          <div className="mx-auto flex justify-center">
-            <div className="mr-0 md:mr-6 w-full lg:w-[740px] pt-5">
-                <SubmitLayout community={communityName} />
-            </div>
-            <div className="hidden lg:block mt-11">
-              <TempSubmitWid />
-            </div>
-          </div>
+    <div className="p-2 sm:p-4 block lg:flex">
+      <div className="mx-auto flex justify-center">
+        <div className="mr-0 md:mr-6 w-full lg:w-[740px] pt-5">
+            <SubmitLayout community={communityName} />
         </div>
-      </Layout>
+        <div className="hidden lg:block mt-11">
+          <TempSubmitWid />
+        </div>
+      </div>
+    </div>
     </>
   )
 }
