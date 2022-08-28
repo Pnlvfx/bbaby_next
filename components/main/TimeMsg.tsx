@@ -1,38 +1,36 @@
-import { useContext, useEffect } from "react"
-import { TimeMsgContext, TimeMsgContextProps } from "./TimeMsgContext"
-import {AiOutlineSketch,AiOutlineWarning} from 'react-icons/ai'
+import { useContext, useEffect } from "react";
+import { TimeMsgContext, TimeMsgContextProps } from "./TimeMsgContext";
+import {AiOutlineSketch,AiOutlineWarning} from 'react-icons/ai';
 
 
 const TimeMsg = () => {
     const {message,setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
-
-    const ms = message.time ? message.time : 8000
-  
     useEffect(() => {
-      if (!message.value) return 
+      if (!message.value) return;
+      const ms = message.time ? message.time : 8000
         setTimeout(() => {
           setMessage({value: ''})
       }, ms)
     },[message. value])
 
+    if (!message.value) return null;
+
+
+
   return (
-    <>
-    {message.value && (
-        <div className="bottom-0 left-0 right-0 m-auto h-[100px] w-[100%] fixed z-30 overflow-hidden">
-            <div className="w-[90%] lg:w-[40%] border border-reddit_text overflow-hidden bg-reddit_dark-brighter mx-auto rounded-md flex min-h-[50px]">
-                <div className={`w-5 ${message.status === 'error' ? "bg-reddit_red" : "bg-reddit_blue"}`} />
-                <div className="text-center flex items-center ml-2">
-                {message.status === 'error' ? (
-                    <AiOutlineWarning className="w-5 h-5" />
-                ) :
-                <AiOutlineSketch className="w-5 h-5" />
-                }
-                    <p className="ml-2 text-[15px]">{message.value}</p>
-                </div>
-            </div>
-        </div>
-    )}
-    </>
+    <div className={`${message.value ? 'block' : 'hidden'}`}>
+      <div className="fixed bottom-0 z-30 flex w-full rounded-sm border border-reddit_dark-brighter font-bold lg:left-[35%] lg:right-[50%] lg:bottom-12 lg:w-[700px] ">
+        <div className={`w-5 ${message.status === 'error' ? "bg-reddit_red" : "bg-reddit_blue"}`} />
+          <div className="p-3 pl-4">
+            {message.status === 'error' ? (
+            <AiOutlineWarning className="w-5 h-5" />
+            ) :
+            <AiOutlineSketch className="w-5 h-5" />
+            }
+            <p className="ml-2 text-[15px]">{message.value}</p>
+          </div>
+      </div>
+    </div>
   )
 }
 

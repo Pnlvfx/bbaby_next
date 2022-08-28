@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 
-const siteUrl = 'https://www.bbabystyle.com'
+const siteUrl = 'https://www.bbabystyle.com';
 
 module.exports = {
   siteUrl,

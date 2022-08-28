@@ -41,7 +41,7 @@ const CookieConsent = () => {
             We use cookies on our website for a number of purposes, including
             analytics and performance, functionality and advertising.{' '}
             <Link href={'/policies/cookies'}>
-              <a className="text-[#4BB3F3]">
+              <a target={'_blank'} className="text-[#4BB3F3]">
                 Learn more about Bbaby&apos;s use of cookies.
               </a>
             </Link>

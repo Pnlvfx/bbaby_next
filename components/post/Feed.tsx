@@ -2,7 +2,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import PostForm from '../submit/submitutils/PostForm';
 import BestPost from './postutils/BestPost';
 import Post from './Post';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { isMobile } from 'react-device-detect';
 import TopCommunities from '../widget/TopCommunities'
@@ -12,6 +12,7 @@ import Donations from '../widget/Donations'
 import { getPosts } from './APIpost'
 import GoogleAdsense2 from '../google/GoogleAdsense2'
 import Skeleton from '../governance/twitter/Skeleton';
+import { TimeMsgContext, TimeMsgContextProps } from '../main/TimeMsgContext';
 
 type FeedProps = {
   posts: PostProps[]
@@ -20,10 +21,11 @@ type FeedProps = {
 }
 
 const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
-  const PostModal = dynamic(() => import('./PostModal'))
-  const [posts, setPosts] = useState<PostProps[]>(ssrPost)
-  const [postOpen, setPostOpen] = useState(false)
+  const PostModal = dynamic(() => import('./PostModal'));
+  const [posts, setPosts] = useState<PostProps[]>(ssrPost);
+  const [postOpen, setPostOpen] = useState(false);
   const router = useRouter();
+  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
   
   let postId: string[] | string = ''
 

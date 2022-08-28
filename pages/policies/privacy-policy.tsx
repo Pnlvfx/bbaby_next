@@ -1,5 +1,6 @@
-import type { NextPage } from 'next';
+import type { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
+import { getSession } from '../../components/API/ssrAPI';
 import PoliciesLayout from '../../components/policies/PoliciesLayout';
 import PrivacyPolicies from '../../components/policies/PrivacyPolicies';
 
@@ -20,3 +21,19 @@ const PrivacyPolicyPage:NextPage = () => {
 }
 
 export default PrivacyPolicyPage;
+
+export const getServerSideProps = async (context: NextPageContext) => {
+  let session = null;
+  try {
+    session = await getSession(context);
+  } catch (err) {
+    
+  }
+
+  return {
+    props: {
+      session,
+    },
+  }
+}
+
