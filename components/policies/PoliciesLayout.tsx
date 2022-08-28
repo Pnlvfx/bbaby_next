@@ -1,5 +1,4 @@
 import MainButtonNav from './MainButtonNav';
-import PoliciesHeader from './PoliciesHeader';
 
 interface PoliciesLayoutProps {
   children: React.ReactNode

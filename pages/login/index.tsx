@@ -1,5 +1,4 @@
 import Head from "next/head";
-import PoliciesHeader from "../../components/policies/PoliciesHeader";
 
 const LoginPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
