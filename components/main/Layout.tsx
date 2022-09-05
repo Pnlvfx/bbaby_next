@@ -35,9 +35,7 @@ const Layout = ({children} : LayoutProps) => {
       {session && communityContext.show && <CommunityFormModal />}
       <TimeMsg />
     </>
-    {!session && 
-    !router.pathname.match('/policies') && 
-    !router.pathname.match('/login') && 
+    {!session && !router.pathname.match('/policies') && !router.pathname.match('/login') && 
     UseGoogleOneTapLogin({
       onSuccess: ((response) => googleLogin(response, modalContext, router, message)),
       cancel_on_tap_outside: false,

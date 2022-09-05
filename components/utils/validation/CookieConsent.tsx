@@ -19,7 +19,7 @@ const CookieConsent = () => {
       const cookiePair = cookieArray[i].split('=')
       if ('eu_cookie' == cookiePair[0].trim()) {
         return decodeURIComponent(cookiePair[1])
-      } 
+      }
     }
   }
 

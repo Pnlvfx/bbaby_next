@@ -146,7 +146,7 @@ const Controls = () => {
           </button>
         </div>
         <div
-          className={`${classnames.button.default} [&>div:nth-child(1)]:hover:block [&>div:nth-child(1)]:hover:opacity-100`}
+          className={`${classnames.button.default} [&>div:nth-child(1)]:hover:md:block [&>div:nth-child(1)]:hover:md:opacity-100`}
           >
           <div
             onClick={(e) => {

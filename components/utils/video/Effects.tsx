@@ -7,7 +7,7 @@ interface EffectsProps  {
   }
 
 const Effects = ({ children }: EffectsProps) => {
-  const {controls, setControls, videoContainerRef, player, isEnded, isMuted, setIsMuted, volumeSliderContainer, setIsEnded, volumeSlider, timelineBall, setprogressPosition, setPlayed, setDuration, timelineRef, setIsPlaying, previewPositionRef} = useContext(VideoPlayerContext) as VideoPlayerContextProps;
+  const { setControls, videoContainerRef, player, isEnded, isMuted, setIsMuted, volumeSliderContainer, setIsEnded, volumeSlider, timelineBall, setprogressPosition, setPlayed, setDuration, timelineRef, setIsPlaying, previewPositionRef} = useContext(VideoPlayerContext) as VideoPlayerContextProps;
 
   let isScrabbing = false
   let wasPaused = false
@@ -85,7 +85,7 @@ const Effects = ({ children }: EffectsProps) => {
   }
 
   const clickVolumeSlider = (e: MouseEvent) => {
-    e.preventDefault();
+    e.preventDefault()
       isChangeVolume = true;
       isStillClicked = true;
       const rect = volumeSliderContainer.current.getBoundingClientRect()
@@ -98,6 +98,7 @@ const Effects = ({ children }: EffectsProps) => {
   }
 
   const slideOnVolume = (e: MouseEvent) => {
+    e.preventDefault()
     if (isChangeVolume) {
       const rect = volumeSliderContainer.current.getBoundingClientRect()
       const percent = Math.min(Math.max(0, e.y - rect.y), rect.height) / rect.height
@@ -145,7 +146,7 @@ const Effects = ({ children }: EffectsProps) => {
     document.removeEventListener('mouseup', (e) => documentMouseUP(e))
     document.removeEventListener('mousemove', documentMouseMOVE)
     //VOLUME
-    player.current.removeEventListener('volumechange', onVolumeChange);
+    player.current?.removeEventListener('volumechange', onVolumeChange);
     volumeSliderContainer.current?.removeEventListener('mousedown', (e) => clickVolumeSlider(e));
     volumeSliderContainer.current?.removeEventListener('mousemove', (e) => slideOnVolume(e));
     //CONTAINER
@@ -166,7 +167,6 @@ const Effects = ({ children }: EffectsProps) => {
     setDuration(formatDuration(duration))
 
     return () => {
-      console.log('listeners removed')
       removeListeners()
     }
   }, [])

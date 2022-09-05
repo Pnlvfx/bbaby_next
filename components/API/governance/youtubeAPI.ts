@@ -14,7 +14,6 @@ export const youtubeAuth = async (context: NextPageContext) => {
         })
         const data = await res.json();
         if (!res.ok) {
-            console.log(data.msg);
             return false;
         } else {
             return data as true

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { VideoPlayerContext, VideoPlayerContextProps } from "../VidePlayerContext";
 
 const Slider = () => {

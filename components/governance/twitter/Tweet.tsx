@@ -46,7 +46,7 @@ const Tweet = ({ username, screen_name, created_at, title, type, video, image, w
     }
   }
 
-  if (!video) return null;
+  //if (!video) return null;
 
   return (
       <div>

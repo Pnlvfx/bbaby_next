@@ -20,7 +20,6 @@ const RedditFeed = ({postForm, bestPost}: RedditPostContent) => {
         const get = async () => {
           try {
             const res = await getRedditPosts();
-            console.log(res);
             setRedditPosts(res.children);
             setAfter(res.after);
           } catch (err) {

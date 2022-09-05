@@ -40,10 +40,9 @@ const UseLoadGsiScript = (options: UseLoadGsiScriptOptions = {}): boolean => {
         
         return () => {
             document.body.removeChild(scriptTag);
+            clearTimeout(go);
         };
         }, 800)
-
-        return clearTimeout(go);
     }, [])
 
     return scriptLoadedSuccessfully;
