@@ -57,10 +57,10 @@ const Comment = ({post, postId}: CommentRootProps) => {
         
   return (
       <div className='w-full max-w-[740px] bg-reddit_dark-brighter rounded-md'>
-        <div className='mr-6'>
+        <div className='md:mr-6'>
         {post && (
-        <Post post={post} open={true} />
-      )}
+            <Post post={post} open={true} />
+        )}
       {!!post && !!post._id && (
           <div className='flex'>
             <div className='w-10 flex-none bg-[#141415]' />

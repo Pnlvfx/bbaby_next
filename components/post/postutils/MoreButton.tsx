@@ -39,18 +39,16 @@ const MoreButton = (props:any)  => {
   }
 
   return (
-    <>
+    <div className='flex items-center'>
        <ClickOutHandler onClickOut={() => setMoreDropdownVisibilityClass(false)}>
-          <button title='Show more options' type='button' onClick={event =>{
+          <button className='p-2 hover:bg-reddit_dark-brightest flex items-center h-full' style={{borderRadius: '2px'}} type='button' onClick={event =>{
             event.preventDefault()
             event.stopPropagation()
             setMoreDropdownVisibilityClass(!moreDropdownVisibilityClass)
         }}>
-          <div className='self-center text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm'>
-            <MoreIcon style={{height: 20, width: 20}} />
-          </div>
+          <MoreIcon />
          </button>
-         <div className={`absolute ${moreDropdownVisibilityClass ? "block" : "hidden"}`}>
+         <div className={`absolute z-30 ${moreDropdownVisibilityClass ? "block" : "hidden"}`}>
            <div className='flex bg-reddit_dark-brighter border border-reddit_border z-10 rounded-md'>
                {postAuthor && (
                  <button onClick={e => {
@@ -65,7 +63,7 @@ const MoreButton = (props:any)  => {
           </div>
            </div>
        </ClickOutHandler>
-   </>
+   </div>
   )
 }
 

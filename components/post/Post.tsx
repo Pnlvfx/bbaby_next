@@ -10,33 +10,34 @@ interface ExtendPostProps {
 
 const Post = ({post, isListing, open}:ExtendPostProps) => {
     const router = useRouter()
-    let postClasses = `border rounded-md ${!open && "hover:border-reddit_text border-reddit_border cursor-pointer"} ${open && "border-none"}`;
     const url = isMobile ? `/b/${post.community}/comments/${post._id}` : router.pathname;
     const query = isMobile ? undefined : {postId : post._id, community: post.community, username: post.author}
     const as = isMobile ? undefined : `/b/${post.community}/comments/${post._id}`
     
     return (
-    <div style={{marginBottom: isListing ? 12 : 0}} >
-        {open && (
-            <div className={postClasses} >
-                <PostContent post={post} />
-            </div>
-        )}
-        {!open && (
-            <div
-            className={postClasses}
-            onClick={e => {
-                e.preventDefault()
-                e.stopPropagation()
-                router.push({
-                    pathname: url,
-                    query,
-                }, as, {scroll: false})
-            }}>
-                <PostContent post={post} isListing={isListing}/>
-            </div>
-        )}
-    </div>
+   <div>
+        <div>
+            {open && (
+                <div className={`border rounded-md border-none`} >
+                    <PostContent post={post} />
+                </div>
+            )}
+            {!open && (
+                <div className={`bg-[#141415] w-full mb-3 border border-reddit_border rounded-md hover:border-reddit_text cursor-pointer`}
+                    onClick={e => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        router.push({
+                            pathname: url,
+                            query,
+                        }, as, {scroll: false})
+                    }}
+                >
+                    <PostContent post={post} isListing={isListing}/>
+                </div>
+            )}
+        </div>
+   </div>
   )
 }
 

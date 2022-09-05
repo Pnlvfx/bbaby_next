@@ -1,66 +1,43 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext } from "react";
+import Controls from "./Controls";
+import { handlePlayPause } from "./utils/hooks";
+import { VideoPlayerContext, VideoPlayerContextProps } from "./VidePlayerContext";
 
-type VideoPlayer = {
-    src: string
-    poster: string
-    width: number
-    height: number
-}
+const VideoPlayer = () => {
+  const {player, url, poster, videoContainerRef} = useContext(VideoPlayerContext) as VideoPlayerContextProps;
 
-const VideoPlayer = ({src, poster, width, height} : VideoPlayer) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [controls, setControls] = useState(false);
-
-  const callback = (entries: IntersectionObserverEntry[]) => {
-    const [entry] = entries;
-    if (entry.isIntersecting) {
-      videoRef.current?.play()
-    } else {
-      videoRef?.current?.pause()
-    }
-  }
-
-  useEffect(() => {
-    const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 1.0
-    }
-    setTimeout(() => {
-      const observer = new IntersectionObserver(callback, options);
-      if (videoRef.current) observer.observe(videoRef.current);
-      return () => {
-        if (videoRef.current) observer.unobserve(videoRef.current);
-      }
-    },500)
-  }, [videoRef])
+  // useEffect(() => {
+  //   if (!controls) return;
+  //   setTimeout(() => {
+  //     setControls(false);
+  //   }, 5000)
+  // }, [controls])
 
   return (
-    <div className="justify-center w-full flex bg-black max-h-600">
-      <div className="mx-10">
-        <video
-          ref={videoRef}
-          onMouseOver={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
-            setControls(true);
-          }}
-          onMouseOut={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
-            setControls(false)
-          }}
-          style={{backgroundColor: 'rgb(0,0,0)', maxHeight: 500}}
-          src={src}
-          poster={poster}
-          controls={controls}
-          autoPlay={false}
-          muted
-          playsInline
-          height={height}
-          width={width}
-        />
-      </div>
+    <div 
+      ref={videoContainerRef} 
+      onClick={(e) => {
+        e.preventDefault()
+        handlePlayPause(player);
+        e.stopPropagation()
+      }} 
+      className="h-full whitespace-nowrap overflow-hidden relative cursor-default w-full"
+    >
+      <video className="z-0 h-full top-0 left-0 absolute w-full bg-[rgb(0,0,0)]"
+        ref={player}
+        style={{
+          backgroundPosition: '50%',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'contain',
+        }}
+        poster={poster}
+        autoPlay={false}
+        muted
+        playsInline
+      >
+        <source src={url} />
+      </video>
+      <Controls />
     </div>
   )
 }

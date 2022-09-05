@@ -19,7 +19,7 @@ const NextConfig = {
     YOUTUBE_CLIENT_ID: '56658651654-j4f0trpq3fejbpkssqndnlqh074mqt8l.apps.googleusercontent.com',
   },
   productionBrowserSourceMaps: true,
-  distDir: '.bbaby',
+  //distDir: '.bbaby',
 }
 
 module.exports = NextConfig;

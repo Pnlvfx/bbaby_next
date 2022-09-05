@@ -21,8 +21,10 @@ interface SubmitContextProviderProps  {
     setHeight: Dispatch<SetStateAction<number>>
     width: number
     setWidth: Dispatch<SetStateAction<number>>
-    selectedFile: string | null
+    selectedFile: any
     setSelectedFile: SetStateAction<any>
+    thumbnail: any
+    setThumbnail: SetStateAction<any>
     selectedCommunity: string
     setSelectedCommunity: Dispatch<SetStateAction<string>>
     communityIcon: string
@@ -37,6 +39,8 @@ interface SubmitContextProviderProps  {
     setSharePostToTwitter: Dispatch<SetStateAction<boolean>>
     loading: boolean
     setLoading: Dispatch<SetStateAction<boolean>>
+    titleLength: number
+    setTitleLength: Dispatch<SetStateAction<number>>
     createPost: Function
     }
 
@@ -50,11 +54,13 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
     const [selectedCommunity,setSelectedCommunity] = useState('')
     const [communityIcon,setCommunityIcon] = useState('')
     const [selectedFile, setSelectedFile] = useState(null)
+    const [thumbnail, setThumbnail] = useState(null);
     const [isImage,setIsImage] = useState(false)
     const [isVideo,setIsVideo] = useState(false)
     const [sharePostToTG,setSharePostToTG] = useState(session?.user.role === 1 ? true : false)
     const [sharePostToTwitter,setSharePostToTwitter] = useState(session?.user.role ? true : false)
     const [loading,setLoading] = useState(false)
+    const [titleLength,setTitleLength] = useState(0);
     
     const router = useRouter()
     const message = useContext(TimeMsgContext) as TimeMsgContextProps;
@@ -97,7 +103,7 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
                 if (res.status === 401) {
                     authModalContext.setShow('login');
                 } else {
-                    catchErrorWithMessage(data?.msg, message);
+                    message.setMessage({value: data?.msg, status: 'error'});
                     setLoading(false);
                 }
             }
@@ -132,6 +138,10 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
             setSharePostToTwitter,
             loading,
             setLoading,
+            titleLength,
+            setTitleLength,
+            thumbnail,
+            setThumbnail,
             createPost
             }}>
             {children}

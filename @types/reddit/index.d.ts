@@ -1,4 +1,4 @@
-interface RedditPosts {
+interface RedditPostsProps {
     data: {
         author: string
         subreddit: string

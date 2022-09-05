@@ -23,12 +23,12 @@ const NewsPagee:NextPage<NewsIdProps> = ({description}) => {
         </Head>
         <GovernanceCtrl>
             {router && router.query.imageUrl && router.query.title && (
-              <NewsContextProvider>
-                <NewsPage 
-                  title={router.query.title?.toString()} 
-                  image={router.query.imageUrl?.toString()} 
-                  description={description} 
-                />
+              <NewsContextProvider 
+                originalTitle={router.query.title?.toString()} 
+                originalDescription={description}
+                originalImage={router.query.imageUrl?.toString()} 
+              >
+                <NewsPage />
               </NewsContextProvider>
             )}
         </GovernanceCtrl>

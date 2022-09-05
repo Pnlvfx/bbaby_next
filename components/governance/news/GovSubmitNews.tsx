@@ -16,8 +16,8 @@ const GovSubmitNews = () => {
   } = useContext(NewsContext) as NewsContextProps;
 
   return (
-    <div className="mx-4 w-full max-w-[1000px] rounded-md bg-reddit_dark-brighter">
-      <div className="mt-2 rounded-md border border-reddit_dark-brightest">
+    <div className="mx-4 w-full max-w-[1000px] rounded-md bg-reddit_dark-brighter border border-reddit_dark-brightest">
+      <div>
         <div className="mt-3 flex whitespace-pre-wrap break-words">
           <div className="flex w-full p-[6px]">
             <TextareaAutosize
@@ -60,7 +60,7 @@ const GovSubmitNews = () => {
             onClick={() => {
               createNews()
             }}
-            className={`${buttonClass()} h-[30px] w-16`}
+            className={`${buttonClass()} h-[30px] w-16 flex items-center justify-center`}
           >
             {loading && <Spinner />}
             {!loading && <p className="text-right">Post</p>}

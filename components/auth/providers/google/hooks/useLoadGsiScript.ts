@@ -22,7 +22,7 @@ const UseLoadGsiScript = (options: UseLoadGsiScriptOptions = {}): boolean => {
     onScriptLoadErrorRef.current = onScriptLoadError;
 
     useEffect(() => {
-        setTimeout(() => {
+        const go = setTimeout(() => {
         const scriptTag = document.createElement('script');
         scriptTag.src = 'https://accounts.google.com/gsi/client';
         scriptTag.async = true;
@@ -41,7 +41,9 @@ const UseLoadGsiScript = (options: UseLoadGsiScriptOptions = {}): boolean => {
         return () => {
             document.body.removeChild(scriptTag);
         };
-        },800)
+        }, 800)
+
+        return clearTimeout(go);
     }, [])
 
     return scriptLoadedSuccessfully;

@@ -3,7 +3,9 @@ import { useEffect, useState } from 'react';
 
 const CookieConsent = () => {
   const [show, setShow] = useState(false);
-  const domain = process.env.NODE_ENV === 'production' ? '.bbabystyle.com' : 'localhost'
+  const domain = process.env.NODE_ENV === 'production' ? '.bbabystyle.com' : undefined
+
+  
   const acceptCookie = () => {
     const cookie = process.env.NEXT_PUBLIC_COOKIE_CONSENT_SECRET;
     document.cookie =
@@ -12,11 +14,14 @@ const CookieConsent = () => {
   }
 
   const checkIfCookieExist = () => {
+    if (process.env.NEXT_PUBLIC_HOSTNAME === 'http://192.168.1.22:3000') return setShow(false);
     const cookieArray = document.cookie.split(';')
     for (let i = 0; i < cookieArray.length; i++) {
       const cookiePair = cookieArray[i].split('=')
       if ('eu_cookie' == cookiePair[0].trim()) {
         return decodeURIComponent(cookiePair[1])
+      } else {
+        setShow(true);
       }
     }
   }
@@ -24,9 +29,6 @@ const CookieConsent = () => {
   useEffect(() => {
     setTimeout(() => {
       const check = checkIfCookieExist();
-      if (check === undefined) {
-          setShow(true)
-      }
     }, 30)
   }, [show])
 

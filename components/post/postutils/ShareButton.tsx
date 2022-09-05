@@ -30,19 +30,17 @@ const ShareButton = ({community,postId}:ShareButtonProps) => {
   }
 
   return (
-    <>
+    <div className='mr-1 flex items-center'>
       <ClickOutHandler onClickOut={() => setShareDropdownVisibilityClass(false)}>
-        <button type='button' onClick={event =>{
+        <button className='p-2 flex items-center h-full hover:bg-reddit_dark-brightest' style={{borderRadius: '2px'}} type='button' onClick={event =>{
         event.preventDefault()
         event.stopPropagation()
           setShareDropdownVisibilityClass(!ShareDropdownVisibilityClass)
         }}>
-          <div className='flex text-reddit_text-darker p-2 rounded-sm hover:bg-reddit_hover text-sm items-center'>
-            <ShareIcon style={{height: 20, width: 20}} />
-            <p className='ml-1'>Share</p>
-          </div>
+          <ShareIcon className='leading-4 mr-[6px]' />
+          <span className='text-left overflow-hidden text-ellipsis leading-3 max-h-[36px] '>Share</span>
         </button>
-          <div className={`absolute ${ShareDropdownVisibilityClass ? "block" : "hidden"} `}>
+          <div className={`z-20 absolute ${ShareDropdownVisibilityClass ? "block" : "hidden"} `}>
             <div className='flex bg-reddit_dark-brighter border border-reddit_border z-10 rounded-md overflow-hidden'>
                 <div onClick={e => {
                   e.preventDefault()
@@ -57,7 +55,7 @@ const ShareButton = ({community,postId}:ShareButtonProps) => {
           </div>
         </div>
       </ClickOutHandler>
-   </>
+   </div>
   )
 }
 

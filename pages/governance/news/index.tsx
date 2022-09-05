@@ -5,30 +5,41 @@ import { getSession } from "../../../components/API/ssrAPI";
 import GovernanceCtrl from "../../../components/governance/GovernanceCtrl";
 import GovernanceMainMenù from "../../../components/governance/GovernanceMainMenù";
 import LinkPreview, { LinkPreviewLoader, LinkPreviewProps } from "../../../components/utils/LinkPreview";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { siteUrl } from "../../../components/main/config";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { catchError } from "../../../components/API/common";
+import { catchErrorWithMessage } from "../../../components/API/common";
+import { TimeMsgContext, TimeMsgContextProps } from "../../../components/main/TimeMsgContext";
 
 const GovNewsPage:NextPage = () => {
   const [BBCnews, setBBCnews] = useState<LinkPreviewProps[] | []>([]);
+  const [total, setTotal] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
   const url = `${siteUrl}/governance/news`;
+  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
 
   const getMore = async () => {
     try {
+      if (total <= BBCnews.length) return setHasMore(false);
       const res = await getBBCLinks(10, BBCnews.length);
-      const newArticle = res;
+      const newArticle = res.data;
       setBBCnews(oldNews => [...oldNews, ...newArticle])
-
     } catch (err) {
-      catchError(err)
+      catchErrorWithMessage(err, message);
     }
   }
 
   useEffect(() => {
-    getBBCLinks(10, 0).then((res) => {
-      setBBCnews(res);
-    })
+    const get = async () => {
+      try {
+        const res = await getBBCLinks(10, 0);
+        setBBCnews(res.data);
+        setTotal(res.total);
+      } catch (err) {
+        catchErrorWithMessage(err, message);
+      }
+    }
+    get();
   },[])
 
   return (
@@ -41,22 +52,19 @@ const GovNewsPage:NextPage = () => {
       <GovernanceCtrl>
         <GovernanceMainMenù />
         <InfiniteScroll
-              dataLength={BBCnews.length}
-              scrollThreshold={''}
-              next={getMore}
-              hasMore={true}
-              loader={LinkPreviewLoader()}
-              endMessage={<p></p>}
-            >
-              <ul className="md:space-x-auto grid-cols-1 md:grid-cols-3" style={{width: '100%', marginTop: 20, display: 'grid'}}>
-                {BBCnews.length > 9 ?
-                  BBCnews.map((news, key) => (
-                    <LinkPreview key={key} title={news.title} description={news.description} image={news.image} link={news.link} />
-                  )) : [1, 2, 3, 4, 5, 6, 7, 8, 9].map((_, idx) => (
-                    <LinkPreviewLoader key={idx} />
-                  ))}
-              </ul>
-            </InfiniteScroll>
+          className='md:space-x-auto grid grid-cols-1 md:grid-cols-3 w-full mt-5'
+          dataLength={BBCnews.length}
+          next={getMore}
+          hasMore={hasMore}
+          loader={[1, 2, 3, 4, 5, 6, 7, 8, 9].map((_, idx) => (
+            <LinkPreviewLoader key={idx} />
+          ))}
+          endMessage={<p>No more news.</p>}
+        >
+          {BBCnews.map((news, key) => (
+            <LinkPreview key={key} title={news.title} description={news.description} image={news.image} link={news.link} />
+          ))}
+        </InfiniteScroll>
       </GovernanceCtrl>
     </>
   )
@@ -65,16 +73,14 @@ const GovNewsPage:NextPage = () => {
 export default GovNewsPage;
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  let session = null;
   try {
-    session = await getSession(context);
+    const session = await getSession(context);
+    return {
+      props: {
+        session,
+      },
+    }
   } catch (err) {
     
-  }
-
-  return {
-    props: {
-      session,
-    },
   }
 }

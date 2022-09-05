@@ -16,3 +16,5 @@ export const catchErrorWithMessage = (err: unknown, transporter: TimeMsgContextP
         transporter.setMessage({value: `That's really strange!`, status: 'error'});
     }
 }
+
+export const isJson = (response: Response) => response.headers.get('content-type')?.includes('application/json')

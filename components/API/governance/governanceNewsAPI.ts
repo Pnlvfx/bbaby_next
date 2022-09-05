@@ -1,30 +1,40 @@
-import { NextPageContext } from "next";
-import { postRequestHeaders } from "../../main/config";
-import { LinkPreviewProps } from "../../utils/LinkPreview";
-import { ssrHeaders } from "../ssrAPI";
+import { catchError } from "../common";
 
-export const getBBCLinks = async (limit : string | number, skip : string | number, context?: NextPageContext) => {
+export const getBBCLinks = async (limit : string | number, skip : string | number) => {
     try {
       const server = process.env.NEXT_PUBLIC_SERVER_URL;
-      const headers = context ? ssrHeaders(context) : postRequestHeaders;
-      const ssr = context ? 'ssr' : null;
-      const url = `${server}/governance/BBCnews?limit=${limit}&skip=${skip}&ssr=${ssr}`;
+      const url = `${server}/governance/BBCnews?limit=${limit}&skip=${skip}`;
       const res = await fetch(url, {
       method: 'get',
-      headers,
       credentials : 'include'
       })
-      const data = await res.json()
+      const json = await res.json()
       if (res.ok) {
-        return data as LinkPreviewProps[];
+        
+        return json;
       } else {
-        throw new Error(data.msg);
+        throw new Error(json.msg);
       }
     } catch (err) {
-      if (err instanceof Error) {
-        throw new Error(err.message);
-      } else {
-        throw new Error(`That's strange!`);
-      }
+      return catchError(err);
     }
+}
+
+export const searchPexelsImages = async (text: string, pageSearch: string) => {
+  const server = process.env.NEXT_PUBLIC_SERVER_URL;
+  const url = `${server}/governance/pexels?text=${text}&page=${pageSearch}`
+  try {
+    const res = await fetch(url, {
+      method: 'get',
+      credentials: 'include'
+    })
+    const data = await res.json();
+    if (res.ok) {
+      return data;
+    } else {
+      catchError(data.msg);
+    }
+  } catch (err) {
+   catchError(err);
   }
+}

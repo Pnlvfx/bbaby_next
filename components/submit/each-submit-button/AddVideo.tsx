@@ -2,19 +2,22 @@ import { ChangeEvent, useContext, useRef } from 'react';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
 import { VideoIcon } from '../../utils/SVG';
 import { SubmitContext, SubmitContextType } from '../SubmitContext';
+import { importFileandPreview } from '../submitutils/myReader';
+import { buttonClass, hoverClass, iconClass } from './SubmitButton';
 
 const AddVideo = () => {
-  const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
   const errMessage = `Sorry, we accept only images (.png, .jpeg, .gif) and videos (.mp4, .mov)`
-  const containerClass = 'p-2 text-reddit_text-darker'
-  const { setSelectedFile, setIsVideo, setWidth, setHeight, setIsImage } = useContext(SubmitContext) as SubmitContextType;
+  const { selectedFile, setThumbnail, setSelectedFile, setIsVideo, setWidth, setHeight, setIsImage } = useContext(SubmitContext) as SubmitContextType;
   const fileVideoRef = useRef<HTMLInputElement>(null)
 
-
-  const addVideoToPost = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return setMessage({value: errMessage, status: 'error'})
+  const addVideoToPost = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return message.setMessage({value: errMessage, status: 'error'})
     const file = e?.target?.files[0]
-    previewVideo(file)
+    // importFileandPreview(file).then((res) => {
+    //   setSelectedFile(res);
+    // });
+    previewVideo(file);
   }
   const previewVideo = (file: File) => {
     if (!file) return
@@ -37,8 +40,12 @@ const AddVideo = () => {
   }
 
   return (
-    <div className={containerClass}>
+    <span className='h-8 w-8'>
       <button
+        role={'button'}
+        tabIndex={-1}
+        style={{lineHeight: 0}}
+        className={buttonClass}
         title="Add a video"
         onClick={() => {
           fileVideoRef && 
@@ -47,8 +54,11 @@ const AddVideo = () => {
           setIsVideo(true)
         }}
       >
-        <div className='h-6 w-6'>
-          <VideoIcon />
+        <VideoIcon className={iconClass} />
+        <div className='bottom-0 left-0 absolute right-0 top-0'>
+            <div className={hoverClass}>
+                {'Add a video'}
+            </div>
         </div>
         <input
           type="file"
@@ -58,7 +68,7 @@ const AddVideo = () => {
           ref={fileVideoRef}
         />
       </button>
-    </div>
+    </span>
   )
 }
 

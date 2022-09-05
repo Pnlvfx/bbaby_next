@@ -56,23 +56,25 @@ const Voting = ({ups,postId,liked}: Voting) => {
     }
 
   return (
-      <div className="mt-2 text-center">
-        <div className="cursor-pointer" onClick={event => {
+      <>
+        <button aria-label="upvote" className="h-6 w-6" onClick={event => {
           event.preventDefault()
           event.stopPropagation()
           handleVoteUp()
         }}>
-          <BiUpvote className={`w-6 h-6 text-reddit_text-darker hover:text-blue-600 text-center mx-auto && ${voted === true && "text-blue-600"}`}/>
-        </div>
-          <span className="text-sm">{upVote ? upVote : 0}</span>
-        <div className="cursor-pointer" onClick={event => {
+          <BiUpvote className={`w-6 h-6 text-reddit_text-darker hover:text-blue-600 text-center && ${voted === true && "text-blue-600"}`}/>
+        </button>
+          <div className="text-[12px] leading-[15px] mx-[1px] w-8 text-center font-bold pointer-events-none">
+            {upVote ? upVote : 0}
+          </div>
+        <button aria-label="downvote" className="h-6 w-6" onClick={event => {
           event.preventDefault()
           event.stopPropagation()
           handleVoteDown()
         }}>
-          <BiDownvote className={`w-6 h-6 text-reddit_text-darker hover:text-reddit_orange mx-auto && ${voted === false && "text-reddit_orange"}`}/>
-        </div>   
-      </div>    
+          <BiDownvote className={`w-6 h-6 text-reddit_text-darker hover:text-reddit_orange && ${voted === false && "text-reddit_orange"}`}/>
+        </button>   
+      </>    
   )
 }
 

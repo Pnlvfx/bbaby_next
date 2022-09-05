@@ -25,9 +25,9 @@ const SubmitPage: NextPage = () => {
         image={image}
         locale={locale}
       />
-      <div className="block p-2 sm:p-4 lg:flex">
-        <div className="mx-auto flex justify-center">
-          <div className="mr-0 w-full pt-5 md:mr-6 lg:w-[740px]">
+      <div className="flex flex-col" style={{minHeight: 'calc(100vh - 48px)'}}>
+        <div className="z-[3] max-w-[1248px] md:py-5 md:px-6 box-border my-0 mx-auto flex justify-center">
+          <div className="lg:max-w-[740px] mr-0 w-full pt-5 md:mr-6 lg:w-[740px]" style={{flexBasis: '100%', flexGrow: 1, flexShrink: 1}}>
             <SubmitLayout />
           </div>
           <div className="mt-11 hidden lg:block">

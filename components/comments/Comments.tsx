@@ -29,16 +29,16 @@ const Comments = ({parentId,rootId,comments:propsComments}:CommentsProps) => {
               </div>
               <div className='border-l-2 border-reddit_text-darker p-3' style={{marginLeft:'18px'}}>
                 <div className='pl-4 -mt-4'>
-                  <pre className='text-sm leading-6 break-words resize-x-none flex-none'>
-                    <p className='whitespace-pre-wrap'>{comment.body}</p>
-                  </pre>
+                  <div className='inline text-sm leading-6 break-words resize-x-none flex-none'>
+                    <p className='inline whitespace-pre-wrap'>{comment.body}</p>
+                  </div>
                   <div className='flex p-2 pl-0 w-auto'>
                     <Voting commentId={comment._id} />
                     <ReplyButton type={"button"} onClick={() => {setShowForm(!!comment._id)}}>Reply</ReplyButton>
                   </div>
                     {!!comment._id === showForm && (
                     <CommentForm parentId={comment._id} rootId={rootId} onSubmit={() => {setShowForm(false);
-                            rootCommentInfo.refreshComments();
+                        rootCommentInfo.refreshComments();
                     }}
                     showAuthor={false} 
                     onCancel={ (e:any) => setShowForm(false)} />

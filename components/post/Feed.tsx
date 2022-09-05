@@ -67,7 +67,7 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
       )}
       {postId === '' && (
         <div className="mx-[2px] lg:mx-10 mt-5 flex justify-center">
-          <div className="w-full lg:w-7/12  lg:mr-4 2xl:w-[650px] flex-none">
+          <div className="w-full lg:w-[640px] lg:mr-4">
             {!author && (
               <div className="mb-[18px]">
                 <PostForm community={community ? community : ''} />
@@ -77,19 +77,19 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
               <BestPost />
             </div>
             {/* {production && <GoogleAdsense2 />} */}
-           {posts.length > 6 ? 
-           <InfiniteScroll
-              dataLength={posts.length}
-              next={getMorePosts}
-              hasMore={true}
-              loader={<></>}
-              endMessage={<></>}
-            >
-              {posts.map((post) => <Post key={post._id} post={post} isListing={true} />)}
-            </InfiniteScroll> 
-            : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((_, idx) => (
-              <Skeleton isImage={true} key={idx} />
-            ))}
+           <div>
+            <InfiniteScroll
+                dataLength={posts.length}
+                next={getMorePosts}
+                hasMore={true}
+                loader={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((_, idx) => (
+                  <Skeleton isImage={true} key={idx} />
+                ))}
+                endMessage={<></>}
+              >
+                {posts.map((post) => <Post key={post._id} post={post} isListing={true} />)}
+              </InfiniteScroll>
+           </div>
           </div>
           <div className="hidden lg:block">
             {community ? <CommunitiesInfo /> : <TopCommunities />}

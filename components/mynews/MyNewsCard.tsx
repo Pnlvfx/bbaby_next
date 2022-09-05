@@ -5,12 +5,13 @@ import { useContext } from "react";
 import { AiOutlineRead } from "react-icons/ai";
 import {FcVideoProjector} from 'react-icons/fc';
 import UserContext from "../auth/UserContext";
+
 interface MyNewsCardProps {
     news: NewsProps
     isListing?: boolean
 }
 
-const MyNewsCard = ({news,isListing}:MyNewsCardProps) => {
+const MyNewsCard = ({news, isListing}: MyNewsCardProps) => {
     const router = useRouter();
     const {session} = useContext(UserContext) as SessionProps;
     let width = 1920;
@@ -41,6 +42,7 @@ const MyNewsCard = ({news,isListing}:MyNewsCardProps) => {
                     <p className="text-sm ml-1">News</p>
                 </button>
                 {session && session?.user.role === 1 && (
+                    <>
                     <Link href={`/governance/youtube`}>
                         <a onClick={(e) => {
                             e.preventDefault();
@@ -54,6 +56,11 @@ const MyNewsCard = ({news,isListing}:MyNewsCardProps) => {
                             <p className="text-sm ml-1">Create video</p>
                         </a>
                     </Link>
+                    <button className="hover:bg-reddit_dark-brightest rounded-md flex p-[10px]">
+                        <AiOutlineRead className="w-5 h-5" />
+                        <p className="text-sm ml-1">Edit News</p>
+                    </button>
+                    </>
                 )}
             </div>
         </div>

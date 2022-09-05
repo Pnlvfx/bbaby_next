@@ -28,7 +28,7 @@ module.exports = {
           darker: '#818384',
         },
         reddit_hover: {
-          DEFAULT: '#2E2E30'
+          DEFAULT: '#454546'
         },
         reddit_blue: {
           DEFAULT: '#24A0ED'

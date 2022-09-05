@@ -33,20 +33,17 @@ export const getYoutubeAccessToken = async (code: string, context: NextPageConte
             body,
             headers: context ? ssrHeaders(context) : postRequestHeaders
         });
+        const data = await res.json()
         if (res.ok) {
-            return res;
+            return data
         } else {
-            const e = await res.json();
-            const error = {msg: e.msg, ok: false}
-            return error as FetchError
+            return data.msg
         }
     } catch (err) {
         if (err instanceof Error) {
-            const error = {msg: err.message, ok: false};
-            return error as FetchError;
+            return err.message
         } else {
-            const error = {msg: `That's strange`, ok: false};
-            return error as FetchError;
+            return `That's strange`!
         }
     }
 }

@@ -15,6 +15,8 @@ const BestPost = () => {
       setActive(0)
     }
   },[router])
+
+  
   return (
       <div className="flex space-x-3 rounded-md border border-reddit_border bg-reddit_dark-brighter py-[13px] px-2">
           <Link href={'/'} as={'/best'}>

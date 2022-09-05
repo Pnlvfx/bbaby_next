@@ -10,26 +10,13 @@ import { useRouter } from "next/router";
 import { getSession } from "../../components/API/ssrAPI";
 
 interface YoutubeError {
-  error?: string
   youtube?: string
 }
 
-const Governance: NextPage<YoutubeError> = ({error, youtube}) => {
+const Governance: NextPage<YoutubeError> = ({youtube}) => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
   const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
   const router = useRouter();
-
-  useEffect(() => {
-    if (!router.isReady) return
-    if (error) {
-      setMessage({value: error, status: 'error'});
-      router.replace('/governance', undefined, {shallow: false});
-    }
-
-    return () => {
-      error = ''
-    }
-  }, [router, error])
 
   useEffect(() => {
     if (!youtube) return;
@@ -72,18 +59,12 @@ export const getServerSideProps = async (context: NextPageContext) => {
   }
   if (code) {
     const res = await getYoutubeAccessToken(code.toString(), context);
-    if (res.ok) {
-      youtube = 'Account connected successfully'
-    } else {
-      const e = res as FetchError;
-      error = e.msg
-    }
+    youtube = 'Account connected successfully'
   }
 
   return {
     props: {
       session,
-      error,
       youtube
     },
   }

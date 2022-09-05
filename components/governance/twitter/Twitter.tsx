@@ -26,8 +26,8 @@ const Twitter = () => {
   }, [])
 
   return (
-    <div id="diplay_tweets" className="mx-0 lg:mx-10 flex justify-center">
-      <div className="w-full lg:w-7/12 xl:w-5/12 2xl:w-[650px]">
+    <div id="diplay_tweets" className="mx-[2px] lg:mx-10 flex justify-center">
+      <div className="w-full lg:w-[640px]">
         <div className='mb-4'>
           <TwMainMenu setLanguage={setLanguage} setTweets={setTweets} />
         </div>
