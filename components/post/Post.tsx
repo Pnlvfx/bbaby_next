@@ -18,12 +18,12 @@ const Post = ({post, isListing, open}:ExtendPostProps) => {
    <div>
         <div>
             {open && (
-                <div className={`border rounded-md border-none`} >
+                <div className={`border rounded-md border-none bg-reddit_dark-brighter`} >
                     <PostContent post={post} />
                 </div>
             )}
             {!open && (
-                <div className={`bg-[#141415] w-full mb-3 border border-reddit_border rounded-md hover:border-reddit_text cursor-pointer`}
+                <div className={`bg-reddit_dark-brighter w-full mb-3 border border-reddit_border rounded-md hover:border-reddit_text cursor-pointer`}
                     onClick={e => {
                         e.preventDefault()
                         e.stopPropagation()

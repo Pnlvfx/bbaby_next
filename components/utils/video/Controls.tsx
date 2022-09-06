@@ -7,6 +7,7 @@ import Logo from '../../../public/logo.png';
 import { useContext } from "react";
 import { VideoPlayerContext, VideoPlayerContextProps } from "./VidePlayerContext";
 import { handlePlayPause } from "./utils/hooks";
+import { Spinner } from "../Button";
 
 const Controls = () => {
   const { 
@@ -21,6 +22,7 @@ const Controls = () => {
     setIsEnded, 
     played, 
     player,
+    loading,
     duration} = useContext(VideoPlayerContext) as VideoPlayerContextProps;
 
   const toggleFullScreenMode = () => {
@@ -64,6 +66,15 @@ const Controls = () => {
         handlePlayPause(player)
       }} className="absolute top-[50%] left-[50%] ml-[-30px] mt-[-30px] z-10 cursor-pointer">
         <VideoCenterPlayIcon />
+      </div>
+      }
+      {loading &&
+      <div onClick={(e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        handlePlayPause(player)
+      }} className="absolute top-[50%] left-[50%] ml-[-30px] mt-[-30px] z-10 cursor-pointer">
+          <Spinner />
       </div>
       }
       <div className="absolute flex justify-between items-end bottom-0 left-0 right-0 p-2 align-baseline m-0">

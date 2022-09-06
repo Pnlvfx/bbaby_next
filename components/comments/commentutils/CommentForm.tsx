@@ -41,9 +41,6 @@ function CommentForm({
         })
     } catch (err) {
       console.log(err)
-      // if(err.response.status === 401) { ///NOW WE PREVENT TO POST NOT USER CLIENT SIDE
-      //     authModalContext.setShow('login');
-      // }
     }
   }
 
@@ -56,63 +53,65 @@ function CommentForm({
   return (
     <>
       {session && showAuthor && ( //SHOW AUTHOR
-        <div className="mb-2 self-center text-[13px]">
-          <p className="self-center">
-            Comment as{' '}
-            <Link href={`/user/${session.user.username}`}>
-              <a className="mt-[1px] self-center text-reddit_blue">
-                {session.user.username}
-              </a>
-            </Link>
-          </p>
-        </div>
+        <span className="text-[12px] leading-[18px]">
+          Comment as{' '}
+          <Link href={`/user/${session.user.username}`}>
+            <a className="text-[12px] leading-[16px]  text-[#4fbcff]">
+              {session.user.username}
+            </a>
+          </Link>
+        </span>
       )}
-      <ClickOutHandler onClickOut={() => {
-        setActive(false)
-      }}>
-      <form
-      onClick={() => {
-        setActive(true)
-      }}
-        className={`border border-reddit_border bg-reddit_dark-brighter rounded-md ${active && "border-reddit_text"}`}
-        onSubmit={(e) => {
-            e.preventDefault()
-            postComment()
-        }}
-      >
-        <textarea
-          className="bg-reddit_dark-brighter p-2 h-[130px] outline-none max-h-[270px] min-h-[150px] w-full placeholder:text-sm placeholder:text-reddit_text-darker"
-          onChange={(e) => {
-            setCommentBody(e.target.value)
-            setCommentBodyLength(e.target.value.length)
-          }}
-          value={commentBody}
-          placeholder={'What are your thoughts?'}
-        />
-        <div className="h-[34px] w-full bg-reddit_dark-brightest">
-          <div className="text-right">
-            {!!onCancel && (
-              <button
-                className={`${buttonClass()} mr-4 border-none h-[24px] hover:bg-reddit_hover`}
-                onClick={(e) => onCancel()}
-              >
-                Cancel
-              </button>
-            )}
-            <button
-              disabled={!enableComment}
-              className={`my-1 mr-2 h-[24px] ${buttonClass()} ${
-                enableComment
-                  ? 'text-opacity-100'
-                  : 'cursor-not-allowed text-opacity-40'
-              }`}
+        <div className='left-[33px]'>
+          <div className='relative'>
+            <form
+            onClick={() => {
+              setActive(true)
+            }}
+              className={`relative border solid border-reddit_border bg-reddit_dark-brighter rounded-[4px] ${active && "border-reddit_text"}`}
+              onSubmit={(e) => {
+                  e.preventDefault()
+                  postComment()
+              }}
             >
-              <p>Comment</p>
-            </button>
+              <ClickOutHandler onClickOut={() => {
+                setActive(false)
+              }}>
+              <textarea
+                className="bg-reddit_dark-brighter p-2 h-[130px] outline-none max-h-[270px] min-h-[150px] w-full placeholder:text-sm placeholder:text-reddit_text-darker"
+                onChange={(e) => {
+                  setCommentBody(e.target.value)
+                  setCommentBodyLength(e.target.value.length)
+                }}
+                value={commentBody}
+                placeholder={'What are your thoughts?'}
+              />
+              <div className="h-[34px] w-full bg-reddit_dark-brightest">
+                <div className="text-right">
+                  {!!onCancel && (
+                    <button
+                      className={`${buttonClass()} mr-4 border-none h-[24px] hover:bg-reddit_hover`}
+                      onClick={(e) => onCancel()}
+                    >
+                      Cancel
+                    </button>
+                  )}
+                  <button
+                    disabled={!enableComment}
+                    className={`my-1 mr-2 h-[24px] ${buttonClass()} ${
+                      enableComment
+                        ? 'text-opacity-100'
+                        : 'cursor-not-allowed text-opacity-40'
+                    }`}
+                  >
+                    <p>Comment</p>
+                  </button>
+                </div>
+              </div>
+              </ClickOutHandler>
+            </form>
           </div>
         </div>
-      </form>
-      </ClickOutHandler>
     </>
   )
 }

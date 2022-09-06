@@ -31,11 +31,11 @@ const MyNewsCard = ({news, isListing}: MyNewsCardProps) => {
         }} className={`${isListing && "cursor-pointer"} p-2`}>
             <p className="font-bold mb-2">{news.title}</p>
             {news.mediaInfo.isImage && news.mediaInfo.image && news.mediaInfo.width && news.mediaInfo.height && (
-                <div className="max-h-[500px] overflow-hidden">
+                <div className="max-h-[510px] overflow-hidden">
                     <Image src={news.mediaInfo.image} width={width} height={height} alt={news.mediaInfo.alt} objectFit='contain' />
                 </div>
             )}
-            <p className="whitespace-pre-wrap truncate">{isListing ? news.description.substring(0, 250) : news.description}...</p>
+            <p className="whitespace-pre-wrap truncate mt-2">{isListing ? news.description.substring(0, 250) : news.description}...</p>
             <div id="buttons" className="flex items-center rounded-sm mt-2 mr-2 text-reddit_text-darker">
                 <button disabled={!isListing} className="hover:bg-reddit_dark-brightest rounded-md flex p-[10px]">
                     <AiOutlineRead className="w-5 h-5" />

@@ -1,12 +1,12 @@
 import { ReactNode, useContext, useEffect } from 'react'
 import { VideoPlayerContext, VideoPlayerContextProps } from './VidePlayerContext';
 
-interface b  {
+interface ScrollProps  {
   children: ReactNode
   enable?: boolean
 }
 
-const ScrollObserver = ({children, enable}: b) => {
+const ScrollObserver = ({children, enable}: ScrollProps) => {
   const {player} = useContext(VideoPlayerContext) as VideoPlayerContextProps;
 
   const callback = (entries: IntersectionObserverEntry[]) => {
@@ -20,18 +20,18 @@ const ScrollObserver = ({children, enable}: b) => {
 
   useEffect(() => {   //Start video on scroll;
     if (!enable) return;
-  const options = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 1.0
-  }
-  setTimeout(() => {
-    const observer = new IntersectionObserver(callback, options);
-    if (player.current) observer.observe(player.current);
-    return () => {
-      if (player.current) observer.unobserve(player.current);
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 1.0
     }
-  },500)
+    setTimeout(() => {
+      const observer = new IntersectionObserver(callback, options);
+      if (player.current) observer.observe(player.current);
+      return () => {
+        if (player.current) observer.unobserve(player.current);
+      }
+    }, 500)
 }, [player])
 
   return (

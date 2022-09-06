@@ -16,10 +16,10 @@ const UploadVideo = ({input,setModalType}:UploadVideoProps) => {
         try {
             setLoading(true)
             const body = JSON.stringify({
-                title:input.title,
-                description:input.description,
-                tags:input.keywords,
-                categoryId:input.category,
+                title: input.title,
+                description: input.description,
+                tags: input.keywords,
+                categoryId: input.category,
                 privacyStatus: input.privacyStatus,
             })
             const url = `${server}/governance/youtube`;

@@ -7,7 +7,7 @@ interface EffectsProps  {
   }
 
 const Effects = ({ children }: EffectsProps) => {
-  const { setControls, videoContainerRef, player, isEnded, isMuted, setIsMuted, volumeSliderContainer, setIsEnded, volumeSlider, timelineBall, setprogressPosition, setPlayed, setDuration, timelineRef, setIsPlaying, previewPositionRef} = useContext(VideoPlayerContext) as VideoPlayerContextProps;
+  const { setLoading, setControls, videoContainerRef, player, isEnded, isMuted, setIsMuted, volumeSliderContainer, setIsEnded, volumeSlider, timelineBall, setprogressPosition, setPlayed, setDuration, timelineRef, setIsPlaying, previewPositionRef} = useContext(VideoPlayerContext) as VideoPlayerContextProps;
 
   let isScrabbing = false
   let wasPaused = false
@@ -110,7 +110,7 @@ const Effects = ({ children }: EffectsProps) => {
   }
 
   const addListeners = () => {
-    //player.current?.addEventListener('waiting', (ev) => {console.log(ev)});
+    //player.current?.addEventListener('waiting', (ev) => {setLoading(true)});
     player.current?.addEventListener('play', () => onPlay());
     player.current?.addEventListener('pause', () => {setIsPlaying(false)});
     player.current?.addEventListener('ended', () => onEnded());

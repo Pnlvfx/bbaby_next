@@ -1,8 +1,6 @@
 import { CSSProperties } from "react";
 import TimeAgo from "timeago-react";
-import { COLORS } from "../../main/config";
 import Video from "../../utils/video/Video";
-import VideoPlayer from "../../utils/video/VideoPlayer";
 
 interface ExtendRedditPosts {
     post: RedditPostsProps['data']
@@ -17,6 +15,8 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
     wordWrap: 'break-word',
     display: 'inline'
    }
+
+   if (!post.is_video) return null
   return (
     <div>
       <div
@@ -95,6 +95,7 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
                       <Video
                         url={post.media?.reddit_video.fallback_url}
                         poster={post.thumbnail}
+                        scroll={true}
                       />
                     </div>
                   </>

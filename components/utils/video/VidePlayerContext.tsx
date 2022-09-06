@@ -24,6 +24,8 @@ export interface VideoPlayerContextProps {
     setIsMuted: Dispatch<SetStateAction<boolean>>
     controls: boolean 
     setControls: Dispatch<SetStateAction<boolean>>
+    loading: boolean 
+    setLoading: Dispatch<SetStateAction<boolean>>
 }
 
 export const VideoPlayerContext = createContext<VideoPlayerContextProps | {}>({})
@@ -41,6 +43,7 @@ export const VideoPlayerContextProvider = ({children, url, poster}: VideoPlayerC
       const [played, setPlayed] = useState('0:00')
       const [isEnded, setIsEnded] = useState(false);
       const [controls, setControls] = useState(false);
+      const [loading, setLoading] = useState(false);
 
       const [isMuted, setIsMuted] = useState(true);
       const previewPositionRef = useRef(null)
@@ -75,6 +78,8 @@ export const VideoPlayerContextProvider = ({children, url, poster}: VideoPlayerC
             setIsMuted,
             controls,
             setControls,
+            loading,
+            setLoading
         }}>
             {children}
         </VideoPlayerContext.Provider>

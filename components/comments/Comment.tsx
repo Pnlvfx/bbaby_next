@@ -6,7 +6,6 @@ import Comments from './Comments'
 import CommentForm from './commentutils/CommentForm'
 import { useRouter } from 'next/router'
 import { GoCommentDiscussion } from 'react-icons/go'
-import { catchError } from '../API/common'
 
 interface CommentRootProps {
     post: PostProps
@@ -62,29 +61,26 @@ const Comment = ({post, postId}: CommentRootProps) => {
             <Post post={post} open={true} />
         )}
       {!!post && !!post._id && (
-          <div className='flex'>
-            <div className='w-10 flex-none bg-[#141415]' />
-            <div className='w-full'>
-                <div className='w-full mt-4'>
-                    <CommentForm onSubmit={() => refreshComments()} rootId={post._id} parentId={post._id} showAuthor={true} />
-                </div>
-                <div className='my-4'>
-                    <hr className='border-reddit_border' />
-                    {comments.length < 1 && (
-                    <div className='w-full min-h-[600px] flex justify-center items-center'>
-                        <div className='text-center'>
-                            <GoCommentDiscussion className='my-3 w-[28px] h-[28px] text-reddit_text-darker mx-auto' />
-                            <p className='font-bold text-reddit_text-darker'>No Comments yet</p>
-                            <p className='mt-1 text-reddit_text-darker font-bold text-sm'>Be the first to share what you think!</p>
-                        </div>
+          <div className='my-6 mx-10 relative'>
+                    <div className='mb-1'>
+                        <CommentForm onSubmit={() => refreshComments()} rootId={post._id} parentId={post._id} showAuthor={true} />
                     </div>
-                    )}
+                    <div className='my-4'>
+                        <hr className='border-reddit_border' />
+                        {comments.length < 1 && (
+                        <div className='w-full min-h-[600px] flex justify-center items-center'>
+                            <div className='text-center'>
+                                <GoCommentDiscussion className='my-3 w-[28px] h-[28px] text-reddit_text-darker mx-auto' />
+                                <p className='font-bold text-reddit_text-darker'>No Comments yet</p>
+                                <p className='mt-1 text-reddit_text-darker font-bold text-sm'>Be the first to share what you think!</p>
+                            </div>
+                        </div>
+                        )}
+                    </div>
+                    <RootCommentContext.Provider value={{refreshComments,refreshVotes,commentsTotals,userVotes}}>
+                        <Comments parentId={post._id} rootId={post._id} comments={comments}/>
+                    </RootCommentContext.Provider>
                 </div>
-                <RootCommentContext.Provider value={{refreshComments,refreshVotes,commentsTotals,userVotes}}>
-                    <Comments parentId={post._id} rootId={post._id} comments={comments}/>
-                </RootCommentContext.Provider>
-            </div>
-          </div>
       )}
         </div>
       </div>

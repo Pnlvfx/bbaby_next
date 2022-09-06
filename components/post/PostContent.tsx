@@ -12,7 +12,7 @@ import Video from '../utils/video/Video';
 
 type PostContentProps = {
   post: PostProps
-  isListing?: Boolean
+  isListing?: boolean
 }
 
 const PostContent = ({ post, isListing }: PostContentProps) => {
@@ -25,13 +25,13 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
     display: 'inline'
    }
   return (
-  <div className='md:pl-10 flex max-h-[800px] relative' style={{ borderRadius: 6 }}>
+  <div className='bg-reddit_dark-brighter md:pl-10 flex max-h-[800px] relative' style={{ borderRadius: 6 }}>
       <div className="w-10 md:flex flex-col items-center box-border left-0 absolute py-2 pr-1 top-0 hidden" style={{borderLeft: '4px solid transparent'}}>
         <div className='md:flex items-center flex-col hidden'>
           <Voting ups={post.ups} postId={post._id} liked={post.liked} />
         </div>
       </div>
-      <div className='bg-reddit_dark-brighter pt-2 w-full'>
+      <div className=' pt-2 w-full'>
         <div className={`text-[12px] items-start flex mx-2 mb-2 relative leading-4`}>
           <div className='flex-none align-baseline'>
             <Link href={`/b/${post.community}`}>
@@ -123,6 +123,7 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
                     <Video
                       url={post.mediaInfo.video.url}
                       poster={post.mediaInfo.video.url.replace('mp4', 'jpg')}
+                      scroll={isListing}
                   />
                 </div>
               </>

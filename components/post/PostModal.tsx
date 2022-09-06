@@ -8,6 +8,7 @@ import CommunitiesInfo from "../widget/CommunitiesInfo";
 import { CommunityContext, CommunityContextProps } from "../community/CommunityContext";
 import Donations from "../widget/Donations";
 import { getPost } from "./APIpost";
+import { AuthModalContext, AuthModalContextProps } from "../auth/modal/AuthModalContext";
 
 type PostModalProps = {
   community?: string
@@ -21,6 +22,7 @@ const PostModal = ({community,postId,open,onClickOut}:PostModalProps) => {
   const [post,setPost] = useState<PostProps>({} as PostProps);
   const [loading,setLoading] = useState(true)
   const {getCommunity} = useContext(CommunityContext) as CommunityContextProps;
+  const modalContext = useContext(AuthModalContext) as AuthModalContextProps;
 
   useEffect(() => {
     if(!postId) return;
@@ -37,7 +39,8 @@ const PostModal = ({community,postId,open,onClickOut}:PostModalProps) => {
   const [isCategoryDropdownOpen,setIsCategoryDropdownOpen] = useState(false)
 
   const clickOut = () => {
-    if (isCategoryDropdownOpen) return
+    if (isCategoryDropdownOpen || modalContext.show !== 'hidden') return;
+    console.log('clicked out')
     router.push({
       pathname:router.pathname,
       query: community ? {community: community} : {username: post?.author}

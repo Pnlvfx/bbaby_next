@@ -6,13 +6,6 @@ import { VideoPlayerContext, VideoPlayerContextProps } from "./VidePlayerContext
 const VideoPlayer = () => {
   const {player, url, poster, videoContainerRef} = useContext(VideoPlayerContext) as VideoPlayerContextProps;
 
-  // useEffect(() => {
-  //   if (!controls) return;
-  //   setTimeout(() => {
-  //     setControls(false);
-  //   }, 5000)
-  // }, [controls])
-
   return (
     <div 
       ref={videoContainerRef} 

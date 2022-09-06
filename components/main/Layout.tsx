@@ -2,7 +2,7 @@ import Header from '../header/Header';
 import UseGoogleOneTapLogin from '../auth/providers/google/hooks/useGoogleOneTapLogin';
 import dynamic from 'next/dynamic';
 import { googleLogin } from '../auth/providers/google/hooks/googleLogin';
-import { ReactNode, useContext, useEffect } from 'react';
+import { ReactNode, useContext } from 'react';
 import { AuthModalContext, AuthModalContextProps } from '../auth/modal/AuthModalContext';
 import { useRouter } from 'next/router';
 import { TimeMsgContext, TimeMsgContextProps } from './TimeMsgContext';

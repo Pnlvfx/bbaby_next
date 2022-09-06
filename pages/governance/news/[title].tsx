@@ -48,7 +48,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     session = await getSession(context);
     description = await getArticle(link.toString(), imageUrl.toString(), context)
   } catch (err) {
-    
+    console.log(err);
   }
 
   return {

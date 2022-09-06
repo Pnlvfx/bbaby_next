@@ -247,7 +247,9 @@ const AuthModal: NextComponentType = () => {
             </div>
           </div>
           <div id="closeButton" className="mr-3 mt-3 h-7 w-7 text-right">
-            <button onClick={() => {
+            <button onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
                 closeModal();
               }}
             >

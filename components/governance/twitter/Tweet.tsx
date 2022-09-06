@@ -102,6 +102,7 @@ const Tweet = ({ username, screen_name, created_at, title, type, video, image, w
                         <Video
                           url={video}
                           poster={image}
+                          scroll={true}
                         />
                       </div>
                     </div>
