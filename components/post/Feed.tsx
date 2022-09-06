@@ -76,7 +76,7 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
             <div className="mb-4">
               <BestPost />
             </div>
-            {/* {production && <GoogleAdsense2 />} */}
+            {process.env.NEXT_PUBLIC_NODE_ENV === 'production' && <GoogleAdsense2 />}
            <div>
             <InfiniteScroll
                 dataLength={posts.length}
