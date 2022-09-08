@@ -39,16 +39,18 @@ const SubmitPage:NextPage = () => {
       <meta property="og:type" content="website" key="ogtype" />
       <link rel='canonical' href={url} key='canonical' />
     </Head>
-    <div className="p-2 sm:p-4 block lg:flex">
-      <div className="mx-auto flex justify-center">
-        <div className="mr-0 md:mr-6 w-full lg:w-[740px] pt-5">
-            <SubmitLayout community={communityName} />
-        </div>
-        <div className="hidden lg:block mt-11">
-          <TempSubmitWid />
+    <div className="flex flex-col" style={{minHeight: 'calc(100vh - 48px)'}}>
+        <div className="z-[3]">
+          <div className=' max-w-[1248px] md:py-5 md:px-6 flex flex-row justify-center box-border my-0 mx-auto'>
+            <div className="lg:max-w-[740px] mr-0 w-full pt-5 md:mr-6 lg:w-[740px]" style={{flexBasis: '100%', flexGrow: 1, flexShrink: 1}}>
+              <SubmitLayout />
+            </div>
+            <div className="mt-11 hidden lg:block">
+              <TempSubmitWid />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
     </>
   )
 }

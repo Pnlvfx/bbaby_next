@@ -65,21 +65,25 @@ const Home = () => {
 
   return (
     <div 
-    aria-label='search your community' 
-    id="home_button" 
-    className={`relative hidden w-[270px] lg:block h-[36px] rounded-md border hover:border-reddit_border ${show ? 'border-reddit_border' : 'border-transparent'}`}>
-      <ClickOutHandler onClickOut={() => {
-        setShow(false);
-      }}>
+      aria-label='search your community' 
+      id="home_button" 
+      className={`relative hidden w-[270px] lg:block h-[36px] rounded-md border hover:border-reddit_border ${show ? 'border-reddit_border' : 'border-transparent'}`}
+    >
       <button onClick={(e) => {
-        e.preventDefault();
-        setShow(!show)
-      }} className=" w-full h-full">
+          e.preventDefault();
+          setShow(!show)
+        }} className=" w-full h-full"
+      >
+        <ClickOutHandler onClickOut={() => {
+          setShow(false);
+        }}
+        >
         <div className="ml-1 flex items-center">
           {icon}
           {path}
           <HiChevronDown className="ml-auto mr-2 h-[20px] w-[20px]" />
         </div>
+        </ClickOutHandler>
       </button>
       {show && 
       <div className='pb-4 bg-reddit_dark-brighter border solid border-t-0 overflow-x-hidden overflow-y-scroll border-reddit_border rounded-md box-border left-[-1px] mt-[-1px] max-h-[482px] top-[100%] right-0 absolute ' role={'menu'}>
@@ -91,7 +95,6 @@ const Home = () => {
         <div className='text-reddit_text-darker uppercase px-8 pt-4 pb-2 text-[10px] font-semibold leading-[16px]'>Moderating</div>
       </div>
       }
-      </ClickOutHandler>
     </div>
   )
 }

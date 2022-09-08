@@ -76,8 +76,7 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
             <div className="mb-4">
               <BestPost />
             </div>
-            {process.env.NEXT_PUBLIC_NODE_ENV === 'production' && 
-            <GoogleAdsense />}
+            
            <div>
             <InfiniteScroll
                 dataLength={posts?.length || 0}
@@ -89,7 +88,15 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
                 endMessage={<></>}
                 
               >
-                {posts?.map((post) => <Post key={post._id} post={post} isListing={true} />)}
+                {posts?.map((post, index) => (
+                  <div key={post._id}>
+                  {process.env.NEXT_PUBLIC_NODE_ENV === 'production' &&
+                   index === 2 && (
+                    <GoogleAdsense />
+                  )}
+                <Post post={post} isListing={true} />
+                </div>
+                ))}
               </InfiniteScroll>
            </div>
           </div>
