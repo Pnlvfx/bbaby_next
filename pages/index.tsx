@@ -23,6 +23,7 @@ const Home: NextPage<HomePg> = ({ posts }) => {
     <script
         id="Adsense-id"
         async
+        defer
         onError={(e) => {console.log("Adsense failed to load", e)}}
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7203519143982992"
         crossOrigin="anonymous"

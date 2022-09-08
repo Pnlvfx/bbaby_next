@@ -10,20 +10,23 @@ import { siteUrl } from '../components/main/config';
 import { GoogleOAuthProvider } from '../components/auth/providers/google/GoogleOAuthProvider';
 import Layout from '../components/main/Layout';
 import { useEffect } from 'react';
-import Script from 'next/script';
+interface AppPropsss {
+  session: SessionProps['session']
+}
 
-const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps) => {
+const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps<AppPropsss>) => {
 
   useEffect(() => {
     const tracker = async () => {
       try {
+        if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return;
+        if (session?.user.role === 1) return;
         const server = process.env.NEXT_PUBLIC_SERVER_URL
         const url = `${server}/user/analytics`
         const res = await fetch(url, {
           method: 'get',
           credentials: 'include'
         })
-        console.log(res);
       } catch (err) {
         
       }
