@@ -79,15 +79,16 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
             {process.env.NEXT_PUBLIC_NODE_ENV === 'production' && <GoogleAdsense2 />}
            <div>
             <InfiniteScroll
-                dataLength={posts.length}
+                dataLength={posts?.length || 0}
                 next={getMorePosts}
                 hasMore={true}
                 loader={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((_, idx) => (
                   <Skeleton isImage={true} key={idx} />
                 ))}
                 endMessage={<></>}
+                
               >
-                {posts.map((post) => <Post key={post._id} post={post} isListing={true} />)}
+                {posts?.map((post) => <Post key={post._id} post={post} isListing={true} />)}
               </InfiniteScroll>
            </div>
           </div>

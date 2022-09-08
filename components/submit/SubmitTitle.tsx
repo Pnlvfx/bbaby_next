@@ -1,6 +1,7 @@
-import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 import ClickOutHandler from 'react-clickout-ts';
 import UserContext from '../auth/UserContext';
+import TeaxtareaAutosize from '../utils/TeaxtareaAutosize';
 import { SubmitContext, SubmitContextType } from './SubmitContext';
 
 
@@ -14,7 +15,6 @@ const SubmitTitle = () => {
     resize-none box-border block w-full outline-none rounded-[4px] 
     placeholder-reddit_text-darker text-[15px] overflow-hidden
     `
-    const tx = useRef<HTMLTextAreaElement>(null);
 
     const {
         title,
@@ -24,21 +24,9 @@ const SubmitTitle = () => {
     } = useContext(SubmitContext) as SubmitContextType;
 
     const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        const element = e.target
         setTitle(e.target.value)
         setTitleLength(e.target.value.length)
     }
-
-    const resizeTextarea = () => {
-        if (tx.current) {
-            tx.current.style.height = '0'
-            tx.current.style.height = (tx.current.scrollHeight) + 'px'
-        }
-    }
-
-    useEffect(() => {
-        if (tx.current) resizeTextarea();
-    }, [title])
 
   return (
     <div className='mb-2'>
@@ -46,12 +34,9 @@ const SubmitTitle = () => {
             <ClickOutHandler onClickOut={() => {
                 setActive(false)
             }}>
-            <textarea
-                ref={tx}
-                style={{overflowWrap: 'break-word'}}
+            <TeaxtareaAutosize
                 className={`${titleClass} ${active ? 'border-reddit_text' : 'border-reddit_border'}`}
                 placeholder={'Title'}
-                rows={1}
                 onClick={() => {
                     setActive(true);
                 }}

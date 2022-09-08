@@ -34,7 +34,7 @@ const NewsIdPage: NextPage<NewsIdPageProps> = ({news}) => {
         <meta name="twitter:image:alt" content={news.mediaInfo.alt} />
       </Head>
         <div className='flex mt-5 justify-center mx-[0px] lg:mx-10'>
-          <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[950px] mr-4 flex-none'>
+          <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[950px] lg:mr-4 flex-none'>
             <MyNewsCard news={news} />
           </div>
           <div className='hidden lg:block'>

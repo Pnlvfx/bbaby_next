@@ -3,19 +3,22 @@ import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 import { AiOutlineOrderedList, AiOutlinePlus } from 'react-icons/ai';
 import { BsSearch } from 'react-icons/bs'
-import { HiChevronDown } from 'react-icons/hi'
-import { TbBabyCarriage } from 'react-icons/tb'
-import UserContext from '../auth/UserContext'
-import { CommunityContext, CommunityContextProps } from '../community/CommunityContext'
-import { HomeIcon } from '../utils/SVG'
+import { HiChevronDown } from 'react-icons/hi';
+import { TbBabyCarriage } from 'react-icons/tb';
+import UserContext from '../auth/UserContext';
+import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
+import { HomeIcon } from '../utils/SVG';
 import {TiNews} from 'react-icons/ti';
+import ClickOutHandler from 'react-clickout-ts';
 
 const Home = () => {
   const [path,setPath] = useState(<h1 className="ml-2 text-sm font-bold">Home</h1>)
   const [icon,setIcon] = useState(<HomeIcon className='w-5 h-5' />)
   const {communityInfo} = useContext(CommunityContext) as CommunityContextProps;
   const {session} = useContext(UserContext) as SessionProps;
-  const router = useRouter()
+  const router = useRouter();
+  const [show, setShow] = useState(false);
+
 
   useEffect(() => {
     if (router.pathname === '/' || router.pathname === '/best') {
@@ -61,14 +64,34 @@ const Home = () => {
   }, [router,communityInfo,session])
 
   return (
-    <div id="home_button" className=" hidden w-[255px] lg:block h-[36px] rounded-md border-reddit_border hover:border">
-      <button className=" w-full h-full">
+    <div 
+    aria-label='search your community' 
+    id="home_button" 
+    className={`relative hidden w-[270px] lg:block h-[36px] rounded-md border hover:border-reddit_border ${show ? 'border-reddit_border' : 'border-transparent'}`}>
+      <ClickOutHandler onClickOut={() => {
+        setShow(false);
+      }}>
+      <button onClick={(e) => {
+        e.preventDefault();
+        setShow(!show)
+      }} className=" w-full h-full">
         <div className="ml-1 flex items-center">
           {icon}
           {path}
-          <HiChevronDown className=" ml-auto mr-2 h-[23px] w-[23px]" />
+          <HiChevronDown className="ml-auto mr-2 h-[20px] w-[20px]" />
         </div>
       </button>
+      {show && 
+      <div className='pb-4 bg-reddit_dark-brighter border solid border-t-0 overflow-x-hidden overflow-y-scroll border-reddit_border rounded-md box-border left-[-1px] mt-[-1px] max-h-[482px] top-[100%] right-0 absolute ' role={'menu'}>
+        <input aria-label='search your community'
+          className='text-sm bg-reddit_dark-brightest border border-reddit_border h-[30px] mt-4 mx-4 outline-none box-border px-[6px] placeholder:text-reddit_text-darker' 
+          style={{width: 'calc(100% - 32px)'}}
+          placeholder='Filter'
+        />
+        <div className='text-reddit_text-darker uppercase px-8 pt-4 pb-2 text-[10px] font-semibold leading-[16px]'>Moderating</div>
+      </div>
+      }
+      </ClickOutHandler>
     </div>
   )
 }

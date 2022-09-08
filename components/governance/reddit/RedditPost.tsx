@@ -16,7 +16,7 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
     display: 'inline'
    }
 
-   if (!post.is_video) return null
+   //if (!post.is_video) return null
   return (
     <div>
       <div

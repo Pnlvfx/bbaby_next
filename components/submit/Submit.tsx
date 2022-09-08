@@ -12,7 +12,7 @@ type SubmitProps = {
     community?: string | string[]
 }
 
-const Submit = ({newTweet, community}:SubmitProps) => {
+const Submit = ({newTweet, community}: SubmitProps) => {
     const {session} = useContext(UserContext) as SessionProps;
 
     const {
@@ -72,7 +72,7 @@ const Submit = ({newTweet, community}:SubmitProps) => {
   return (
     <>
     <div tabIndex={0} />
-        <div className={`${loading ? 'opacity-40' : 'opacity-100'}`}>
+        <div className={`${loading ? 'opacity-40' : 'opacity-100'} px-2 md:px-0`}>
             <div className='p-1 my-4 border-b solid flex border-reddit_border'>
                 <div className='mb-3 text-[17px] font-semibold leading-[22px] flex-grow flex-shrink'>
                     Create a Post

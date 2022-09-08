@@ -34,7 +34,7 @@ const CreateVideo = ({
                     setImageIndex(0)
                   }
                 }}
-                className="cursor-pointer"
+                className="cursor-pointer max-h-[520px] overflow-hidden"
               >
                 <Image
                   src={input.images[imageIndex]}

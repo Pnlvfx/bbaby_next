@@ -9,8 +9,27 @@ import GoogleAnalytics from '../components/google/GoogleAnalytics';
 import { siteUrl } from '../components/main/config';
 import { GoogleOAuthProvider } from '../components/auth/providers/google/GoogleOAuthProvider';
 import Layout from '../components/main/Layout';
+import { useEffect } from 'react';
 
 const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps) => {
+
+  useEffect(() => {
+    const tracker = async () => {
+      try {
+        const server = process.env.NEXT_PUBLIC_SERVER_URL
+        const url = `${server}/user/analytics`
+        const res = await fetch(url, {
+          method: 'get',
+          credentials: 'include'
+        })
+        console.log(res);
+      } catch (err) {
+        
+      }
+    }
+    tracker();
+  }, [])
+
   return (
     <>
       <Head>
@@ -32,8 +51,8 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps) => {
         <meta name="apple-mobile-web-app-title" content="bbabystyle" />
         <meta name="mobile-web-app-capable" content="yes" />
         {/* <meta name="twitter:creator" content="@Bbabystyle" /> */}
-         {/* <meta httpEquiv="Content-Security-Policy"
-              content={`default-src 'self' https://extreme-ip-lookup.com https://*.google-analytics.com https://www.googletagmanager.com https://accounts.google.com ${server} https://apis.google.com 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: w3.org/svg/2000 https://*; child-src https://accounts.google.com;`}/> */}
+        {/* <meta httpEquiv="Content-Security-Policy"
+            content={`default-src 'self' https://extreme-ip-lookup.com https://*.google-analytics.com https://www.googletagmanager.com https://accounts.google.com ${server} https://apis.google.com 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: w3.org/svg/2000 https://*; child-src https://accounts.google.com;`}/> */}
       </Head>
       <UserContext.Provider value={{ session }}>
         <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
@@ -54,4 +73,6 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps) => {
 }
 
 export default MyApp;
+
+
 

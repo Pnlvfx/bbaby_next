@@ -1,8 +1,8 @@
-import TextareaAutosize from 'react-textarea-autosize'
 import { useContext } from 'react'
 import { NewsContext, NewsContextProps } from './NewsContext'
 import Image from 'next/image'
 import { buttonClass, Spinner } from '../../utils/Button'
+import TeaxtareaAutosize from '../../utils/TeaxtareaAutosize'
 
 const GovSubmitNews = () => {
   const {
@@ -20,7 +20,7 @@ const GovSubmitNews = () => {
       <div>
         <div className="mt-3 flex whitespace-pre-wrap break-words">
           <div className="flex w-full p-[6px]">
-            <TextareaAutosize
+            <TeaxtareaAutosize
               className="row-span-1 block h-auto w-full resize-none rounded-md bg-reddit_dark-brighter pl-3 text-[22px] font-bold leading-6 text-reddit_text placeholder-reddit_text-darker outline-none"
               placeholder={'Title'}
               value={title}
@@ -45,7 +45,7 @@ const GovSubmitNews = () => {
         </div>
         <div className="mt-3 flex whitespace-pre-wrap break-words">
           <div className="flex w-full p-[6px]">
-            <TextareaAutosize
+            <TeaxtareaAutosize
               className="row-span-1 block h-auto w-full resize-none overflow-hidden rounded-md bg-reddit_dark-brighter pl-3 text-[15px] leading-6 text-reddit_text placeholder-reddit_text-darker outline-none"
               placeholder={'Description'}
               value={description}

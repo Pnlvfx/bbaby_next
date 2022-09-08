@@ -40,7 +40,7 @@ const MoreButton = (props:any)  => {
   return (
     <div className='flex items-center'>
        <ClickOutHandler onClickOut={() => setMoreDropdownVisibilityClass(false)}>
-          <button className='p-2 hover:bg-reddit_dark-brightest flex items-center h-full' style={{borderRadius: '2px'}} type='button' onClick={event =>{
+          <button aria-label='more options' aria-haspopup='true' className='p-2 hover:bg-reddit_dark-brightest flex items-center h-full' style={{borderRadius: '2px'}} type='button' onClick={event =>{
             event.preventDefault()
             event.stopPropagation()
             clickMoreButton();
