@@ -13,22 +13,22 @@ import { useEffect } from 'react';
 
 const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps) => {
 
-  useEffect(() => {
-    const tracker = async () => {
-      try {
-        const server = process.env.NEXT_PUBLIC_SERVER_URL
-        const url = `${server}/user/analytics`
-        const res = await fetch(url, {
-          method: 'get',
-          credentials: 'include'
-        })
-        console.log(res);
-      } catch (err) {
+  // useEffect(() => {
+  //   const tracker = async () => {
+  //     try {
+  //       const server = process.env.NEXT_PUBLIC_SERVER_URL
+  //       const url = `${server}/user/analytics`
+  //       const res = await fetch(url, {
+  //         method: 'get',
+  //         credentials: 'include'
+  //       })
+  //       console.log(res);
+  //     } catch (err) {
         
-      }
-    }
-    tracker();
-  }, [])
+  //     }
+  //   }
+  //   tracker();
+  // }, [])
 
   return (
     <>
