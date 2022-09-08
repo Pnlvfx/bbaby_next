@@ -13,15 +13,18 @@ const GoogleAdsense = () => {
     }
   }, [])
 
+  
+
   useEffect(() => {
-    if (adRef.current?.getAttribute('data-ad-status') === 'unfilled') {
-      adRef.current.style.display = 'none'
-      telegramapis.sendLog('unfilled');
-    } else {
+    const ads = async () => {
       const status = adRef.current?.getAttribute('data-ad-status')
       if (!status) return;
-      telegramapis.sendLog(status);
+      if (adRef.current?.getAttribute('data-ad-status') === 'unfilled') {
+        adRef.current.style.display = 'none'
+      }
+      await telegramapis.sendLog(status);
     }
+    ads();
   }, [])
 
   return (
