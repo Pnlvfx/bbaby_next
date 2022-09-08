@@ -1,20 +1,26 @@
-import Script from "next/script";
+import { useEffect } from "react";
 
 const GoogleAdsense = () => {
+  useEffect(() => {
+    if (typeof window === undefined) return;
+    try {
+      ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({})
+    } catch (error) {
+      
+    }
+  }, [])
+
   return (
-    <div>
-      <Script
-        id="Adsense-id"
+    <>
+      <ins className="adsbygoogle"
+        style={{display: "block"}}
         data-ad-client="ca-pub-7203519143982992"
-        async={true}
-        strategy="afterInteractive"
-        onError={(e) => {
-          console.error('Script failed to load', e)
-        }}
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-        crossOrigin="anonymous"
-      />
-    </div>
+        data-ad-slot="8491726081"
+        data-ad-test='on'
+        data-ad-format="auto"
+        data-full-width-responsive="true">
+      </ins>
+    </>
   )
 }
 

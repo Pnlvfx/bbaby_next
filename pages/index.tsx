@@ -3,6 +3,7 @@ import CEO from '../components/main/CEO';
 import { getSession, ssrHeaders } from '../components/API/ssrAPI';
 import Feed from '../components/post/Feed';
 import { siteUrl } from '../components/main/config';
+import Head from 'next/head';
 
 type HomePg = {
   posts: PostProps[]
@@ -18,6 +19,15 @@ const Home: NextPage<HomePg> = ({ posts }) => {
 
   return (
     <>
+    <Head>
+    <script
+        id="Adsense-id"
+        async
+        onError={(e) => {console.log("Adsense failed to load", e)}}
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7203519143982992"
+        crossOrigin="anonymous"
+    />
+    </Head>
     <CEO
       title={title}
       url={siteUrl}

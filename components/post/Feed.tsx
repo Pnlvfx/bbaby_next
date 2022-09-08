@@ -10,7 +10,7 @@ import CommunitiesInfo from '../widget/CommunitiesInfo'
 import dynamic from 'next/dynamic'
 import Donations from '../widget/Donations'
 import { getPosts } from './APIpost'
-import GoogleAdsense2 from '../google/GoogleAdsense2'
+import GoogleAdsense from '../google/GoogleAdsense'
 import Skeleton from '../governance/twitter/Skeleton';
 import { TimeMsgContext, TimeMsgContextProps } from '../main/TimeMsgContext';
 
@@ -76,10 +76,11 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
             <div className="mb-4">
               <BestPost />
             </div>
-            {process.env.NEXT_PUBLIC_NODE_ENV === 'production' && <GoogleAdsense2 />}
+            {process.env.NEXT_PUBLIC_NODE_ENV === 'production' && 
+            <GoogleAdsense />}
            <div>
             <InfiniteScroll
-                dataLength={posts.length}
+                dataLength={posts?.length || 0}
                 next={getMorePosts}
                 hasMore={true}
                 loader={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((_, idx) => (
@@ -88,7 +89,7 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
                 endMessage={<></>}
                 
               >
-                {posts.map((post) => <Post key={post._id} post={post} isListing={true} />)}
+                {posts?.map((post) => <Post key={post._id} post={post} isListing={true} />)}
               </InfiniteScroll>
            </div>
           </div>

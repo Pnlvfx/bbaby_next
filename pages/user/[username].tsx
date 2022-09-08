@@ -34,6 +34,13 @@ const Username:NextPage<AuthorPg> = ({author,posts}) => {
       <meta property="og:url" content={url} key="ogurl" />
       <meta property="og:type" content="website" key="ogtype" />
       <link rel='canonical' href={url} key='canonical' />
+      <script
+          id="Adsense-id"
+          async
+          onError={(e) => {console.log("Adsense failed to load", e)}}
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7203519143982992"
+          crossOrigin="anonymous"
+      />
      </Head>
     <AuthorHeaderPage />
     <Feed author={author} posts={posts} />
