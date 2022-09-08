@@ -16,7 +16,6 @@ const GoogleAdsense = () => {
         style={{display: "block"}}
         data-ad-client="ca-pub-7203519143982992"
         data-ad-slot="8491726081"
-        data-ad-test='on'
         data-ad-format="auto"
         data-full-width-responsive="true">
       </ins>
