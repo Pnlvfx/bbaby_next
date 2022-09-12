@@ -117,7 +117,7 @@ const Effects = ({ children }: EffectsProps) => {
     //CURRENT TIME AND PROGRESS VALUE
     player.current?.addEventListener('timeupdate', () => onTimeUpdate())
     player.current?.addEventListener('loadedmetadata', (e) => {
-      const d = formatDuration(player.current.duration)
+      const d = formatDuration(player.current?.duration)
       setDuration(d)
     })
     //PROGRESS BAR

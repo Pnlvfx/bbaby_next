@@ -6,9 +6,10 @@ import { SubmitContext, SubmitContextType } from './SubmitContext';
 import Body from './submitutils/Body';
 import SubmitType from './SubmitType';
 import SubmitTitle from './SubmitTitle';
+import { newTweetProps } from './SubmitLayout';
 
 type SubmitProps = {
-    newTweet?: any
+    newTweet?: newTweetProps
     community?: string | string[]
 }
 
@@ -54,13 +55,13 @@ const Submit = ({newTweet, community }: SubmitProps) => {
         if (!newTweet) return;
         if (newTweet.title) {
             setTitle(newTweet.title)
-            if (newTweet.type === 'photo') {
+            if (newTweet.type === 'photo' && newTweet.height && newTweet.width) {
                 setIsImage(true)
                 setHeight(newTweet.height)
                 setWidth(newTweet.width)
                 setSelectedFile(newTweet.image)
             }
-            if (newTweet.type === 'video') {
+            if (newTweet.type === 'video' && newTweet.height && newTweet.width) {
                 setIsVideo(true)
                 setHeight(newTweet.height)
                 setWidth(newTweet.width)

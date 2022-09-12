@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import Skeleton from './Skeleton';
-import { anonList, getMyListTweets } from '../../API/governance/twitterAPI';
+import { getAnonHome } from '../../API/governance/twitterAPI';
 import Tweet from './Tweet';
 import TwMainMenu from './TwMainMenu';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
@@ -16,8 +16,8 @@ const Twitter = () => {
   useEffect(() => {
     const get = async () => {
       try {
-        const res = await getMyListTweets(anonList);
-        setTweets(res);
+        const data = await getAnonHome()
+        setTweets(data);
       } catch (err) {
         catchErrorWithMessage(err, messageRef.current);
       }

@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import TimeAgo from 'timeago-react'
 import { translate } from '../../API/governance/governanceAPI';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
-import SubmitLayout from '../../submit/SubmitLayout';
+import SubmitLayout, { newTweetProps } from '../../submit/SubmitLayout';
 import Video from '../../utils/video/Video';
 
 type TweetPageProps = {
@@ -13,7 +13,7 @@ type TweetPageProps = {
   screen_name: string
   created_at: string
   title: string
-  type?: string
+  type: 'photo' | 'video' | undefined
   videoInfo?: VideoInfo
   image?: string
   height?: number
@@ -22,7 +22,7 @@ type TweetPageProps = {
 
 const Tweet = ({username, screen_name, created_at, title, type, videoInfo, image, width, height, user_avatar, language }: TweetPageProps) => {
   const { setMessage } = useContext(TimeMsgContext) as TimeMsgContextProps
-  const [newTweet, setNewTweet] = useState({});
+  const [newTweet, setNewTweet] = useState<newTweetProps | undefined>(undefined);
   const [showSubmit, setShowSubmit] = useState(false);
   const [video, setVideo] = useState('');
 
@@ -33,11 +33,11 @@ const Tweet = ({username, screen_name, created_at, title, type, videoInfo, image
         const tweetTitle = await res.json()
         setNewTweet({
           title: tweetTitle,
-          image: image ? image : null,
-          width: width ? width : null,
-          height: height ? height : null,
-          video: video ? video : null,
-          type: type ? type : null
+          image: image ? image : undefined,
+          width: width ? width : undefined,
+          height: height ? height : undefined,
+          video: video ? video : undefined,
+          type: type ? type : undefined
         })
         setShowSubmit(true)
       }

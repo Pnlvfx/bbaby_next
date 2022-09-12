@@ -26,15 +26,19 @@ interface RedditPostsProps {
         }
         preview: {
             enabled: boolean
-            images: [{
-                id?: string,
-                height: number
-                url: string
-                width: number
-        }]
+            images: PreviewImagesProps[]
         }
         url: string
         id: string
+    }
+}
+
+type PreviewImagesProps = {
+    id?: string
+    source: {
+        height: number
+        url: string
+        width: number
     }
 }
 

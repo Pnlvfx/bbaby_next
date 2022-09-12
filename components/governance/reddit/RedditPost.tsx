@@ -1,9 +1,9 @@
 import { CSSProperties, useContext, useState } from "react";
 import TimeAgo from "timeago-react";
-import { catchErrorWithMessage } from "../../API/common";
+import { catchErrorWithMessage, urlisImage } from "../../API/common";
 import { translate } from "../../API/governance/governanceAPI";
 import { TimeMsgContext, TimeMsgContextProps } from "../../main/TimeMsgContext";
-import SubmitLayout from "../../submit/SubmitLayout";
+import SubmitLayout, { newTweetProps } from "../../submit/SubmitLayout";
 import Video from "../../utils/video/Video";
 
 interface ExtendRedditPosts {
@@ -12,8 +12,11 @@ interface ExtendRedditPosts {
 
 const RedditPost = ({post}: ExtendRedditPosts) => {
   const message = useContext(TimeMsgContext) as TimeMsgContextProps;
-  const [newReddit, setNewReddit] = useState({});
+  const [newReddit, setNewReddit] = useState<newTweetProps | undefined>(undefined);
   const [showSubmit, setShowSubmit] = useState(false);
+
+  if (!urlisImage(post.url)) return null
+  console.log(post)
 
   const titleStyle: CSSProperties = {
     fontSize: 18,
@@ -31,15 +34,18 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
         if (post.selftext) { 
           await translate(post.selftext, 'en');
           const body = await res.json();
-          setNewReddit({
-            body
-          })
         }
+        const isImage = urlisImage(post.url)
+        console.log(isImage)
+        const type = post.is_video ? 'video' : urlisImage(post.url) ? 'photo' : undefined
         setNewReddit({
           ...newReddit,
           title: newTitle,
-          image: post.url ? post.url : null,
-          video: post.is_video ? post?.media?.reddit_video.dash_url : null
+          image: post.url ? post.url : undefined,
+          video: post.is_video ? post?.media?.reddit_video.dash_url : undefined,
+          width: type === 'video' ? post.media?.reddit_video.width : post.preview.images[0].source.width,
+          height: type === 'video' ? post.media?.reddit_video.height : post.preview.images[0].source.height,
+          type
         })
         setShowSubmit(true);
       }
@@ -83,7 +89,7 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
                 </div>
                 )} */}
                 <span className={`text-xs font-bold hover:underline`}>{' '}
-                  {post.subreddit ? 'b/' + post.subreddit + ' ' + '-' + ' ' : null}
+                  {post.subreddit ? 'r/' + post.subreddit + ' ' + '-' + ' ' : null}
                 </span>
             </div>
               <div className="ml-1 truncate text-xs text-reddit_text-darker flex">
@@ -157,10 +163,10 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
             </div>
           </div>
         </div>
-        {showSubmit && <SubmitLayout />}
+        {showSubmit && <SubmitLayout newTweet={newReddit} />}
       </div>
     </div>
   )
 }
 
-export default RedditPost
+export default RedditPost;

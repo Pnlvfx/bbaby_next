@@ -17,3 +17,7 @@ export const catchErrorWithMessage = (err: unknown, transporter: TimeMsgContextP
 }
 
 export const isJson = (response: Response) => response.headers.get('content-type')?.includes('application/json')
+
+export const urlisImage = (url: string) => {
+    return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
+}

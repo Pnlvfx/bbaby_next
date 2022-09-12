@@ -4,8 +4,17 @@ import UserContext from "../auth/UserContext";
 import Submit from "./Submit";
 import { SubmitContextProvider } from "./SubmitContext";
 
+export interface newTweetProps {
+  title: string
+  image?: string
+  width?: number
+  height?: number
+  video?: string
+  type?: 'video' | 'photo'
+}
+
 interface SubmitLayoutProps {
-  newTweet?: any
+  newTweet?: newTweetProps
   community?: string
 }
 

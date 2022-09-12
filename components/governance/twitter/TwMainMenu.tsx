@@ -29,11 +29,21 @@ const TwMainMenu = ({ setLanguage, setTweets }: TwMainMenuProps) => {
         <button
           onClick={() => {
             setActive(0);
+            changeTweet('en', anonList);
+          }}
+          className={`rounded-full py-1 px-3 hover:bg-reddit_dark-brightest ${active === 0 && 'bg-reddit_dark-brightest'}`}
+        >
+          <div className="flex h-5 items-center space-x-1">
+            <FaSpaceShuttle className="h-5 w-5 -rotate-90" />
+            <p className="text-sm font-bold">Home</p>
+          </div>
+        </button>
+        <button
+          onClick={() => {
+            setActive(1);
             changeTweet('en', anonList)
           }}
-          className={`rounded-full py-1 px-3 hover:bg-reddit_dark-brightest ${
-            active === 0 && 'bg-reddit_dark-brightest'
-          }`}
+          className={`rounded-full py-1 px-3 hover:bg-reddit_dark-brightest ${active === 1 && 'bg-reddit_dark-brightest'}`}
         >
           <div className="flex h-5 items-center space-x-1">
             <FaSpaceShuttle className="h-5 w-5 -rotate-90" />
@@ -46,7 +56,7 @@ const TwMainMenu = ({ setLanguage, setTweets }: TwMainMenuProps) => {
             changeTweet('it', bbabyList)
           }}
           className={`rounded-full py-1 px-3 hover:bg-reddit_dark-brightest ${
-            active === 1 && 'bg-reddit_dark-brightest'
+            active === 2 && 'bg-reddit_dark-brightest'
           }`}
         >
           <div className="flex h-5 items-center space-x-1">

@@ -58,7 +58,7 @@ type Media = [{
                 w: number
             }
         }
-        type: 'video' | 'photo' | 'image'
+        type: 'video' | 'photo'
         video_info?: {
             aspect_ratio: [16, 9]
             duration_millis: number

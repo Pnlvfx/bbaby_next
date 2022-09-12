@@ -1,8 +1,6 @@
 import Router from "next/router";
 import { catchError } from "../common";
 
-const server = process.env.NEXT_PUBLIC_SERVER_URL;
-
 export const anonList = {
   listId: '1535968733537177604',
   owner_screen_name: 'anonynewsitaly',
@@ -19,6 +17,7 @@ export interface query {
 
 export const getMyListTweets = async (query: query) => {
   try {
+    const server = process.env.NEXT_PUBLIC_SERVER_URL;
     const url = `${server}/twitter/selected-tweets?slug=${query.listId}&owner_screen_name=${query.owner_screen_name}`
     const res = await fetch(url, {
       method: 'get',
@@ -31,4 +30,24 @@ export const getMyListTweets = async (query: query) => {
   } catch (err) {
     return catchError(err)
   }
+}
+
+export const getAnonHome = async () => {
+   try {
+    const server = process.env.NEXT_PUBLIC_SERVER_URL;
+    const url = `${server}/twitter/home`
+    const res = await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+    })
+    const data = await res.json();
+    if (res.ok) {
+      console.log(data)
+      return data
+    } else {
+      throw new Error(data?.msg)
+    }
+   } catch (err) {
+    catchError(err);
+   }
 }
