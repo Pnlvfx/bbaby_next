@@ -1,7 +1,6 @@
 import { MutableRefObject } from "react";
 
 export const getDuration = (player: HTMLVideoElement) => {
-    if (!player) return null;
     const {duration, seekable} = player
     if (duration === Infinity && seekable.length > 0) {
       return seekable.end(seekable.length -1)

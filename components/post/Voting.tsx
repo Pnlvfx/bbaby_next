@@ -9,7 +9,7 @@ type Voting = {
   liked: boolean | null,
 }
 
-const Voting = ({ups,postId,liked}: Voting) => {
+const Voting = ({ups, postId, liked}: Voting) => {
     let dir = 0  //vote
     const [upVote,setUpVote] = useState(ups)
     const {setShow} = useContext(AuthModalContext) as AuthModalContextProps;
@@ -17,13 +17,14 @@ const Voting = ({ups,postId,liked}: Voting) => {
 
     const refreshVote = async () => {
       try {
-        const server = process.env.NEXT_PUBLIC_SERVER_URL
+        const server = process.env.NEXT_PUBLIC_SERVER_URL;
+        const url = `${server}/posts/${postId}/vote`
         const res = await axios({
           method: 'POST',
-          url: `${server}/posts/${postId}/vote`,
+          url,
           data: {dir},
           withCredentials: true
-        })
+        });
         if(dir === 1) {
           if(voted === true) {
             setVoted(null)  //if user have already voted

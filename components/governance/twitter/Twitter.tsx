@@ -32,7 +32,7 @@ const Twitter = () => {
           <TwMainMenu setLanguage={setLanguage} setTweets={setTweets} />
         </div>
         <ul>
-          {tweets.length > 8 ? 
+          {tweets.length >= 1 ? 
           tweets.map((tweet) => (
                 <Tweet
                   key={tweet.id}
@@ -41,7 +41,7 @@ const Twitter = () => {
                   created_at={tweet.created_at}
                   title={tweet.full_text}
                   type={tweet?.extended_entities?.media[0]?.type}
-                  video={tweet?.extended_entities?.media[0]?.video_info?.variants[1]?.url}
+                  videoInfo={tweet?.extended_entities?.media[0]?.video_info}
                   image={tweet?.extended_entities?.media[0]?.media_url_https}
                   width={tweet?.extended_entities?.media[0]?.sizes.large.w}
                   height={tweet?.extended_entities?.media[0]?.sizes.large.h}

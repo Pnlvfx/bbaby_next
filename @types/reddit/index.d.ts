@@ -21,6 +21,9 @@ interface RedditPostsProps {
         is_video: boolean
         created: string
         created_utc: string
+        sr_detail: {
+            community_icon: string
+        }
         preview: {
             enabled: boolean
             images: [{

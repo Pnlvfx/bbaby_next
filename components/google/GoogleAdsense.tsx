@@ -1,19 +1,29 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import { GoogleAdsenseProps, useGoogleAdContext } from "./GoogleAdsenseProvider";
 
 const GoogleAdsense = () => {
+  const {loadedSuccessfully, unfilled, setUnfilled} = useGoogleAdContext() as GoogleAdsenseProps;
+  const adRef = useRef<HTMLModElement>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (!loadedSuccessfully) return;
     if (typeof window === undefined) return;
     try {
       ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({})
-    } catch (error) {
+    } catch (err) {
       
     }
-  }, [])
+  }, [loadedSuccessfully]);
+
+  useEffect(() => {
+    let status = adRef.current?.getAttribute('data-ad-status');
+  }, [loadedSuccessfully]);
 
   return (
     <>
       <ins
+        ref={adRef}
         className="adsbygoogle"
         style={{display: "block"}}
         data-ad-client="ca-pub-7203519143982992"

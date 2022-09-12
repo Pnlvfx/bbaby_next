@@ -22,10 +22,16 @@ const CommunityFormModal = () => {
 
   const create = async () => {
     try {
-      const server = process.env.NEXT_PUBLIC_SERVER_URL
       setLoading(true)
+      const server = process.env.NEXT_PUBLIC_SERVER_URL;
+      const url = `${server}/communities`;
       const data = { name }
-      const res = await axios.post(server + '/communities', data, {withCredentials: true})
+      const res = await axios({
+        method: 'POST',
+        url,
+        data,
+        withCredentials: true
+      });
       setShow(false);
       router.push({
         pathname: `/b/${name}`,

@@ -1,5 +1,5 @@
 import { ReactNode, useContext, useEffect } from 'react'
-import { formatDuration, getDuration } from './utils/hooks';
+import { formatDuration } from './utils/hooks';
 import { VideoPlayerContext, VideoPlayerContextProps } from './VidePlayerContext';
 
 interface EffectsProps  {
@@ -7,7 +7,7 @@ interface EffectsProps  {
   }
 
 const Effects = ({ children }: EffectsProps) => {
-  const { setLoading, setControls, videoContainerRef, player, isEnded, isMuted, setIsMuted, volumeSliderContainer, setIsEnded, volumeSlider, timelineBall, setprogressPosition, setPlayed, setDuration, timelineRef, setIsPlaying, previewPositionRef} = useContext(VideoPlayerContext) as VideoPlayerContextProps;
+  const { setControls, videoContainerRef, player, isEnded, isMuted, setIsMuted, volumeSliderContainer, setIsEnded, volumeSlider, timelineBall, setprogressPosition, setPlayed, setDuration, timelineRef, setIsPlaying, previewPositionRef} = useContext(VideoPlayerContext) as VideoPlayerContextProps;
 
   let isScrabbing = false
   let wasPaused = false
@@ -116,6 +116,10 @@ const Effects = ({ children }: EffectsProps) => {
     player.current?.addEventListener('ended', () => onEnded());
     //CURRENT TIME AND PROGRESS VALUE
     player.current?.addEventListener('timeupdate', () => onTimeUpdate())
+    player.current?.addEventListener('loadedmetadata', (e) => {
+      const d = formatDuration(player.current.duration)
+      setDuration(d)
+    })
     //PROGRESS BAR
     timelineRef.current?.addEventListener('mousemove', handleTimelineUpdate); //preview
     timelineRef.current?.addEventListener('mousedown', toggleScrubbing); //progress
@@ -140,6 +144,10 @@ const Effects = ({ children }: EffectsProps) => {
     player.current?.removeEventListener('ended', () => onEnded());
     //CURRENT TIME AND PROGRESS VALUE
     player.current?.removeEventListener('timeupdate', () => onTimeUpdate())
+    player.current?.removeEventListener('loadedmetadata', (e) => {
+      const d = formatDuration(player.current.duration)
+      setDuration(d)
+    })
     //PROGRESS BAR
     timelineRef.current?.removeEventListener('mousemove', handleTimelineUpdate); //preview
     timelineRef.current?.removeEventListener('mousedown', toggleScrubbing); //progress
@@ -160,12 +168,6 @@ const Effects = ({ children }: EffectsProps) => {
 
   useEffect(() => {  // Add the listeners!
     addListeners();
-
-    /////
-    const duration = getDuration(player.current);
-    if (!duration) return;
-    setDuration(formatDuration(duration))
-
     return () => {
       removeListeners()
     }

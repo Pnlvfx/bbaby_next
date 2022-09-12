@@ -1,9 +1,9 @@
-import axios from 'axios'
 import Link from 'next/link'
 import { useContext, useEffect, useState } from 'react'
 import UserContext from '../../auth/UserContext'
 import { buttonClass } from '../../utils/Button'
 import ClickOutHandler from "react-clickout-ts";
+import { postRequestHeaders } from '../../main/config';
 
 interface CommentFormProps {
   rootId: string
@@ -13,16 +13,14 @@ interface CommentFormProps {
   showAuthor: boolean
 }
 
-function CommentForm({
+const CommentForm = ({
   rootId,
   parentId,
   onSubmit,
   onCancel,
   showAuthor
-}: CommentFormProps) {
+}: CommentFormProps) => {
   const { session } = useContext(UserContext) as SessionProps;
-
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
   const [commentBody, setCommentBody] = useState('')
   const [commentBodyLength, setCommentBodyLength] = useState(0)
   const [enableComment, setEnableComment] = useState(false)
@@ -30,15 +28,24 @@ function CommentForm({
 
   const postComment = async () => {
     try {
-      const data = { body: commentBody, parentId, rootId }
-      const res = await axios
-        .post(server + '/comments', data, { withCredentials: true })
-        .then((response) => {
-          setCommentBody('')
-          if (onSubmit) {
-            onSubmit()
-          }
-        })
+      const server = process.env.NEXT_PUBLIC_SERVER_URL
+      const url = `${server}/comments`;
+      const body = JSON.stringify({ body: commentBody, parentId, rootId })
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: postRequestHeaders,
+        credentials: 'include',
+        body,
+      })
+      const data = await res.json();
+      if (res.ok) {
+        setCommentBody('')
+        if (onSubmit) {
+          onSubmit()
+        }
+      } else {
+        console.log(data?.msg)
+      }
     } catch (err) {
       console.log(err)
     }

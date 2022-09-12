@@ -1,3 +1,5 @@
+import { catchError } from "../API/common"
+
 const server = process.env.NEXT_PUBLIC_SERVER_URL
 
 export const getPosts = async(input:string | undefined,value:string | undefined,skip:number) => {
@@ -15,11 +17,15 @@ export const getPosts = async(input:string | undefined,value:string | undefined,
 
 
 export const getPost = async (postId:string | string[]) => {
-    const url = `${server}/posts/${postId}`
-    const res = await fetch(url, {
-        method: 'get',
-        credentials: 'include'
-        })
-        const post = await res.json()
-    return post as PostProps;
+    try {
+        const url = `${server}/posts/${postId}`
+        const res = await fetch(url, {
+            method: 'get',
+            credentials: 'include'
+            })
+            const post = await res.json()
+        return post as PostProps;
+    } catch (err) {
+        return catchError(err);
+    }
   }

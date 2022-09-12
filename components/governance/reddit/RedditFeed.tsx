@@ -1,7 +1,7 @@
 import { ReactNode, useContext, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { catchErrorWithMessage } from "../../API/common";
-import { getRedditPosts, getRedditPostsFromCommunity } from "../../API/governance/redditAPI";
+import { getRedditPosts } from "../../API/governance/redditAPI";
 import { TimeMsgContext, TimeMsgContextProps } from "../../main/TimeMsgContext";
 import Skeleton from "../twitter/Skeleton";
 import RedditPost from "./RedditPost";

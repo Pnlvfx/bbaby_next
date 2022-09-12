@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { PlusIcon, UserIcon } from '@heroicons/react/outline';
+import { UserIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 import { buttonClass } from '../utils/Button';
 import {AuthModalContext, AuthModalContextProps} from '../auth/modal/AuthModalContext';
@@ -9,7 +9,7 @@ import NotUserMenu from './NotUserMenu';
 import Image from 'next/image';
 import UserContext from '../auth/UserContext';
 import Logo from '../../public/logo.png';
-import { TextLogo } from '../utils/SVG';
+import { PlusIcon, TextLogo } from '../utils/SVG';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import { TbBabyCarriage } from 'react-icons/tb';
 import NotificationButton from '../notifications/NotificationButton';
@@ -18,21 +18,20 @@ import SearchBar from './search/SearchBar';
 import { NextComponentType } from 'next';
 
 const Header:NextComponentType = () => {
-  const [showDropdown, setShowDropdown] = useState(false)
+  const [showDropdown, setShowDropdown] = useState(false);
   const { session } = useContext(UserContext) as SessionProps;
 
   const className = {
     buttonHeader: 'items-center justify-center hover:bg-reddit_dark-brightest h-[32px] w-[32px] flex',
-    icon: 'h-[20px] w-[20px] text-[#D7DADC]'
+    icon: 'h-[20px] w-[20px] text-[#D7DADC] leading-5 align-middle'
   }
   const { setShow } = useContext(AuthModalContext) as AuthModalContextProps;
 
   return (
     <header
-      id="myHeader"
-      className={`h-12 sticky left-0 right-0 flex top-0 items-center z-30 bg-reddit_dark-brighter`}
-      style={{ height: 48 }}
-    >
+        id="myHeader"
+        className={`h-12 sticky left-0 right-0 flex top-0 items-center z-30 bg-reddit_dark-brighter`}
+      >
       <div className="flex flex-grow items-center px-5 border-b border-reddit_border box-border">
         <div className='items-center inline-flex flex-grow'>
           <Link href={'/'}>
@@ -61,7 +60,7 @@ const Header:NextComponentType = () => {
                 </Link>
               )}
               <Link href={'/submit'}>
-                <a className={className.buttonHeader}>
+                <a aria-label='Create Post' className={className.buttonHeader}>
                   <PlusIcon className={className.icon} />
                 </a>
               </Link>

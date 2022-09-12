@@ -373,3 +373,22 @@ export const TrashIcon = (props: any) => {
     </svg>
   )
 }
+
+export const PlusIcon = (props: any) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="_1Wlw6VAlBp8UW7eHpfZR9H"
+      viewBox="0 0 20 20"
+      width={22}
+      height={22}
+      {...props}
+    >
+      <path
+        d="M45.2 147.2h3.6a1.2 1.2 0 000-2.4h-3.6v-3.6a1.2 1.2 0 00-2.4 0v3.6h-3.6a1.2 1.2 0 000 2.4h3.6v3.6a1.2 1.2 0 002.4 0v-3.6z"
+        transform="translate(-34 -136)"
+        fill="#D7DADC"
+      />
+    </svg>
+  )
+}

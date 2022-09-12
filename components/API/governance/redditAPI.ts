@@ -10,7 +10,7 @@ export const getRedditPosts = async (after?: string, count?: number) => {
           method: 'get',
           credentials: 'include'
         })
-        const p = isJson(res) ?  await res.json() : null;
+        const p = isJson(res) ? await res.json() : null;
         if (res.ok) {
           return p.data;
         } else {

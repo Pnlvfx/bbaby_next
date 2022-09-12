@@ -12,7 +12,7 @@ type SubmitProps = {
     community?: string | string[]
 }
 
-const Submit = ({newTweet, community}: SubmitProps) => {
+const Submit = ({newTweet, community }: SubmitProps) => {
     const {session} = useContext(UserContext) as SessionProps;
 
     const {
@@ -40,6 +40,7 @@ const Submit = ({newTweet, community}: SubmitProps) => {
     const shareToTwitter = () => {
         setSharePostToTwitter(!sharePostToTwitter)
     }
+
    
     useEffect(() => {
         if(community) {

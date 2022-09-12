@@ -1,4 +1,3 @@
-import axios from "axios"
 import { Dispatch, SetStateAction } from "react";
 import { communityUrl } from "../../lib/url";
 import { postRequestHeaders } from "../main/config";
@@ -14,48 +13,65 @@ export const getUserPrefCommunities = async () => {
     return communities as CommunityProps[] | []
 }
 
-export const subscribe = async(communityName:string,setShow:Dispatch<SetStateAction<"hidden" | "login" | "register" | "reset-your-password">>) => {
+export const subscribe = async(communityName: string,setShow: Dispatch<SetStateAction<"hidden" | "login" | "register" | "reset-your-password">>) => {
     try {
-      const data = {community: communityName}
-      const res = await axios({
+      const url = `${server}/communities/subscribe`
+      const body = JSON.stringify({ community: communityName })
+      const res = await fetch(url, {
         method: 'POST',
-        url: `${server}/communities/subscribe`,
         headers: postRequestHeaders,
-        data,
-        withCredentials:true
-      })
-    } catch (err:any) {
-      if (err.response.status === 401 || 400) {
-        setShow('login')
+        body,
+        credentials: 'include'
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        if (res.status === 401 || 400) {
+          setShow('login')
+        } else {
+          console.log(data?.msg)
+        }
       }
+    } catch (err) {
+      console.log(err)
     }
   }
 
-  export const selectCategory = async (categoryName:string,name:string) => { //name: communityToAddtheCategories to
+  export const selectCategory = async (categoryName: string,name: string) => { //name: communityToAddtheCategories to
     try {
-      const data = {category: categoryName}
-      const res = await axios({
+      const url = `${server}/communities/${name}/category`
+      const body = JSON.stringify({category: categoryName})
+      const res = await fetch(url, {
         method: 'POST',
-        url: `${server}/communities/${name}/category`,
         headers: postRequestHeaders,
-        data,
-        withCredentials:true
+        body,
+        credentials: 'include'
       })
-      return res.data;
+      const data = await res.json();
+      if (res.ok) {
+        return data;
+      } else {
+        console.log(data?.msg)
+      }
     } catch (err) {
       return err;
     }
   }
-export const searchCommunity = async (text:string) => {
+export const searchCommunity = async (text: string) => {
   try {
-    const res = await axios({
+    const url = `${server}/communities/search?phrase=${text}`
+    const body = JSON.stringify({})
+    const res = await fetch(url, {
       method: 'POST',
       headers: postRequestHeaders,
-      url: `${server}/communities/search?phrase=${text}`,
-      data: {},
-      withCredentials:true
+      body,
+      credentials: 'include'
     })
-    return res.data 
+    const data = await res.json();
+    if (res.ok) {
+      return data
+    } else {
+      console.log(data?.msg);
+    }
   } catch (err) {
     return err
   }

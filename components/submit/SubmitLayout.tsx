@@ -1,18 +1,22 @@
-import { useRouter } from "next/router";
+import Router from "next/router";
 import { useContext, useEffect } from "react";
 import UserContext from "../auth/UserContext";
 import Submit from "./Submit";
 import { SubmitContextProvider } from "./SubmitContext";
 
-const SubmitLayout = ({newTweet,community}:any) => {
+interface SubmitLayoutProps {
+  newTweet?: any
+  community?: string
+}
+
+const SubmitLayout = ({newTweet, community}: SubmitLayoutProps) => {
   const {session} = useContext(UserContext) as SessionProps;
-  const router = useRouter();
 
   useEffect(() => {
     if (!session) {
-      router.push('/');
+      Router.push('/')
     }
-  },[])
+  },[session])
 
   return (
     <SubmitContextProvider>

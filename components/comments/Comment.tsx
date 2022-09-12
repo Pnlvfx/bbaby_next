@@ -55,7 +55,7 @@ const Comment = ({post, postId}: CommentRootProps) => {
         },[comments.length]);
         
   return (
-      <div className='w-full max-w-[740px] bg-reddit_dark-brighter rounded-md'>
+      <div className='w-full max-w-[740px] rounded-md bg-reddit_dark-brighter'>
         <div className='md:mr-6'>
         {post && (
             <Post post={post} open={true} />

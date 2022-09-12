@@ -2,7 +2,9 @@ import { createContext, Dispatch, MutableRefObject, ReactNode, SetStateAction, u
 
 export interface VideoPlayerContextProps {
     player: MutableRefObject<HTMLVideoElement>
-    url: string,
+    url: string | [{
+        url: string
+    }]
     poster: string
     timelineRef: MutableRefObject<HTMLDivElement>
     duration: string
@@ -32,27 +34,28 @@ export const VideoPlayerContext = createContext<VideoPlayerContextProps | {}>({}
 
 interface VideoPlayerContextProviderProps {
     children: ReactNode
-    url: string,
+    url: string
+    duration?: number
     poster: string
 }
 
 export const VideoPlayerContextProvider = ({children, url, poster}: VideoPlayerContextProviderProps) => {
-      const [progressPosition, setprogressPosition] = useState(0);
-      const [isPlaying, setIsPlaying] = useState(false);
-      const [duration, setDuration] = useState('0:00');
-      const [played, setPlayed] = useState('0:00')
-      const [isEnded, setIsEnded] = useState(false);
-      const [controls, setControls] = useState(false);
-      const [loading, setLoading] = useState(false);
+    const previewPositionRef = useRef(null)
+    const volumeSlider = useRef(null)
+    const volumeSliderContainer = useRef(null)
+    const timelineBall = useRef(null)
+    const videoContainerRef = useRef(null)
+    const player = useRef(null);
+    const timelineRef = useRef(null)
+    const [progressPosition, setprogressPosition] = useState(0);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [duration, setDuration] = useState('0:00');
+    const [played, setPlayed] = useState('0:00')
+    const [isEnded, setIsEnded] = useState(false);
+    const [controls, setControls] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [isMuted, setIsMuted] = useState(true);
 
-      const [isMuted, setIsMuted] = useState(true);
-      const previewPositionRef = useRef(null)
-      const volumeSlider = useRef(null)
-      const volumeSliderContainer = useRef(null)
-      const timelineBall = useRef(null)
-      const videoContainerRef = useRef(null)
-      const player = useRef(null);
-      const timelineRef = useRef(null)
     return (
         <VideoPlayerContext.Provider value={{
             player,

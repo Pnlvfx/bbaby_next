@@ -8,7 +8,6 @@ const telegramapis = {
             const res = await fetch(url, {
                 method: 'GET'
             })
-            console.log(res);
         } catch (err) {
             catchError(err);
         }

@@ -47,7 +47,7 @@ const SubmitTitle = () => {
                 value={title}
             />
             <div 
-                className='text-reddit_text-darker text-[10px] font-bold leading-3 bottom-3 absolute pointer-events-none right-3' 
+                className='whitespace-pre-wrap text-reddit_text-darker text-[10px] font-bold leading-3 bottom-3 absolute pointer-events-none right-3' 
                 style={{letterSpacing: '.5px'}}
             >
                 {titleLength}/{maxLength}

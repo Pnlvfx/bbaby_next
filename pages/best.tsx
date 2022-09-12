@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Feed from '../components/post/Feed'
 import { siteUrl } from '../components/main/config'
 import { getSession, ssrHeaders } from '../components/API/ssrAPI'
+import CEO from '../components/main/CEO'
 
 type BestPg = {
   posts: PostProps[]
@@ -12,32 +13,20 @@ const Home: NextPage<BestPg> = ({posts}) => {
   const title = "Bbabystyle - Free speech";
   const imagePreview = `${siteUrl}/imagePreview.png`;
   const description = 'Bbabystyle is a network where you can create your community and start to talk about whatever you want.';
-  const card = 'summary';
+  const twitter_card = 'summary';
   const url = siteUrl
 
   return (
     <>
-      <Head>
-        <title>{title}</title>
-        <meta name="description" content={description} key={'description'} />
-        <meta property='og:ttl' content='600' key={'ogttl'} />
-        <meta property="og:site_name" content="bbabystyle" key={'ogsite_name'} />
-        <meta property="twitter:card" content={card} key="twcard" />
-        <meta property="og:title" content={title} key="ogtitle" />
-        <meta property="og:description" content={description} key="ogdesc" />
-        <meta property="og:image" content={imagePreview} key="ogimage" />
-        <meta property="og:url" content={url} key="ogurl" />
-        <meta property="og:type" content="website" key="ogtype" />
-        <link rel='canonical' href={url} key='canonical' />
-        <script
-          id="Adsense-id"
-          async
-          onError={(e) => {console.log("Adsense failed to load", e)}}
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7203519143982992"
-          crossOrigin="anonymous"
-        />
-      </Head>
-      <Feed posts={posts} />
+    <CEO
+      title={title}
+      description={description}
+      twitter_card={twitter_card}
+      type={'website'}
+      url={url}
+      image={imagePreview}
+    />
+    <Feed posts={posts} />
     </>
   )
 }

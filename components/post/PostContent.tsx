@@ -1,13 +1,13 @@
 import TimeAgo from 'timeago-react';
 import ShareButton from './postutils/ShareButton';
-import { useRouter } from 'next/router';
+import Router from 'next/router';
 import MoreButton from './postutils/MoreButton';
 import Image from 'next/image';
 import Voting from './Voting';
 import { CommentIcon } from '../utils/SVG';
 import Link from 'next/link';
 import { isMobile } from 'react-device-detect';
-import { CSSProperties, } from 'react';
+import { CSSProperties, MouseEvent, } from 'react';
 import Video from '../utils/video/Video';
 
 type PostContentProps = {
@@ -16,7 +16,6 @@ type PostContentProps = {
 }
 
 const PostContent = ({ post, isListing }: PostContentProps) => {
-  const router = useRouter()
   const titleStyle: CSSProperties = {
     fontSize: 18,
     fontWeight: 500,
@@ -24,34 +23,35 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
     wordWrap: 'break-word',
     display: 'inline'
    }
+
+   const LinkToCommunity = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    Router.push({
+      pathname: `/b/${post.community}`,
+    })
+   }
+
   return (
-  <div className='bg-reddit_dark-brighter md:pl-10 flex max-h-[800px] relative' style={{ borderRadius: 6 }}>
+  <div className='md:pl-10 flex max-h-[800px] relative' style={{ borderRadius: 6 }}>
       <div className="w-10 md:flex flex-col items-center box-border left-0 absolute py-2 pr-1 top-0 hidden" style={{borderLeft: '4px solid transparent'}}>
         <div className='md:flex items-center flex-col hidden'>
           <Voting ups={post.ups} postId={post._id} liked={post.liked} />
         </div>
       </div>
-      <div className=' pt-2 w-full'>
+      <div className='bg-reddit_dark-brighter pt-2 w-full'>
         <div className={`text-[12px] items-start flex mx-2 mb-2 relative leading-4`}>
           <div className='flex-none align-baseline'>
             <Link href={`/b/${post.community}`}>
-              <a className=' font-bold inline leading-5 align-baseline'
-               onClick={(event) => {
-                event.preventDefault()
-                event.stopPropagation()
-                router.push({
-                  pathname: '/b/' + post.community,
-                })
-              }}>
+              <a className='font-bold inline leading-5 align-baseline' onClick={(e) => { LinkToCommunity(e); }}>
                 {post.communityIcon && 
-                  <div className='mr-1 bg-[#4c075a] rounded-full w-5 h-5 inline-block align-middle'>
+                  <div className='relative mr-1 bg-[#4c075a] rounded-full w-5 h-5 inline-block align-middle'>
                     <Image
                       role={'presentation'}
                       src={post.communityIcon}
                       alt=""
                       className='rounded-full'
-                      height={20}
-                      width={20}
+                      layout='fill'
                     />
                   </div>
                 }
@@ -62,17 +62,8 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
             <div className='inline font-normal items-center leading-4'>
                 <div className='inline-block flex-none'>
                   <Link href={`/b/${post.community}`}>
-                    <a
-                      className="font-bold inline leading-5 hover:underline align-baseline"
-                      onClick={(event) => {
-                        event.preventDefault()
-                        event.stopPropagation()
-                        router.push({
-                          pathname: '/b/' + post.community,
-                        })
-                      }}
-                    >
-                      {post.community ? 'b/' + post.community : null}
+                    <a className="font-bold inline leading-5 hover:underline align-baseline" onClick={(e) => { LinkToCommunity(e); }}>
+                      {post.community ? `b/${post.community}` : null}
                     </a>
                   </Link>
                 </div>
@@ -85,7 +76,7 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
                         onClick={(event) => {
                           event.preventDefault()
                           event.stopPropagation()
-                          router.push(`/user/${post.author}`)
+                          Router.push(`/user/${post.author}`)
                         }}
                       >
                         {post.author && 'u/' + post.author}
@@ -152,7 +143,7 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
                     event.stopPropagation()
                     if (isListing) {
                       if (isMobile) {
-                        router.push(
+                        Router.push(
                           {
                             pathname: `/b/${post.community}/comments/${post._id}`,
                           },
@@ -160,9 +151,9 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
                           { scroll: false }
                         )
                       } else {
-                        router.push(
+                        Router.push(
                           {
-                            pathname: router.pathname,
+                            pathname: Router.pathname,
                             query: {
                               postId: post._id,
                               community: post.community,

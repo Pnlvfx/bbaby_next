@@ -10,7 +10,6 @@ import CommunitiesInfo from '../widget/CommunitiesInfo'
 import dynamic from 'next/dynamic'
 import Donations from '../widget/Donations'
 import { getPosts } from './APIpost'
-import GoogleAdsense from '../google/GoogleAdsense'
 import Skeleton from '../governance/twitter/Skeleton';
 import { TimeMsgContext, TimeMsgContextProps } from '../main/TimeMsgContext';
 
@@ -89,13 +88,7 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
                 
               >
                 {posts?.map((post, index) => (
-                  <div key={post._id}>
-                  {process.env.NEXT_PUBLIC_NODE_ENV === 'production' &&
-                   index === 2 && (
-                    <GoogleAdsense />
-                  )}
-                <Post post={post} isListing={true} />
-                </div>
+                <Post key={post._id} post={post} isListing={true} index={index} />
                 ))}
               </InfiniteScroll>
            </div>

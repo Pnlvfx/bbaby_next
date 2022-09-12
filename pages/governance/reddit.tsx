@@ -23,7 +23,7 @@ const RedditPage:NextPage = () => {
       </Head>
         <GovernanceCtrl>
           <GovernanceMainMenù />
-            <RedditFeed 
+            <RedditFeed
               postForm={<PostForm />}
               bestPost={<BestPost />}
             />

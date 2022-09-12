@@ -17,7 +17,7 @@ type PostModalProps = {
   onClickOut: Function
 }
 
-const PostModal = ({community,postId,open,onClickOut}:PostModalProps) => {
+const PostModal = ({community, postId, open, onClickOut}: PostModalProps) => {
   const router = useRouter();
   const [post,setPost] = useState<PostProps>({} as PostProps);
   const [loading,setLoading] = useState(true)
@@ -26,26 +26,30 @@ const PostModal = ({community,postId,open,onClickOut}:PostModalProps) => {
 
   useEffect(() => {
     if(!postId) return;
-    getPost(postId)
-    .then(res => {
-      setPost(res)
-      if (!community) {
-        getCommunity(res.community)
+    const g = async () => {
+      try {
+        const res = await getPost(postId);
+        setPost(res);
+        if (!community) {
+          getCommunity(res.community);
+        }
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
       }
-      setLoading(false)
-    });
+    }
+    g();
   },[postId]);
 
   const [isCategoryDropdownOpen,setIsCategoryDropdownOpen] = useState(false)
 
   const clickOut = () => {
     if (isCategoryDropdownOpen || modalContext.show !== 'hidden') return;
-    console.log('clicked out')
     router.push({
       pathname:router.pathname,
       query: community ? {community: community} : {username: post?.author}
     },
-    router.pathname,{scroll:false}
+    router.pathname, {scroll:false}
     )
     onClickOut()
     setPost({} as PostProps)

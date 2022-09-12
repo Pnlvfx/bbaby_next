@@ -40,13 +40,6 @@ const CommunityPage: NextPage<CommunityPg> = ({community,posts}) => {
         <meta property="og:url" content={url} key="ogurl" />
         <meta property="og:type" content="website" key="ogtype" />
         <link rel='canonical' href={url} key='canonical' />
-        <script
-            id="Adsense-id"
-            async
-            onError={(e) => {console.log("Adsense failed to load", e)}}
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7203519143982992"
-            crossOrigin="anonymous"
-        />
       </Head>
         {!router.query?.postId && <BoardHeader />}
         <Feed community={community} posts={posts} />

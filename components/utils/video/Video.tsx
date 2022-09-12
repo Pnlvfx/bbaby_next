@@ -7,12 +7,13 @@ import { VideoPlayerContextProvider } from './VidePlayerContext'
 interface VideoPlayerProps {
   url: string
   poster: string
+  duration?: number
   scroll?: boolean
 }
 
-const Video = ({url, poster, scroll}: VideoPlayerProps) => {
+const Video = ({url, poster, duration, scroll}: VideoPlayerProps) => {
   return (
-   <VideoPlayerContextProvider url={url} poster={poster}>
+   <VideoPlayerContextProvider url={url} poster={poster} duration={duration}>
       <ScrollObserver enable={scroll}>
         <Effects>
           <VideoPlayer />

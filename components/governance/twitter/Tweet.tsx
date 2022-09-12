@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import TimeAgo from 'timeago-react'
 import { translate } from '../../API/governance/governanceAPI';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
@@ -14,16 +14,17 @@ type TweetPageProps = {
   created_at: string
   title: string
   type?: string
-  video?: string
+  videoInfo?: VideoInfo
   image?: string
   height?: number
   width?: number
 }
 
-const Tweet = ({ username, screen_name, created_at, title, type, video, image, width, height, user_avatar, language }: TweetPageProps) => {
+const Tweet = ({username, screen_name, created_at, title, type, videoInfo, image, width, height, user_avatar, language }: TweetPageProps) => {
   const { setMessage } = useContext(TimeMsgContext) as TimeMsgContextProps
   const [newTweet, setNewTweet] = useState({});
   const [showSubmit, setShowSubmit] = useState(false);
+  const [video, setVideo] = useState('');
 
   const doTranslate = async () => {
     const res = await translate(title , language)
@@ -41,12 +42,24 @@ const Tweet = ({ username, screen_name, created_at, title, type, video, image, w
         setShowSubmit(true)
       }
     } else {
-        const data:any = await res?.json()
+        const data: any = await res?.json()
         setMessage({ value: data.msg, status: 'error' });
     }
   }
 
-  //if (!video) return null;
+  useEffect(() => {
+    if (!videoInfo) return;
+    let prevBitrate = 0
+    videoInfo?.variants.map((v) => {
+      if (v.content_type === 'video/mp4') {
+        if (!v.bitrate) return;
+        if (prevBitrate < v.bitrate) {
+          setVideo(v.url)
+          prevBitrate = v.bitrate;
+        }
+      }
+    });
+  }, [videoInfo]);
 
   return (
       <div>
@@ -108,7 +121,7 @@ const Tweet = ({ username, screen_name, created_at, title, type, video, image, w
                     </div>
                   )}
                 </div>
-                <div className='flex h-[40px] flex-row px-2[2px]'>
+                <div className='flex h-[40px] flex-row px-[2px]'>
                   <div className='text-[12px] text-reddit_text-darker font-bold leading-4 flex overflow-hidden flex-grow pr-2 pl-1' style={{alignItems: 'stretch'}}>
                     <div className='mr-1 flex items-center'>
                       <button className='hover:bg-reddit_dark-brightest p-2 flex h-full items-center' style={{borderRadius: '2px'}} type="button"

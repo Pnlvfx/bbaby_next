@@ -1,5 +1,9 @@
-import { CSSProperties } from "react";
+import { CSSProperties, useContext, useState } from "react";
 import TimeAgo from "timeago-react";
+import { catchErrorWithMessage } from "../../API/common";
+import { translate } from "../../API/governance/governanceAPI";
+import { TimeMsgContext, TimeMsgContextProps } from "../../main/TimeMsgContext";
+import SubmitLayout from "../../submit/SubmitLayout";
 import Video from "../../utils/video/Video";
 
 interface ExtendRedditPosts {
@@ -7,6 +11,9 @@ interface ExtendRedditPosts {
 }
 
 const RedditPost = ({post}: ExtendRedditPosts) => {
+  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const [newReddit, setNewReddit] = useState({});
+  const [showSubmit, setShowSubmit] = useState(false);
 
   const titleStyle: CSSProperties = {
     fontSize: 18,
@@ -14,6 +21,31 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
     lineHeight: '22px',
     wordWrap: 'break-word',
     display: 'inline'
+   }
+
+   const doTranslate = async () => {
+    try {
+      const res = await translate(post.title, 'en');
+      if (res.ok) {
+        const newTitle = await res.json();
+        if (post.selftext) { 
+          await translate(post.selftext, 'en');
+          const body = await res.json();
+          setNewReddit({
+            body
+          })
+        }
+        setNewReddit({
+          ...newReddit,
+          title: newTitle,
+          image: post.url ? post.url : null,
+          video: post.is_video ? post?.media?.reddit_video.dash_url : null
+        })
+        setShowSubmit(true);
+      }
+    } catch (err) {
+      catchErrorWithMessage(err, message)
+    }
    }
 
    //if (!post.is_video) return null
@@ -38,11 +70,11 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
                 event.stopPropagation()
                 }}
             >
-                {/* {post.thumbnail && (
+                {/* {post.sr_detail.community_icon && (
                 <div className="h-5 w-5 rounded-full bg-reddit_dark-brightest">
                     <img
                     role={'presentation'}
-                    src={post.thumbnail}
+                    src={post.sr_detail.community_icon}
                     alt=""
                     style={{ borderRadius: 9999 }}
                     height={20}
@@ -106,9 +138,26 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
                   </div>
                 )}
               </div>
+              <div className="flex h-[40px] px-[2px]">
+                <div className='text-[12px] text-reddit_text-darker font-bold leading-4 flex overflow-hidden flex-grow pr-2 pl-1' style={{alignItems: 'stretch'}}>
+                  <div className="mr-1 flex items-center">
+                    <button 
+                      className='hover:bg-reddit_dark-brightest p-2 flex h-full items-center' style={{borderRadius: '2px'}} type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        doTranslate();
+                      }}
+
+                    >
+                      <span>Magic</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        {showSubmit && <SubmitLayout />}
       </div>
     </div>
   )

@@ -28,7 +28,7 @@ interface CEOProps {
     /**
     * Use article for articles and website for the rest of your pages.
     */
-    twitter_card: string
+    twitter_card: 'summary' | 'summary_large_image'
     /**
     * The locale of the current page
     */
@@ -52,8 +52,9 @@ const CEO = ({
     image,
     video,
     width,
-    height
-}:CEOProps) => {
+    height,
+    locale
+}: CEOProps) => {
   return (
     <Head>
       <title>{title}</title>

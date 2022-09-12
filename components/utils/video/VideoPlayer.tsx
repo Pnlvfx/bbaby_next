@@ -28,7 +28,9 @@ const VideoPlayer = () => {
         muted
         playsInline
       >
-        <source src={url} />
+        {Array.isArray(url) ? url.map((source, index) => (
+          <source key={index} src={source.url} />
+        )): <source src={url} />}
       </video>
       <Controls />
     </div>

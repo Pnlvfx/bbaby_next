@@ -10,6 +10,7 @@ import { siteUrl } from '../components/main/config';
 import { GoogleOAuthProvider } from '../components/auth/providers/google/GoogleOAuthProvider';
 import Layout from '../components/main/Layout';
 import { useEffect } from 'react';
+import { GoogleAdsProvider } from '../components/google/GoogleAdsenseProvider';
 interface AppPropsss {
   session: SessionProps['session']
 }
@@ -18,9 +19,9 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps<AppPr
 
   useEffect(() => {
     const tracker = async () => {
+      if (session?.user.role === 1) return;
       try {
         if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return;
-        if (session?.user.role === 1) return;
         const server = process.env.NEXT_PUBLIC_SERVER_URL
         const url = `${server}/user/analytics`
         const res = await fetch(url, {
@@ -32,7 +33,7 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps<AppPr
       }
     }
     tracker();
-  }, [])
+  }, [session])
 
   return (
     <>
@@ -63,10 +64,12 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps<AppPr
           <AuthModalContextProvider>
             <CommunityContextProvider>
               <TimeMsgContextProvider>
-                <Layout>
-                  <Component {...pageProps} />
-                  {process.env.NEXT_PUBLIC_NODE_ENV === 'production' && <GoogleAnalytics />}
-                </Layout>
+                <GoogleAdsProvider>
+                  <Layout>
+                    <Component {...pageProps} />
+                    {process.env.NEXT_PUBLIC_NODE_ENV === 'production' && <GoogleAnalytics />}
+                  </Layout>
+                </GoogleAdsProvider>
               </TimeMsgContextProvider>
             </CommunityContextProvider>
           </AuthModalContextProvider>
