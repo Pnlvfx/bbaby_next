@@ -1,10 +1,10 @@
-import axios from 'axios';
 import Image from 'next/image';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { communityUrl } from '../../lib/url';
 import { AuthModalContext, AuthModalContextProps } from '../auth/modal/AuthModalContext';
 import { subscribe } from '../community/APicommunity';
 import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
+import { postRequestHeaders } from '../main/config';
 import { buttonClass } from '../utils/Button';
 
 const BoardHeader = () => {
@@ -32,14 +32,15 @@ const BoardHeader = () => {
 
   const changeAvatar = async () => {
     try {
-      const res = await axios({
+      const url = communityUrl.change_avatar(communityInfo.name);
+      const body = JSON.stringify({ image: selectedFile })
+      const res = await fetch(url, {
         method: 'POST',
-        url: communityUrl.change_avatar(communityInfo.name),
-        data: { image: selectedFile },
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true
+        body,
+        headers: postRequestHeaders,
+        credentials: 'include'
       })
-      getCommunity(communityInfo.name)
+      getCommunity(communityInfo.name);
       setSelectedFile('')
     } catch (err) {
 
@@ -80,7 +81,7 @@ const BoardHeader = () => {
           )}
           {communityInfo.user_is_moderator && (
             <div className="relative -top-4 ml-0 cursor-pointer lg:ml-40" onClick={() => {
-                filePickerRef && filePickerRef?.current?.click()}
+                filePickerRef?.current?.click()}
               }>
               <div className="relative h-[72px] w-[72px] overflow-hidden rounded-full border-4 border-white bg-reddit_blue">
                 {!loading && (
@@ -95,6 +96,7 @@ const BoardHeader = () => {
               </div>
               <span className="text-xs font-bold">Update icon</span>
               <input
+                className='text-[16px]'
                 hidden
                 type="file"
                 name="image"

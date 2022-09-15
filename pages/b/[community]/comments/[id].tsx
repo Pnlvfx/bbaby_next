@@ -1,9 +1,9 @@
 import type { GetServerSideProps, NextPage } from 'next'
-import { useEffect } from 'react';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import CommentPage from '../../../../components/comments/CommentPage'
 import { CommunityContext, CommunityContextProps } from '../../../../components/community/CommunityContext';
 import CEO from '../../../../components/main/CEO';
+import { siteUrl } from '../../../../components/main/config';
 import Errorpage404 from '../../../404';
 
 interface PostIdPageProps {
@@ -11,11 +11,10 @@ interface PostIdPageProps {
   error: boolean
 }
 
-const IdPage: NextPage<PostIdPageProps> = ({post,error}) => {
-    const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
+const IdPage: NextPage<PostIdPageProps> = ({post, error}) => {
     const {title} = post
     const description = post.body
-    const url = `${hostname}/b/${post.community}/comments/${post._id}`
+    const url = `${siteUrl}/b/${post.community}/comments/${post._id}`
     const twitter_card = 'summary_large_image';
     const type = 'article'
     const {getCommunity} = useContext(CommunityContext) as CommunityContextProps;
@@ -25,11 +24,15 @@ const IdPage: NextPage<PostIdPageProps> = ({post,error}) => {
      post.mediaInfo.video.url.replace('mp4', 'jpg') : 
      undefined;
      const og_video = post.mediaInfo?.isVideo ? post.mediaInfo.video.url : undefined
+     const og_wdith = post.mediaInfo?.dimension ? post.mediaInfo.dimension[1].toString() : undefined;
+     const og_height = post.mediaInfo?.dimension ? post.mediaInfo.dimension[0].toString() : undefined;
 
     useEffect(() => {
-      getCommunity(post.community)
-    },[post.community])
-
+      if (post.community) {
+        getCommunity(post.community);
+        }
+    }, [post])
+    
     if (error) {
       return <Errorpage404 />
     }
@@ -44,8 +47,8 @@ const IdPage: NextPage<PostIdPageProps> = ({post,error}) => {
         type={type}
         image={og_image}
         video={og_video}
-        width={post.mediaInfo?.dimension[1]?.toString()}
-        height={post.mediaInfo?.dimension[0]?.toString()}
+        width={og_wdith}
+        height={og_height}
       />
       <CommentPage post={post}/>
     </>
@@ -63,14 +66,14 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
   const postUrl = `${server}/posts/${id}`
 
   const response = await fetch(sessionUrl, {
-    method: "get",
+    method: "GET",
     headers,
   })
   
   const session = await response.json();
 
   const res = await fetch(postUrl, {
-    method: 'get',
+    method: 'GET',
     headers
   });
 

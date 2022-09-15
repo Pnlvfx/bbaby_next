@@ -4,7 +4,6 @@ import ClickOutHandler from 'react-clickout-ts';
 import { TrashIcon } from "../../utils/SVG";
 import Video from "../../utils/video/Video";
 import SubmitButton from "../each-submit-button/SubmitButton";
-import VideoPlayer from "../../utils/video/VideoPlayer";
 
 const Body = () => {
   const [showDeleteOptions,setShowDeleteOptions] = useState(false);
@@ -31,11 +30,14 @@ const Body = () => {
 
   return (
     <div className='relative'>
-      <div 
+      <div
         className={`rounded-[4px] relative border solid ${activeClassBody ? 'border-reddit_text' : 'border-reddit_border'}`}
         onClick={() => setActiveClassBody(true)}
       >
-        <div className='sticky top-12 z-[8] items-center bg-[#272729] rounded-[4px] box-border flex' style={{flexWrap: 'nowrap'}}>
+        <ClickOutHandler onClickOut={() => {
+          setActiveClassBody(false)
+        }} >
+                  <div className='sticky top-12 z-[8] items-center bg-[#272729] rounded-[4px] box-border flex' style={{flexWrap: 'nowrap'}}>
             <SubmitButton />    
         </div>
         <div className="overflow-auto relative">
@@ -117,18 +119,18 @@ const Body = () => {
             )}
             {!selectedFile && ( //body start here
               <div className="text-left relative whitespace-pre-wrap ">
-              <textarea 
-                className='placeholder-reddit_text-darker w-full outline-none
-                bg-reddit_dark-brighter min-h-[135px]'
-                placeholder={'Text (optional)'}
-                onChange={e => setBody(e.target.value)}
-                value={body}
-              />
+                <textarea 
+                  className='placeholder-reddit_text-darker w-full outline-none bg-reddit_dark-brighter min-h-[135px] text-[16px]'
+                  placeholder={'Text (optional)'}
+                  onChange={e => setBody(e.target.value)}
+                  value={body}
+                />
               </div>
             )}
             </div>
           </div>
           </div>
+        </ClickOutHandler>
         </div>
     </div>
   )

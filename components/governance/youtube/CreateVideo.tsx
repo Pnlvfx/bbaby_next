@@ -132,7 +132,7 @@ const CreateVideo = ({
                       onChange={(e) => {
                         setInput({ ...input, title: e.target.value })
                       }}
-                      className="w-full text-center bg-reddit_dark-brighter font-bold"
+                      className="w-full text-center bg-reddit_dark-brighter font-bold text-[16px]"
                     />
                   </div>
                 </div>
@@ -145,7 +145,7 @@ const CreateVideo = ({
                       onChange={(e) => {
                         setInput({ ...input, description: e.target.value })
                       }}
-                      className="whitespace-pre-wrap max-h-[335px] min-h-[135px] ml-3 w-full bg-reddit_dark-brighter font-bold"
+                      className="whitespace-pre-wrap max-h-[335px] min-h-[135px] ml-3 w-full bg-reddit_dark-brighter font-bold text-[16px]"
                     />
                   </div>
                 </div>

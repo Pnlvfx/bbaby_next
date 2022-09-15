@@ -88,7 +88,7 @@ const Home = () => {
       {show && 
       <div className='pb-4 bg-reddit_dark-brighter border solid border-t-0 overflow-x-hidden overflow-y-scroll border-reddit_border rounded-md box-border left-[-1px] mt-[-1px] max-h-[482px] top-[100%] right-0 absolute ' role={'menu'}>
         <input aria-label='search your community'
-          className='text-sm bg-reddit_dark-brightest border border-reddit_border h-[30px] mt-4 mx-4 outline-none box-border px-[6px] placeholder:text-reddit_text-darker' 
+          className='text-[16px] bg-reddit_dark-brightest border border-reddit_border h-[30px] mt-4 mx-4 outline-none box-border px-[6px] placeholder:text-reddit_text-darker' 
           style={{width: 'calc(100% - 32px)'}}
           placeholder='Filter'
         />

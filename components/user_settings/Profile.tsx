@@ -83,6 +83,7 @@ const Profile = () => {
           </div>
         )}
         <input
+          className='text-[16px]'
           hidden
           accept='image/png, image/jpeg'
           type="file"

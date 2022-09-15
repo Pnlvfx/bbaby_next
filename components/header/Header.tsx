@@ -32,7 +32,7 @@ const Header:NextComponentType = () => {
         id="myHeader"
         className={`h-12 sticky left-0 right-0 flex top-0 items-center z-30 bg-reddit_dark-brighter`}
       >
-      <div className="flex flex-grow items-center px-5 border-b border-reddit_border box-border">
+      <div className="flex flex-grow items-center px-2 lg:px-5 border-b border-reddit_border box-border">
         <div className='items-center inline-flex flex-grow'>
           <Link href={'/'}>
             <a aria-label='Home' className="flex items-center space-x-[6px]">

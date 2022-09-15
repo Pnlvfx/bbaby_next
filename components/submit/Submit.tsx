@@ -42,12 +42,9 @@ const Submit = ({newTweet, community }: SubmitProps) => {
         setSharePostToTwitter(!sharePostToTwitter)
     }
 
-   
-    useEffect(() => {
-        if(community) {
-            setSelectedCommunity(community.toString())
-        }
-    },[community])
+    if(community) {
+        setSelectedCommunity(community.toString())
+    }
 
 
     //////MY TWEEEEEEEEET

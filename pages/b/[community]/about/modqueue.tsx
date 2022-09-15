@@ -1,14 +1,14 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Modqueque from '../../../../components/community/modqueque/Modqueque';
+import { siteUrl } from '../../../../components/main/config';
 
 interface ModqueuePageProps {
   community: string
 }
 
 const ModqueuePage:NextPage<ModqueuePageProps> = ({community}) => {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
-  const url = `${hostname}/b/${community}/about/modqueque`
+  const url = `${siteUrl}/b/${community}/about/modqueque`
   return (
     <div>
       <Head>

@@ -14,7 +14,6 @@ const Home: NextPage<HomePg> = ({ posts }) => {
   const type = 'website';
   const description = 'Bbabystyle is a network where you can create your community and start to talk about whatever you want.';
   const twitter_card = 'summary';
-  const locale = 'en-US';
 
   return (
     <>
@@ -25,7 +24,6 @@ const Home: NextPage<HomePg> = ({ posts }) => {
         twitter_card={twitter_card}
         type={type}
         image={image}
-        locale={locale}
       />
       <Feed posts={posts} />
     </>

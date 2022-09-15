@@ -39,6 +39,7 @@ const AddVideo = () => {
     }
   }
 
+  console.log(selectedFile)
   return (
     <span className='h-8 w-8'>
       <button
@@ -61,6 +62,7 @@ const AddVideo = () => {
             </div>
         </div>
         <input
+        className='text-[16px]'
           type="file"
           accept='video/*'
           hidden

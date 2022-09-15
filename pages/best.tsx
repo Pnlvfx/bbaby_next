@@ -1,5 +1,4 @@
 import type { NextPage, NextPageContext } from 'next'
-import Head from 'next/head'
 import Feed from '../components/post/Feed'
 import { siteUrl } from '../components/main/config'
 import { getSession, ssrHeaders } from '../components/API/ssrAPI'

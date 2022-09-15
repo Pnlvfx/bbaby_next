@@ -1,15 +1,21 @@
 import { NextPageContext } from "next";
+import { siteUrl } from "../main/config";
 
 export const ssrHeaders = (context: NextPageContext) => {
-    const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
     const user_agent = context.req?.headers['user-agent'] ? context.req.headers['user-agent'] : ''
-    const headers = context?.req?.headers?.cookie ? { 
-        cookie: context.req.headers.cookie,
+    const cookie = context?.req?.headers?.cookie ? context.req.headers.cookie : ''
+    const index = context.req?.rawHeaders.indexOf('Accept-Language');
+    if (!index) return //fornow
+    const lang = context.req?.rawHeaders[index + 1]
+    if (!lang) return; // fornow
+    const headers = { 
+        cookie,
         Accept: 'application/json',
         'Content-Type' : 'application/json',
-        'origin': hostname,
-        'user-agent': user_agent
-     } : undefined;
+        origin: siteUrl,
+        'user-agent': user_agent,
+        'Accept-Language': lang
+    };
     return headers;
 }
 

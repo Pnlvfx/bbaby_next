@@ -57,13 +57,13 @@ const CEO = ({
 }: CEOProps) => {
   return (
     <Head>
-      <title>{title}</title>
-      <meta name="description" content={description} key={'description'} />
+      <title>{title.substring(0, 60)}</title>
+      <meta name="description" content={description.substring(0, 160)} key={'description'} />
       <meta property='og:ttl' content='600' key={'ogttl'} />
       <meta property="og:site_name" content="bbabystyle" key={'ogsite_name'} />
       <meta property="twitter:card" content={twitter_card} key="twcard" />
-      <meta property="og:title" content={title} key="ogtitle" />
-      <meta property="og:description" content={description} key="ogdesc" />
+      <meta property="og:title" content={title.substring(0, 60)} key="ogtitle" />
+      <meta property="og:description" content={description.substring(0, 160)} key="ogdesc" />
       {image && (
         <>
           <meta property="og:image" content={image} key="ogimage" />

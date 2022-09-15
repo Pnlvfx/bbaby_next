@@ -40,7 +40,7 @@ function PostForm({community}:PostFormProps) {
                     <a>
                         <input 
                             type='text' 
-                            className='bg-reddit_dark-brightest p-2 px-3 text-sm block w-full rounded-md placeholder:text-reddit_text-darker' 
+                            className='bg-reddit_dark-brightest p-2 px-3 block w-full rounded-md placeholder:text-reddit_text-darker text-[16px]' 
                             placeholder='Create Post'
                         />
                     </a>
@@ -53,7 +53,7 @@ function PostForm({community}:PostFormProps) {
                 }}>
                 <input 
                     type='text' 
-                    className='bg-reddit_dark-brightest p-2 px-3 text-sm block w-full rounded-md placeholder:text-reddit_text-darker' 
+                    className='text-[16px] bg-reddit_dark-brightest p-2 px-3 block w-full rounded-md placeholder:text-reddit_text-darker' 
                     placeholder='Login to create a Post'/>
                 </div>
             )}

@@ -85,7 +85,7 @@ const CommentForm = ({
                 setActive(false)
               }}>
               <textarea
-                className="bg-reddit_dark-brighter p-2 h-[130px] outline-none max-h-[270px] min-h-[150px] w-full placeholder:text-sm placeholder:text-reddit_text-darker"
+                className="bg-reddit_dark-brighter text-[16px] p-2 h-[130px] outline-none max-h-[270px] min-h-[150px] w-full placeholder:text-sm placeholder:text-reddit_text-darker"
                 onChange={(e) => {
                   setCommentBody(e.target.value)
                   setCommentBodyLength(e.target.value.length)

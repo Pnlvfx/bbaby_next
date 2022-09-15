@@ -38,7 +38,7 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps<AppPr
   return (
     <>
       <Head>
-        <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
         <meta name="referrer" content="origin-when-cross-origin" />
         <link rel='apple-touch-icon' sizes='57x57' href={`${siteUrl}/apple-touch-icon-57x57.png`} />
         <link rel='apple-touch-icon' sizes='72x72' href={`${siteUrl}/apple-touch-icon-72x72.png`} />
@@ -56,8 +56,6 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps<AppPr
         <meta name="apple-mobile-web-app-title" content="bbabystyle" />
         <meta name="mobile-web-app-capable" content="yes" />
         {/* <meta name="twitter:creator" content="@Bbabystyle" /> */}
-        {/* <meta httpEquiv="Content-Security-Policy"
-            content={`default-src 'self' https://extreme-ip-lookup.com https://*.google-analytics.com https://www.googletagmanager.com https://accounts.google.com ${server} https://apis.google.com 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: w3.org/svg/2000 https://*; child-src https://accounts.google.com;`}/> */}
       </Head>
       <UserContext.Provider value={{ session }}>
         <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
@@ -80,6 +78,3 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps<AppPr
 }
 
 export default MyApp;
-
-
-

@@ -82,8 +82,8 @@ const CommunitiesInfo = ({isCategoryDropdownOpen,setIsCategoryDropdownOpen}:Comm
               name={'description'}
               defaultValue={communityInfo.description}
               onSave={handleSave}
-              inputClassName={'bg-reddit_dark-brighter break-words leading-6 outline-none'}
-              className="break-words bg-reddit_dark-brighter leading-6 outline-none"
+              inputClassName={'bg-reddit_dark-brighter break-words leading-6 outline-none text-[16px]'}
+              className="break-words bg-reddit_dark-brighter leading-6 outline-none text-[16px]"
             />
           <div className="text-reddit_text-darker">
             <MdOutlineModeEditOutline className="h-6 w-6" />

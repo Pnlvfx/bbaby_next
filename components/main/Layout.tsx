@@ -14,7 +14,7 @@ interface LayoutProps {
   children: ReactNode
 }
 
-const Layout = ({children} : LayoutProps) => {
+const Layout = ({ children } : LayoutProps) => {
   const AuthModal = dynamic(() => import('../auth/modal/AuthModal'))
   const CommunityFormModal = dynamic(() => import('../community/CommunityFormModal'))
   const TimeMsg = dynamic(() => import('./TimeMsg'));
@@ -30,7 +30,7 @@ const Layout = ({children} : LayoutProps) => {
     <>
       <Header />
       {children}
-      <CookieConsent />
+      {process.env.NEXT_PUBLIC_NODE_ENV === 'production' && <CookieConsent />}
       {!session && modalContext.show !== 'hidden' &&  <AuthModal />}
       {session && communityContext.show && <CommunityFormModal />}
       <TimeMsg />

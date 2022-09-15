@@ -13,7 +13,7 @@ const SubmitTitle = () => {
     `
     overflow-x-hidden shadow-none border solid py-2 pl-4 pr-[68px] bg-transparent 
     resize-none box-border block w-full outline-none rounded-[4px] 
-    placeholder-reddit_text-darker text-[15px] overflow-hidden
+    placeholder-reddit_text-darker text-[16px] overflow-hidden
     `
 
     const {

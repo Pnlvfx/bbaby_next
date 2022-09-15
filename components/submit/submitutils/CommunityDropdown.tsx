@@ -84,7 +84,7 @@ const CommunityDropdown = () => {
           <div className='flex-1 pl-2'>
             <input 
               spellCheck='false'
-              className={`outline-none bg-reddit_dark-brighter text-[14px] leading-[18px] w-full align-middle bg-transparent placeholder:text-[#d7dadc] font-bold`}
+              className={`outline-none bg-reddit_dark-brighter text-[16px] leading-[18px] w-full align-middle bg-transparent placeholder:text-[#d7dadc] font-bold`}
               placeholder={show ? 'Search communities' : 'Choose a community'}
               value={selectedCommunity}
               onChange={(e) => {

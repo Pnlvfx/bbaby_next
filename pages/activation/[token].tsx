@@ -4,19 +4,18 @@ import {useState,useEffect} from 'react'
 import {showErrMsg,showSuccessMsg} from '../../components/utils/validation/Notification'
 import {useRouter} from 'next/router'
 import axios from 'axios'
+import { siteUrl } from '../../components/main/config'
 
 
 
 const ActivationEmail:NextPage = () => {
     const router = useRouter()
     const activation_token = router.query.token
-    const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
-    const url = `${hostname}/activation/${activation_token}`
+    const url = `${siteUrl}/activation/${activation_token}`
     const [err,setErr] = useState('')
     const [success,setSuccess] = useState('')
 
     useEffect(() => {
-        if(!router.isReady) return;
         if(activation_token){
             const server = process.env.NEXT_PUBLIC_SERVER_URL
             
@@ -30,7 +29,7 @@ const ActivationEmail:NextPage = () => {
             }
             activationEmail()
         }
-    },[activation_token,router.isReady])
+    },[activation_token])
   return (
     <div>
         <Head>

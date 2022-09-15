@@ -6,6 +6,7 @@ import type { NextPage, NextPageContext } from 'next';
 import Feed from '../../components/post/Feed';
 import { useRouter } from 'next/router';
 import { getSession, ssrHeaders } from '../../components/API/ssrAPI';
+import { siteUrl } from '../../components/main/config';
 
 type CommunityPg = {
   community: string,
@@ -13,12 +14,11 @@ type CommunityPg = {
 }
 
 const CommunityPage: NextPage<CommunityPg> = ({community,posts}) => {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
   const {getCommunity,communityInfo} = useContext(CommunityContext) as CommunityContextProps;
   const title = community
   const description = communityInfo.description;
   const imagePreview = '/imagePreview.png';
-  const url = `${hostname}/b/${community}`
+  const url = `${siteUrl}/b/${community}`
   const card = 'summary'
   const router = useRouter()
 

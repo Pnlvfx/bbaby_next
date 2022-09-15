@@ -11,8 +11,8 @@ const NextConfig = {
     ],
   },
   i18n: {
-    locales: ['en'],
-    defaultLocale: 'en',
+    locales: ['en-US'],
+    defaultLocale: 'en-US',
   },
   env: {
     GOOGLE_CLIENT_ID: '527300585899-mh0q9kh2fpijep43k37oriuafsl8m9hi.apps.googleusercontent.com',
@@ -23,4 +23,3 @@ const NextConfig = {
 }
 
 module.exports = NextConfig;
-
