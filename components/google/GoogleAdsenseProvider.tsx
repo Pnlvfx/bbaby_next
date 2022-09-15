@@ -23,7 +23,7 @@ export const GoogleAdsProvider = ({children}: GoogleAdContextProviderProps) => {
             unfilled,
             setUnfilled
         }}>
-            {process.env.NEXT_PUBLIC_NODE_ENV === 'production' &&
+            {/* {process.env.NEXT_PUBLIC_NODE_ENV === 'production' &&
              <Script 
                 id="Adsense-id"
                 async
@@ -35,7 +35,7 @@ export const GoogleAdsProvider = ({children}: GoogleAdContextProviderProps) => {
                 onLoad={(e) => {
                     setLoadedSuccessfully(true);
                 }}
-            />}
+            />} */}
             {children}
         </GoogleAdsenseContext.Provider>
     )

@@ -19,12 +19,12 @@ const Post = ({post, isListing, open, index}:ExtendPostProps) => {
 
     const [isAds, setIsAds] = useState(false);
 
-    useEffect(() => {
-        if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return;
-        if (index === 3) {
-            setIsAds(true);
-        }
-    }, [index])
+    // useEffect(() => {
+    //     if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return;
+    //     if (index === 3) {
+    //         setIsAds(true);
+    //     }
+    // }, [index])
 
     
 
