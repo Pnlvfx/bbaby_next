@@ -3,10 +3,10 @@ import { CommunityContext, CommunityContextProps } from './CommunityContext'
 import ClickOutHandler from 'react-clickout-ts'
 import { inputClass } from '../utils/Input'
 import { buttonClass, Spinner } from '../utils/Button'
-import axios from 'axios'
 import { useRouter } from 'next/router'
 import { CloseIcon } from '../utils/SVG'
 import { showErrMsg } from '../utils/validation/Notification'
+import { postRequestHeaders } from '../main/config'
 
 const CommunityFormModal = () => {
   const { show, setShow } = useContext(CommunityContext) as CommunityContextProps;
@@ -25,12 +25,12 @@ const CommunityFormModal = () => {
       setLoading(true)
       const server = process.env.NEXT_PUBLIC_SERVER_URL;
       const url = `${server}/communities`;
-      const data = { name }
-      const res = await axios({
+      const body = JSON.stringify({ name })
+      const res = await fetch(url, {
         method: 'POST',
-        url,
-        data,
-        withCredentials: true
+        body,
+        headers: postRequestHeaders,
+        credentials: 'include'
       });
       setShow(false);
       router.push({

@@ -42,7 +42,6 @@ export const getAnonHome = async () => {
     })
     const data = await res.json();
     if (res.ok) {
-      console.log(data)
       return data
     } else {
       throw new Error(data?.msg)

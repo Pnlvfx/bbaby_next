@@ -2,16 +2,16 @@ import { useState, useRef, useContext, useEffect, ChangeEvent } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import UserContext from '../auth/UserContext';
 import Image from 'next/image';
-import axios from 'axios';
 import { TimeMsgContext, TimeMsgContextProps } from '../main/TimeMsgContext';
 import { postRequestHeaders } from '../main/config';
+import { catchErrorWithMessage } from '../API/common';
 
 const Profile = () => {
   const { session } = useContext(UserContext) as SessionProps;
   const [selectedFile, setSelectedFile] = useState(session?.user.avatar)
   const [change, setChange] = useState(false)
   const filePickerRef = useRef<HTMLInputElement>(null)
-  const { setMessage } = useContext(TimeMsgContext) as TimeMsgContextProps
+  const message = useContext(TimeMsgContext) as TimeMsgContextProps
 
   const handleFileInputChange = (e:ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e?.target?.files?.length > 0) {
@@ -29,28 +29,32 @@ const Profile = () => {
     }
   }
 
-  
+  const changeUserAvatar = async () => {
+    try {
+      const server = process.env.NEXT_PUBLIC_SERVER_URL;
+      const url = `${server}/user/change_avatar`;
+      const body = JSON.stringify({ image: selectedFile, username: session?.user.username });
+      const res = await fetch(url, {
+        method: 'POST',
+        credentials: 'include',
+        headers: postRequestHeaders,
+        body,
+      })
+      const data = await res.json();
+      if (!res.ok) {
+        message.setMessage({value: data?.msg, status: 'error'})
+      } else {
+        setChange(false);
+        message.setMessage({value: data.success, status: 'success'})
+      }
+    } catch (err) {
+      catchErrorWithMessage(err, message)
+    }
+  }
 
   useEffect(() => {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL;
-    try {
-      if (!change) return;
-      const url = `${server}/user/change_avatar`;
-      const data = { image: selectedFile, username: session?.user.username }
-      axios({
-        method: 'POST',
-        url: `${server}/user/change_avatar`,
-        data: data,
-        headers: postRequestHeaders,
-        withCredentials: true
-      }).then((res) => {
-        setChange(false)
-        setMessage({ value: res.data.success, status: 'success' })
-      })
-    } catch (err: any) {
-      err.response.data.msg &&
-        setMessage({ value: err?.response.data.msg, status: 'error' })
-    }
+    if (!change) return;
+    changeUserAvatar();
   }, [change])
 
   return (

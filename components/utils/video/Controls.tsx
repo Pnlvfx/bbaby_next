@@ -174,6 +174,7 @@ const Controls = () => {
             </div>
           </div>
           <button
+            aria-label="Video Sound"
             onClick={(e) => {
               e.preventDefault();
               toggleMute();

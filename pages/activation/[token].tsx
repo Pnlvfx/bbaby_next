@@ -3,7 +3,6 @@ import type { NextPage } from 'next'
 import {useState,useEffect} from 'react'
 import {showErrMsg,showSuccessMsg} from '../../components/utils/validation/Notification'
 import {useRouter} from 'next/router'
-import axios from 'axios'
 import { siteUrl } from '../../components/main/config'
 
 
@@ -17,14 +16,23 @@ const ActivationEmail:NextPage = () => {
 
     useEffect(() => {
         if(activation_token){
-            const server = process.env.NEXT_PUBLIC_SERVER_URL
-            
             const activationEmail = async () => {
                 try {
-                    const res = await axios.post(server+'/activation', {activation_token} )
-                    setSuccess(res.data.msg)
-                } catch (err:any) {
-                    err.response.data.msg && setErr(err.response.data.msg)
+                    const server = process.env.NEXT_PUBLIC_SERVER_URL
+                    const url = `${server}/activation`
+                    const body = JSON.stringify({ activation_token})
+                    const res = await fetch(url, {
+                        method: 'POST',
+                        body
+                    });
+                    const data = await res.json();
+                    if (!res.ok) {
+                        setErr(data?.msg)
+                    } else {
+                        setSuccess(data.msg)
+                    }
+                } catch (err) {
+                    console.log(err);
                 }
             }
             activationEmail()

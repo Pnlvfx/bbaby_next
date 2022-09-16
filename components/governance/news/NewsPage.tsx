@@ -45,7 +45,7 @@ const NewsPage = () => {
             >
               <img
                 src={originalImage} 
-                alt=""
+                alt="News Image"
               />
             </div>
             <p className="whitespace-pre-wrap">{originalDescription}</p>

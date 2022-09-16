@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { EditTextarea } from 'react-edit-text';
 import { buttonClass } from '../utils/Button';
@@ -31,19 +30,29 @@ const CommunitiesInfo = ({isCategoryDropdownOpen,setIsCategoryDropdownOpen}:Comm
   const { setShow } = useContext(AuthModalContext) as AuthModalContextProps;
   const [created,setCreated] = useState('')
 
+  const updateDescription = async () => {
+    try {
+      const body = JSON.stringify({descr, name: communityInfo.name});
+      const res = await fetch(communityUrl.update_description, {
+        method:  'POST',
+        headers: postRequestHeaders,
+        body,
+        credentials: 'include'
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        console.log(data?.msg)
+      } else {
+        setCommit(false);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   useEffect(() => {
     if (commit) {
-      const data = { descr, name:communityInfo.name }
-      axios({
-        method: 'post',
-        headers: postRequestHeaders,
-        url: communityUrl.update_description,
-        data,
-        withCredentials: true
-      })
-        .then((response) => {
-          setCommit(false)
-        })
+      updateDescription();
     }
   }, [commit])
 

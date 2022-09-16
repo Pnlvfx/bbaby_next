@@ -23,7 +23,7 @@ const Comments = ({parentId,rootId,comments:propsComments}:CommentsProps) => {
           return(
           <div className='mb-2' key={comment._id}>
               <div className="flex mb-2">
-                  <img src={comment.authorAvatar} alt='' className="w-8 h-8 rounded-full mr-2" />
+                  <img src={comment.authorAvatar} alt='Author Avatar' className="w-8 h-8 rounded-full mr-2" />
                   <div className="leading-10 pr-2 text-sm font-sans">{comment.author}</div>
                   <TimeAgo className='leading-10 text-sm text-reddit_text-darker font-sans' datetime={comment.createdAt} />
               </div>

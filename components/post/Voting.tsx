@@ -18,7 +18,8 @@ const Voting = ({ups, postId, liked}: Voting) => {
     const refreshVote = async () => {
       try {
         const server = process.env.NEXT_PUBLIC_SERVER_URL;
-        const url = `${server}/posts/${postId}/vote`
+        const url = `${server}/posts/${postId}/vote`;
+        const body = JSON.stringify({ dir })
         const res = await axios({
           method: 'POST',
           url,

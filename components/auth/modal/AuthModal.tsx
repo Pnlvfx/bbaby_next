@@ -127,7 +127,7 @@ const AuthModal: NextComponentType = () => {
         <main className="mx-auto mt-5 flex w-[90%] max-w-[850px] self-center rounded-md border border-reddit_dark-brightest bg-reddit_dark-brighter md:w-[60%] xl:w-[70%] 2xl:w-[40%]">
           <div style={{width: '100%', display: 'flex'}}>
             <div className="relative hidden w-[128px] lg:block">
-              <Image src={AuthImage} alt="" layout="fill" />
+              <Image src={AuthImage} alt="Auth Image" layout="fill" />
             </div>
             <div className="mt-20 ml-6 max-w-[320px] flex-none">
               <p className="mb-2 text-2xl">{show === 'login' ? 'Login' : show === 'register' ? 'Sign up' : ''}</p>

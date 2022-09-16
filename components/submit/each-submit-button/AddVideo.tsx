@@ -39,7 +39,6 @@ const AddVideo = () => {
     }
   }
 
-  console.log(selectedFile)
   return (
     <span className='h-8 w-8'>
       <button

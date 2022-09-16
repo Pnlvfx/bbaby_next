@@ -49,7 +49,7 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
                     <Image
                       role={'presentation'}
                       src={post.communityIcon}
-                      alt=""
+                      alt="Community Icon"
                       className='rounded-full'
                       layout='fill'
                     />
@@ -102,7 +102,7 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
             {post?.mediaInfo?.isImage && post?.mediaInfo?.image && (
               <Image
                 src={`${post.mediaInfo.image}`}
-                alt=""
+                alt="Post image"
                 height={post.mediaInfo.dimension[0]}
                 width={post.mediaInfo.dimension[1]}
               />

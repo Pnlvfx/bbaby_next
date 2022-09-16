@@ -24,7 +24,7 @@ function ResetYourPassword() {
   return (
     <div className=''>
         <div className='rounded-full'>
-            <Image src={Logo} alt="" width={'40px'} height={'40px'}/>
+            <Image src={Logo} alt="Logo" width={'40px'} height={'40px'}/>
         </div>
         <p className='font-bold'>Reset your password</p>
         <div className='w-[600px] pr-48 pt-1'>

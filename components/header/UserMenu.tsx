@@ -1,26 +1,31 @@
 import { LogoutIcon } from '@heroicons/react/outline';
-import { useContext } from 'react'
+import { useContext } from 'react';
 import { BiUserCircle } from 'react-icons/bi';
-import {GiBabyFace} from 'react-icons/gi'
+import {GiBabyFace} from 'react-icons/gi';
 import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
-import { useRouter } from 'next/router';
+import Router from 'next/router';
 import UserContext from '../auth/UserContext';
-import axios from 'axios';
 import Link from 'next/link';
+import { postRequestHeaders } from '../main/config';
 
 function UserMenu({showDropdown,setShowDropdown}:any) {
     const {session} = useContext(UserContext) as SessionProps;
     const server = process.env.NEXT_PUBLIC_SERVER_URL
-    const router = useRouter()
-
-    const logout = async() => {
-        const res = await axios.post(`${server}/logout`, {}, {withCredentials:true})
-        localStorage.removeItem('isLogged')
-        router.reload()
-    }
-
     const containerClass = 'hover:bg-reddit_dark-brightest cursor-pointer'
     const buttonClass = 'text-sm p-3 pl-12 font-bold'
+
+    const logout = async() => {
+        const url = `${server}/logout`;
+        const body = JSON.stringify({})
+        const res = await fetch(url, {
+            method: 'POST',
+            body,
+            headers: postRequestHeaders,
+            credentials: 'include'
+        });
+        localStorage.removeItem('isLogged')
+        Router.reload()
+    }
     
     const {setShow:setShowCommunity} = useContext(CommunityContext) as CommunityContextProps;
 
@@ -119,4 +124,5 @@ function UserMenu({showDropdown,setShowDropdown}:any) {
   )
 }
 
-export default UserMenu
+export default UserMenu;
+

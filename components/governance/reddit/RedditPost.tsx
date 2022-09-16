@@ -16,7 +16,6 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
   const [showSubmit, setShowSubmit] = useState(false);
 
   if (!urlisImage(post.url)) return null
-  console.log(post)
 
   const titleStyle: CSSProperties = {
     fontSize: 18,
@@ -36,7 +35,6 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
           const body = await res.json();
         }
         const isImage = urlisImage(post.url)
-        console.log(isImage)
         const type = post.is_video ? 'video' : urlisImage(post.url) ? 'photo' : undefined
         setNewReddit({
           ...newReddit,

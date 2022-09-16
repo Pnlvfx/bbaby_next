@@ -51,8 +51,6 @@ export const CommunityContextProvider = ({children}: CommunityContextProviderPro
       }
     },[router])
 
-    console.log(communityInfo)
-
     return (
         <CommunityContext.Provider value={{show, setShow, loading, getCommunity, communityInfo}}>
             {children}
