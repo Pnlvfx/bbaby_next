@@ -15,7 +15,7 @@ const CategoryPage:NextPage<Props> = ({category}) => {
     const card = 'summary'
   return (
     <div>
-        <Head>
+      <Head>
         <title>{title}</title>
         <meta name='robots' content='noindex' />
         <meta name="description" content={description} key={'description'} />
@@ -28,8 +28,8 @@ const CategoryPage:NextPage<Props> = ({category}) => {
         <meta property="og:url" content={url} key="ogurl" />
         <meta property="og:type" content="website" key="ogtype" />
         <link rel='canonical' href={url} key='canonical' />
-        </Head>
-        <Leaderboard />
+      </Head>
+      <Leaderboard />
     </div>
   )
 }

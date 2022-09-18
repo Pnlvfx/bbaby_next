@@ -1,9 +1,9 @@
-import type { NextPage, NextPageContext } from 'next'
-import Head from 'next/head'
-import React from 'react'
-import { getSession, ssrHeaders } from '../../components/API/ssrAPI'
-import MyNewsCard from '../../components/mynews/MyNewsCard'
-import Donations from '../../components/widget/Donations'
+import type { NextPage, NextPageContext } from 'next';
+import Head from 'next/head';
+import React from 'react';
+import { getSession, ssrHeaders } from '../../components/API/ssrAPI';
+import MyNewsCard from '../../components/mynews/MyNewsCard';
+import Donations from '../../components/widget/Donations';
 
 interface NewsIdPageProps {
   news: NewsProps

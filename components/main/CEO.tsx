@@ -64,12 +64,12 @@ const CEO = ({
       <meta property="twitter:card" content={twitter_card} key="twcard" />
       <meta property="og:title" content={title.substring(0, 60)} key="ogtitle" />
       <meta property="og:description" content={description?.substring(0, 160)} key="ogdesc" />
+      <meta property="og:image" content={image} key="ogimage" />
+      <meta property="twitter:image" content={image} />
       {image && (
         <>
-          <meta property="og:image" content={image} key="ogimage" />
           <meta property='og:image:width' content={width} />
           <meta property='og:image:height' content={height} />
-          <meta property="twitter:image" content={image} />
         </>
       )}
       {video && <meta property="og:video" content={video} />}

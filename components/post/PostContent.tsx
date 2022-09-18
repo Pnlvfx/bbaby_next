@@ -43,7 +43,7 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
         <div className={`text-[12px] items-start flex mx-2 mb-2 relative leading-4`}>
           <div className='flex-none align-baseline'>
             <Link href={`/b/${post.community}`}>
-              <a className='font-bold inline leading-5 align-baseline' onClick={(e) => { LinkToCommunity(e); }}>
+              <a aria-label='Community' className='font-bold inline leading-5 align-baseline' onClick={(e) => { LinkToCommunity(e); }}>
                 {post.communityIcon && 
                   <div className='relative mr-1 bg-[#4c075a] rounded-full w-5 h-5 inline-block align-middle'>
                     <Image

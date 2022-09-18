@@ -22,7 +22,7 @@ const IdPage: NextPage<PostIdPageProps> = ({post, error}) => {
      post.mediaInfo.image : 
      post.mediaInfo?.isVideo ? 
      post.mediaInfo.video.url.replace('mp4', 'jpg') : 
-     undefined;
+     '';
      const og_video = post.mediaInfo?.isVideo ? post.mediaInfo.video.url : undefined
      const og_wdith = post.mediaInfo?.dimension ? post.mediaInfo.dimension[1]?.toString() : undefined;
      const og_height = post.mediaInfo?.dimension ? post.mediaInfo.dimension[0]?.toString() : undefined;

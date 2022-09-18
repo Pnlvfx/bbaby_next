@@ -90,7 +90,7 @@ const Controls = () => {
                     src={Logo}
                     height={24}
                     width={24}
-                    alt=''
+                    alt='Logo'
                   />
                 </div>
               </a>
@@ -136,9 +136,7 @@ const Controls = () => {
         >
           <div className="absolute"> 
             <div>
-              <button>
-
-              </button>
+              
             </div>
           </div>
           <button className="outline-none w-9 h-9 flex justify-center items-center" aria-label="settings" aria-haspopup='true'>

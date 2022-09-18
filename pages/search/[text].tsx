@@ -29,7 +29,7 @@ const SearchResultPage:NextPage = () => {
   return (
     <>
       <Head>
-      <title>{title}</title>
+        <title>{title}</title>
         <meta name="description" content={description} key={'description'} />
         <meta property='og:ttl' content='600' key={'ogttl'} />
         <meta property="og:site_name" content="bbabystyle" key={'ogsite_name'} />
