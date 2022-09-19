@@ -6,15 +6,15 @@ import { getSession } from "../../../components/API/ssrAPI"
 
 const LeaderboardPage:NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
-  const title = "Today's Top Communities"
-  const description = 'Bbabystyle - all best communities'
-  const imagePreview = `${hostname}/imagePreview.png`
-  const url = `${hostname}/bbaby/leaderboard`
-  const card = 'summary'
-  const [active,setActive] = useState(0)
+  const title = "Today's Top Communities";
+  const description = 'Bbabystyle - all best communities';
+  const imagePreview = `${hostname}/imagePreview.png`;
+  const url = `${hostname}/bbaby/leaderboard`;
+  const card = 'summary';
+  const [active,setActive] = useState(0);
 
   return (
-    <div>
+    <>
       <Head>
         <title>{title}</title>
         <meta name='robots' content='noindex' />
@@ -29,8 +29,8 @@ const LeaderboardPage:NextPage = () => {
         <meta property="og:type" content="website" key="ogtype" />
         <link rel='canonical' href={url} key='canonical' />
       </Head>
-        <Leaderboard />
-    </div>
+      <Leaderboard />
+    </>
   )
 }
 

@@ -110,7 +110,7 @@ const UserAgreement = () => {
           when you access or use our Services. You understand that through your
           use of the Services, you consent to the collection and use of this
           information as set forth in the{' '}
-          <Link href={'/policies/privacy-policies'}>
+          <Link href={'/policies/privacy-policy'}>
             <a>
               <span className="text-reddit_blue ">Privacy Policy</span>
             </a>
@@ -147,7 +147,7 @@ const UserAgreement = () => {
           a Bbaby account (an “Account”) and provide us with a username,
           password, and certain other information about yourself as set forth in
           the{' '}
-          <Link href={'/policies/privacy-policies'}>
+          <Link href={'/policies/privacy-policy'}>
             <a>
               <span className="text-reddit_blue ">Privacy Policy</span>
             </a>
@@ -205,7 +205,7 @@ const UserAgreement = () => {
           Content, we may, in our sole discretion, delete or remove Your Content
           at any time and for any reason, including for violating these Terms,
           violating our{' '}
-          <Link href={'/policies/privacy-policies'}>
+          <Link href={'/policies/privacy-policy'}>
             <a>
               <span className="text-sm text-reddit_blue">Privacy Policy</span>
             </a>

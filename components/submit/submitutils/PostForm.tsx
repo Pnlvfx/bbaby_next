@@ -23,14 +23,26 @@ function PostForm({community}:PostFormProps) {
                 <Link href={`/user/${session.user.username}`}>
                     <a>
                         <div className='w-9 h-9 relative'>
-                            <Image src={session.user.avatar} className='rounded-full' alt='' layout='fill' objectFit='cover' />
+                            <Image 
+                                src={session.user.avatar} 
+                                className='rounded-full' 
+                                alt='User Avatar' 
+                                layout='fill' 
+                                objectFit='cover' 
+                            />
                         </div>
                     </a>
                 </Link>
             )}
             {!session && (
                 <div className='w-9 h-9 relative'>
-                    <Image className='rounded-full' src='https://res.cloudinary.com/bbabystyle/image/upload/v1655209740/default/avatar_txt7me.webp' alt='' layout='fill' objectFit='cover' />
+                    <Image 
+                        className='rounded-full'
+                        src='https://res.cloudinary.com/bbabystyle/image/upload/v1655209740/default/avatar_txt7me.webp' 
+                        alt='User Avatar'
+                        layout='fill'
+                        objectFit='cover'
+                    />
                 </div>
             )}
         </div>

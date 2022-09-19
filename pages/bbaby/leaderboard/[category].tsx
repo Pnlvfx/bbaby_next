@@ -8,13 +8,14 @@ interface Props {
 
 const CategoryPage:NextPage<Props> = ({category}) => {
     const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
-    const title = "Today's Top Communities"
-    const description = 'Bbabystyle - all best communities'
-    const url = `${hostname}/bbaby/leaderboard/${category}`
-    const imagePreview = `${hostname}/imagePreview.png`
-    const card = 'summary'
+    const title = "Today's Top Communities";
+    const description = 'Bbabystyle - all best communities';
+    const url = `${hostname}/bbaby/leaderboard/${category}`;
+    const imagePreview = `${hostname}/imagePreview.png`;
+    const card = 'summary';
+    
   return (
-    <div>
+    <>
       <Head>
         <title>{title}</title>
         <meta name='robots' content='noindex' />
@@ -30,7 +31,7 @@ const CategoryPage:NextPage<Props> = ({category}) => {
         <link rel='canonical' href={url} key='canonical' />
       </Head>
       <Leaderboard />
-    </div>
+    </>
   )
 }
 
