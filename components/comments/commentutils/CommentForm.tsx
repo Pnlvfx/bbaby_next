@@ -57,6 +57,17 @@ const CommentForm = ({
     }
   }, [commentBodyLength])
 
+  // useEffect(() => {
+  //   if (!commentBody) return;
+  //   const urlify = () => {
+  //     var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+  //     return commentBody.replace(urlRegex, (url) => {
+  //       return `<a href="${url}" target="_blank">${url}</a>`
+  //     })
+  //   }
+  //   urlify()
+  // }, [commentBody])
+
   return (
     <>
       {session && showAuthor && ( //SHOW AUTHOR

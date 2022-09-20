@@ -79,7 +79,7 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
                     <img
                     role={'presentation'}
                     src={post.sr_detail.community_icon}
-                    alt=""
+                    alt=''
                     style={{ borderRadius: 9999 }}
                     height={20}
                     width={20}
@@ -120,7 +120,7 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
                   <div className="flex max-h-[500px] w-full items-center justify-center overflow-hidden">
                     <img
                       src={`${post.url}`}
-                      alt=""
+                      alt="Reddit Image"
                     />
                   </div>
                 )}

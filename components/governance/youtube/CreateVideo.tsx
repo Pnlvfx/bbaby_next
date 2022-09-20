@@ -38,7 +38,7 @@ const CreateVideo = ({
               >
                 <Image
                   src={input.images[imageIndex]}
-                  alt=""
+                  alt="Video Image"
                   width={input.width}
                   height={input.height}
                   unoptimized

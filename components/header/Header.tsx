@@ -8,7 +8,7 @@ import UserMenu from './UserMenu';
 import NotUserMenu from './NotUserMenu';
 import Image from 'next/image';
 import UserContext from '../auth/UserContext';
-import Logo from '../../public/logo.png';
+import Logo from '../../public/logo40x40.png';
 import { PlusIcon, TextLogo } from '../utils/SVG';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import { TbBabyCarriage } from 'react-icons/tb';
@@ -102,7 +102,7 @@ const Header:NextComponentType = () => {
                     <div className="relative h-5 w-5 border border-reddit_border ml-2 mr-1">
                       <Image
                         src={session.user.avatar}
-                        alt=""
+                        alt='User Icon'
                         layout="fill"
                       />
                     </div>

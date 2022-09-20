@@ -1,9 +1,10 @@
-import ReplyButton from './commentutils/ReplyButton'
-import TimeAgo from 'timeago-react'
+import ReplyButton from './commentutils/ReplyButton';
+import TimeAgo from 'timeago-react';
 import CommentForm from './commentutils/CommentForm';
-import {useState, useContext} from 'react'
+import {useState, useContext} from 'react';
 import RootCommentContext from './commentutils/RootCommentContext';
-import Voting from '../voting/Voting'
+import Voting from '../voting/Voting';
+import Linkify from 'react-linkify';
 
 interface CommentsProps {
   parentId: string
@@ -11,7 +12,7 @@ interface CommentsProps {
   comments: CommentProps[]
 }
 
-const Comments = ({parentId,rootId,comments:propsComments}:CommentsProps) => {
+const Comments = ({parentId, rootId, comments:propsComments }: CommentsProps) => {
   const [showForm, setShowForm] = useState(false);
   const comments = propsComments.filter((comment) => parentId === comment.parentId);
   const rootCommentInfo:any = useContext(RootCommentContext);
@@ -23,14 +24,30 @@ const Comments = ({parentId,rootId,comments:propsComments}:CommentsProps) => {
           return(
           <div className='mb-2' key={comment._id}>
               <div className="flex mb-2">
-                  <img src={comment.authorAvatar} alt='Author Avatar' className="w-8 h-8 rounded-full mr-2" />
+                  <img 
+                    src={comment.authorAvatar} 
+                    alt='Author Avatar' 
+                    className="w-8 h-8 rounded-full mr-2" 
+                  />
                   <div className="leading-10 pr-2 text-sm font-sans">{comment.author}</div>
                   <TimeAgo className='leading-10 text-sm text-reddit_text-darker font-sans' datetime={comment.createdAt} />
               </div>
               <div className='border-l-2 border-reddit_text-darker p-3' style={{marginLeft:'18px'}}>
                 <div className='pl-4 -mt-4'>
                   <div className='inline text-sm leading-6 break-words resize-x-none flex-none'>
-                    <p className='inline whitespace-pre-wrap'>{comment.body}</p>
+                    <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
+                      <a
+                        className='text-reddit_blue' 
+                        target={'_blank'} 
+                        href={decoratedHref} 
+                        key={key}
+                        rel={'noopener nofollow ugc noreferrer'}
+                      >
+                        {decoratedText}
+                      </a>
+                    )} >
+                      <p className='inline whitespace-pre-wrap'>{comment.body}</p>
+                    </Linkify>
                   </div>
                   <div className='flex p-2 pl-0 w-auto'>
                     <Voting commentId={comment._id} />

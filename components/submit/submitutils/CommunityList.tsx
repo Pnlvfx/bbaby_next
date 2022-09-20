@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React, { SetStateAction, useContext } from 'react'
+import { SetStateAction, useContext } from 'react'
 import { SubmitContext, SubmitContextType } from '../SubmitContext'
 
 type CommunityListProps = {
@@ -8,7 +8,7 @@ type CommunityListProps = {
   setActiveClass: React.Dispatch<SetStateAction<boolean>>
 }
 
-const CommunityList = ({community,setShow,setActiveClass,}: CommunityListProps) => {
+const CommunityList = ({ community, setShow, setActiveClass }: CommunityListProps) => {
   const size = 35
   const { setSelectedCommunity, setCommunityIcon } = useContext(SubmitContext) as SubmitContextType
 
@@ -25,7 +25,7 @@ const CommunityList = ({community,setShow,setActiveClass,}: CommunityListProps) 
         <div className="flex items-center text-left">
           <Image
             src={community.communityAvatar}
-            alt=""
+            alt='Community Icon'
             height={size}
             width={size}
             className="rounded-full"

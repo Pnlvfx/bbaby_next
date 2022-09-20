@@ -45,22 +45,22 @@ const CommunityDropdown = () => {
         getUserPrefCommunities().then(res => {
           setAllCommunity(res)
         })
-      }, 450)
+      }, 350)
     }
   },[])
 
   useEffect(() => { ///SEARCH
-    if (!selectedCommunity) return;
     if (!session) return;
+    if (!selectedCommunity) return;
     const timer = setTimeout(() => {
       searchCommunity(selectedCommunity).then((res) => {
         setAllCommunity(res)
       })
-    }, 500)
+    }, 300)
     return () => {
       clearTimeout(timer)
     }
-  },[selectedCommunity])
+  },[selectedCommunity, session])
 
   return (
     <div className='mb-2 flex items-center'>
@@ -79,7 +79,13 @@ const CommunityDropdown = () => {
               ? <span className='h-[22px] w-[22px] leading-[22px] text-[22px]' style={{boxSizing: 'border-box', borderRadius: '22px', border: '1px dashed', }} /> 
               : communityInfo?.communityAvatar && show 
               ? <BiSearch className="h-[22px] w-[22px] text-reddit_text-darker" /> 
-              : <Image src={communityInfo.communityAvatar} width={22} height={22} className='rounded-full' alt='' />
+              : <Image 
+                  src={communityInfo.communityAvatar} 
+                  width={22} 
+                  height={22} 
+                  className='rounded-full' 
+                  alt='Community Icon'
+                />
             }
           <div className='flex-1 pl-2'>
             <input 
@@ -106,7 +112,7 @@ const CommunityDropdown = () => {
                         <div className='border rounded-md overflow-hidden border-reddit_border'>
                         <Image
                           src={session.user.avatar}
-                          alt=""
+                          alt="User Icon"
                           width={25}
                           height={25}
                         />

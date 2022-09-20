@@ -13,10 +13,10 @@ type CommunityPg = {
   posts: PostProps[]
 }
 
-const CommunityPage: NextPage<CommunityPg> = ({community,posts}) => {
+const CommunityPage: NextPage<CommunityPg> = ({community, posts}) => {
   const {getCommunity,communityInfo} = useContext(CommunityContext) as CommunityContextProps;
   const title = community
-  const description = communityInfo.description;
+  const description = communityInfo.description ? communityInfo.description : `r/${communityInfo.name}`
   const imagePreview = '/imagePreview.png';
   const url = `${siteUrl}/b/${community}`
   const card = 'summary'

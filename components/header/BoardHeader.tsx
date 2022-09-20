@@ -115,7 +115,7 @@ const BoardHeader = () => {
           <div className='flex mt-2'>
           <div className="ml-4">
             <p className="text-2xl font-bold">{communityInfo.name}</p>
-            <h2 className="mt-1 text-sm text-reddit_text-darker">b/{communityInfo.name}</h2>
+            <h1 className="mt-1 text-sm text-reddit_text-darker">b/{communityInfo.name}</h1>
           </div>
           <button onClick={(e) => {
             e.preventDefault()

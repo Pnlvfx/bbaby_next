@@ -13,7 +13,7 @@ const Home: NextPage<BestPg> = ({posts}) => {
   const imagePreview = `${siteUrl}/imagePreview.png`;
   const description = 'Bbabystyle is a network where you can create your community and start to talk about whatever you want.';
   const twitter_card = 'summary';
-  const url = `${siteUrl}/best`
+  const url = siteUrl
 
   return (
     <>
@@ -40,7 +40,7 @@ export const getServerSideProps = async(context : NextPageContext) => {
   try {
     session = await getSession(context);
     const res = await fetch(postUrl, {
-      method: 'get',
+      method: 'GET',
       headers : ssrHeaders(context),
     })
     if (res.ok) {

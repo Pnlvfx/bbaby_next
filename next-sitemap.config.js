@@ -6,6 +6,16 @@ module.exports = {
   siteUrl,
   generateRobotsTxt: true,
   robotsTxtOptions: {
+    policies: [
+      {
+        userAgent: '*',
+        disallow: ['/login', '/governance', '/governance/*', '/submit', '/activation/*']
+      },
+      {
+        userAgent: '*',
+        allow: '/'
+      }
+    ],
     additionalSitemaps: [
       `${siteUrl}/server-sitemap.xml`,
       `${siteUrl}/community.xml`,
@@ -18,10 +28,10 @@ module.exports = {
     '/community.xml',
     '/settings/*',
     '/login',
-    '/login/*',
     '/settings',
     '/policies/*',
     '/best',
-    '/bbaby/leaderboard'
+    '/bbaby/leaderboard',
+    '/submit'
   ],
 }

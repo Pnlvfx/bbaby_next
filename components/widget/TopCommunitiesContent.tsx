@@ -35,7 +35,14 @@ const TopCommunitiesContent = ({community,getBestCommunities,rank}:TopCommunitie
             <div className='flex items-center p-1 h-[50px]'>
                 <p className='text-sm font-extrabold mx-3'>{rank}</p>
                 <RiArrowUpSLine className='w-5 h-5 text-green-500 mr-2' />
-                <Image loader={loader} src={community.communityAvatar} alt='' width={'30px'} height={'30px'} className='rounded-full'/>          
+                <Image 
+                  loader={loader} 
+                  src={community.communityAvatar} 
+                  alt='Community Icon' 
+                  width={30} 
+                  height={30} 
+                  className='rounded-full'
+                />          
                 <p className="ml-2 font-bold text-sm">b/{community.name}</p>
               <div className='ml-auto mr-2'>
                    <button onClick={(e) => {

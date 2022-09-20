@@ -29,6 +29,7 @@
     "react-howler": "^5.2.0",
     "react-icons": "^4.3.1",
     "react-infinite-scroll-component": "^6.1.0",
+    "react-linkify": "^1.0.0-alpha",
     "sharp": "^0.31.0",
     "timeago-react": "^3.0.5"
   },
@@ -37,6 +38,7 @@
     "@types/node": "18.7.18",
     "@types/react": "18.0.20",
     "@types/react-howler": "^5.2.0",
+    "@types/react-linkify": "^1.0.1",
     "autoprefixer": "^10.4.11",
     "eslint": "8.23.1",
     "eslint-config-next": "12.3.0",

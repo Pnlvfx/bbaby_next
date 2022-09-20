@@ -105,7 +105,7 @@ const Tweet = ({username, screen_name, created_at, title, type, videoInfo, image
                     <Image
                       src={image}
                       height={height}
-                      alt=""
+                      alt="Tweet Image"
                       width={width}
                     />
                   )}

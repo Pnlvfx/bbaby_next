@@ -13,7 +13,7 @@ interface PostIdPageProps {
 
 const IdPage: NextPage<PostIdPageProps> = ({post, error}) => {
     const {title} = post
-    const description = post.body
+    const description = post.body.length >= 160 ? post.body : `${post.body} ${post.ups} votes, ${post.numComments} comments in the ${post.community} community. b/${post.community}`
     const url = `${siteUrl}/b/${post.community}/comments/${post._id}`
     const twitter_card = 'summary_large_image';
     const type = 'article'
@@ -58,8 +58,7 @@ const IdPage: NextPage<PostIdPageProps> = ({post, error}) => {
 export default IdPage;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-  const production = process.env.NODE_ENV === 'production' ? true : false
-  const server = production ? process.env.NEXT_PUBLIC_SERVER_URL : `http://${context.req.headers.host?.replace('3000', '4000')}`;
+  const server = process.env.NEXT_PUBLIC_SERVER_URL;
   const {id} = context.query
   const headers = context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined;
   const sessionUrl = `${server}/user`

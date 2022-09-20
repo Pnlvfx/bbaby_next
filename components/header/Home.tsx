@@ -1,13 +1,13 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
-import { AiOutlineOrderedList, AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlineOrderedList } from 'react-icons/ai';
 import { BsSearch } from 'react-icons/bs'
 import { HiChevronDown } from 'react-icons/hi';
 import { TbBabyCarriage } from 'react-icons/tb';
 import UserContext from '../auth/UserContext';
 import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
-import { HomeIcon } from '../utils/SVG';
+import { HomeIcon, PlusIcon } from '../utils/SVG';
 import {TiNews} from 'react-icons/ti';
 import ClickOutHandler from 'react-clickout-ts';
 
@@ -29,7 +29,13 @@ const Home = () => {
       setIcon(
         <div className='w-5 h-5 rounded-full bg-gray-800'>
             {communityInfo.communityAvatar && (
-              <Image className='rounded-full' src={communityInfo.communityAvatar} alt='' height={20} width={20} />
+              <Image 
+                className='rounded-full' 
+                src={communityInfo.communityAvatar} 
+                alt='Community Icon'
+                height={20} 
+                width={20} 
+              />
             )}
         </div>
       )
@@ -41,7 +47,13 @@ const Home = () => {
       setPath(<span className="ml-2 text-sm font-bold">User Settings</span>)
       setIcon(
         <div className='w-5 h-5 rounded-full bg-gray-800'>
-          <Image className='rounded-full' src={session.user.avatar} alt='' height={20} width={20} />
+          <Image 
+            className='rounded-full' 
+            src={session.user.avatar} 
+            alt='User Icon' 
+            height={20} 
+            width={20} 
+          />
         </div>
       )
     }
@@ -50,7 +62,7 @@ const Home = () => {
       setIcon(<TbBabyCarriage className='w-5 h-5' />)
     } else if (router.pathname.match('/submit')) {
       setPath(<span className="ml-2 text-sm font-bold">Create Post</span>)
-      setIcon(<AiOutlinePlus className='w-5 h-5' />)
+      setIcon(<PlusIcon className='w-5 h-5' />)
     } else if (router.pathname.match('bbaby')) {
       setPath(<span className="ml-2 text-sm font-bold">Top Communities</span>)
       setIcon(<AiOutlineOrderedList className='w-5 h-5' />)

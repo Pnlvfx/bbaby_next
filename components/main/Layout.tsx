@@ -18,7 +18,7 @@ const Layout = ({ children } : LayoutProps) => {
   const AuthModal = dynamic(() => import('../auth/modal/AuthModal'))
   const CommunityFormModal = dynamic(() => import('../community/CommunityFormModal'))
   const TimeMsg = dynamic(() => import('./TimeMsg'));
-  const hosted_domain = process.env.NODE_ENV === 'production' ? 'bbabystyle.com' : undefined;
+  const hosted_domain = process.env.NODE_ENV === 'production' ? '.bbabystyle.com' : undefined;
   const modalContext = useContext(AuthModalContext) as AuthModalContextProps;
   const router = useRouter();
   const message = useContext(TimeMsgContext) as TimeMsgContextProps;
