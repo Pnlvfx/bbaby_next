@@ -33,6 +33,12 @@ export const loginAnalytics = () => {
   gtag('event', 'login')
 }
 
+export const registerAnalytics = () => {
+  if (!production) return null
+  const {gtag} = window
+  gtag('event', 'register')
+}
+
 export const googleLoginAnalytics = () => {
   if (!production) return null
   const {gtag} = window

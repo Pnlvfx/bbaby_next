@@ -1,4 +1,4 @@
-import {createContext, Dispatch, SetStateAction, useState} from 'react';
+import {createContext, Dispatch, ReactNode, SetStateAction, useState} from 'react';
 
 export type AuthModalContextProps = {
     show: "hidden" | "login" | "register" | "reset-your-password"
@@ -8,7 +8,7 @@ export type AuthModalContextProps = {
 export const AuthModalContext = createContext<AuthModalContextProps | {}>({});
 
 interface AuthModalContextProviderProps {
-    children: React.ReactNode
+    children: ReactNode
 }
 
 export const AuthModalContextProvider = ({children}:AuthModalContextProviderProps) => {

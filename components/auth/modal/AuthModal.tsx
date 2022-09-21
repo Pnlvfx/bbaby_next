@@ -14,17 +14,19 @@ import { CloseIcon } from '../../utils/SVG';
 import { NextComponentType } from 'next';
 import { authInput } from '../authInput';
 import * as gtag from '../../../lib/gtag';
-import { loginUrl, registerUrl } from '../../../lib/url';
+import { loginUrl } from '../../../lib/url';
 import { postRequestHeaders } from '../../main/config';
-import { getUserIP } from '../../API/oauthAPI';
+import { register } from '../../API/oauthAPI';
+import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
+
+type StatusProps = {
+  err?: string
+  success?: string
+}
 
 const AuthModal: NextComponentType = () => {
-  const initialState = {
-    err: '',
-    success: '',
-  }
   const [loading, setLoading] = useState(false)
-  const [status, setStatus] = useState(initialState)
+  const [status, setStatus] = useState<StatusProps>({})
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -32,49 +34,31 @@ const AuthModal: NextComponentType = () => {
   // IF NEW USER
   const [EmailTo, setEmailTo] = useState('')
   const modalContext = useContext(AuthModalContext) as AuthModalContextProps;
+  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
   const { show, setShow } = modalContext;
   const visibleClass = show === 'hidden' ? 'hidden' : 'block'
 
-  const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
   }
 
-  const register = async () => {
+  const doRegister = async () => {
     try {
-      setLoading(true)
-      const userIpInfo = await getUserIP();
-      const { country, countryCode, city, region, lat, lon } = userIpInfo;
-      const body = JSON.stringify({
-        email,
-        username,
-        password,
-        country,
-        countryCode,
-        city,
-        region,
-        lat,
-        lon,
-      })
-      const res2 = await fetch(registerUrl, {
-        method: 'post',
-        body,
-        headers: postRequestHeaders,
-        credentials: 'include'
-        })
-        if (res2.ok) {
-          setStatus({ err: '', success: 'registration completed' })
-          localStorage.setItem('isLogged', 'true')
-          setEmailTo(email)
-          setShow('hidden')
-          router.reload()
-        } else {
-          const error = await res2.json();
-          setStatus({ err: error.msg, success: '' })
-          setLoading(false);
-        }
+      setLoading(true);
+      const data = await register(email, username, password);
+      message.setMessage({ value: data?.msg, status: 'success' });
+      localStorage.setItem('isLogged', 'true');
+      setEmailTo(email);
+      setShow('hidden');
+      gtag.registerAnalytics();
+      router.reload()
     } catch (err) {
-        setStatus({ err: 'Unknown error', success: '' })
-        setLoading(false)
+      if (err instanceof Error) {
+        setStatus({ err: err.message });
+      } else {
+        setStatus({ err: 'Unknown error' });
+      }
+      setLoading(false);
     }
   }
 
@@ -88,13 +72,14 @@ const AuthModal: NextComponentType = () => {
         headers: postRequestHeaders,
         credentials: 'include'
       })
+      const data = await res.json();
       if (res.ok) {
+        message.setMessage({ value: data?.msg, status: 'success' });
         localStorage.setItem('isLogged', 'true')
         gtag.loginAnalytics();
         router.reload()
       } else {
-        const error = await res.json();
-        setStatus({ err: error.msg, success: ''})
+        setStatus({ err: data?.msg, success: ''})
         setLoading(false)
       }
     } catch (err) {
@@ -108,7 +93,7 @@ const AuthModal: NextComponentType = () => {
     setEmail('')
     setPassword('')
     setUsername('')
-    setStatus(initialState)
+    setStatus({})
     setLoading(false);
   }
 
@@ -225,7 +210,7 @@ const AuthModal: NextComponentType = () => {
                         className={`mb-3 h-[37px] w-full ${buttonClass()}`}
                         onClick={(e) => {
                           e.preventDefault()
-                          register()
+                          doRegister()
                         }}
                       >
                         {loading && <Spinner />}

@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react';
-import { UserIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 import { buttonClass } from '../utils/Button';
 import {AuthModalContext, AuthModalContextProps} from '../auth/modal/AuthModalContext';
@@ -9,7 +8,7 @@ import NotUserMenu from './NotUserMenu';
 import Image from 'next/image';
 import UserContext from '../auth/UserContext';
 import Logo from '../../public/logo40x40.png';
-import { PlusIcon, TextLogo } from '../utils/SVG';
+import { PlusIcon, TextLogo, UserIcon } from '../utils/SVG';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import { TbBabyCarriage } from 'react-icons/tb';
 import NotificationButton from '../notifications/NotificationButton';
@@ -28,10 +27,7 @@ const Header:NextComponentType = () => {
   const { setShow } = useContext(AuthModalContext) as AuthModalContextProps;
 
   return (
-    <header
-        id="myHeader"
-        className={`h-12 sticky left-0 right-0 flex top-0 items-center z-30 bg-reddit_dark-brighter`}
-      >
+    <header id="myHeader" className={`flex h-12 fixed left-0 right-0 top-0 items-center z-30 bg-reddit_dark-brighter`}>
       <div className="flex flex-grow items-center px-2 lg:px-5 border-b border-reddit_border box-border">
         <div className='items-center inline-flex flex-grow'>
           <Link href={'/'}>
@@ -94,7 +90,7 @@ const Header:NextComponentType = () => {
               >
                 {!session && (
                   <div className="m-1 h-5 w-5 rounded-full">
-                    <UserIcon className="text-reddit_text-darker" />
+                    <UserIcon className="text-reddit_text-darker w-5 h-5" />
                   </div>
                 )}
                 {session && (

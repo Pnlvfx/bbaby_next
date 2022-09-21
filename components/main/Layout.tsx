@@ -27,19 +27,20 @@ const Layout = ({ children } : LayoutProps) => {
   
   return (
     <>
-    <>
-      <Header />
-      {children}
-      {process.env.NEXT_PUBLIC_NODE_ENV === 'production' && <CookieConsent />}
-      {!session && modalContext.show !== 'hidden' &&  <AuthModal />}
-      {session && communityContext.show && <CommunityFormModal />}
-      <TimeMsg />
-    </>
-    {!session && !router.pathname.match('/policies') && !router.pathname.match('/login') && 
-    UseGoogleOneTapLogin({
-      onSuccess: ((response) => googleLogin(response, modalContext, router, message)),
-      cancel_on_tap_outside: false,
-      hosted_domain
+      <>
+        <Header />
+        <div className='pt-12'>
+          {children}
+        </div>
+        {process.env.NEXT_PUBLIC_NODE_ENV === 'production' && <CookieConsent />}
+        {!session && modalContext.show !== 'hidden' &&  <AuthModal />}
+        {session && communityContext.show && <CommunityFormModal />}
+        <TimeMsg />
+      </>
+      {!session && !router.pathname.match('/policies') && !router.pathname.match('/login') &&
+      UseGoogleOneTapLogin({
+        onSuccess: ((response) => googleLogin(response, modalContext, router, message)),
+        cancel_on_tap_outside: false,
       })}
     </>
   )

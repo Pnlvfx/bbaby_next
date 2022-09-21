@@ -20,8 +20,8 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps<AppPr
   useEffect(() => {
     const tracker = async () => {
       if (session?.user.role === 1) return;
+      if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return;
       try {
-        if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return;
         const server = process.env.NEXT_PUBLIC_SERVER_URL
         const url = `${server}/user/analytics`
         const res = await fetch(url, {
@@ -33,7 +33,7 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps<AppPr
       }
     }
     tracker();
-  }, [session])
+  }, [])
 
   return (
     <>
@@ -48,8 +48,12 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps<AppPr
         <link rel='apple-touch-icon' sizes='144x144' href={`${siteUrl}/apple-touch-icon-144x144.png`} />
         <link rel='apple-touch-icon' sizes='152x152' href={`${siteUrl}/apple-touch-icon-152x152.png`} />
         <link rel='apple-touch-icon' sizes='180x180' href={`${siteUrl}/apple-touch-icon-180x180.png`} />
+        <link rel="icon" type='image/png' sizes='192x192' href={`/android-chrome-192x192.png`} />
+        <link rel="icon" type='image/png' sizes='32x32' href={`/favicon-32x32.png`} />
+        <link rel="icon" type='image/png' sizes='16x16' href={`/favicon-16x16.png`} />
+        <meta name='msapplication-TileColor' content='#ffffff' />
+        <meta name='msapplication-TileImage' content='/mstile-150x150.png' />
         <meta name="theme-color" content="#1a1a1b" />
-        <link rel="icon" type='image/png' href={`/favicon.ico`} />
         <meta name="application-name" content="bbabystyle" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
