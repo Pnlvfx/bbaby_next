@@ -21,6 +21,7 @@ const Home = () => {
 
 
   useEffect(() => {
+    if (router.pathname.match('policies')) return;
     if (router.pathname === '/' || router.pathname === '/best') {
       setPath(<h1 className="ml-2 text-sm font-bold">Home</h1>)
       setIcon(<HomeIcon />)
@@ -63,20 +64,22 @@ const Home = () => {
     } else if (router.pathname.match('/submit')) {
       setPath(<span className="ml-2 text-sm font-bold">Create Post</span>)
       setIcon(<PlusIcon className='w-5 h-5' />)
-    } else if (router.pathname.match('bbaby')) {
+    } else if (router.pathname.match('/bbaby')) {
       setPath(<span className="ml-2 text-sm font-bold">Top Communities</span>)
       setIcon(<AiOutlineOrderedList className='w-5 h-5' />)
-    } else if (router.pathname.match('search')) {
+    } else if (router.pathname.match('/search')) {
       setPath(<h1 className="ml-2 text-sm font-bold">Search Results</h1>)
       setIcon(<BsSearch className='w-5 h-5' />)
-    } else if (router.pathname.match('news')) {
-      setPath(<span className="ml-2 text-sm font-bold">News</span>)
+    } else if (router.pathname.match('/news')) {
+      setPath(<h1 className="ml-2 text-sm font-bold">News</h1>)
       setIcon(<TiNews className='w-5 h-5' />)
     }
   }, [router,communityInfo,session])
 
   return (
-    <div 
+    <>
+    {!router.pathname.match('policies') && (
+      <div 
       aria-label='search your community' 
       id="home_button" 
       className={`relative hidden w-[270px] lg:block h-[36px] rounded-md border hover:border-reddit_border ${show ? 'border-reddit_border' : 'border-transparent'}`}
@@ -108,6 +111,8 @@ const Home = () => {
       </div>
       }
     </div>
+    )}
+    </>
   )
 }
 

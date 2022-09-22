@@ -13,7 +13,7 @@ interface PostIdPageProps {
 
 const IdPage: NextPage<PostIdPageProps> = ({post, error}) => {
     const {title} = post
-    const description = post.body.length >= 160 ? post.body : `${post.body} ${post.ups} votes, ${post.numComments} comments in the ${post.community} community. b/${post.community}`
+    const description = post?.body?.length >= 160 ? post.body : `${post.body} ${post.ups} votes, ${post.numComments} comments in the ${post.community} community. b/${post.community}`
     const url = `${siteUrl}/b/${post.community}/comments/${post._id}`
     const twitter_card = 'summary_large_image';
     const type = 'article'

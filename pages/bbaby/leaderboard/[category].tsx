@@ -9,7 +9,7 @@ interface Props {
 const CategoryPage:NextPage<Props> = ({category}) => {
     const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
     const title = "Today's Top Communities";
-    const description = 'Bbabystyle - all best communities';
+    const description = 'View Bbabystyle top communities. Filter to see view top communities in sports, gaming, news, television and more.';
     const url = `${hostname}/bbaby/leaderboard/${category}`;
     const imagePreview = `${hostname}/imagePreview.png`;
     const card = 'summary';
@@ -38,8 +38,7 @@ const CategoryPage:NextPage<Props> = ({category}) => {
 export default CategoryPage;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-  const production = process.env.NODE_ENV === 'production' ? true : false
-  const server = production ? process.env.NEXT_PUBLIC_SERVER_URL : `http://${context.req.headers.host?.replace('3000', '4000')}`;
+  const server = process.env.NEXT_PUBLIC_SERVER_URL
   const headers = context?.req?.headers?.cookie ? { cookie: context.req.headers.cookie } : undefined;
   const url = `${server}/user`
   const response = await fetch(url, {

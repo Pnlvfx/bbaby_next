@@ -9,7 +9,15 @@ module.exports = {
     policies: [
       {
         userAgent: '*',
-        disallow: ['/login', '/governance', '/governance/*', '/submit', '/activation/*']
+        disallow: 
+        [
+          '/login',
+          '/governance',
+          '/governance/*',
+          '/submit',
+          '/activation/*',
+          '/b/*/submit'
+        ]
       },
       {
         userAgent: '*',
@@ -21,7 +29,8 @@ module.exports = {
       `${siteUrl}/community.xml`,
     ],
   },
-  exclude: [
+  exclude: 
+  [
     '/governance',
     '/governance/*',
     '/server-sitemap.xml',

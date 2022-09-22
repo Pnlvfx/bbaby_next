@@ -7,7 +7,7 @@ import { getSession } from "../../../components/API/ssrAPI"
 const LeaderboardPage:NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
   const title = "Today's Top Communities";
-  const description = 'Bbabystyle - all best communities';
+  const description = 'View Bbabystyle top communities. Filter to see view top communities in sports, gaming, news, television and more.';
   const imagePreview = `${hostname}/imagePreview.png`;
   const url = `${hostname}/bbaby/leaderboard`;
   const card = 'summary';

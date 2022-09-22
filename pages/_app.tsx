@@ -1,7 +1,7 @@
 import '../styles/globals.css';
 import Head from 'next/head';
 import UserContext from '../components/auth/UserContext';
-import type { AppProps } from 'next/app';
+import type { AppProps, NextWebVitalsMetric } from 'next/app';
 import { AuthModalContextProvider } from '../components/auth/modal/AuthModalContext';
 import { CommunityContextProvider } from '../components/community/CommunityContext';
 import { TimeMsgContextProvider } from '../components/main/TimeMsgContext';
@@ -11,6 +11,7 @@ import { GoogleOAuthProvider } from '../components/auth/providers/google/GoogleO
 import Layout from '../components/main/Layout';
 import { useEffect } from 'react';
 import { GoogleAdsProvider } from '../components/google/GoogleAdsenseProvider';
+import telegramapis from '../components/utils/telegramapis';
 interface AppPropsss {
   session: SessionProps['session']
 }
@@ -82,3 +83,8 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps<AppPr
 }
 
 export default MyApp;
+
+export function reportWebVitals(metric: NextWebVitalsMetric) {
+  if (process.env.NODE_ENV === 'development') return;
+  telegramapis.sendLog(`${metric.name} : ${metric.value} start: ${metric.startTime}`)
+}
