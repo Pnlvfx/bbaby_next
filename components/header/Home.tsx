@@ -21,6 +21,7 @@ const Home = () => {
 
 
   useEffect(() => {
+    if (!session) return;
     if (router.pathname.match('policies')) return;
     if (router.pathname === '/' || router.pathname === '/best') {
       setPath(<h1 className="ml-2 text-sm font-bold">Home</h1>)
@@ -78,7 +79,7 @@ const Home = () => {
 
   return (
     <>
-    {!router.pathname.match('policies') && (
+    {!router.pathname.match('policies') && session && (
       <div 
       aria-label='search your community' 
       id="home_button" 

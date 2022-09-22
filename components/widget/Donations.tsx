@@ -1,11 +1,10 @@
 import { FaRegFlag } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
+import { Spinner } from '../utils/Button';
 
 const Donations = () => {
-  //const NEXT_PUBLIC_PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPPAL_CLIENT_ID
-  //const [{ isPending }] = usePayPalScriptReducer();
-  const [paypal,setPaypal] = useState(<div></div>)
+  const [paypal, setPaypal] = useState(<Spinner />)
 
   const PaypalComp = () => {
     return (
@@ -30,7 +29,7 @@ const Donations = () => {
     if (isMobile) return
     setTimeout(() => {
       setPaypal(PaypalComp)
-    },500)
+    }, 500)
   },[])
 
   return (

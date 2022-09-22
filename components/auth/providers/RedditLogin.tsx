@@ -26,8 +26,8 @@ const RedditLogin = (userInfo:UserProps) => {
             } else {
 
             }
-        } catch (err:any) {
-            alert(err)
+        } catch (err) {
+            
         }
     }
 

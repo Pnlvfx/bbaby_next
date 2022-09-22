@@ -1,78 +1,98 @@
 import { useContext } from 'react'
-import { BiUserCircle } from 'react-icons/bi';
-import {FiSettings} from 'react-icons/fi'
-import {AuthModalContext, AuthModalContextProps} from '../auth/modal/AuthModalContext'
-import Link from 'next/link';
+import { BiUserCircle } from 'react-icons/bi'
+import { FiSettings } from 'react-icons/fi'
+import { AuthModalContext, AuthModalContextProps } from '../auth/modal/AuthModalContext'
+import Link from 'next/link'
 
+const NotUserMenu = ({ showDropdown, setShowDropdown }: any) => {
 
-function NotUserMenu({showDropdown,setShowDropdown}:any) {
-    const containerClass = 'hover:bg-reddit_dark-brightest cursor-pointer'
-    const buttonClass = 'text-sm p-3 pl-12 font-bold'
-    const authModal = useContext(AuthModalContext) as AuthModalContextProps;
+  const ButtonWithIcon = (name: string, ) => {
+    return (
+      <button className={'hover:bg-reddit_dark-brightest box-border block h-10 w-full'}>
+        <span className={'flex items-center px-5 h-full'}>
+          <span>
+            <FiSettings className="mr-2 h-5 w-5" />
+          </span>
+          <span className="text-[14px] leading-[18px] font-bold">{name}</span>
+          
+        </span>
+      </button>
+    )
+  }
+
+  const containerClass = 'hover:bg-reddit_dark-brightest cursor-pointer'
+  const buttonClass = 'text-sm p-3 pl-12 font-bold'
+  const authModal = useContext(AuthModalContext) as AuthModalContextProps
 
   return (
     <>
-    {showDropdown && (
-        <div className={'absolute right-0 top-[53px] bg-reddit_dark-brighter border border-reddit_border z-10 rounded-md text-reddit_text overflow-hidden'}>
-        <div className='w-[280px]'>
-            <div className=''>
-                <div id='buttons_with_icon' className=''>
-                    <div className='p-3'>
-                    </div>
-                    <div className={containerClass}>
-                        <div className={'flex p-[10px] pl-4'} onClick={() => {
-                                }}>
-                            <FiSettings className='w-5 h-5 mr-2' />
-                            <p className='font-bold text-sm mt-[2px]'>Settings</p>
-                        </div>
-                    </div>
-                </div>
-                <hr className='border-reddit_border my-3 mb-4'/>
-                    <div id='button_no_icons' className=''>
-                    <div className={containerClass}>
-                            <Link href={'/policies/user-agreement'}>
-                                <a target='_blank' onClick={() => {
-                                    setShowDropdown(false)
-                                }}>
-                                    <p className={buttonClass}>User Agreement</p> 
-                                </a>   
-                            </Link>
-                    </div>
-                    <div className={containerClass}>
-                            <Link href={'/policies/privacy-policy'}>
-                                <a target='_blank' onClick={() => {
-                                    setShowDropdown(false)
-                                }} >
-                                    <p className={buttonClass}>Privacy Policy</p>   
-                                </a>
-                            </Link> 
-                    </div>
-                    <div className={containerClass}>
-                    <p className={buttonClass}>Content Policy</p>    
-                    </div>
-                    <div className={containerClass}>
-                    <p className={buttonClass}>Moderator Guidelines</p>    
-                    </div>
-                </div>    
-                <hr className='border-reddit_border my-3 mb-4'/>  
+      {showDropdown && (
+        <div className={'absolute right-0 top-[48px] z-10 overflow-hidden rounded-md border border-reddit_border bg-reddit_dark-brighter text-reddit_text'}>
+          <div className="w-[280px]">
+            <div className="">
+              <div id="buttons_with_icon">
+                <div className="p-3" />
+                {ButtonWithIcon('Settings')}
+              </div>
+              <hr className="my-3 mb-4 border-reddit_border" />
+              <div id="button_no_icons">
                 <div className={containerClass}>
-                    <div onClick={() => {
-                        authModal.setShow('login')
+                  <Link href={'/policies/user-agreement'}>
+                    <a
+                      target="_blank"
+                      onClick={() => {
                         setShowDropdown(false)
-                        }} className={'flex p-[9px] pl-4'}>
-                        <BiUserCircle className='w-6 h-6 mr-2'/>
-                        <p className='font-bold text-sm mt-[2px]'>Sign Up or Log In</p>
-                    </div>
+                      }}
+                    >
+                      <p className={buttonClass}>User Agreement</p>
+                    </a>
+                  </Link>
                 </div>
-                    <div>
-                        <p className='text-xs p-4 pt-3 text-reddit_text-darker'>2022 Bbabystyle.Inc. All rights reserved</p>
-                    </div>
-        </div> 
+                <div className={containerClass}>
+                  <Link href={'/policies/privacy-policy'}>
+                    <a
+                      target="_blank"
+                      onClick={() => {
+                        setShowDropdown(false)
+                      }}
+                    >
+                      <p className={buttonClass}>Privacy Policy</p>
+                    </a>
+                  </Link>
+                </div>
+                <div className={containerClass}>
+                  <p className={buttonClass}>Content Policy</p>
+                </div>
+                <div className={containerClass}>
+                  <p className={buttonClass}>Moderator Guidelines</p>
+                </div>
+              </div>
+              <hr className="my-3 mb-4 border-reddit_border" />
+              <div className={containerClass}>
+                <div
+                  onClick={() => {
+                    authModal.setShow('login')
+                    setShowDropdown(false)
+                  }}
+                  className={'flex p-[9px] pl-4'}
+                >
+                  <BiUserCircle className="mr-2 h-6 w-6" />
+                  <p className="mt-[2px] text-sm font-bold">
+                    Sign Up or Log In
+                  </p>
+                </div>
+              </div>
+              <div>
+                <p className="p-4 pt-3 text-xs text-reddit_text-darker">
+                  2022 Bbabystyle.Inc. All rights reserved
+                </p>
+              </div>
             </div>
-    </div>
-    )}
+          </div>
+        </div>
+      )}
     </>
   )
 }
 
-export default NotUserMenu;
+export default NotUserMenu

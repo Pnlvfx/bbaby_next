@@ -19,9 +19,8 @@ import { postRequestHeaders } from '../../main/config';
 import { register } from '../../API/oauthAPI';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
 
-type StatusProps = {
+export type StatusProps = {
   err?: string
-  success?: string
 }
 
 const AuthModal: NextComponentType = () => {
@@ -79,11 +78,11 @@ const AuthModal: NextComponentType = () => {
         gtag.loginAnalytics();
         router.reload()
       } else {
-        setStatus({ err: data?.msg, success: ''})
+        setStatus({ err: data?.msg})
         setLoading(false)
       }
     } catch (err) {
-        setStatus({ err: 'Unknown error', success: ''})
+        setStatus({ err: 'Unknown error'})
         setLoading(false)
     }
   }
@@ -114,11 +113,11 @@ const AuthModal: NextComponentType = () => {
             <div className="relative hidden w-[128px] lg:block">
               <Image src={AuthImage} alt="Auth Image" layout="fill" />
             </div>
-            <div className="mt-20 ml-6 max-w-[320px] flex-none">
+            <div className="mt-16 ml-6 max-w-[320px] flex-none">
               <p className="mb-2 text-2xl">{show === 'login' ? 'Login' : show === 'register' ? 'Sign up' : ''}</p>
               {show === 'login' && (
                 <>
-                  <p className="pb-4 text-sm">
+                  <p className="mb-6 text-[12px]">
                     By continuing, you agree to our{' '}
                     <Link href={'/policies/user-agreement'}>
                       <a target="_blank" className="text-blue-400">
@@ -167,7 +166,7 @@ const AuthModal: NextComponentType = () => {
                     <div className="mt-3 text-sm mb-24">
                       New to Bbaby?{' '}
                       <button
-                        className="ml-1 font-semibold text-blue-500 "
+                        className="ml-1 font-semibold text-blue-500"
                         onClick={() => setShow('register')}
                       >
                         SIGN UP
@@ -177,7 +176,7 @@ const AuthModal: NextComponentType = () => {
               )}
               {show === 'register' && (
                 <>
-                  <p className="pb-4 text-sm">
+                  <p className="mb-6 text-[12px]">
                     By continuing, you are setting up a Bbabystyle account and
                     agree to our{' '}
                     <Link href={'/policies/user-agreement'}>

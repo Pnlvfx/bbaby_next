@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface PoliciesTabProps {
     header: string
     underHeader?: string
@@ -13,7 +11,7 @@ interface ContentProps {
 }
 
 
-const PoliciesTab = ({header, underHeader, content}:PoliciesTabProps) => {
+const PoliciesTab = ({header, underHeader, content}: PoliciesTabProps) => {
 
   return (
     <div className="mr-0 border border-reddit_border text-sm mb-12">
@@ -26,7 +24,7 @@ const PoliciesTab = ({header, underHeader, content}:PoliciesTabProps) => {
                         <p className='w-[60%]'>{c.title}</p>
                     </div>
                     <div className='ml-10 mb-7'>
-                        <div>{c.body}</div>
+                        <div dangerouslySetInnerHTML={{__html: `${c.body}`}} />
                     </div>
                 </div>
             ))}

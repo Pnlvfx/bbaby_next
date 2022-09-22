@@ -11,7 +11,6 @@ import { GoogleOAuthProvider } from '../components/auth/providers/google/GoogleO
 import Layout from '../components/main/Layout';
 import { useEffect } from 'react';
 import { GoogleAdsProvider } from '../components/google/GoogleAdsenseProvider';
-import telegramapis from '../components/utils/telegramapis';
 interface AppPropsss {
   session: SessionProps['session']
 }
@@ -23,7 +22,7 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps<AppPr
       if (session?.user.role === 1) return;
       if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return;
       try {
-        const server = process.env.NEXT_PUBLIC_SERVER_URL
+        const server = process.env.NEXT_PUBLIC_SERVER_URL;
         const url = `${server}/user/analytics`
         const res = await fetch(url, {
           method: 'get',
@@ -86,5 +85,5 @@ export default MyApp;
 
 export function reportWebVitals(metric: NextWebVitalsMetric) {
   if (process.env.NODE_ENV === 'development') return;
-  telegramapis.sendLog(`${metric.name} : ${metric.value} start: ${metric.startTime}`)
+  //telegramapis.sendLog(`${metric.name} : ${metric.value} start: ${metric.startTime}`)
 }

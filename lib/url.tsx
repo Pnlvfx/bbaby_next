@@ -16,7 +16,7 @@ export const redditAPIurl = {
 
 
 export const communityUrl = {
-    change_avatar : (name:string) => `${server}/communities/${name}/change_avatar`,
+    change_avatar : (name: string) => `${server}/communities/${name}/change_avatar`,
     update_description : `${server}/communities/edit/description` as `/communities/edit/description`,
     user_preferred_communities: `${server}/communities/user/pref?limit=11` as `/communities/user/pref?limit?number`
 }

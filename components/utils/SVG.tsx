@@ -53,7 +53,6 @@ export const TwitterLogo = (props: any) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       aria-hidden="true"
-      className="r-1cvl2hr r-4qtqp9 r-yyyyoo r-16y2uox r-8kz0gk r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-lrsllp"
       width={30}
       height={20}
       {...props}
@@ -72,7 +71,6 @@ export const AddImageIcon = (props: any) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       aria-hidden="true"
-      className="r-1cvl2hr r-4qtqp9 r-yyyyoo r-z80fyv r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-19wmn03"
       width={24}
       height={24}
       {...props}
@@ -91,7 +89,6 @@ export const CommentIcon = (props: any) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       aria-hidden="true"
-      className="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi"
       width={20}
       height={20}
     >
@@ -109,7 +106,6 @@ export const MoreIcon = (props: any) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       aria-hidden="true"
-      className="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi"
       width={20}
       height={20}
       {...props}
@@ -129,7 +125,6 @@ export const ShareIcon = (props: any) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       aria-hidden="true"
-      className="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi"
       width={20}
       height={20}
       {...props}
@@ -147,7 +142,6 @@ export const CloseIcon = (props: any) => {
     <svg
       viewBox="0 0 20 20"
       xmlns="http://www.w3.org/2000/svg"
-      className="_1P6W3uUZ7ehYwJrW6a7sfJ"
       width={props.style.width}
       height={props.style.height}
       {...props}
@@ -165,7 +159,6 @@ export const VideoIcon = (props: any) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      className="style-scope yt-icon"
       width={24}
       height={24}
       pointerEvents="none"
@@ -188,7 +181,6 @@ export const HomeIcon = (props: any) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       aria-hidden="true"
-      className="r-18jsvk2 r-4qtqp9 r-yyyyoo r-lwhw9o r-dnmrzs r-bnwqim r-1plcrui r-lrvibr"
       width={24}
       height={24}
       {...props}
@@ -204,7 +196,6 @@ export const HomeIcon = (props: any) => {
 export const VideoCenterPlayIcon = (props: any) => {
   return (
     <svg
-      className="eI6Ep6BNFA5DZjPWNVb4O _2XQ3ZY6qCbEm9_WtvLLFru"
       viewBox="0 0 50 50"
       xmlns="http://www.w3.org/2000/svg"
       width={50}
@@ -229,7 +220,6 @@ export const VideoCenterPlayIcon = (props: any) => {
 export const VideoCenterReplayIcon = (props: any) => {
   return (
     <svg
-      className="_3N5UJK0Os17icJ33e54tfY"
       viewBox="0 0 50 50"
       xmlns="http://www.w3.org/2000/svg"
       width={50}
@@ -305,7 +295,6 @@ export const VideoPauseFromBarIcon = (props: any) => {
 export const VideoSettingsIcon = (props: any) => {
   return (
     <svg
-      className="X3KvZpgZg_2f0etJY2Ba7"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 20 20"
       width={20}
@@ -383,7 +372,6 @@ export const VideoAudioIcon = (props: any) => {
 export const TrashIcon = (props: any) => {
   return (
     <svg
-      className="_1Fa4RPHlhrfUZuNaXK2-eP _3UAl61hrkRAXX5JQ6m_q8R _1mvTX6krm3Q2d1CSyUm28s"
       viewBox="0 0 20 20"
       xmlns="http://www.w3.org/2000/svg"
       width={32}
@@ -402,7 +390,6 @@ export const PlusIcon = (props: any) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="_1Wlw6VAlBp8UW7eHpfZR9H"
       viewBox="0 0 20 20"
       width={22}
       height={22}

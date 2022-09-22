@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import PoliciesTab from './PoliciesTab'
 
 const PrivacyPolicies = () => {
@@ -33,11 +34,7 @@ const PrivacyPolicies = () => {
     {
       title: 'Information collected from cookies and similar technologies',
       body: `We may receive information from cookies, which are pieces of data your browser stores and sends back to us when making requests, and similar technologies. We use this information to improve your experience, understand user activity, personalize content and advertisements, and improve the quality of our Services. For example, we store and retrieve information about your preferred language and other settings. See our 
-      <Link href={'/'}>
-      <a className='text-reddit_blue'>
-        <p>Cookie Notice</p>
-        </a>
-        </Link> for more information about how Bbaby uses cookies. For more information on how you can disable cookies, please see Your Choices below.`,
+      <a href='/' class='text-reddit_blue'> Cookie Notice  </a> for more information about how Bbaby uses cookies. For more information on how you can disable cookies, please see Your Choices below.`,
       key: 2,
     },
     {
@@ -70,6 +67,48 @@ const PrivacyPolicies = () => {
       title: 'Information collected from integrations',
       body: `We also may receive information about you, including log and usage data and cookie information, from third-party sites that integrate our Services, including our embeds and advertising technology. For example, when you visit a site that uses Bbaby embeds, we may receive information about the web page you visited. Similarly, if an advertiser incorporates Bbaby’s ad technology, Bbaby may receive limited information about your activity on the advertiser’s site or app, such as whether you bought something from the advertiser. You can control how we use this information to personalize the Services for you as described in Your Choices - Controlling Advertising and Analytics below.`,
       key: 2,
+    },
+  ]
+
+  const content5 = [
+    {
+      title: 'Our Advertising Partners',
+      body: 
+      `
+      Some of advertisers on our site may use cookies and web beacons. Our advertising partners are listed below. Each of our advertising partners has their own Privacy Policy for their policies on user data. For easier access, we hyperlinked to their Privacy Policies below.
+      <li class='list-disc'>Google:</li>
+      <a class='text-reddit_blue' href='https://policies.google.com/technologies/ads'>https://policies.google.com/technologies/ads</a>
+      `,
+      key: 1,
+    },
+    {
+      title: 'Advertising Partners Privacy Policies',
+      body: `You may consult this list to find the Privacy Policy for each of the advertising partners of bbabystyle.
+      Third-party ad servers or ad networks uses technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements and links that appear on bbabystyle, which are sent directly to users' browser. They automatically receive your IP address when this occurs. These technologies are used to measure the effectiveness of their advertising campaigns and/or to personalize the advertising content that you see on websites that you visit.
+      Note that bbabystyle has no access to or control over these cookies that are used by third-party advertisers.`,
+      key: 2,
+    },
+    {
+      title: 'CCPA Privacy Rights (Do Not Sell My Personal Information)',
+      body: `Under the CCPA, among other rights, California consumers have the right to:
+      Request that a business that collects a consumer's personal data disclose the categories and specific pieces of personal data that a business has collected about consumers.
+      Request that a business delete any personal data about the consumer that a business has collected.
+      Request that a business that sells a consumer's personal data, not sell the consumer's personal data.
+      If you make a request, we have one month to respond to you. If you would like to exercise any of these rights, please contact us.`,
+      key: 3,
+    },
+    {
+      title: 'GDPR Data Protection Rights',
+      body: `We would like to make sure you are fully aware of all of your data protection rights. Every user is entitled to the following:
+      The right to access - You have the right to request copies of your personal data. We may charge you a small fee for this service.
+      The right to rectification - You have the right to request that we correct any information you believe is inaccurate. You also have the right to request that we complete the information you believe is incomplete.
+      The right to erasure - You have the right to request that we erase your personal data, under certain conditions.
+      The right to restrict processing - You have the right to request that we restrict the processing of your personal data, under certain conditions.
+      The right to object to processing - You have the right to object to our processing of your personal data, under certain conditions.
+      The right to data portability - You have the right to request that we transfer the data that we have collected to another organization, or directly to you, under certain conditions.
+      If you make a request, we have one month to respond to you. If you would like to exercise any of these rights, please contact us.
+      `,
+      key: 3,
     },
   ]
 
@@ -120,11 +159,39 @@ const PrivacyPolicies = () => {
           header="Information Collected by Third Parties"
           content={content4}
         />
-
+        <PoliciesTab
+          header="Information Collected from Advertisers and Potential Advertisers"
+          content={content5}
+        />
         <div>
-          <p className="text-xl font-bold">
-            Additional Information for EEA Users
-          </p>
+          <p className="mt-5 text-sm">We use information about you to:</p>
+          <ul className='list-disc'>
+            <li className='ml-6 text-sm mt-2'>Provide, maintain, and improve the Services;</li>
+            <li className='ml-6 text-sm mt-2'>Research and develop new services;</li>
+            <li className='ml-6 text-sm mt-2'>Help protect the safety of Reddit and our users, which includes blocking suspected spammers, addressing abuse, and enforcing the {' '}
+              <Link href={'/policies/user-agreement'}>
+              <a className='text-reddit_blue'>
+                Bbaby User Agreement
+              </a>
+              </Link>{' '} and our other policies;
+            </li>
+            <li className='ml-6 text-sm mt-2'>Send you technical notices, updates, security alerts, invoices, and other support and administrative messages;</li>
+            <li className='ml-6 text-sm mt-2'>Provide customer service;</li>
+            <li className='ml-6 text-sm mt-2'>Communicate with you about products, services, offers, promotions, and events, and provide other news and information we think will be of interest to you;</li>
+            <li className='ml-6 text-sm mt-2'>Monitor and analyze trends, usage, and activities in connection with our Services;</li>
+            <li className='ml-6 text-sm mt-2'>Measure the effectiveness of ads shown on our Services; and</li>
+            <li className='ml-6 text-sm mt-2'>Personalize the Services, and provide and optimize advertisements, content, and features that match user profiles or interests.</li>
+          </ul>
+          <p className='text-xl font-bold mt-5'>Your Rights</p>
+          <p className='mt-5 text-xl'>Data Subject and Consumer Information Requests</p>
+          <p className='text-sm mt-5'>Requests for a copy of the information Bbaby has about your account—including EU General Data Protection Regulation (“GDPR”) data subject access requests and California Consumer Privacy Act (“CCPA”) consumer information requests—can be submitted {' '}
+            <Link href={'emailto: noreply.bbabystyle@gmail.com'}>
+            <a className='text-reddit_blue'>
+              here
+            </a>
+          </Link>.</p>
+          <p className='mt-5 text-sm'>Before we process a request from you about your personal information, we need to verify the request via your access to your Reddit account or to a verified email address associated with your Reddit account. You may also designate an authorized agent to exercise these rights on your behalf. Bbaby does not discriminate against users for exercising their rights under data protection laws to make requests regarding their personal information.</p>
+          <p className="text-xl font-bold mt-5">Additional Information for EEA Users</p>
           <p className="mt-5 text-sm">
             Users in the European Economic Area have the right to request access
             to, rectification of, or erasure of their personal data; to data

@@ -15,6 +15,7 @@ function PostForm({community}:PostFormProps) {
     const {session} = useContext(UserContext) as SessionProps;
     const router = useRouter()
     const {setShow} = useContext(AuthModalContext) as AuthModalContextProps;
+    const inputClass = 'text-[16px] md:text-[14px] leading-5 bg-reddit_dark-brightest p-2 px-3 block w-full rounded-md placeholder:text-reddit_text-darker'
     
     return (
     <div className='border border-reddit_border p-2 rounded-md flex bg-reddit_dark-brighter mx-auto'>
@@ -52,7 +53,7 @@ function PostForm({community}:PostFormProps) {
                     <a>
                         <input 
                             type='text' 
-                            className='bg-reddit_dark-brightest p-2 px-3 block w-full rounded-md placeholder:text-reddit_text-darker text-[16px]' 
+                            className={inputClass} 
                             placeholder='Create Post'
                         />
                     </a>
@@ -64,8 +65,8 @@ function PostForm({community}:PostFormProps) {
                     setShow('login')
                 }}>
                 <input 
-                    type='text' 
-                    className='text-[16px] bg-reddit_dark-brightest p-2 px-3 block w-full rounded-md placeholder:text-reddit_text-darker' 
+                    type='text'
+                    className={inputClass} 
                     placeholder='Login to create a Post'/>
                 </div>
             )}

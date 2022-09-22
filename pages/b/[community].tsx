@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import {useContext, useEffect} from 'react';
-import BoardHeader from '../../components/header/BoardHeader';
+import BoardHeader from '../../components/community/BoardHeader';
 import {CommunityContext, CommunityContextProps} from '../../components/community/CommunityContext';
 import type { NextPage, NextPageContext } from 'next';
 import Feed from '../../components/post/Feed';

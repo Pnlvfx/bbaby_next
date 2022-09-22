@@ -24,12 +24,14 @@ const LinkPreview = ({title, description, image, hostname, link, siteName }: Lin
                             <p className='font-bold truncate'>{title}</p>
                         </div>
                         <div className='mb-4 flex items-center justify-center'>
-                            <img 
-                                src={image} 
-                                height={350} 
-                                alt='Post Image' 
-                                width={700} 
-                            />
+                            <picture>
+                                <img 
+                                    src={image} 
+                                    height={350} 
+                                    alt='Link Image' 
+                                    width={700}
+                                />
+                            </picture>
                         </div>
                         <div className='flex justify-center'>
                             <p className='text-lg'>{description}</p>

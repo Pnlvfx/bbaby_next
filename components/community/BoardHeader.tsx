@@ -2,8 +2,8 @@ import Image from 'next/image';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { communityUrl } from '../../lib/url';
 import { AuthModalContext, AuthModalContextProps } from '../auth/modal/AuthModalContext';
-import { subscribe } from '../community/APicommunity';
-import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
+import { subscribe } from './APicommunity';
+import { CommunityContext, CommunityContextProps } from './CommunityContext';
 import { postRequestHeaders } from '../main/config';
 import { buttonClass } from '../utils/Button';
 

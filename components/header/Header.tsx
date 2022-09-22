@@ -16,7 +16,7 @@ import Home from './Home';
 import SearchBar from './search/SearchBar';
 import { NextComponentType } from 'next';
 
-const Header:NextComponentType = () => {
+const Header: NextComponentType = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const { session } = useContext(UserContext) as SessionProps;
 
@@ -78,20 +78,22 @@ const Header:NextComponentType = () => {
               </button>
             </div>
           )}
-          <div id='user_dropdown' className='h-[44px] lg:ml-2'>
+          <div id='user_dropdown' className='h-[44px] lg:ml-2 flex items-center'>
             <ClickOutHandler onClickOut={() => setShowDropdown(false)}>
               <button
-              aria-expanded='false'
-              aria-label='user_dropdown'
-              aria-haspopup='true'
-              id='USER_DROPDOWN'
-                className="flex items-center h-[44px] border border-transparent hover:border-reddit_border rounded-md"
+                aria-expanded={showDropdown}
+                aria-label='user_dropdown'
+                aria-haspopup='true'
+                id='USER_DROPDOWN'
+                className={`${!session && 'lg:w-[70px]'} min-h-[32px] flex items-center justify-center border border-transparent hover:border-reddit_border rounded-md py-[2px]`}
                 onClick={() => setShowDropdown(!showDropdown)}
               >
                 {!session && (
-                  <div className="m-1 h-5 w-5 rounded-full">
-                    <UserIcon className="text-reddit_text-darker w-5 h-5" />
-                  </div>
+                  <span className="flex items-center">
+                    <span className='flex items-center'>
+                      <UserIcon className="text-reddit_text-darker w-5 h-5 leading-5 align-middle" />
+                    </span>
+                  </span>
                 )}
                 {session && (
                   <div className="mr-0 flex items-center lg:mr-16 h-full">
@@ -107,7 +109,7 @@ const Header:NextComponentType = () => {
                     </span>
                   </div>
                 )}
-                <RiArrowDownSLine className="h-[20px] w-[20px] text-reddit_text-darker" />
+                <RiArrowDownSLine className="text-[20px] text-reddit_text-darker w-5 h-5 leading-5 align-middle" />
               </button>
               {session && (
                 <UserMenu

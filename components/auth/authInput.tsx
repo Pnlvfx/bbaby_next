@@ -1,10 +1,11 @@
-import { Dispatch, SetStateAction } from 'react'
-import { inputClass } from '../utils/Input'
+import { Dispatch, SetStateAction } from 'react';
+import { inputClass } from '../utils/Input';
+import { StatusProps } from './modal/AuthModal';
 
 export const authInput = (
   title: string,
   type: string,
-  status: any,
+  status: StatusProps,
   state: string,
   setState: Dispatch<SetStateAction<string>>,
   autoComplete: string
@@ -15,9 +16,7 @@ export const authInput = (
       <input
         type={type}
         title={title}
-        className={`${inputClass} mb-3 w-full p-2 ${
-          status.err && 'border border-reddit_red'
-        }`}
+        className={`${inputClass} mb-3 w-full p-2 ${status.err && 'border border-reddit_red'}`}
         value={state}
         onChange={(e) => setState(e.target.value)}
         autoComplete={autoComplete}
