@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import ClickOutHandler from 'react-clickout-ts';
 import { HiChevronDown } from 'react-icons/hi';
 import UserContext from '../../auth/UserContext';
-import { getUserPrefCommunities, searchCommunity } from '../../community/APicommunity';
+import { getUserPrefCommunities, searchCommunity } from '../../API/communityAPI';
 import { CommunityContext, CommunityContextProps } from '../../community/CommunityContext';
 import { SubmitContext, SubmitContextType } from '../SubmitContext';
 import CommunityList from './CommunityList';

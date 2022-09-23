@@ -5,14 +5,13 @@ import Post from './Post';
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { isMobile } from 'react-device-detect';
-import TopCommunities from '../widget/TopCommunities'
-import CommunitiesInfo from '../widget/CommunitiesInfo'
 import dynamic from 'next/dynamic'
 import Donations from '../widget/Donations'
-import { getPosts } from './APIpost'
+import { getPosts } from './APIpost';
 import Skeleton from '../governance/twitter/Skeleton';
 import { TimeMsgContext, TimeMsgContextProps } from '../main/TimeMsgContext';
 import Link from 'next/link';
+import Widget from '../widget/Widget';
 
 type FeedProps = {
   posts: PostProps[]
@@ -68,7 +67,7 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
       )}
       {postId === '' && (
         <div className="mx-[2px] lg:mx-10 mt-5 flex justify-center">
-          <div className="w-full lg:w-[640px] lg:mr-4">
+          <div className="w-full lg:w-[640px]">
             {!author && (
               <div className="mb-[18px]">
                 <PostForm community={community ? community : ''} />
@@ -95,8 +94,8 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
               </InfiniteScroll>
            </div>
           </div>
-          <div className="hidden lg:block">
-            {community ? <CommunitiesInfo /> : <TopCommunities />}
+          <div className="hidden lg:block ml-6">
+            <Widget community={community} />
             <Donations />
             <div className='relative flex-grow'>
               <div className='sticky top-[57px]'>

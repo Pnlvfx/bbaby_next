@@ -3,38 +3,30 @@ import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { buttonClass } from '../utils/Button';
 import TopCommunitiesContent from './TopCommunitiesContent';
+import { getCommunities } from '../API/communityAPI';
 
 const TopCommunities = () => {
   const [allCommunity, setAllCommunity] = useState<CommunityProps[] | []>([])
   const [loadingCommunity, setLoadingCommunity] = useState(true)
 
-  const getBestCommunities = async () => {
-    try {
-      const server = process.env.NEXT_PUBLIC_SERVER_URL
-      const url = `${server}/communities/best-communities?limit=5`
-      const res = await fetch(url, {
-        method: 'get',
-        credentials: 'include'
-      })
-      if (res.ok) {
-        const communities = await res.json();
-        setAllCommunity(communities);
-        setLoadingCommunity(false)
-      } 
-    } catch (err) {
-      
-    }
-  }
-
   useEffect(() => {
     if (isMobile) return;
-    setTimeout(() => {
-      getBestCommunities()
-    }, 500)
+    const getComm = async () => {
+      try {
+        setTimeout(async () => {
+          const communities = await getCommunities(5);
+          setAllCommunity(communities);
+          setLoadingCommunity(false);
+        }, 500);
+      } catch (err) {
+        
+      }
+    }
+    getComm();
   }, [])
 
   return (
-    <div className="mb-5 box-content h-96 w-[310px] rounded-md border border-reddit_border bg-reddit_dark-brighter overflow-hidden">
+    <>
         <div className={`${loadingCommunity && "loading"}`}
           style={{
             backgroundImage: loadingCommunity ? "#030303" : `url("/topCommunitiesIcon.webp")`,
@@ -45,7 +37,8 @@ const TopCommunities = () => {
           }}
         />
         <>
-          {allCommunity.length >= 1 ? allCommunity.map(
+          {allCommunity.length >= 1 
+          ? allCommunity.map(
             (community, index) => {
               const rank = index + 1
               return(
@@ -54,30 +47,32 @@ const TopCommunities = () => {
                   key={community._id}
                   rank={rank}
                   community={community}
-                  getBestCommunities={getBestCommunities}
                 />
               )
             )}
-          ) : 
-          [1,2,3,4,5].map((_,idx) => (
+          ) 
+          : 
+          [1, 2, 3, 4, 5].map((_,idx) => (
             <div key={idx} className={`h-[51px] ${loadingCommunity && "loading overflow-hidden"}`}>
               <hr className='border-reddit_border' />
             </div>
           ))
           }
-          <div className={`${loadingCommunity && "loading"} mt-3 mx-2 h-[32px]`}>
-            {!loadingCommunity && <Link href={`/bbaby/leaderboard`}>
-              <a className="text-center">
-                <button
-                  className={`w-full h-[32px] ${buttonClass()}`}
-                >
-                  View All
-                </button>
-              </a>
-            </Link>}
+          <div className={`${loadingCommunity && "loading"} mt-3 mx-2 mb-3 h-[32px]`}>
+            {!loadingCommunity && 
+              <Link href={`/bbaby/leaderboard`}>
+                <a className="text-center">
+                  <button
+                    className={`w-full h-[32px] ${buttonClass()}`}
+                  >
+                    View All
+                  </button>
+                </a>
+              </Link>
+            }
           </div>
         </>
-    </div>
+    </>
   )
 }
 

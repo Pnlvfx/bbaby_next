@@ -3,16 +3,16 @@ import Link from 'next/link'
 import { useContext } from 'react';
 import { RiArrowUpSLine } from 'react-icons/ri';
 import {AuthModalContext, AuthModalContextProps} from '../auth/modal/AuthModalContext';
-import { subscribe } from '../community/APicommunity';
+import { subscribe } from '../API/communityAPI';
 import { buttonClass } from '../utils/Button';
+import { getCommunities } from '../API/communityAPI';
 
 interface TopCommunitiesContentProps {
   community: CommunityProps
-  getBestCommunities: Function
   rank: number
 }
 
-const TopCommunitiesContent = ({community,getBestCommunities,rank}:TopCommunitiesContentProps) => {
+const TopCommunitiesContent = ({community, rank}:TopCommunitiesContentProps) => {
   const {setShow} = useContext(AuthModalContext) as AuthModalContextProps;
 
   const loader = () => {
@@ -22,7 +22,7 @@ const TopCommunitiesContent = ({community,getBestCommunities,rank}:TopCommunitie
   const doSubscribe = async () => {
    try {
     const join = await subscribe(community.name,setShow)
-    const refresh = await getBestCommunities()
+    const refresh = await getCommunities(5)
    } catch (err) {
     
    }

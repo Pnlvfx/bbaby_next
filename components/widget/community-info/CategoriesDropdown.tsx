@@ -4,7 +4,7 @@ import { getCategories } from '../../cotegory/APIcategory'
 import ClickOutHandler from 'react-clickout-ts'
 import { CommunitiesInfoProps } from '../CommunitiesInfo'
 import { BiInfoCircle } from 'react-icons/bi'
-import { selectCategory } from '../../community/APicommunity'
+import { selectCategory } from '../../API/communityAPI'
 import { CommunityContext, CommunityContextProps } from '../../community/CommunityContext'
 import { AiOutlinePlus } from 'react-icons/ai'
 

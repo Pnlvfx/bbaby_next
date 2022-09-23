@@ -13,22 +13,21 @@ import { CommunityContext, CommunityContextProps } from '../community/CommunityC
 import CategoriesDropdown from './community-info/CategoriesDropdown';
 import { communityUrl } from '../../lib/url';
 import {postRequestHeaders} from '../main/config';
+import { TimeMsgContext, TimeMsgContextProps } from '../main/TimeMsgContext';
+import { catchErrorWithMessage } from '../API/common';
 
 export interface CommunitiesInfoProps {
   isCategoryDropdownOpen? : boolean
   setIsCategoryDropdownOpen? : Dispatch<SetStateAction<boolean>>
 }
 
-const CommunitiesInfo = ({isCategoryDropdownOpen,setIsCategoryDropdownOpen}:CommunitiesInfoProps) => {
+const CommunitiesInfo = ({isCategoryDropdownOpen, setIsCategoryDropdownOpen}:CommunitiesInfoProps) => {
   const {session} = useContext(UserContext) as SessionProps;
-  const {
-    loading,
-    communityInfo,
-  } = useContext(CommunityContext) as CommunityContextProps;
-  const [descr, setDescr] = useState('')
-  const [commit, setCommit] = useState(false)
+  const {loading, communityInfo } = useContext(CommunityContext) as CommunityContextProps;
+  const [descr, setDescr] = useState('');
   const { setShow } = useContext(AuthModalContext) as AuthModalContextProps;
-  const [created,setCreated] = useState('')
+  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const [created,setCreated] = useState('');
 
   const updateDescription = async () => {
     try {
@@ -41,25 +40,19 @@ const CommunitiesInfo = ({isCategoryDropdownOpen,setIsCategoryDropdownOpen}:Comm
       })
       const data = await res.json()
       if (!res.ok) {
-        console.log(data?.msg)
+        catchErrorWithMessage(data?.msg, message);
       } else {
-        setCommit(false);
+        message.setMessage({value: 'Description updated successfully!', status: 'success'})
       }
     } catch (err) {
-      console.log(err);
+      catchErrorWithMessage(err, message);
     }
   }
 
-  useEffect(() => {
-    if (commit) {
-      updateDescription();
-    }
-  }, [commit])
-
   //TEXTAREA
-  const handleSave = ({ name, value, previousValue }:any) => {
+  const handleSave = ({ name, value, previousValue }: any) => {
     setDescr(value)
-    setCommit(true)
+    updateDescription();
   }
   //
 
@@ -67,24 +60,31 @@ const CommunitiesInfo = ({isCategoryDropdownOpen,setIsCategoryDropdownOpen}:Comm
     if (!communityInfo.createdAt) return;
     const date = new Date(communityInfo.createdAt)
     setCreated(date.toLocaleString('en-us', {day: 'numeric', month: 'short', year: 'numeric'}));
-  },[communityInfo.createdAt])
+  },[communityInfo.createdAt]);
 
   return (
-    <div className="mb-5 min-h-[320px] w-[310px] rounded-md border border-reddit_border bg-reddit_dark-brighter overflow-hidden">
-      <div className='mx-2'>
-      <div className={`mt-1 flex items-center text-reddit_text-darker h-[30.5px] ${loading && "loading"}`}>
-            {!loading && <p className={`text-[15px] font-bold p-1`}>About community</p>}
+    <>
+      <div className={`text-[10px] font-bold leading-3 flex p-3 pt-0 text-reddit_text-darker ${loading && "loading"}`}>
+        <div className='text-[16px] leading-5 pt-3'>
+          <h2 className='text-[14px] leading-[18px] font-bold inline'>About community</h2>
+        </div>
         {communityInfo.user_is_moderator && (  //MODQUEQUE BUTTON
-          <Link href={`/b/${communityInfo.name}/about/modqueue`}>
-            <a className="ml-auto">
-              <div className="flex items-center space-x-1">
-                <MdOutlineAdminPanelSettings className="h-6 w-6" />
-                <span className="text-xs font-bold">MOD TOOLS</span>
-              </div>
-            </a>
-          </Link>
+          <div tabIndex={0} className='m-auto mr-0 align-middle pt-[10px]'>
+            <Link href={`/b/${communityInfo.name}/about/modqueue`}>
+              <a className="p-1 inline-block">
+                <MdOutlineAdminPanelSettings className="icon mr-1 inline-block" />
+                MOD TOOLS
+              </a>
+            </Link>
+          </div>
         )}
       </div>
+      <div className='p-3'>
+      {!communityInfo.user_is_moderator && !loading && (
+            <div className="mb-2">
+              <div className="text-[14px] leading-5 break-words">{communityInfo.description}</div>
+            </div>
+      )}
       {communityInfo.user_is_moderator && !loading && (
         <div className="flex items-center border-reddit_text hover:border mt-3 w-full">
             <EditTextarea
@@ -99,18 +99,9 @@ const CommunitiesInfo = ({isCategoryDropdownOpen,setIsCategoryDropdownOpen}:Comm
           </div>
         </div>
       )}
-      {!communityInfo.user_is_moderator && !loading && (
-        <div className="flex">
-          <div className="mb-2 overflow-hidden">
-            <p className="resize-none break-words bg-reddit_dark-brighter leading-6 outline-none text-[15px]">
-              {communityInfo.description}
-            </p>
-          </div>
-        </div>
-      )}
-      <div>
+      <div className='grid'>
         <p className='font-bold'>{communityInfo.subscribers}</p>
-        <p className='font-bold text-xs'>Fans</p>
+        <p className='font-bold text-xs'>Followers</p>
         <hr className="border-reddit_border"></hr>
         {communityInfo.createdAt && 
         <div className="py-3 items-center space-x-2 w-full flex">
@@ -118,34 +109,32 @@ const CommunitiesInfo = ({isCategoryDropdownOpen,setIsCategoryDropdownOpen}:Comm
           <p className='text-sm'>Created {created}</p>
         </div>
         }
-        <hr className="border-reddit_border" />
       </div>
-      {communityInfo.user_is_moderator && 
-      <CategoriesDropdown isCategoryDropdownOpen={isCategoryDropdownOpen} setIsCategoryDropdownOpen={setIsCategoryDropdownOpen} />}
-      <div className="self-center">
-        {!session && (
-          <button
-            onClick={() => {
-              setShow('login')
-            }}
-            className={`mt-3 w-full h-[32px] ${buttonClass()}`}
-          >
-            Create a Post
-          </button>
-        )}
-        {session && session.user.username && (
-          <Link href={`/submit`}>
-            <a className="self-center">
-              <div className="self-center">
-                <button className={`mt-3 w-full h-[32px] ${buttonClass()}`}>Create a Post</button>
-              </div>
-            </a>
-          </Link>
-        )}
+        {communityInfo.user_is_moderator && 
+        <CategoriesDropdown isCategoryDropdownOpen={isCategoryDropdownOpen} setIsCategoryDropdownOpen={setIsCategoryDropdownOpen} />}
+        <div className="self-center">
+          {!session && (
+            <button
+              onClick={() => {
+                setShow('login')
+              }}
+              className={`mt-3 w-full h-[32px] ${buttonClass()}`}
+            >
+              Create a Post
+            </button>
+          )}
+          {session && session.user.username && (
+            <Link href={`/submit`}>
+              <a className="self-center">
+                <div className="self-center">
+                  <button className={`mt-3 w-full h-[32px] ${buttonClass()}`}>Create a Post</button>
+                </div>
+              </a>
+            </Link>
+          )}
+        </div>
       </div>
-      <hr className="border-reddit_border" />
-      </div>
-    </div>
+    </>
   )
 }
 

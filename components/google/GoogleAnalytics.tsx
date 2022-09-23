@@ -27,7 +27,6 @@ const GoogleAnalytics = () => {
       <Script
         id="gtag-init"
         async
-        defer
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `

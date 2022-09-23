@@ -51,3 +51,12 @@
 /* ins.adsbygoogle[data-ad-status='unfilled'] {
     display: none !important;
 } */
+
+.icon {
+    font-size: 20px;
+    font-weight: 400;
+    height: 20px;
+    line-height: 20px;
+    vertical-align: middle;
+    width: 20px;
+}

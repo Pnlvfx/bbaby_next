@@ -15,13 +15,13 @@ interface CommunityContextProviderProps {
     children : ReactNode
 }
 
-export const CommunityContextProvider = ({children}: CommunityContextProviderProps) => {
+export const CommunityContextProvider = ({ children }: CommunityContextProviderProps) => {
     const [show,setShow] = useState(false);
     const [communityInfo,setCommunityInfo] = useState({});
     const [loading,setLoading] = useState(true);
     const router = useRouter()
     
-    const getCommunity = async (community:string) => {
+    const getCommunity = async (community: string) => {
         try {
             setLoading(true)
             const server = process.env.NEXT_PUBLIC_SERVER_URL;
@@ -43,13 +43,13 @@ export const CommunityContextProvider = ({children}: CommunityContextProviderPro
     }
   
     useEffect(() => {
-        if (!router.isReady) return
+        if (!router.isReady) return;
         if (!router.query.community) {
-        setTimeout(() => {
-            setCommunityInfo({})
-        },450)
-      }
-    },[router])
+            setTimeout(() => {
+                setCommunityInfo({})
+            }, 450);
+        }
+    }, [router])
 
     return (
         <CommunityContext.Provider value={{show, setShow, loading, getCommunity, communityInfo}}>
