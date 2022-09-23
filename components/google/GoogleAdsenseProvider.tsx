@@ -23,9 +23,8 @@ export const GoogleAdsProvider = ({children}: GoogleAdContextProviderProps) => {
             unfilled,
             setUnfilled
         }}>
-            {process.env.NEXT_PUBLIC_NODE_ENV === 'production' &&
-             <Script 
-                id="Adsense-id"
+            {process.env.NEXT_PUBLIC_NODE_ENV === 'development' &&
+             <script
                 async
                 onError={(e) => {console.log("Adsense failed to load", e)}}
                 src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7203519143982992"

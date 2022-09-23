@@ -16,12 +16,7 @@ import {postRequestHeaders} from '../main/config';
 import { TimeMsgContext, TimeMsgContextProps } from '../main/TimeMsgContext';
 import { catchErrorWithMessage } from '../API/common';
 
-export interface CommunitiesInfoProps {
-  isCategoryDropdownOpen? : boolean
-  setIsCategoryDropdownOpen? : Dispatch<SetStateAction<boolean>>
-}
-
-const CommunitiesInfo = ({isCategoryDropdownOpen, setIsCategoryDropdownOpen}:CommunitiesInfoProps) => {
+const CommunitiesInfo = () => {
   const {session} = useContext(UserContext) as SessionProps;
   const {loading, communityInfo } = useContext(CommunityContext) as CommunityContextProps;
   const [descr, setDescr] = useState('');
@@ -111,7 +106,7 @@ const CommunitiesInfo = ({isCategoryDropdownOpen, setIsCategoryDropdownOpen}:Com
         }
       </div>
         {communityInfo.user_is_moderator && 
-        <CategoriesDropdown isCategoryDropdownOpen={isCategoryDropdownOpen} setIsCategoryDropdownOpen={setIsCategoryDropdownOpen} />}
+        <CategoriesDropdown />}
         <div className="self-center">
           {!session && (
             <button

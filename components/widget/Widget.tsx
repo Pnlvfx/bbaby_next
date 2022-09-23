@@ -2,7 +2,7 @@ import CommunitiesInfo from "./CommunitiesInfo";
 import TopCommunities from "./TopCommunities";
 
 type WidgetProps = {
-    community?: string
+    community?: boolean
 }
 
 const Widget = ({ community }: WidgetProps) => {

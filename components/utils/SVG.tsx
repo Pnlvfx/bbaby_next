@@ -142,8 +142,8 @@ export const CloseIcon = (props: any) => {
     <svg
       viewBox="0 0 20 20"
       xmlns="http://www.w3.org/2000/svg"
-      width={props.style.width}
-      height={props.style.height}
+      width={24}
+      height={24}
       {...props}
     >
       <path

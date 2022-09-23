@@ -24,9 +24,9 @@ const Comments = ({parentId, rootId, comments:propsComments }: CommentsProps) =>
           return(
           <div className='mb-2' key={comment._id}>
               <div className="flex mb-2">
-                  <img 
+                  <img
                     src={comment.authorAvatar} 
-                    alt='Author Avatar' 
+                    alt='User Avatar' 
                     className="w-8 h-8 rounded-full mr-2" 
                   />
                   <div className="leading-10 pr-2 text-sm font-sans">{comment.author}</div>

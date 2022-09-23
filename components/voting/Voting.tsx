@@ -3,9 +3,8 @@ import  {useContext} from 'react'
 import RootCommentContext from "../comments/commentutils/RootCommentContext";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
 
-const Voting = (props) => {
-
-  const {commentsTotals, userVotes,refreshVotes} = useContext(RootCommentContext);
+const Voting = (props: any) => {
+  const {commentsTotals, userVotes, refreshVotes} :any = useContext(RootCommentContext);
   const {commentId} = props;
 
   const total = commentsTotals && commentId in commentsTotals ? commentsTotals[commentId] : 0;
@@ -27,11 +26,11 @@ const Voting = (props) => {
   }
 
 
-  function handleVoteUp() {
+  const handleVoteUp = () => {
     sendVote('up')
   }
 
-  function handleVoteDown() {
+  const handleVoteDown = () => {
     sendVote('down')
   }
 

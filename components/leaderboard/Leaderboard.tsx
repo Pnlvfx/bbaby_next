@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { getCommunities } from '../API/communityAPI';
-import TopCommunities from '../widget/TopCommunities';
+import Widget from '../widget/Widget';
 import LeaderboardFeed from './LeaderboardFeed';
 import LeaderboardMenu from './LeaderboardMenu';
 
@@ -35,7 +35,7 @@ const Leaderboard = () => {
           <LeaderboardMenu />
           <LeaderboardFeed communities={communities} />
           <div className='ml-8'>
-            <TopCommunities />
+            <Widget />
           </div>
         </div>
         </div>

@@ -1,17 +1,15 @@
-import type { GetServerSideProps, NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next';
 import { useContext, useEffect } from 'react';
-import CommentPage from '../../../../components/comments/CommentPage'
+import CommentPage from '../../../../components/comments/CommentPage';
 import { CommunityContext, CommunityContextProps } from '../../../../components/community/CommunityContext';
 import CEO from '../../../../components/main/CEO';
 import { siteUrl } from '../../../../components/main/config';
-import Errorpage404 from '../../../404';
 
 interface PostIdPageProps {
   post: PostProps
-  error: boolean
 }
 
-const IdPage: NextPage<PostIdPageProps> = ({post, error}) => {
+const IdPage: NextPage<PostIdPageProps> = ({ post }) => {
     const {title} = post
     const description = post?.body?.length >= 160 ? post.body : `${post.body} ${post.ups} votes, ${post.numComments} comments in the ${post.community} community. b/${post.community}`
     const url = `${siteUrl}/b/${post.community}/comments/${post._id}`
@@ -31,11 +29,7 @@ const IdPage: NextPage<PostIdPageProps> = ({post, error}) => {
       if (post.community) {
         getCommunity(post.community);
         }
-    }, [post])
-    
-    if (error) {
-      return <Errorpage404 />
-    }
+    }, [post]);
 
   return (
     <>
@@ -57,7 +51,7 @@ const IdPage: NextPage<PostIdPageProps> = ({post, error}) => {
 
 export default IdPage;
 
-export const getServerSideProps: GetServerSideProps = async(context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const server = process.env.NEXT_PUBLIC_SERVER_URL;
   const {id} = context.query
   const headers = context?.req?.headers?.cookie ? {cookie: context.req.headers.cookie} : undefined;
@@ -77,12 +71,10 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
   });
 
   const post = await res.json();
-  const error = res.ok ? false : true;
 
   return {
     props: {
       session,
-      error,
       post
     }
   }

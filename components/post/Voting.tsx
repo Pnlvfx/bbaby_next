@@ -1,7 +1,9 @@
-import axios from "axios"
 import { useContext, useState } from "react"
 import { BiDownvote, BiUpvote } from "react-icons/bi"
+import { catchErrorWithMessage } from "../API/common"
 import {AuthModalContext, AuthModalContextProps} from "../auth/modal/AuthModalContext"
+import { postRequestHeaders } from "../main/config"
+import { TimeMsgContext, TimeMsgContextProps } from "../main/TimeMsgContext"
 
 type Voting = {
   ups: number,
@@ -11,39 +13,47 @@ type Voting = {
 
 const Voting = ({ups, postId, liked}: Voting) => {
     let dir = 0  //vote
-    const [upVote,setUpVote] = useState(ups)
+    const [upVote,setUpVote] = useState(ups);
     const {setShow} = useContext(AuthModalContext) as AuthModalContextProps;
-    const [voted,setVoted] = useState(liked)   //true false or null
+    const [voted,setVoted] = useState(liked);   //true false or null
+    const message = useContext(TimeMsgContext) as TimeMsgContextProps;
 
     const refreshVote = async () => {
       try {
         const server = process.env.NEXT_PUBLIC_SERVER_URL;
         const url = `${server}/posts/${postId}/vote`;
         const body = JSON.stringify({ dir })
-        const res = await axios({
+        const res = await fetch(url, {
           method: 'POST',
-          url,
-          data: {dir},
-          withCredentials: true
+          headers: postRequestHeaders,
+          body,
+          credentials: 'include'
         });
-        if(dir === 1) {
-          if(voted === true) {
-            setVoted(null)  //if user have already voted
+        const data = await res.json();
+        if (!res.ok) {
+          if (res.status === 401 || 400) {
+            setShow('login');
           } else {
-            setVoted(true) //vote normall
+            catchErrorWithMessage(data?.msg, message);
           }
         } else {
-          if(voted === false) {
-            setVoted(null)
+          if (dir === 1) {
+            if (voted === true) {
+              setVoted(null)  //if user have already voted
+            } else {
+              setVoted(true) //vote normal
+            }
           } else {
-            setVoted(false)
+            if (voted === false) {
+              setVoted(null)
+            } else {
+              setVoted(false)
+            }
           }
+          setUpVote(data.vote);
         }
-        setUpVote(res.data.vote)
-      } catch (err:any) {
-        if(err.response.status === 401 || 400) {
-          setShow('login');
-      }
+      } catch (err) {
+        catchErrorWithMessage(err, message);
       }
     }
 
@@ -60,9 +70,9 @@ const Voting = ({ups, postId, liked}: Voting) => {
   return (
       <>
         <button aria-label="upvote" className="h-6 w-6" onClick={event => {
-          event.preventDefault()
-          event.stopPropagation()
-          handleVoteUp()
+          event.preventDefault();
+          event.stopPropagation();
+          handleVoteUp();
         }}>
           <BiUpvote className={`w-6 h-6 text-reddit_text-darker hover:text-blue-600 text-center && ${voted === true && "text-blue-600"}`}/>
         </button>

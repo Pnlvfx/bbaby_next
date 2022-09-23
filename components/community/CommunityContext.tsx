@@ -52,7 +52,13 @@ export const CommunityContextProvider = ({ children }: CommunityContextProviderP
     }, [router])
 
     return (
-        <CommunityContext.Provider value={{show, setShow, loading, getCommunity, communityInfo}}>
+        <CommunityContext.Provider value={{
+            show, 
+            setShow, 
+            loading, 
+            getCommunity, 
+            communityInfo
+        }}>
             {children}
         </CommunityContext.Provider>
     );

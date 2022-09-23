@@ -1,14 +1,13 @@
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react"
-import ClickOutHandler from "react-clickout-ts";
+import { useContext, useEffect, useState } from "react";
 import Comment from '../comments/Comment';
 import {GrDocumentText} from 'react-icons/gr';
 import { CloseIcon } from "../utils/SVG";
-import CommunitiesInfo from "../widget/CommunitiesInfo";
 import { CommunityContext, CommunityContextProps } from "../community/CommunityContext";
 import Donations from "../widget/Donations";
 import { getPost } from "./APIpost";
 import { AuthModalContext, AuthModalContextProps } from "../auth/modal/AuthModalContext";
+import Widget from "../widget/Widget";
 
 type PostModalProps = {
   community?: string
@@ -19,8 +18,8 @@ type PostModalProps = {
 
 const PostModal = ({community, postId, open, onClickOut}: PostModalProps) => {
   const router = useRouter();
-  const [post,setPost] = useState<PostProps>({} as PostProps);
-  const [loading,setLoading] = useState(true)
+  const [post, setPost] = useState<PostProps>({} as PostProps);
+  const [loading, setLoading] = useState(true)
   const {getCommunity} = useContext(CommunityContext) as CommunityContextProps;
   const modalContext = useContext(AuthModalContext) as AuthModalContextProps;
 
@@ -41,56 +40,87 @@ const PostModal = ({community, postId, open, onClickOut}: PostModalProps) => {
     g();
   },[postId]);
 
-  const [isCategoryDropdownOpen,setIsCategoryDropdownOpen] = useState(false)
-
   const clickOut = () => {
-    if (isCategoryDropdownOpen || modalContext.show !== 'hidden') return;
     router.push({
       pathname:router.pathname,
       query: community ? {community: community} : {username: post?.author}
     },
-    router.pathname, {scroll:false}
+    router.pathname, {scroll: false}
     )
-    onClickOut()
-    setPost({} as PostProps)
+    onClickOut();
+    setPost({} as PostProps);
   }
 
   if (!postId) return null;
 
   return (
-    <div className={`w-full z-20 flex items-center justify-center ${open ? 'block' : 'hidden'}`} style={{backgroundColor:'rgb(25,25,25'}}>
-      <ClickOutHandler onClickOut={() => {
-        clickOut()
-        }}>
-      <div className="bg-reddit_dark items-center w-[75%] max-w-[1300px] justify-center flex">
-          <div className="w-[85%]">
-            {!loading ? (<div className="flex justify-center">
-              <div className={`flex pt-4 pb-10 w-full overflow-hidden`}>
-                <GrDocumentText className="w-4 h-4 text-reddit_text"/>
-                <p className='text-sm flex-none text-ellipsis'>{post.title}</p>
+    <>
+    {!loading && (
+      <div className={`${open ? 'fixed' : 'hidden'} top-12 bottom-0 h-full left-0 right-0 w-full z-20 bg-[rgb(25,25,25)]`}>
+      <div 
+        className="h-full overflow-y-auto relative w-full"
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation()
+          clickOut();
+        }} 
+      >
+          <div onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            //prevent closing modal
+          }} tabIndex={-1} className="bg-reddit_dark box-border h-12 left-0 mx-auto sticky max-w-[1280px] right-0 top-0" style={{width: 'calc(100% - 160px)'}}>
+          <div className="md:px-8 items-center flex box-border h-full m-auto max-w-[1128px] w-full">
+            <div className={`flex items-center flex-grow w-full`} style={{maxWidth: 'calc(100% - 324px)'}}>
+              <div className="">
+
               </div>
-              <button title='close' id="closeButton" onClick={() => {
-                clickOut()
-                }} className="text-right ml-auto flex pt-4 pb-8">
-                  <div className="mr-1">
-                    <CloseIcon style={{height: 20, width: 20}} />
-                  </div>
-                <p className="text-xs font-bold mt-[2px]">Close</p>
+              <i className="icon mr-2">
+                <GrDocumentText className="icon w-5 h-5 text-reddit_text"/>
+              </i>
+              <div className="flex min-w-0 realtive break-words">
+                <div className="overflow-hidden text-ellipsis whitespace-nowrap text-[14px] leading-[18px] inline pr-[5px] break-words" style={{fontWeight: 500}}>
+                  <h1 className='inline '>{post.title}</h1>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-end ml-3 w-[312px] text-[12px] font-bold leading-4">
+              <button 
+                role={'button'} 
+                tabIndex={0} 
+                title='Close' 
+                aria-label="Close" 
+                className="hover:bg-reddit_dark-brighter relative border border-transparent text-[12px] font-bold min-h-[24px] min-w-[24px] py-1 px-2 flex items-center rounded-full box-border justify-center text-center w-auto" 
+                onClick={() => {
+                  clickOut()
+                }} >
+              <i className='inline-block pr-1'>
+                <CloseIcon className='h-4 w-4' />
+              </i>
+                <span>Close</span>
               </button>
-          </div>) : (<div id="loading" className="h-76 pt-4 pb-10 w-[99%] overflow-hidden loading" />)}
-          {!loading ? (
-            <div className="block lg:flex space-x-4 justify-center">
-            <Comment post={post} postId={postId}/>
-              <div className="hidden lg:block">
-                <CommunitiesInfo isCategoryDropdownOpen={isCategoryDropdownOpen} setIsCategoryDropdownOpen={setIsCategoryDropdownOpen} />
-                <Donations />
-              </div>
+            </div>
           </div>
-          ) : (<div id="loading-2" className="h-full" />)}
+          </div>
+          <div tabIndex={-1} 
+            className="bg-reddit_dark box-border justify-center flex mx-auto pb-8 relative max-w-[1280px]" 
+            style={{width: 'calc(100% - 160px)'}}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              //prevent closing modal
+            }} 
+          >
+            <Comment post={post} postId={postId}/>
+            <div className="hidden lg:block ml-6">
+              <Widget community={true} />
+              <Donations />
+            </div>
           </div>
       </div>
-      </ClickOutHandler>
-    </div>
+  </div>
+    )}
+    </>
   )
 }
 

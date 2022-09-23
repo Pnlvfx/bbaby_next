@@ -24,6 +24,7 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
   const [postOpen, setPostOpen] = useState(false);
   const router = useRouter();
   const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const PostModal = dynamic(() => import('./PostModal'));
   
   let postId: string[] | string = ''
 
@@ -50,8 +51,6 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
     setPosts([...posts, ...newPosts])
   }
   //
-
-  const PostModal = dynamic(() => import('./PostModal'));
   
   return (
     <>
@@ -95,7 +94,7 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
            </div>
           </div>
           <div className="hidden lg:block ml-6">
-            <Widget community={community} />
+            <Widget community={community ? true : false} />
             <Donations />
             <div className='relative flex-grow'>
               <div className='sticky top-[57px]'>

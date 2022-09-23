@@ -1,21 +1,16 @@
 import { useContext, useEffect, useState } from 'react'
 import { RiArrowDownSLine } from 'react-icons/ri'
 import { getCategories } from '../../cotegory/APIcategory'
-import ClickOutHandler from 'react-clickout-ts'
-import { CommunitiesInfoProps } from '../CommunitiesInfo'
 import { BiInfoCircle } from 'react-icons/bi'
 import { selectCategory } from '../../API/communityAPI'
 import { CommunityContext, CommunityContextProps } from '../../community/CommunityContext'
 import { AiOutlinePlus } from 'react-icons/ai'
 
-const CategoriesDropdown = ({isCategoryDropdownOpen,setIsCategoryDropdownOpen}:CommunitiesInfoProps) => {
+const CategoriesDropdown = () => {
   const [show, setShow] = useState(false)
-  const [active, setActive] = useState(false)
   const title = 'Adding community topics allow people to find your community. Add a primary topic and sub topic to be discovered more easily.'
   const {communityInfo,getCommunity} = useContext(CommunityContext) as CommunityContextProps;
-  const [categoriesLists, setCategoriesLists] = useState<CategoryProps[] | []>(
-    []
-  )
+  const [categoriesLists, setCategoriesLists] = useState<CategoryProps[] | []>([])
 
   useEffect(() => {
     setTimeout(() => {
@@ -25,41 +20,29 @@ const CategoriesDropdown = ({isCategoryDropdownOpen,setIsCategoryDropdownOpen}:C
     }, 450)
   }, [])
 
-  const doSelectCategory = (categoryName:string) => {
+  const doSelectCategory = (categoryName: string) => {
     setShow(false)
-    setActive(false)
-    if (setIsCategoryDropdownOpen) {
-        setIsCategoryDropdownOpen(false);
-    }
     selectCategory(categoryName,communityInfo.name).then(() => {
         getCommunity(communityInfo.name);
     })
   }
 
   return (
-    <div id="category" className="mt-2 w-full">
+    <div onClick={(e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setShow(false);
+    }} id="category" className="mt-2 w-full">
         <div className='flex items-center space-x-1'>
             <p className="font-bold">Community topics</p>
             <BiInfoCircle title={title} className='h-5 w-5 text-reddit_text-darker hover:text-reddit_blue' />
         </div>
-      <ClickOutHandler
-        onClickOut={() => {
-          setActive(false)
-          setShow(false)
-          if (setIsCategoryDropdownOpen) {
-            setIsCategoryDropdownOpen(false);
-          }
-        }}
-      >
         <button
-          className={`mt-1 w-full rounded-md py-[2px] ${active && 'border'}`}
+          className={`mt-1 w-full rounded-md py-[2px] ${show && 'border'}`}
           onClick={(e) => {
-            e.preventDefault()
-            setActive(!active)
+            e.preventDefault();
+            e.stopPropagation();
             setShow(!show)
-            if (setIsCategoryDropdownOpen) {
-                setIsCategoryDropdownOpen(!isCategoryDropdownOpen);
-            }
           }}
         >
           <div className="flex items-center">
@@ -83,7 +66,6 @@ const CategoriesDropdown = ({isCategoryDropdownOpen,setIsCategoryDropdownOpen}:C
             ))}
           </div>
         )}
-      </ClickOutHandler>
       {communityInfo.category && (
         <div className='border border-reddit_border rounded-md mt-1'>
           <div className=''>

@@ -30,8 +30,8 @@ const Username:NextPage<AuthorPg> = ({author, posts}) => {
       url={url}
       image={imagePreview}
     />
-  <AuthorHeaderPage />
-  <Feed author={author} posts={posts} />
+    <AuthorHeaderPage />
+    <Feed author={author} posts={posts} />
    </>
   )
 }

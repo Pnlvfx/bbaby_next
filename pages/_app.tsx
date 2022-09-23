@@ -66,12 +66,10 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps<AppPr
           <AuthModalContextProvider>
             <CommunityContextProvider>
               <TimeMsgContextProvider>
-                <GoogleAdsProvider>
                   <Layout>
                     <Component {...pageProps} />
                     {process.env.NEXT_PUBLIC_NODE_ENV === 'production' && <GoogleAnalytics />}
                   </Layout>
-                </GoogleAdsProvider>
               </TimeMsgContextProvider>
             </CommunityContextProvider>
           </AuthModalContextProvider>

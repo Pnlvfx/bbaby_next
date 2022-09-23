@@ -1,4 +1,4 @@
-import {useState,useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Post from '../post/Post'
 import RootCommentContext from './commentutils/RootCommentContext'
@@ -46,22 +46,22 @@ const Comment = ({post, postId}: CommentRootProps) => {
 
     useEffect(() => {
         refreshComments();
-        },[post]);
+    }, [post]);
 
-        useEffect(() => {
-            if (router.query.postId) {
-            refreshVotes();
-            }
-        },[comments.length]);
+    // useEffect(() => {
+    //     if (router.query.postId) {
+    //     refreshVotes();
+    //     }
+    // }, [comments.length]);
         
   return (
-      <div className='w-full max-w-[740px] rounded-md bg-reddit_dark-brighter'>
+    <div className='w-full max-w-[740px] rounded-md bg-reddit_dark-brighter'>
         <div className='md:mr-6'>
         {post && (
             <Post post={post} open={true} />
         )}
-      {!!post && !!post._id && (
-          <div className='my-6 mx-10 relative'>
+        {!!post && !!post._id && (
+            <div className='my-6 mx-10 relative'>
                     <div className='mb-1'>
                         <CommentForm onSubmit={() => refreshComments()} rootId={post._id} parentId={post._id} showAuthor={true} />
                     </div>
@@ -81,9 +81,9 @@ const Comment = ({post, postId}: CommentRootProps) => {
                         <Comments parentId={post._id} rootId={post._id} comments={comments}/>
                     </RootCommentContext.Provider>
                 </div>
-      )}
+        )}
         </div>
-      </div>
+    </div>
   )
 }
 

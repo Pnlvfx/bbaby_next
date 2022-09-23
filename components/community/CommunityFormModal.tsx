@@ -70,7 +70,7 @@ const CommunityFormModal = () => {
             <div className="flex my-4 items-center">
                 <p className="font-semibold">Create a community</p>
                 <button className="ml-auto" onClick={() => close()}>
-                    <CloseIcon style={{ height: '16px', width: '16px' }} />
+                    <CloseIcon className='w-4 h-4' />
                 </button>
               </div>
               <hr className="border-reddit_border mb-3" />

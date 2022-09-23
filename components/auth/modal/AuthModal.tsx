@@ -238,7 +238,7 @@ const AuthModal: NextComponentType = () => {
               }}
             >
               <div className="p-1">
-                <CloseIcon style={{ height: '20px', width: '20px' }} />
+                <CloseIcon className='w-5 h-5' />
               </div>
             </button>
           </div>

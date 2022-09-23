@@ -28,7 +28,7 @@ const NewEmailNotif = ({ email }: EmailNotifProps) => {
           </div>
           <div className="flex-none">
             <button onClick={() => setIsOpen(false)}>
-              <CloseIcon style={{ height: '16px', width: '16px' }} />
+              <CloseIcon className='w-4 h-4' />
             </button>
           </div>
         </div>

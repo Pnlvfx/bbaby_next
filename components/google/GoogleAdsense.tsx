@@ -7,18 +7,17 @@ const GoogleAdsense = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!loadedSuccessfully) return;
     if (typeof window === undefined) return;
     try {
       ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({})
     } catch (err) {
       
     }
-  }, [loadedSuccessfully]);
+  }, []);
 
   useEffect(() => {
     let status = adRef.current?.getAttribute('data-ad-status');
-  }, [loadedSuccessfully]);
+  }, []);
 
   return (
     <>

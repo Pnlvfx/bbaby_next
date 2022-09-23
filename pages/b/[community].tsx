@@ -41,8 +41,8 @@ const CommunityPage: NextPage<CommunityPg> = ({community, posts}) => {
         <meta property="og:type" content="website" key="ogtype" />
         <link rel='canonical' href={url} key='canonical' />
       </Head>
-        {!router.query?.postId && <BoardHeader />}
-        <Feed community={community} posts={posts} />
+      {!router.query?.postId && <BoardHeader />}
+      <Feed community={community} posts={posts} />
     </>
   )
 }
@@ -67,8 +67,6 @@ export const getServerSideProps = async(context: NextPageContext) => {
   } catch (err) {
     
   }
-
-  //context.res?.setHeader('set-cookie', 'session_tracker=sdnguigndfuigdfnguifdgndfgiudfgnfiugdf')
 
   return {
     props: {

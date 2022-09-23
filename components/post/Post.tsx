@@ -11,7 +11,7 @@ interface ExtendPostProps {
     index?: number
 }
 
-const Post = ({post, isListing, open, index}:ExtendPostProps) => {
+const Post = ({post, isListing, open, index}: ExtendPostProps) => {
     const router = useRouter()
     const url = isMobile ? `/b/${post.community}/comments/${post._id}` : router.pathname;
     const query = isMobile ? undefined : {postId : post._id, community: post.community, username: post.author}
