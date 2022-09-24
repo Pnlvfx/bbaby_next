@@ -1,23 +1,17 @@
 import { CommentIcon } from '../../utils/SVG';
 
-
-function ReplyButton(props) {
+const ReplyButton = (props) => {
   let classNames = "flex text-[#717273] hover:bg-reddit_dark-brightest rounded-sm p-2 pl-0"
 
   return (
     <button {...props} className={classNames + props.className}>
       <div className='mr-1'>
-        <CommentIcon style={{height: '20px', width: '20px'}} />
+        <CommentIcon className='h-5 w-5' />
       </div>
-        <p className=''>Reply</p>
+        <p>Reply</p>
     </button>
 
   )
 }
-
-
-
-
-
 
 export default ReplyButton;

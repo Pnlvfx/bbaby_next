@@ -70,39 +70,39 @@ const PostModal = ({community, postId, open, onClickOut}: PostModalProps) => {
             e.stopPropagation();
             //prevent closing modal
           }} tabIndex={-1} className="bg-reddit_dark box-border h-12 left-0 mx-auto sticky max-w-[1280px] right-0 top-0" style={{width: 'calc(100% - 160px)'}}>
-          <div className="md:px-8 items-center flex box-border h-full m-auto max-w-[1128px] w-full">
-            <div className={`flex items-center flex-grow w-full`} style={{maxWidth: 'calc(100% - 324px)'}}>
-              <div className="">
+            <div className="md:px-8 items-center flex box-border h-full m-auto max-w-[1128px] w-full">
+              <div className={`flex items-center flex-grow w-full`} style={{maxWidth: 'calc(100% - 324px)'}}>
+                <div className="">
 
-              </div>
-              <i className="icon mr-2">
-                <GrDocumentText className="icon w-5 h-5 text-reddit_text"/>
-              </i>
-              <div className="flex min-w-0 realtive break-words">
-                <div className="overflow-hidden text-ellipsis whitespace-nowrap text-[14px] leading-[18px] inline pr-[5px] break-words" style={{fontWeight: 500}}>
-                  <h1 className='inline '>{post.title}</h1>
+                </div>
+                <i className="icon mr-2">
+                  <GrDocumentText className="icon w-5 h-5 text-reddit_text"/>
+                </i>
+                <div className="flex min-w-0 realtive break-words">
+                  <div className="overflow-hidden text-ellipsis whitespace-nowrap text-[14px] leading-[18px] inline pr-[5px] break-words" style={{fontWeight: 500}}>
+                    <h1 className='inline '>{post.title}</h1>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="flex justify-end ml-3 w-[312px] text-[12px] font-bold leading-4">
-              <button 
-                role={'button'} 
-                tabIndex={0} 
-                title='Close' 
-                aria-label="Close" 
-                className="hover:bg-reddit_dark-brighter relative border border-transparent text-[12px] font-bold min-h-[24px] min-w-[24px] py-1 px-2 flex items-center rounded-full box-border justify-center text-center w-auto" 
-                onClick={() => {
-                  clickOut()
-                }} >
-              <i className='inline-block pr-1'>
-                <CloseIcon className='h-4 w-4' />
-              </i>
-                <span>Close</span>
-              </button>
+              <div className="flex justify-end ml-3 w-[312px] text-[12px] font-bold leading-4">
+                <button 
+                  role={'button'} 
+                  tabIndex={0} 
+                  title='Close' 
+                  aria-label="Close" 
+                  className="hover:bg-reddit_dark-brighter relative border border-transparent text-[12px] font-bold min-h-[24px] min-w-[24px] py-1 px-2 flex items-center rounded-full box-border justify-center text-center w-auto" 
+                  onClick={() => {
+                    clickOut()
+                  }} >
+                <i className='inline-block pr-1'>
+                  <CloseIcon className='h-4 w-4' />
+                </i>
+                  <span>Close</span>
+                </button>
+              </div>
             </div>
           </div>
-          </div>
-          <div tabIndex={-1} 
+          <div tabIndex={-1}
             className="bg-reddit_dark box-border justify-center flex mx-auto pb-8 relative max-w-[1280px]" 
             style={{width: 'calc(100% - 160px)'}}
             onClick={(e) => {
@@ -111,7 +111,7 @@ const PostModal = ({community, postId, open, onClickOut}: PostModalProps) => {
               //prevent closing modal
             }} 
           >
-            <Comment post={post} postId={postId}/>
+            <Comment post={post} />
             <div className="hidden lg:block ml-6">
               <Widget community={true} />
               <Donations />

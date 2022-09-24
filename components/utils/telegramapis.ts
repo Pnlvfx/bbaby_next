@@ -9,7 +9,7 @@ const telegramapis = {
                 method: 'GET'
             })
         } catch (err) {
-            catchError(err);
+            catchError(err, 'telegramapis');
         }
     }
 }

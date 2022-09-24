@@ -1,9 +1,9 @@
-import Link from 'next/link'
-import { useContext, useEffect, useState } from 'react'
-import UserContext from '../../auth/UserContext'
-import { buttonClass } from '../../utils/Button'
+import Link from 'next/link';
+import { useContext, useEffect, useState } from 'react';
+import UserContext from '../../auth/UserContext';
+import { buttonClass } from '../../utils/Button';
 import ClickOutHandler from "react-clickout-ts";
-import { postRequestHeaders } from '../../main/config';
+import { postComment } from '../../API/commentAPI';
 
 interface CommentFormProps {
   rootId: string
@@ -24,27 +24,14 @@ const CommentForm = ({
   const [commentBody, setCommentBody] = useState('')
   const [commentBodyLength, setCommentBodyLength] = useState(0)
   const [enableComment, setEnableComment] = useState(false)
-  const [active,setActive] = useState(false);
+  const [active, setActive] = useState(false);
 
-  const postComment = async () => {
+  const doPostComment = async () => {
     try {
-      const server = process.env.NEXT_PUBLIC_SERVER_URL
-      const url = `${server}/comments`;
-      const body = JSON.stringify({ body: commentBody, parentId, rootId })
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: postRequestHeaders,
-        credentials: 'include',
-        body,
-      })
-      const data = await res.json();
-      if (res.ok) {
-        setCommentBody('')
+      const create = await postComment(commentBody, parentId, rootId);
+      setCommentBody('')
         if (onSubmit) {
           onSubmit()
-        }
-      } else {
-        console.log(data?.msg)
       }
     } catch (err) {
       console.log(err)
@@ -53,6 +40,7 @@ const CommentForm = ({
 
   useEffect(() => {
     if (commentBodyLength >= 1) {
+      console.log(commentBodyLength)
       setEnableComment(true)
     }
   }, [commentBodyLength])
@@ -71,32 +59,35 @@ const CommentForm = ({
   return (
     <>
       {session && showAuthor && ( //SHOW AUTHOR
-        <span className="text-[12px] leading-[18px]">
-          Comment as{' '}
-          <Link href={`/user/${session.user.username}`}>
-            <a className="text-[12px] leading-[16px]  text-[#4fbcff]">
-              {session.user.username}
-            </a>
-          </Link>
-        </span>
+        <div className='mb-1'>
+          <span className="text-[12px] leading-[18px]">
+            Comment as{' '}
+            <Link href={`/user/${session.user.username}`}>
+              <a className="text-[12px] leading-[16px]  text-[#4fbcff]">
+                {session.user.username}
+              </a>
+            </Link>
+          </span>
+        </div>
       )}
         <div className='left-[33px]'>
           <div className='relative'>
-            <form
-            onClick={() => {
-              setActive(true)
-            }}
+            <div
               className={`relative border solid border-reddit_border bg-reddit_dark-brighter rounded-[4px] ${active && "border-reddit_text"}`}
+              onClick={() => {
+                setActive(true)
+              }}
               onSubmit={(e) => {
-                  e.preventDefault()
-                  postComment()
+                  e.preventDefault();
+                  e.stopPropagation();
+                  doPostComment()
               }}
             >
               <ClickOutHandler onClickOut={() => {
                 setActive(false)
               }}>
               <textarea
-                className="bg-reddit_dark-brighter text-[16px] p-2 h-[130px] outline-none max-h-[270px] min-h-[150px] w-full placeholder:text-sm placeholder:text-reddit_text-darker"
+                className="bg-reddit_dark-brighter text-[16px] p-2 h-[130px] outline-none max-h-[270px] min-h-[150px] w-full placeholder:text-sm placeholder:text-reddit_text-darker pl-3"
                 onChange={(e) => {
                   setCommentBody(e.target.value)
                   setCommentBodyLength(e.target.value.length)
@@ -127,7 +118,7 @@ const CommentForm = ({
                 </div>
               </div>
               </ClickOutHandler>
-            </form>
+            </div>
           </div>
         </div>
     </>

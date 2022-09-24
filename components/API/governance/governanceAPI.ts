@@ -3,7 +3,7 @@ import { catchError } from "../common";
 
 const server = process.env.NEXT_PUBLIC_SERVER_URL;
 
-export const translate = async (text:string, language:string) => {
+export const translate = async (text: string, language: string) => {
     try {
         const url = `${server}/governance/translate?lang=${language}`
         const body = JSON.stringify({text})
@@ -12,9 +12,9 @@ export const translate = async (text:string, language:string) => {
             headers: postRequestHeaders,
             body,
             credentials: 'include'
-        })
+        });
         return res;
     } catch (err) {
-        catchError(err, 'translate');
+        return catchError(err, 'translate');
     }
 }

@@ -107,9 +107,9 @@ const AuthModal: NextComponentType = () => {
 
   return (
     <>
-      <div className={'top-0 left-0 z-30 flex h-screen w-screen ' + visibleClass} style={{position: 'fixed', backgroundColor: 'rgba(0,0,0,.6' }}>
+      <div className={'fixed top-0 left-0 z-30 flex h-screen w-screen bg-[rgba(0,0,0,.6)] ' + visibleClass}>
         <main className="mx-auto mt-5 flex w-[90%] max-w-[850px] self-center rounded-md border border-reddit_dark-brightest bg-reddit_dark-brighter md:w-[60%] xl:w-[70%] 2xl:w-[40%]">
-          <div style={{width: '100%', display: 'flex'}}>
+          <div className='w-full flex'>
             <div className="relative hidden w-[128px] lg:block">
               <Image src={AuthImage} alt="Auth Image" layout="fill" />
             </div>

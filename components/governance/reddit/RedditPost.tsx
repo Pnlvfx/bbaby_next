@@ -15,7 +15,7 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
   const [newReddit, setNewReddit] = useState<newTweetProps | undefined>(undefined);
   const [showSubmit, setShowSubmit] = useState(false);
 
-  if (!urlisImage(post.url)) return null
+  //if (!urlisImage(post.url)) return null
 
   const titleStyle: CSSProperties = {
     fontSize: 18,

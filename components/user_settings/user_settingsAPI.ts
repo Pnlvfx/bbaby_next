@@ -8,9 +8,9 @@ export const getUserInfo = async () => {
         credentials: 'include'
       })
       const data = await res.json()
-      if (!res.ok) catchError(data?.msg);
+      if (!res.ok) catchError(data?.msg, 'get user info');
       return data;
     } catch (err) {
-      catchError(err);
+      catchError(err, 'get user info');
     }
   }

@@ -1,16 +1,16 @@
 import axios from "axios";
-import  {useContext} from 'react'
-import RootCommentContext from "../comments/commentutils/RootCommentContext";
+import { useState } from "react";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
+import { useCommentContext } from "../comments/commentutils/RootCommentContext";
 
-const Voting = (props: any) => {
-  const {commentsTotals, userVotes, refreshVotes} :any = useContext(RootCommentContext);
-  const {commentId} = props;
+interface CommentVoting {
+  comment: CommentProps
+}
 
-  const total = commentsTotals && commentId in commentsTotals ? commentsTotals[commentId] : 0;
-  const userVote = userVotes && commentId in userVotes ? userVotes[commentId] : 0;
-
-  
+const Voting = ({ comment }: CommentVoting) => {
+  const { comments, getComments } = useCommentContext();
+  const [upVote, setUpVote] = useState(comment?.ups ? comment.ups : 0);
+  const userVote = null // to change
 
   function sendVote(direction = 'up') {
     const directionNumber = direction === 'up' ? 1 : -1;
@@ -18,10 +18,10 @@ const Voting = (props: any) => {
       direction = 'unvote';
     }
     const server = process.env.NEXT_PUBLIC_SERVER_URL
-    const url = server+'/vote/'+props.commentId+'/'+direction
+    const url = server+'/vote/'+ comment._id + '/'+ direction
     axios.get(url, {withCredentials:true})
       .then(() => {
-        refreshVotes();
+        //refreshVotes();
       })
   }
 
@@ -66,7 +66,7 @@ const Voting = (props: any) => {
   return (
     <div className="flex p-2 pl-0">
       {arrowButton('up')}
-      <span className="">{total}</span>
+      <span className="">{upVote}</span>
       {arrowButton('down')}
     </div>
   )

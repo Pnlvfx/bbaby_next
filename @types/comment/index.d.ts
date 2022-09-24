@@ -7,4 +7,6 @@ interface CommentProps {
     rootId: string
     createdAt: Date
     _id: string
+    ups: number
+    liked: boolean | null
 }

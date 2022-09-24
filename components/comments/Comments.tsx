@@ -1,27 +1,36 @@
 import ReplyButton from './commentutils/ReplyButton';
 import TimeAgo from 'timeago-react';
 import CommentForm from './commentutils/CommentForm';
-import {useState, useContext} from 'react';
-import RootCommentContext from './commentutils/RootCommentContext';
+import {useState} from 'react';
+import { useCommentContext } from './commentutils/RootCommentContext';
 import Voting from '../voting/Voting';
 import Linkify from 'react-linkify';
+import { getCommentsFromPost } from '../API/commentAPI';
 
 interface CommentsProps {
   parentId: string
   rootId: string
-  comments: CommentProps[]
 }
 
-const Comments = ({parentId, rootId, comments:propsComments }: CommentsProps) => {
+const Comments = ({parentId, rootId }: CommentsProps) => {
+  const {post, comments: propsComments, setComments} = useCommentContext()
   const [showForm, setShowForm] = useState(false);
   const comments = propsComments.filter((comment) => parentId === comment.parentId);
-  const rootCommentInfo:any = useContext(RootCommentContext);
+
+  const getComm = async () => {
+    try {
+        const c = await getCommentsFromPost(post._id);
+        setComments(c);
+    } catch (err) {
+        console.log(err);
+    }
+}
 
   return (
     <div className={"my-2 bg-reddit_dark-brighter"}>
         {comments.map((comment) => { 
           const replies = propsComments.filter((c) => c.parentId === comment._id)
-          return(
+          return (
           <div className='mb-2' key={comment._id}>
               <div className="flex mb-2">
                   <img
@@ -32,7 +41,7 @@ const Comments = ({parentId, rootId, comments:propsComments }: CommentsProps) =>
                   <div className="leading-10 pr-2 text-sm font-sans">{comment.author}</div>
                   <TimeAgo className='leading-10 text-sm text-reddit_text-darker font-sans' datetime={comment.createdAt} />
               </div>
-              <div className='border-l-2 border-reddit_text-darker p-3' style={{marginLeft:'18px'}}>
+              <div className='border-l-2 border-reddit_text-darker p-3 ml-[18px]'>
                 <div className='pl-4 -mt-4'>
                   <div className='inline text-sm leading-6 break-words resize-x-none flex-none'>
                     <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
@@ -50,23 +59,24 @@ const Comments = ({parentId, rootId, comments:propsComments }: CommentsProps) =>
                     </Linkify>
                   </div>
                   <div className='flex p-2 pl-0 w-auto'>
-                    <Voting commentId={comment._id} />
+                    <Voting comment={comment} />
                     <ReplyButton type={"button"} onClick={() => {setShowForm(!!comment._id)}}>Reply</ReplyButton>
                   </div>
                     {!!comment._id === showForm && (
                     <CommentForm parentId={comment._id} rootId={rootId} onSubmit={() => {setShowForm(false);
-                        rootCommentInfo.refreshComments();
+                        getComm();
                     }}
                     showAuthor={false} 
-                    onCancel={ (e:any) => setShowForm(false)} />
+                    onCancel={ () => setShowForm(false)} />
                   )}
                   {replies.length > 0 && (
-                    <Comments comments={propsComments} parentId={comment._id} rootId={rootId} />
+                    <Comments parentId={comment._id} rootId={rootId} />
                   )}
                 </div>
               </div>
           </div>  
-        )})}
+        )}
+      )}
     </div>
   )
 }
