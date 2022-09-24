@@ -14,12 +14,16 @@ const TopCommunities = () => {
     const getComm = async () => {
       try {
         setTimeout(async () => {
-          const communities = await getCommunities(5);
-          setAllCommunity(communities);
-          setLoadingCommunity(false);
+          try {
+            const communities = await getCommunities(5);
+            setAllCommunity(communities);
+            setLoadingCommunity(false);
+          } catch (err) {
+            
+          }
         }, 500);
       } catch (err) {
-        
+        console.log(err);
       }
     }
     getComm();
@@ -37,7 +41,7 @@ const TopCommunities = () => {
           }}
         />
         <>
-          {allCommunity.length >= 1 
+          {allCommunity?.length >= 1 
           ? allCommunity.map(
             (community, index) => {
               const rank = index + 1

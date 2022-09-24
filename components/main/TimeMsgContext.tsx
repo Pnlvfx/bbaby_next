@@ -17,7 +17,7 @@ export interface TimeMsgContextProps {
 
 export const TimeMsgContext = createContext({})
 
-export const TimeMsgContextProvider = ({children}:TimeMsgContextProviderProps) => {
+export const TimeMsgContextProvider = ({ children }: TimeMsgContextProviderProps) => {
     const _status = {
         value: '',
         status:'',

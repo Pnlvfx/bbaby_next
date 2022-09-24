@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { GoogleAdsenseProps, useGoogleAdContext } from "./GoogleAdsenseProvider";
 
 const GoogleAdsense = () => {
-  const {loadedSuccessfully, unfilled, setUnfilled} = useGoogleAdContext() as GoogleAdsenseProps;
   const adRef = useRef<HTMLModElement>(null);
   const [loading, setLoading] = useState(false);
 

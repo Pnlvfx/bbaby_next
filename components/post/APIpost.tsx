@@ -26,6 +26,6 @@ export const getPost = async (postId:string | string[]) => {
             const post = await res.json()
         return post as PostProps;
     } catch (err) {
-        return catchError(err);
+        return catchError(err, 'get Post');
     }
   }

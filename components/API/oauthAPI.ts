@@ -40,6 +40,6 @@ export const register = async (email: string, username: string, password: string
       return data;
     }
   } catch (err) {
-    catchError(err);
+    catchError(err, 'register');
   }
 }

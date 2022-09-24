@@ -10,7 +10,6 @@ import { siteUrl } from '../components/main/config';
 import { GoogleOAuthProvider } from '../components/auth/providers/google/GoogleOAuthProvider';
 import Layout from '../components/main/Layout';
 import { useEffect } from 'react';
-import { GoogleAdsProvider } from '../components/google/GoogleAdsenseProvider';
 interface AppPropsss {
   session: SessionProps['session']
 }
@@ -38,6 +37,7 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps<AppPr
   return (
     <>
       <Head>
+        <meta name='yandex-verification' content='081e3ec3c7e3962f' />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="referrer" content="origin-when-cross-origin" />
         <link rel='apple-touch-icon' sizes='57x57' href={`${siteUrl}/apple-touch-icon-57x57.png`} />

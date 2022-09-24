@@ -14,7 +14,7 @@ export const getUserPrefCommunities = async () => {
       const communities = await res.json();
       return communities;
     } catch (err) {
-      catchError(err);
+      catchError(err, 'get User Pref Communities');
     }
 }
 
@@ -33,11 +33,11 @@ export const subscribe = async(communityName: string, setShow: Dispatch<SetState
         if (res.status === 401 || 400) {
           setShow('login');
         } else {
-          catchError(data?.msg);
+          catchError(data?.msg, 'Community subscribe');
         }
       }
     } catch (err) {
-      catchError(err)
+      catchError(err, 'Community subscribe')
     }
 }
 
@@ -96,9 +96,9 @@ export const getCommunities = async (limit: number) => {
     if (res.ok) {
       return data;
     } else {
-      catchError(data?.msg);
+      catchError(data?.msg, 'get Communities');
     }
   } catch (err) {
-    catchError(err);
+    catchError(err, 'get Communities');
   }
 }

@@ -15,6 +15,6 @@ export const translate = async (text:string, language:string) => {
         })
         return res;
     } catch (err) {
-        return catchError(err);
+        catchError(err, 'translate');
     }
 }
