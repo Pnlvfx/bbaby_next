@@ -56,10 +56,7 @@ const CommunityFormModal = () => {
   }
 
   return (
-    <div
-      className={'fixed top-0 left-0 z-30 flex items-center justify-center h-screen w-screen'}
-      style={{ backgroundColor: 'rgba(25,25,25,.8' }}
-    >
+    <div className={'fixed top-0 left-0 z-30 flex items-center justify-center h-screen w-screen bg-[rgba(25,25,25,.8)]'} >
       <ClickOutHandler
         onClickOut={() => {
           close()
@@ -93,19 +90,19 @@ const CommunityFormModal = () => {
                   </p>
                   {status.err && showErrMsg(status.err)}
                 </div>
-                </div>
-              <div className="flex bg-[#343536] p-4 items-center justify-end">
-                  <button
-                    onClick={() => setShow(false)}
-                    className={`mr-2 h-[32px] w-[80px] ${buttonClass(true)}`}
-                  >
-                    Cancel
-                  </button>
-                  <button disabled={loading} onClick={() => create()} className={`w-[160px] h-[32px] ${buttonClass()}`}>
-                    {loading && <Spinner />}
-                    {!loading && <p>Create a community</p>}
-                  </button>
-              </div>
+            </div>
+            <div className="flex bg-[#343536] p-4 items-center justify-end">
+                <button
+                  onClick={() => setShow(false)}
+                  className={`mr-2 h-[32px] w-[80px] ${buttonClass(true)}`}
+                >
+                  Cancel
+                </button>
+                <button disabled={loading} onClick={() => create()} className={`w-[160px] h-[32px] ${buttonClass()}`}>
+                  {loading && <Spinner />}
+                  {!loading && <p>Create a community</p>}
+                </button>
+            </div>
         </div>
       </ClickOutHandler>
     </div>

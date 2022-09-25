@@ -33,8 +33,8 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
    }
 
   return (
-  <div className='md:pl-10 flex max-h-[800px] relative' style={{ borderRadius: 6 }}>
-      <div className="w-10 md:flex flex-col items-center box-border left-0 absolute py-2 pr-1 top-0 hidden" style={{borderLeft: '4px solid transparent'}}>
+  <div className='md:pl-10 flex max-h-[800px] relative rounded-md'>
+      <div className="w-10 md:flex flex-col items-center box-border left-0 absolute py-2 pr-1 top-0 hidden border-l-4 border-solid border-transparent">
         <div className='md:flex items-center flex-col hidden'>
           <Voting ups={post.ups} postId={post._id} liked={post.liked} />
         </div>
@@ -129,7 +129,7 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
           </div>
         </div>
         <div className="flex h-[40px] flex-row px-[2px]">
-          <div className='text-[12px] text-reddit_text-darker font-bold leading-4 flex overflow-hidden flex-grow pr-2 pl-1' style={{alignItems: 'stretch'}}>
+          <div className='text-[12px] text-reddit_text-darker font-bold leading-4 flex overflow-hidden flex-grow pr-2 pl-1 items-stretch'>
             <div className='px-[2px] flex flex-row items-center md:hidden'>
               <Voting ups={post.ups} postId={post._id} liked={post.liked} />
             </div>

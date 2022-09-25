@@ -62,7 +62,7 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
           e.stopPropagation()
         }}
       >
-        <div className='md:pl-10 flex max-h-[800px] relative' style={{ borderRadius: 6 }} >
+        <div className='md:pl-10 flex max-h-[800px] relative rounded-[6px]' >
           {/* <div className="w-10 flex-none bg-[#141415]">
             <Voting ups={post.ups} postId={post._id} liked={post.liked} />
           </div> */}
@@ -80,7 +80,7 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
                     role={'presentation'}
                     src={post.sr_detail.community_icon}
                     alt=''
-                    style={{ borderRadius: 9999 }}
+                    className='rounded-full'
                     height={20}
                     width={20}
                     />
@@ -143,10 +143,10 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
                 )}
               </div>
               <div className="flex h-[40px] px-[2px]">
-                <div className='text-[12px] text-reddit_text-darker font-bold leading-4 flex overflow-hidden flex-grow pr-2 pl-1' style={{alignItems: 'stretch'}}>
+                <div className='text-[12px] text-reddit_text-darker font-bold leading-4 flex overflow-hidden flex-grow pr-2 pl-1 items-stretch'>
                   <div className="mr-1 flex items-center">
                     <button 
-                      className='hover:bg-reddit_dark-brightest p-2 flex h-full items-center' style={{borderRadius: '2px'}} type="button"
+                      className='hover:bg-reddit_dark-brightest p-2 flex h-full items-center rounded-[2px]' type="button"
                       onClick={(e) => {
                         e.preventDefault();
                         doTranslate();

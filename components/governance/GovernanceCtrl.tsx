@@ -1,12 +1,11 @@
-import { useContext } from "react";
-import UserContext from '../auth/UserContext';
+import { useSession } from '../auth/UserContext';
 
 interface GovernanceCtrlProps {
   children: React.ReactNode
 }
 
 const GovernanceCtrl = ({children} : GovernanceCtrlProps) => {
-  const {session} = useContext(UserContext) as SessionProps;
+  const {session} = useSession();
 
   return (
     <>

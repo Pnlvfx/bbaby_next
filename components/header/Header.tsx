@@ -6,7 +6,6 @@ import ClickOutHandler from 'react-clickout-ts';
 import UserMenu from './UserMenu';
 import NotUserMenu from './NotUserMenu';
 import Image from 'next/image';
-import UserContext from '../auth/UserContext';
 import Logo from '../../public/logo40x40.png';
 import { PlusIcon, TextLogo, UserIcon } from '../utils/SVG';
 import { RiArrowDownSLine } from 'react-icons/ri';
@@ -15,10 +14,11 @@ import NotificationButton from '../notifications/NotificationButton';
 import Home from './Home';
 import SearchBar from './search/SearchBar';
 import { NextComponentType } from 'next';
+import { useSession } from '../auth/UserContext';
 
 const Header: NextComponentType = () => {
   const [showDropdown, setShowDropdown] = useState(false);
-  const { session } = useContext(UserContext) as SessionProps;
+  const { session } = useSession();
 
   const className = {
     buttonHeader: 'items-center justify-center hover:bg-reddit_dark-brightest h-[32px] w-[32px] flex',

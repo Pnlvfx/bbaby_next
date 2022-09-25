@@ -13,7 +13,7 @@ interface GoogleOAuthProviderProps extends UseLoadGsiScriptOptions {
     children: ReactNode;
 }
 
-export const GoogleOAuthProvider = ({ clientId, onScriptLoadSuccess, onScriptLoadError, children}: GoogleOAuthProviderProps) => {
+export const GoogleOAuthProvider = ({ clientId, onScriptLoadSuccess, onScriptLoadError, children }: GoogleOAuthProviderProps) => {
     const scriptLoadedSuccessfully = UseLoadGsiScript({
         onScriptLoadSuccess,
         onScriptLoadError
@@ -31,9 +31,6 @@ export const GoogleOAuthProvider = ({ clientId, onScriptLoadSuccess, onScriptLoa
         </GoogleOAuthContext.Provider>
     )
 }
-
-
-
 
 export const useGoogleContext = () => {
     const context = useContext(GoogleOAuthContext);

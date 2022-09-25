@@ -37,7 +37,7 @@ const Body = () => {
         <ClickOutHandler onClickOut={() => {
           setActiveClassBody(false)
         }} >
-                  <div className='sticky top-12 z-[8] items-center bg-[#272729] rounded-[4px] box-border flex' style={{flexWrap: 'nowrap'}}>
+                  <div className='sticky top-12 z-[8] items-center bg-[#272729] rounded-[4px] box-border flex flex-nowrap'>
             <SubmitButton />    
         </div>
         <div className="overflow-auto relative">
@@ -68,19 +68,14 @@ const Body = () => {
                       </div>
                         <div contentEditable={false} onClick={() => {clickOnFigure()}}>
                           <div draggable={true} className='py-1'>
-                            <div id="_1FME"
-                              className={`transition-colors justify-center shadow-none p-0 bg-transparent rounded-[8px] flex relative`} 
-                              style={{overflow: 'visible'}}>
+                            <div className={`transition-colors justify-center shadow-none p-0 bg-transparent rounded-[8px] flex relative overflow-visible`}>
                                 <div 
-                                  style={{userSelect: 'all'}} 
-                                  className=
-                                  {`${activeFigure && "shadow-[0_0_0_4px_#d7dadc]"} transition-shadow flex-grow justify-center overflow-hidden relative rounded-[8px] ${isVideo && 'block pt-[56.25%]'}`
-                                  }>
+                                  className={`select-all ${activeFigure && "shadow-[0_0_0_4px_#d7dadc]"} transition-shadow flex-grow justify-center overflow-hidden relative rounded-[8px] ${isVideo && 'block pt-[56.25%]'}`}>
                                     {isVideo && (
                                       <>
                                         <div className="opacity-100 bottom-0 left-0 absolute right-0 top-0 z-[1]">
                                           <div
-                                          className="h-full cursor-default whitespace-nowrap overflow-hidden max-w-[100%] max-h-[100%] relative" style={{userSelect: 'none'}}>
+                                          className="h-full cursor-default whitespace-nowrap overflow-hidden max-w-[100%] max-h-[100%] relative select-none">
                                               <Video url={selectedFile} poster={thumbnail} />
                                               <div className="absolute top-0 bottom-0 left-0 right-0" />
                                           </div>

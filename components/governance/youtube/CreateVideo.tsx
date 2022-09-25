@@ -122,7 +122,7 @@ const CreateVideo = ({
                 width={input.width}
                 height={input.height}
               />
-              <div id='flex' style={{width: '100%', marginLeft: 12}} >
+              <div id='flex w-full ml-3' >
                 <div id="set_title" className="mt-2 flex items-center">
                   <p>Title:</p>
                   <div className='w-full text-center'>

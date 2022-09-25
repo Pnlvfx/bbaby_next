@@ -26,8 +26,7 @@ const TeaxtareaAutosize = ({value, className, placeholder, onClick, onChange, ma
   return (
     <textarea
         ref={tx}
-        style={{overflowWrap: 'break-word'}}
-        className={className}
+        className={`${className} break-words`}
         placeholder={placeholder}
         rows={1}
         onClick={onClick}

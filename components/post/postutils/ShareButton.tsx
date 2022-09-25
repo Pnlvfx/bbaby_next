@@ -32,7 +32,7 @@ const ShareButton = ({community,postId}:ShareButtonProps) => {
   return (
     <div className='mr-1 flex items-center'>
       <ClickOutHandler onClickOut={() => setShareDropdownVisibilityClass(false)}>
-        <button className='p-2 flex items-center h-full hover:bg-reddit_dark-brightest' style={{borderRadius: '2px'}} type='button' onClick={event =>{
+        <button className='p-2 flex items-center h-full hover:bg-reddit_dark-brightest rounded-sm' type='button' onClick={event =>{
         event.preventDefault()
         event.stopPropagation()
           setShareDropdownVisibilityClass(!ShareDropdownVisibilityClass)

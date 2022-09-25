@@ -1,9 +1,8 @@
 import { useRouter } from 'next/router'
-import React, { useContext } from 'react'
-import UserContext from '../../auth/UserContext'
+import { useSession } from '../../auth/UserContext'
 
 const Modqueque = () => {
-  const { session } = useContext(UserContext) as SessionProps;
+  const { session } = useSession();
   const router = useRouter()
   return (
     <div className="absolute top-0 bottom-0 left-0 right-0 m-auto h-[100px] w-[100%]">

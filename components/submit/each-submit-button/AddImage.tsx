@@ -3,7 +3,6 @@ import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext'
 import { AddImageIcon } from '../../utils/SVG'
 import { SubmitContext, SubmitContextType } from '../SubmitContext'
 import { previewImage } from '../submitutils/myReader'
-import { buttonClass, hoverClass, iconClass } from './SubmitButton'
 
 const AddImage = () => {
   const message = useContext(TimeMsgContext) as TimeMsgContextProps;
@@ -20,10 +19,9 @@ const AddImage = () => {
   return (
     <span className='h-8 w-8'>
       <button 
-        className={buttonClass}
+        className={`submitButton`}
         role={'button'}
         tabIndex={-1}
-        style={{lineHeight: 0}}
         title="Add an image"
         onClick={() => {
           filePickerRef &&
@@ -32,9 +30,9 @@ const AddImage = () => {
           setIsImage(true)
         }}
       >
-        <AddImageIcon className={iconClass} />
+        <AddImageIcon className={'submitButtonIcon'} />
         <div className='bottom-0 left-0 absolute right-0 top-0'>
-            <div className={hoverClass}>
+            <div className={'submitButtonTitle transition-opacity'}>
                   {'Add an image'}
               </div>
           </div>

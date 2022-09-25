@@ -3,7 +3,6 @@ import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
 import { VideoIcon } from '../../utils/SVG';
 import { SubmitContext, SubmitContextType } from '../SubmitContext';
 import { importFileandPreview } from '../submitutils/myReader';
-import { buttonClass, hoverClass, iconClass } from './SubmitButton';
 
 const AddVideo = () => {
   const message = useContext(TimeMsgContext) as TimeMsgContextProps;
@@ -44,8 +43,7 @@ const AddVideo = () => {
       <button
         role={'button'}
         tabIndex={-1}
-        style={{lineHeight: 0}}
-        className={buttonClass}
+        className={'submitButton'}
         title="Add a video"
         onClick={() => {
           fileVideoRef && 
@@ -54,14 +52,14 @@ const AddVideo = () => {
           setIsVideo(true)
         }}
       >
-        <VideoIcon className={iconClass} />
+        <VideoIcon className={'submitButtonIcon'} />
         <div className='bottom-0 left-0 absolute right-0 top-0'>
-            <div className={hoverClass}>
+            <div className={'submitButtonTitle transition-opacity'}>
                 {'Add a video'}
             </div>
         </div>
         <input
-        className='text-[16px]'
+          className='text-[16px]'
           type="file"
           accept='video/*'
           hidden

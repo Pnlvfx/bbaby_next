@@ -1,12 +1,12 @@
-import {useState, useContext} from 'react';
+import { useState } from 'react';
 import ClickOutHandler from "react-clickout-ts";
 import { useRouter } from 'next/router';
 import {BsTrashFill} from 'react-icons/bs';
-import UserContext from '../../auth/UserContext';
+import { useSession } from '../../auth/UserContext';
 import {MoreIcon} from '../../utils/SVG'
 
 const MoreButton = (props:any)  => {
-  const {session} = useContext(UserContext) as SessionProps;
+  const {session} = useSession();
   const router = useRouter()
   const {post,postId} = props
   const [moreDropdownVisibilityClass, setMoreDropdownVisibilityClass] = useState(false);
@@ -40,7 +40,7 @@ const MoreButton = (props:any)  => {
   return (
     <div className='flex items-center'>
        <ClickOutHandler onClickOut={() => setMoreDropdownVisibilityClass(false)}>
-          <button aria-label='more options' aria-haspopup='true' className='p-2 hover:bg-reddit_dark-brightest flex items-center h-full' style={{borderRadius: '2px'}} type='button' onClick={event =>{
+          <button aria-label='more options' aria-haspopup='true' className='p-2 hover:bg-reddit_dark-brightest flex items-center h-full rounded-sm' type='button' onClick={event =>{
             event.preventDefault()
             event.stopPropagation()
             clickMoreButton();

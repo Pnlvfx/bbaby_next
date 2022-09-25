@@ -1,18 +1,17 @@
-import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
-import UserContext from "../../auth/UserContext";
+import Router from "next/router";
+import { useEffect } from "react";
+import { useSession } from "../../auth/UserContext";
 
 interface Props {
   children : React.ReactNode
 }
 
 const UserSecurity = ({children}:Props) => {
-  const {session} = useContext(UserContext) as SessionProps;
-  const router = useRouter()
+  const {session} = useSession();
 
   useEffect(() => {
     if(!session) {
-      router.push('/');
+      Router.push('/');
     }
   },[session])
 
@@ -20,7 +19,7 @@ const UserSecurity = ({children}:Props) => {
 
   return (
         <>
-        {children}
+          {children}
         </>
   )
 }

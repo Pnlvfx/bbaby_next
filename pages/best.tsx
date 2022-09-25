@@ -49,9 +49,6 @@ export const getServerSideProps = async(context : NextPageContext) => {
   } catch (err) {
     
   }
-
-  //context.res?.setHeader('set-cookie', 'session_tracker=sdnguigndfuigdfnguifdgndfgiudfgnfiugdf')
-
   return {
     props: {
       session,

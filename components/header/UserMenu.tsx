@@ -4,12 +4,12 @@ import { BiUserCircle } from 'react-icons/bi';
 import {GiBabyFace} from 'react-icons/gi';
 import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
 import Router from 'next/router';
-import UserContext from '../auth/UserContext';
+import { useSession } from '../auth/UserContext';
 import Link from 'next/link';
 import { postRequestHeaders } from '../main/config';
 
 function UserMenu({showDropdown,setShowDropdown}:any) {
-    const {session} = useContext(UserContext) as SessionProps;
+    const {session} = useSession();
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     const containerClass = 'hover:bg-reddit_dark-brightest cursor-pointer'
     const buttonClass = 'text-sm p-3 pl-12 font-bold'
@@ -27,7 +27,7 @@ function UserMenu({showDropdown,setShowDropdown}:any) {
         Router.reload()
     }
     
-    const {setShow:setShowCommunity} = useContext(CommunityContext) as CommunityContextProps;
+    const {setShow: setShowCommunity} = useContext(CommunityContext) as CommunityContextProps;
 
   return (
     <>

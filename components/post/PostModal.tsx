@@ -69,9 +69,9 @@ const PostModal = ({community, postId, open, onClickOut}: PostModalProps) => {
             e.preventDefault();
             e.stopPropagation();
             //prevent closing modal
-          }} tabIndex={-1} className="bg-reddit_dark box-border h-12 left-0 mx-auto sticky max-w-[1280px] right-0 top-0" style={{width: 'calc(100% - 160px)'}}>
+          }} tabIndex={-1} className="bg-reddit_dark box-border h-12 left-0 mx-auto sticky max-w-[1280px] right-0 top-0 w-[calc(100%_-_160px)]">
             <div className="md:px-8 items-center flex box-border h-full m-auto max-w-[1128px] w-full">
-              <div className={`flex items-center flex-grow w-full`} style={{maxWidth: 'calc(100% - 324px)'}}>
+              <div className={`flex items-center flex-grow w-full max-w-[calc(100%_-_324px)] `}>
                 <div className="">
 
                 </div>
@@ -79,7 +79,7 @@ const PostModal = ({community, postId, open, onClickOut}: PostModalProps) => {
                   <GrDocumentText className="icon w-5 h-5 text-reddit_text"/>
                 </i>
                 <div className="flex min-w-0 realtive break-words">
-                  <div className="overflow-hidden text-ellipsis whitespace-nowrap text-[14px] leading-[18px] inline pr-[5px] break-words" style={{fontWeight: 500}}>
+                  <div className="overflow-hidden text-ellipsis whitespace-nowrap text-[14px] leading-[18px] inline pr-[5px] break-words font-medium">
                     <h1 className='inline '>{post.title}</h1>
                   </div>
                 </div>
@@ -103,8 +103,7 @@ const PostModal = ({community, postId, open, onClickOut}: PostModalProps) => {
             </div>
           </div>
           <div tabIndex={-1}
-            className="bg-reddit_dark box-border justify-center flex mx-auto pb-8 relative max-w-[1280px]" 
-            style={{width: 'calc(100% - 160px)'}}
+            className="bg-reddit_dark box-border justify-center flex mx-auto pb-8 relative max-w-[1280px] w-[calc(100%_-_160px)]" 
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();

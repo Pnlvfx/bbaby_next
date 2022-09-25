@@ -4,15 +4,13 @@ const Document = () => {
     return (
         <Html>
             <Head>
-                {/* <script
+            {process.env.NEXT_PUBLIC_NODE_ENV === 'production' &&
+                <script
                     async
                     onError={(e) => {console.log("Adsense failed to load", e)}}
                     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7203519143982992"
                     crossOrigin="anonymous"
-                    onLoad={(e) => {
-                        console.log(e.target)
-                    }}
-                /> */}
+                />}
             </Head>
             <body>
                 <Main />

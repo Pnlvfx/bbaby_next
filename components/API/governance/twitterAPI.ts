@@ -23,8 +23,8 @@ export const getMyListTweets = async (query: query) => {
       method: 'get',
       credentials: 'include'
     })
-    const data = await res.json();
     if (res.status === 401) Router.push('/settings')
+    const data = await res.json();
     if (!res.ok) catchError(data.msg, 'Twitter: get My List Tweets');
     return data as TweetProps[];
   } catch (err) {
@@ -40,13 +40,14 @@ export const getAnonHome = async () => {
       method: 'GET',
       credentials: 'include',
     })
+    if (res.status === 401) Router.push('/settings')
     const data = await res.json();
     if (res.ok) {
-      return data
+      return data as TweetProps[];
     } else {
       throw new Error(data?.msg)
     }
    } catch (err) {
-    catchError(err, 'Twitter: get Anon Home');
+    return catchError(err, 'Twitter: get Anon Home');
    }
 }

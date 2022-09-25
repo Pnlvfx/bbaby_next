@@ -3,13 +3,12 @@ import Account from '../../components/user_settings/Account'
 import type { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
 import UserSecurity from '../../components/utils/security/UserSecurity';
-import { useContext } from 'react';
-import UserContext from '../../components/auth/UserContext';
 import { getSession } from '../../components/API/ssrAPI';
+import { useSession } from '../../components/auth/UserContext';
 
 const AccountPage:NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
-  const {session} = useContext(UserContext) as SessionProps;
+  const {session} = useSession();
   const title = 'Bbabystyle Settings'
   const description = `${session?.user.username}`
   const url = `${hostname}/settings/account`;

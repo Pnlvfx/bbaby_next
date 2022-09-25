@@ -43,7 +43,6 @@ export const getServerSideProps = async(context: NextPageContext) => {
     })
     if (res.ok) {
       const posts: PostProps[] = await res.json();
-      //context.res?.setHeader('set-cookie', 'session_tracker=sdnguigndfuigdfnguifdgndfgiudfgnfiugdf')
       return {
         props: {
           session,

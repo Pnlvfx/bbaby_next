@@ -26,14 +26,12 @@ const LeaderboardFeed = ({ communities }: LeaderFeedProps) => {
                         role={'presentation'}
                         src={community.communityAvatar}
                         alt="Community Icon"
-                        className="bg-[rgb(108,163,196)] leading-10 ml-2 mr-1 text-[40px] box-border flex-none mx-2"
+                        className="bg-[rgb(108,163,196)] bg-no-repeat rounded-[24px] leading-10 ml-2 mr-1 text-[40px] box-border flex-none mx-2"
                         width={40}
                         height={40}
                         style={{
                           backgroundPosition: '50%',
-                          backgroundRepeat: 'no-repeat',
                           backgroundSize: '100%',
-                          borderRadius: '24px'
                         }}
                       />
                     </picture>

@@ -20,7 +20,7 @@ const Leaderboard = () => {
   }, [router])
 
   return (
-    <div className='flex flex-col' style={{minHeight: 'calc(100vh - 48px)'}}>
+    <div className='flex flex-col min-h-[calc(100vh_-_48px)]'>
         <div className='z-[3]'>
           <div className="flex bg-reddit_dark-brighter h-24 justify-center">
           <div className="box-border flex flex-grow flex-col justify-center h-24 mx-6 max-w-[1200px] px-4">

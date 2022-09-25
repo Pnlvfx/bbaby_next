@@ -9,7 +9,7 @@ const UserPreferencesModal = (props: any) => {
   const {setNewUser} = props
 
   return (
-    <div className={'w-screen h-screen fixed top-0 left-0 z-30 flex '} style={{backgroundColor:'rgba(0,0,0,.6'}}>
+    <div className={'w-screen h-screen fixed top-0 left-0 z-30 flex bg-[rgba(0,0,0,.6)]'}>
         <div className='flex w-auto h-auto border border-reddit_border bg-reddit_dark-brighter self-center mx-auto rounded-lg'>
         <div className="mx-auto self-center relative w-[500px]">
           <div className="flex px-2 py-4">

@@ -25,7 +25,7 @@ export const TimeMsgContextProvider = ({ children }: TimeMsgContextProviderProps
     }
     const [message,setMessage] = useState(_status)
     return (
-        <TimeMsgContext.Provider value={{setMessage,message}}>
+        <TimeMsgContext.Provider value={{ setMessage, message}}>
             {children}
         </TimeMsgContext.Provider>
     );

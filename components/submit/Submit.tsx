@@ -1,7 +1,7 @@
 import {useContext, useEffect} from 'react';
 import { buttonClass, Spinner } from '../utils/Button';
 import CommunityDropdown from './submitutils/CommunityDropdown';
-import UserContext from '../auth/UserContext';
+import { useSession } from '../auth/UserContext';
 import { SubmitContext, SubmitContextType } from './SubmitContext';
 import Body from './submitutils/Body';
 import SubmitType from './SubmitType';
@@ -14,7 +14,7 @@ type SubmitProps = {
 }
 
 const Submit = ({newTweet, community }: SubmitProps) => {
-    const {session} = useContext(UserContext) as SessionProps;
+    const {session} = useSession();
 
     const {
         setTitle,

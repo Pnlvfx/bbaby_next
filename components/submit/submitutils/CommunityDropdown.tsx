@@ -2,20 +2,20 @@ import Image from 'next/image';
 import { useContext, useEffect, useState } from 'react';
 import ClickOutHandler from 'react-clickout-ts';
 import { HiChevronDown } from 'react-icons/hi';
-import UserContext from '../../auth/UserContext';
-import { getUserPrefCommunities, searchCommunity } from '../../API/communityAPI';
+import { useSession } from '../../auth/UserContext';
+import { getCommunities, getUserPrefCommunities, searchCommunity } from '../../API/communityAPI';
 import { CommunityContext, CommunityContextProps } from '../../community/CommunityContext';
 import { SubmitContext, SubmitContextType } from '../SubmitContext';
 import CommunityList from './CommunityList';
 import {BiSearch} from 'react-icons/bi';
 
 const CommunityDropdown = () => {
-  const { session } = useContext(UserContext) as SessionProps;
+  const { session } = useSession();
   const [show, setShow] = useState(false)
   const [activeClass, setActiveClass] = useState(false)
   const [allCommunity, setAllCommunity] = useState<CommunityProps[] | []>([])
   const { selectedCommunity, setSelectedCommunity } = useContext(SubmitContext) as SubmitContextType
-  const {getCommunity,communityInfo,setShow:setShowCommunityForm} = useContext(CommunityContext) as CommunityContextProps
+  const { getCommunity, communityInfo, setShow:setShowCommunityForm } = useContext(CommunityContext) as CommunityContextProps
 
   const chooseCommunity = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -41,11 +41,13 @@ const CommunityDropdown = () => {
     if (selectedCommunity) {
       getCommunity(selectedCommunity)
     } else {
-      setTimeout(() => {
-        getUserPrefCommunities().then(res => {
-          setAllCommunity(res)
-        })
-      }, 350)
+      setTimeout(async () => {
+        let communities = await getUserPrefCommunities();
+        if (communities.length <= 0) {
+          communities = await getCommunities(11);
+        }
+        setAllCommunity(communities);
+      }, 250)
     }
   },[])
 
@@ -54,7 +56,7 @@ const CommunityDropdown = () => {
     if (!selectedCommunity) return;
     const timer = setTimeout(() => {
       searchCommunity(selectedCommunity).then((res) => {
-        setAllCommunity(res)
+        setAllCommunity(res);
       })
     }, 300)
     return () => {
@@ -67,7 +69,7 @@ const CommunityDropdown = () => {
       <ClickOutHandler onClickOut={() => {
         closeDropdown();
       }}>
-      <div style={{borderRadius: '4px'}} className={`${activeClass ? 'shadow-xl' : 'shadow-none'} mr-4 relative box-border min-w-[300px] h-10 border solid bg-reddit_dark-brighter border-reddit_border`}>
+      <div className={`rounded-[4px] ${activeClass ? 'shadow-xl' : 'shadow-none'} mr-4 relative box-border min-w-[300px] h-10 border solid bg-reddit_dark-brighter border-reddit_border`}>
           <div className={`flex items-center h-full px-2`}
           onClick={() => {
             openDropdown();
@@ -76,7 +78,7 @@ const CommunityDropdown = () => {
             {!communityInfo?.communityAvatar && show 
               ? <BiSearch className="h-[22px] w-[22px] text-reddit_text-darker" /> 
               : !communityInfo.communityAvatar && !show 
-              ? <span className='h-[22px] w-[22px] leading-[22px] text-[22px]' style={{boxSizing: 'border-box', borderRadius: '22px', border: '1px dashed', }} /> 
+              ? <span className='h-[22px] w-[22px] leading-[22px] text-[22px] box-border rounded-[22px] border border-dashed' /> 
               : communityInfo?.communityAvatar && show 
               ? <BiSearch className="h-[22px] w-[22px] text-reddit_text-darker" /> 
               : <Image 

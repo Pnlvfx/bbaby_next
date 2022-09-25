@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { GoCommentDiscussion } from "react-icons/go";
-import { getCommentsFromPost } from "../API/commentAPI";
 import Post from "../post/Post";
 import Comments from "./Comments";
 import CommentForm from "./commentutils/CommentForm";

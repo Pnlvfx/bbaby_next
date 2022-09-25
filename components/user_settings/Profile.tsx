@@ -1,13 +1,13 @@
 import { useState, useRef, useContext, useEffect, ChangeEvent } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import UserContext from '../auth/UserContext';
 import Image from 'next/image';
 import { TimeMsgContext, TimeMsgContextProps } from '../main/TimeMsgContext';
 import { postRequestHeaders } from '../main/config';
 import { catchErrorWithMessage } from '../API/common';
+import { useSession } from '../auth/UserContext';
 
 const Profile = () => {
-  const { session } = useContext(UserContext) as SessionProps;
+  const { session } = useSession();
   const [selectedFile, setSelectedFile] = useState(session?.user.avatar)
   const [change, setChange] = useState(false)
   const filePickerRef = useRef<HTMLInputElement>(null)

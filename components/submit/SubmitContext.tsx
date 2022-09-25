@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
 import { catchErrorWithMessage } from "../API/common";
 import {AuthModalContext, AuthModalContextProps} from "../auth/modal/AuthModalContext";
-import UserContext from "../auth/UserContext";
+import { useSession } from "../auth/UserContext";
 import { postRequestHeaders } from "../main/config";
 import { TimeMsgContext, TimeMsgContextProps } from "../main/TimeMsgContext";
 
@@ -45,7 +45,7 @@ interface SubmitContextProviderProps  {
     }
 
 export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => {
-    const {session} = useContext(UserContext) as SessionProps;
+    const {session} = useSession();
     const authModalContext = useContext(AuthModalContext) as AuthModalContextProps;
     const [title,setTitle] = useState('');
     const [body,setBody] = useState('');

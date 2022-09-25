@@ -20,7 +20,7 @@ const Slider = () => {
           aria-valuenow={0}
           tabIndex={0}
         >
-            <div style={{borderRadius: 2}} className="w-full bg-white opacity-20 absolute top-[6px] h-1" />
+            <div className="rounded-sm w-full bg-white opacity-20 absolute top-[6px] h-1" />
             <div className="absolute top-[6px] h-1 bg-white opacity-50" style={{width:'50%', borderRadius: 2}} />
             <div ref={previewPositionRef} className="absolute top-[6px] h-1 bg-white opacity-70" style={{width: 0, borderRadius: 2}} />
             <div className="top-[6px] h-1 bg-[#0079d3] absolute" style={{width: `${progressPosition*100}%`, borderRadius: 2}} />

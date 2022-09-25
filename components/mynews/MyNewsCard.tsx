@@ -1,10 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext } from "react";
 import { AiOutlineRead } from "react-icons/ai";
 import {FcVideoProjector} from 'react-icons/fc';
-import UserContext from "../auth/UserContext";
+import { useSession } from "../auth/UserContext";
 
 interface MyNewsCardProps {
     news: NewsProps
@@ -13,7 +12,7 @@ interface MyNewsCardProps {
 
 const MyNewsCard = ({news, isListing}: MyNewsCardProps) => {
     const router = useRouter();
-    const {session} = useContext(UserContext) as SessionProps;
+    const {session} = useSession();
     let width = 1920;
     let height = 1080;
 

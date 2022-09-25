@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useSession } from "../../../UserContext";
 
 export interface UseLoadGsiScriptOptions {
      /**
@@ -13,6 +14,7 @@ export interface UseLoadGsiScriptOptions {
 
 const UseLoadGsiScript = (options: UseLoadGsiScriptOptions = {}): boolean => {
     const { onScriptLoadSuccess, onScriptLoadError} = options;
+    const {session} = useSession();
     const [scriptLoadedSuccessfully, setScriptLoadSuccessfully] = useState(false);
 
     const onScriptLoadSuccessRef = useRef(onScriptLoadSuccess);
@@ -22,6 +24,7 @@ const UseLoadGsiScript = (options: UseLoadGsiScriptOptions = {}): boolean => {
     onScriptLoadErrorRef.current = onScriptLoadError;
 
     useEffect(() => {
+        if (session) return;
         const scriptTag = document.createElement('script');
         scriptTag.src = 'https://accounts.google.com/gsi/client';
         scriptTag.async = true;

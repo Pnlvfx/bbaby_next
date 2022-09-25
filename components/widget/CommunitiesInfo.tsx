@@ -8,16 +8,16 @@ import {
 } from 'react-icons/md';
 import Link from 'next/link';
 import {AuthModalContext, AuthModalContextProps} from '../auth/modal/AuthModalContext';
-import UserContext from '../auth/UserContext';
 import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
 import CategoriesDropdown from './community-info/CategoriesDropdown';
 import { communityUrl } from '../../lib/url';
 import {postRequestHeaders} from '../main/config';
 import { TimeMsgContext, TimeMsgContextProps } from '../main/TimeMsgContext';
 import { catchErrorWithMessage } from '../API/common';
+import { useSession } from '../auth/UserContext';
 
 const CommunitiesInfo = () => {
-  const {session} = useContext(UserContext) as SessionProps;
+  const {session} = useSession();
   const {loading, communityInfo } = useContext(CommunityContext) as CommunityContextProps;
   const [descr, setDescr] = useState('');
   const { setShow } = useContext(AuthModalContext) as AuthModalContextProps;

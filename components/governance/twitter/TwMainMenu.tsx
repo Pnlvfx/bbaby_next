@@ -33,11 +33,11 @@ const TwMainMenu = ({ setLanguage, setTweets }: TwMainMenuProps) => {
   return (
       <div className="flex space-x-3 rounded-md border border-reddit_border bg-reddit_dark-brighter py-[13px] px-2">
         <button
+          className={`rounded-full py-1 px-3 hover:bg-reddit_dark-brightest ${active === 0 && 'bg-reddit_dark-brightest'}`}
           onClick={() => {
             setActive(0);
             getHome()
           }}
-          className={`rounded-full py-1 px-3 hover:bg-reddit_dark-brightest ${active === 0 && 'bg-reddit_dark-brightest'}`}
         >
           <div className="flex h-5 items-center space-x-1">
             <FaSpaceShuttle className="h-5 w-5 -rotate-90" />
@@ -45,11 +45,11 @@ const TwMainMenu = ({ setLanguage, setTweets }: TwMainMenuProps) => {
           </div>
         </button>
         <button
+          className={`rounded-full py-1 px-3 hover:bg-reddit_dark-brightest ${active === 1 && 'bg-reddit_dark-brightest'}`}
           onClick={() => {
             setActive(1);
             changeTweet('en', anonList)
           }}
-          className={`rounded-full py-1 px-3 hover:bg-reddit_dark-brightest ${active === 1 && 'bg-reddit_dark-brightest'}`}
         >
           <div className="flex h-5 items-center space-x-1">
             <FaSpaceShuttle className="h-5 w-5 -rotate-90" />
@@ -57,13 +57,11 @@ const TwMainMenu = ({ setLanguage, setTweets }: TwMainMenuProps) => {
           </div>
         </button>
         <button
+          className={`rounded-full py-1 px-3 hover:bg-reddit_dark-brightest ${active === 2 && 'bg-reddit_dark-brightest'}`}
           onClick={() => {
-            setActive(1)
+            setActive(2)
             changeTweet('it', bbabyList)
           }}
-          className={`rounded-full py-1 px-3 hover:bg-reddit_dark-brightest ${
-            active === 2 && 'bg-reddit_dark-brightest'
-          }`}
         >
           <div className="flex h-5 items-center space-x-1">
             <FaSpaceShuttle className="h-5 w-5 -rotate-90" />

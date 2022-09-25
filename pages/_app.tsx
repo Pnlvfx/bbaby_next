@@ -1,6 +1,7 @@
 import '../styles/globals.css';
+import '../styles/submit.css';
 import Head from 'next/head';
-import UserContext from '../components/auth/UserContext';
+import { UserContextProvider } from '../components/auth/UserContext';
 import type { AppProps, NextWebVitalsMetric } from 'next/app';
 import { AuthModalContextProvider } from '../components/auth/modal/AuthModalContext';
 import { CommunityContextProvider } from '../components/community/CommunityContext';
@@ -61,7 +62,7 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps<AppPr
         <meta name="mobile-web-app-capable" content="yes" />
         {/* <meta name="twitter:creator" content="@Bbabystyle" /> */}
       </Head>
-      <UserContext.Provider value={{ session }}>
+      <UserContextProvider session={ session }>
         <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
           <AuthModalContextProvider>
             <CommunityContextProvider>
@@ -74,7 +75,7 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps<AppPr
             </CommunityContextProvider>
           </AuthModalContextProvider>
         </GoogleOAuthProvider>
-      </UserContext.Provider>
+      </UserContextProvider>
     </>
   )
 }

@@ -16,11 +16,10 @@ const VideoPlayer = () => {
       }} 
       className="h-full whitespace-nowrap overflow-hidden relative cursor-default w-full"
     >
-      <video className="z-0 h-full top-0 left-0 absolute w-full bg-[rgb(0,0,0)]"
+      <video className="z-0 bg-no-repeat h-full top-0 left-0 absolute w-full bg-[rgb(0,0,0)]"
         ref={player}
         style={{
           backgroundPosition: '50%',
-          backgroundRepeat: 'no-repeat',
           backgroundSize: 'contain',
         }}
         poster={poster}

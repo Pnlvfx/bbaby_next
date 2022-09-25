@@ -65,8 +65,8 @@ const Tweet = ({username, screen_name, created_at, title, type, videoInfo, image
       <div>
         <div>
           <div className="bg-[#141415] w-full mb-3 border border-reddit_border rounded-md hover:border-reddit_text cursor-pointer">
-            <div className='md:pl-10 flex max-h-[800px] relative' style={{borderRadius: 6}}>
-              <div className="w-10 md:flex flex-col items-center box-border left-0 absolute py-2 pr-1 top-0 hidden" style={{borderLeft: '4px solid transparent'}}>
+            <div className='md:pl-10 flex max-h-[800px] relative rounded-[6px]'>
+              <div className="w-10 md:flex flex-col items-center box-border left-0 absolute py-2 pr-1 top-0 hidden border-l-4 border-solid border-transparent">
                 <div className='md:flex items-center flex-col hidden'>
                   
                 </div>
@@ -122,9 +122,9 @@ const Tweet = ({username, screen_name, created_at, title, type, videoInfo, image
                   )}
                 </div>
                 <div className='flex h-[40px] flex-row px-[2px]'>
-                  <div className='text-[12px] text-reddit_text-darker font-bold leading-4 flex overflow-hidden flex-grow pr-2 pl-1' style={{alignItems: 'stretch'}}>
+                  <div className='text-[12px] text-reddit_text-darker font-bold leading-4 flex overflow-hidden flex-grow pr-2 pl-1 items-stretch'>
                     <div className='mr-1 flex items-center'>
-                      <button className='hover:bg-reddit_dark-brightest p-2 flex h-full items-center' style={{borderRadius: '2px'}} type="button"
+                      <button className='hover:bg-reddit_dark-brightest p-2 flex h-full items-center rounded-[2px]' type="button"
                         onClick={(e) => {
                           e.preventDefault()
                           if (showSubmit) {

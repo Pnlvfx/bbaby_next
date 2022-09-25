@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { useContext, useEffect, useState } from 'react';
-import UserContext from '../../auth/UserContext';
+import { useEffect, useState } from 'react';
+import { useSession } from '../../auth/UserContext';
 import { buttonClass } from '../../utils/Button';
 import ClickOutHandler from "react-clickout-ts";
 import { postComment } from '../../API/commentAPI';
@@ -20,7 +20,7 @@ const CommentForm = ({
   onCancel,
   showAuthor
 }: CommentFormProps) => {
-  const { session } = useContext(UserContext) as SessionProps;
+  const { session } = useSession();
   const [commentBody, setCommentBody] = useState('')
   const [commentBodyLength, setCommentBodyLength] = useState(0)
   const [enableComment, setEnableComment] = useState(false)

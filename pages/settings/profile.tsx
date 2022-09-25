@@ -1,15 +1,15 @@
 import type { NextPage, NextPageContext } from 'next'
 import Head from 'next/head'
-import { useContext } from 'react'
-import UserContext from '../../components/auth/UserContext'
+import { useContext } from 'react';
 import Profile from '../../components/user_settings/Profile'
 import UserSettings from '../../components/user_settings/UserSettings'
 import UserSecurity from '../../components/utils/security/UserSecurity'
 import { getSession } from '../../components/API/ssrAPI'
+import { useSession } from '../../components/auth/UserContext';
 
 const ProfilePage:NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
-  const {session} = useContext(UserContext) as SessionProps;
+  const {session} = useSession();
   const title = 'Bbabystyle Settings'
   const description = `${session?.user.username}`
   const url = `${hostname}/settings/profile`

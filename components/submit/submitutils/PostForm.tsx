@@ -4,15 +4,15 @@ import {useRouter} from 'next/router'
 import { useContext } from 'react';
 import {AuthModalContext, AuthModalContextProps} from '../../auth/modal/AuthModalContext';
 import Image from 'next/image';
-import UserContext from '../../auth/UserContext';
 import {AddImageIcon} from '../../utils/SVG'
+import { useSession } from '../../auth/UserContext';
 
 type PostFormProps = {
     community?: string
 }
 
 function PostForm({community}:PostFormProps) {
-    const {session} = useContext(UserContext) as SessionProps;
+    const {session} = useSession();
     const router = useRouter()
     const {setShow} = useContext(AuthModalContext) as AuthModalContextProps;
     const inputClass = 'text-[16px] md:text-[14px] leading-5 bg-reddit_dark-brightest p-2 px-3 block w-full rounded-md placeholder:text-reddit_text-darker'

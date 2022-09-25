@@ -1,12 +1,12 @@
 import { ChangeEvent, useContext, useState } from 'react';
 import ClickOutHandler from 'react-clickout-ts';
-import UserContext from '../auth/UserContext';
+import { useSession } from '../auth/UserContext';
 import TeaxtareaAutosize from '../utils/TeaxtareaAutosize';
 import { SubmitContext, SubmitContextType } from './SubmitContext';
 
 
 const SubmitTitle = () => {
-    const {session} = useContext(UserContext) as SessionProps;
+    const {session} = useSession();
     const [active, setActive] = useState(false)
     const maxLength = session?.user.role === 1 ? 999 : 300
     const titleClass = 

@@ -5,7 +5,7 @@ import { AiOutlineOrderedList } from 'react-icons/ai';
 import { BsSearch } from 'react-icons/bs'
 import { HiChevronDown } from 'react-icons/hi';
 import { TbBabyCarriage } from 'react-icons/tb';
-import UserContext from '../auth/UserContext';
+import { useSession } from '../auth/UserContext';
 import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
 import { HomeIcon, PlusIcon } from '../utils/SVG';
 import {TiNews} from 'react-icons/ti';
@@ -15,7 +15,7 @@ const Home = () => {
   const [path,setPath] = useState(<h1 className="ml-2 text-sm font-bold">Home</h1>)
   const [icon,setIcon] = useState(<HomeIcon className='w-5 h-5' />)
   const {communityInfo} = useContext(CommunityContext) as CommunityContextProps;
-  const {session} = useContext(UserContext) as SessionProps;
+  const {session} = useSession();
   const router = useRouter();
   const [show, setShow] = useState(false);
 
@@ -104,8 +104,7 @@ const Home = () => {
       {show && 
       <div className='pb-4 bg-reddit_dark-brighter border solid border-t-0 overflow-x-hidden overflow-y-scroll border-reddit_border rounded-md box-border left-[-1px] mt-[-1px] max-h-[482px] top-[100%] right-0 absolute ' role={'menu'}>
         <input aria-label='search your community'
-          className='text-[16px] bg-reddit_dark-brightest border border-reddit_border h-[30px] mt-4 mx-4 outline-none box-border px-[6px] placeholder:text-reddit_text-darker' 
-          style={{width: 'calc(100% - 32px)'}}
+          className='w-[calc(100%_-_32px)] text-[16px] bg-reddit_dark-brightest border border-reddit_border h-[30px] mt-4 mx-4 outline-none box-border px-[6px] placeholder:text-reddit_text-darker' 
           placeholder='Filter'
         />
         <div className='text-reddit_text-darker uppercase px-8 pt-4 pb-2 text-[10px] font-semibold leading-[16px]'>Moderating</div>

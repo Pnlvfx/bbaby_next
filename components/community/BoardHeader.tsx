@@ -55,7 +55,7 @@ const BoardHeader = () => {
   return (
     <div className="z-10">
       <div
-        className="no-repeat h-48 bg-cover"
+        className={`no-repeat h-48 bg-cover`}
         style={{
           backgroundImage: `url("${communityInfo.cover}")`,
           backgroundRepeat: 'no-repeat',

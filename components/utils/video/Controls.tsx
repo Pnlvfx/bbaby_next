@@ -49,9 +49,9 @@ const Controls = () => {
               player.current.play()
             }} className="flex items-center justify-center outline-none bg-transparent">
               <VideoCenterReplayIcon className='w-[50px] h-[50px] overflow-hidden' />
-              <span className="flex items-center text-[12px] font-bold text-white ml-[10px] text-center" style={{
+              <span className="flex items-center text-[12px] font-bold text-white ml-[10px] text-center leading-6" 
+              style={{
                 letterSpacing: '.5px',
-                lineHeight: '24px',
               }}>
                 REPLAY VIDEO
               </span>
@@ -105,14 +105,8 @@ const Controls = () => {
             e.stopPropagation();
             handlePlayPause(player);
           }}
-            aria-label="Play" style={{
-              outline: 'none',
-              width: 36,
-              height: 36,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
+            aria-label="Play"
+            className="outline-none w-9 h-9 flex justify-center items-center"
           >
           {isPlaying 
             ? <VideoPauseFromBarIcon className='h-[18px] w-[18px] block' /> 
@@ -162,11 +156,10 @@ const Controls = () => {
               e.preventDefault();
               e.stopPropagation();
             }}
-            style={{borderRadius: '4px'}} 
-            className="absolute m-0 h-[96px] w-6 bottom-[100%] bg-[rgba(0,0,0,.6)] cursor-pointer hidden opacity-0 transition-opacity"
+            className="rounded-[4px] absolute m-0 h-[96px] w-6 bottom-[100%] bg-[rgba(0,0,0,.6)] cursor-pointer hidden opacity-0 transition-opacity"
           >
-            <div ref={volumeSliderContainer} className="bg-[#ffffff80] top-2 bottom-2 my-[6px] mx-auto w-1 absolute left-0 right-0" style={{borderRadius: '2px'}}>
-              <div ref={volumeSlider} className="bg-[#0079d3] absolute bottom-0 w-1 my-0 mx-auto left-0 right-0" style={{height: '0%',borderRadius: '2px'}}>
+            <div ref={volumeSliderContainer} className="bg-[#ffffff80] top-2 bottom-2 my-[6px] mx-auto w-1 absolute left-0 right-0 rounded-sm">
+              <div ref={volumeSlider} className="bg-[#0079d3] absolute bottom-0 w-1 my-0 mx-auto left-0 right-0 rounded-sm" style={{height: '0%'}}>
                 <div className="absolute left-[-4px] top-[-6px] mx-auto w-3 h-3 bg-[#fff]" style={{borderRadius: '50%'}} />
               </div>
             </div>
