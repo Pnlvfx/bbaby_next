@@ -35,12 +35,13 @@ module.exports = {
     '/governance/*',
     '/server-sitemap.xml',
     '/community.xml',
+    '/settings',
     '/settings/*',
     '/login',
-    '/settings',
     '/policies/*',
     '/best',
     '/bbaby/leaderboard',
-    '/submit'
+    '/submit',
+    '/search'
   ],
 }

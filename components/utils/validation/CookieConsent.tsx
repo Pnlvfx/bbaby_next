@@ -27,14 +27,15 @@ const CookieConsent = () => {
     setTimeout(() => {
       const check = checkIfCookieExist();
       if (check === undefined) setShow(true);
-    }, 30)
+    }, 100)
   }, [show])
 
   if (!show) return null;
 
   return (
-    <div className={`${show ? 'block' : 'hidden'}`}>
-      <div className="fixed bottom-0 z-30 flex w-full rounded-sm border border-reddit_border bg-reddit_dark-brighter font-bold lg:left-[35%] lg:right-[50%] lg:bottom-12 lg:w-[700px]">
+    <>
+    <div className={`${show ? 'hidden md:block' : 'hidden'}`}>
+      <div className="fixed bottom-0 z-30 flex w-full rounded-sm border border-reddit_text-darker bg-reddit_dark-brighter font-bold lg:left-[35%] lg:right-[50%] lg:bottom-12 lg:w-[700px]">
         <div className={'w-6 bg-reddit_blue'} />
         <div>
           <p className="p-3 pl-4 text-[15px]">
@@ -67,6 +68,22 @@ const CookieConsent = () => {
         </div>
       </div>
     </div>
+    <div className='p-2 box-border block md:hidden bg-reddit_dark'>
+      <div className='border border-solid border-transparent box-border pt-1 pr-4 pb-1 pl-2 relative rounded-sm'>
+        <div id='close'>
+
+        </div>
+        <p className='mb-[10px] break-words box-border block text-[14px]'>
+          Cookies help us deliver out Services. we only use essential cookies.{' '}
+          <Link href={'/policies/cookies'}>
+            <a className='text-reddit_blue'>
+              Learn More
+            </a>
+          </Link>
+        </p>
+      </div>
+    </div>
+    </>
   )
 }
 

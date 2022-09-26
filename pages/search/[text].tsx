@@ -5,15 +5,15 @@ import Head from "next/head";
 import type { NextPage, NextPageContext } from "next";
 import { search } from "../../components/header/search/APisearch";
 import { getSession } from "../../components/API/ssrAPI";
+import { siteUrl } from "../../components/main/config";
 
-const SearchResultPage:NextPage = () => {
+const SearchResultPage: NextPage = () => {
   const router = useRouter();
   const [posts, setPosts] = useState<PostProps[] | []>([]);
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME
-  const imagePreview = `${hostname}/imagePreview.png`;
-  const title = `Bbabystyle.com: search result`
-  const url = `${hostname}/search`
-  const description = "Bbabystyle is a network of communities. There's a community for whatever you're interested in on Bbabystyle."
+  const imagePreview = `${siteUrl}/imagePreview.png`;
+  const title = `Bbabystyle.com: search result`;
+  const url = `${siteUrl}/search`;
+  const description = "Bbabystyle is a network of communities. There's a community for whatever you're interested in on Bbabystyle.";
   const card = 'summary';
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const SearchResultPage:NextPage = () => {
         //setCommunities(response.data.communities);
       })
     }
-  },[router])
+  }, [router]);
 
   return (
     <>

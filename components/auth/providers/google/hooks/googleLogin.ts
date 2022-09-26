@@ -30,7 +30,7 @@ export const googleLogin = async (
           googleLoginAnalytics()
           router.reload()
         } else {
-          const error = await res.json()
+          const error = await res.json();
           message.setMessage({value: error, status: 'error'})
         }
       } catch (err) {

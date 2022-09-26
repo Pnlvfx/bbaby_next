@@ -53,7 +53,7 @@ const CEO = ({
     video,
     width,
     height,
-    locale
+    locale,
 }: CEOProps) => {
   return (
     <Head>
