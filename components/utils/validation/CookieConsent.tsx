@@ -64,10 +64,12 @@ const CookieConsent = () => {
     </div>
     <div className='text-[0.875rem] relative bg-reddit_dark-brighter rounded-[4px] block my-4 p-4 border border-solid border-[#3a3a3c] md:hidden'>
         <button
-         className='p-1 absolute right-1 top-1'
-         onClick={async () => {
-          await eu_cookie(true);
-         }}
+          name='close'
+          aria-label='close cookie'
+          className='p-1 absolute right-1 top-1'
+          onClick={async () => {
+            await eu_cookie(true);
+          }}
         >
           <i className='inline-block align-middle leading-[1em]'>
             <CloseIcon className='h-[1em] w-auto leading-4' />
@@ -75,8 +77,8 @@ const CookieConsent = () => {
         </button>
           Cookies help us deliver out Services. we only use essential cookies.{' '}
           <Link href={'/policies/cookies'}>
-            <a className='text-reddit_blue'>
-              Learn More
+            <a target={'_blank'} className='text-reddit_blue'>
+              Cookie policy
             </a>
           </Link>
       </div>

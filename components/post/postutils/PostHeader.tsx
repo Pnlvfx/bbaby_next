@@ -49,12 +49,12 @@ const PostHeader = ({post, isListing}: PostHeaderProps) => {
                 <div className="inline-block flex-none">
                 <Link href={`/b/${post.community}`}>
                     <a
-                    className={`inline align-baseline font-bold leading-5 hover:underline ${session?.device?.mobile && isListing && 'articleLink'}`}
-                    onClick={(e) => {
-                        LinkToCommunity(e)
-                    }}
+                        className={`inline align-baseline font-bold leading-5 hover:underline ${session?.device?.mobile && isListing && 'articleLink'}`}
+                        onClick={(e) => {
+                            LinkToCommunity(e)
+                        }}
                     >
-                    {post.community ? `b/${post.community}` : undefined}
+                    {`b/${post.community}`}
                     </a>
                 </Link>
                 </div>

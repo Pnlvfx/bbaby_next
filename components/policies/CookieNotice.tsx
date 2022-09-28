@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import PoliciesTab from './PoliciesTab'
 
 const CookieNotice = () => {
   return (

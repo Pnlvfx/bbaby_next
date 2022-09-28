@@ -40,6 +40,7 @@ const Layout = ({ children, error } : LayoutProps) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="referrer" content="origin-when-cross-origin" />
         <link rel='apple-touch-icon' sizes='57x57' href={`${siteUrl}/apple-touch-icon-57x57.png`} />
+        <link rel='apple-touch-icon' sizes='60x60' href={`${siteUrl}/apple-icon-60x60.png`} />
         <link rel='apple-touch-icon' sizes='72x72' href={`${siteUrl}/apple-touch-icon-72x72.png`} />
         <link rel='apple-touch-icon' sizes='76x76' href={`${siteUrl}/apple-touch-icon-76x76.png`} />
         <link rel='apple-touch-icon' sizes='114x114' href={`${siteUrl}/apple-touch-icon-114x114.png`} />
@@ -49,7 +50,9 @@ const Layout = ({ children, error } : LayoutProps) => {
         <link rel='apple-touch-icon' sizes='180x180' href={`${siteUrl}/apple-touch-icon-180x180.png`} />
         <link rel="icon" type='image/png' sizes='192x192' href={`/android-chrome-192x192.png`} />
         <link rel="icon" type='image/png' sizes='32x32' href={`/favicon-32x32.png`} />
+        <link rel='icon' type='image/png' sizes='96x96' href='/android-icon-96x96.png' />
         <link rel="icon" type='image/png' sizes='16x16' href={`/favicon-16x16.png`} />
+        <link rel='manifest' href='/manifest.json' />
         <meta name='msapplication-TileColor' content='#ffffff' />
         <meta name='msapplication-TileImage' content='/mstile-150x150.png' />
         <meta name="theme-color" content="#1a1a1b" />
