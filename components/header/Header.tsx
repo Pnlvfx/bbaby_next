@@ -15,11 +15,12 @@ import Home from './Home';
 import SearchBar from './search/SearchBar';
 import { NextComponentType } from 'next';
 import { useSession } from '../auth/UserContext';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 
 const Header: NextComponentType = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const { session } = useSession();
+  const router = useRouter();
 
   const className = {
     buttonHeader: 'items-center justify-center hover:bg-reddit_dark-brightest h-[32px] w-[32px] flex',
@@ -43,7 +44,7 @@ const Header: NextComponentType = () => {
               <TextLogo className='hidden lg:block' />
             </a>
           </Link>
-          {!Router.pathname.match('/policies') && session?.user && (
+          {session?.user && ( //add a variables to remove it from policies page
             <Home />
           )}
           <SearchBar />
