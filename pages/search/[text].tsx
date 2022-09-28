@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react'
 import Post from '../../components/post/Post' 
 import Head from "next/head";
 import type { NextPage, NextPageContext } from "next";
-import { search } from "../../components/header/search/APisearch";
+import { search } from "../../components/header/search/APIsearch";
 import { getSession } from "../../components/API/ssrAPI";
 import { siteUrl } from "../../components/main/config";
 

@@ -26,11 +26,9 @@ const CookieConsent = () => {
     }
   }
 
-  if (session?.eu_cookie) return null;
-
   return (
     <>
-    <div className={`${!session?.eu_cookie ? 'hidden md:block' : 'hidden'}`}>
+    <div className={'hidden md:block'}>
       <div className="fixed bottom-0 z-30 flex w-full rounded-sm border border-reddit_text-darker bg-reddit_dark-brighter font-bold lg:left-[35%] lg:right-[50%] lg:bottom-12 lg:w-[700px]">
         <div className={'w-6 bg-reddit_blue'} />
         <div>

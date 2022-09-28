@@ -70,13 +70,15 @@ const Layout = ({ children, error } : LayoutProps) => {
           <div id='container'>
             <div className='main' style={{'--background': 'rgb(0,0,0)', '--canvas': '#030303'} as CSSProperties}>
               <div tabIndex={-1} />
-              <div className='' tabIndex={-1}>
+              <div  id='shortcut' className='' tabIndex={-1}>
                 <div>
                   <Header />
                 </div>
-                <div className='pt-12'>
-                <CookieConsent />
-                {children}
+              <div id='main_content' className='pt-12'>
+                <div className='z-3'>
+                  {!session?.eu_cookie && <CookieConsent />}
+                  {children}
+                </div>
               </div>
               </div>
               {!session?.user && modalContext.show !== 'hidden' &&  <AuthModal />}

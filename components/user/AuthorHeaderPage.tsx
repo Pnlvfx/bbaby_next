@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState } from "react";
 
 const AuthorHeaderPage = () => {
@@ -6,14 +7,18 @@ const AuthorHeaderPage = () => {
         'OVERVIEW', 'POSTS', 'COMMENTS'
     ]
   return (
-    <div className="h-10 bg-reddit_dark-brighter flex items-center justify-center border-b border-reddit_border">
-        {input.map((i,index) => (
-            <button onClick={() => {
-                setActive(index)
-            }} key={index} className={`h-full border-b-2 mx-3 ${active === index ? 'border-reddit_text' : 'border-transparent'} `}>
-                <p className="text-sm font-bold">{i}</p>
-            </button>
-        ))}
+    <div className="user-header">
+        <div className="user-header-2">
+            <div className="user-header3 user-header3_1">
+                <div className="user-header4">
+                    {input.map((i, index) => (
+                        <Link key={index} href={'/'}>
+                            <a className='user-header-links user-header-links-active'>{i}</a>
+                        </Link>
+                    ))}
+                </div>
+            </div>
+        </div>
     </div>
   )
 }

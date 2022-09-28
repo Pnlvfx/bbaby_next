@@ -2,6 +2,7 @@ import '../styles/globals.css';
 import '../styles/submit.css';
 import '../styles/post.css';
 import '../styles/videoMobile.css';
+import '../components/user/user-page.css';
 import { UserContextProvider } from '../components/auth/UserContext';
 import type { AppProps, NextWebVitalsMetric } from 'next/app';
 import { AuthModalContextProvider } from '../components/auth/modal/AuthModalContext';

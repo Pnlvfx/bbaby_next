@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import ClickOutHandler from 'react-clickout-ts'
-import { searchTrend } from './APisearch'
+import { searchTrend } from './APIsearch'
 
 interface SearchDropdownProps {
     show: boolean

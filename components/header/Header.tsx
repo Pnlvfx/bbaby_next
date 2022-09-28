@@ -15,12 +15,10 @@ import Home from './Home';
 import SearchBar from './search/SearchBar';
 import { NextComponentType } from 'next';
 import { useSession } from '../auth/UserContext';
-import Router, { useRouter } from 'next/router';
 
 const Header: NextComponentType = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const { session } = useSession();
-  const router = useRouter();
 
   const className = {
     buttonHeader: 'items-center justify-center hover:bg-reddit_dark-brightest h-[32px] w-[32px] flex',
@@ -114,15 +112,14 @@ const Header: NextComponentType = () => {
                 )}
                 <RiArrowDownSLine className="text-[20px] text-reddit_text-darker w-5 h-5 leading-5 align-middle" />
               </button>
-              {session?.user && (
+              {session?.user && showDropdown && (
                 <UserMenu
                   showDropdown={showDropdown}
                   setShowDropdown={setShowDropdown}
                 />
               )}
-              {!session?.user && (
+              {!session?.user && showDropdown && (
                 <NotUserMenu
-                  showDropdown={showDropdown}
                   setShowDropdown={setShowDropdown}
                 />
               )}

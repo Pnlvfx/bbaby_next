@@ -1,6 +1,5 @@
 import type { NextPage, NextPageContext } from "next";
 import { getSession, ssrHeaders } from "../../components/API/ssrAPI";
-import { useSession } from "../../components/auth/UserContext";
 import CEO from "../../components/main/CEO";
 import { siteUrl } from "../../components/main/config";
 import Feed from "../../components/post/Feed";
@@ -15,8 +14,7 @@ const Username:NextPage<AuthorPg> = ({author, posts}) => {
   const title = `${author}`
   const description = `${author}`
   const url = `${siteUrl}/user/${author}`
-  const {session} = useSession();
-  const imagePreview = session?.user?.avatar
+  const imagePreview = `${siteUrl}/imagePreview.png`;
   const twitter_card = 'summary_large_image';
 
   return (
@@ -53,6 +51,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
         props: {
           session,
           posts,
+          author
         },
       }
     }

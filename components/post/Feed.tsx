@@ -61,7 +61,7 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
           }}
         />
       )}
-      <div className="mx-[2px] lg:mx-10 mt-5 flex justify-center">
+      <div className="max-w-full md:py-5 md:px-6 box-border flex justify-center mx-auto">
         <div className="w-full lg:w-[640px]">
           {!author && (
             <div className="mb-[18px]">
