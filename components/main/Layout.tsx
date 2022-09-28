@@ -53,8 +53,8 @@ const Layout = ({ children, error } : LayoutProps) => {
         <link rel='icon' type='image/png' sizes='96x96' href={`${siteUrl}/android-icon-96x96.png`} />
         <link rel="icon" type='image/png' sizes='16x16' href={`${siteUrl}/favicon-16x16.png`} />
         <link rel='manifest' href={`${siteUrl}/manifest.json'`} />
-        <meta name='msapplication-TileColor' content='#ffffff' />
-        <meta name='msapplication-TileImage' content='/mstile-150x150.png' />
+        <meta name='msapplication-TileColor' content='#030303' />
+        <meta name='msapplication-TileImage' content={`${siteUrl}/mstile-150x150.png`} />
         <meta name="theme-color" content="#1a1a1b" />
         <meta name="application-name" content="bbabystyle" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
