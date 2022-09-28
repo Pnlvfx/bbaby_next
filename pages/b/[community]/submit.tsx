@@ -44,18 +44,19 @@ const SubmitPage:NextPage<SubmitPageProps> = ({ community }) => {
 export default SubmitPage;
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  let session = null;
-  const {community} = context.query;
   try {
-    session = await getSession(context);
+    const session = await getSession(context);
+    return {
+      props: {
+        session,
+      },
+    }
   } catch (err) {
-    
-  }
-
-  return {
-    props: {
-      session,
-      community
-    },
+    const error = `Don't panic. Now we fix the issue!`
+    return {
+      props: {
+        error
+      }
+    }
   }
 }

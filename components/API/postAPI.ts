@@ -15,7 +15,6 @@ export const getPosts = async(input:string | undefined,value:string | undefined,
     return posts
 }
 
-
 export const getPost = async (postId:string | string[]) => {
     try {
         const url = `${server}/posts/${postId}`
@@ -28,4 +27,4 @@ export const getPost = async (postId:string | string[]) => {
     } catch (err) {
         return catchError(err, 'get Post');
     }
-  }
+}

@@ -1,0 +1,26 @@
+.videoMobile {
+    --default-aspect-ratio: calc(150 / 300);
+    --configured-aspect-ratio: var(--aspect-ratio, var(--default-aspect-ratio));
+    --computed-aspect-ratio: calc(100% * var(--configured-aspect-ratio));
+    --default-min-height: 150px;
+    --configured-min-height: var(--min-height, var(--default-min-height));
+    --configured-max-height: var(--max-height, var(--default-max-height));
+    --aspect-ratio-padding: min( max(var(--configured-min-height), var(--computed-aspect-ratio)), var(--configured-max-height));
+    display: block;
+    height: 0;
+    padding-bottom: var(--aspect-ratio-padding);
+    position: relative;
+}
+
+#video {
+    object-fit: contain;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: none !important;
+}
+
+
+#videoSlot {
+    height: var(--vds-video-height, auto);
+    width: var(--vds-video-width, 100%);
+}

@@ -2,7 +2,7 @@ import { Head, Html, Main, NextScript } from 'next/document';
 
 const Document = () => {
     return (
-        <Html>
+        <Html lang='en-US'>
             <Head>
             {/* {process.env.NEXT_PUBLIC_NODE_ENV === 'production' &&
                 <script

@@ -21,8 +21,6 @@ const Home = () => {
 
 
   useEffect(() => {
-    if (!session) return;
-    if (router.pathname.match('policies')) return;
     if (router.pathname === '/' || router.pathname === '/best') {
       setPath(<h1 className="ml-2 text-sm font-bold">Home</h1>)
       setIcon(<HomeIcon />)
@@ -45,7 +43,7 @@ const Home = () => {
     else if (router.query.username) {
       setPath(<h1 className="ml-2 text-sm font-bold">u/{router.query.username}</h1>)
     }
-    else if (session && router.pathname.match('/settings')) {
+    else if (session?.user && router.pathname.match('/settings')) {
       setPath(<span className="ml-2 text-sm font-bold">User Settings</span>)
       setIcon(
         <div className='w-5 h-5 rounded-full bg-gray-800'>
@@ -75,16 +73,14 @@ const Home = () => {
       setPath(<h1 className="ml-2 text-sm font-bold">News</h1>)
       setIcon(<TiNews className='w-5 h-5' />)
     }
-  }, [router,communityInfo,session])
+  }, [router, communityInfo, session])
 
   return (
-    <>
-    {!router.pathname.match('policies') && session && (
       <div 
-      aria-label='search your community' 
-      id="home_button" 
-      className={`relative hidden w-[270px] lg:block h-[36px] rounded-md border hover:border-reddit_border ${show ? 'border-reddit_border' : 'border-transparent'}`}
-    >
+        aria-label='search your community' 
+        id="home_button" 
+        className={`relative hidden w-[270px] lg:block h-[36px] rounded-md border hover:border-reddit_border ${show ? 'border-reddit_border' : 'border-transparent'}`}
+      >
       <button onClick={(e) => {
           e.preventDefault();
           setShow(!show)
@@ -111,8 +107,6 @@ const Home = () => {
       </div>
       }
     </div>
-    )}
-    </>
   )
 }
 

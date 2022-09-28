@@ -1,7 +1,8 @@
+import type { NextPage } from 'next';
 import Link from 'next/link';
 import {BiConfused} from 'react-icons/bi';
 
-const Errorpage = () => {
+const Errorpage: NextPage = () => {
   const size = 200
   return (
     <div className="absolute top-0 bottom-0 left-0 right-0 m-auto h-[100px] w-[100%]">

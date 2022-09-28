@@ -58,7 +58,7 @@ const CommentForm = ({
 
   return (
     <>
-      {session && showAuthor && ( //SHOW AUTHOR
+      {session?.user && showAuthor && ( //SHOW AUTHOR
         <div className='mb-1'>
           <span className="text-[12px] leading-[18px]">
             Comment as{' '}

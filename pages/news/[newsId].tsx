@@ -48,24 +48,28 @@ const NewsIdPage: NextPage<NewsIdPageProps> = ({news}) => {
 export default NewsIdPage;
 
 export const getServerSideProps = async(context: NextPageContext) => {
-  const server = process.env.NEXT_PUBLIC_SERVER_URL;
-  const {newsId} = context.query;
-  let session = null;
   try {
-    session = await getSession(context);
+    const server = process.env.NEXT_PUBLIC_SERVER_URL;
+    const {newsId} = context.query;
+    const session = await getSession(context);
+    const newsUrl = `${server}/news/${newsId}`
+    const res = await fetch(newsUrl, {
+      method: 'get',
+      headers: ssrHeaders(context)
+    })
+    const news = await res.json();
+    return {
+      props: {
+        session,
+        news: news as NewsProps
+      },
+    }
   } catch (err) {
-    
-  }
-  const newsUrl = `${server}/news/${newsId}`
-  const res = await fetch(newsUrl, {
-    method: 'get',
-    headers: ssrHeaders(context)
-  })
-  const news = await res.json();
-  return {
-    props: {
-      session,
-      news: news as NewsProps
-    },
+    const error = `Sorry we couldn't load this post.`;
+    return {
+      props: {
+        error
+      }
+    }
   }
 }

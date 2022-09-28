@@ -6,7 +6,7 @@ const Modqueque = () => {
   const router = useRouter()
   return (
     <div className="absolute top-0 bottom-0 left-0 right-0 m-auto h-[100px] w-[100%]">
-      {!session && (
+      {!session?.user && (
         <div className="text-center">
           <p className='text-lg font-bold mb-4'>Sorry, this is a moderator-only page</p>
           <p className='text-reddit_text-darker text-sm'>

@@ -1,5 +1,6 @@
-import type { GetServerSideProps, NextPage } from 'next';
+import type { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
+import { getSession } from '../../../../components/API/ssrAPI';
 import Modqueque from '../../../../components/community/modqueque/Modqueque';
 import { siteUrl } from '../../../../components/main/config';
 
@@ -22,22 +23,22 @@ const ModqueuePage:NextPage<ModqueuePageProps> = ({community}) => {
 
 export default ModqueuePage;
 
-export const getServerSideProps: GetServerSideProps = async(context) => {
-  const production = process.env.NODE_ENV === 'production' ? true : false
-  const server = production ? process.env.NEXT_PUBLIC_SERVER_URL : `http://${context.req.headers.host?.replace('3000', '4000')}`;
-  const {community} = context.query
-  const headers = context?.req?.headers?.cookie ? { cookie: context.req.headers.cookie } : undefined;
-  const url = `${server}/user`
-  const response = await fetch(url, {
-    method: 'get',
-    headers
-  })
-  const session = await response.json();
-
-  return {
-    props: {
-      session,
-      community
-    },
+export const getServerSideProps = async (context: NextPageContext) => {
+  try {
+    const session = await getSession(context);
+    const {community} = context.query
+    return {
+      props: {
+        session,
+        community
+      },
+    }
+  } catch (err) {
+    const error = `Don't panic. Now we fix the issue!`
+    return {
+      props: {
+        error
+      }
+    }
   }
 }

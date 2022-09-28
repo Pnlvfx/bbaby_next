@@ -32,7 +32,7 @@ const Home: NextPage<HomePg> = ({ posts }) => {
 
 export default Home;
 
-export const getServerSideProps = async(context: NextPageContext) => {
+export const getServerSideProps = async (context: NextPageContext) => {
   try {
     const server = process.env.NEXT_PUBLIC_SERVER_URL
     const postUrl = `${server}/posts?limit=15&skip=0`;
@@ -51,16 +51,7 @@ export const getServerSideProps = async(context: NextPageContext) => {
       }
     }
   } catch (err) {
-    let error = ``
-    if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') {
-      error = `Sorry we couldn't load post for this page`;
-    } else {
-      if (err instanceof Error) {
-        error = err.message
-      } else {
-        error = `Sorry we couldn't load post for this page`;
-      }
-    }
+    const error = `Sorry we couldn't load post for this page.`;
     return {
       props: {
         error

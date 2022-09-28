@@ -1,12 +1,13 @@
-import type { GetServerSideProps, NextPage } from 'next';
+import type { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
+import { getSession } from '../../../components/API/ssrAPI';
 import Leaderboard from '../../../components/leaderboard/Leaderboard';
 
 interface Props {
   category: string
 }
 
-const CategoryPage:NextPage<Props> = ({category}) => {
+const CategoryPage:NextPage<Props> = ({ category }) => {
     const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
     const title = "Today's Top Communities";
     const description = 'View Bbabystyle top communities. Filter to see view top communities in sports, gaming, news, television and more.';
@@ -37,22 +38,22 @@ const CategoryPage:NextPage<Props> = ({category}) => {
 
 export default CategoryPage;
 
-export const getServerSideProps: GetServerSideProps = async(context) => {
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
-  const headers = context?.req?.headers?.cookie ? { cookie: context.req.headers.cookie } : undefined;
-  const url = `${server}/user`
-  const response = await fetch(url, {
-    method: 'get',
-    headers
-  })
-  const session = await response.json();
-
-  const {category} = context.query;
-
-  return {
-    props: {
-      session,
-      category
-    },
+export const getServerSideProps = async (context: NextPageContext) => {
+  try {
+    const session = await getSession(context);
+    const {category} = context.query;
+    return {
+      props: {
+        session,
+        category
+      },
+    }
+  } catch (err) {
+    const error = `Don't panic. Now we fix the issue!`
+    return {
+      props: {
+        error
+      }
+    }
   }
 }

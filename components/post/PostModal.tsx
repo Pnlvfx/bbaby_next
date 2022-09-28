@@ -5,7 +5,7 @@ import {GrDocumentText} from 'react-icons/gr';
 import { CloseIcon } from "../utils/SVG";
 import { CommunityContext, CommunityContextProps } from "../community/CommunityContext";
 import Donations from "../widget/Donations";
-import { getPost } from "./APIpost";
+import { getPost } from "../API/postAPI";
 import { AuthModalContext, AuthModalContextProps } from "../auth/modal/AuthModalContext";
 import Widget from "../widget/Widget";
 
@@ -51,8 +51,6 @@ const PostModal = ({community, postId, open, onClickOut}: PostModalProps) => {
     setPost({} as PostProps);
   }
 
-  if (!postId) return null;
-
   return (
     <>
     {!loading && (
@@ -61,7 +59,7 @@ const PostModal = ({community, postId, open, onClickOut}: PostModalProps) => {
         className="h-full overflow-y-auto relative w-full"
         onClick={(e) => {
           e.preventDefault();
-          e.stopPropagation()
+          e.stopPropagation();
           clickOut();
         }} 
       >
@@ -103,17 +101,19 @@ const PostModal = ({community, postId, open, onClickOut}: PostModalProps) => {
             </div>
           </div>
           <div tabIndex={-1}
-            className="bg-reddit_dark box-border justify-center flex mx-auto pb-8 relative max-w-[1280px] w-[calc(100%_-_160px)]" 
+            className="box-border justify-center flex mx-auto max-w-[1280px] w-[calc(100%_-_160px)] pb-8 relative bg-reddit_dark" 
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
               //prevent closing modal
             }} 
           >
-            <Comment post={post} />
-            <div className="hidden lg:block ml-6">
-              <Widget community={true} />
-              <Donations />
+              <div className='md:max-w-[740px] m-8 mr-3 flex-grow min-h-[100vh] pb-[1px] w-full break-words rounded-md bg-reddit_dark-brighter'>
+                <Comment post={post} />
+              </div>
+              <div className="hidden lg:block m-8 ml-0">
+                <Widget community={true} />
+                <Donations />
             </div>
           </div>
       </div>

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
 import { useCommentContext } from "../comments/commentutils/RootCommentContext";
@@ -12,26 +11,26 @@ const Voting = ({ comment }: CommentVoting) => {
   const [upVote, setUpVote] = useState(comment?.ups ? comment.ups : 0);
   const userVote = null // to change
 
-  function sendVote(direction = 'up') {
-    const directionNumber = direction === 'up' ? 1 : -1;
-    if(directionNumber === userVote) {
-      direction = 'unvote';
-    }
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
-    const url = server+'/vote/'+ comment._id + '/'+ direction
-    axios.get(url, {withCredentials:true})
-      .then(() => {
-        //refreshVotes();
-      })
-  }
+  // function sendVote(direction = 'up') {
+  //   const directionNumber = direction === 'up' ? 1 : -1;
+  //   if(directionNumber === userVote) {
+  //     direction = 'unvote';
+  //   }
+  //   const server = process.env.NEXT_PUBLIC_SERVER_URL
+  //   const url = server+'/vote/'+ comment._id + '/'+ direction
+  //   axios.get(url, {withCredentials:true})
+  //     .then(() => {
+  //       //refreshVotes();
+  //     })
+  // }
 
 
   const handleVoteUp = () => {
-    sendVote('up')
+    //sendVote('up')
   }
 
   const handleVoteDown = () => {
-    sendVote('down')
+    //sendVote('down')
   }
 
   function arrowButton(directionName = 'up') {
@@ -45,8 +44,8 @@ const Voting = ({ comment }: CommentVoting) => {
       classNames+= ' text-reddit_text-darker hover:bg-gray-600 '
     }
 
-    
-    
+
+
       if(directionName === 'up') {
         return (
           <button onClick={() => handleVoteUp()} className={classNames}>
@@ -61,7 +60,7 @@ const Voting = ({ comment }: CommentVoting) => {
       )
     }
   }
-  
+
 
   return (
     <div className="flex p-2 pl-0">

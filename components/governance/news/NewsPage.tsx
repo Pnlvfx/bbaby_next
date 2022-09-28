@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useContext, useEffect } from 'react';
-import { isMobile } from 'react-device-detect';
+import { useSession } from '../../auth/UserContext';
 import GovSubmitNews from './GovSubmitNews';
 import { NewsContext, NewsContextProps } from './NewsContext';
 import PexelsImages from './PexelsImages';
@@ -8,16 +8,17 @@ import PexelsImages from './PexelsImages';
 const NewsPage = () => {
   const { level, setlevel, originalTitle, originalImage, originalDescription } = useContext(NewsContext) as NewsContextProps
   const [showMobile, setShowMobile] = useState(false);
+  const {session} = useSession();
 
   const openPexelsImageForm = () => {
     setlevel('image')
   }
 
   useEffect(() => {
-    if (level === 'image' && isMobile) {
+    if (level === 'image' && session?.device?.mobile) {
       setShowMobile(true);
     } 
-    if (level === 'submit' && isMobile) {
+    if (level === 'submit' && session?.device?.mobile) {
       setShowMobile(true);
     }
   }, [level])

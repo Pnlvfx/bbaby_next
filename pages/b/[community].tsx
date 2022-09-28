@@ -49,30 +49,32 @@ const CommunityPage: NextPage<CommunityPg> = ({community, posts}) => {
 
 export default CommunityPage;
 
-export const getServerSideProps = async(context: NextPageContext) => {
-  const {community} = context.query;
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
-  const postUrl = `${server}/posts?community=${community}&limit=15&skip=0`;
-  let session = null;
-  let posts = [];
+export const getServerSideProps = async (context: NextPageContext) => {
   try {
-    session = await getSession(context);
+    const {community} = context.query;
+    const server = process.env.NEXT_PUBLIC_SERVER_URL;
+    const postUrl = `${server}/posts?community=${community}&limit=15&skip=0`;
+    const session = await getSession(context);
     const res = await fetch(postUrl, {
       method: 'get',
       headers : ssrHeaders(context),
     })
     if (res.ok) {
-      posts = await res.json();
+      const posts = await res.json();
+      return {
+        props: {
+          session,
+          community,
+          posts,
+        },
+      }
     }
   } catch (err) {
-    
-  }
-
-  return {
-    props: {
-      session,
-      community,
-      posts,
-    },
+    const error = `Sorry we couldn't load this post.`;
+    return {
+      props: {
+        error
+      }
+    }
   }
 }

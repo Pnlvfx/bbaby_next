@@ -40,7 +40,7 @@ const MyNewsCard = ({news, isListing}: MyNewsCardProps) => {
                     <AiOutlineRead className="w-5 h-5" />
                     <p className="text-sm ml-1">News</p>
                 </button>
-                {session && session?.user.role === 1 && (
+                {session?.user?.role === 1 && (
                     <>
                     <Link href={`/governance/youtube`}>
                         <a onClick={(e) => {

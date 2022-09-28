@@ -4,9 +4,6 @@
 
 @layer base {
     body {
-        @apply bg-reddit_dark
-    }
-    body {
         @apply text-reddit_text
     }
 }
@@ -60,3 +57,9 @@
     vertical-align: middle;
     width: 20px;
 }
+
+.main {
+    background-color: var(--background);
+    min-height: calc(100vh - 48px);
+}
+

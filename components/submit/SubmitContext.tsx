@@ -57,8 +57,8 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
     const [thumbnail, setThumbnail] = useState(null);
     const [isImage,setIsImage] = useState(false)
     const [isVideo,setIsVideo] = useState(false)
-    const [sharePostToTG,setSharePostToTG] = useState(session?.user.role === 1 ? true : false)
-    const [sharePostToTwitter,setSharePostToTwitter] = useState(session?.user.role ? true : false)
+    const [sharePostToTG,setSharePostToTG] = useState(session?.user?.role === 1 ? true : false)
+    const [sharePostToTwitter,setSharePostToTwitter] = useState(session?.user?.role ? true : false)
     const [loading,setLoading] = useState(false)
     const [titleLength,setTitleLength] = useState(0);
     
@@ -92,7 +92,7 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
             })
             const data = await res.json();
             if (res.ok) {
-                if (session?.user.role === 0) {
+                if (session?.user?.role === 0) {
                     const {_id, community} = data;
                     router.push('/b/'+community+'/comments/'+_id)
                 } else {

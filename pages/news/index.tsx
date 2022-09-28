@@ -1,6 +1,5 @@
 import type { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
-import React from 'react';
 import { getSession } from '../../components/API/ssrAPI';
 import { getMyNews } from '../../components/mynews/APInews';
 import MyNewsCard from '../../components/mynews/MyNewsCard';
@@ -10,7 +9,7 @@ interface MyNewsPageProps {
   myNews: NewsProps[]
 }
 
-const MyNewsPage:NextPage<MyNewsPageProps> = ({myNews}) => {
+const MyNewsPage:NextPage<MyNewsPageProps> = ({ myNews }) => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME
   const imagePreview = `${hostname}/imagePreview.png`
   const title = "Bbabystyle - News in italiano"
@@ -38,7 +37,7 @@ const MyNewsPage:NextPage<MyNewsPageProps> = ({myNews}) => {
             <div className="mb-4">
               <BestPost />
             </div>
-            {myNews.map((news) => (
+            {myNews?.map((news) => (
               <MyNewsCard key={news._id} news={news} isListing={true} />
             ))}
           </div>
@@ -51,19 +50,21 @@ export default MyNewsPage;
 
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  let session = null;
-  let myNews: [] | NewsProps[] = [];
   try {
-    session = await getSession(context);
-    myNews = await getMyNews(context);
+    const session = await getSession(context);
+    const myNews = await getMyNews(context);
+    return {
+      props: {
+        session,
+        myNews: myNews as NewsProps[]
+      },
+    }
   } catch (err) {
-    
-  }
-
-  return {
-    props: {
-      session,
-      myNews: myNews as NewsProps[]
-    },
+    const error = `Sorry we couldn't load post for this page.`;
+    return {
+      props: {
+        error
+      }
+    }
   }
 }

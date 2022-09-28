@@ -14,8 +14,8 @@ const CommentContent = () => {
 
     
   return (
-    <div className='md:max-w-[740px] flex-grow min-h-[100vh] pb-[1px] w-full break-words rounded-md bg-reddit_dark-brighter'>
-        <Post post={post} open={true} />
+    <>
+        <Post post={post} />
         {!!post && !!post._id && (
             <div className='my-6 mx-10 relative'>
                 <CommentForm onSubmit={() => getComments()} rootId={post._id} parentId={post._id} showAuthor={true} />
@@ -34,7 +34,7 @@ const CommentContent = () => {
                 <Comments parentId={post._id} rootId={post._id} />
             </div>
         )}
-    </div>
+    </>
   )
 }
 

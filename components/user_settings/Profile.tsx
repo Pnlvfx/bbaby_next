@@ -8,7 +8,7 @@ import { useSession } from '../auth/UserContext';
 
 const Profile = () => {
   const { session } = useSession();
-  const [selectedFile, setSelectedFile] = useState(session?.user.avatar)
+  const [selectedFile, setSelectedFile] = useState(session?.user?.avatar)
   const [change, setChange] = useState(false)
   const filePickerRef = useRef<HTMLInputElement>(null)
   const message = useContext(TimeMsgContext) as TimeMsgContextProps
@@ -33,7 +33,7 @@ const Profile = () => {
     try {
       const server = process.env.NEXT_PUBLIC_SERVER_URL;
       const url = `${server}/user/change_avatar`;
-      const body = JSON.stringify({ image: selectedFile, username: session?.user.username });
+      const body = JSON.stringify({ image: selectedFile, username: session?.user?.username });
       const res = await fetch(url, {
         method: 'POST',
         credentials: 'include',

@@ -1,6 +1,5 @@
 import type { NextPage, NextPageContext } from 'next'
 import Head from 'next/head'
-import { useContext } from 'react';
 import Profile from '../../components/user_settings/Profile'
 import UserSettings from '../../components/user_settings/UserSettings'
 import UserSecurity from '../../components/utils/security/UserSecurity'
@@ -11,9 +10,9 @@ const ProfilePage:NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
   const {session} = useSession();
   const title = 'Bbabystyle Settings'
-  const description = `${session?.user.username}`
+  const description = `${session?.user?.username}`
   const url = `${hostname}/settings/profile`
-  const imagePreview = session?.user.avatar;
+  const imagePreview = session?.user?.avatar;
   const card = 'summary'
 
   return (
@@ -46,16 +45,19 @@ const ProfilePage:NextPage = () => {
 export default ProfilePage;
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  let session = null;
   try {
-    session = await getSession(context);
+    const session = await getSession(context);
+    return {
+      props: {
+        session,
+      },
+    }
   } catch (err) {
-    
-  }
-
-  return {
-    props: {
-      session,
-    },
+    const error = `Don't panic. Now we fix the issue!`
+    return {
+      props: {
+        error
+      }
+    }
   }
 }

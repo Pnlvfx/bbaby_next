@@ -4,13 +4,16 @@ import {AiOutlineLink} from 'react-icons/ai'
 import { ShareIcon } from '../../utils/SVG';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
 import { shareAnalytics } from '../../../lib/gtag';
+import { useSession } from '../../auth/UserContext';
 
 type ShareButtonProps = {
-  community: string,
+  community: string
   postId: string
+  isListing?: boolean
 }
 
-const ShareButton = ({community,postId}:ShareButtonProps) => {
+const ShareButton = ({community, postId, isListing}: ShareButtonProps) => {
+  const {session} = useSession();
   const [ShareDropdownVisibilityClass, setShareDropdownVisibilityClass] = useState(false);
   const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
 
@@ -30,13 +33,17 @@ const ShareButton = ({community,postId}:ShareButtonProps) => {
   }
 
   return (
-    <div className='mr-1 flex items-center'>
+    <div className={`mr-1 flex items-center ${session?.device?.mobile && isListing && 'articleLink'}`}>
       <ClickOutHandler onClickOut={() => setShareDropdownVisibilityClass(false)}>
-        <button className='p-2 flex items-center h-full hover:bg-reddit_dark-brightest rounded-sm' type='button' onClick={event =>{
-        event.preventDefault()
-        event.stopPropagation()
-          setShareDropdownVisibilityClass(!ShareDropdownVisibilityClass)
-        }}>
+        <button 
+          className='p-2 flex items-center h-full hover:bg-reddit_dark-brightest rounded-sm' 
+          type='button' 
+          onClick={event =>{
+            event.preventDefault()
+            event.stopPropagation()
+            setShareDropdownVisibilityClass(!ShareDropdownVisibilityClass)
+          }}
+        >
           <ShareIcon className='leading-4 mr-[6px]' />
           <span className='text-left overflow-hidden text-ellipsis leading-3 max-h-[36px] '>Share</span>
         </button>
@@ -50,7 +57,7 @@ const ShareButton = ({community,postId}:ShareButtonProps) => {
                   <div className='flex py-2 pl-2 pr-12 text-reddit_text-darker'>
                     <AiOutlineLink className='w-5 h-5 mr-1 mt-[3px]' />
                   <button className='block'>Copy Link</button>
-                  </div>
+                </div>
               </div>
           </div>
         </div>

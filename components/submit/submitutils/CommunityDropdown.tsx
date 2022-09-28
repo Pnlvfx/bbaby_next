@@ -37,7 +37,7 @@ const CommunityDropdown = () => {
   }
 
   useEffect(() => {  ///FIRST CALL  USER PREF COMMUNITY.
-    if (!session) return;
+    if (!session?.user) return;
     if (selectedCommunity) {
       getCommunity(selectedCommunity)
     } else {
@@ -52,7 +52,7 @@ const CommunityDropdown = () => {
   },[])
 
   useEffect(() => { ///SEARCH
-    if (!session) return;
+    if (!session?.user) return;
     if (!selectedCommunity) return;
     const timer = setTimeout(() => {
       searchCommunity(selectedCommunity).then((res) => {
@@ -109,7 +109,7 @@ const CommunityDropdown = () => {
               >
                 <div className="text-sm font-bold p-3">
                   <p className="px-2 py-1 text-[11px] font-bold text-reddit_text-darker">YOUR PROFILE</p>
-                    {session && (
+                    {session?.user && (
                       <button className="flex w-full items-center space-x-2 my-1 hover:bg-reddit_dark-brightest">
                         <div className='border rounded-md overflow-hidden border-reddit_border'>
                         <Image

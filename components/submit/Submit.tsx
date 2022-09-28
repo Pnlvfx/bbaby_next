@@ -102,7 +102,7 @@ const Submit = ({newTweet, community }: SubmitProps) => {
                         </button>
                     </div>
                 <div className='h-24 bg-reddit_dark-brightest'>
-                    {session?.user.role === 1 && (
+                    {session?.user?.role === 1 && (
                         <div className='flex mx-4 pt-5'>
                             <input type="checkbox" id='telegram' checked={sharePostToTG} onChange={shareToTelegram} className='w-[15px] h-[15px] px-4 self-center bg-reddit_dark-brighter' style={{filter: 'invert(85%)'}}/>
                             <p className='ml-[7px] text-[13px] self-center font-bold'>Share this post on Telegram</p>

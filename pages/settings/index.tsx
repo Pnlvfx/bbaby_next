@@ -10,9 +10,9 @@ const UserSettingsPage:NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
   const {session} = useSession();
   const title = 'Bbabystyle Settings'
-  const description = `${session?.user.username}`
+  const description = `${session?.user?.username}`
   const url = `${hostname}/settings`;
-  const imagePreview = session?.user.avatar;
+  const imagePreview = session?.user?.avatar;
   const card = 'summary'
   
   return (
@@ -45,16 +45,19 @@ const UserSettingsPage:NextPage = () => {
 export default UserSettingsPage;
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  let session = null;
   try {
-    session = await getSession(context);
+    const session = await getSession(context);
+    return {
+      props: {
+        session,
+      },
+    }
   } catch (err) {
-    
-  }
-
-  return {
-    props: {
-      session,
-    },
+    const error = `Don't panic. Now we fix the issue!`
+    return {
+      props: {
+        error
+      }
+    }
   }
 }

@@ -5,7 +5,7 @@ import {AuthModalContext, AuthModalContextProps} from '../auth/modal/AuthModalCo
 import ClickOutHandler from 'react-clickout-ts';
 import UserMenu from './UserMenu';
 import NotUserMenu from './NotUserMenu';
-import Image from 'next/image';
+import Image from 'next/future/image';
 import Logo from '../../public/logo40x40.png';
 import { PlusIcon, TextLogo, UserIcon } from '../utils/SVG';
 import { RiArrowDownSLine } from 'react-icons/ri';
@@ -15,6 +15,7 @@ import Home from './Home';
 import SearchBar from './search/SearchBar';
 import { NextComponentType } from 'next';
 import { useSession } from '../auth/UserContext';
+import Router from 'next/router';
 
 const Header: NextComponentType = () => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -27,28 +28,28 @@ const Header: NextComponentType = () => {
   const { setShow } = useContext(AuthModalContext) as AuthModalContextProps;
 
   return (
-    <header id="myHeader" className={`flex h-12 fixed left-0 right-0 top-0 items-center z-30 bg-reddit_dark-brighter`}>
-      <div className="flex flex-grow items-center px-2 lg:px-5 border-b border-reddit_border box-border">
+    <header id="myHeader" className={`h-12 fixed left-0 right-0 top-0 items-center inline-flex z-30 bg-reddit_dark-brighter`}>
+      <div className="inline-flex flex-grow items-center px-2 lg:px-5 border-b border-reddit_border box-border">
         <div className='items-center inline-flex flex-grow'>
           <Link href={'/'}>
-            <a aria-label='Home' className="flex items-center space-x-[6px]">
-              <div className='pr-2 py-2 h-8 w-8 overflow-hidden relative'>
-                <Image
-                  src={Logo}
-                  alt="logo"
-                  layout='fill'
-                />
-              </div>
-              <div className="hidden lg:block">
-                <TextLogo />
-              </div>
+            <a aria-label='Home' className="inline-flex items-center flex-row">
+              <Image
+                src={Logo}
+                alt="logo"
+                width={40}
+                height={40}
+                className='p-1 mr-1 pl-0'
+              />
+              <TextLogo className='hidden lg:block' />
             </a>
           </Link>
-          <Home />
+          {!Router.pathname.match('/policies') && session?.user && (
+            <Home />
+          )}
           <SearchBar />
-          {session && (
+          {session?.user && (
             <div id="user_icons" className="flex items-center space-x-2">
-              {session.user.role === 1 && (
+              {session?.user.role === 1 && (
                 <Link href={'/governance'}>
                   <a className={className.buttonHeader}>
                     <TbBabyCarriage className={className.icon} />
@@ -62,7 +63,7 @@ const Header: NextComponentType = () => {
               </Link>
             </div>
           )}
-          {!session && (
+          {!session?.user && (
             <div className={`mx-2 hidden flex-none sm:block`}>
               <button
                 className={`ml-4 mr-2 h-8 w-20 md:mr-4 md:w-24 ${buttonClass(true)}`}
@@ -88,20 +89,21 @@ const Header: NextComponentType = () => {
                 className={`${!session && 'lg:w-[70px]'} min-h-[32px] flex items-center justify-center border border-transparent hover:border-reddit_border rounded-md py-[2px]`}
                 onClick={() => setShowDropdown(!showDropdown)}
               >
-                {!session && (
+                {!session?.user && (
                   <span className="flex items-center">
                     <span className='flex items-center'>
                       <UserIcon className="text-reddit_text-darker w-5 h-5 leading-5 align-middle" />
                     </span>
                   </span>
                 )}
-                {session && (
+                {session?.user && (
                   <div className="mr-0 flex items-center lg:mr-16 h-full">
-                    <div className="relative h-5 w-5 border border-reddit_border ml-2 mr-1">
+                    <div className="h-5 w-5 border border-reddit_border ml-2 mr-1">
                       <Image
                         src={session.user.avatar}
                         alt='User Icon'
-                        layout="fill"
+                        width={20}
+                        height={20}
                       />
                     </div>
                     <span className="w-50 hidden px-1 text-sm font-semibold md:block">
@@ -111,13 +113,13 @@ const Header: NextComponentType = () => {
                 )}
                 <RiArrowDownSLine className="text-[20px] text-reddit_text-darker w-5 h-5 leading-5 align-middle" />
               </button>
-              {session && (
+              {session?.user && (
                 <UserMenu
                   showDropdown={showDropdown}
                   setShowDropdown={setShowDropdown}
                 />
               )}
-              {!session && (
+              {!session?.user && (
                 <NotUserMenu
                   showDropdown={showDropdown}
                   setShowDropdown={setShowDropdown}

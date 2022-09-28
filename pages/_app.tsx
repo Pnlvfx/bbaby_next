@@ -1,5 +1,7 @@
 import '../styles/globals.css';
 import '../styles/submit.css';
+import '../styles/post.css';
+import '../styles/videoMobile.css';
 import { UserContextProvider } from '../components/auth/UserContext';
 import type { AppProps, NextWebVitalsMetric } from 'next/app';
 import { AuthModalContextProvider } from '../components/auth/modal/AuthModalContext';
@@ -9,14 +11,15 @@ import { GoogleOAuthProvider } from '../components/auth/providers/google/GoogleO
 import Layout from '../components/main/Layout';
 import { useEffect } from 'react';
 interface App {
-  session: SessionProps['session']
+  session: SessionProps
+  error: string
 }
 
-const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps<App>) => {
+const MyApp = ({Component, pageProps: { session, error, ...pageProps }}: AppProps<App>) => {
 
   useEffect(() => {
     const tracker = async () => {
-      if (session?.user.role === 1) return;
+      if (session?.user?.role === 1) return;
       if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return;
       try {
         const server = process.env.NEXT_PUBLIC_SERVER_URL;
@@ -38,7 +41,7 @@ const MyApp = ({Component, pageProps: { session, ...pageProps }}: AppProps<App>)
         <AuthModalContextProvider>
           <CommunityContextProvider>
             <TimeMsgContextProvider>
-                <Layout>
+                <Layout error={error}>
                   <Component {...pageProps} />
                 </Layout>
             </TimeMsgContextProvider>

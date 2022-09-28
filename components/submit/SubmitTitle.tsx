@@ -8,7 +8,7 @@ import { SubmitContext, SubmitContextType } from './SubmitContext';
 const SubmitTitle = () => {
     const {session} = useSession();
     const [active, setActive] = useState(false)
-    const maxLength = session?.user.role === 1 ? 999 : 300
+    const maxLength = session?.user?.role === 1 ? 999 : 300
     const titleClass = 
     `
     overflow-x-hidden shadow-none border solid py-2 pl-4 pr-[68px] bg-transparent 

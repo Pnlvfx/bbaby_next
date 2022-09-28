@@ -10,12 +10,12 @@ const UserSecurity = ({children}:Props) => {
   const {session} = useSession();
 
   useEffect(() => {
-    if(!session) {
+    if(!session?.user) {
       Router.push('/');
     }
   },[session])
 
-  if (!session) return null;
+  if (!session?.user) return null;
 
   return (
         <>

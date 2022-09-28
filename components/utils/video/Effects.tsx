@@ -1,4 +1,4 @@
-import { ReactNode, useContext, useEffect } from 'react'
+import { ReactNode, useContext, useEffect } from 'react';
 import { formatDuration } from './utils/hooks';
 import { VideoPlayerContext, VideoPlayerContextProps } from './VidePlayerContext';
 

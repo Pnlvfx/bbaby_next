@@ -20,7 +20,7 @@ function PostForm({community}:PostFormProps) {
     return (
     <div className='border border-reddit_border p-2 rounded-md flex bg-reddit_dark-brighter mx-auto'>
         <div className='flex-none rounded-full bg-gray-600 overflow-hidden w-9 h-9 border border-reddit_border'>
-            {session && (
+            {session?.user && (
                 <Link href={`/user/${session.user.username}`}>
                     <a>
                         <div className='w-9 h-9 relative'>
@@ -35,7 +35,7 @@ function PostForm({community}:PostFormProps) {
                     </a>
                 </Link>
             )}
-            {!session && (
+            {!session?.user && (
                 <div className='w-9 h-9 relative'>
                     <Image 
                         className='rounded-full'
@@ -48,7 +48,7 @@ function PostForm({community}:PostFormProps) {
             )}
         </div>
         <form className='flex-grow bg-reddit_dark-brightest border border-reddit_border hover:border-reddit_text ml-4 mr-2 rounded-md'>
-            {session && (
+            {session?.user && (
                 <Link href={!community ? '/submit' : `/b/${community}/submit?community=${community}`} as={!community ? undefined : `${router.asPath}/submit`}>
                     <a>
                         <input 
@@ -59,7 +59,7 @@ function PostForm({community}:PostFormProps) {
                     </a>
                 </Link>
             )}
-            {!session && (
+            {!session?.user && (
                 <div onClick={e => {
                     e.preventDefault()
                     setShow('login')

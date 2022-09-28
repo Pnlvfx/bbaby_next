@@ -1,4 +1,4 @@
-import { ReactNode, useContext, useEffect } from 'react'
+import { ReactNode, useContext, useEffect } from 'react';
 import { VideoPlayerContext, VideoPlayerContextProps } from './VidePlayerContext';
 
 interface ScrollProps  {

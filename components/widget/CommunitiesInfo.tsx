@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { EditTextarea } from 'react-edit-text';
 import { buttonClass } from '../utils/Button';
 import {
@@ -108,7 +108,7 @@ const CommunitiesInfo = () => {
         {communityInfo.user_is_moderator && 
         <CategoriesDropdown />}
         <div className="self-center">
-          {!session && (
+          {!session?.user && (
             <button
               onClick={() => {
                 setShow('login')
@@ -118,7 +118,7 @@ const CommunitiesInfo = () => {
               Create a Post
             </button>
           )}
-          {session && session.user.username && (
+          {session?.user?.username && (
             <Link href={`/submit`}>
               <a className="self-center">
                 <div className="self-center">

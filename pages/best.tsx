@@ -1,14 +1,14 @@
-import type { NextPage, NextPageContext } from 'next'
-import Feed from '../components/post/Feed'
-import { siteUrl } from '../components/main/config'
-import { getSession, ssrHeaders } from '../components/API/ssrAPI'
-import CEO from '../components/main/CEO'
+import type { NextPage, NextPageContext } from 'next';
+import Feed from '../components/post/Feed';
+import { siteUrl } from '../components/main/config';
+import { getSession, ssrHeaders } from '../components/API/ssrAPI';
+import CEO from '../components/main/CEO';
 
 type BestPg = {
   posts: PostProps[]
 }
 
-const Home: NextPage<BestPg> = ({posts}) => {
+const Best: NextPage<BestPg> = ({posts}) => {
   const title = "Bbabystyle - Free speech";
   const imagePreview = `${siteUrl}/imagePreview.png`;
   const description = 'Bbabystyle is a network where you can create your community and start to talk about whatever you want.';
@@ -30,29 +30,32 @@ const Home: NextPage<BestPg> = ({posts}) => {
   )
 }
 
-export default Home;
+export default Best;
 
-export const getServerSideProps = async(context : NextPageContext) => {
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
-  const postUrl = `${server}/posts?limit=15&skip=0`;
-  let session = null;
-  let posts = [];
+export const getServerSideProps = async(context: NextPageContext) => {
   try {
-    session = await getSession(context);
+    const server = process.env.NEXT_PUBLIC_SERVER_URL
+    const postUrl = `${server}/posts?limit=15&skip=0`;
+    const session = await getSession(context);
     const res = await fetch(postUrl, {
       method: 'GET',
       headers : ssrHeaders(context),
     })
     if (res.ok) {
-      posts = await res.json();
+      const posts: PostProps[] = await res.json();
+      return {
+        props: {
+          session,
+          posts,
+        },
+      }
     }
   } catch (err) {
-    
-  }
-  return {
-    props: {
-      session,
-      posts,
-    },
+    const error = `Sorry we couldn't load post for this page.`;
+    return {
+      props: {
+        error
+      }
+    }
   }
 }

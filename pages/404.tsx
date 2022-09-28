@@ -1,7 +1,8 @@
+import type { NextPage } from 'next';
 import Link from 'next/link';
 import {BiConfused} from 'react-icons/bi';
 
-const Errorpage404 = () => {
+const Errorpage404: NextPage = () => {
   const size = 200
   return (
     <div className="absolute top-0 bottom-0 left-0 right-0 m-auto h-[100px] w-[100%]">
@@ -12,9 +13,9 @@ const Errorpage404 = () => {
           <p className='text-white font-xl font-bold'>Something went wrong</p>
         </div>
         <Link href={'/'}>
-        <a className='text-center'>
-          <p className='underline mt-4'>Go home</p>
-        </a>
+          <a className='text-center'>
+            <p className='underline mt-4'>Go home</p>
+          </a>
         </Link>
     </div>
   )

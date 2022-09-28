@@ -1,6 +1,4 @@
-import Router from "next/router";
-import { useEffect } from "react";
-import { useSession } from "../auth/UserContext";
+import UserSecurity from "../utils/security/UserSecurity";
 import Submit from "./Submit";
 import { SubmitContextProvider } from "./SubmitContext";
 
@@ -19,17 +17,11 @@ interface SubmitLayoutProps {
 }
 
 const SubmitLayout = ({newTweet, community}: SubmitLayoutProps) => {
-  const {session} = useSession();
-
-  useEffect(() => {
-    if (!session) {
-      Router.push('/')
-    }
-  },[session])
-
   return (
     <SubmitContextProvider>
+      <UserSecurity>
         <Submit newTweet={newTweet} community={community} />
+      </UserSecurity>
     </SubmitContextProvider>
   )
 }

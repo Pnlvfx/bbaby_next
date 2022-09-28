@@ -1,6 +1,6 @@
+import type { NextPage, NextPageContext } from 'next';
 import UserSettings from '../../components/user_settings/UserSettings'
 import Account from '../../components/user_settings/Account'
-import type { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
 import UserSecurity from '../../components/utils/security/UserSecurity';
 import { getSession } from '../../components/API/ssrAPI';
@@ -10,9 +10,9 @@ const AccountPage:NextPage = () => {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
   const {session} = useSession();
   const title = 'Bbabystyle Settings'
-  const description = `${session?.user.username}`
+  const description = `${session?.user?.username}`
   const url = `${hostname}/settings/account`;
-  const imagePreview = session?.user.avatar;
+  const imagePreview = session?.user?.avatar;
   const card = 'summary'
   
   return (
@@ -45,16 +45,19 @@ const AccountPage:NextPage = () => {
 export default AccountPage;
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  let session = null;
   try {
-    session = await getSession(context);
+    const session = await getSession(context);
+    return {
+      props: {
+        session,
+      },
+    }
   } catch (err) {
-    
-  }
-
-  return {
-    props: {
-      session,
-    },
+    const error = `Don't panic. Now we fix the issue!`
+    return {
+      props: {
+        error
+      }
+    }
   }
 }

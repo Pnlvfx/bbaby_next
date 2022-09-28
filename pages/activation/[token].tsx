@@ -7,7 +7,7 @@ import { siteUrl } from '../../components/main/config'
 
 
 
-const ActivationEmail:NextPage = () => {
+const ActivationEmail: NextPage = () => {
     const router = useRouter()
     const activation_token = router.query.token
     const url = `${siteUrl}/activation/${activation_token}`

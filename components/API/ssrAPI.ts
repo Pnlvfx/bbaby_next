@@ -1,5 +1,6 @@
 import { NextPageContext } from "next";
 import { siteUrl } from "../main/config";
+import { catchError } from "./common";
 
 export const ssrHeaders = (context: NextPageContext) => {
     const user_agent = context.req?.headers['user-agent'] ? context.req.headers['user-agent'] : ''
@@ -20,23 +21,22 @@ export const ssrHeaders = (context: NextPageContext) => {
 }
 
 export const getSession = async (context: NextPageContext) => {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL;
-    const url = `${server}/user`;
     try {
+        const server = process.env.NEXT_PUBLIC_SERVER_URL;
+        const url = `${server}/user`;
         const response = await fetch(url, {
-            method: 'get',
+            method: 'GET',
             headers: ssrHeaders(context)
-        })
+        });
         const session = await response.json();
         if (!response.ok) {
-            throw new Error(session.msg)
+            if (response.status === 601) {
+                context.res?.setHeader('Set-Cookie', `token=''; Max-Age=0`);
+            }
+            throw new Error(session?.msg);
         }
         return session as SessionProps;
     } catch (err) {
-        if (err instanceof Error) {
-            throw new Error(err.message)
-        } else {
-            throw new Error(`That's strange!`)
-        }
+        catchError(err, 'session');
     }
 }

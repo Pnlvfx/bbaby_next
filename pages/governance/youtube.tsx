@@ -55,25 +55,32 @@ const Governance: NextPage<NewsPropsPage> = ({ news, auth }) => {
 export default Governance;
 
 export const getServerSideProps = async(context: NextPageContext) => {
-  const {newsId} = context.query;
-  let session = null;
-  let auth = false;
-  let news = null;
   try {
-    session = await getSession(context);
-    auth = await youtubeAuth(context);
-    if (newsId) {
-      const res = await getOneNews(newsId.toString(), context);
-      news = await res.json(); //single
+    const {newsId} = context.query;
+    const session = await getSession(context);
+    const auth = await youtubeAuth(context);
+    if (!newsId) throw new Error('Missing required newsId parameter.')
+    const res = await getOneNews(newsId.toString(), context);
+    const news = await res.json(); //single
+    return {
+      props: {
+        session,
+        auth,
+        news,
+      },
     }
   } catch (err) {
-    
-  }
-  return {
-    props: {
-      session,
-      auth,
-      news,
-    },
+    const error = () => {
+      if (err instanceof Error) {
+        return err.message
+      } else {
+        return `Server is down`
+      }
+    }
+    return {
+      props: {
+        error: error()
+      }
+    }
   }
 }

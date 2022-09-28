@@ -16,7 +16,7 @@ const Username:NextPage<AuthorPg> = ({author, posts}) => {
   const description = `${author}`
   const url = `${siteUrl}/user/${author}`
   const {session} = useSession();
-  const imagePreview = session?.user.avatar
+  const imagePreview = session?.user?.avatar
   const twitter_card = 'summary_large_image';
 
   return (
@@ -37,29 +37,31 @@ const Username:NextPage<AuthorPg> = ({author, posts}) => {
 
 export default Username;
 
-export const getServerSideProps = async(context: NextPageContext) => {
-  const author = context.query.username;
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
-  const postUrl = `${server}/posts?author=${author}&limit=15&skip=0`;
-  let session = null;
-  let posts = [];
+export const getServerSideProps = async (context: NextPageContext) => {
   try {
-    session = await getSession(context);
+    const author = context.query.username;
+    const server = process.env.NEXT_PUBLIC_SERVER_URL
+    const postUrl = `${server}/posts?author=${author}&limit=15&skip=0`;
+    const session = await getSession(context);
     const res = await fetch(postUrl, {
-      method: 'get',
+      method: 'GET',
       headers : ssrHeaders(context),
     })
     if (res.ok) {
-      posts = await res.json();
+      const posts: PostProps[] = await res.json();
+      return {
+        props: {
+          session,
+          posts,
+        },
+      }
     }
   } catch (err) {
-    
-  }
-  return {
-    props: {
-      session,
-      author,
-      posts,
-    },
+    const error = `Sorry we couldn't load post for this page.`;
+    return {
+      props: {
+        error
+      }
+    }
   }
 }

@@ -41,7 +41,7 @@ function UserMenu({showDropdown,setShowDropdown}:any) {
                     </span>
                 </div>
                 <div id='button_no_icons' >
-                    {session?.user.role === 1 && (
+                    {session?.user?.role === 1 && (
                         <Link href={`/governance`}>
                             <a onClick={() => {
                                 setShowDropdown(false)
@@ -55,23 +55,25 @@ function UserMenu({showDropdown,setShowDropdown}:any) {
                     <div className={containerClass}>
                         <p className={buttonClass}>Online Status</p>    
                     </div>
-                    <Link href={`/user/${session?.user.username}`}>
+                    {session?.user && (
+                        <Link href={`/user/${session.user.username}`}>
+                            <a onClick={() => {
+                                setShowDropdown(false)
+                            }}>
+                                <div className={containerClass}>
+                                    <p className={buttonClass}>Profile</p>    
+                                </div>
+                            </a>
+                        </Link>
+                    )}
+                    <Link href={`/settings`}>
                         <a onClick={() => {
                             setShowDropdown(false)
                         }}>
                             <div className={containerClass}>
-                                <p className={buttonClass}>Profile</p>    
+                                <p className={buttonClass}>User Settings</p>    
                             </div>
                         </a>
-                    </Link>
-                    <Link href={`/settings`}>
-                    <a onClick={() => {
-                        setShowDropdown(false)
-                    }}>
-                        <div className={containerClass}>
-                            <p className={buttonClass}>User Settings</p>    
-                        </div>
-                    </a>
                     </Link>
                 </div>    
                 <hr className='border-reddit_border my-3 mb-4'/>  

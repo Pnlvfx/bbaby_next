@@ -53,16 +53,19 @@ const SearchResultPage: NextPage = () => {
 export default SearchResultPage;
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  let session = null;
   try {
-    session = await getSession(context);
+    const session = await getSession(context);
+    return {
+      props: {
+        session,
+      },
+    }
   } catch (err) {
-    
-  }
-
-  return {
-    props: {
-      session,
-    },
+    const error = `Don't panic. Now we fix the issue!`
+    return {
+      props: {
+        error
+      }
+    }
   }
 }

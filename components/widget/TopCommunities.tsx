@@ -1,16 +1,17 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { isMobile } from 'react-device-detect';
 import { buttonClass } from '../utils/Button';
 import TopCommunitiesContent from './TopCommunitiesContent';
 import { getCommunities } from '../API/communityAPI';
+import { useSession } from '../auth/UserContext';
 
 const TopCommunities = () => {
-  const [allCommunity, setAllCommunity] = useState<CommunityProps[] | []>([])
-  const [loadingCommunity, setLoadingCommunity] = useState(true)
+  const [allCommunity, setAllCommunity] = useState<CommunityProps[] | []>([]);
+  const [loadingCommunity, setLoadingCommunity] = useState(true);
+  const {session} = useSession();
 
   useEffect(() => {
-    if (isMobile) return;
+    if (session?.device?.mobile) return;
     const getComm = async () => {
       try {
         setTimeout(async () => {
@@ -27,7 +28,7 @@ const TopCommunities = () => {
       }
     }
     getComm();
-  }, [])
+  }, [session]);
 
   return (
     <>

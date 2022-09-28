@@ -1,16 +1,23 @@
-import { createContext, ReactNode, useContext } from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
 
-const UserContext = createContext<SessionProps | {}>({});
+interface UserContextProps {
+    session: SessionProps | null
+    setSession: Dispatch<SetStateAction<SessionProps | null>>
+}
+
+const UserContext = createContext<UserContextProps | {}>({});
 
 interface UserContextProvider {
     children: ReactNode
-    session: SessionProps['session']
+    session: SessionProps
 }
 
-export const UserContextProvider = ({ children, session }: UserContextProvider) => {
+export const UserContextProvider = ({ children, session: ssrSession }: UserContextProvider) => {
+    const [session, setSession] = useState(ssrSession);
     return (
         <UserContext.Provider value={{
-            session
+            session,
+            setSession
         }}>
             {children}
         </UserContext.Provider>
@@ -18,7 +25,7 @@ export const UserContextProvider = ({ children, session }: UserContextProvider) 
 }
 
 export const useSession = () => {
-    const context = useContext(UserContext) as SessionProps;
+    const context = useContext(UserContext) as UserContextProps;
     if (!context) {
         throw new Error(
         'Session component must be used with UserContextProvider component',
