@@ -9,7 +9,7 @@ export interface LinkPreviewProps {
     link: string //*the link of the original article*\\
 }
 
-const containerClass = `overflow-hidden border border-reddit_border rounded-md mb-3 bg-reddit_dark-brighter xl:mx-2 max-w-[700px] h-[550px]`
+const containerClass = `overflow-hidden border border-reddit_border rounded-md mb-3 bg-reddit_dark-brighter xl:mx-2 max-w-[700px]`
 
 const LinkPreview = ({title, description, image, hostname, link, siteName }: LinkPreviewProps) => {
     const url = `/governance/news/${title.substring(0, 75).replace('?', '')}`

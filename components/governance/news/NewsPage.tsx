@@ -25,10 +25,10 @@ const NewsPage = () => {
 
   return (
     <div className="mt-4 flex justify-center">
-        <div className={`w-full lg:w-8/12 xl:w-5/12 2xl:w-[850px] ${showMobile ? 'hidden' : 'block'} `}>
+        <div className={`w-full max-w-[850px] ${showMobile ? 'hidden' : 'block'} `}>
           <div
             id="article"
-            className="rounded-md border border-reddit_border bg-reddit_dark-brighter hover:border-reddit_text lg:ml-4"
+            className="rounded-md border border-reddit_border bg-reddit_dark-brighter hover:border-reddit_text"
           >
             <div
               id="title"

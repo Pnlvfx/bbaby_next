@@ -1,8 +1,7 @@
-import { useContext } from 'react'
-import { NewsContext, NewsContextProps } from './NewsContext'
-import Image from 'next/image'
-import { buttonClass, Spinner } from '../../utils/Button'
-import TeaxtareaAutosize from '../../utils/TeaxtareaAutosize'
+import { useContext } from 'react';
+import { NewsContext, NewsContextProps } from './NewsContext';
+import { buttonClass, Spinner } from '../../utils/Button';
+import TeaxtareaAutosize from '../../utils/TeaxtareaAutosize';
 
 const GovSubmitNews = () => {
   const {
@@ -16,12 +15,12 @@ const GovSubmitNews = () => {
   } = useContext(NewsContext) as NewsContextProps;
 
   return (
-    <div className="mx-4 w-full max-w-[1000px] rounded-md bg-reddit_dark-brighter border border-reddit_dark-brightest">
+    <div className="lg:ml-4 w-full max-w-[850px] rounded-md bg-reddit_dark-brighter border border-reddit_dark-brightest">
       <div>
-        <div className="mt-3 flex whitespace-pre-wrap break-words">
+        <div className="flex whitespace-pre-wrap break-words">
           <div className="flex w-full p-[6px]">
             <TeaxtareaAutosize
-              className="row-span-1 block h-auto w-full resize-none rounded-md bg-reddit_dark-brighter pl-3 text-[22px] font-bold leading-6 text-reddit_text placeholder-reddit_text-darker outline-none"
+              className="row-span-1 block h-auto w-full text-center resize-none rounded-md bg-reddit_dark-brighter pl-3 text-[22px] font-bold leading-6 text-reddit_text placeholder-reddit_text-darker outline-none"
               placeholder={'Title'}
               value={title}
               onChange={(e) => {
@@ -35,18 +34,18 @@ const GovSubmitNews = () => {
             mediaInfo.image &&
             mediaInfo.width &&
             mediaInfo.height && (
-              <Image
+              <img
                 alt={mediaInfo.alt}
                 src={mediaInfo.image}
-                height={mediaInfo.height / 2}
-                width={mediaInfo.width / 2}
+                height={mediaInfo.height}
+                width={mediaInfo.width}
               />
             )}
         </div>
         <div className="mt-3 flex whitespace-pre-wrap break-words">
           <div className="flex w-full p-[6px]">
             <TeaxtareaAutosize
-              className="row-span-1 block h-auto w-full resize-none overflow-hidden rounded-md bg-reddit_dark-brighter pl-3 text-[15px] leading-6 text-reddit_text placeholder-reddit_text-darker outline-none"
+              className="row-span-1 whitespace-pre-wrap block h-auto w-full resize-none overflow-hidden rounded-md bg-reddit_dark-brighter pl-3 text-[15px] leading-6 text-reddit_text placeholder-reddit_text-darker outline-none"
               placeholder={'Description'}
               value={description}
               onChange={(e) => {
@@ -57,10 +56,10 @@ const GovSubmitNews = () => {
         </div>
         <div className="flex justify-end p-2">
           <button
+            className={`${buttonClass()} h-[30px] w-16 flex items-center justify-center`}
             onClick={() => {
               createNews()
             }}
-            className={`${buttonClass()} h-[30px] w-16 flex items-center justify-center`}
           >
             {loading && <Spinner />}
             {!loading && <p className="text-right">Post</p>}

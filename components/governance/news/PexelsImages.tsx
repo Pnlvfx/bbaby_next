@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { useContext, useState } from 'react';
 import { catchErrorWithMessage } from '../../API/common';
 import { translate } from '../../API/governance/governanceAPI';
@@ -30,15 +29,13 @@ const PexelsImages = () => {
 
   const openSubmit = async () => {
     const res1 = await translate(originalTitle, 'en')
-    const res2 = await translate(originalDescription, 'en')
+    const res2 = await translate(originalDescription.join(''), 'en')
     if (res1?.ok && res2?.ok) {
-      if (res1 instanceof Response && res2 instanceof Response) {
-        const title = await res1.json();
-        const description = await res2.json();
-        setTitle(title);
-        setDescription(description)
-        setlevel('submit')
-      }
+      const title = await res1.json();
+      const description = await res2.json();
+      setTitle(title);
+      setDescription(description)
+      setlevel('submit')
     } else {
       if (res1 instanceof Response && res2 instanceof Response) {
         const error = await res1.json();
@@ -50,7 +47,7 @@ const PexelsImages = () => {
     }
 }
 
-  const selectOneImage = async (image:PexelsProps) => {
+  const selectOneImage = async (image: PexelsProps) => {
     setMediaInfo({
       image: image.src.original,
       isImage: true,
@@ -58,7 +55,7 @@ const PexelsImages = () => {
       height: image.height/4, 
       alt: image.alt
     })
-    openSubmit();
+    await openSubmit();
   }
 
   return (
@@ -88,19 +85,33 @@ const PexelsImages = () => {
             (<p>Search</p>)}
           </button>
         </form>
-      {pexelsImage.length >= 2 ? pexelsImage.map((image, index) => (
-        <div key={index} className='mx-2 my-4 flex justify-center'>
+      {pexelsImage.length >= 2 ? pexelsImage.map((image) => (
+        <div key={image.id} className='mx-2 my-4 flex justify-center'>
             <div className='max-w-[700px] w-full'>
-                <div id='pexels_images' className='cursor pointer'>
-                    <Image src={image.src.original} alt={image.alt} width={image.width/8}  height={image.height/8} />
-                </div>
-                <button className='bg-reddit_dark-brightest p-2 rounded-md'
+              <figure
+                title='choose'
+                className='relative bg-reddit_dark-brighter box-border block cursor-pointer'
+                onClick={(e) => {
+                  e.preventDefault();
+                  selectOneImage(image);
+                }}
+              >
+                <img
+                  src={image.src.medium}
+                  alt={image.alt} 
+                  width={image.width}  
+                  height={image.height}
+                />
+              </figure>
+              <button 
+                className='bg-reddit_dark-brightest p-2 rounded-md'
                 onClick={(e) => {
                     e.preventDefault();
                     selectOneImage(image)
-                }}>
-                    <p className='font-bold'>Choose</p>
-                </button>
+                }}
+              >
+                <p className='font-bold'>Choose</p>
+              </button>
             </div>
         </div>
       )) : 

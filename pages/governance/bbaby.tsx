@@ -1,20 +1,19 @@
 import type { NextPage, NextPageContext } from 'next'
 import Head from 'next/head'
-import React from 'react'
 import { getSession } from '../../components/API/ssrAPI'
 import GovernanceCtrl from '../../components/governance/GovernanceCtrl'
 import GovernanceMainMenù from '../../components/governance/GovernanceMainMenù'
 import Homepage from '../../components/governance/main/Homepage'
+import { siteUrl } from '../../components/main/config'
 
-const AuthorityPage:NextPage = () => {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
+const AuthorityPage: NextPage = () => {
   
   return (
     <div>
       <Head>
         <title>Bbabystyle - authority page</title>
         <meta name='robots' content='noindex' />
-        <link rel='canonical' href={`${hostname}/governance/bbaby`} key='canonical' />
+        <link rel='canonical' href={`${siteUrl}/governance/bbaby`} key='canonical' />
       </Head>
         <GovernanceCtrl>
           <GovernanceMainMenù />

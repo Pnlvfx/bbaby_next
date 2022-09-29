@@ -1,6 +1,6 @@
 import {useContext, useEffect} from 'react';
 import { buttonClass, Spinner } from '../utils/Button';
-import CommunityDropdown from './submitutils/CommunityDropdown';
+import CommunityDropdown from './submitutils/community-dropwdown/CommunityDropdown';
 import { useSession } from '../auth/UserContext';
 import { SubmitContext, SubmitContextType } from './SubmitContext';
 import Body from './submitutils/Body';
@@ -72,11 +72,15 @@ const Submit = ({newTweet, community }: SubmitProps) => {
     <>
     <div tabIndex={0} />
         <div className={`${loading ? 'opacity-40' : 'opacity-100'} px-2 md:px-0`}>
-            <div className='p-1 my-4 border-b solid flex border-reddit_border'>
-                <div className='mb-3 text-[17px] font-semibold leading-[22px] flex-grow flex-shrink'>
+            <div className='p-1 my-4 border-b border-solid flex border-reddit_border'>
+                <div className='text-[18px] font-medium leading-[22px] flex-1'>
                     Create a Post
                 </div>
-                <button role={'button'} className='text-[12px] font-bold leading-6 ml-[10px] relative border border-transparent min-h-8 min-w-8 px-4 py-1 items-center rounded-full box-border text-center w-auto' style={{letterSpacing: .5}}>
+                <button 
+                    role={'button'} 
+                    className='text-[12px] font-bold leading-6 ml-[10px] relative border border-transparent min-h-8 min-w-8 px-4 py-1 items-center rounded-full box-border text-center w-auto' 
+                    style={{letterSpacing: .5}}
+                >
                     DRAFTS
                     <span className='font-normal leading-4 ml-1 py-[1px] px-[3px] '>0</span>
                 </button>

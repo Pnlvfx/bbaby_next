@@ -9,10 +9,10 @@ import NewsPage from '../../../components/governance/news/NewsPage';
 import { siteUrl } from '../../../components/main/config';
 
 interface NewsIdProps {
-  description: string
+  description: string[]
 }
 
-const NewsPagee:NextPage<NewsIdProps> = ({description}) => {
+const NewsPagee: NextPage<NewsIdProps> = ({ description }) => {
   const router = useRouter()
   return (
     <div>

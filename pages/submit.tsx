@@ -26,8 +26,8 @@ const SubmitPage: NextPage = () => {
         height={'256'}
         index={true}
       />
-      <div className='max-w-[1248px] md:py-5 md:px-6 flex flex-row justify-center box-border my-0 mx-auto'>
-        <div className="lg:max-w-[740px] mr-0 w-full md:mr-6 lg:w-[740px] flex-grow">
+      <div className='max-w-[1248px] flex flex-row justify-center box-border my-0 mx-auto md:py-5 md:px-6'>
+        <div className="lg:max-w-[740px] w-full md:mr-6 lg:w-[640px] flex-1">
           <SubmitLayout />
         </div>
         <div className="mt-11 hidden lg:block">

@@ -1,6 +1,5 @@
 import type { NextPage, NextPageContext } from 'next'
 import Head from 'next/head'
-import React from 'react'
 import { getSession } from '../../components/API/ssrAPI';
 import { siteUrl } from '../../components/main/config';
 import CookieNotice from '../../components/policies/CookieNotice';

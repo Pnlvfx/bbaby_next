@@ -55,7 +55,7 @@ const MyApp = ({Component, pageProps: { session, error, ...pageProps }}: AppProp
 
 export default MyApp;
 
-export function reportWebVitals(metric: NextWebVitalsMetric) {
+export const reportWebVitals = (metric: NextWebVitalsMetric) => {
   if (process.env.NODE_ENV === 'development') return;
   //telegramapis.sendLog(`${metric.name} : ${metric.value} start: ${metric.startTime}`)
 }

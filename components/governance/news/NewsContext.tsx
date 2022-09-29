@@ -7,7 +7,7 @@ import { TimeMsgContext, TimeMsgContextProps } from "../../main/TimeMsgContext";
 interface NewsContextProviderProps {
     children: React.ReactNode
     originalTitle: string
-    originalDescription: string
+    originalDescription: string[]
     originalImage: string
 }
 
@@ -17,7 +17,7 @@ export interface NewsContextProps {
     title: string
     setTitle: Dispatch<SetStateAction<string>>
     originalTitle: string
-    originalDescription: string
+    originalDescription: string[]
     originalImage: string
     description: string
     setDescription: Dispatch<SetStateAction<string>>

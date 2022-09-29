@@ -11,7 +11,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { catchErrorWithMessage } from "../../../components/API/common";
 import { TimeMsgContext, TimeMsgContextProps } from "../../../components/main/TimeMsgContext";
 
-const GovNewsPage:NextPage = () => {
+const GovNewsPage: NextPage = () => {
   const [BBCnews, setBBCnews] = useState<LinkPreviewProps[] | []>([]);
   const [total, setTotal] = useState(0);
   const [hasMore, setHasMore] = useState(true);
@@ -62,7 +62,13 @@ const GovNewsPage:NextPage = () => {
           endMessage={<p>No more news.</p>}
         >
           {BBCnews.map((news, key) => (
-            <LinkPreview key={key} title={news.title} description={news.description} image={news.image} link={news.link} />
+            <LinkPreview 
+              key={key} 
+              title={news.title} 
+              description={news.description} 
+              image={news.image} 
+              link={news.link} 
+            />
           ))}
         </InfiniteScroll>
       </GovernanceCtrl>
@@ -81,7 +87,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
       },
     }
   } catch (err) {
-    const error = `Don't panic. Now we fix the issue!`
+    const error = `Don't panic. Now we will fix the issue!`
     return {
       props: {
         error

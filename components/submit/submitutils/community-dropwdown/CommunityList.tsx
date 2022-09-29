@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { SetStateAction, useContext } from 'react'
-import { SubmitContext, SubmitContextType } from '../SubmitContext'
+import { SubmitContext, SubmitContextType } from '../../SubmitContext'
 
 type CommunityListProps = {
   community: CommunityProps
