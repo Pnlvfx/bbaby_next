@@ -5,8 +5,8 @@
     "short_name": "Bbaby",
     "start_url": "https://www.bbabystyle.com",
     "scope": "https://www.bbabystyle.com",
-    "theme_colore": "#030303",
-    "background_color": "#030303",
+    "theme_colore": "#1a1a1b",
+    "background_color": "#1a1a1b",
     "description": "Free speech social media",
     "display": "minimal-ui",
     "icons": [

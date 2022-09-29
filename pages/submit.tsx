@@ -12,7 +12,6 @@ const SubmitPage: NextPage = () => {
   const description = 'Create your post. Choose an existing community or create your own and start to share your content.'
   const twitter_card = 'summary';
   const type = 'website';
-  const locale = 'en-US';
 
   return (
     <>
@@ -23,7 +22,9 @@ const SubmitPage: NextPage = () => {
         twitter_card={twitter_card}
         type={type}
         image={image}
-        locale={locale}
+        width={'256'}
+        height={'256'}
+        index={true}
       />
       <div className='max-w-[1248px] md:py-5 md:px-6 flex flex-row justify-center box-border my-0 mx-auto'>
         <div className="lg:max-w-[740px] mr-0 w-full md:mr-6 lg:w-[740px] flex-grow">

@@ -7,11 +7,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        sans: [
-          "Helvetica"
-        ],
-      },
       colors: {
         reddit_orange: '#f54404',
         reddit_red: '#f54404',

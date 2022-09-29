@@ -56,6 +56,7 @@ const IdPage: NextPage<PostIdPageProps> = ({ post, redirect }) => {
         video={og_video}
         width={og_wdith}
         height={og_height}
+        index={true}
       />
       <CommentPage post={post}/>
     </>

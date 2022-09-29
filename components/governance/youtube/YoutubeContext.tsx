@@ -20,13 +20,7 @@ export const YoutubeContextProvider = ({
   ssrNews,
   children,
 }: YoutubeContextProviderProps) => {
-  const [news, setNews] = useState<NewsProps>({
-    title: '',
-    description: '',
-    createdAt: new Date(),
-    _id: '',
-    mediaInfo: {},
-  })
+  const [news, setNews] = useState<NewsProps | {}>({})
   const [descriptionArray, setDescriptionArray] = useState<Array<string>>([])
   const [descriptionArrayToSend, setDescriptionArrayToSend] = useState<Array<string>>([])
 

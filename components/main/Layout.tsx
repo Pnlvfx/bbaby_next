@@ -55,10 +55,10 @@ const Layout = ({ children, error } : LayoutProps) => {
         <link rel='manifest' href={`${siteUrl}/manifest.json`} />
         <meta name='msapplication-TileColor' content='#030303' />
         <meta name='msapplication-TileImage' content={`${siteUrl}/mstile-150x150.png`} />
-        <meta name="theme-color" content="#1a1a1b" />
+        <meta name="theme-color" content="#000000" />
         <meta name="application-name" content="bbabystyle" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <meta name="apple-mobile-web-app-title" content="bbabystyle" />
         <meta name="mobile-web-app-capable" content="yes" />
         {/* <meta name="twitter:creator" content="@Bbabystyle" /> */}
@@ -73,7 +73,7 @@ const Layout = ({ children, error } : LayoutProps) => {
           <div id='container'>
             <div className='main' style={{'--background': 'rgb(0,0,0)', '--canvas': '#030303'} as CSSProperties}>
               <div tabIndex={-1} />
-              <div  id='shortcut' className='' tabIndex={-1}>
+              <div className='' tabIndex={-1}>
                 <div>
                   <Header />
                 </div>

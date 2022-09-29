@@ -1,9 +1,9 @@
 import CEO from "../main/CEO";
 import { siteUrl } from "../main/config";
 import style from './search-page.module.css';
+import style2 from './search-page-empty.module.css';
 import SearchPageHeader from "./SearchPageHeader";
 import { RiArrowDownSLine } from 'react-icons/ri';
-import Head from "next/head";
 import { SearchPageProps } from "../../pages/search";
 import Post from "../post/Post";
 import { useEffect, useState } from "react";
@@ -49,10 +49,10 @@ const Search = ({ posts }: SearchPageProps) => {
         type="website"
         url={`${siteUrl}/search`}
         image={imagePreview}
+        width={'256'}
+        height={'256'}
+        index={false}
       />
-      <Head>
-        <meta name="robots" content="noindex" />
-      </Head>
       <div className={style.mainSearch}>
         <div className={style.searchPage}>
           <div>
@@ -73,19 +73,32 @@ const Search = ({ posts }: SearchPageProps) => {
                 </button>
               </div>
             </div>
-            {active === 'posts' && (
+          </div>
+          {active === 'posts' && (
+            <div className={style.searchPageAll}>
               <div className={style.searchPagePosts}>
                 <div tabIndex={0}/>
                 <div className="mb-4">
-                  <div className="h-auto w-full">
-                    {posts.map((post) => (
-                      <Post key={post._id} post={post} />
-                    ))}
-                  </div>
+                    {posts?.length > 0 ? 
+                      posts.map((post) => (
+                        <div key={post._id} className="h-auto w-full">
+                          <Post post={post} />
+                        </div>
+                      )) : (
+                        <div className={style2.emptyContainer}>
+                          <img src="" 
+
+                          />
+                          <h2 className={style2.emptyh2}>
+                            .. we couldn&apos;t find any results for &quot;{router.query.text}&quot;
+                          </h2>
+                          <p className={style2.emptyp}>Double-check your spelling or try different keywords to adjust your search</p>
+                        </div>
+                    )}
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </>

@@ -1,11 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { EditTextarea } from 'react-edit-text';
 import { buttonClass } from '../utils/Button';
-import {
-  MdOutlineAdminPanelSettings,
-  MdOutlineModeEditOutline,
-  MdDateRange
-} from 'react-icons/md';
+import { MdOutlineAdminPanelSettings, MdOutlineModeEditOutline, MdDateRange } from 'react-icons/md';
 import Link from 'next/link';
 import {AuthModalContext, AuthModalContextProps} from '../auth/modal/AuthModalContext';
 import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';

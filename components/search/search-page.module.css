@@ -93,6 +93,14 @@
     border: none;
     min-width: 32px;
 }
+
+.searchPageAll {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    padding-top: 8px;
+}
+
 .searchPagePosts {
     flex: 1 1 640px;
     max-width: 640px;

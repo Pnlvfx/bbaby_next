@@ -5,8 +5,6 @@ import {showErrMsg,showSuccessMsg} from '../../components/utils/validation/Notif
 import {useRouter} from 'next/router'
 import { siteUrl } from '../../components/main/config'
 
-
-
 const ActivationEmail: NextPage = () => {
     const router = useRouter()
     const activation_token = router.query.token
@@ -38,6 +36,7 @@ const ActivationEmail: NextPage = () => {
             activationEmail()
         }
     },[activation_token])
+    
   return (
     <div>
         <Head>

@@ -24,6 +24,9 @@ const Home: NextPage<HomePg> = ({ posts }) => {
         twitter_card={twitter_card}
         type={type}
         image={image}
+        width={'256'}
+        height={'256'}
+        index={true}
       />
       <Feed posts={posts} />
     </>

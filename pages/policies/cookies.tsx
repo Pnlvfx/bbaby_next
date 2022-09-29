@@ -2,12 +2,12 @@ import type { NextPage, NextPageContext } from 'next'
 import Head from 'next/head'
 import React from 'react'
 import { getSession } from '../../components/API/ssrAPI';
+import { siteUrl } from '../../components/main/config';
 import CookieNotice from '../../components/policies/CookieNotice';
 import PoliciesLayout from '../../components/policies/PoliciesLayout';
 
-const CookiesPage:NextPage = () => {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
-  const url = `${hostname}/policies/cookies`
+const CookiesPage: NextPage = () => {
+  const url = `${siteUrl}/policies/cookies`
   return (
     <div>
       <Head>

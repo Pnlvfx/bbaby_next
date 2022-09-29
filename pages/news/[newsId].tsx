@@ -1,47 +1,46 @@
 import type { NextPage, NextPageContext } from 'next';
-import Head from 'next/head';
-import React from 'react';
 import { getSession, ssrHeaders } from '../../components/API/ssrAPI';
+import CEO from '../../components/main/CEO';
+import { siteUrl } from '../../components/main/config';
 import MyNewsCard from '../../components/mynews/MyNewsCard';
 import Donations from '../../components/widget/Donations';
+import PolicyWidget from '../../components/widget/PolicyWidget';
+import Widget from '../../components/widget/Widget';
 
 interface NewsIdPageProps {
   news: NewsProps
 }
 
 const NewsIdPage: NextPage<NewsIdPageProps> = ({news}) => {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
   const {title} = news;
   const description = news.description.substring(0, 250);
-  const imagePreview = news.mediaInfo.image
-  const url = `${hostname}/news/${news._id}`;
-  const card = 'summary_large_image'
+  const image = news.mediaInfo.image
+  const url = `${siteUrl}/news/${news._id}`;
 
   return (
-    <div>
-      <Head>
-        <title>{title}</title>
-        <meta name="description" content={description} key={'description'} />
-        <meta property='og:ttl' content='600' key={'ogttl'} />
-        <meta property="og:site_name" content="bbabystyle" />
-        <meta property="twitter:card" content={card} key="twcard" />
-        <meta property="og:title" content={title} key="ogtitle" />
-        <meta property="og:description" content={description} key="ogdesc" />
-        <meta property="og:image" content={imagePreview} key="ogimage" />
-        <meta property="og:url" content={url} key="ogurl" />
-        <meta property="og:type" content="article" key="ogtype" />
-        <link rel='canonical' href={url} key='canonical' />
-        <meta name="twitter:image:alt" content={news.mediaInfo.alt} />
-      </Head>
-        <div className='flex mt-5 justify-center mx-[0px] lg:mx-10'>
-          <div className='w-full lg:w-7/12 xl:w-5/12 2xl:w-[950px] lg:mr-4 flex-none'>
+    <>
+    <CEO 
+      title={title}
+      description={description}
+      twitter_card='summary_large_image'
+      type='article'
+      url={url}
+      image={image}
+      height={news.mediaInfo.height.toString()}
+      width={news.mediaInfo.width.toString()}
+      index={true}
+    />
+    <div className="max-w-full md:py-5 md:px-6 box-border flex justify-center mx-auto">
+        <div className="w-full lg:w-[640px]">
             <MyNewsCard news={news} />
-          </div>
-          <div className='hidden lg:block'>
-            <Donations />
-          </div>
         </div>
-    </div>
+        <div className='hidden lg:block ml-6'>
+          <Widget />
+          <Donations />
+          <PolicyWidget />
+        </div>
+      </div>
+    </>
   )
 }
 

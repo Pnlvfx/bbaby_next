@@ -8,7 +8,7 @@ interface ModqueuePageProps {
   community: string
 }
 
-const ModqueuePage:NextPage<ModqueuePageProps> = ({community}) => {
+const ModqueuePage: NextPage<ModqueuePageProps> = ({community}) => {
   const url = `${siteUrl}/b/${community}/about/modqueque`
   return (
     <div>

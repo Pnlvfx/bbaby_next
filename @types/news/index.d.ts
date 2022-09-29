@@ -1,10 +1,10 @@
 interface mediaInfoProps {
     isImage?: boolean
     isVideo?: boolean
-    image?: string
+    image: string
     video?: string
-    width?: number
-    height?: number
+    width: number
+    height: number
     alt?: string
 }
 

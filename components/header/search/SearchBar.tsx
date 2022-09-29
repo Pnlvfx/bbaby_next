@@ -1,6 +1,6 @@
 import { SearchIcon } from '@heroicons/react/outline'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { MouseEvent, useState } from 'react'
 import SearchDropdown from './SearchDropdown'
 
 const SearchBar = () => {
@@ -8,14 +8,18 @@ const SearchBar = () => {
   const [searchText, setSearchText] = useState('')
   const [show, setShow] = useState(false)
 
-  const doSearch = (ev: any) => {
+  const doSearch = (ev: MouseEvent<HTMLFormElement>) => {
     ev.preventDefault()
-    router.push('/search/' + encodeURIComponent(searchText))
+    router.push({
+      pathname: '/search',
+      query: {text: searchText}
+    });
+    setShow(false);
   }
 
   return (
     <>
-        <div onClick={(e:any) => {
+        <div onClick={(e) => {
           e.preventDefault()
           setShow(true);
         }} className='mr-3 flex-grow rounded-md h-[36px] ml-1 bg-reddit_dark-brightest 2xl:ml-64 2xl:mr-64 border border-reddit_border hover:border-reddit_text'>

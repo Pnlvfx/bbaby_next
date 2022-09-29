@@ -18,6 +18,7 @@ const SubmitPage:NextPage<SubmitPageProps> = ({ community }) => {
   return (
     <>
       <CEO
+          index={true}
           title={title}
           url={url}
           description={description}

@@ -2,13 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-    body {
-        @apply text-reddit_text
-    }
-}
-
-@keyframes loaderSwipeAnim{
+@keyframes loaderSwipeAnim {
     0%{
         left: 0;
         
@@ -19,6 +13,13 @@
     }
   }
 
+  body {
+    min-height: calc(100vh - 48px);
+    line-height: 1;
+    font-family: IBMPlexSans, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    color: rgb(215 218 220);
+  }
 
   .loading {
     position: relative;

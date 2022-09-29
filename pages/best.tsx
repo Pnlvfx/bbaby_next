@@ -24,6 +24,9 @@ const Best: NextPage<BestPg> = ({posts}) => {
       type={'website'}
       url={url}
       image={imagePreview}
+      width={'256'}
+      height={'256'}
+      index={true}
     />
     <Feed posts={posts} />
     </>

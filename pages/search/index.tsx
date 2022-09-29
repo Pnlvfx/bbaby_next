@@ -23,7 +23,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     const text = context.query.text ? context.query.text : undefined;
     let posts = []
     if (text) {
-      posts = await search(text);
+      posts = await search(text.toString());
     } else {
       posts = await getPosts(undefined, undefined, 0);
     }

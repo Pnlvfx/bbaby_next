@@ -1,48 +1,56 @@
 import type { NextPage, NextPageContext } from 'next';
-import Head from 'next/head';
 import { getSession } from '../../components/API/ssrAPI';
+import CEO from '../../components/main/CEO';
+import { siteUrl } from '../../components/main/config';
 import { getMyNews } from '../../components/mynews/APInews';
 import MyNewsCard from '../../components/mynews/MyNewsCard';
 import BestPost from '../../components/post/postutils/BestPost';
+import Donations from '../../components/widget/Donations';
+import PolicyWidget from '../../components/widget/PolicyWidget';
+import Widget from '../../components/widget/Widget';
 
 interface MyNewsPageProps {
   myNews: NewsProps[]
 }
 
-const MyNewsPage:NextPage<MyNewsPageProps> = ({ myNews }) => {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME
-  const imagePreview = `${hostname}/imagePreview.png`
-  const title = "Bbabystyle - News in italiano"
-  const description = "Bbabystyle - News in italiano"
-  const url = `${hostname}/news`
-  const card = 'summary';
+const MyNewsPage: NextPage<MyNewsPageProps> = ({ myNews }) => {
+  const imagePreview = `${siteUrl}/imagePreview.png`;
+  const title = "Bbabystyle - News in italiano";
+  const description = "Bbabystyle - News in italiano";
+  const url = `${siteUrl}/news`;
   
   return (
-    <div>
-      <Head>
-        <title>{title}</title>
-        <meta name="description" content={description} key={'description'} />
-        <meta property="og:title" content={title} key="ogtitle" />
-        <meta property='og:ttl' content='600' key={'ogttl'} />
-        <meta property="og:site_name" content="bbabystyle" />
-        <meta property="twitter:card" content={card} key="twcard" />
-        <meta property="og:description" content={description} key="ogdesc" />
-        <meta property="og:image" content={imagePreview} key="ogimage" />
-        <meta property="og:url" content={url} key="ogurl" />
-        <meta property="og:type" content="website" key="ogtype" />
-        <link rel='canonical' href={url} key='canonical' />
-      </Head>
-      <div className="mx-[2px] mt-5 flex justify-center lg:mx-10">
-          <div className="w-full lg:w-7/12  lg:mr-4 2xl:w-[650px] flex-none">
-            <div className="mb-4">
-              <BestPost />
-            </div>
-            {myNews?.map((news) => (
-              <MyNewsCard key={news._id} news={news} isListing={true} />
-            ))}
+    <>
+      <CEO 
+        title={title}
+        description={description}
+        twitter_card='summary'
+        type='website'
+        url={url}
+        image={imagePreview}
+        width={'256'}
+        height={'256'}
+        index={true}
+      />
+      <div className="max-w-full md:py-5 md:px-6 box-border flex justify-center mx-auto">
+        <div className="w-full lg:w-[640px]">
+          <div className="mb-4">
+            <BestPost />
           </div>
+          <div>
+
+          </div>
+          {myNews?.map((news) => (
+            <MyNewsCard key={news._id} news={news} isListing={true} />
+          ))}
+        </div>
+        <div className='hidden lg:block ml-6'>
+          <Widget />
+          <Donations />
+          <PolicyWidget />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

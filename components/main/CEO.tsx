@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useEffect } from "react";
 
 interface CEOProps {
     /**
@@ -24,7 +25,7 @@ interface CEOProps {
     /**
     * The locale of the current page
     */
-    locale?: string
+    index: boolean
     /**
     * Use article for articles and website for the rest of your pages.
     */
@@ -53,24 +54,44 @@ const CEO = ({
     video,
     width,
     height,
-    locale,
+    index
 }: CEOProps) => {
+
+  useEffect(() => {
+    const CEOvalidator = async () => {
+        if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') return;
+        if (!title) throw new Error(`CEO:This title missing.`);
+        if (!description) throw new Error(`CEO:This description is missing.`)
+        if (!image) throw new Error(`CEO:Missing image`);
+        if (image) {
+          if (!width || !height) {
+            throw new Error(`CEO: Image is missing required width and height!`)
+          }
+        }
+    }
+    CEOvalidator();
+  }, [description, image, title])
+
   return (
     <Head>
-      <title>{title.substring(0, 60)}</title>
+      <title>{title.substring(0, 70)}</title>
       <meta name="description" content={description?.substring(0, 160)} key={'description'} />
       <meta property='og:ttl' content='600' key={'ogttl'} />
       <meta property="og:site_name" content="bbabystyle" key={'ogsite_name'} />
       <meta property="twitter:card" content={twitter_card} key="twcard" />
-      <meta property="og:title" content={title.substring(0, 60)} key="ogtitle" />
+      <meta property="og:title" content={title.substring(0, 70)} key="ogtitle" />
+      <meta property="twitter:title" content={title.substring(0, 70)} key='twitter_title' />
       <meta property="og:description" content={description?.substring(0, 160)} key="ogdesc" />
       <meta property="og:image" content={image} key="ogimage" />
-      <meta property="twitter:image" content={image} />
+      <meta property="twitter:image" content={image} key={'twitter_image'} />
       {image && (
         <>
           <meta property='og:image:width' content={width} />
           <meta property='og:image:height' content={height} />
         </>
+      )}
+      {!index && (
+        <meta name="robots" content="noindex" key={'noindex'} />
       )}
       {video && <meta property="og:video" content={video} />}
       <meta property="og:url" content={url} key="ogurl" />
