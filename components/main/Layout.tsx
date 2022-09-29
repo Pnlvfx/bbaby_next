@@ -28,30 +28,10 @@ const Layout = ({ children, error } : LayoutProps) => {
   const CommunityFormModal = dynamic(() => import('../community/CommunityFormModal'))
   const TimeMsg = dynamic(() => import('./TimeMsg'));
 
-  const yandexBlock = session?.device?.mobile ? 1 : 2
-
   useEffect(() => {
     if (!error) return;
     message.setMessage({value: error, status: 'error', time: 20000})
   }, [error])
-
-  useEffect(() => {
-    if (typeof window === undefined) return;
-    if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return;
-    (window as any).yaContextCb.push(()=>{
-      (window as any).Ya.Context.AdvManager.render({
-        renderTo: `yandex_rtb_R-A-1957512-${yandexBlock}`,
-        blockId: `R-A-1957512-${yandexBlock}`,
-        onError: (data: {
-          type: 'error'
-          code: string
-          text: string
-        }) => {
-          console.log(data);
-        }
-      })
-    })
-  }, []);
   
   return (
     <>
@@ -104,7 +84,6 @@ const Layout = ({ children, error } : LayoutProps) => {
                   {!session?.eu_cookie || !router.pathname.match('404') || !router.pathname.match('500') && (
                     <CookieConsent />
                   )}
-                  <div id={`yandex_rtb_R-A-1957512-${yandexBlock}`}></div>
                   {children}
                 </div>
               </div>

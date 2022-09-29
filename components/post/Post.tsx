@@ -1,5 +1,4 @@
 import PostContent from './PostContent';
-import { useState } from 'react';
 import { useSession } from '../auth/UserContext';
 import { openPost } from './postutils/hooks';
 import Link from 'next/link';
@@ -11,7 +10,6 @@ interface ExtendPostProps {
 
 const Post = ({ post, isListing }: ExtendPostProps) => {
   const { session } = useSession();
-  const [isAds, setIsAds] = useState(false);
   const containerClass = `rounded-md border ${isListing 
     ? 'mb-3 w-full border-reddit_border bg-[#141415] hover:border-reddit_text' 
     : 'border-none'}`;

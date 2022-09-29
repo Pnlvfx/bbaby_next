@@ -11,6 +11,7 @@ import Skeleton from '../governance/twitter/Skeleton';
 import Widget from '../widget/Widget';
 import { useSession } from '../auth/UserContext';
 import PolicyWidget from '../widget/PolicyWidget';
+import YandexAds from '../yandex-ads/YandexAds';
 
 type FeedProps = {
   posts: PostProps[]
@@ -85,9 +86,17 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
               endMessage={<></>}
               
             >
-              {posts?.map((post) => (
-                <Post key={post._id} post={post} isListing={true} />
-              ))}
+              {posts?.map((post, index) => {
+                if (index === 3) {
+                  return (
+                    <YandexAds key={index} />
+                  )
+                } else {
+                  return (
+                    <Post key={post._id} post={post} isListing={true} />
+                  )}
+                }
+              )}
             </InfiniteScroll>
           </div>
         </div>
