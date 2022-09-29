@@ -12,7 +12,6 @@ import { CommunityContext, CommunityContextProps } from '../community/CommunityC
 import GoogleAnalytics from '../google/GoogleAnalytics';
 import Head from 'next/head';
 import { siteUrl } from './config';
-import Script from 'next/script';
 
 interface LayoutProps {
   children: ReactNode
@@ -29,17 +28,27 @@ const Layout = ({ children, error } : LayoutProps) => {
   const CommunityFormModal = dynamic(() => import('../community/CommunityFormModal'))
   const TimeMsg = dynamic(() => import('./TimeMsg'));
 
+  const yandexBlock = session?.device?.mobile ? 1 : 2
+
   useEffect(() => {
     if (!error) return;
     message.setMessage({value: error, status: 'error', time: 20000})
   }, [error])
 
   useEffect(() => {
-    if (typeof window === undefined) return; 
+    if (typeof window === undefined) return;
+    if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return;
     (window as any).yaContextCb.push(()=>{
       (window as any).Ya.Context.AdvManager.render({
-        renderTo: 'yandex_rtb_R-A-1957512-1',
-        blockId: 'R-A-1957512-1'
+        renderTo: `yandex_rtb_R-A-1957512-${yandexBlock}`,
+        blockId: `R-A-1957512-${yandexBlock}`,
+        onError: (data: {
+          type: 'error'
+          code: string
+          text: string
+        }) => {
+          console.log(data);
+        }
       })
     })
   }, []);
@@ -73,8 +82,6 @@ const Layout = ({ children, error } : LayoutProps) => {
         <meta name="apple-mobile-web-app-title" content="bbabystyle" />
         <meta name="mobile-web-app-capable" content="yes" />
         {/* <meta name="twitter:creator" content="@Bbabystyle" /> */}
-        <script>window.yaContextCb=window.yaContextCb||[]</script>
-        <script src="https://yandex.ru/ads/system/context.js" async></script>
       </Head>
       {!session?.user 
         && !router.pathname.match('/policies') 
@@ -97,7 +104,7 @@ const Layout = ({ children, error } : LayoutProps) => {
                   {!session?.eu_cookie || !router.pathname.match('404') || !router.pathname.match('500') && (
                     <CookieConsent />
                   )}
-                  <div id="yandex_rtb_R-A-1957512-1"></div>
+                  <div id={`yandex_rtb_R-A-1957512-${yandexBlock}`}></div>
                   {children}
                 </div>
               </div>

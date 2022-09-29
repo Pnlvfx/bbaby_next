@@ -4,14 +4,12 @@ const Document = () => {
     return (
         <Html lang='en-US'>
             <Head>
-            {/* {process.env.NEXT_PUBLIC_NODE_ENV === 'production' &&
-                <script
-                    async
-                    onError={(e) => {console.log("Adsense failed to load", e)}}
-                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7203519143982992"
-                    crossOrigin="anonymous"
-                />
-            } */}
+                {process.env.NEXT_PUBLIC_NODE_ENV === 'production' && (
+                   <>
+                    <script>window.yaContextCb=window.yaContextCb||[]</script>
+                    <script src="https://yandex.ru/ads/system/context.js" async></script>
+                   </>
+                )}
             </Head>
             <body>
                 <Main />
