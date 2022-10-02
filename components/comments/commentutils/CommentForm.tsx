@@ -4,11 +4,11 @@ import { useSession } from '../../auth/UserContext';
 import { buttonClass } from '../../utils/Button';
 import ClickOutHandler from "react-clickout-ts";
 import { postComment } from '../../API/commentAPI';
+import { useCommentContext } from './RootCommentContext';
 
 interface CommentFormProps {
   rootId: string
   parentId: string
-  onSubmit: Function
   onCancel?: Function
   showAuthor: boolean
 }
@@ -16,7 +16,6 @@ interface CommentFormProps {
 const CommentForm = ({
   rootId,
   parentId,
-  onSubmit,
   onCancel,
   showAuthor
 }: CommentFormProps) => {
@@ -25,14 +24,13 @@ const CommentForm = ({
   const [commentBodyLength, setCommentBodyLength] = useState(0)
   const [enableComment, setEnableComment] = useState(false)
   const [active, setActive] = useState(false);
+  const {getComments} = useCommentContext();
 
   const doPostComment = async () => {
     try {
       const create = await postComment(commentBody, parentId, rootId);
       setCommentBody('')
-        if (onSubmit) {
-          onSubmit()
-      }
+      getComments()
     } catch (err) {
       console.log(err)
     }
@@ -40,7 +38,6 @@ const CommentForm = ({
 
   useEffect(() => {
     if (commentBodyLength >= 1) {
-      console.log(commentBodyLength)
       setEnableComment(true)
     }
   }, [commentBodyLength])
@@ -63,7 +60,7 @@ const CommentForm = ({
           <span className="text-[12px] leading-[18px]">
             Comment as{' '}
             <Link href={`/user/${session.user.username}`}>
-              <a className="text-[12px] leading-[16px]  text-[#4fbcff]">
+              <a className="text-[12px] leading-[16px] text-[#4fbcff]">
                 {session.user.username}
               </a>
             </Link>

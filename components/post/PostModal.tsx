@@ -78,16 +78,16 @@ const PostModal = ({community, postId, open, onClickOut}: PostModalProps) => {
                 </i>
                 <div className="flex min-w-0 realtive break-words">
                   <div className="overflow-hidden text-ellipsis whitespace-nowrap text-[14px] leading-[18px] inline pr-[5px] break-words font-medium">
-                    <h1 className='inline '>{post.title}</h1>
+                    <h1 className='inline'>{post.title}</h1>
                   </div>
                 </div>
               </div>
               <div className="flex justify-end ml-3 w-[312px] text-[12px] font-bold leading-4">
                 <button 
                   role={'button'} 
-                  tabIndex={0} 
-                  title='Close' 
-                  aria-label="Close" 
+                  tabIndex={0}
+                  title='Close'
+                  aria-label="Close"
                   className="hover:bg-reddit_dark-brighter relative border border-transparent text-[12px] font-bold min-h-[24px] min-w-[24px] py-1 px-2 flex items-center rounded-full box-border justify-center text-center w-auto" 
                   onClick={() => {
                     clickOut()

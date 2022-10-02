@@ -1,4 +1,3 @@
-import { LogoutIcon } from '@heroicons/react/outline';
 import { useContext } from 'react';
 import { BiUserCircle } from 'react-icons/bi';
 import {GiBabyFace} from 'react-icons/gi';
@@ -7,6 +6,7 @@ import Router from 'next/router';
 import { useSession } from '../auth/UserContext';
 import Link from 'next/link';
 import { postRequestHeaders } from '../main/config';
+import {HiOutlineLogout} from 'react-icons/hi'
 
 function UserMenu({showDropdown, setShowDropdown}:any) {
     const {session} = useSession();
@@ -110,7 +110,7 @@ function UserMenu({showDropdown, setShowDropdown}:any) {
                     logout()
                     setShowDropdown(!showDropdown)
                     }} className={'flex p-[9px] pl-4'}>
-                    <LogoutIcon className='w-6 h-6 mr-2'/>
+                    <HiOutlineLogout className='w-6 h-6 mr-2'/>
                     <p className='font-bold text-sm mt-[2px]'>Log Out</p>
                 </div>
             </div>

@@ -49,7 +49,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
       },
     }
   } catch (err) {
-    const error = `Don't panic. Now we fix the issue!`
+    const error = `Don't panic. Now we will fix the issue!`
     return {
       props: {
         error

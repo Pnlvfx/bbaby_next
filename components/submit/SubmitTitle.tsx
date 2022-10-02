@@ -3,18 +3,13 @@ import ClickOutHandler from 'react-clickout-ts';
 import { useSession } from '../auth/UserContext';
 import TeaxtareaAutosize from '../utils/TeaxtareaAutosize';
 import { SubmitContext, SubmitContextType } from './SubmitContext';
+import style from './submit-title.module.css';
 
 
 const SubmitTitle = () => {
     const {session} = useSession();
     const [active, setActive] = useState(false)
     const maxLength = session?.user?.role === 1 ? 999 : 300
-    const titleClass = 
-    `
-    overflow-x-hidden shadow-none border solid py-2 pl-4 pr-[68px] bg-transparent 
-    resize-none box-border block w-full outline-none rounded-[4px] 
-    placeholder-reddit_text-darker text-[16px] overflow-hidden
-    `
 
     const {
         title,
@@ -31,11 +26,13 @@ const SubmitTitle = () => {
   return (
     <div className='mb-2'>
         <div className='relative'>
-            <ClickOutHandler onClickOut={() => {
-                setActive(false)
-            }}>
+            <ClickOutHandler 
+                onClickOut={() => {
+                    setActive(false)
+                }}
+            >
             <TeaxtareaAutosize
-                className={`${titleClass} ${active ? 'border-reddit_text' : 'border-reddit_border'}`}
+                className={`${style.submitTitle} ${active ? 'border-reddit_text' : 'border-reddit_border'}`}
                 placeholder={'Title'}
                 onClick={() => {
                     setActive(true);
@@ -46,10 +43,7 @@ const SubmitTitle = () => {
                 maxLength={maxLength}
                 value={title}
             />
-            <div 
-                className='whitespace-pre-wrap text-reddit_text-darker text-[10px] font-bold leading-3 bottom-3 absolute pointer-events-none right-3' 
-                style={{letterSpacing: '.5px'}}
-            >
+            <div className={style.titleLength}>
                 {titleLength}/{maxLength}
             </div>
             </ClickOutHandler>

@@ -15,7 +15,7 @@ const UserSettings = () => {
 
   return (
     <div>
-        <h1 className="py-4 text-[19px] font-bold">User settings</h1>
+      <h1 className="py-4 text-[19px] font-bold">User settings</h1>
       <div className="flex items-center space-x-5 mx-4">
         <button
           title="account"

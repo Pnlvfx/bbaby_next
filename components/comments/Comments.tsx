@@ -5,7 +5,6 @@ import {useState} from 'react';
 import { useCommentContext } from './commentutils/RootCommentContext';
 import Voting from '../voting/Voting';
 import Linkify from 'react-linkify';
-import { getCommentsFromPost } from '../API/commentAPI';
 
 interface CommentsProps {
   parentId: string
@@ -13,18 +12,9 @@ interface CommentsProps {
 }
 
 const Comments = ({parentId, rootId }: CommentsProps) => {
-  const {post, comments: propsComments, setComments} = useCommentContext()
+  const {comments: propsComments, getComments} = useCommentContext()
   const [showForm, setShowForm] = useState(false);
   const comments = propsComments.filter((comment) => parentId === comment.parentId);
-
-  const getComm = async () => {
-    try {
-        const c = await getCommentsFromPost(post._id);
-        setComments(c);
-    } catch (err) {
-        console.log(err);
-    }
-}
 
   return (
     <div className={"my-2 bg-reddit_dark-brighter"}>
@@ -63,11 +53,12 @@ const Comments = ({parentId, rootId }: CommentsProps) => {
                     <ReplyButton type={"button"} onClick={() => {setShowForm(!!comment._id)}}>Reply</ReplyButton>
                   </div>
                     {!!comment._id === showForm && (
-                    <CommentForm parentId={comment._id} rootId={rootId} onSubmit={() => {setShowForm(false);
-                        getComm();
-                    }}
-                    showAuthor={false} 
-                    onCancel={ () => setShowForm(false)} />
+                    <CommentForm 
+                      parentId={comment._id} 
+                      rootId={rootId} 
+                      showAuthor={false} 
+                      onCancel={ () => setShowForm(false)} 
+                    />
                   )}
                   {replies.length > 0 && (
                     <Comments parentId={comment._id} rootId={rootId} />

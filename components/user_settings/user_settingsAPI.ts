@@ -9,8 +9,8 @@ export const getUserInfo = async () => {
       })
       const data = await res.json()
       if (!res.ok) catchError(data?.msg, 'get user info');
-      return data;
+      return data as UserProps;
     } catch (err) {
-      catchError(err, 'get user info');
+      throw catchError(err, 'get user info');
     }
   }

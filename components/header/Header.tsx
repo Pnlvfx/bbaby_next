@@ -49,17 +49,22 @@ const Header: NextComponentType = () => {
           {session?.user && (
             <div id="user_icons" className="flex items-center space-x-2">
               {session?.user.role === 1 && (
-                <Link href={'/governance'}>
-                  <a className={className.buttonHeader}>
-                    <TbBabyCarriage className={className.icon} />
+                <span className='h-8'>
+                  <Link href={'/governance'}>
+                    <a className={className.buttonHeader}>
+                      <TbBabyCarriage className={className.icon} />
+                    </a>
+                  </Link>
+                </span>
+              )}
+              <NotificationButton />
+              <span className='h-8 ml-2'>
+                <Link href={'/submit'}>
+                  <a aria-label='Create Post' className={className.buttonHeader}>
+                    <PlusIcon className={className.icon} />
                   </a>
                 </Link>
-              )}
-              <Link href={'/submit'}>
-                <a aria-label='Create Post' className={className.buttonHeader}>
-                  <PlusIcon className={className.icon} />
-                </a>
-              </Link>
+              </span>
             </div>
           )}
           {!session?.user && (

@@ -7,7 +7,7 @@ import { AuthModalContext, AuthModalContextProps } from '../auth/modal/AuthModal
 import { useRouter } from 'next/router';
 import { TimeMsgContext, TimeMsgContextProps } from './TimeMsgContext';
 import { useSession } from '../auth/UserContext';
-import CookieConsent from '../utils/validation/CookieConsent';
+import CookieConsent from '../utils/validation/cookie-consent/CookieConsent';
 import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
 import GoogleAnalytics from '../google/GoogleAnalytics';
 import Head from 'next/head';
@@ -32,6 +32,8 @@ const Layout = ({ children, error } : LayoutProps) => {
     if (!error) return;
     message.setMessage({value: error, status: 'error', time: 20000})
   }, [error])
+
+  console.log(session)
   
   return (
     <>
@@ -55,7 +57,7 @@ const Layout = ({ children, error } : LayoutProps) => {
         <link rel='manifest' href={`${siteUrl}/manifest.json`} />
         <meta name='msapplication-TileColor' content='#030303' />
         <meta name='msapplication-TileImage' content={`${siteUrl}/mstile-150x150.png`} />
-        <meta name="theme-color" content="#000000" />
+        <meta name="theme-color" content="#1a1a1b" />
         <meta name="application-name" content="bbabystyle" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -81,7 +83,7 @@ const Layout = ({ children, error } : LayoutProps) => {
             <div>
               <div className='flex flex-col min-h-[calc(100vh_-_48px)]'>
                 <div className='z-3'>
-                  {!session?.eu_cookie || !router.pathname.match('404') || !router.pathname.match('500') && (
+                  {!session?.eu_cookie && (
                     <CookieConsent />
                   )}
                   {children}

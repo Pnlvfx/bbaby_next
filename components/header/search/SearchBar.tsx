@@ -1,4 +1,4 @@
-import { SearchIcon } from '@heroicons/react/outline'
+import {BsSearch} from 'react-icons/bs'
 import { useRouter } from 'next/router'
 import { MouseEvent, useState } from 'react'
 import SearchDropdown from './SearchDropdown'
@@ -27,7 +27,7 @@ const SearchBar = () => {
             onSubmit={doSearch}
             className="h-full flex items-center text-reddit_text-darker"
           >
-            <SearchIcon className="h-5 w-5 flex-none ml-3" />
+            <BsSearch className="h-5 w-5 flex-none ml-3" />
             <input
               type="text"
               className="w-full bg-reddit_dark-brightest p-1 pl-2 text-sm text-reddit_text placeholder:text-sm placeholder:text-reddit_text-darker focus:outline-none text-[16px]"

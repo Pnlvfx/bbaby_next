@@ -1,17 +1,68 @@
-import { BellIcon } from '@heroicons/react/outline';
+import { useEffect, useState } from 'react';
+import {IoIosNotificationsOutline} from 'react-icons/io';
+import style from './notification.module.css';
+import NotificationContent from './NotificationContent';
+import ClickOutHandler from 'react-clickout-ts';
 
 const NotificationButton = () => {
+  const [windowDimension, setWindowDimension] = useState(0);
+  const [show, setShow] = useState(false);
+
+  const detectSize = () => { //-752 originals
+    setWindowDimension(window.innerWidth - 600)
+  }
+
+  useEffect(() => {
+    if (typeof window === undefined) return;
+    window.addEventListener('resize', detectSize);
+
+    return () => {
+      window.removeEventListener('resize', detectSize);
+    }
+  }, [windowDimension])
+
+  useEffect(() => {
+    if (typeof window === undefined) return;
+    detectSize();
+  }, []);
+
   return (
-    <>
-      <button className={`relative top-0 left-0 mx-2 hidden lg:block w-8 h-8`}>
-        <BellIcon className="relative top-0 left-0 h-[20px] w-[20px] text-[#D7DADC]" />
-        <div className='p-1 absolute -top-[4px] left-[6px] rounded-full w-[17px] h-[17px]'>
-                <div className='bg-reddit_red rounded-full w-[13px] h-[13px] self-center text-center'>
-                    <p className='text-xs self-center font-bold'>9</p>
-                </div>
-            </div>
+    <span className='ml-2 h-8'>
+      <ClickOutHandler onClickOut={() => {
+        setShow(false);
+      }}>
+      <button 
+        className={`relative rounded-[2px]`}
+        aria-expanded='false'
+        aria-haspopup='true'
+        aria-label='Open notifications'
+        onClick={() => {
+          setShow(!show);
+        }}
+      >
+        <div className='box-border h-8 w-8 relative'>
+          <span className='bg-reddit_red rounded-xl box-border text-[10px] font-bold h-4 left-5 leading-4 px-1 absolute text-center top-0 align-middle min-w-[16px] w-auto z-[1]'>9</span>
+          <i className='icon absolute top-0 bottom-0 left-0 right-0 m-auto'>
+            <IoIosNotificationsOutline />
+          </i>
+        </div>
       </button>
-    </>
+      {show && 
+        <div className={style.dropdown} style={{transform: `translate(${windowDimension}px, 46px)`}}>
+          <div className={style.dropdownContainer}>
+            <div className={style.dropdownContainer2}>
+              <nav className={style.dropdownNav}>
+                <span className={style.navSpan}>Notifications</span>
+              </nav>
+              <div>
+                <NotificationContent />
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+      </ClickOutHandler>
+    </span>
   )
 }
 
