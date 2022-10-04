@@ -404,3 +404,75 @@ export const PlusIcon = (props: any) => {
     </svg>
   )
 }
+
+export const CheckboxChecked = (props: any) => {
+  return (
+    <svg
+      className="_3PYsg_uRJ6AGptv-hi7kqu"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      width={20}
+      height={20}
+      {...props}
+    >
+      <path
+        d="M10 6.667a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zM10 0c5.523 0 10 4.477 10 10s-4.477 10-10 10S0 15.523 0 10 4.477 0 10 0z"
+        fill="#0079D3"
+      />
+    </svg>
+  )
+}
+
+export const Checkbox = (props: any) => {
+  return (
+    <svg
+      className="_11Rht_b1e-kmk12gkz7Lug _1lzSnSABNXX12WerTnwqI3"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      width={20}
+      height={20}
+      {...props}
+    >
+      <path
+        d="M10 1.667a8.333 8.333 0 100 16.666 8.333 8.333 0 000-16.666zM10 0c5.523 0 10 4.477 10 10s-4.477 10-10 10S0 15.523 0 10 4.477 0 10 0z"
+        fill="#818384"
+      />
+    </svg>
+  )
+}
+
+export const PublicCommunity = (props: any) => {
+  return (
+    <svg
+      className="_3WyydSidemq34inFmhA1SE"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      width={20}
+      height={20}
+      {...props}
+    >
+      <path
+        d="M12 11c3.309 0 6 2.691 6 6a1 1 0 01-1 1H3a1 1 0 01-1-1c0-3.309 2.691-6 6-6h4zm-2-1.267a3.871 3.871 0 01-3.867-3.867v-1A3.87 3.87 0 0110 1a3.87 3.87 0 013.867 3.866v1A3.871 3.871 0 0110 9.733z"
+        fill="#818384"
+      />
+    </svg>
+  )
+}
+
+export const PrivateCommunity = (props: any) => {
+  return (
+    <svg
+      className="_1Ma7YYe0ShiEmNSS16r18H"
+      viewBox="0 0 40 40"
+      xmlns="http://www.w3.org/2000/svg"
+      width={40}
+      height={40}
+      {...props}
+    >
+      <g fill="#818384">
+        <rect x={7.5} y={12.5} />
+        <path d="M32.5 17.5v-2.6c0-6.8-5.6-12.4-12.4-12.4h-.2c-6.8 0-12.4 5.6-12.4 12.4v2.6C6.1 17.5 5 18.6 5 20v10c0 5.5 4.5 10 10 10h10c5.5 0 10-4.5 10-10V20c0-1.4-1.1-2.5-2.5-2.5zm-20 0v-2.6c0-4.1 3.3-7.4 7.4-7.4h.2c4.1 0 7.4 3.3 7.4 7.4v2.6h-15z" />
+      </g>
+    </svg>
+  )
+}

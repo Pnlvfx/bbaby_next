@@ -1,6 +1,5 @@
 import type { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { getArticle } from '../../../components/API/newsAPI';
 import { getSession } from '../../../components/API/ssrAPI';
 import GovernanceCtrl from '../../../components/governance/GovernanceCtrl';
@@ -9,11 +8,11 @@ import NewsPage from '../../../components/governance/news/NewsPage';
 import { siteUrl } from '../../../components/main/config';
 
 interface NewsIdProps {
-  description: string[]
+  BBCnews: any,
+  title: string
 }
 
-const NewsPagee: NextPage<NewsIdProps> = ({ description }) => {
-  const router = useRouter()
+const NewsPagee: NextPage<NewsIdProps> = ({ BBCnews, title }) => {
   return (
     <div>
         <Head>
@@ -22,11 +21,11 @@ const NewsPagee: NextPage<NewsIdProps> = ({ description }) => {
           <link rel='canonical' href={`${siteUrl}/governance`} key='canonical' />
         </Head>
         <GovernanceCtrl>
-            {router && router.query.imageUrl && router.query.title && (
+            {title && BBCnews && (
               <NewsContextProvider 
-                originalTitle={router.query.title?.toString()} 
-                originalDescription={description}
-                originalImage={router.query.imageUrl?.toString()} 
+                originalTitle={title.toString()} 
+                originalDescription={BBCnews.full_description}
+                originalImage={BBCnews.image}
               >
                 <NewsPage />
               </NewsContextProvider>
@@ -39,22 +38,25 @@ const NewsPagee: NextPage<NewsIdProps> = ({ description }) => {
 export default NewsPagee;
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  const {link, imageUrl} = context.query;
-  let session = null;
-  let description = null;
   try {
-    if (!link) throw new Error('Missing link parameter!')
-    if (!imageUrl) throw new Error('Missing imageUrl parameters!')
-    session = await getSession(context);
-    description = await getArticle(link.toString(), imageUrl.toString(), context)
+    const { title } = context.query;
+    if (!title) throw new Error('Missing title parameter!')
+    const fixedTitle = title.toString().replaceAll('_', ' ');
+    const session = await getSession(context);
+    const BBCnews = await getArticle(fixedTitle, context);
+    return {
+      props: {
+        session,
+        BBCnews,
+        title: fixedTitle
+      },
+    }
   } catch (err) {
-    console.log(err);
-  }
-
-  return {
-    props: {
-      session,
-      description
-    },
+    const error = `Don't panic. Now we fix the issue!`
+    return {
+      props: {
+        error
+      }
+    }
   }
 }

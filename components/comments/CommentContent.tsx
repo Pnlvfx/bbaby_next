@@ -18,7 +18,7 @@ const CommentContent = () => {
     <>
         <Post post={post} />
         {!!post && !!post._id && (
-            <div className='my-6 mx-10 relative'>
+            <div className='my-6 lg:mx-10 relative'>
                 <YandexAds />
                 <CommentForm rootId={post._id} parentId={post._id} showAuthor={true} />
                 <div className='my-4'>

@@ -1,4 +1,4 @@
-import { CSSProperties, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import TimeAgo from "timeago-react";
 import { catchErrorWithMessage, urlisImage } from "../../API/common";
 import { translate } from "../../API/governance/governanceAPI";
@@ -15,44 +15,29 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
   const [newReddit, setNewReddit] = useState<newTweetProps | undefined>(undefined);
   const [showSubmit, setShowSubmit] = useState(false);
 
-  //if (!urlisImage(post.url)) return null
-
-  const titleStyle: CSSProperties = {
-    fontSize: 18,
-    fontWeight: 500,
-    lineHeight: '22px',
-    wordWrap: 'break-word',
-    display: 'inline'
-   }
+  const titleClass = `text-[18px] leading-[22px] words-breaks inline`
 
    const doTranslate = async () => {
     try {
-      const res = await translate(post.title, 'en');
-      if (res.ok) {
-        const newTitle = await res.json();
-        if (post.selftext) { 
-          await translate(post.selftext, 'en');
-          const body = await res.json();
-        }
-        const isImage = urlisImage(post.url)
-        const type = post.is_video ? 'video' : urlisImage(post.url) ? 'photo' : undefined
-        setNewReddit({
-          ...newReddit,
-          title: newTitle,
-          image: post.url ? post.url : undefined,
-          video: post.is_video ? post?.media?.reddit_video.dash_url : undefined,
-          width: type === 'video' ? post.media?.reddit_video.width : post.preview.images[0].source.width,
-          height: type === 'video' ? post.media?.reddit_video.height : post.preview.images[0].source.height,
-          type
-        })
-        setShowSubmit(true);
-      }
+      const newTitle = await translate(post.title, 'en');
+      const body = post?.selftext ? await translate(post.selftext, 'en') : undefined;
+      const isImage = urlisImage(post.url) ? true : false;
+      const type = post?.is_video ? 'video' : isImage ? 'photo' : undefined
+      setNewReddit({
+        title: newTitle,
+        body,
+        image: isImage ? post.url : undefined,
+        width: type === 'video' ? post.media?.reddit_video.width : isImage ? post.preview.images[0].source.width : undefined,
+        height: type === 'video' ? post.media?.reddit_video.height : isImage ? post.preview.images[0].source.height : undefined,
+        video: post?.is_video ? post?.media?.reddit_video.dash_url : undefined,
+        type
+      })
+      setShowSubmit(true);
     } catch (err) {
       catchErrorWithMessage(err, message)
     }
    }
 
-   //if (!post.is_video) return null
   return (
     <div>
       <div
@@ -109,7 +94,7 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
             </div>
             <div className="mx-2">
               <div className="inline align-baseline">
-                <p className={`text-[#D7DADC] whitespace-pre-wrap`} style={titleStyle}>
+                <p className={`text-[#D7DADC] whitespace-pre-wrap ${titleClass}`}>
                   {post.title}
                 </p>
               </div>
@@ -118,10 +103,12 @@ const RedditPost = ({post}: ExtendRedditPosts) => {
               <div className="max-h-[512px] relative overflow-hidden">
                   {post?.url && (
                   <div className="flex max-h-[500px] w-full items-center justify-center overflow-hidden">
-                    <img
-                      src={`${post.url}`}
-                      alt="Reddit Image"
-                    />
+                    {(urlisImage(post.url)) && (
+                      <img
+                        src={`${post.url}`}
+                        alt="Reddit Image"
+                      />
+                    )}
                   </div>
                 )}
                 {post?.is_video && post?.media?.reddit_video.dash_url && post.thumbnail && (

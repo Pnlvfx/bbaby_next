@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
-import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react"
+import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
 
 export type CommunityContextProps = {
     show: boolean
     loading: boolean
     setShow: Dispatch<SetStateAction<Boolean>>
     getCommunity: Function;
+    refreshCommunity: Function;
     communityInfo: CommunityProps;
 }
 
@@ -41,6 +42,25 @@ export const CommunityContextProvider = ({ children }: CommunityContextProviderP
             setLoading(true)
         }
     }
+
+    const refreshCommunity = async (community: string) => {
+        try {
+            const server = process.env.NEXT_PUBLIC_SERVER_URL;
+            const url = `${server}/communities/${community}`
+            const res = await fetch(url, {
+                method: 'get',
+                credentials: 'include'
+            })
+            if (res.ok) {
+                const data = await res.json();
+                setCommunityInfo(data);
+            } else {
+                setLoading(true);
+            }
+        } catch (err) {
+            setLoading(true);
+        }
+    }
   
     useEffect(() => {
         if (!router.isReady) return;
@@ -56,7 +76,8 @@ export const CommunityContextProvider = ({ children }: CommunityContextProviderP
             show, 
             setShow, 
             loading, 
-            getCommunity, 
+            getCommunity,
+            refreshCommunity,
             communityInfo
         }}>
             {children}

@@ -24,28 +24,21 @@ const PexelsImages = () => {
       setLoading(null);
     } catch (err) {
       catchErrorWithMessage(err, message);
+      setLoading(null);
     }
   }
 
   const openSubmit = async () => {
-    const res1 = await translate(originalTitle, 'en')
-    const res2 = await translate(originalDescription.join(''), 'en')
-    if (res1?.ok && res2?.ok) {
-      const title = await res1.json();
-      const description = await res2.json();
+    try {
+      const title = await translate(originalTitle, 'en');
+      const description = await translate(originalDescription, 'en');
       setTitle(title);
       setDescription(description)
       setlevel('submit')
-    } else {
-      if (res1 instanceof Response && res2 instanceof Response) {
-        const error = await res1.json();
-        message.setMessage({value: error.msg, status: 'error'})
-      } else {
-        const error:any = res1
-        message.setMessage({value: error.msg, status: 'error'})
-      }
+    } catch (err) {
+      catchErrorWithMessage(err, message);
     }
-}
+  }
 
   const selectOneImage = async (image: PexelsProps) => {
     setMediaInfo({
@@ -59,8 +52,8 @@ const PexelsImages = () => {
   }
 
   return (
-    <div className="flex-grow">
-      <div className='p-2 lg:ml-3'>
+    <div className="lg:mx-2 block">
+      <div className=''>
         <form
           className='flex items-center justify-center space-x-3 mb-4'
           onSubmit={(e) => {
@@ -105,9 +98,9 @@ const PexelsImages = () => {
               </figure>
               <button 
                 className='bg-reddit_dark-brightest p-2 rounded-md'
-                onClick={(e) => {
+                onClick={async (e) => {
                     e.preventDefault();
-                    selectOneImage(image)
+                    await selectOneImage(image)
                 }}
               >
                 <p className='font-bold'>Choose</p>

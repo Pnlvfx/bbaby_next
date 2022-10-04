@@ -22,6 +22,7 @@ const Submit = ({newTweet, community }: SubmitProps) => {
 
     const {
         setTitle,
+        setBody,
         setHeight,
         setWidth,
         selectedCommunity,
@@ -60,12 +61,13 @@ const Submit = ({newTweet, community }: SubmitProps) => {
                 setHeight(newTweet.height)
                 setWidth(newTweet.width)
                 setSelectedFile(newTweet.image)
-            }
-            if (newTweet.type === 'video' && newTweet.height && newTweet.width) {
+            } else if (newTweet.type === 'video' && newTweet.height && newTweet.width) {
                 setIsVideo(true)
                 setHeight(newTweet.height)
                 setWidth(newTweet.width)
                 setSelectedFile(newTweet.video);
+            } else if (newTweet.body) {
+                setBody(newTweet.body);
             }
         }
     },[newTweet]);

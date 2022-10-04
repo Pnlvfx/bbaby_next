@@ -6,7 +6,6 @@ import { CloseIcon } from "../utils/SVG";
 import { CommunityContext, CommunityContextProps } from "../community/CommunityContext";
 import Donations from "../widget/Donations";
 import { getPost } from "../API/postAPI";
-import { AuthModalContext, AuthModalContextProps } from "../auth/modal/AuthModalContext";
 import Widget from "../widget/Widget";
 
 type PostModalProps = {
@@ -21,7 +20,6 @@ const PostModal = ({community, postId, open, onClickOut}: PostModalProps) => {
   const [post, setPost] = useState<PostProps>({} as PostProps);
   const [loading, setLoading] = useState(true)
   const {getCommunity} = useContext(CommunityContext) as CommunityContextProps;
-  const modalContext = useContext(AuthModalContext) as AuthModalContextProps;
 
   useEffect(() => {
     if(!postId) return;

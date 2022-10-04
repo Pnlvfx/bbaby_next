@@ -3,13 +3,18 @@ import {IoIosNotificationsOutline} from 'react-icons/io';
 import style from './notification.module.css';
 import NotificationContent from './NotificationContent';
 import ClickOutHandler from 'react-clickout-ts';
+import Link from 'next/link';
 
 const NotificationButton = () => {
   const [windowDimension, setWindowDimension] = useState(0);
   const [show, setShow] = useState(false);
 
   const detectSize = () => { //-752 originals
-    setWindowDimension(window.innerWidth - 600)
+    if (window.innerWidth >= 752) {
+      setWindowDimension(window.innerWidth - 752)
+    } else {
+      setWindowDimension(0)
+    }
   }
 
   useEffect(() => {
@@ -19,7 +24,7 @@ const NotificationButton = () => {
     return () => {
       window.removeEventListener('resize', detectSize);
     }
-  }, [windowDimension])
+  }, [windowDimension]);
 
   useEffect(() => {
     if (typeof window === undefined) return;
@@ -54,8 +59,29 @@ const NotificationButton = () => {
               <nav className={style.dropdownNav}>
                 <span className={style.navSpan}>Notifications</span>
               </nav>
+              {(
               <div>
                 <NotificationContent />
+              </div>
+              )}
+              <div className='overflow-hidden overflow-y-auto'>
+                <div className='pb-8 items-center flex justify-center rounded-[4px] flex-col p-5'>
+                  <img
+                    src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/icons/goku_notification.jpeg`}
+                    alt='default user avatar'
+                    className='h-[128px] mt-3'
+                  />
+                  <h1 className='text-[18px] leading-[22px] font-medium mb-2 mt-6'>You don&apos;t have any activity yet</h1>
+                  <p className='text-[14px] leading-[18px] text-center mx-10 text-reddit_text-darker '>
+                    That&apos;s o, maybe you need the right inspitation. Try posting in
+                    <Link href={''}>
+                      <a>{' '}
+
+                      </a>
+                    </Link>
+                    a popular community for discussion.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

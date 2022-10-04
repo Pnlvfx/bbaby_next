@@ -8,7 +8,6 @@ import { getOneNews } from '../../components/mynews/APInews';
 import { getSession } from '../../components/API/ssrAPI';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { youtubeAuth } from '../../components/API/governance/youtubeAPI';
 
 interface NewsPropsPage {
   news: NewsProps
@@ -26,14 +25,6 @@ const Governance: NextPage<NewsPropsPage> = ({ news, auth }) => {
       router.push(url);
     }
   }, [router, news])
-
-  useEffect(() => {
-    if (!router.isReady) return;
-    if (!auth) {
-      const url = `/governance`;
-      router.push(url);
-    }
-  }, [router, auth])
 
   return (
     <div className="w-full h-[1000px]">
@@ -58,14 +49,12 @@ export const getServerSideProps = async(context: NextPageContext) => {
   try {
     const {newsId} = context.query;
     const session = await getSession(context);
-    const auth = await youtubeAuth(context);
     if (!newsId) throw new Error('Missing required newsId parameter.')
     const res = await getOneNews(newsId.toString(), context);
     const news = await res.json(); //single
     return {
       props: {
         session,
-        auth,
         news,
       },
     }

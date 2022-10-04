@@ -5,17 +5,18 @@ const server = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export const translate = async (text: string, language: string) => {
     try {
-        console.log(text);
-        const url = `${server}/governance/translate?lang=${language}`
-        const body = JSON.stringify({text})
+        const url = `${server}/governance/translate?lang=${language}`;
+        const body = JSON.stringify({text});
         const res = await fetch(url, {
             method: 'post',
             headers: postRequestHeaders,
             body,
             credentials: 'include'
         });
-        return res;
+        const data = await res.json();
+        if (!res.ok) throw new Error(data?.msg);
+        return data as string;
     } catch (err) {
-        return catchError(err, 'translate');
+        throw catchError(err, 'translate');
     }
 }

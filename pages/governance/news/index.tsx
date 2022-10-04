@@ -17,6 +17,7 @@ const GovNewsPage: NextPage = () => {
   const [hasMore, setHasMore] = useState(true);
   const url = `${siteUrl}/governance/news`;
   const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const [borderColor, setBorderColor] = useState('transparent');
 
   const getMore = async () => {
     try {
@@ -32,7 +33,7 @@ const GovNewsPage: NextPage = () => {
   useEffect(() => {
     const get = async () => {
       try {
-        const res = await getBBCLinks(10, 0);
+        const res = await getBBCLinks(16, 0);
         setBBCnews(res.data);
         setTotal(res.total);
       } catch (err) {
@@ -56,19 +57,21 @@ const GovNewsPage: NextPage = () => {
           dataLength={BBCnews.length}
           next={getMore}
           hasMore={hasMore}
-          loader={[1, 2, 3, 4, 5, 6, 7, 8, 9].map((_, idx) => (
+          loader={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((_, idx) => (
             <LinkPreviewLoader key={idx} />
           ))}
           endMessage={<p>No more news.</p>}
         >
           {BBCnews.map((news, key) => (
-            <LinkPreview 
-              key={key} 
-              title={news.title} 
-              description={news.description} 
-              image={news.image} 
-              link={news.link} 
-            />
+            <div key={key} className={`border border-solid border-${borderColor}`}>
+              <LinkPreview
+                title={news.title} 
+                description={news.description} 
+                image={news.image} 
+                createdAt={news.createdAt}
+              />
+            </div>
+
           ))}
         </InfiniteScroll>
       </GovernanceCtrl>

@@ -16,7 +16,7 @@ export const getBBCLinks = async (limit : string | number, skip : string | numbe
         throw new Error(json.msg);
       }
     } catch (err) {
-      catchError(err, 'get BBC links');
+      catchError(err);
     }
 }
 
@@ -29,12 +29,11 @@ export const searchPexelsImages = async (text: string, pageSearch: string) => {
     })
     const data = await res.json();
     if (res.ok) {
-      console.log(data);
       return data;
     } else {
-      catchError(data.msg, 'Pexels image API');
+      catchError(data.msg);
     }
   } catch (err) {
-   catchError(err, 'Pexels image API');
+   catchError(err);
   }
 }

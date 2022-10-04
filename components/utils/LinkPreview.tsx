@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import TimeAgo from 'timeago-react';
 
 export interface LinkPreviewProps {
     title: string
@@ -6,18 +7,16 @@ export interface LinkPreviewProps {
     image: string
     hostname?: string
     siteName?: string
-    link: string //*the link of the original article*\\
+    createdAt?: string
 }
 
 const containerClass = `overflow-hidden border border-reddit_border rounded-md mb-3 bg-reddit_dark-brighter xl:mx-2 max-w-[700px]`
 
-const LinkPreview = ({title, description, image, hostname, link, siteName }: LinkPreviewProps) => {
-    const url = `/governance/news/${title.substring(0, 75).replace('?', '')}`
-    const query = `link=${link}&imageUrl=${image}&title=${title}`
-    const finalUrl = `${url}?${query}`;
+const LinkPreview = ({title, description, image, hostname, siteName, createdAt }: LinkPreviewProps) => {
+    const url = `/governance/news/${title}`
     return (
-        <div className={containerClass}>
-            <Link href={finalUrl}>
+        <div className={`${containerClass} h-[500px]`}>
+            <Link href={`${url}?${title}`} as={url.replaceAll(' ', '_')}>
                 <a>
                     <div className='p-2'>
                         <div className='w-full mb-4 text-lg text-center flex-none'>
@@ -36,6 +35,11 @@ const LinkPreview = ({title, description, image, hostname, link, siteName }: Lin
                         <div className='flex justify-center'>
                             <p className='text-lg'>{description}</p>
                         </div>
+                        {createdAt && (
+                            <div className='flex mt-2'>
+                                <TimeAgo className='ml-auto text-reddit_text-darker text-sm' datetime={createdAt} />
+                            </div>
+                        )}
                     </div>
                 </a>
             </Link>
@@ -47,7 +51,7 @@ export default LinkPreview;
 
 export const LinkPreviewLoader = () => {
     return (
-      <div className={containerClass}>
+      <div className={`${containerClass} h-[500px]`}>
           <div className='p-2'>
               <div className={`w-full mb-4 text-lg text-center h-[28px] loading`} />
               <div className='mb-4 flex items-center justify-center h-[350px] loading' />

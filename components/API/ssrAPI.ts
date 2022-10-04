@@ -7,7 +7,7 @@ export const ssrHeaders = (context: NextPageContext) => {
     const cookie = context?.req?.headers?.cookie ? context.req.headers.cookie : ''
     const index = context.req?.rawHeaders.indexOf('Accept-Language');
     if (!index) return //fornow
-    const lang = context.req?.rawHeaders[index + 1]
+    const lang = context.req && index ? context.req.rawHeaders[index + 1] : 'en-US';
     if (!lang) return; // fornow
     const headers = { 
         cookie,

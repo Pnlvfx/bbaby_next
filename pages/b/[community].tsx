@@ -1,4 +1,4 @@
-import {useContext, useEffect} from 'react';
+import { useContext, useEffect } from 'react';
 import BoardHeader from '../../components/community/BoardHeader';
 import {CommunityContext, CommunityContextProps} from '../../components/community/CommunityContext';
 import type { NextPage, NextPageContext } from 'next';

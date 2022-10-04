@@ -4,6 +4,7 @@ import { SubmitContextProvider } from "./SubmitContext";
 
 export interface newTweetProps {
   title: string
+  body?: string
   image?: string
   width?: number
   height?: number

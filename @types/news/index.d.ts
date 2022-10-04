@@ -11,6 +11,7 @@ interface mediaInfoProps {
 interface NewsProps {
     title: string
     description: string
+    full_description: string
     createdAt: Date
     _id: string
     mediaInfo: mediaInfoProps

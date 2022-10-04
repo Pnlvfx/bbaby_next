@@ -51,6 +51,8 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
     setPosts([...posts, ...newPosts])
   }
   //
+
+  console.log(posts);
   
   return (
     <>
@@ -77,25 +79,30 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
           
           <div>
           <InfiniteScroll
-              dataLength={posts?.length || 0}
+              dataLength={posts?.length || 1}
               next={getMorePosts}
-              hasMore={true}
+              hasMore={posts?.length > 0 ? true : false}
               loader={[1, 2, 3, 4, 5].map((_, idx) => (
                 <Skeleton isImage={true} key={idx} />
               ))}
               endMessage={<></>}
               
             >
-              {posts?.map((post, index) => {
-                if (index === 3) {
-                  return (
-                    <YandexAds key={index} />
-                  )
-                } else {
-                  return (
-                    <Post key={post._id} post={post} isListing={true} />
-                  )}
-                }
+              {posts?.length >= 1 ? (
+                posts.map((post, index) => {
+                  if (index === 3) {
+                    return (
+                      <YandexAds key={index} />
+                    )
+                  } else {
+                    return (
+                      <Post key={post._id} post={post} isListing={true} />
+                    )}
+                  })
+              ) : (
+                <div>
+                   
+                </div>
               )}
             </InfiniteScroll>
           </div>

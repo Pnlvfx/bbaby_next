@@ -1,15 +1,15 @@
-import { useContext, useEffect, useState } from 'react'
-import { RiArrowDownSLine } from 'react-icons/ri'
-import { getCategories } from '../../cotegory/APIcategory'
-import { BiInfoCircle } from 'react-icons/bi'
-import { selectCategory } from '../../API/communityAPI'
-import { CommunityContext, CommunityContextProps } from '../../community/CommunityContext'
-import { AiOutlinePlus } from 'react-icons/ai'
+import { useContext, useEffect, useState } from 'react';
+import { RiArrowDownSLine } from 'react-icons/ri';
+import { getCategories } from '../../cotegory/APIcategory';
+import { BiInfoCircle } from 'react-icons/bi';
+import { selectCategory } from '../../API/communityAPI';
+import { CommunityContext, CommunityContextProps } from '../../community/CommunityContext';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 const CategoriesDropdown = () => {
   const [show, setShow] = useState(false)
   const title = 'Adding community topics allow people to find your community. Add a primary topic and sub topic to be discovered more easily.'
-  const {communityInfo,getCommunity} = useContext(CommunityContext) as CommunityContextProps;
+  const {communityInfo, refreshCommunity} = useContext(CommunityContext) as CommunityContextProps;
   const [categoriesLists, setCategoriesLists] = useState<CategoryProps[] | []>([])
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const CategoriesDropdown = () => {
   const doSelectCategory = (categoryName: string) => {
     setShow(false)
     selectCategory(categoryName,communityInfo.name).then(() => {
-        getCommunity(communityInfo.name);
+        refreshCommunity(communityInfo.name);
     })
   }
 

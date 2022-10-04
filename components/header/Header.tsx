@@ -35,9 +35,9 @@ const Header: NextComponentType = () => {
               <Image
                 src={Logo}
                 alt="logo"
-                width={40}
-                height={40}
-                className='p-1 mr-1 pl-0'
+                width={32}
+                height={32}
+                className='mr-1 pl-0 lg:mr-2'
               />
               <TextLogo className='hidden lg:block' />
             </a>

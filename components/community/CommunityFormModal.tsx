@@ -1,12 +1,13 @@
-import { useContext, useState } from 'react'
-import { CommunityContext, CommunityContextProps } from './CommunityContext'
-import ClickOutHandler from 'react-clickout-ts'
-import { inputClass } from '../utils/Input'
-import { buttonClass, Spinner } from '../utils/Button'
-import { useRouter } from 'next/router'
-import { CloseIcon } from '../utils/SVG'
-import { showErrMsg } from '../utils/validation/Notification'
-import { postRequestHeaders } from '../main/config'
+import { useContext, useState } from 'react';
+import { CommunityContext, CommunityContextProps } from './CommunityContext';
+import ClickOutHandler from 'react-clickout-ts';
+import { inputClass } from '../utils/Input';
+import { buttonClass, Spinner } from '../utils/Button';
+import Router from 'next/router';
+import { CloseIcon, PrivateCommunity, PublicCommunity } from '../utils/SVG';
+import { showErrMsg } from '../utils/validation/Notification';
+import { postRequestHeaders } from '../main/config';
+import CommunityFormType from './CommunityFormType';
 
 const CommunityFormModal = () => {
   const { show, setShow } = useContext(CommunityContext) as CommunityContextProps;
@@ -15,7 +16,7 @@ const CommunityFormModal = () => {
     err: '',
     success: '',
   }
-  const router = useRouter()
+
   const [name, setName] = useState('')
   const [loading,setLoading] = useState(false)
   const [status, setStatus] = useState(initialState)
@@ -32,15 +33,19 @@ const CommunityFormModal = () => {
         headers: postRequestHeaders,
         credentials: 'include'
       });
-      setShow(false);
-      router.push({
-        pathname: `/b/${name}`,
-        query: {new_community : true}
-    }, `/b/${name}`)
-    } catch (err:any) {
-        err.response.data.msg &&
-        setStatus({err: err.response.data.msg, success: ""})
-        setLoading(false)
+      if (!res.ok) {
+        const error = await res.json();
+        setStatus({err: error?.msg, success: ''})
+        setLoading(false);
+      } else {
+        setShow(false);
+        Router.push({
+          pathname: `/b/${name}`,
+          query: {new_community : true}
+      }, `/b/${name}`)
+      }
+    } catch (err) {
+        setLoading(false);
     }
   }
 
@@ -56,53 +61,97 @@ const CommunityFormModal = () => {
   }
 
   return (
-    <div className={'fixed top-0 left-0 z-30 flex items-center justify-center h-screen w-screen bg-[rgba(25,25,25,.8)]'} >
+    <div className={'bg-[rgba(28,28,28,.9)] items-center box-border flex h-full overflow-auto pt-[75px] pr-[30px] pb-5 pl-[30px] fixed top-0 z-50 w-full'} >
       <ClickOutHandler
         onClickOut={() => {
           close()
         }}
       >
-        <div className="rounded-md border border-reddit_border bg-reddit_dark-brighter w-[88%]  max-w-[525px]">
-          <div className='mx-3'>
-            <div className="flex my-4 items-center">
-                <p className="font-semibold">Create a community</p>
-                <button className="ml-auto" onClick={() => close()}>
-                    <CloseIcon className='w-4 h-4' />
-                </button>
-              </div>
-              <hr className="border-reddit_border mb-3" />
-              <div className="mb-4">
-                <p className="font-semibold">Name</p>
-                <p className="text-[11px] text-reddit_text-darker">
-                  Community names including capitalization cannot be changed.
-                </p>
-              </div>
-                <div id="community name" className="mb-32">
-                  <input
-                    value={name}
-                    onChange={(ev) => setName(ev.target.value)}
-                    className={`${inputClass} w-full border border-reddit_border py-[5px] placeholder:text-reddit_text-darker`}
-                    placeholder=" b/"
-                    maxLength={21}
-                  />
-                  <p className="mt-2 text-xs text-reddit_text-darker mb-1">
-                    max 21 characters
-                  </p>
-                  {status.err && showErrMsg(status.err)}
+        <div aria-modal='true' className="rounded-md border m-auto pointer-events-auto z-50 border-[#343536] bg-reddit_dark-brighter">
+          <div className='flex pointer-events-none'>
+            <div className='self-center rounde-md flex overflow-y-auto max-h-[100vh] max-w-[568px] relative w-[fit-content] pointer-events-auto'>
+              <div className='flex items-center box-border p-4 relative rounded-b-md flex-1 m-0 max-w-[100vw] max-h-[100%] overflow-y-auto'>
+                <div className='max-w-[492px] max-h-[100%]'>
+                  <h1 className="font-medium text-[16px] leading-5 border-b border-solid border-reddit_border mb-4 pb-4 flex justify-between">
+                    Create a community
+                    <CloseIcon onClick={() => close()} className='w-4 h-4 ml-auto cursor-pointer overflow-hidden leading-5 text-[16px] ' />
+                  </h1>
+                  <div className='flex flex-col mb-[30px]' style={{flexWrap: 'wrap'}}>
+                    <div className="mb-[-4] max-w-[100%] flex flex-col mr-2">
+                      <h2 className="font-medium text-[16px] leading-5 flex- mb-1">Name</h2>
+                      <p className="text-[12px] leading-4 text-reddit_text-darker">
+                        <span className='w-full'>
+                          Community names including capitalization cannot be changed.
+                        </span>
+                      </p>
+                    </div>
+                    <div id="community name" className="items-start mt-3 flex-col flex flex-grow justify-end">
+                      <span className='text-reddit_text-darker relative top-[26px] left-3'>b/</span>
+                      <input
+                        value={name}
+                        onChange={(ev) => setName(ev.target.value)}
+                        className={`max-h-[37px] pt-1 pl-6 bg-reddit_dark-brighter border border-reddit_border box-border h-12 mb-2 rounded pb-1 pr-6 w-full text-[14px] md:text-[16px] leading-[21px]`}
+                        maxLength={21}
+                        type={'text'}
+                      />
+                      <div className="pt-1 text-xs text-reddit_text-darker mb-1">
+                        21 Characters remaining
+                      </div>
+                    </div>
+                  </div>
+                  <div className='mt-[-32px] mb-4 leading-4 text-[12px] pt-1 text-right flex'>
+                    {status.err && showErrMsg(status.err)}
+                  </div>
+                  <div className='flex-col mb-[30px] flex'>
+                    <div className='max-w-[100%] mb-[-4px] flex flex-col mr-2'>
+                      <h3 className='text-[16px] font-medium leading-5 flex mb-1'>Community type</h3>
+                    </div>
+                    <div className='items-start mt-3 flex-col flex flex-grow justify-end'>
+                      <div aria-label='type' role={'radiogroup'}>
+                        <input type={'hidden'} value={''} />
+                        <CommunityFormType
+                          text={{
+                            title: 'Public',
+                            body: 'Anyone can view, post and comment to this community.'
+                          }}
+                          icon={<PublicCommunity className='w-4 h-4 mr-1' />}
+                          checked={true}
+                        />
+                        <CommunityFormType
+                          text={{
+                            title: 'Private',
+                            body: 'Only approved users can view and submit to this community.'
+                          }}
+                          icon={<PrivateCommunity className='w-4 h-4 mr-1' />}
+                          checked={false}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-[#343536] p-4 mt-4 mb-[-16px] mx-[-16px] flex justify-end rounded-br">
+                    <button
+                      role={'button'}
+                      tabIndex={0}
+                      onClick={() => setShow(false)}
+                      className={`mr-2 h-[32px] w-[80px] ${buttonClass(true)}`}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      role={'button'}
+                      tabIndex={0}
+                      disabled={loading} 
+                      onClick={() => create()} 
+                      className={`w-[160px] h-[32px] ${buttonClass()}`}
+                    >
+                      {loading && <Spinner />}
+                      {!loading && <p>Create a community</p>}
+                    </button>
+                  </div>
                 </div>
+              </div>
             </div>
-            <div className="flex bg-[#343536] p-4 items-center justify-end">
-                <button
-                  onClick={() => setShow(false)}
-                  className={`mr-2 h-[32px] w-[80px] ${buttonClass(true)}`}
-                >
-                  Cancel
-                </button>
-                <button disabled={loading} onClick={() => create()} className={`w-[160px] h-[32px] ${buttonClass()}`}>
-                  {loading && <Spinner />}
-                  {!loading && <p>Create a community</p>}
-                </button>
-            </div>
+          </div>
         </div>
       </ClickOutHandler>
     </div>

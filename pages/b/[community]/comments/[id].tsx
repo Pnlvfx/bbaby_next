@@ -27,8 +27,6 @@ const IdPage: NextPage<PostIdPageProps> = ({ post, redirect }) => {
       if (!redirect) return;
       Router.push('/500')
     }, [redirect])
-
-    if (!post) return null;
     
     const {title} = post
     const description = post?.body?.length >= 160 ? post.body : `${post.body} ${post.ups} votes, ${post.numComments} comments in the ${post.community} community. b/${post.community}`

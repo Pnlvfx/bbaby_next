@@ -24,34 +24,34 @@ const NewsPage = () => {
   }, [level])
 
   return (
-    <div className="mt-4 flex justify-center">
-        <div className={`w-full max-w-[850px] ${showMobile ? 'hidden' : 'block'} `}>
+    <div className="mt-4 lg:grid lg:grid-cols-2">
+      <div className={`lg:mx-2 ${showMobile ? 'hidden' : 'block'} `}>
+        <div
+          id="article"
+          className="rounded-md border border-reddit_border bg-reddit_dark-brighter hover:border-reddit_text"
+        >
           <div
-            id="article"
-            className="rounded-md border border-reddit_border bg-reddit_dark-brighter hover:border-reddit_text"
+            id="title"
           >
-            <div
-              id="title"
-            >
-              <p className="mb-4 text-center text-2xl font-bold">
-                {originalTitle}
-              </p>
-            </div>
-            <div title='Open pexels search'
-              className="flex cursor-pointer justify-center"
-              onClick={(e) => {
-                e.preventDefault();
-                openPexelsImageForm();
-              }}
-            >
-              <img
-                src={originalImage} 
-                alt="News Image"
-              />
-            </div>
-            <p className="whitespace-pre-wrap">{originalDescription}</p>
+            <p className="mb-4 text-center text-2xl font-bold">
+              {originalTitle}
+            </p>
           </div>
+          <div title='Open pexels search'
+            className="flex cursor-pointer justify-center"
+            onClick={(e) => {
+              e.preventDefault();
+              openPexelsImageForm();
+            }}
+          >
+            <img
+              src={originalImage} 
+              alt="News Image"
+            />
+          </div>
+          <p className="whitespace-pre-wrap mt-4">{originalDescription}</p>
         </div>
+      </div>
       {level === 'image' && <PexelsImages />}
       {level === 'submit' && <GovSubmitNews />}
     </div>

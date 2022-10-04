@@ -32,8 +32,6 @@ const Layout = ({ children, error } : LayoutProps) => {
     if (!error) return;
     message.setMessage({value: error, status: 'error', time: 20000})
   }, [error])
-
-  console.log(session)
   
   return (
     <>

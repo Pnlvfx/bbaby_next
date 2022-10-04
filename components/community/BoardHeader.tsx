@@ -11,7 +11,7 @@ import Link from 'next/link';
 const BoardHeader = () => {
   const {
     loading,
-    getCommunity,
+    refreshCommunity,
     communityInfo
   } = useContext(CommunityContext) as CommunityContextProps;
   const authModal = useContext(AuthModalContext) as AuthModalContextProps;
@@ -27,8 +27,8 @@ const BoardHeader = () => {
   }
 
   const doSubscribe = async () => {
-    const join = await subscribe(communityInfo.name, authModal.setShow)
-    const refresh = await getCommunity(communityInfo.name)
+    const join = await subscribe(communityInfo.name, authModal.setShow);
+    const refresh = await refreshCommunity(communityInfo.name);
   }
 
   const changeAvatar = async () => {
@@ -41,7 +41,7 @@ const BoardHeader = () => {
         headers: postRequestHeaders,
         credentials: 'include'
       })
-      getCommunity(communityInfo.name);
+      refreshCommunity(communityInfo.name);
       setSelectedFile('')
     } catch (err) {
 
@@ -75,37 +75,26 @@ const BoardHeader = () => {
       </span>
       <div className="bg-reddit_dark-brighter block w-full">
         <div className="flex items-start flex-col justify-between mx-auto pr-4 pl-6 max-w-[984px]">
-          <div className='mb-3 mt-[-14px] flex items-start'>
-            {!communityInfo.user_is_moderator && (
-              <>
+          <div className='mb-3 mt-[-14px] flex items-start relative'>
+              <div 
+                className={`${communityInfo.user_is_moderator && 'cursor-pointer'}`}
+                onClick={() => {
+                  communityInfo.user_is_moderator && 
+                  filePickerRef?.current?.click()}
+                }
+              >
                 {!loading && (
                   <Image
                     src={communityInfo.communityAvatar}
                     alt="community header"
-                    className="bg-white bg-cover rounded-full border-4 border-solid border-white inline-block"
-                    width={72}
-                    height={72}
-                  />
-                )}
-              </>
-            )}
-            {communityInfo.user_is_moderator && (
-              <div className="relative -top-4 ml-0 cursor-pointer lg:ml-40" onClick={() => {
-                  filePickerRef?.current?.click()}
-                }>
-                <div className="relative h-[72px] w-[72px] overflow-hidden rounded-full border-4 border-white bg-reddit_blue">
-                  {!loading && (
-                  <Image
-                    src={communityInfo.communityAvatar}
-                    alt="community_header"
                     className="bg-white bg-cover rounded-full border-4 border-solid border-white"
                     width={72}
                     height={72}
                   />
-                  )}
-                </div>
-              <span className="text-xs font-bold">Update icon</span>
-              <input
+                )}
+              {/* <span className="text-xs font-bold">Update icon</span> */}
+              {communityInfo.user_is_moderator && 
+               <input
                 className='text-[16px]'
                 hidden
                 type="file"
@@ -120,8 +109,8 @@ const BoardHeader = () => {
                   previewFile(file)
                 }}
               />
+              }
             </div>
-          )}
             <div className='box-border items-start inline-flex flex-1 pl-4 mt-6 justify-between relative w-[calc(100%_-_80px)]'>
               <div className="inline-block max-w-[calc(100%_-_96px)] pr-6 box-border">
                 <h1 className="inline-block flex-1 text-[28px] font-bold leading-8 overflow-hidden pr-[2px] pb-[4px] text-ellipsis w-full">{communityInfo.name}</h1>
@@ -132,7 +121,7 @@ const BoardHeader = () => {
                   <button
                     role={'button'}
                     tabIndex={0}
-                    className={`${buttonClass(communityInfo.user_is_subscriber ? true : false)} w-full relative border-none text-[14px] font-bold min-h-[32px] min-w-[32px] items-center rounded-full box-border flex justify-center text-center`}
+                    className={`${buttonClass(communityInfo.user_is_subscriber ? true : false)} w-full relative ${communityInfo.user_is_subscriber ? '' : 'border-none'} text-[14px] font-bold min-h-[32px] min-w-[32px] items-center rounded-full box-border flex justify-center text-center`}
                     onClick={(e) => {
                       e.preventDefault()
                       doSubscribe()

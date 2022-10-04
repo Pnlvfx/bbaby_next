@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useContext, useEffect, useState } from 'react';
 import TimeAgo from 'timeago-react'
+import { catchErrorWithMessage } from '../../API/common';
 import { translate } from '../../API/governance/governanceAPI';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
 import SubmitLayout, { newTweetProps } from '../../submit/SubmitLayout';
@@ -21,29 +22,25 @@ type TweetPageProps = {
 }
 
 const Tweet = ({username, screen_name, created_at, title, type, videoInfo, image, width, height, user_avatar, language }: TweetPageProps) => {
-  const { setMessage } = useContext(TimeMsgContext) as TimeMsgContextProps
+  const message = useContext(TimeMsgContext) as TimeMsgContextProps
   const [newTweet, setNewTweet] = useState<newTweetProps | undefined>(undefined);
   const [showSubmit, setShowSubmit] = useState(false);
   const [video, setVideo] = useState('');
 
   const doTranslate = async () => {
-    const res = await translate(title , language)
-    if (res?.ok) {
-      if (res instanceof Response) {
-        const tweetTitle = await res.json()
-        setNewTweet({
-          title: tweetTitle,
-          image: image ? image : undefined,
-          width: width ? width : undefined,
-          height: height ? height : undefined,
-          video: video ? video : undefined,
-          type: type ? type : undefined
-        })
-        setShowSubmit(true)
-      }
-    } else {
-        const data: any = await res?.json()
-        setMessage({ value: data.msg, status: 'error' });
+    try {
+      const tweetTitle = await translate(title , language)
+      setNewTweet({
+        title: tweetTitle,
+        image: image ? image : undefined,
+        width: width ? width : undefined,
+        height: height ? height : undefined,
+        video: video ? video : undefined,
+        type: type ? type : undefined
+      })
+      setShowSubmit(true);
+    } catch (err) {
+      catchErrorWithMessage(err, message);
     }
   }
 
