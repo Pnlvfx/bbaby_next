@@ -20,8 +20,8 @@ export const getBBCLinks = async (limit : string | number, skip : string | numbe
     }
 }
 
-export const searchPexelsImages = async (text: string, pageSearch: string) => {
-  const url = `${server}/governance/pexels?text=${text}&page=${pageSearch}`
+export const searchPexelsImages = async (text: string) => {
+  const url = `${server}/governance/pexels?text=${text}`
   try {
     const res = await fetch(url, {
       method: 'get',

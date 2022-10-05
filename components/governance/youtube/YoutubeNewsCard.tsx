@@ -1,10 +1,10 @@
-import Image from 'next/image';
+import Image from 'next/future/image';
 import { useContext, useEffect } from 'react';
 import { YoutubeContext, YoutubeContextProps } from './YoutubeContext';
 import YoutubeDescription from './YoutubeDescription';
 
 const YoutubeNewsCard = (value: ValueProps) => {
-    const {news:oneNews,descriptionArray,setDescriptionArray} = useContext(YoutubeContext) as YoutubeContextProps;
+    const {news: oneNews, descriptionArray, setDescriptionArray} = useContext(YoutubeContext) as YoutubeContextProps;
     
     useEffect(() => {
       if (oneNews.description) {
@@ -31,8 +31,9 @@ const YoutubeNewsCard = (value: ValueProps) => {
                   alt={oneNews.mediaInfo.alt}
                 />
                 <div 
-                style={{width: oneNews.mediaInfo.width, height: oneNews.mediaInfo.height, color:value.textColor}}
-                className={`text-[48px] absolute right-0 left-0 top-0 bottom-0 break-words pr-10`}>
+                  style={{width: oneNews.mediaInfo.width, height: oneNews.mediaInfo.height, color:value.textColor}}
+                  className={`text-[48px] absolute right-0 left-0 top-0 bottom-0 break-words pr-10`}
+                >
                   {oneNews.title}
               </div>
               </div>

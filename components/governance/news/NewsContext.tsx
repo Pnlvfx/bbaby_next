@@ -44,10 +44,10 @@ export const NewsContextProvider = ({children, originalTitle, originalDescriptio
 
     const createNews = async () => {
         try {
-            const server = process.env.NEXT_PUBLIC_SERVER_URL
-            const body = JSON.stringify({title, description, mediaInfo})
-            const url = `${server}/governance/news`
-            setLoading(true)
+            const server = process.env.NEXT_PUBLIC_SERVER_URL;
+            const body = JSON.stringify({title, description, mediaInfo});
+            const url = `${server}/governance/news`;
+            setLoading(true);
             const res = await fetch(url, {
                 method: 'POST',
                 headers: postRequestHeaders,
@@ -59,7 +59,9 @@ export const NewsContextProvider = ({children, originalTitle, originalDescriptio
             if (!res.ok) {
                 catchErrorWithMessage(data?.msg, message);
             } else {
-                Router.push(`/news/${data._id}`);
+                Router.push({
+                    pathname: `/news/${data.title}`
+                }, `/news/${data.title.replaceAll(' ', '_')}`);
             }
         } catch (err) {
             setLoading(false);

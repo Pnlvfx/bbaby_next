@@ -1,21 +1,20 @@
-import Youtube from '../../components/governance/youtube/Youtube'
+import Youtube from '../../../components/governance/youtube/Youtube';
 import type { NextPage, NextPageContext } from "next";
-import GovernanceCtrl from "../../components/governance/GovernanceCtrl";
+import GovernanceCtrl from "../../../components/governance/GovernanceCtrl";
 import Head from 'next/head';
-import GovernanceMainMenù from '../../components/governance/GovernanceMainMenù';
-import { YoutubeContextProvider } from '../../components/governance/youtube/YoutubeContext';
-import { getOneNews } from '../../components/mynews/APInews';
-import { getSession } from '../../components/API/ssrAPI';
+import GovernanceMainMenù from '../../../components/governance/GovernanceMainMenù';
+import { YoutubeContextProvider } from '../../../components/governance/youtube/YoutubeContext';
+import { getOneNews } from '../../../components/mynews/APInews';
+import { getSession } from '../../../components/API/ssrAPI';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { siteUrl } from '../../../components/main/config';
 
 interface NewsPropsPage {
   news: NewsProps
-  auth: boolean
 }
 
-const Governance: NextPage<NewsPropsPage> = ({ news, auth }) => {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
+const Governance: NextPage<NewsPropsPage> = ({ news }) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -31,7 +30,7 @@ const Governance: NextPage<NewsPropsPage> = ({ news, auth }) => {
       <Head>
         <title>Bbabystyle - authority page - youtube</title>
         <meta name='robots' content='noindex' />
-        <link rel='canonical' href={`${hostname}/governance/youtube`} key='canonical' />
+        <link rel='canonical' href={`${siteUrl}/governance/youtube`} key='canonical' />
       </Head>
         <GovernanceCtrl>
           <GovernanceMainMenù />
@@ -47,11 +46,10 @@ export default Governance;
 
 export const getServerSideProps = async(context: NextPageContext) => {
   try {
-    const {newsId} = context.query;
+    const {title} = context.query;
     const session = await getSession(context);
-    if (!newsId) throw new Error('Missing required newsId parameter.')
-    const res = await getOneNews(newsId.toString(), context);
-    const news = await res.json(); //single
+    if (!title) throw new Error('Missing required newsId parameter.')
+    const news = await getOneNews(title.toString(), context);
     return {
       props: {
         session,

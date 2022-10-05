@@ -1,4 +1,3 @@
-import Image from "next/future/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { AiOutlineRead } from "react-icons/ai";
@@ -13,12 +12,11 @@ interface MyNewsCardProps {
 const MyNewsCard = ({news, isListing}: MyNewsCardProps) => {
     const router = useRouter();
     const {session} = useSession();
-    let width = 1920;
-    let height = 1080;
 
-    if (news.mediaInfo.width && news.mediaInfo.height) {
-        width = news.mediaInfo.width >= 1920 ? 1920 : news.mediaInfo.width;
-        height = news.mediaInfo.height >= 1080 ? 1080 : news.mediaInfo.height
+    const openNews = () => {
+        router.push({
+            pathname: `/news/${news.title}`
+        }, `/news/${news.title.toLowerCase().replaceAll(' ', '_')}`)
     }
 
   return (
@@ -26,15 +24,15 @@ const MyNewsCard = ({news, isListing}: MyNewsCardProps) => {
         <div onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            isListing ? router.push(`/news/${news._id}`) : null
+            isListing ? openNews() : null
         }} className={`${isListing && "cursor-pointer"} p-2`}>
             <p className="font-bold mb-2">{news.title}</p>
             {news.mediaInfo.isImage && news.mediaInfo.image && news.mediaInfo.width && news.mediaInfo.height && news.mediaInfo.alt && (
                 <div className="max-h-[510px] overflow-hidden">
-                    <Image 
+                    <img
                         src={news.mediaInfo.image} 
-                        width={width} 
-                        height={height} 
+                        width={news.mediaInfo.width} 
+                        height={news.mediaInfo.height} 
                         alt={news.mediaInfo.alt}
                     />
                 </div>
@@ -53,7 +51,7 @@ const MyNewsCard = ({news, isListing}: MyNewsCardProps) => {
                             e.stopPropagation();
                             router.push({
                                 pathname:`/governance/youtube`,
-                                query: {newsId: news._id}
+                                query: {title: news.title}
                             })
                         }} className="hover:bg-reddit_dark-brightest rounded-md flex p-[10px]">
                             <FcVideoProjector className="w-5 h-5" />

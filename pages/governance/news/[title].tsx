@@ -9,10 +9,9 @@ import { siteUrl } from '../../../components/main/config';
 
 interface NewsIdProps {
   BBCnews: any,
-  title: string
 }
 
-const NewsPagee: NextPage<NewsIdProps> = ({ BBCnews, title }) => {
+const NewsPagee: NextPage<NewsIdProps> = ({ BBCnews }) => {
   return (
     <div>
         <Head>
@@ -21,9 +20,9 @@ const NewsPagee: NextPage<NewsIdProps> = ({ BBCnews, title }) => {
           <link rel='canonical' href={`${siteUrl}/governance`} key='canonical' />
         </Head>
         <GovernanceCtrl>
-            {title && BBCnews && (
+            {BBCnews && (
               <NewsContextProvider 
-                originalTitle={title.toString()} 
+                originalTitle={BBCnews.title.toString()}
                 originalDescription={BBCnews.full_description}
                 originalImage={BBCnews.image}
               >
@@ -48,7 +47,6 @@ export const getServerSideProps = async (context: NextPageContext) => {
       props: {
         session,
         BBCnews,
-        title: fixedTitle
       },
     }
   } catch (err) {

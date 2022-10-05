@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useContext, useState } from 'react';
+import { catchErrorWithMessage } from '../../API/common';
 import { postRequestHeaders } from '../../main/config';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
 import { buttonClass, Spinner } from '../../utils/Button';
@@ -8,10 +9,11 @@ type UploadVideoProps = {
     setModalType: Dispatch<SetStateAction<'create_image' | 'create_video'>>
 }
 
-const UploadVideo = ({input,setModalType}:UploadVideoProps) => {
+const UploadVideo = ({input, setModalType}: UploadVideoProps) => {
     const [loading,setLoading] = useState(false)
     const server = process.env.NEXT_PUBLIC_SERVER_URL
-    const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
+    const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+    
     const uploadVideo = async() => {
         try {
             setLoading(true)
@@ -31,43 +33,36 @@ const UploadVideo = ({input,setModalType}:UploadVideoProps) => {
             })
             const response = await res.json();
             if (res.ok) {
-                setMessage({value: response.msg, status: 'success'})
+                message.setMessage({value: response.msg, status: 'success'})
                 setModalType('create_image')
                 setLoading(false)
                 } else {
-                    setMessage({value: response.msg, status: 'error'})
+                    message.setMessage({value: response.msg, status: 'error'})
                     setLoading(false)
                 }
         } catch (err) {
-            if (err instanceof Error) {
-                setMessage({value: err.message, status: 'error'})
-                setLoading(false)
-            } else {
-                setMessage({value: "That's strange!", status: 'error'})
-                setLoading(false)
-            }
-            }
+            setLoading(false);
+            catchErrorWithMessage(err, message);    
+        }
     }
 
   return (
     <>
     {input.video && (
-        <>
-            <div id="upload_video" className="mt-2 flex p-2">
-                <div className="ml-auto">
-                    <button
-                        disabled={loading}
-                        className={`w-40 h-7 mb-3 ml-auto mr-5 ${buttonClass()}${loading ? 'cursor-not-allowed' : 'cursor-pointer'}`}
-                        type='submit'
-                        onClick={() => {
-                            uploadVideo()
-                        }}>
-                        {loading && <Spinner />}
-                        {!loading && <p>Upload video</p>}
-                    </button>
-                </div>
-            </div> 
-        </>
+        <div id="upload_video" className="mt-2 flex p-2">
+            <div className="ml-auto">
+                <button
+                    disabled={loading}
+                    className={`w-40 h-7 mb-3 ml-auto mr-5 ${buttonClass()}${loading ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                    type='submit'
+                    onClick={() => {
+                        uploadVideo()
+                    }}>
+                    {loading && <Spinner />}
+                    {!loading && <p>Upload video</p>}
+                </button>
+            </div>
+        </div>
     )}
     </>
   )

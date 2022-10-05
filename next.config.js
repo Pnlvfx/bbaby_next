@@ -7,7 +7,10 @@ const NextConfig = {
       'lh3.googleusercontent.com',
       'pbs.twimg.com',
       'www.paypal.com',
-      "images.pexels.com"
+      "images.pexels.com",
+      "localhost",
+      "api.bbabystyle.com",
+      "192.168.1.22"
     ],
   },
   env: {

@@ -10,16 +10,15 @@ import { NewsContext, NewsContextProps } from './NewsContext';
 
 const PexelsImages = () => {
   const [searchPexels, setSearchPexels] = useState('');
-  const [pageSearch, setPageSearch] = useState('1');
   const [loading,setLoading] = useState<JSX.Element | null>(null!);
   const [pexelsImage, setPexelsImage] = useState<PexelsProps[] | []>([]);
-  const {originalTitle, originalDescription, setTitle, setDescription, setlevel, setMediaInfo} = useContext(NewsContext) as NewsContextProps;
+  const {originalTitle, originalDescription, setTitle, setDescription, setlevel, setMediaInfo, mediaInfo} = useContext(NewsContext) as NewsContextProps;
   const message = useContext(TimeMsgContext) as TimeMsgContextProps;
 
   const dosearchPexels = async () => {
     try {
       setLoading(<LinkPreviewLoader />)
-      const photos = await searchPexelsImages(searchPexels, pageSearch);
+      const photos = await searchPexelsImages(searchPexels);
       setPexelsImage(photos);
       setLoading(null);
     } catch (err) {
@@ -41,16 +40,17 @@ const PexelsImages = () => {
   }
 
   const selectOneImage = async (image: PexelsProps) => {
+    console.log(image);
     setMediaInfo({
       image: image.src.original,
       isImage: true,
-      width: image.width/4, 
-      height: image.height/4, 
+      width: image.width,
+      height: image.height, 
       alt: image.alt
     })
     await openSubmit();
   }
-
+  
   return (
     <div className="lg:mx-2 block">
       <div className=''>
@@ -81,7 +81,7 @@ const PexelsImages = () => {
       {pexelsImage.length >= 2 ? pexelsImage.map((image) => (
         <div key={image.id} className='mx-2 my-4 flex justify-center'>
             <div className='max-w-[700px] w-full'>
-              <figure
+              <picture
                 title='choose'
                 className='relative bg-reddit_dark-brighter box-border block cursor-pointer'
                 onClick={(e) => {
@@ -95,12 +95,12 @@ const PexelsImages = () => {
                   width={image.width}  
                   height={image.height}
                 />
-              </figure>
+              </picture>
               <button 
                 className='bg-reddit_dark-brightest p-2 rounded-md'
-                onClick={async (e) => {
+                onClick={(e) => {
                     e.preventDefault();
-                    await selectOneImage(image)
+                    selectOneImage(image)
                 }}
               >
                 <p className='font-bold'>Choose</p>

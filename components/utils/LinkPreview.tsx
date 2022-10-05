@@ -16,7 +16,7 @@ const LinkPreview = ({title, description, image, hostname, siteName, createdAt }
     const url = `/governance/news/${title}`
     return (
         <div className={`${containerClass} h-[500px]`}>
-            <Link href={`${url}?${title}`} as={url.replaceAll(' ', '_')}>
+            <Link href={url.toLowerCase().replaceAll(' ', '_')}>
                 <a>
                     <div className='p-2'>
                         <div className='w-full mb-4 text-lg text-center flex-none'>
@@ -24,7 +24,7 @@ const LinkPreview = ({title, description, image, hostname, siteName, createdAt }
                         </div>
                         <div className='mb-4 flex items-center justify-center'>
                             <picture>
-                                <img 
+                                <img
                                     src={image} 
                                     height={350} 
                                     alt='Link Image' 

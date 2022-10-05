@@ -34,12 +34,14 @@ const GovSubmitNews = () => {
             mediaInfo.image &&
             mediaInfo.width &&
             mediaInfo.height && (
-              <img
-                alt={mediaInfo.alt}
-                src={mediaInfo.image}
-                height={mediaInfo.height}
-                width={mediaInfo.width}
-              />
+              <picture>
+                <img
+                  alt={mediaInfo.alt}
+                  src={mediaInfo.image}
+                  height={mediaInfo.height}
+                  width={mediaInfo.width}
+                />
+              </picture>
             )}
         </div>
         <div className="mt-3 flex whitespace-pre-wrap break-words">

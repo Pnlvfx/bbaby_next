@@ -74,11 +74,6 @@ const CommentForm = ({
               onClick={() => {
                 setActive(true)
               }}
-              onSubmit={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  doPostComment()
-              }}
             >
               <ClickOutHandler onClickOut={() => {
                 setActive(false)
@@ -104,6 +99,9 @@ const CommentForm = ({
                   )}
                   <button
                     disabled={!enableComment}
+                    onClick={() => {
+                      doPostComment()
+                    }}
                     className={`my-1 mr-2 h-[24px] ${buttonClass()} ${
                       enableComment
                         ? 'text-opacity-100'

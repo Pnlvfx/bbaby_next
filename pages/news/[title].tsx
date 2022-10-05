@@ -1,7 +1,8 @@
 import type { NextPage, NextPageContext } from 'next';
-import { getSession, ssrHeaders } from '../../components/API/ssrAPI';
+import { getSession } from '../../components/API/ssrAPI';
 import CEO from '../../components/main/CEO';
 import { siteUrl } from '../../components/main/config';
+import { getOneNews } from '../../components/mynews/APInews';
 import MyNewsCard from '../../components/mynews/MyNewsCard';
 import Donations from '../../components/widget/Donations';
 import PolicyWidget from '../../components/widget/PolicyWidget';
@@ -11,11 +12,11 @@ interface NewsIdPageProps {
   news: NewsProps
 }
 
-const NewsIdPage: NextPage<NewsIdPageProps> = ({news}) => {
+const NewsIdPage: NextPage<NewsIdPageProps> = ({ news }) => {
   const {title} = news;
   const description = news.description.substring(0, 250);
   const image = news.mediaInfo.image
-  const url = `${siteUrl}/news/${news._id}`;
+  const url = `${siteUrl}/news/${news.title}`;
 
   return (
     <>
@@ -48,15 +49,11 @@ export default NewsIdPage;
 
 export const getServerSideProps = async(context: NextPageContext) => {
   try {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL;
-    const {newsId} = context.query;
     const session = await getSession(context);
-    const newsUrl = `${server}/news/${newsId}`
-    const res = await fetch(newsUrl, {
-      method: 'get',
-      headers: ssrHeaders(context)
-    })
-    const news = await res.json();
+    const {title} = context.query;
+    if (!title) throw new Error(`Missing title parameters.`);
+    const fixedTitle = title.toString().replaceAll('_', ' ');
+    const news =await getOneNews(fixedTitle.toString(), context);
     return {
       props: {
         session,

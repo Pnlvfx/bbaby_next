@@ -17,15 +17,15 @@ const YandexAds = () => {
               code: string
               text: string
             }) => {
-              console.log(data);
+              
             }
           })
         })
       }, []);
 
   return (
-    <div id={`yandex_rtb_R-A-1957512-${yandexBlock}`}></div>
+    <div className="mb-2" id={`yandex_rtb_R-A-1957512-${yandexBlock}`}></div>
   )
 }
 
-export default YandexAds
+export default YandexAds;

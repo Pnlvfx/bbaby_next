@@ -55,10 +55,10 @@ export const selectCategory = async (categoryName: string,name: string) => { //n
       if (res.ok) {
         return data;
       } else {
-        console.log(data?.msg)
+        throw new Error(data?.msg);
       }
     } catch (err) {
-      return err;
+      throw catchError(err)
     }
 }
 
@@ -76,10 +76,10 @@ export const searchCommunity = async (text: string) => {
     if (res.ok) {
       return data
     } else {
-      console.log(data?.msg);
+      throw new Error(data?.msg);
     }
   } catch (err) {
-    return err
+    throw catchError(err);
   }
   
 }

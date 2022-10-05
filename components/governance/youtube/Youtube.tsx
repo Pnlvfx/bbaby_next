@@ -6,16 +6,16 @@ import CreateVideo from './CreateVideo';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
 import { NextComponentType } from 'next';
 import { postRequestHeaders } from '../../main/config';
+import { catchErrorWithMessage } from '../../API/common';
 
 const Youtube:NextComponentType = () => {
-  const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
-  const _videoOptions: VideoOptionsProps = {
+  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const _videoOptions = {
     fps: '24',
     transition: 'false',
     transitionDuration: '0', // seconds
   }
-  const [videoOptions, setVideoOptions] = useState(_videoOptions)
-  const _input: InputProps = {
+  const _input = {
     images: [],
     video: '',
     localImages: [],
@@ -30,39 +30,36 @@ const Youtube:NextComponentType = () => {
     privacyStatus: '',
     msg: ''
   }
-  const [input, setInput] = useState(_input)
-  const [modalType, setModalType] = useState<modalType>('create_image')
-  const [loading, setLoading] = useState(false)
+  const [videoOptions, setVideoOptions] = useState<VideoOptionsProps>(_videoOptions);
+  const [input, setInput] = useState<InputProps>(_input);
+  const [modalType, setModalType] = useState<modalType>('create_image');
+  const [loading, setLoading] = useState(false);
 
 
   const createVideo = async () => {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
-    setLoading(true)
     try {
-      const body = JSON.stringify({ _videoOptions: videoOptions, images: input.localImages })
-      const url = `${server}/governance/create-video`
+      const server = process.env.NEXT_PUBLIC_SERVER_URL
+      setLoading(true)
+      const body = JSON.stringify({ _videoOptions: videoOptions, images: input.localImages });
+      const url = `${server}/governance/create-video`;
       const res = await fetch(url,{
         method: 'post',
         headers: postRequestHeaders,
         body,
         credentials: 'include'
-      })
+      });
       if (res.ok) {
         const response = await res.json();
-        setMessage({value:response.msg, status: 'success'})
+        message.setMessage({value:response.msg, status: 'success'})
         setInput({ ...input, video: response.video})
       } else {
         const error = await res.json();
-        setMessage({value: error.msg, status: 'error'})
+        message.setMessage({value: error.msg, status: 'error'})
       }
       setLoading(false)
     } catch (err) {
-      if (err instanceof Error) {
-        setMessage({value: err.message, status: 'error'})
-      } else {
-        setMessage({value: `That's strange!`, status: 'error'})
-      }
-      setLoading(false)
+      setLoading(false);
+      catchErrorWithMessage(err, message);
     }
   }
 

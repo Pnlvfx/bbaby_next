@@ -1,8 +1,6 @@
-import { inputClass } from '../../utils/Input'
-import { FaPause, FaPlay } from 'react-icons/fa'
-import Image from 'next/image'
-import { Dispatch, SetStateAction, useState } from 'react'
-import ReactHowler from 'react-howler'
+import { inputClass } from '../../utils/Input';
+import Image from 'next/future/image';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 interface CreateVideoProps {
   setVideoOptions: Dispatch<SetStateAction<VideoOptionsProps>>
@@ -17,8 +15,9 @@ const CreateVideo = ({
   setInput,
   videoOptions,
 }: CreateVideoProps) => {
-  const [imageIndex, setImageIndex] = useState(0)
-  const [isPlaying, setIsPlaying] = useState(false)
+  const [imageIndex, setImageIndex] = useState(0);
+
+  console.log(input);
 
   return (
     <>
@@ -34,7 +33,7 @@ const CreateVideo = ({
                     setImageIndex(0)
                   }
                 }}
-                className="cursor-pointer max-h-[520px] overflow-hidden"
+                className="cursor-pointer max-h-[520px] overflow-hidden flex justify-center items-center"
               >
                 <Image
                   src={input.images[imageIndex]}
@@ -42,6 +41,7 @@ const CreateVideo = ({
                   width={input.width}
                   height={input.height}
                   unoptimized
+                  className='max-w-[1000px]'
                 />
               </div>
               <div id="fps" className="mt-2 flex items-center">
@@ -93,20 +93,10 @@ const CreateVideo = ({
               <div id="audio" className="mt-2 flex">
                 <p className="">Audio:</p>
                 <div className="ml-auto">
-                  <ReactHowler
+                  <audio
+                    controls
                     src={input.finalAudio}
-                    playing={isPlaying}
-                    onEnd={() => setIsPlaying(false)}
                   />
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault()
-                      setIsPlaying(!isPlaying)
-                    }}
-                  >
-                    {!isPlaying && <FaPlay className="h-6 w-6" />}
-                    {isPlaying && <FaPause className="h-6 w-6" />}
-                  </button>
                 </div>
               </div>
             </form>

@@ -1,4 +1,6 @@
 import { Dispatch, SetStateAction, useContext, useState } from 'react';
+import { catchErrorWithMessage } from '../../API/common';
+import { useSession } from '../../auth/UserContext';
 import { postRequestHeaders } from '../../main/config';
 import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
 import { buttonClass, Spinner } from '../../utils/Button';
@@ -11,29 +13,26 @@ type CreateImageProps = {
   setInput: Dispatch<SetStateAction<InputProps>>
 }
 
-const CreateImage = ({
-  setModalType,
-  setInput
-}: CreateImageProps) => {
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
-  const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
-  const _value:ValueProps = {
-    textColor: '#59ff00',
-    community: 'Italy',
-    fontSize: '48',
-    format: 'webp',
+const CreateImage = ({ setModalType, setInput }: CreateImageProps) => {
+  const _value = {
+    textColor: '#000000',
+    fontSize: '80',
+    format: 'png',
   }
-  const [value, setValue] = useState(_value)
-  const [loading, setLoading] = useState(false)
-  const {news,descriptionArrayToSend} = useContext(YoutubeContext) as YoutubeContextProps;
+  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const [value, setValue] = useState<ValueProps>(_value);
+  const [loading, setLoading] = useState(false);
+  const {news, descriptionArrayToSend} = useContext(YoutubeContext) as YoutubeContextProps;
+  const {session} = useSession();
 
   const createImage = async () => {
     try {
       setLoading(true)
-      const url = `${server}/governance/create-image`
+      const server = process.env.NEXT_PUBLIC_SERVER_URL
+      const url = `${server}/governance/create-image`;
       const body = JSON.stringify({
         textColor: value.textColor,
-        newsId: news?._id,
+        title: news?.title,
         description: descriptionArrayToSend,
         fontSize: value.fontSize,
         format: value.format,
@@ -46,28 +45,23 @@ const CreateImage = ({
       })
       if (res.ok) {
         const images = await res.json();
-        setMessage({value: images.msg, status: 'success'})
+        message.setMessage({value: images.msg, status: 'success'})
         setInput(images)
         setModalType('create_video')
         setLoading(false)
       } else {
         const error = await res.json();
-        setMessage({value:error.msg, status: 'error' })
+        message.setMessage({value:error.msg, status: 'error' })
         setLoading(false)
       }
     } catch (err) {
-      if (err instanceof Error) {
-        setMessage({value: err.message, status: 'error'})
-        setLoading(false);
-      } else {
-        setMessage({value: "Something went wrong!", status: 'error'})
-        setLoading(false);
-      }
+      setLoading(false);
+      catchErrorWithMessage(err, message);
     }
   }
 
   return (
-    <div className='flex mt-5'>
+    <div className='flex mt-4'>
       <YoutubeNewsCard {...value} />
       <form className="w-full p-2 bg-reddit_dark-brighter space-y-4 rounded-md border border-reddit_border">
         <div id="news_id" className="flex items-center">

@@ -32,7 +32,7 @@ const SubmitTitle = () => {
                 }}
             >
             <TeaxtareaAutosize
-                className={`${style.submitTitle} text-[14px] md:text-[16px] ${active ? 'border-reddit_text' : 'border-reddit_border'}`}
+                className={`${style.submitTitle} text-[16px] md:text-[14px] ${active ? 'border-reddit_text' : 'border-reddit_border'}`}
                 placeholder={'Title'}
                 onClick={() => {
                     setActive(true);

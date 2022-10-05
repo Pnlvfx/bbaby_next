@@ -5,6 +5,7 @@ import {useState} from 'react';
 import { useCommentContext } from './commentutils/RootCommentContext';
 import Voting from '../voting/Voting';
 import Linkify from 'react-linkify';
+import Link from 'next/link';
 
 interface CommentsProps {
   parentId: string
@@ -28,7 +29,11 @@ const Comments = ({parentId, rootId }: CommentsProps) => {
                     alt='User Avatar' 
                     className="w-8 h-8 rounded-full mr-2" 
                   />
-                  <div className="leading-10 pr-2 text-sm font-sans">{comment.author}</div>
+                  <Link href={`/user/${comment.author}`}>
+                    <a className="leading-10 pr-2 text-sm font-sans hover:underline">
+                      {comment.author}
+                    </a>
+                  </Link>
                   <TimeAgo className='leading-10 text-sm text-reddit_text-darker font-sans' datetime={comment.createdAt} />
               </div>
               <div className='border-l-2 border-reddit_text-darker p-3 ml-[18px]'>

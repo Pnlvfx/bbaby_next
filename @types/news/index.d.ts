@@ -5,7 +5,7 @@ interface mediaInfoProps {
     video?: string
     width: number
     height: number
-    alt?: string
+    alt: string
 }
 
 interface NewsProps {
