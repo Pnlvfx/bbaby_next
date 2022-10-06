@@ -8,13 +8,13 @@ import { useContext, useEffect } from "react";
 import { TimeMsgContext, TimeMsgContextProps } from "../../components/main/TimeMsgContext";
 import { useRouter } from "next/router";
 import { getSession } from "../../components/API/ssrAPI";
+import { siteUrl } from "../../components/main/config";
 
 interface YoutubeError {
   youtube?: string
 }
 
 const Governance: NextPage<YoutubeError> = ({youtube}) => {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
   const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
   const router = useRouter();
 
@@ -34,7 +34,7 @@ const Governance: NextPage<YoutubeError> = ({youtube}) => {
       <Head>
         <title>Bbabystyle - authority page</title>
         <meta name='robots' content='noindex' />
-        <link rel='canonical' href={`${hostname}/governance`} key='canonical' />
+        <link rel='canonical' href={`${siteUrl}/governance`} key='canonical' />
       </Head>
           <GovernanceCtrl>
             <GovernanceMainMenù />

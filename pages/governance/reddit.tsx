@@ -4,12 +4,11 @@ import { getSession } from '../../components/API/ssrAPI';
 import GovernanceCtrl from '../../components/governance/GovernanceCtrl';
 import GovernanceMainMenù from '../../components/governance/GovernanceMainMenù';
 import RedditFeed from '../../components/governance/reddit/RedditFeed';
+import { siteUrl } from '../../components/main/config';
 import BestPost from '../../components/post/postutils/BestPost';
 import PostForm from '../../components/submit/submitutils/PostForm';
 
-const RedditPage:NextPage = () => {
-  const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
-
+const RedditPage: NextPage = () => {
   return (
     <div>
       <Head>
@@ -17,7 +16,7 @@ const RedditPage:NextPage = () => {
         <meta name='robots' content='noindex' />
         <link
           rel="canonical"
-          href={`${hostname}/governance/reddit`}
+          href={`${siteUrl}/governance/reddit`}
           key="canonical"
         />
       </Head>
