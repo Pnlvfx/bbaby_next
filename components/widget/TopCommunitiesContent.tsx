@@ -30,7 +30,7 @@ const TopCommunitiesContent = ({community, rank}:TopCommunitiesContentProps) => 
 
   return (
       <>
-        <Link href={'/b/'+community.name}>
+        <Link href={'/b/'+community.name.toLowerCase()}>
           <a>
             <div className='flex items-center p-1 h-[50px]'>
                 <p className='text-sm font-extrabold mx-3'>{rank}</p>

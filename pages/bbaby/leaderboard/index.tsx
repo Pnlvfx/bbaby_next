@@ -1,8 +1,8 @@
-import type { NextPage, NextPageContext } from "next"
-import Leaderboard from "../../../components/leaderboard/Leaderboard"
-import { getSession } from "../../../components/API/ssrAPI"
-import CEO from "../../../components/main/CEO"
-import { siteUrl } from "../../../components/main/config"
+import type { NextPage, NextPageContext } from "next";
+import Leaderboard from "../../../components/leaderboard/Leaderboard";
+import { getSession } from "../../../components/API/ssrAPI";
+import CEO from "../../../components/main/CEO";
+import { siteUrl } from "../../../components/main/config";
 
 const LeaderboardPage:NextPage = () => {
   const title = "Today's Top Communities";

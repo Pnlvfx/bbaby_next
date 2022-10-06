@@ -32,7 +32,7 @@ const Post = ({ post, isListing }: ExtendPostProps) => {
           <>
           {isListing ? (
             <article className={`${containerClass} article`} id={post._id}>
-              <Link href={`/b/${post.community}/comments/${post._id}`}>
+              <Link href={`/b/${post.community.toLowerCase()}/comments/${post._id}`}>
                 <a />
               </Link>
               <PostContent post={post} isListing={isListing} />

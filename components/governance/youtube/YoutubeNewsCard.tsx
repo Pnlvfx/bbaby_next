@@ -23,19 +23,25 @@ const YoutubeNewsCard = (value: ValueProps) => {
           oneNews.mediaInfo?.height && (
             <>
             <div className='mt-2'>
-              <div className='max-h-[520px] relative overflow-hidden'>
-                <Image
-                  src={oneNews.mediaInfo.image}
-                  width={oneNews.mediaInfo.width}
-                  height={oneNews.mediaInfo.height}
-                  alt={oneNews.mediaInfo.alt}
-                />
-                <div 
-                  style={{width: oneNews.mediaInfo.width, height: oneNews.mediaInfo.height, color:value.textColor}}
-                  className={`text-[48px] absolute right-0 left-0 top-0 bottom-0 break-words pr-10`}
-                >
-                  {oneNews.title}
-              </div>
+              <div className='max-h-[520px] relative'>
+                <div>
+                  <Image
+                    src={oneNews.mediaInfo.image}
+                    width={oneNews.mediaInfo.width}
+                    height={oneNews.mediaInfo.height}
+                    alt={oneNews.mediaInfo.alt}
+                  />
+                  <div 
+                    style={{
+                      width: oneNews.mediaInfo.width, 
+                      height: oneNews.mediaInfo.height, 
+                      color:value.textColor
+                    }}
+                    className={`text-[48px] absolute right-0 left-0 top-0 bottom-0 break-words`}
+                  >
+                    {oneNews.title}
+                  </div>
+                </div>
               </div>
             </div>
             </>

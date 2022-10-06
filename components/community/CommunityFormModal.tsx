@@ -1,7 +1,6 @@
 import { useContext, useState } from 'react';
 import { CommunityContext, CommunityContextProps } from './CommunityContext';
 import ClickOutHandler from 'react-clickout-ts';
-import { inputClass } from '../utils/Input';
 import { buttonClass, Spinner } from '../utils/Button';
 import Router from 'next/router';
 import { CloseIcon, PrivateCommunity, PublicCommunity } from '../utils/SVG';
@@ -40,9 +39,9 @@ const CommunityFormModal = () => {
       } else {
         setShow(false);
         Router.push({
-          pathname: `/b/${name}`,
+          pathname: `/b/${name.toLowerCase()}`,
           query: {new_community : true}
-      }, `/b/${name}`)
+      }, `/b/${name.toLowerCase()}`)
       }
     } catch (err) {
         setLoading(false);

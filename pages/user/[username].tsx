@@ -12,9 +12,9 @@ type AuthorPg = {
 }
 
 const Username: NextPage<AuthorPg> = ({author, posts}) => {
-  const title = `${author} (u/${author}) - Bbabystyle`
-  const description = `u/${author}`
-  const url = `${siteUrl}/user/${author}`
+  const title = `${author} (u/${author}) - Bbabystyle`;
+  const description = `u/${author}`;
+  const url = `${siteUrl}/user/${author.toLowerCase()}`;
   const imagePreview = `${siteUrl}/imagePreview.png`;
   const twitter_card = 'summary';
 

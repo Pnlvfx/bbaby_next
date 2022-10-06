@@ -51,8 +51,6 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
     setPosts([...posts, ...newPosts])
   }
   //
-
-  console.log(posts);
   
   return (
     <>

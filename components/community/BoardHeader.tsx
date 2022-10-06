@@ -63,7 +63,7 @@ const BoardHeader = () => {
           height: '228px'
         }}
       >
-        <Link href={`/b/${communityInfo.name}`}>
+        <Link href={`/b/${communityInfo.name.toLowerCase()}`}>
           <a>
             <div className='max-w-[1200px] h-full m-auto relative'>
               <div className='left-[50%] h-[176px]' style={{transform: 'translate(-50%, -50%)'}}>

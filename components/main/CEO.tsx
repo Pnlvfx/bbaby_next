@@ -96,7 +96,7 @@ const CEO = ({
       {video && <meta property="og:video" content={video} />}
       <meta property="og:url" content={url} key="ogurl" />
       <meta property="og:type" content={type} key="ogtype" />
-      <link rel='canonical' href={url} key='canonical' />
+      <link rel='canonical' href={url.toLowerCase()} key='canonical' />
     </Head>
   )
 }

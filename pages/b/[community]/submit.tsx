@@ -28,7 +28,7 @@ const SubmitPage:NextPage<SubmitPageProps> = ({ community }) => {
       />
       <div className='max-w-[1248px] md:py-5 md:px-6 flex flex-row justify-center box-border my-0 mx-auto'>
         <div className="lg:max-w-[740px] mr-0 w-full md:mr-6 lg:w-[740px] flex-grow">
-          <SubmitLayout />
+          <SubmitLayout community={community} />
         </div>
         <div className="mt-11 hidden lg:block">
           <TempSubmitWid />
@@ -43,9 +43,11 @@ export default SubmitPage;
 export const getServerSideProps = async (context: NextPageContext) => {
   try {
     const session = await getSession(context);
+    const {community} = context.query;
     return {
       props: {
         session,
+        community
       },
     }
   } catch (err) {

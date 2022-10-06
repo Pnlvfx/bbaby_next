@@ -17,7 +17,7 @@ const PostButtons = ({post, isListing}: PostContentProps) => {
             </div>
             {isListing ? (
                 <Link
-                    href={`/b/${post.community}/comments/${post._id}`}
+                    href={`/b/${post.community.toLowerCase()}/comments/${post._id}`}
                     scroll={false}
                 >
                     <a

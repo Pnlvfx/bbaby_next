@@ -23,17 +23,16 @@ const MoreButton = ({post, postId, isListing}: MoreButtonProps)  => {
   }
 
   const deletePost = async() => {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL;
-    const url = `${server}/posts/${postId}`
     try {
+      const server = process.env.NEXT_PUBLIC_SERVER_URL;
+      const url = `${server}/posts/${postId}`
       const res = await fetch(url, {
         method: 'delete',
         credentials: 'include'
       })
       if (!res.ok) return;
       if(router.asPath !== '/') {
-        router.push(`${window?.location?.origin}/b/${post.community}`).then(() => {
-        })
+        router.push(`${window?.location?.origin}/b/${post.community.toLowerCase()}`)
       } else {
           router.reload()
       }

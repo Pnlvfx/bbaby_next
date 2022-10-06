@@ -1,6 +1,5 @@
 import {BiLink} from 'react-icons/bi'
 import Link from 'next/link';
-import {useRouter} from 'next/router'
 import { useContext } from 'react';
 import {AuthModalContext, AuthModalContextProps} from '../../auth/modal/AuthModalContext';
 import Image from 'next/image';
@@ -13,7 +12,6 @@ type PostFormProps = {
 
 function PostForm({community}:PostFormProps) {
     const {session} = useSession();
-    const router = useRouter()
     const {setShow} = useContext(AuthModalContext) as AuthModalContextProps;
     const inputClass = 'text-[16px] md:text-[14px] leading-5 bg-reddit_dark-brightest p-2 px-3 block w-full rounded-md placeholder:text-reddit_text-darker'
     
@@ -21,7 +19,7 @@ function PostForm({community}:PostFormProps) {
     <div className='border border-reddit_border p-2 rounded-md flex bg-reddit_dark-brighter mx-auto'>
         <div className='flex-none rounded-full bg-gray-600 overflow-hidden w-9 h-9 border border-reddit_border'>
             {session?.user && (
-                <Link href={`/user/${session.user.username}`}>
+                <Link href={`/user/${session.user.username.toLowerCase()}`}>
                     <a>
                         <div className='w-9 h-9 relative'>
                             <Image 
@@ -49,7 +47,7 @@ function PostForm({community}:PostFormProps) {
         </div>
         <form className='flex-grow bg-reddit_dark-brightest border border-reddit_border hover:border-reddit_text ml-4 mr-2 rounded-md'>
             {session?.user && (
-                <Link href={!community ? '/submit' : `/b/${community}/submit?community=${community}`} as={!community ? undefined : `${router.asPath}/submit`}>
+                <Link href={!community ? '/submit' : `/b/${community}/submit`}>
                     <a>
                         <input 
                             type='text' 

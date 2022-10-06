@@ -29,7 +29,7 @@ const Comments = ({parentId, rootId }: CommentsProps) => {
                     alt='User Avatar' 
                     className="w-8 h-8 rounded-full mr-2" 
                   />
-                  <Link href={`/user/${comment.author}`}>
+                  <Link href={`/user/${comment.author.toLowerCase()}`}>
                     <a className="leading-10 pr-2 text-sm font-sans hover:underline">
                       {comment.author}
                     </a>

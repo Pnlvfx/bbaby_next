@@ -60,8 +60,8 @@ export const NewsContextProvider = ({children, originalTitle, originalDescriptio
                 catchErrorWithMessage(data?.msg, message);
             } else {
                 Router.push({
-                    pathname: `/news/${data.title}`
-                }, `/news/${data.title.replaceAll(' ', '_')}`);
+                    pathname: `/news/${data.title.toLowerCase()}`
+                }, `/news/${data.title.replaceAll(' ', '_').toLowerCase()}`);
             }
         } catch (err) {
             setLoading(false);

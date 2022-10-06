@@ -9,7 +9,7 @@ interface ModqueuePageProps {
 }
 
 const ModqueuePage: NextPage<ModqueuePageProps> = ({community}) => {
-  const url = `${siteUrl}/b/${community}/about/modqueque`
+  const url = `${siteUrl}/b/${community.toLowerCase()}/about/modqueque`
   return (
     <div>
       <Head>

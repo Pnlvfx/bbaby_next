@@ -1,10 +1,12 @@
-import { useRouter } from "next/router";
+import Router from "next/router";
+import { useEffect } from "react";
 import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
 import { catchErrorWithMessage } from "../API/common";
 import {AuthModalContext, AuthModalContextProps} from "../auth/modal/AuthModalContext";
 import { useSession } from "../auth/UserContext";
 import { postRequestHeaders } from "../main/config";
 import { TimeMsgContext, TimeMsgContextProps } from "../main/TimeMsgContext";
+import { getUserInfo } from "../user_settings/user_settingsAPI";
 
 export const SubmitContext = createContext<SubmitContextType | {}>({})
 
@@ -41,6 +43,7 @@ interface SubmitContextProviderProps  {
     setLoading: Dispatch<SetStateAction<boolean>>
     titleLength: number
     setTitleLength: Dispatch<SetStateAction<number>>
+    canPostOnTwitter: boolean
     createPost: Function
     }
 
@@ -57,12 +60,11 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
     const [thumbnail, setThumbnail] = useState(null);
     const [isImage,setIsImage] = useState(false)
     const [isVideo,setIsVideo] = useState(false)
+    const [canPostOnTwitter, setCanPostOnTwitter] = useState(false);
     const [sharePostToTG,setSharePostToTG] = useState(session?.user?.role === 1 ? true : false)
-    const [sharePostToTwitter,setSharePostToTwitter] = useState(session?.user?.role ? true : false)
+    const [sharePostToTwitter,setSharePostToTwitter] = useState(canPostOnTwitter && session?.user?.role ? true : false)
     const [loading,setLoading] = useState(false)
     const [titleLength,setTitleLength] = useState(0);
-    
-    const router = useRouter()
     const message = useContext(TimeMsgContext) as TimeMsgContextProps;
 
 
@@ -70,7 +72,7 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
         try {
             setLoading(true);
             const server = process.env.NEXT_PUBLIC_SERVER_URL;
-            const url = `${server}/posts`
+            const url = `${server}/posts`;
             const _body = JSON.stringify({
                 title,
                 body,
@@ -93,8 +95,8 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
             const data = await res.json();
             if (res.ok) {
                 if (session?.user?.role === 0) {
-                    const {_id, community} = data;
-                    router.push('/b/'+community+'/comments/'+_id)
+                    const {_id, community} = data as PostProps
+                    Router.push('/b/' + community.toLowerCase() + '/comments/' + _id)
                 } else {
                     message.setMessage({value:'Post created successfully',status: 'success'})
                     setLoading(false)
@@ -112,6 +114,18 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
             setLoading(false);
         }
     }
+
+    useEffect(() => {
+        const authorize = async () => {
+            const userInfo = await getUserInfo()
+            if (userInfo?.externalAccounts?.find((provider) => provider.provider === 'twitter')) {
+                setCanPostOnTwitter(true);
+            }
+        }
+        authorize()
+    }, [])
+
+
     return (
         <SubmitContext.Provider value={{
             title,
@@ -142,6 +156,7 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
             setTitleLength,
             thumbnail,
             setThumbnail,
+            canPostOnTwitter,
             createPost
             }}>
             {children}

@@ -16,13 +16,13 @@ const PostHeader = ({post, isListing}: PostHeaderProps) => {
         e.preventDefault()
         e.stopPropagation()
         Router.push({
-          pathname: `/b/${post.community}`,
+          pathname: `/b/${post.community.toLowerCase()}`,
         })
     }
   return (
     <div className={`relative mx-2 mb-2 flex items-start text-[12px] leading-4`}>
         <div className="flex-none align-baseline">
-            <Link href={`/b/${post.community}`}>
+            <Link href={`/b/${post.community.toLowerCase()}`}>
                 <a
                     aria-label="Community"
                     className={`inline align-baseline font-bold leading-5 ${session?.device?.mobile && isListing && 'articleLink'}`}
@@ -47,7 +47,7 @@ const PostHeader = ({post, isListing}: PostHeaderProps) => {
         <div className="flex flex-shrink flex-grow flex-wrap items-center overflow-hidden">
             <div className="inline items-center font-normal leading-4">
                 <div className="inline-block flex-none">
-                <Link href={`/b/${post.community}`}>
+                <Link href={`/b/${post.community.toLowerCase()}`}>
                     <a
                         className={`inline align-baseline font-bold leading-5 hover:underline ${session?.device?.mobile && isListing && 'articleLink'}`}
                         onClick={(e) => {
@@ -64,16 +64,16 @@ const PostHeader = ({post, isListing}: PostHeaderProps) => {
                 </span>{' '}
                 <div className=" inline-block flex-none text-reddit_text-darker">
                     <div>
-                        <Link href={`/user/${post.author}`}>
+                        <Link href={`/user/${post.author.toLowerCase()}`}>
                             <a
                                 className={`hover:underline ${session?.device?.mobile && isListing && 'articleLink'}`}
                                 onClick={(event) => {
                                 event.preventDefault()
                                 event.stopPropagation()
-                                Router.push(`/user/${post.author}`)
+                                Router.push(`/user/${post.author.toLowerCase()}`)
                                 }}
                             >
-                                {post.author && 'u/' + post.author}
+                                {'u/' + post.author}
                             </a>
                         </Link>
                     </div>

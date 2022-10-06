@@ -15,7 +15,7 @@ const MyNewsCard = ({news, isListing}: MyNewsCardProps) => {
 
     const openNews = () => {
         router.push({
-            pathname: `/news/${news.title}`
+            pathname: `/news/${news.title.toLowerCase()}`
         }, `/news/${news.title.toLowerCase().replaceAll(' ', '_')}`)
     }
 
@@ -28,14 +28,14 @@ const MyNewsCard = ({news, isListing}: MyNewsCardProps) => {
         }} className={`${isListing && "cursor-pointer"} p-2`}>
             <p className="font-bold mb-2">{news.title}</p>
             {news.mediaInfo.isImage && news.mediaInfo.image && news.mediaInfo.width && news.mediaInfo.height && news.mediaInfo.alt && (
-                <div className="max-h-[510px] overflow-hidden">
+                <picture className="max-h-[510px] overflow-hidden">
                     <img
                         src={news.mediaInfo.image} 
                         width={news.mediaInfo.width} 
                         height={news.mediaInfo.height} 
                         alt={news.mediaInfo.alt}
                     />
-                </div>
+                </picture>
             )}
             <p className="whitespace-pre-wrap truncate mt-2">{isListing ? news.description.substring(0, 250) + '...' : news.description}</p>
             <div id="buttons" className="flex items-center rounded-sm mt-2 mr-2 text-reddit_text-darker">

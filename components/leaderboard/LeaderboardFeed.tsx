@@ -16,7 +16,7 @@ const LeaderboardFeed = ({ communities }: LeaderFeedProps) => {
         <ol className="bg-reddit_dark-brighter">
           {communities.map((community, index) => (
             <li key={community._id} className="border-b border-reddit_border relative">
-              <Link href={`/b/${community.name}`}>
+              <Link href={`/b/${community.name.toLowerCase()}`}>
                 <a target={'_blank'} className="px-6 h-16 flex items-center justify-between">
                   <div className="flex items-center">
                     <span className="text-right min-w-5 text-[14px] leading-[18px]">{index +1 }</span>

@@ -11,7 +11,7 @@ interface Props {
 const CategoryPage:NextPage<Props> = ({ category }) => {
     const title = "Today's Top Communities";
     const description = 'View Bbabystyle top communities. Filter to see view top communities in sports, gaming, news, television and more.';
-    const url = `${siteUrl}/bbaby/leaderboard/${category}`;
+    const url = `${siteUrl}/bbaby/leaderboard/${category.toLowerCase()}`;
     const imagePreview = `${siteUrl}/imagePreview.png`;
     
   return (

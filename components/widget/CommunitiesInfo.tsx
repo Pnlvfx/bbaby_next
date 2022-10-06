@@ -61,7 +61,7 @@ const CommunitiesInfo = () => {
         </div>
         {communityInfo.user_is_moderator && (  //MODQUEQUE BUTTON
           <div tabIndex={0} className='m-auto mr-0 align-middle pt-[10px]'>
-            <Link href={`/b/${communityInfo.name}/about/modqueue`}>
+            <Link href={`/b/${communityInfo.name.toLowerCase()}/about/modqueue`}>
               <a className="p-1 inline-block">
                 <MdOutlineAdminPanelSettings className="icon mr-1 inline-block" />
                 MOD TOOLS

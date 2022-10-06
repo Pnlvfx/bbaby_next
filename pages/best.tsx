@@ -13,7 +13,6 @@ const Best: NextPage<BestPg> = ({posts}) => {
   const imagePreview = `${siteUrl}/imagePreview.png`;
   const description = 'Bbabystyle is a network where you can create your community and start to talk about whatever you want.';
   const twitter_card = 'summary';
-  const url = siteUrl
 
   return (
     <>
@@ -22,7 +21,7 @@ const Best: NextPage<BestPg> = ({posts}) => {
       description={description}
       twitter_card={twitter_card}
       type={'website'}
-      url={url}
+      url={siteUrl}
       image={imagePreview}
       width={'256'}
       height={'256'}

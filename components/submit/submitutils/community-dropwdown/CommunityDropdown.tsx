@@ -10,7 +10,11 @@ import { SubmitContext, SubmitContextType } from '../../SubmitContext';
 import CommunityList from './CommunityList';
 import {BiSearch} from 'react-icons/bi';
 
-const CommunityDropdown = () => {
+interface CommunityDropdown {
+  initialCommunity?: string
+}
+
+const CommunityDropdown = ({initialCommunity}: CommunityDropdown) => {
   const { session } = useSession();
   const [show, setShow] = useState(false)
   const [activeClass, setActiveClass] = useState(false)
@@ -23,10 +27,6 @@ const CommunityDropdown = () => {
     setSelectedCommunity(e?.currentTarget.value)
   }
 
-  const createNewCommunity = () => {
-    setShowCommunityForm(true);
-  }
-
   const openDropdown = () => {
     setActiveClass(true)
     setShow(true)
@@ -37,8 +37,15 @@ const CommunityDropdown = () => {
     setActiveClass(false)
   }
 
+  useEffect(() => {
+    if (!initialCommunity) return;
+    getCommunity(initialCommunity)
+    setSelectedCommunity(communityInfo.name);
+  }, []);
+
   useEffect(() => {  ///FIRST CALL  USER PREF COMMUNITY.
     if (!session?.user) return;
+    if (initialCommunity) return;
     if (selectedCommunity) {
       getCommunity(selectedCommunity)
     } else {
@@ -54,6 +61,7 @@ const CommunityDropdown = () => {
 
   useEffect(() => { ///SEARCH
     if (!session?.user) return;
+    if (initialCommunity) return;
     if (!selectedCommunity) return;
     const timer = setTimeout(() => {
       searchCommunity(selectedCommunity).then((res) => {
@@ -63,7 +71,7 @@ const CommunityDropdown = () => {
     return () => {
       clearTimeout(timer)
     }
-  },[selectedCommunity, session])
+  },[selectedCommunity, session, initialCommunity])
 
   return (
     <div className={style.dropdownContainer}>

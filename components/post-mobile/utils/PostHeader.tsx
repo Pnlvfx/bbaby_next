@@ -9,7 +9,7 @@ const PostHeader = ({post}: PostMobile) => {
                 <div className="text-[.875rem] pr-12 pl-4 py-2 items-center whitespace-nowrap flex-grow flex-shrink-0 flex mb-2 relative leading-5">
                     <div className="items-center flex text-[.875rem] whitespace-nowrap leading-5">
                         <span className="leading-[1px] text-[2rem] align-middle overflow-hidden flex-shrink-0 w-8 h-8 mr-2 whitespace-nowrap">
-                            <Link href={`/b/${post.community}`}>
+                            <Link href={`/b/${post.community.toLowerCase()}`}>
                                 <a>
                                     <span>
                                         <div className="rounded-full overflow-hidden">
@@ -30,7 +30,7 @@ const PostHeader = ({post}: PostMobile) => {
                         <div>
                             <div className="font-semibold whitespace-nowrap leading-5 text-[.875rem]">
                                 <span>
-                                    <Link href={`/b/${post.community}`}>
+                                    <Link href={`/b/${post.community.toLowerCase()}`}>
                                         <a className="white-space-nowrap font-semibold">
                                             r/{post.community}
                                         </a>
@@ -42,7 +42,7 @@ const PostHeader = ({post}: PostMobile) => {
                             <div className="leading-6 text-[.75rem] text-reddit_text-darker whitespace-nowrap">
                                 <span>Posted by </span>
                                 <span>
-                                    <Link href={`/user/${post.author}`}>
+                                    <Link href={`/user/${post.author.toLowerCase()}`}>
                                         <a>
                                             {post.author}
                                         </a>

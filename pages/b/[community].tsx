@@ -14,8 +14,8 @@ type CommunityPg = {
 
 const CommunityPage: NextPage<CommunityPg> = ({community, posts}) => {
   const {getCommunity, communityInfo} = useContext(CommunityContext) as CommunityContextProps;
-  const description = communityInfo.description ? communityInfo.description : `r/${communityInfo.name}`
-  const url = `${siteUrl}/b/${community}`
+  const description = communityInfo.description ? communityInfo.description : `r/${communityInfo.name}`;
+  const url = `${siteUrl}/b/${community.toLowerCase()}`;
 
   useEffect(() => {
     getCommunity(community)

@@ -8,13 +8,11 @@ export const openPost = (
     ) => {
     e.preventDefault();
     e.stopPropagation();
-    const url = mobile
-    ? `/b/${post.community}/comments/${post._id}`
-    : Router.pathname
+    const url = mobile ? `/b/${post.community.toLowerCase()}/comments/${post._id}` : Router.pathname
     const query = mobile
       ? undefined
       : { postId: post._id, community: post.community, username: post.author }
-    const as = mobile ? undefined : `/b/${post.community}/comments/${post._id}`
+    const as = mobile ? undefined : `/b/${post.community.toLowerCase()}/comments/${post._id}`
     Router.push(
       {
         pathname: url,

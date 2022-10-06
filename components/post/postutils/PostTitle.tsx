@@ -16,7 +16,7 @@ const PostTitle = ({post, isListing}: PostTitle) => {
             <>
             {session?.device?.mobile ? (
             <div className='overflow-hidden break-words box-border block pointer-events-none'>
-                <Link href={`/b/${post.community}/comments/${post._id}`}>
+                <Link href={`/b/${post.community.toLowerCase()}/comments/${post._id}`}>
                 <a className={`whitespace-pre-wrap text-[#D7DADC] ${titleClass} ${
                     !post.title && 'loading'
                 }`}>

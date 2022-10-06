@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from 'react';
+import { useContext, useEffect } from 'react';
 import { buttonClass, Spinner } from '../utils/Button';
 import CommunityDropdown from './submitutils/community-dropwdown/CommunityDropdown';
 import { useSession } from '../auth/UserContext';
@@ -7,7 +7,6 @@ import Body from './submitutils/Body';
 import SubmitType from './SubmitType';
 import SubmitTitle from './SubmitTitle';
 import { newTweetProps } from './SubmitLayout';
-import { getUserInfo } from '../user_settings/user_settingsAPI';
 import Link from 'next/link';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 
@@ -18,7 +17,6 @@ type SubmitProps = {
 
 const Submit = ({newTweet, community }: SubmitProps) => {
     const {session} = useSession();
-    const [canPostOnTwitter, setCanPostOnTwitter] = useState(false);
 
     const {
         setTitle,
@@ -26,7 +24,6 @@ const Submit = ({newTweet, community }: SubmitProps) => {
         setHeight,
         setWidth,
         selectedCommunity,
-        setSelectedCommunity,
         setSelectedFile,
         setIsImage,
         setIsVideo,
@@ -34,6 +31,7 @@ const Submit = ({newTweet, community }: SubmitProps) => {
         setSharePostToTG,
         sharePostToTwitter,
         setSharePostToTwitter,
+        canPostOnTwitter,
         loading,
         titleLength,
         createPost
@@ -45,10 +43,6 @@ const Submit = ({newTweet, community }: SubmitProps) => {
     //SHARE TO TWITTER
     const shareToTwitter = () => {
         setSharePostToTwitter(!sharePostToTwitter)
-    }
-
-    if(community) {
-        setSelectedCommunity(community.toString())
     }
 
     //////MY TWEEEEEEEEET
@@ -72,16 +66,6 @@ const Submit = ({newTweet, community }: SubmitProps) => {
         }
     },[newTweet]);
 
-    useEffect(() => {
-        const authorize = async () => {
-            const userInfo = await getUserInfo()
-            if (userInfo?.externalAccounts?.find((provider) => provider.provider === 'twitter')) {
-                setCanPostOnTwitter(true);
-            }
-        }
-        authorize()
-    }, [])
-
   return (
     <>
     <div tabIndex={0} />
@@ -101,7 +85,7 @@ const Submit = ({newTweet, community }: SubmitProps) => {
                     </button>
                 </div>
             )}
-            <CommunityDropdown />
+            <CommunityDropdown initialCommunity={community?.toString()} />
             <div className='bg-reddit_dark-brighter mb-5 rounded-[5px]'>
                 {!newTweet && <SubmitType />}
                 <div className='m-4'>

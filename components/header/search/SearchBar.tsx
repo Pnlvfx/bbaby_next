@@ -1,16 +1,15 @@
 import {BsSearch} from 'react-icons/bs'
-import { useRouter } from 'next/router'
+import Router from 'next/router'
 import { MouseEvent, useState } from 'react'
 import SearchDropdown from './SearchDropdown'
 
 const SearchBar = () => {
-  const router = useRouter()
   const [searchText, setSearchText] = useState('')
   const [show, setShow] = useState(false)
 
   const doSearch = (ev: MouseEvent<HTMLFormElement>) => {
     ev.preventDefault()
-    router.push({
+    Router.push({
       pathname: '/search',
       query: {text: searchText}
     });
