@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSession } from "../auth/UserContext";
+import { useSession } from "../../auth/UserContext";
 
 const YandexAds = () => {
     const {session} = useSession();

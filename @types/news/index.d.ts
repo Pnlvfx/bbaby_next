@@ -1,7 +1,7 @@
 interface mediaInfoProps {
     isImage?: boolean
     isVideo?: boolean
-    image: string
+    image?: string
     video?: string
     width: number
     height: number
@@ -9,9 +9,10 @@ interface mediaInfoProps {
 }
 
 interface NewsProps {
+    author: string
     title: string
     description: string
-    full_description: string
+    permalink: string
     createdAt: Date
     _id: string
     mediaInfo: mediaInfoProps

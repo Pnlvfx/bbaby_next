@@ -27,7 +27,7 @@ const Donations = () => {
   }
 
   useEffect(() => {
-    if (session?.device?.mobile) return
+    if (session?.device?.mobile) return;
     setTimeout(() => {
       setPaypal(PaypalComp)
     }, 500)

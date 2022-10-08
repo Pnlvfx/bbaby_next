@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/future/image';
 import Voting from './Voting';
 import Video from '../utils/video/Video';
 import { useSession } from '../auth/UserContext';
@@ -63,7 +63,7 @@ const PostContent = ({ post, isListing }: PostContentProps) => {
           {isListing ? (
             <footer className='pointer-events-none'>
               <PostButtons post={post} isListing={isListing} />
-          </footer>
+            </footer>
           ) : (
             <PostButtons post={post} isListing={isListing} />
           )}

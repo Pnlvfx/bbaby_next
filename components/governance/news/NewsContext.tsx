@@ -1,7 +1,7 @@
 import Router from "next/router";
 import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
 import { catchErrorWithMessage } from "../../API/common";
-import { postRequestHeaders } from "../../main/config";
+import { buildUnderscoreUrl, postRequestHeaders } from "../../main/config";
 import { TimeMsgContext, TimeMsgContextProps } from "../../main/TimeMsgContext";
 
 interface NewsContextProviderProps {
@@ -59,9 +59,7 @@ export const NewsContextProvider = ({children, originalTitle, originalDescriptio
             if (!res.ok) {
                 catchErrorWithMessage(data?.msg, message);
             } else {
-                Router.push({
-                    pathname: `/news/${data.title.toLowerCase()}`
-                }, `/news/${data.title.replaceAll(' ', '_').toLowerCase()}`);
+                Router.push(buildUnderscoreUrl(`/news/${data.title}`));
             }
         } catch (err) {
             setLoading(false);

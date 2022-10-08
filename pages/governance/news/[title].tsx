@@ -39,10 +39,10 @@ export default NewsPagee;
 export const getServerSideProps = async (context: NextPageContext) => {
   try {
     const { title } = context.query;
-    if (!title) throw new Error('Missing title parameter!')
-    const fixedTitle = title.toString().replaceAll('_', ' ');
+    if (!title) throw new Error('Missing title parameter!');
+    const permalink = `/governance/news/${title}`;
     const session = await getSession(context);
-    const BBCnews = await getArticle(fixedTitle, context);
+    const BBCnews = await getArticle(permalink, context);
     return {
       props: {
         session,

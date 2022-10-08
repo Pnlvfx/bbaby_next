@@ -1,7 +1,5 @@
-import { inputClass } from '../utils/Input';
-import {useState, useContext} from 'react';
+import {useState} from 'react';
 import { buttonClass } from '../utils/Button';
-import { AuthModalContextProps, AuthModalContext } from './modal/AuthModalContext';
 import Image from 'next/image';
 import Logo from '../../public/logo.png';
 import { userAPIurl } from '../../lib/url';
@@ -10,7 +8,6 @@ import { postRequestHeaders } from '../main/config';
 function ResetYourPassword() {
     const [email,setEmail] = useState('');
     const [username,setUsername] = useState('');
-    const modalContext = useContext(AuthModalContext) as AuthModalContextProps;
 
     const resetPassword = async () => {
         const res = await fetch(userAPIurl.reset_password, {
@@ -33,12 +30,12 @@ function ResetYourPassword() {
             <div className='pt-4'>
                 <label>
                     <span className='text-reddit_text-darker text-sm'>Username:</span>
-                    <input type='text' className={`mb-3 w-80 p-2 ${inputClass}`} value={username} onChange={(e) => setUsername(e.target.value)}/>
+                    <input type='text' className={`mb-3 w-80 p-2 inputClass`} value={username} onChange={(e) => setUsername(e.target.value)}/>
                 </label>
                 {/* {status.err && showErrMsg(status.err)} */}
                 <label>
                     <span className='text-reddit_text-darker text-sm'>E-mail:</span>
-                    <input type='email' className={`p-2 mb-3 w-80 ${inputClass}`} value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input type='email' className={`p-2 mb-3 w-80 inputClass`} value={email} onChange={(e) => setEmail(e.target.value)} />
                 </label>
             </div>
             <div>

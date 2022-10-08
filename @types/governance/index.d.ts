@@ -48,5 +48,4 @@ type VideoOptionsProps = {
   type ValueProps = {
     textColor: string
     fontSize: string
-    format: string
   }

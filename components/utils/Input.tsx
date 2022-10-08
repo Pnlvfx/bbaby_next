@@ -1,1 +1,0 @@
-export const inputClass = "bg-reddit_dark-brighter rounded-md block text-[16px] md:text-[12px]"

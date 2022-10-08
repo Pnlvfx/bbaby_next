@@ -9,7 +9,7 @@ import { AuthModalContextProvider } from '../components/auth/modal/AuthModalCont
 import { CommunityContextProvider } from '../components/community/CommunityContext';
 import { TimeMsgContextProvider } from '../components/main/TimeMsgContext';
 import { GoogleOAuthProvider } from '../components/auth/providers/google/GoogleOAuthProvider';
-import Layout from '../components/main/Layout';
+import Layout from '../app/Layout';
 import { useEffect } from 'react';
 interface App {
   session: SessionProps

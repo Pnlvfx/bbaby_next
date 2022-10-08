@@ -24,7 +24,7 @@
     "**/*.js",
     "pages/index.jsx",
     "pages/index.js",
-    "components/main/Layout.tsx",
+    "app/Layout.tsx",
     "components/auth/UserContext.tsx",
     "components/user_settings/Profile.tsx",
     "components/user_settings/Profile.tsx",

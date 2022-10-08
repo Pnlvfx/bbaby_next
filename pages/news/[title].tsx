@@ -47,13 +47,13 @@ const NewsIdPage: NextPage<NewsIdPageProps> = ({ news }) => {
 
 export default NewsIdPage;
 
-export const getServerSideProps = async(context: NextPageContext) => {
+export const getServerSideProps = async (context: NextPageContext) => {
   try {
     const session = await getSession(context);
     const {title} = context.query;
     if (!title) throw new Error(`Missing title parameters.`);
     const fixedTitle = title.toString().replaceAll('_', ' ');
-    const news =await getOneNews(fixedTitle.toString(), context);
+    const news = await getOneNews(fixedTitle, context);
     return {
       props: {
         session,

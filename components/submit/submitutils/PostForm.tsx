@@ -37,7 +37,7 @@ function PostForm({community}:PostFormProps) {
                 <div className='w-9 h-9 relative'>
                     <Image 
                         className='rounded-full'
-                        src='https://res.cloudinary.com/bbabystyle/image/upload/v1655209740/default/avatar_txt7me.webp' 
+                        src={'https://res.cloudinary.com/bbabystyle/image/upload/v1655209740/default/avatar_txt7me.webp'} 
                         alt='User Avatar'
                         layout='fill'
                         objectFit='cover'

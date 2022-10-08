@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { GoCommentDiscussion } from "react-icons/go";
 import Post from "../post/Post";
-import YandexAds from "../yandex-ads/YandexAds";
+import YandexAds from "../utils/yandex-ads/YandexAds";
 import Comments from "./Comments";
 import CommentForm from "./commentutils/CommentForm";
 import { useCommentContext } from "./commentutils/RootCommentContext";

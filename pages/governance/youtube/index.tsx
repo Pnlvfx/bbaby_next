@@ -35,7 +35,7 @@ const Governance: NextPage<NewsPropsPage> = ({ news }) => {
         <GovernanceCtrl>
           <GovernanceMainMenù />
           <YoutubeContextProvider ssrNews={news} >
-            <Youtube /> 
+            <Youtube />
           </YoutubeContextProvider>
         </GovernanceCtrl>
     </div>
@@ -48,7 +48,8 @@ export const getServerSideProps = async(context: NextPageContext) => {
   try {
     const {title} = context.query;
     const session = await getSession(context);
-    if (!title) throw new Error('Missing required newsId parameter.')
+    if (!title) throw new Error('Missing required title parameter.');
+    
     const news = await getOneNews(title.toString(), context);
     return {
       props: {

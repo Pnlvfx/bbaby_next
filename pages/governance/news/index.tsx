@@ -4,7 +4,7 @@ import { getBBCLinks } from "../../../components/API/governance/governanceNewsAP
 import { getSession } from "../../../components/API/ssrAPI";
 import GovernanceCtrl from "../../../components/governance/GovernanceCtrl";
 import GovernanceMainMenù from "../../../components/governance/GovernanceMainMenù";
-import LinkPreview, { LinkPreviewLoader, LinkPreviewProps } from "../../../components/utils/LinkPreview";
+import LinkPreview, { LinkPreviewLoader } from "../../../components/utils/LinkPreview";
 import { useContext, useEffect, useState } from "react";
 import { siteUrl } from "../../../components/main/config";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -12,12 +12,11 @@ import { catchErrorWithMessage } from "../../../components/API/common";
 import { TimeMsgContext, TimeMsgContextProps } from "../../../components/main/TimeMsgContext";
 
 const GovNewsPage: NextPage = () => {
-  const [BBCnews, setBBCnews] = useState<LinkPreviewProps[] | []>([]);
+  const [BBCnews, setBBCnews] = useState<ExternalNews[] | []>([]);
   const [total, setTotal] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const url = `${siteUrl}/governance/news`;
   const message = useContext(TimeMsgContext) as TimeMsgContextProps;
-  const [borderColor, setBorderColor] = useState('transparent');
 
   const getMore = async () => {
     try {
@@ -41,7 +40,7 @@ const GovNewsPage: NextPage = () => {
       }
     }
     get();
-  },[])
+  },[]);
 
   return (
     <>
@@ -63,15 +62,16 @@ const GovNewsPage: NextPage = () => {
           endMessage={<p>No more news.</p>}
         >
           {BBCnews.map((news, key) => (
-            <div key={key} className={`border border-solid border-${borderColor}`}>
+            <div key={key} className={`border border-solid border-${news?.full_description?.length <= 1000 ? 'reddit_blue' : news?.full_description?.length >= 1000 ? 'reddit_red' : 'transparent'}`}>
               <LinkPreview
+                key={key}
                 title={news.title} 
-                description={news.description} 
+                description={news.description}
+                url={news.permalink}
                 image={news.image} 
                 createdAt={news.createdAt}
               />
             </div>
-
           ))}
         </InfiniteScroll>
       </GovernanceCtrl>

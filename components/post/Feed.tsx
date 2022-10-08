@@ -11,7 +11,7 @@ import Skeleton from '../governance/twitter/Skeleton';
 import Widget from '../widget/Widget';
 import { useSession } from '../auth/UserContext';
 import PolicyWidget from '../widget/PolicyWidget';
-import YandexAds from '../yandex-ads/YandexAds';
+import YandexAds from '../utils/yandex-ads/YandexAds';
 
 type FeedProps = {
   posts: PostProps[]

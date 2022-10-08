@@ -1,17 +1,17 @@
-import Header from '../header/Header';
-import UseGoogleOneTapLogin from '../auth/providers/google/hooks/useGoogleOneTapLogin';
+import Header from '../components/header/Header';
+import UseGoogleOneTapLogin from '../components/auth/providers/google/hooks/useGoogleOneTapLogin';
 import dynamic from 'next/dynamic';
-import { googleLogin } from '../auth/providers/google/hooks/googleLogin';
+import { googleLogin } from '../components/auth/providers/google/hooks/googleLogin';
 import { CSSProperties, ReactNode, useContext, useEffect } from 'react';
-import { AuthModalContext, AuthModalContextProps } from '../auth/modal/AuthModalContext';
+import { AuthModalContext, AuthModalContextProps } from '../components/auth/modal/AuthModalContext';
 import { useRouter } from 'next/router';
-import { TimeMsgContext, TimeMsgContextProps } from './TimeMsgContext';
-import { useSession } from '../auth/UserContext';
-import CookieConsent from '../utils/validation/cookie-consent/CookieConsent';
-import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
-import GoogleAnalytics from '../google/GoogleAnalytics';
+import { TimeMsgContext, TimeMsgContextProps } from '../components/main/TimeMsgContext';
+import { useSession } from '../components/auth/UserContext';
+import CookieConsent from '../components/utils/validation/cookie-consent/CookieConsent';
+import { CommunityContext, CommunityContextProps } from '../components/community/CommunityContext';
+import GoogleAnalytics from '../components/google/GoogleAnalytics';
 import Head from 'next/head';
-import { siteUrl } from './config';
+import { siteUrl } from '../components/main/config';
 
 interface LayoutProps {
   children: ReactNode
@@ -24,9 +24,9 @@ const Layout = ({ children, error } : LayoutProps) => {
   const message = useContext(TimeMsgContext) as TimeMsgContextProps;
   const { session } = useSession();
   const communityContext = useContext(CommunityContext) as CommunityContextProps;
-  const AuthModal = dynamic(() => import('../auth/modal/AuthModal'))
-  const CommunityFormModal = dynamic(() => import('../community/CommunityFormModal'))
-  const TimeMsg = dynamic(() => import('./TimeMsg'));
+  const AuthModal = dynamic(() => import('../components/auth/modal/AuthModal'))
+  const CommunityFormModal = dynamic(() => import('../components/community/CommunityFormModal'))
+  const TimeMsg = dynamic(() => import('../components/main/TimeMsg'));
 
   useEffect(() => {
     if (!error) return;
@@ -61,7 +61,6 @@ const Layout = ({ children, error } : LayoutProps) => {
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <meta name="apple-mobile-web-app-title" content="bbabystyle" />
         <meta name="mobile-web-app-capable" content="yes" />
-        {/* <meta name="twitter:creator" content="@Bbabystyle" /> */}
       </Head>
       {!session?.user 
         && !router.pathname.match('/policies') 
