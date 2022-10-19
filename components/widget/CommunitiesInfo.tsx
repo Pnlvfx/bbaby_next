@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
-import { EditTextarea } from 'react-edit-text';
 import { buttonClass } from '../utils/Button';
-import { MdOutlineAdminPanelSettings, MdOutlineModeEditOutline, MdDateRange } from 'react-icons/md';
+import { MdOutlineAdminPanelSettings, MdDateRange } from 'react-icons/md';
 import Link from 'next/link';
 import {AuthModalContext, AuthModalContextProps} from '../auth/modal/AuthModalContext';
 import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
@@ -18,7 +17,8 @@ const CommunitiesInfo = () => {
   const [descr, setDescr] = useState('');
   const { setShow } = useContext(AuthModalContext) as AuthModalContextProps;
   const message = useContext(TimeMsgContext) as TimeMsgContextProps;
-  const [created,setCreated] = useState('');
+  const [created, setCreated] = useState('');
+  const [showTextarea, setShowTextarea] = useState(false);
 
   const updateDescription = async () => {
     try {
@@ -42,7 +42,7 @@ const CommunitiesInfo = () => {
 
   //TEXTAREA
   const handleSave = ({ name, value, previousValue }: any) => {
-    setDescr(value)
+    setDescr(value);
     updateDescription();
   }
   //
@@ -72,21 +72,31 @@ const CommunitiesInfo = () => {
       </div>
       <div className='p-3'>
       {!communityInfo.user_is_moderator && !loading && (
-            <div className="mb-2">
-              <div className="text-[14px] leading-5 break-words">{communityInfo.description}</div>
-            </div>
+        <div className="mb-2">
+          <div className="text-[14px] leading-5 break-words">{descr}</div>
+        </div>
       )}
       {communityInfo.user_is_moderator && !loading && (
-        <div className="flex items-center border-reddit_text hover:border mt-3 w-full">
-            <EditTextarea
-              name={'description'}
-              defaultValue={communityInfo.description}
-              onSave={handleSave}
-              inputClassName={'bg-reddit_dark-brighter break-words leading-6 outline-none text-[16px]'}
-              className="break-words bg-reddit_dark-brighter leading-6 outline-none text-[16px]"
+        <div
+          className="transition-all block bg-reddit_dark-brightest rounded p-2 mb-3 mt-2 border border-reddit_border"
+          tabIndex={0}
+        >
+          <div
+            className="font-bold leading-4 text-[12px]"
+            onClick={() => {
+              setShowTextarea(true);
+            }}
+          >
+            {showTextarea ? (
+            <textarea 
+              className='bg-transparent w-full resize-none'
+              placeholder='Tell us about your community  '
             />
-          <div className="text-reddit_text-darker">
-            <MdOutlineModeEditOutline className="h-6 w-6" />
+            ) : (
+              <>
+              {communityInfo.description}
+              </>
+            )}
           </div>
         </div>
       )}

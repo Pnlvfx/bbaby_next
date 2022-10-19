@@ -1,5 +1,4 @@
 import CommunitiesInfo from "./CommunitiesInfo";
-import Donations from "./Donations";
 import TopCommunities from "./TopCommunities";
 
 type WidgetProps = {

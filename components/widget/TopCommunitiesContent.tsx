@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/future/image';
 import Link from 'next/link'
 import { useContext } from 'react';
 import { RiArrowUpSLine } from 'react-icons/ri';
@@ -36,7 +36,7 @@ const TopCommunitiesContent = ({community, rank}:TopCommunitiesContentProps) => 
                 <p className='text-sm font-extrabold mx-3'>{rank}</p>
                 <RiArrowUpSLine className='w-5 h-5 text-green-500 mr-2' />
                 <Image 
-                  loader={loader} 
+                  loader={loader}
                   src={community.communityAvatar} 
                   alt='Community Icon' 
                   width={30} 
