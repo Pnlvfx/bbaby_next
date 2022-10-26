@@ -7,7 +7,7 @@ import { useSession } from '../../components/auth/UserContext';
 import CEO from '../../components/main/CEO';
 import { siteUrl } from '../../components/main/config';
 
-const UserSettingsPage:NextPage = () => {
+const UserSettingsPage: NextPage = () => {
   const {session} = useSession();
   const title = 'Bbabystyle Settings'
   const description = `${session?.user?.username}`

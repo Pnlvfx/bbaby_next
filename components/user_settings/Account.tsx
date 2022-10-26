@@ -10,21 +10,20 @@ import { getUserInfo } from "./user_settingsAPI";
 
 const Account:NextComponentType = () => {
 
-  const [userInfo,setUserInfo] = useState<UserProps>({})
-  const [loading,setLoading] = useState(true)
+  const [userInfo, setUserInfo] = useState<UserProps>({})
+  const [loading, setLoading] = useState(true)
   const message = useContext(TimeMsgContext) as TimeMsgContextProps;
 
-  const _getUserInfo = async () => {
-    try {
-      const user_info = await getUserInfo();
-      setUserInfo(user_info);
-      setLoading(false);
-    } catch (err) {
-      catchErrorWithMessage(err, message)
-    }
-  }
-
   useEffect(() => {
+    const _getUserInfo = async () => {
+      try {
+        const user_info = await getUserInfo();
+        setUserInfo(user_info);
+        setLoading(false);
+      } catch (err) {
+        catchErrorWithMessage(err, message)
+      }
+    }
     _getUserInfo();
   }, [])
 
