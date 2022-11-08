@@ -37,6 +37,6 @@ export const getSession = async (context: NextPageContext) => {
         }
         return session as SessionProps;
     } catch (err) {
-        catchError(err, 'session');
+        catchError(err);
     }
 }

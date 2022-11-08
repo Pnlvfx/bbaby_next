@@ -46,7 +46,7 @@ const NotificationButton = () => {
         }}
       >
         <div className='box-border h-8 w-8 relative'>
-          <span className='bg-reddit_red rounded-xl box-border text-[10px] font-bold h-4 left-5 leading-4 px-1 absolute text-center top-0 align-middle min-w-[16px] w-auto z-[1]'>9</span>
+          {/* <span className='bg-reddit_red rounded-xl box-border text-[10px] font-bold h-4 left-5 leading-4 px-1 absolute text-center top-0 align-middle min-w-[16px] w-auto z-[1]'>9</span> */}
           <i className='icon absolute top-0 bottom-0 left-0 right-0 m-auto'>
             <IoIosNotificationsOutline />
           </i>
@@ -66,18 +66,18 @@ const NotificationButton = () => {
               )}
               <div className='overflow-hidden overflow-y-auto'>
                 <div className='pb-8 items-center flex justify-center rounded-[4px] flex-col p-5'>
-                  <img
-                    src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/icons/goku_notification.jpeg`}
-                    alt='default user avatar'
-                    className='h-[128px] mt-3'
-                  />
+                  <picture>
+                    <img
+                      src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/icons/goku_notification.jpeg`}
+                      alt='default user avatar'
+                      className='h-[128px] mt-3 rounded-sm'
+                    />
+                  </picture>
                   <h1 className='text-[18px] leading-[22px] font-medium mb-2 mt-6'>You don&apos;t have any activity yet</h1>
                   <p className='text-[14px] leading-[18px] text-center mx-10 text-reddit_text-darker '>
                     That&apos;s o, maybe you need the right inspitation. Try posting in
                     <Link href={''}>
-                      <a>{' '}
-
-                      </a>
+                      
                     </Link>
                     a popular community for discussion.
                   </p>

@@ -38,9 +38,7 @@ const TopCommunities = () => {
       >
         <h2 className='text-[16px] leading-5 bottom-2 absolute font-bold left-4 '>
           <Link href={'/bbaby/leaderboard'}>
-            <a>
-              Top Communities
-            </a>
+            Top Communities
           </Link>
         </h2>
       </div>
@@ -65,14 +63,13 @@ const TopCommunities = () => {
         }
         <div className={`${loadingCommunity && "loading"} mt-3 mx-2 mb-3 h-[32px]`}>
           {!loadingCommunity && 
-            <Link href={`/bbaby/leaderboard`}>
-              <a 
-                className="flex justify-center w-full relative bg-white text-reddit_dark text-[14px] font-bold leading-4 min-h-[32px] min-w-[32px] py-1 px-4 items-center rounded-full box-border"
-                tabIndex={0}
-                role='button'
-              >
-                  View All
-              </a>
+            <Link 
+              href={`/bbaby/leaderboard`}
+              className="flex justify-center w-full relative bg-white text-reddit_dark text-[14px] font-bold leading-4 min-h-[32px] min-w-[32px] py-1 px-4 items-center rounded-full box-border"
+              tabIndex={0}
+              role='button'
+            >
+              View All
             </Link>
           }
         </div>

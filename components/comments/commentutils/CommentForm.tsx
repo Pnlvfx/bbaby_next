@@ -59,10 +59,8 @@ const CommentForm = ({
         <div className='mb-1'>
           <span className="text-[12px] leading-[18px]">
             Comment as{' '}
-            <Link href={`/user/${session.user.username.toLowerCase()}`}>
-              <a className="text-[12px] leading-[16px] text-[#4fbcff]">
-                {session.user.username}
-              </a>
+            <Link className="text-[12px] leading-[16px] text-[#4fbcff]" href={`/user/${session.user.username.toLowerCase()}`}>
+              {session.user.username}
             </Link>
           </span>
         </div>

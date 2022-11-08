@@ -1,9 +1,8 @@
 import {useState} from 'react';
 import { buttonClass } from '../utils/Button';
 import Image from 'next/image';
-import Logo from '../../public/logo.png';
 import { userAPIurl } from '../../lib/url';
-import { postRequestHeaders } from '../main/config';
+import { LOGO, postRequestHeaders } from '../main/config';
 
 function ResetYourPassword() {
     const [email,setEmail] = useState('');
@@ -19,10 +18,14 @@ function ResetYourPassword() {
     }
 
   return (
-    <div className=''>
-        <div className='rounded-full'>
-            <Image src={Logo} alt="Logo" width={'40px'} height={'40px'}/>
-        </div>
+    <div>
+        <Image
+            src={LOGO} 
+            alt="Logo" 
+            width={40} 
+            height={40}
+            className='rounded-full'
+        />
         <p className='font-bold'>Reset your password</p>
         <div className='w-[600px] pr-48 pt-1'>
             <p>Tell us the username and email address associated with your Bbabystyle account, and we&apos;ll send you an email with a link to reset your password.</p>

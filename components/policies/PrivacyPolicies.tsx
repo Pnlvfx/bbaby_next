@@ -169,10 +169,8 @@ const PrivacyPolicies = () => {
             <li className='ml-6 text-sm mt-2'>Provide, maintain, and improve the Services;</li>
             <li className='ml-6 text-sm mt-2'>Research and develop new services;</li>
             <li className='ml-6 text-sm mt-2'>Help protect the safety of Reddit and our users, which includes blocking suspected spammers, addressing abuse, and enforcing the {' '}
-              <Link href={'/policies/user-agreement'}>
-              <a className='text-reddit_blue'>
+              <Link href={'/policies/user-agreement'} className='text-reddit_blue'>
                 Bbaby User Agreement
-              </a>
               </Link>{' '} and our other policies;
             </li>
             <li className='ml-6 text-sm mt-2'>Send you technical notices, updates, security alerts, invoices, and other support and administrative messages;</li>
@@ -185,10 +183,11 @@ const PrivacyPolicies = () => {
           <p className='text-xl font-bold mt-5'>Your Rights</p>
           <p className='mt-5 text-xl'>Data Subject and Consumer Information Requests</p>
           <p className='text-sm mt-5'>Requests for a copy of the information Bbaby has about your account—including EU General Data Protection Regulation (“GDPR”) data subject access requests and California Consumer Privacy Act (“CCPA”) consumer information requests—can be submitted {' '}
-            <Link href={'emailto: noreply.bbabystyle@gmail.com'}>
-            <a className='text-reddit_blue'>
+            <Link 
+              href={'emailto: noreply.bbabystyle@gmail.com'}
+              className='text-reddit_blue'
+            >
               here
-            </a>
           </Link>.</p>
           <p className='mt-5 text-sm'>Before we process a request from you about your personal information, we need to verify the request via your access to your Reddit account or to a verified email address associated with your Reddit account. You may also designate an authorized agent to exercise these rights on your behalf. Bbaby does not discriminate against users for exercising their rights under data protection laws to make requests regarding their personal information.</p>
           <p className="text-xl font-bold mt-5">Additional Information for EEA Users</p>

@@ -1,4 +1,4 @@
-import Image from 'next/future/image';
+import Image from 'next/image';
 import Link from 'next/link'
 import { useContext } from 'react';
 import { RiArrowUpSLine } from 'react-icons/ri';
@@ -31,30 +31,28 @@ const TopCommunitiesContent = ({community, rank}:TopCommunitiesContentProps) => 
   return (
       <>
         <Link href={'/b/'+community.name.toLowerCase()}>
-          <a>
-            <div className='flex items-center p-1 h-[50px]'>
-                <p className='text-sm font-extrabold mx-3'>{rank}</p>
-                <RiArrowUpSLine className='w-5 h-5 text-green-500 mr-2' />
-                <Image 
-                  loader={loader}
-                  src={community.communityAvatar} 
-                  alt='Community Icon' 
-                  width={30} 
-                  height={30} 
-                  className='rounded-full'
-                />          
-                <p className="ml-2 font-bold text-sm">b/{community.name}</p>
-              <div className='ml-auto mr-2'>
-                   <button onClick={(e) => {
-                    e.preventDefault()
-                    doSubscribe()
-                  }} 
-                  className={`py-[3px] px-4 mx-1 ${buttonClass(community.user_is_subscriber ? true : false)}`}>
-                    <span className='text-xs'>{community.user_is_subscriber ? "Joined" : "Join"}</span>
-                  </button>
-              </div>
+          <div className='flex items-center p-1 h-[50px]'>
+              <p className='text-sm font-extrabold mx-3'>{rank}</p>
+              <RiArrowUpSLine className='w-5 h-5 text-green-500 mr-2' />
+              <Image 
+                loader={loader}
+                src={community.communityAvatar} 
+                alt='Community Icon' 
+                width={30} 
+                height={30} 
+                className='rounded-full'
+              />          
+              <p className="ml-2 font-bold text-sm">b/{community.name}</p>
+            <div className='ml-auto mr-2'>
+                  <button onClick={(e) => {
+                  e.preventDefault()
+                  doSubscribe()
+                }} 
+                className={`py-[3px] px-4 mx-1 ${buttonClass(community.user_is_subscriber ? true : false)}`}>
+                  <span className='text-xs'>{community.user_is_subscriber ? "Joined" : "Join"}</span>
+                </button>
             </div>
-          </a>
+          </div>
         </Link>
         <hr className='border-reddit_border'/>
       </>

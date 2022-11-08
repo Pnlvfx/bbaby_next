@@ -40,38 +40,41 @@ function UserMenu({showDropdown, setShowDropdown}:any) {
             </div>
             <div id='button_no_icons' >
                 {session?.user?.role === 1 && (
-                    <Link href={`/governance`}>
-                        <a onClick={() => {
+                    <Link 
+                        href={`/governance`}
+                        onClick={() => {
                             setShowDropdown(false)
-                    }}>
-                            <div className={containerClass}>
-                                <p className={buttonClass}>Governance</p>    
-                            </div>
-                        </a>
+                        }}
+                    >
+                        <div className={containerClass}>
+                            <p className={buttonClass}>Governance</p>    
+                        </div>
                     </Link>
                 )}
                 <div className={containerClass}>
                     <p className={buttonClass}>Online Status</p>    
                 </div>
                 {session?.user && (
-                    <Link href={`/user/${session.user.username}`}>
-                        <a onClick={() => {
+                    <Link 
+                        href={`/user/${session.user.username}`}
+                        onClick={() => {
                             setShowDropdown(false)
-                        }}>
-                            <div className={containerClass}>
-                                <p className={buttonClass}>Profile</p>    
-                            </div>
-                        </a>
+                        }}
+                    >
+                        <div className={containerClass}>
+                            <p className={buttonClass}>Profile</p>    
+                        </div>
                     </Link>
                 )}
-                <Link href={`/settings`}>
-                    <a onClick={() => {
+                <Link 
+                    href={`/settings`}
+                    onClick={() => {
                         setShowDropdown(false)
-                    }}>
-                        <div className={containerClass}>
-                            <p className={buttonClass}>User Settings</p>    
-                        </div>
-                    </a>
+                    }}
+                >
+                    <div className={containerClass}>
+                        <p className={buttonClass}>User Settings</p>    
+                    </div>
                 </Link>
             </div>    
             <hr className='border-reddit_border my-3 mb-4'/>  
@@ -86,21 +89,23 @@ function UserMenu({showDropdown, setShowDropdown}:any) {
                     </div>
                 </div>
                 <div className={containerClass}>
-                        <Link href={'/policies/user-agreement'}>
-                            <a target='_blank' onClick={() => {
+                        <Link 
+                            href={'/policies/user-agreement'}
+                            target='_blank' onClick={() => {
                                 setShowDropdown(false)
-                            }}>
-                                <p className={buttonClass}>User Agreement</p> 
-                            </a>   
+                            }}
+                        >
+                            <p className={buttonClass}>User Agreement</p>  
                         </Link>
                 </div>
                 <div className={containerClass}>
-                        <Link href={'/policies/privacy-policy'}>
-                            <a target='_blank' onClick={() => {
+                        <Link 
+                            href={'/policies/privacy-policy'}
+                            target='_blank' onClick={() => {
                                 setShowDropdown(false)
-                            }} >
-                                <p className={buttonClass}>Privacy Policy</p>   
-                            </a>
+                            }} 
+                        >
+                            <p className={buttonClass}>Privacy Policy</p>   
                         </Link> 
                 </div>
             </div>

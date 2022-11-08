@@ -165,10 +165,13 @@ const Submit = ({newTweet, community }: SubmitProps) => {
                                     </div>
                                 ) : (
                                 <>
-                                    <Link href={'/settings'}>
-                                        <a rel='noopener nofollow ugc' target={'_blank'} className='text-[14px] font-semibold leading-[18px] text-reddit_blue block mr-1'>
-                                            Connect accounts to share your post
-                                        </a>
+                                    <Link 
+                                        href={'/settings'}
+                                        rel='noopener nofollow ugc' 
+                                        target={'_blank'} 
+                                        className='text-[14px] font-semibold leading-[18px] text-reddit_blue block mr-1'
+                                    >
+                                        Connect accounts to share your post
                                     </Link>
                                     <div className='relative'>
                                         <i 

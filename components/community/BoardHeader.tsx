@@ -1,4 +1,4 @@
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { communityUrl } from '../../lib/url';
 import { AuthModalContext, AuthModalContextProps } from '../auth/modal/AuthModalContext';
@@ -64,13 +64,11 @@ const BoardHeader = () => {
         }}
       >
         <Link href={`/b/${communityInfo.name?.toLowerCase()}`}>
-          <a>
-            <div className='max-w-[1200px] h-full m-auto relative'>
-              <div className='left-[50%] h-[176px]' style={{transform: 'translate(-50%, -50%)'}}>
-                {communityInfo.name}
-              </div>
+          <div className='max-w-[1200px] h-full m-auto relative'>
+            <div className='left-[50%] h-[176px]' style={{transform: 'translate(-50%, -50%)'}}>
+              {communityInfo.name}
             </div>
-          </a>
+          </div>
         </Link>
       </span>
       <div className="bg-reddit_dark-brighter block w-full">

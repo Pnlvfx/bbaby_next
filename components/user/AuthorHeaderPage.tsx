@@ -12,8 +12,8 @@ const AuthorHeaderPage = () => {
             <div className="user-header3 user-header3_1">
                 <div className="user-header4">
                     {input.map((i, index) => (
-                        <Link key={index} href={'/'}>
-                            <a className='user-header-links user-header-links-active'>{i}</a>
+                        <Link className='user-header-links user-header-links-active' key={index} href={'/'}>
+                            {i}
                         </Link>
                     ))}
                 </div>

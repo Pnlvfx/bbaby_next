@@ -21,20 +21,16 @@ const UserAgreement = () => {
               If you live outside the European Economic Area (“EEA”), the United
               Kingdom, or Switzerland, your terms are{' '}
               <Link href={'/policies/user-agreement'}>
-                <a>
-                  <span className="text-reddit_blue">here</span>
-                  <span>.</span>
-                </a>
+                <span className="text-reddit_blue">here</span>
+                <span>.</span>
               </Link>
             </p>
             <p className="text-sm">
               If you live in the EEA, United Kingdom, or Switzerland, your terms
               are{' '}
               <Link href={'/policies/user-agreement'}>
-                <a>
-                  <span className="text-reddit_blue">here</span>
-                  <span>.</span>
-                </a>
+                <span className="text-reddit_blue">here</span>
+                <span>.</span>
               </Link>
             </p>
           </li>
@@ -102,18 +98,14 @@ const UserAgreement = () => {
         <span className="mt-5 text-sm">
           Bbaby&apos;s{' '}
           <Link href={'/policies/privacy-policy'}>
-            <a>
-              <span className="text-reddit_blue ">Privacy Policy</span>
-            </a>
+            <span className="text-reddit_blue ">Privacy Policy</span>
           </Link>{' '}
           explains how and why we collect, use, and share information about you
           when you access or use our Services. You understand that through your
           use of the Services, you consent to the collection and use of this
           information as set forth in the{' '}
           <Link href={'/policies/privacy-policy'}>
-            <a>
-              <span className="text-reddit_blue ">Privacy Policy</span>
-            </a>
+            <span className="text-reddit_blue ">Privacy Policy</span>
           </Link>
           .
         </span>
@@ -148,9 +140,7 @@ const UserAgreement = () => {
           password, and certain other information about yourself as set forth in
           the{' '}
           <Link href={'/policies/privacy-policy'}>
-            <a>
-              <span className="text-reddit_blue ">Privacy Policy</span>
-            </a>
+            <span className="text-reddit_blue ">Privacy Policy</span>
           </Link>
           .
         </span>
@@ -206,9 +196,7 @@ const UserAgreement = () => {
           at any time and for any reason, including for violating these Terms,
           violating our{' '}
           <Link href={'/policies/privacy-policy'}>
-            <a>
-              <span className="text-sm text-reddit_blue">Privacy Policy</span>
-            </a>
+            <span className="text-sm text-reddit_blue">Privacy Policy</span>
           </Link>
           , or if you otherwise create or are likely to create liability for us.
         </span>

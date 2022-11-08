@@ -35,25 +35,19 @@ const MainButtonNav = () => {
               >
                 <div className="p-2">
                   <Link href={'/policies/cookies'}>
-                    <a>
-                      <p className="pb-3 text-sm text-reddit_blue">
-                        Cookie Notice
-                      </p>
-                    </a>
+                    <p className="pb-3 text-sm text-reddit_blue">
+                      Cookie Notice
+                    </p>
                   </Link>
                   <Link href={'/policies/privacy-policy'}>
-                    <a>
-                      <p className="pb-3 text-sm text-reddit_blue">
-                        Bbaby Privacy Policy
-                      </p>
-                    </a>
+                    <p className="pb-3 text-sm text-reddit_blue">
+                      Bbaby Privacy Policy
+                    </p>
                   </Link>
                   <Link href={'/policies/user-agreement'}>
-                    <a>
-                      <p className="pb-3 text-sm text-reddit_blue">
-                        Bbaby User Agreement
-                      </p>
-                    </a>
+                    <p className="pb-3 text-sm text-reddit_blue">
+                      Bbaby User Agreement
+                    </p>
                   </Link>
                 </div>
               </ClickOutHandler>

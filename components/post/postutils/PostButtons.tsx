@@ -19,9 +19,7 @@ const PostButtons = ({post, isListing}: PostContentProps) => {
                 <Link
                     href={`/b/${post.community.toLowerCase()}/comments/${post._id}`}
                     scroll={false}
-                >
-                    <a
-                        className={`mr-1 box-border flex items-center p-2 hover:bg-reddit_dark-brightest ${session?.device?.mobile && 'articleLink'}`}
+                    className={`mr-1 box-border flex items-center p-2 hover:bg-reddit_dark-brightest ${session?.device?.mobile && 'articleLink'}`}
                         onClick={(e) => {
                         e.preventDefault()
                         e.stopPropagation()
@@ -32,11 +30,10 @@ const PostButtons = ({post, isListing}: PostContentProps) => {
                             post
                             )
                         }
-                        }}
-                    >
-                        <CommentIcon role="presentation" />
-                        <span className="ml-[6px]">{post.numComments} Comments</span>
-                    </a>
+                    }}
+                >
+                    <CommentIcon role="presentation" />
+                    <span className="ml-[6px]">{post.numComments} Comments</span>
                 </Link>
             ) : (
                 <div className="mr-1 box-border flex items-center p-2">

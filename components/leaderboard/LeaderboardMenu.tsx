@@ -24,30 +24,33 @@ const LeaderboardMenu = () => {
           <div>
             <ul className={`${totalShow === 12 ? 'h-[432px] overflow-hidden' : 'h-[1188px] overflow-auto'}`}>
               <li key={-1}>
-                <Link href={`/bbaby/leaderboard`} scroll={false}>
-                    <a className='text-[12px] capitalize' onClick={() => {
-                      setActive(-1)
-                    }}>
-                      <div className={`flex h-[40px] ${active === -1 ? "bg-reddit_dark-brightest font-extrabold" : "hover:bg-reddit_dark-brightest"}`}>
-                          <div className={`w-[6px] ${active === -1 && 'bg-reddit_blue'}`} />
-                        <p className="ml-3 self-center">All Communities</p>
-                      </div>
-                    </a>
+                <Link 
+                  href={`/bbaby/leaderboard`} scroll={false}
+                  className='text-[12px] capitalize' onClick={() => {
+                    setActive(-1)
+                  }}
+                >
+                  <div className={`flex h-[40px] ${active === -1 ? "bg-reddit_dark-brightest font-extrabold" : "hover:bg-reddit_dark-brightest"}`}>
+                      <div className={`w-[6px] ${active === -1 && 'bg-reddit_blue'}`} />
+                    <p className="ml-3 self-center">All Communities</p>
+                  </div>
                 </Link>
               </li>
               {CategoriesLists.map((category, index) => (
               <>
               {index <= totalShow && (
                 <li key={category._id}>
-                  <Link href={`/bbaby/leaderboard/${category.name.replaceAll(" ", "_").toLowerCase()}`} scroll={false}>
-                      <a className='text-[12px] capitalize' onClick={() => {
-                        setActive(index)
-                      }}>
-                        <div className={`flex h-[40px] ${active === index ? "bg-reddit_dark-brightest font-extrabold" : "hover:bg-reddit_dark-brightest"}`}>
-                            <div className={`w-[6px] ${active === index && 'bg-reddit_blue'}`} />
-                          <p className="ml-3 self-center">{category.name}</p>
-                        </div>
-                      </a>
+                  <Link 
+                    href={`/bbaby/leaderboard/${category.name.replaceAll(" ", "_").toLowerCase()}`} 
+                    scroll={false}
+                    className='text-[12px] capitalize' onClick={() => {
+                      setActive(index)
+                    }}
+                  >
+                    <div className={`flex h-[40px] ${active === index ? "bg-reddit_dark-brightest font-extrabold" : "hover:bg-reddit_dark-brightest"}`}>
+                        <div className={`w-[6px] ${active === index && 'bg-reddit_blue'}`} />
+                      <p className="ml-3 self-center">{category.name}</p>
+                    </div>
                   </Link>
                 </li>
               )}

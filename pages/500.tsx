@@ -20,10 +20,8 @@ const Errorpage: NextPage = () => {
         <div className='text-center mt-4'>
           <p className='text-white font-xl font-bold'>Something went wrong</p>
         </div>
-        <Link href={'/'}>
-        <a className='text-center'>
+        <Link href={'/'} className='text-center'>
           <p className='underline mt-4'>Go home</p>
-        </a>
         </Link>
     </div>
   )

@@ -16,13 +16,13 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
-    "@next/env": "^12.3.1",
-    "next": "12.3.1",
-    "next-sitemap": "^3.1.23",
+    "@next/env": "^13.0.0",
+    "next": "13.0.0",
+    "next-sitemap": "^3.1.29",
     "react": "^18.2.0",
     "react-clickout-ts": "^1.0.5",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.3.1",
+    "react-icons": "^4.6.0",
     "react-infinite-scroll-component": "^6.1.0",
     "react-linkify": "^1.0.0-alpha",
     "sharp": "^0.31.1",
@@ -30,16 +30,16 @@
   },
   "devDependencies": {
     "@types/gtag.js": "^0.0.12",
-    "@types/node": "18.8.3",
-    "@types/react": "18.0.21",
+    "@types/node": "18.11.6",
+    "@types/react": "18.0.23",
     "@types/react-linkify": "^1.0.1",
     "autoprefixer": "^10.4.12",
-    "eslint": "8.24.0",
-    "eslint-config-next": "12.3.1",
-    "postcss": "^8.4.17",
+    "eslint": "8.26.0",
+    "eslint-config-next": "13.0.0",
+    "postcss": "^8.4.18",
     "prettier": "^2.5.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
-    "tailwindcss": "^3.1.8",
+    "tailwindcss": "^3.2.1",
     "typescript": "4.8.4"
   }
 }

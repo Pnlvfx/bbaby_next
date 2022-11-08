@@ -17,6 +17,6 @@ export const translate = async (text: string, language: string) => {
         if (!res.ok) throw new Error(data?.msg);
         return data as string;
     } catch (err) {
-        throw catchError(err, 'translate');
+        throw catchError(err);
     }
 }

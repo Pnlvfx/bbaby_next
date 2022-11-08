@@ -36,27 +36,25 @@ const NotUserMenu = ({ setShowDropdown }: any) => {
             <hr className="my-3 mb-4 border-reddit_border" />
             <div id="button_no_icons">
               <div className={containerClass}>
-                <Link href={'/policies/user-agreement'}>
-                  <a
-                    target="_blank"
-                    onClick={() => {
-                      setShowDropdown(false)
-                    }}
-                  >
-                    <p className={buttonClass}>User Agreement</p>
-                  </a>
+                <Link 
+                  href={'/policies/user-agreement'}
+                  target="_blank"
+                  onClick={() => {
+                    setShowDropdown(false)
+                  }}
+                >
+                  <p className={buttonClass}>User Agreement</p>
                 </Link>
               </div>
               <div className={containerClass}>
-                <Link href={'/policies/privacy-policy'}>
-                  <a
-                    target="_blank"
-                    onClick={() => {
-                      setShowDropdown(false)
-                    }}
-                  >
-                    <p className={buttonClass}>Privacy Policy</p>
-                  </a>
+                <Link 
+                  href={'/policies/privacy-policy'}
+                  target="_blank"
+                  onClick={() => {
+                    setShowDropdown(false)
+                  }}
+                >
+                  <p className={buttonClass}>Privacy Policy</p>
                 </Link>
               </div>
               <div className={containerClass}>

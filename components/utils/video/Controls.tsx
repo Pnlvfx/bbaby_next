@@ -83,17 +83,15 @@ const Controls = () => {
           className={`${controls ? 'opacity-0 md:opacity-100' : 'opacity-0'} ml-1 transition-opacity ${classnames.button.default}`} 
         >
           <div>
-            <Link href={'/'}>
-              <a className="m-0 p-0 flex justify-center items-center w-[36px] h-[36px] align-baseline">
-                <div className="w-6 h-6 flex justify-center items-center">
-                  <Image
-                    src={Logo}
-                    height={24}
-                    width={24}
-                    alt='Logo'
-                  />
-                </div>
-              </a>
+            <Link href={'/'} className="m-0 p-0 flex justify-center items-center w-[36px] h-[36px] align-baseline">
+              <div className="w-6 h-6 flex justify-center items-center">
+                <Image
+                  src={Logo}
+                  height={24}
+                  width={24}
+                  alt='Logo'
+                />
+              </div>
             </Link>
           </div>
         </div>

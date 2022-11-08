@@ -61,11 +61,12 @@ const CommunitiesInfo = () => {
         </div>
         {communityInfo.user_is_moderator && (  //MODQUEQUE BUTTON
           <div tabIndex={0} className='m-auto mr-0 align-middle pt-[10px]'>
-            <Link href={`/b/${communityInfo.name.toLowerCase()}/about/modqueue`}>
-              <a className="p-1 inline-block">
-                <MdOutlineAdminPanelSettings className="icon mr-1 inline-block" />
-                MOD TOOLS
-              </a>
+            <Link 
+              href={`/b/${communityInfo.name.toLowerCase()}/about/modqueue`}
+              className="p-1 inline-block"
+            >
+              <MdOutlineAdminPanelSettings className="icon mr-1 inline-block" />
+              MOD TOOLS
             </Link>
           </div>
         )}
@@ -125,12 +126,10 @@ const CommunitiesInfo = () => {
             </button>
           )}
           {session?.user?.username && (
-            <Link href={`/submit`}>
-              <a className="self-center">
-                <div className="self-center">
-                  <button className={`mt-3 w-full h-[32px] ${buttonClass()}`}>Create a Post</button>
-                </div>
-              </a>
+            <Link href={`/submit`} className='self-center'>
+              <div className="self-center">
+                <button className={`mt-3 w-full h-[32px] ${buttonClass()}`}>Create a Post</button>
+              </div>
             </Link>
           )}
         </div>

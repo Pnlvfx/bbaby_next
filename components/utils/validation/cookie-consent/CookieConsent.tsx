@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { CSSProperties } from 'react';
 import { useSession } from '../../../auth/UserContext';
 import { postRequestHeaders } from '../../../main/config';
 import { CloseIcon } from '../../SVG';
@@ -44,10 +43,8 @@ const CookieConsent = () => {
               <span className="text-[14px] leading-[21px] flex-1 mx-3">
                 We use cookies on our website for a number of purposes, including
                 analytics and performance, functionality and advertising.{' '}
-                <Link href={'/policies/cookies'}>
-                  <a target={'_blank'} className="text-[#4BB3F3]">
-                    Learn more about Bbaby&apos;s use of cookies.
-                  </a>
+                <Link href={'/policies/cookies'} target={'_blank'} className="text-[#4BB3F3]">
+                  Learn more about Bbaby&apos;s use of cookies.
                 </Link>
               </span>
               <section className="flex justify-between mt-3 items-center">
@@ -89,10 +86,8 @@ const CookieConsent = () => {
           </i>
         </button>
           Cookies help us deliver out Services. we only use essential cookies.{' '}
-          <Link href={'/policies/cookies'}>
-            <a target={'_blank'} className='text-reddit_blue'>
-              Cookie policy
-            </a>
+          <Link href={'/policies/cookies'} target={'_blank'} className='text-reddit_blue'>
+            Cookie policy
           </Link>
     </div>
     </>

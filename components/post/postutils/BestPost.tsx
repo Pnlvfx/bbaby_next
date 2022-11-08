@@ -20,22 +20,22 @@ const BestPost = () => {
   
   return (
       <div className="flex space-x-3 rounded-md border border-reddit_border bg-reddit_dark-brighter py-[13px] px-2">
-        <Link href={'/'} as={'/best'}>
-          <a 
-            className={`text-reddit_text-darker 
-              ${active === 0 && 'bg-reddit_dark-brightest font-bold text-reddit_text'} rounded-full py-1 px-3 hover:bg-reddit_dark-brightest flex items-center space-x-1`}
-          >
-            <FaSpaceShuttle className="h-5 w-5 -rotate-90" />
-            <p className="text-sm">Best</p>
-          </a>
+        <Link 
+          href={'/'} 
+          as={'/best'} 
+          className={`text-reddit_text-darker ${active === 0 && 'bg-reddit_dark-brightest font-bold text-reddit_text'} rounded-full py-1 px-3 hover:bg-reddit_dark-brightest flex items-center space-x-1`}
+        >
+          <FaSpaceShuttle className="h-5 w-5 -rotate-90" />
+          <p className="text-sm">Best</p>
         </Link>
-        <Link href={'/news'}>
-          <a className={`text-reddit_text-darker rounded-full py-1 px-3 hover:bg-reddit_dark-brightest ${
+        <Link 
+          href={'/news'}
+          className={`text-reddit_text-darker rounded-full py-1 px-3 hover:bg-reddit_dark-brightest ${
             active === 1 && 'bg-reddit_dark-brightest font-bold text-reddit_text'
-          } flex items-center space-x-1`}>
-            <IoNewspaperOutline className="h-5 w-5 -rotate-90" />
-            <p className="text-sm">News</p>
-          </a>
+          } flex items-center space-x-1`}
+        >
+          <IoNewspaperOutline className="h-5 w-5 -rotate-90" />
+          <p className="text-sm">News</p>
         </Link>
       </div>
   )

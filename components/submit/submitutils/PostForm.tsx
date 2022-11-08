@@ -20,17 +20,15 @@ function PostForm({community}:PostFormProps) {
         <div className='flex-none rounded-full bg-gray-600 overflow-hidden w-9 h-9 border border-reddit_border'>
             {session?.user && (
                 <Link href={`/user/${session.user.username.toLowerCase()}`}>
-                    <a>
-                        <div className='w-9 h-9 relative'>
-                            <Image 
-                                src={session.user.avatar} 
-                                className='rounded-full' 
-                                alt='User Avatar' 
-                                layout='fill' 
-                                objectFit='cover' 
-                            />
-                        </div>
-                    </a>
+                    <div className='w-9 h-9 relative'>
+                        <Image 
+                            src={session.user.avatar} 
+                            className='rounded-full' 
+                            alt='User Avatar' 
+                            width={9}
+                            height={9}
+                        />
+                    </div>
                 </Link>
             )}
             {!session?.user && (
@@ -39,8 +37,8 @@ function PostForm({community}:PostFormProps) {
                         className='rounded-full'
                         src={'https://res.cloudinary.com/bbabystyle/image/upload/v1655209740/default/avatar_txt7me.webp'} 
                         alt='User Avatar'
-                        layout='fill'
-                        objectFit='cover'
+                        width={9}
+                        height={9}
                     />
                 </div>
             )}
@@ -48,13 +46,11 @@ function PostForm({community}:PostFormProps) {
         <form className='flex-grow bg-reddit_dark-brightest border border-reddit_border hover:border-reddit_text ml-4 mr-2 rounded-md'>
             {session?.user && (
                 <Link href={!community ? '/submit' : `/b/${community}/submit`}>
-                    <a>
-                        <input 
-                            type='text' 
-                            className={inputClass} 
-                            placeholder='Create Post'
-                        />
-                    </a>
+                    <input 
+                        type='text' 
+                        className={inputClass} 
+                        placeholder='Create Post'
+                    />
                 </Link>
             )}
             {!session?.user && (

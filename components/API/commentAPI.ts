@@ -16,10 +16,10 @@ export const postComment = async (commentBody: string, parentId: string, rootId:
       if (res.ok) {
         return data;
       } else {
-        catchError(data?.msg, 'post comment')
+        catchError(data?.msg)
       }
     } catch (err) {
-      catchError(err, 'post comment')
+      catchError(err)
     }
 }
 
@@ -34,9 +34,9 @@ export const getCommentsFromPost = async (postId: string) => {
       if (response.ok) {
           return data
       } else {
-        catchError(data?.msg, 'het comments from post')
+        catchError(data?.msg)
       }
   } catch (err) {
-     catchError(err, 'get comments from post');
+     catchError(err);
   }
 }

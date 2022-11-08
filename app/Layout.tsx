@@ -76,18 +76,18 @@ const Layout = ({ children, error } : LayoutProps) => {
             <div>
               <Header />
             </div>
-          <div id='main_content' className='pt-12'>
-            <div>
-              <div className='flex flex-col min-h-[calc(100vh_-_48px)]'>
-                <div className='z-3'>
-                  {!session?.eu_cookie && (
-                    <CookieConsent />
-                  )}
-                  {children}
+            <div id='main_content' className='pt-12'>
+              <div>
+                <div className='flex flex-col min-h-[calc(100vh_-_48px)]'>
+                  <div className='z-3'>
+                    {!session?.eu_cookie && (
+                      <CookieConsent />
+                    )}
+                    {children}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
           </div>
           {!session?.user && modalContext.show !== 'hidden' &&  <AuthModal />}
           {session?.user && communityContext.show && <CommunityFormModal />}

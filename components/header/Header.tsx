@@ -5,7 +5,7 @@ import {AuthModalContext, AuthModalContextProps} from '../auth/modal/AuthModalCo
 import ClickOutHandler from 'react-clickout-ts';
 import UserMenu from './UserMenu';
 import NotUserMenu from './NotUserMenu';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import Logo from '../../public/logo40x40.png';
 import { PlusIcon, TextLogo, UserIcon } from '../utils/SVG';
 import { RiArrowDownSLine } from 'react-icons/ri';
@@ -30,17 +30,15 @@ const Header: NextComponentType = () => {
     <header id="myHeader" className={`h-12 fixed left-0 right-0 top-0 items-center inline-flex z-30 bg-reddit_dark-brighter`}>
       <div className="inline-flex flex-grow items-center px-2 lg:px-5 border-b border-reddit_border box-border">
         <div className='items-center inline-flex flex-grow'>
-          <Link href={'/'}>
-            <a aria-label='Home' className="inline-flex items-center flex-row">
-              <Image
-                src={Logo}
-                alt="logo"
-                width={32}
-                height={32}
-                className='mr-1 pl-0 lg:mr-2'
-              />
-              <TextLogo className='hidden lg:block' />
-            </a>
+          <Link href={'/'} aria-label='Home' className="inline-flex items-center flex-row">
+            <Image
+              src={Logo}
+              alt="logo"
+              width={32}
+              height={32}
+              className='mr-1 pl-0 lg:mr-2'
+            />
+            <TextLogo className='hidden lg:block' />
           </Link>
           {session?.user && ( //add a variables to remove it from policies page
             <Home />
@@ -50,19 +48,15 @@ const Header: NextComponentType = () => {
             <div id="user_icons" className="flex items-center space-x-2">
               {session?.user.role === 1 && (
                 <span className='h-8'>
-                  <Link href={'/governance'}>
-                    <a className={className.buttonHeader}>
-                      <TbBabyCarriage className={className.icon} />
-                    </a>
+                  <Link href={'/governance'} className={className.buttonHeader}>
+                    <TbBabyCarriage className={className.icon} />
                   </Link>
                 </span>
               )}
               <NotificationButton />
               <span className='h-8 ml-2'>
-                <Link href={'/submit'}>
-                  <a aria-label='Create Post' className={className.buttonHeader}>
-                    <PlusIcon className={className.icon} />
-                  </a>
+                <Link aria-label='Create Post' className={className.buttonHeader} href={'/submit'}>
+                  <PlusIcon className={className.icon} />
                 </Link>
               </span>
             </div>

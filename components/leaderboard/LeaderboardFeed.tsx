@@ -16,8 +16,11 @@ const LeaderboardFeed = ({ communities }: LeaderFeedProps) => {
         <ol className="bg-reddit_dark-brighter">
           {communities.map((community, index) => (
             <li key={community._id} className="border-b border-reddit_border relative">
-              <Link href={`/b/${community.name.toLowerCase()}`}>
-                <a target={'_blank'} className="px-6 h-16 flex items-center justify-between">
+              <Link 
+                href={`/b/${community.name.toLowerCase()}`}
+                target={'_blank'} 
+                className="px-6 h-16 flex items-center justify-between"
+              >
                   <div className="flex items-center">
                     <span className="text-right min-w-5 text-[14px] leading-[18px]">{index +1 }</span>
                     <RiArrowUpSLine className='w-5 h-5 text-green-500 ml-2 align-middle leading-5' />
@@ -38,7 +41,6 @@ const LeaderboardFeed = ({ communities }: LeaderFeedProps) => {
                     <span className="font-bold text-[16px] inline-block leading-">b/{community.name}</span>
                   </div>
                   <span>{community.subscribers}</span>
-                </a>
               </Link>
               <div className="absolute right-20 top-[20.5px]">
                 <button 

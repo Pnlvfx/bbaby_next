@@ -7,15 +7,17 @@ const PolicyWidget = () => {
             <div className='bg-transparent text-reddit_text-darker p-2'>
             <div className='border-b solid border-transparent flex py-2 mx-3'>
                 <div className='flex w-[50%] px-1 flex-col flex-nowrap' >
-                <Link href={'/policies/user-agreement'}>
-                    <a className='mx-1 text-[12px] leading-4 inline-block'>
+                <Link   
+                    href={'/policies/user-agreement'}
+                    className='mx-1 text-[12px] leading-4 inline-block'
+                >
                     User Agreement
-                    </a>
                 </Link>
-                <Link href={'/policies/privacy-policy'}>
-                    <a className='mx-1 text-[12px] leading-4 inline-block mt-1'>
+                <Link 
+                    href={'/policies/privacy-policy'}
+                    className='mx-1 text-[12px] leading-4 inline-block mt-1'
+                >
                     Privacy Policy
-                    </a>
                 </Link>
                 </div>
             </div>

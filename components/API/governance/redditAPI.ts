@@ -14,10 +14,10 @@ export const getRedditPosts = async (after?: string, count?: number) => {
         if (res.ok) {
           return p.data;
         } else {
-          catchError(`${res.statusText} ${p?.msg}`, 'get Reddit Posts');
+          catchError(`${res.statusText} ${p?.msg}`);
         }
     } catch (err) {
-        catchError(err, 'get Reddit Posts');
+        catchError(err);
     }
 }
 
@@ -34,9 +34,9 @@ export const getRedditPostsFromCommunity = async (after?: string, count?: number
       if (res.ok) {
         return p.data;
       } else {
-        catchError(`${res.statusText} ${p?.msg}`, 'get Reddit Posts from community');
+        catchError(`${res.statusText} ${p?.msg}`);
       }
   } catch (err) {
-      catchError(err, 'get Reddit Posts from community');
+      catchError(err);
   }
 }

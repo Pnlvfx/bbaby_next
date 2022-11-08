@@ -10,30 +10,29 @@ const PostHeader = ({post}: PostMobile) => {
                     <div className="items-center flex text-[.875rem] whitespace-nowrap leading-5">
                         <span className="leading-[1px] text-[2rem] align-middle overflow-hidden flex-shrink-0 w-8 h-8 mr-2 whitespace-nowrap">
                             <Link href={`/b/${post.community.toLowerCase()}`}>
-                                <a>
-                                    <span>
-                                        <div className="rounded-full overflow-hidden">
-                                            <div className="flex items-center text-center m-auto relative overflow-hidden">
-                                                <img
-                                                    alt={`${post.community} icon`}
-                                                    className="bg-[#6FA5F4]"
-                                                    width={'100%'}
-                                                    height={'100%'}
-                                                    src={post.communityIcon}
-                                                />
-                                            </div>
+                                <span>
+                                    <div className="rounded-full overflow-hidden">
+                                        <div className="flex items-center text-center m-auto relative overflow-hidden">
+                                            <img
+                                                alt={`${post.community} icon`}
+                                                className="bg-[#6FA5F4]"
+                                                width={'100%'}
+                                                height={'100%'}
+                                                src={post.communityIcon}
+                                            />
                                         </div>
-                                    </span>
-                                </a>
+                                    </div>
+                                </span>
                             </Link>
                         </span>
                         <div>
                             <div className="font-semibold whitespace-nowrap leading-5 text-[.875rem]">
                                 <span>
-                                    <Link href={`/b/${post.community.toLowerCase()}`}>
-                                        <a className="white-space-nowrap font-semibold">
-                                            r/{post.community}
-                                        </a>
+                                    <Link 
+                                        href={`/b/${post.community.toLowerCase()}`}
+                                        className="white-space-nowrap font-semibold"
+                                    >
+                                        r/{post.community}
                                     </Link>
                                 </span>
                                 <span className="inline-block mx-1 font-semibold">•</span>
@@ -43,9 +42,7 @@ const PostHeader = ({post}: PostMobile) => {
                                 <span>Posted by </span>
                                 <span>
                                     <Link href={`/user/${post.author.toLowerCase()}`}>
-                                        <a>
-                                            {post.author}
-                                        </a>
+                                        {post.author}
                                     </Link>
                                 </span>
                             </div>

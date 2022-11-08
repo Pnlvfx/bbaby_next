@@ -16,30 +16,28 @@ const containerClass = `overflow-hidden border border-reddit_border rounded-md m
 const LinkPreview = ({title, description, url, image, hostname, siteName, createdAt }: LinkPreviewProps) => {
     return (
         <div className={`${containerClass} h-[500px]`}>
-            <Link href={url}>
-                <a className='p-2'>
-                    <div className='w-full mb-4 text-lg text-center flex-none'>
-                        <p className='font-bold truncate'>{title}</p>
+            <Link href={url} className='p-2'>
+                <div className='w-full mb-4 text-lg text-center flex-none'>
+                    <p className='font-bold truncate'>{title}</p>
+                </div>
+                <div className='mb-4 flex items-center justify-center'>
+                    <picture>
+                        <img
+                            src={image} 
+                            height={350} 
+                            alt='Link Image' 
+                            width={700}
+                        />
+                    </picture>
+                </div>
+                <div className='flex justify-center'>
+                    <p className='text-lg'>{description}</p>
+                </div>
+                {createdAt && (
+                    <div className='flex mt-2'>
+                        <TimeAgo className='ml-auto text-reddit_text-darker text-sm' datetime={createdAt} />
                     </div>
-                    <div className='mb-4 flex items-center justify-center'>
-                        <picture>
-                            <img
-                                src={image} 
-                                height={350} 
-                                alt='Link Image' 
-                                width={700}
-                            />
-                        </picture>
-                    </div>
-                    <div className='flex justify-center'>
-                        <p className='text-lg'>{description}</p>
-                    </div>
-                    {createdAt && (
-                        <div className='flex mt-2'>
-                            <TimeAgo className='ml-auto text-reddit_text-darker text-sm' datetime={createdAt} />
-                        </div>
-                    )}
-                </a>
+                )}
             </Link>
         </div>
     )

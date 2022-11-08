@@ -134,11 +134,9 @@ const CookieNotice = () => {
                 'https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer'
               }
             >
-              <a>
-                <p className="text-[14px] text-reddit_blue hover:underline">
-                  Mozilla Firefox
-                </p>
-              </a>
+              <p className="text-[14px] text-reddit_blue hover:underline">
+                Mozilla Firefox
+              </p>
             </Link>
           </li>
           <li>
@@ -147,20 +145,16 @@ const CookieNotice = () => {
                 'https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac'
               }
             >
-              <a>
-                <p className="text-[14px] text-reddit_blue hover:underline">
-                  Apple Safari
-                </p>
-              </a>
+              <p className="text-[14px] text-reddit_blue hover:underline">
+                Apple Safari
+              </p>
             </Link>
           </li>
           <li>
             <Link href={'https://support.google.com/chrome/answer/95647'}>
-              <a>
-                <p className="text-[14px] text-reddit_blue hover:underline">
-                  Google Chrome
-                </p>
-              </a>
+              <p className="text-[14px] text-reddit_blue hover:underline">
+                Google Chrome
+              </p>
             </Link>
           </li>
           <li>
@@ -169,11 +163,9 @@ const CookieNotice = () => {
                 'https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09'
               }
             >
-              <a>
-                <p className="text-[14px] text-reddit_blue hover:underline">
-                  Microsoft Edge
-                </p>
-              </a>
+              <p className="text-[14px] text-reddit_blue hover:underline">
+                Microsoft Edge
+              </p>
             </Link>
           </li>
         </ul>

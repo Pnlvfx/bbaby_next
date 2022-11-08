@@ -42,19 +42,18 @@ const MyNewsCard = ({news, isListing}: MyNewsCardProps) => {
             <p className="whitespace-pre-wrap truncate mt-2">{isListing ? news.description.substring(0, 250) + '...' : news.description}</p>
             <div id="buttons" className="flex items-center rounded-sm mt-2 mr-2 text-reddit_text-darker">
                 {isListing ? (
-                    <Link href={buildUnderscoreUrl(`/news/${news.title}`)}>
-                        <a 
-                            type="button"
-                            className="hover:bg-reddit_dark-brightest rounded-md flex p-[10px]"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                openNews();
-                            }}
-                        >
-                            <AiOutlineRead className="w-5 h-5" />
-                            <p className="text-sm ml-1">News</p>
-                        </a>
+                    <Link 
+                        href={buildUnderscoreUrl(`/news/${news.title}`)}
+                        type="button"
+                        className="hover:bg-reddit_dark-brightest rounded-md flex p-[10px]"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            openNews();
+                        }}
+                    >
+                        <AiOutlineRead className="w-5 h-5" />
+                        <p className="text-sm ml-1">News</p>
                     </Link>
                 ) : (
                     <div className="hover:bg-reddit_dark-brightest rounded-md flex p-[10px]">
@@ -64,21 +63,20 @@ const MyNewsCard = ({news, isListing}: MyNewsCardProps) => {
                 )}
                 {session?.user?.role === 1 && (
                     <>
-                    <Link href={`/governance/youtube?title=${news.title}`}>
-                        <a
-                            className="hover:bg-reddit_dark-brightest rounded-md flex p-[10px]"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                Router.push({
-                                    pathname:`/governance/youtube`,
-                                    query: {title: news.title}
-                                })
-                            }}
-                        >
-                            <FcVideoProjector className="w-5 h-5" />
-                            <p className="text-sm ml-1">Create video</p>
-                        </a>
+                    <Link 
+                        href={`/governance/youtube?title=${news.title}`}
+                        className="hover:bg-reddit_dark-brightest rounded-md flex p-[10px]"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            Router.push({
+                                pathname:`/governance/youtube`,
+                                query: {title: news.title}
+                            })
+                        }}
+                    >
+                        <FcVideoProjector className="w-5 h-5" />
+                        <p className="text-sm ml-1">Create video</p>
                     </Link>
                     <button className="hover:bg-reddit_dark-brightest rounded-md flex p-[10px]">
                         <AiOutlineRead className="w-5 h-5" />

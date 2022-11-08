@@ -40,6 +40,7 @@ const Search = ({ posts }: SearchPageProps) => {
         setActive(router.query.type.toString());
       }
     }, [router])
+
   return (
     <>
       <CEO
@@ -86,9 +87,9 @@ const Search = ({ posts }: SearchPageProps) => {
                         </div>
                       )) : (
                         <div className={style2.emptyContainer}>
-                          <img src="" 
+                          {/* <img src="" 
 
-                          />
+                          /> */}
                           <h2 className={style2.emptyh2}>
                             .. we couldn&apos;t find any results for &quot;{router.query.text}&quot;
                           </h2>
