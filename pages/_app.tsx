@@ -9,7 +9,7 @@ import { AuthModalContextProvider } from '../components/auth/modal/AuthModalCont
 import { CommunityContextProvider } from '../components/community/CommunityContext';
 import { TimeMsgContextProvider } from '../components/main/TimeMsgContext';
 import { GoogleOAuthProvider } from '../components/auth/providers/google/GoogleOAuthProvider';
-import Layout from '../app/Layout';
+import Layout from '../components/main/Layout';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 interface App {

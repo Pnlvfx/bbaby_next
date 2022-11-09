@@ -19,6 +19,10 @@ const NextConfig = {
   },
   productionBrowserSourceMaps: true,
   //distDir: '.bbaby',
+  experimental: {
+    enableUndici: false,
+    appDir: true
+  }
 }
 
 module.exports = NextConfig;

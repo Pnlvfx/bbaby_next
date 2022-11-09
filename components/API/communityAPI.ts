@@ -21,7 +21,9 @@ export const getUserPrefCommunities = async () => {
 export const subscribe = async(communityName: string, setShow: Dispatch<SetStateAction<"hidden" | "login" | "register" | "reset-your-password">>) => {
     try {
       const url = `${server}/communities/subscribe`
-      const body = JSON.stringify({ community: communityName })
+      const body = JSON.stringify({
+        community: communityName 
+      })
       const res = await fetch(url, {
         method: 'POST',
         headers: postRequestHeaders,
@@ -33,11 +35,13 @@ export const subscribe = async(communityName: string, setShow: Dispatch<SetState
         if (res.status === 401 || 400) {
           setShow('login');
         } else {
-          catchError(data?.msg);
+          throw new Error(data?.msg);
         }
+      } else {
+        return data;
       }
     } catch (err) {
-      catchError(err)
+      throw catchError(err)
     }
 }
 
@@ -96,9 +100,9 @@ export const getCommunities = async (limit: number) => {
     if (res.ok) {
       return data;
     } else {
-      catchError(data?.msg);
+      throw new Error(data?.msg);
     }
   } catch (err) {
-    catchError(err);
+    throw catchError(err);
   }
 }
