@@ -38,7 +38,7 @@ const RegisterForm = () => {
       localStorage.setItem('isLogged', 'true');
       //setEmailTo(email);
       authModal.setShow('hidden');
-      gtag.registerAnalytics();
+      //gtag.registerAnalytics();
       if (top?.window.location.href) {
         top.window.location.href = '/'
       } else {

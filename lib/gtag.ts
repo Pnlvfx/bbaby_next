@@ -28,21 +28,21 @@ export const event = ({ action, category, label, value } : GTagEvent) => {
 };
 
 export const loginAnalytics = () => {
-  if (!production) return null
+  if (!production) return null;
   const {gtag} = window
-  gtag('event', 'login')
+  return gtag('event', 'login')
 }
 
 export const registerAnalytics = () => {
   if (!production) return null
   const {gtag} = window
-  gtag('event', 'register')
+  return gtag('event', 'register')
 }
 
 export const googleLoginAnalytics = () => {
   if (!production) return null
   const {gtag} = window
-  gtag('event', 'login', {
+  return gtag('event', 'login', {
     method: 'google'
   })
 }

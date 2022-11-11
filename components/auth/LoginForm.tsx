@@ -1,8 +1,6 @@
-import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { login } from "../API/oauthAPI";
-import { siteUrl } from "../main/config";
 import { useSession } from "./UserContext";
 import * as gtag from '../../lib/gtag';
 import Link from "next/link";
@@ -32,7 +30,7 @@ const LoginForm = () => {
         setLoading(true);
         await login(username, password);
         localStorage.setItem('isLogged', 'true');
-        gtag.loginAnalytics();
+        //gtag.loginAnalytics();
         //await refreshSession();
         if (top?.window.location.href) {
           top.window.location.href = '/'
