@@ -1,11 +1,11 @@
 import { ChangeEvent, useContext, useRef } from 'react'
-import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext'
+import { useMessage } from '../../main/TimeMsgContext'
 import { AddImageIcon } from '../../utils/SVG'
 import { SubmitContext, SubmitContextType } from '../SubmitContext'
 import { previewImage } from '../submitutils/myReader'
 
 const AddImage = () => {
-  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const message = useMessage();
   const filePickerRef = useRef<HTMLInputElement>(null)
   const { setSelectedFile, setIsImage, setHeight, setWidth, setIsVideo } = useContext(SubmitContext) as SubmitContextType
 
@@ -32,10 +32,10 @@ const AddImage = () => {
       >
         <AddImageIcon className={'submitButtonIcon'} />
         <div className='bottom-0 left-0 absolute right-0 top-0'>
-            <div className={'submitButtonTitle transition-opacity'}>
-                  {'Add an image'}
-              </div>
+          <div className={'submitButtonTitle transition-opacity'}>
+            {'Add an image'}
           </div>
+        </div>
         <input
           className='text-[16px]'
           type="file"

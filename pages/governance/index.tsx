@@ -4,8 +4,8 @@ import Head from "next/head";
 import GovernanceMainMenù from "../../components/governance/GovernanceMainMenù";
 import Homepage from "../../components/governance/main/Homepage";
 import { getYoutubeAccessToken } from "../../components/API/governance/youtubeAPI";
-import { useContext, useEffect } from "react";
-import { TimeMsgContext, TimeMsgContextProps } from "../../components/main/TimeMsgContext";
+import { useEffect } from "react";
+import { useMessage } from "../../components/main/TimeMsgContext";
 import { useRouter } from "next/router";
 import { getSession } from "../../components/API/ssrAPI";
 import { siteUrl } from "../../components/main/config";
@@ -15,7 +15,7 @@ interface YoutubeError {
 }
 
 const Governance: NextPage<YoutubeError> = ({youtube}) => {
-  const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const {setMessage} = useMessage();
   const router = useRouter();
 
   useEffect(() => {

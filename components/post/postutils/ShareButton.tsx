@@ -1,8 +1,8 @@
-import {useContext, useState} from 'react'
+import { useState} from 'react'
 import ClickOutHandler from "react-clickout-ts";
 import {AiOutlineLink} from 'react-icons/ai'
 import { ShareIcon } from '../../utils/SVG';
-import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
+import { useMessage } from '../../main/TimeMsgContext';
 import { shareAnalytics } from '../../../lib/gtag';
 import { useSession } from '../../auth/UserContext';
 
@@ -15,7 +15,7 @@ type ShareButtonProps = {
 const ShareButton = ({community, postId, isListing}: ShareButtonProps) => {
   const {session} = useSession();
   const [ShareDropdownVisibilityClass, setShareDropdownVisibilityClass] = useState(false);
-  const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const message = useMessage();
 
   const copyTextToClipboard = async (text: string) => {
     try {
@@ -25,10 +25,10 @@ const ShareButton = ({community, postId, isListing}: ShareButtonProps) => {
         const copy = document.execCommand('copy', true, text);
       }
       setShareDropdownVisibilityClass(false)
-      setMessage({value: 'Link copied!', time: 8000, status: 'success'})
+      message.setMessage({value: 'Link copied!', time: 8000, status: 'success'})
       shareAnalytics();
     } catch (error) {
-      setMessage({value: 'Error while trying to copy the url, please retry.'})
+      message.setMessage({value: 'Error while trying to copy the url, please retry.'})
     }
   }
 

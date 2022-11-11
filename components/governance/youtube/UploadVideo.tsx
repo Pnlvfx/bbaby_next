@@ -1,7 +1,7 @@
-import { Dispatch, SetStateAction, useContext, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { catchErrorWithMessage } from '../../API/common';
 import { postRequestHeaders } from '../../main/config';
-import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
+import { useMessage } from '../../main/TimeMsgContext';
 import { buttonClass, Spinner } from '../../utils/Button';
 
 type UploadVideoProps = {
@@ -13,7 +13,7 @@ type UploadVideoProps = {
 const UploadVideo = ({input, setModalType, setInput }: UploadVideoProps) => {
     const [loading,setLoading] = useState(false)
     const server = process.env.NEXT_PUBLIC_SERVER_URL
-    const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+    const message = useMessage();
     
     const uploadVideo = async() => {
         try {

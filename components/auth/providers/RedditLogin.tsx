@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { redditAPIurl } from "../../../lib/url";
 import { siteUrl } from "../../main/config";
-import { TimeMsgContext, TimeMsgContextProps } from "../../main/TimeMsgContext";
+import { useMessage } from "../../main/TimeMsgContext";
 
 const RedditLogin = (userInfo:UserProps) => {
-    const {setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
+    const {setMessage} = useMessage();
     const redditAccount = userInfo.hasExternalAccount ? userInfo.externalAccounts?.find((provider) => provider.provider === 'reddit') : undefined
     const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID
     const uri = siteUrl + '/settings'    //reddit

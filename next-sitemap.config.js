@@ -33,6 +33,7 @@ module.exports = {
   [
     '/governance',
     '/governance/*',
+    '/account/*',
     '/server-sitemap.xml',
     '/community.xml',
     '/settings',

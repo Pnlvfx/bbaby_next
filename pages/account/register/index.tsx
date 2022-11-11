@@ -1,27 +1,27 @@
 import { NextPageContext } from "next";
 import Head from "next/head";
-import { getSession } from "../../components/API/ssrAPI";
-import LoginForm from "../../components/auth/LoginForm";
-import { siteUrl } from "../../components/main/config";
+import { getSession } from "../../../components/API/ssrAPI";
+import RegisterForm from "../../../components/auth/RegisterForm";
+import { siteUrl } from "../../../components/main/config";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const title = `${siteUrl}: Log in`
-  const url = `${siteUrl}/login`
+  const url = `${siteUrl}/account/register`;
   const description = `Don't worry, we won't tell anyone your username. Log in to your Bbaby account.`
 
   return (
     <>
-      <Head>
-        <title>{title}</title>
-        <link rel='canonical' href={url} key='canonical' />
-        <meta name="description" content={description} key={'description'} />
-      </Head>
-      <LoginForm />
+    <Head>
+      <title>{title}</title>
+      <link rel='canonical' href={url} key='canonical' />
+      <meta name="description" content={description} key={'description'} />
+    </Head>
+    <RegisterForm />
     </>
   )
 }
 
-export default LoginPage;
+export default RegisterPage;
 
 export const getServerSideProps = async (context: NextPageContext) => {
   try {

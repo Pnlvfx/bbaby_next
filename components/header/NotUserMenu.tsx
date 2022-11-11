@@ -1,7 +1,6 @@
-import { useContext } from 'react'
 import { BiUserCircle } from 'react-icons/bi'
 import { FiSettings } from 'react-icons/fi'
-import { AuthModalContext, AuthModalContextProps } from '../auth/modal/AuthModalContext'
+import { useAuthModal } from '../auth/modal/AuthModalContext'
 import Link from 'next/link'
 
 const NotUserMenu = ({ setShowDropdown }: any) => {
@@ -22,7 +21,7 @@ const NotUserMenu = ({ setShowDropdown }: any) => {
 
   const containerClass = 'hover:bg-reddit_dark-brightest cursor-pointer'
   const buttonClass = 'text-sm p-3 pl-12 font-bold'
-  const authModal = useContext(AuthModalContext) as AuthModalContextProps
+  const authModal = useAuthModal();
 
   return (
     <>

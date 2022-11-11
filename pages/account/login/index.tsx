@@ -1,13 +1,13 @@
 import { NextPageContext } from "next";
 import Head from "next/head";
-import { getSession } from "../../components/API/ssrAPI";
-import LoginForm from "../../components/auth/LoginForm";
-import { siteUrl } from "../../components/main/config";
+import { getSession } from "../../../components/API/ssrAPI";
+import LoginForm from "../../../components/auth/LoginForm";
+import { siteUrl } from "../../../components/main/config";
 
 const LoginPage = () => {
-  const title = `${siteUrl}: Log in`
-  const url = `${siteUrl}/login`
-  const description = `Don't worry, we won't tell anyone your username. Log in to your Bbaby account.`
+    const title = `${siteUrl}: Log in`
+    const url = `${siteUrl}/account/login`
+    const description = `Don't worry, we won't tell anyone your username. Log in to your Bbaby account.`
 
   return (
     <>

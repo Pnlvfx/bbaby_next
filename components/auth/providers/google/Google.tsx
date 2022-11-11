@@ -1,19 +1,28 @@
 
 import { useRouter } from 'next/router';
-import { useContext } from 'react';
-import {AuthModalContext, AuthModalContextProps} from '../../modal/AuthModalContext';
-import { TimeMsgContext, TimeMsgContextProps } from '../../../main/TimeMsgContext';
+import {useAuthModal} from '../../modal/AuthModalContext';
+import { useMessage } from '../../../main/TimeMsgContext';
 import GoogleLogin from './GoogleLogin';
 import { CredentialResponse } from '../../../../@types/google';
 import { googleLogin } from './hooks/googleLogin';
+import { googleLoginAnalytics } from '../../../../lib/gtag';
+import { catchErrorWithMessage } from '../../../API/common';
 
 const Google = () => {
   const router = useRouter()
-  const modalContext = useContext(AuthModalContext) as AuthModalContextProps;
-  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const modalContext = useAuthModal();
+  const message = useMessage();
 
   const responseGoogle = async (response: CredentialResponse) => {
-    googleLogin(response, modalContext, router, message)
+    try {
+      await googleLogin(response);
+      localStorage.setItem('isLogged', 'true');
+      modalContext.setShow('hidden');
+      googleLoginAnalytics();
+      router.reload();
+    } catch (err) {
+      catchErrorWithMessage(err, message)
+    }
   }
 
   return (
@@ -22,7 +31,7 @@ const Google = () => {
       onError={() => message.setMessage({value: 'Something went wrong', status: 'error'})}
       width={'280'}
       type={'standard'}
-      theme={'filled_blue'}
+      theme={'outline'}
       locale={'en'}
     />
   )

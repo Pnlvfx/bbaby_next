@@ -1,9 +1,9 @@
-import { useContext, useState } from "react"
+import { useState } from "react"
 import { BiDownvote, BiUpvote } from "react-icons/bi"
 import { catchErrorWithMessage } from "../API/common"
-import {AuthModalContext, AuthModalContextProps} from "../auth/modal/AuthModalContext"
+import { useAuthModal} from "../auth/modal/AuthModalContext"
 import { postRequestHeaders } from "../main/config"
-import { TimeMsgContext, TimeMsgContextProps } from "../main/TimeMsgContext"
+import { useMessage } from "../main/TimeMsgContext"
 
 type Voting = {
   ups: number,
@@ -14,10 +14,10 @@ type Voting = {
 const Voting = ({ups, postId, liked}: Voting) => {
     let dir = 0  //vote
     const [upVote,setUpVote] = useState(ups);
-    const {setShow} = useContext(AuthModalContext) as AuthModalContextProps;
+    const modalContext = useAuthModal();
     const [voted,setVoted] = useState(liked);   //true false or null
-    const message = useContext(TimeMsgContext) as TimeMsgContextProps;
-
+    const message = useMessage();
+    
     const refreshVote = async () => {
       try {
         const server = process.env.NEXT_PUBLIC_SERVER_URL;
@@ -32,7 +32,7 @@ const Voting = ({ups, postId, liked}: Voting) => {
         const data = await res.json();
         if (!res.ok) {
           if (res.status === 401 || 400) {
-            setShow('login');
+            modalContext.setShow('login');
           } else {
             catchErrorWithMessage(data?.msg, message);
           }

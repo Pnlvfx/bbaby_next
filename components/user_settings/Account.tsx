@@ -1,18 +1,18 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { buttonClass } from "../utils/Button";
 import {RiArrowDropDownFill} from 'react-icons/ri'
 import TwitterLogin from "../auth/providers/TwitterLogin";
 import RedditLogin from "../auth/providers/RedditLogin";
 import { NextComponentType } from "next";
-import { TimeMsgContext, TimeMsgContextProps } from "../main/TimeMsgContext";
+import { useMessage } from "../main/TimeMsgContext";
 import { catchErrorWithMessage } from "../API/common";
 import { getUserInfo } from "./user_settingsAPI";
 
-const Account:NextComponentType = () => {
+const Account: NextComponentType = () => {
 
   const [userInfo, setUserInfo] = useState<UserProps>({})
   const [loading, setLoading] = useState(true)
-  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const message = useMessage();
 
   useEffect(() => {
     const _getUserInfo = async () => {

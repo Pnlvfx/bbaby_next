@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { communityUrl } from '../../lib/url';
-import { AuthModalContext, AuthModalContextProps } from '../auth/modal/AuthModalContext';
+import { useAuthModal } from '../auth/modal/AuthModalContext';
 import { subscribe } from '../API/communityAPI';
 import { CommunityContext, CommunityContextProps } from './CommunityContext';
 import { postRequestHeaders } from '../main/config';
@@ -14,7 +14,7 @@ const BoardHeader = () => {
     refreshCommunity,
     communityInfo
   } = useContext(CommunityContext) as CommunityContextProps;
-  const authModal = useContext(AuthModalContext) as AuthModalContextProps;
+  const authModal = useAuthModal();
   const [selectedFile, setSelectedFile] = useState<string | undefined>(communityInfo.communityAvatar)
   const filePickerRef = useRef<HTMLInputElement>(null)
 
@@ -27,8 +27,12 @@ const BoardHeader = () => {
   }
 
   const doSubscribe = async () => {
-    const join = await subscribe(communityInfo.name, authModal.setShow);
-    const refresh = await refreshCommunity(communityInfo.name);
+    try {
+      const join = await subscribe(communityInfo.name, authModal.setShow);
+      const refresh = await refreshCommunity(communityInfo.name);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   const changeAvatar = async () => {

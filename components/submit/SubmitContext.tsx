@@ -1,11 +1,11 @@
 import Router from "next/router";
 import { useEffect } from "react";
-import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
+import { createContext, Dispatch, SetStateAction, useState } from "react";
 import { catchErrorWithMessage } from "../API/common";
-import {AuthModalContext, AuthModalContextProps} from "../auth/modal/AuthModalContext";
+import {useAuthModal} from "../auth/modal/AuthModalContext";
 import { useSession } from "../auth/UserContext";
 import { postRequestHeaders } from "../main/config";
-import { TimeMsgContext, TimeMsgContextProps } from "../main/TimeMsgContext";
+import { useMessage } from "../main/TimeMsgContext";
 import { getUserInfo } from "../user_settings/user_settingsAPI";
 
 export const SubmitContext = createContext<SubmitContextType | {}>({})
@@ -49,7 +49,7 @@ interface SubmitContextProviderProps  {
 
 export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => {
     const {session} = useSession();
-    const authModalContext = useContext(AuthModalContext) as AuthModalContextProps;
+    const modalContext = useAuthModal();
     const [title,setTitle] = useState('');
     const [body,setBody] = useState('');
     const [width,setWidth] = useState(0)
@@ -65,7 +65,7 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
     const [sharePostToTwitter,setSharePostToTwitter] = useState(canPostOnTwitter && session?.user?.role ? true : false)
     const [loading,setLoading] = useState(false)
     const [titleLength,setTitleLength] = useState(0);
-    const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+    const message = useMessage();
 
 
     const createPost = async() => {
@@ -103,7 +103,7 @@ export const SubmitContextProvider = ({children}:SubmitContextProviderProps) => 
                 }
             } else {
                 if (res.status === 401) {
-                    authModalContext.setShow('login');
+                    modalContext.setShow('login');
                 } else {
                     message.setMessage({value: data?.msg, status: 'error'});
                     setLoading(false);

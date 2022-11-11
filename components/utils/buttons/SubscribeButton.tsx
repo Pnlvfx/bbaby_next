@@ -1,6 +1,5 @@
-import { useContext } from "react"
 import { getCommunities, subscribe } from "../../API/communityAPI"
-import { AuthModalContext, AuthModalContextProps } from "../../auth/modal/AuthModalContext"
+import { useAuthModal } from "../../auth/modal/AuthModalContext"
 import { buttonClass } from "../Button"
 
 interface SubscribeButton {
@@ -8,11 +7,11 @@ interface SubscribeButton {
   }
 
 const SubscribeButton = ({community}: SubscribeButton) => {
-    const modalContext = useContext(AuthModalContext) as AuthModalContextProps;
+    const authModal = useAuthModal();
 
     const doSubscribe = async () => {
         try {
-         const join = await subscribe(community.name, modalContext.setShow)
+         const join = await subscribe(community.name, authModal.setShow)
          const refresh = await getCommunities(5)
         } catch (err) {
          

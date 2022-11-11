@@ -5,18 +5,18 @@ import { getSession } from "../../../components/API/ssrAPI";
 import GovernanceCtrl from "../../../components/governance/GovernanceCtrl";
 import GovernanceMainMenù from "../../../components/governance/GovernanceMainMenù";
 import LinkPreview, { LinkPreviewLoader } from "../../../components/utils/LinkPreview";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { siteUrl } from "../../../components/main/config";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { catchErrorWithMessage } from "../../../components/API/common";
-import { TimeMsgContext, TimeMsgContextProps } from "../../../components/main/TimeMsgContext";
+import { useMessage } from "../../../components/main/TimeMsgContext";
 
 const GovNewsPage: NextPage = () => {
   const [BBCnews, setBBCnews] = useState<ExternalNews[] | []>([]);
   const [total, setTotal] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const url = `${siteUrl}/governance/news`;
-  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const message = useMessage();
 
   const getMore = async () => {
     try {

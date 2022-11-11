@@ -1,7 +1,7 @@
 import { FaSpaceShuttle } from 'react-icons/fa';
-import { Dispatch, SetStateAction, useContext, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { anonList, bbabyList, getAnonHome, getMyListTweets, query } from '../../API/governance/twitterAPI';
-import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
+import { useMessage } from '../../main/TimeMsgContext';
 import { catchErrorWithMessage } from '../../API/common';
 
 interface TwMainMenuProps {
@@ -11,7 +11,7 @@ interface TwMainMenuProps {
 
 const TwMainMenu = ({ setLanguage, setTweets }: TwMainMenuProps) => {
   const [active, setActive] = useState(0)
-  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const message = useMessage();
 
   const changeTweet = async (lang: string, list: query) => {
     try {

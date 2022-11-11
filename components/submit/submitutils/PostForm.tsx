@@ -1,7 +1,6 @@
 import {BiLink} from 'react-icons/bi'
 import Link from 'next/link';
-import { useContext } from 'react';
-import {AuthModalContext, AuthModalContextProps} from '../../auth/modal/AuthModalContext';
+import { useAuthModal} from '../../auth/modal/AuthModalContext';
 import Image from 'next/image';
 import {AddImageIcon} from '../../utils/SVG'
 import { useSession } from '../../auth/UserContext';
@@ -12,7 +11,7 @@ type PostFormProps = {
 
 function PostForm({community}:PostFormProps) {
     const {session} = useSession();
-    const {setShow} = useContext(AuthModalContext) as AuthModalContextProps;
+    const modalContext = useAuthModal();
     const inputClass = 'text-[16px] md:text-[14px] leading-5 bg-reddit_dark-brightest p-2 px-3 block w-full rounded-md placeholder:text-reddit_text-darker'
     
     return (
@@ -56,7 +55,7 @@ function PostForm({community}:PostFormProps) {
             {!session?.user && (
                 <div onClick={e => {
                     e.preventDefault()
-                    setShow('login')
+                    modalContext.setShow('login')
                 }}>
                 <input 
                     type='text'

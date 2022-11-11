@@ -1,10 +1,10 @@
-import { useContext, useEffect } from "react";
-import { TimeMsgContext, TimeMsgContextProps } from "./TimeMsgContext";
+import { useEffect } from "react";
+import { useMessage } from "./TimeMsgContext";
 import {AiOutlineSketch,AiOutlineWarning} from 'react-icons/ai';
 
 
 const TimeMsg = () => {
-  const {message, setMessage} = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const {message, setMessage} = useMessage();
 
   useEffect(() => {
     if (!message.value) return;

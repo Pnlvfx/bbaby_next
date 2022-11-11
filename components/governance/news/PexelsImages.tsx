@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { catchErrorWithMessage } from '../../API/common';
 import { translate } from '../../API/governance/governanceAPI';
 import { searchPexelsImages } from '../../API/governance/governanceNewsAPI';
-import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
+import { useMessage } from '../../main/TimeMsgContext';
 import { Spinner } from '../../utils/Button';
 import { LinkPreviewLoader } from '../../utils/LinkPreview';
 import { NewsContext, NewsContextProps } from './NewsContext';
@@ -12,7 +12,7 @@ const PexelsImages = () => {
   const [loading,setLoading] = useState<JSX.Element | null>(null!);
   const [pexelsImage, setPexelsImage] = useState<PexelsProps[] | []>([]);
   const {originalTitle, originalDescription, setTitle, setDescription, setlevel, setMediaInfo, mediaInfo} = useContext(NewsContext) as NewsContextProps;
-  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const message = useMessage();
 
   const dosearchPexels = async () => {
     try {

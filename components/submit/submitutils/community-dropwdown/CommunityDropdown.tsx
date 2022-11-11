@@ -1,5 +1,5 @@
 import style from './community-dropdown.module.css';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { useContext, useEffect, useState } from 'react';
 import ClickOutHandler from 'react-clickout-ts';
 import { HiChevronDown } from 'react-icons/hi';

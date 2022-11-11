@@ -476,3 +476,24 @@ export const PrivateCommunity = (props: any) => {
     </svg>
   )
 }
+
+export const GoBackIcon = (props: any) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      height={14}
+      viewBox="0 0 14 14"
+      width={14}
+      {...props}
+    >
+      <script />
+      <path
+        clipRule="evenodd"
+        d="M12.999 6H3.413l4.293-4.293A.999.999 0 106.292.293l-6 6a1.001 1.001 0 000 1.416l6 5.998a.997.997 0 001.414 0 .999.999 0 000-1.414L3.413 8h9.586a1 1 0 000-2"
+        fill="#878a8c"
+        fillRule="evenodd"
+      />
+    </svg>
+  )
+}

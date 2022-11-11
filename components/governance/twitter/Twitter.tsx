@@ -1,16 +1,16 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Skeleton from './Skeleton';
 import { getAnonHome } from '../../API/governance/twitterAPI';
 import Tweet from './Tweet';
 import TwMainMenu from './TwMainMenu';
-import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
+import { useMessage } from '../../main/TimeMsgContext';
 import { catchErrorWithMessage } from '../../API/common';
 import TwitterWidget from './TwitterWidget';
 
 const Twitter = () => {
   const [tweets, setTweets] = useState<TweetProps[]>([]);
   const [language, setLanguage] = useState('en');
-  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const message = useMessage();
   const messageRef = useRef(message);
 
   useEffect(() => {

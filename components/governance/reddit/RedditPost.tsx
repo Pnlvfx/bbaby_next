@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import TimeAgo from "timeago-react";
 import { catchErrorWithMessage, urlisImage } from "../../API/common";
 import { translate } from "../../API/governance/governanceAPI";
-import { TimeMsgContext, TimeMsgContextProps } from "../../main/TimeMsgContext";
+import { useMessage } from "../../main/TimeMsgContext";
 import SubmitLayout, { newTweetProps } from "../../submit/SubmitLayout";
 import Video from "../../utils/video/Video";
 
@@ -11,7 +11,7 @@ interface ExtendRedditPosts {
 }
 
 const RedditPost = ({post}: ExtendRedditPosts) => {
-  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const message = useMessage();
   const [newReddit, setNewReddit] = useState<newTweetProps | undefined>(undefined);
   const [showSubmit, setShowSubmit] = useState(false);
 

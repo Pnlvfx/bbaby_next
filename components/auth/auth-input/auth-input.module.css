@@ -10,6 +10,19 @@
 
 }
 
+.valid:before {
+    transform: translateZ(0);
+    opacity: 1;
+}
+
+.field.valid .textInput {
+    border-color: #24a0ed;
+}
+
+.field.invalid .textInput {
+    border-color: #ea0027;
+}
+
 .field:before {
     position: absolute;
     display: block;
@@ -45,11 +58,11 @@
     appearance: none;
     width: 100%;
     transform: translateZ(0);
-    background: #1a1a1b;
+    background: transparent;
 }
 
 .textInput.modalUpdate {
-    background: #1a1a1b;
+    background: transparent;
     border-color: transparent;
 }
 
@@ -68,6 +81,8 @@
 .textInputLabel {
     font-size: 10px;
     font-weight: 600;
+    letter-spacing: .5px;
+    text-transform: uppercase;
     position: absolute;
     display: inline-block;
     vertical-align: middle;
@@ -75,7 +90,8 @@
     transform-origin: 0 50%;
     transition: all .2s ease-in-out;
     pointer-events: none;
-    box-sizing: border-box;
+    line-height: 23px;
+    color: #a5a4a4;
 }
 
 .field .textInputLabel {
@@ -111,6 +127,13 @@
 }
 
 .field .textInput:hover+.textInputLabel {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    transform: translate3d(0,-10px,0);
+}
+
+.field .textInput[data-empty=false] +.textInputLabel {
     font-size: 12px;
     font-weight: 400;
     line-height: 16px;

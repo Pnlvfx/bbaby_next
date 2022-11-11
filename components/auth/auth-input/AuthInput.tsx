@@ -2,29 +2,41 @@ import { Dispatch, SetStateAction } from 'react';
 import style from './auth-input.module.css';
 
 type AuthInput = {
+  id: string
+  type: string
+  name: string
   value: string,
-  setValue: Dispatch<SetStateAction<string>>
+  validate: (input: HTMLInputElement['value']) => void
+  isValid: boolean | null
+  error: string
+  autoComplete: string
 }
 
-const AuthInput = ({value, setValue}: AuthInput) => {
+const AuthInput = ({id, type, name, value, validate, isValid, error, autoComplete}: AuthInput) => {
     
   return (
-    <fieldset className={`${style.field} ${style.modalUpdate} ${style.required} ${style.valid}`}>
+    <fieldset className={`${style.field} ${style.modalUpdate} ${style.required} ${isValid ? style.valid : isValid === false ? style.invalid : ''}`}>
       <input
-        id='loginUsername'
+        id={id}
         className={`${style.textInput} ${style.modalUpdate}`}
-        type='text'
+        type={type}
+        autoComplete={autoComplete}
         required
-        name='username'
-        data-empty='true'
+        name={name}
+        data-empty={value.length <= 0 ? true : false}
         value={value}
         onChange={(e) => {
-          setValue(e.target.value)
+          validate(e.target.value);
         }}
       />
-      <label htmlFor='loginUsername' className={`${style.textInputLabel} ${style.modalUpdate}`}>
-        Username
+      <label htmlFor={id} className={`${style.textInputLabel} ${style.modalUpdate}`}>
+        {name}
       </label>
+      {isValid === false && (
+        <div className='text-[#fb133a] text-[12px] pl-4 mt-1 '>
+          {error}
+        </div>
+      )}
     </fieldset>
   )
 }

@@ -1,8 +1,8 @@
-import { ReactNode, useContext, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { catchErrorWithMessage } from "../../API/common";
 import { getRedditPosts } from "../../API/governance/redditAPI";
-import { TimeMsgContext, TimeMsgContextProps } from "../../main/TimeMsgContext";
+import { useMessage } from "../../main/TimeMsgContext";
 import Skeleton from "../twitter/Skeleton";
 import RedditPost from "./RedditPost";
 
@@ -14,7 +14,7 @@ type RedditPostContent = {
 const RedditFeed = ({postForm, bestPost}: RedditPostContent) => {
     const [redditPosts,setRedditPosts] = useState<RedditPostsProps[] | []>([])
     const [after, setAfter] = useState(undefined);
-    const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+    const message = useMessage();
 
     useEffect(() => {
         const get = async () => {

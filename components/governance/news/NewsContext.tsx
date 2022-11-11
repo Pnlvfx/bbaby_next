@@ -1,8 +1,8 @@
 import Router from "next/router";
-import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
+import { createContext, Dispatch, SetStateAction, useState } from "react";
 import { catchErrorWithMessage } from "../../API/common";
 import { buildUnderscoreUrl, postRequestHeaders } from "../../main/config";
-import { TimeMsgContext, TimeMsgContextProps } from "../../main/TimeMsgContext";
+import { useMessage } from "../../main/TimeMsgContext";
 
 interface NewsContextProviderProps {
     children: React.ReactNode
@@ -40,7 +40,7 @@ export const NewsContextProvider = ({children, originalTitle, originalDescriptio
     const [description,setDescription] = useState('');
     const [mediaInfo,setMediaInfo] = useState({});
     const [loading,setLoading] = useState(false);
-    const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+    const message = useMessage();
 
     const createNews = async () => {
         try {

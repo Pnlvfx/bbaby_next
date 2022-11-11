@@ -1,4 +1,4 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useState } from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
 
 interface TimeMsgContextProviderProps {
     children: ReactNode
@@ -30,3 +30,13 @@ export const TimeMsgContextProvider = ({ children }: TimeMsgContextProviderProps
         </TimeMsgContext.Provider>
     );
 };
+
+export const useMessage = () => {
+    const context = useContext(TimeMsgContext) as TimeMsgContextProps;
+    if (!context) {
+        throw new Error(
+        'Message component must be used with TimeMsgProvider component',
+        );
+    }
+    return context;
+}

@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { catchErrorWithMessage } from '../../API/common';
 import { postRequestHeaders } from '../../main/config';
-import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
+import { useMessage } from '../../main/TimeMsgContext';
 import { Spinner } from '../../utils/Button';
 import InteractiveDropdown from './InteractiveDropdown';
 import { YoutubeContext, YoutubeContextProps } from './YoutubeContext';
@@ -17,7 +17,7 @@ const CreateImage = ({ setModalType, setInput }: CreateImageProps) => {
     textColor: '#000000',
     fontSize: '80',
   });
-  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const message = useMessage();
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
   const {news, descriptionArrayToSend} = useContext(YoutubeContext) as YoutubeContextProps;

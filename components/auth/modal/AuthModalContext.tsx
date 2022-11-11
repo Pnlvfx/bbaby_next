@@ -1,6 +1,6 @@
-import {createContext, Dispatch, ReactNode, SetStateAction, useState} from 'react';
+import {createContext, Dispatch, ReactNode, SetStateAction, useContext, useState} from 'react';
 
-export type AuthModalContextProps = {
+interface AuthModalContextProps {
     show: "hidden" | "login" | "register" | "reset-your-password"
     setShow: Dispatch<SetStateAction<"hidden" | "login" | "register" | "reset-your-password">>
 }
@@ -12,10 +12,20 @@ interface AuthModalContextProviderProps {
 }
 
 export const AuthModalContextProvider = ({children}:AuthModalContextProviderProps) => {
-    const [show,setShow] = useState('hidden');  //TYPE: hidden, login, register, forgot your password
+    const [show, setShow] = useState('hidden');
     return (
         <AuthModalContext.Provider value={{show,setShow}}>
             {children}
         </AuthModalContext.Provider>
     )
+}
+
+export const useAuthModal = () => {
+    const context = useContext(AuthModalContext) as AuthModalContextProps;
+    if (!context) {
+        throw new Error(
+        'AuthModal component must be used with AuthModalProvider component',
+        );
+    }
+    return context;
 }

@@ -1,13 +1,12 @@
 import { ChangeEvent, useContext, useRef } from 'react';
-import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
+import { useMessage } from '../../main/TimeMsgContext';
 import { VideoIcon } from '../../utils/SVG';
 import { SubmitContext, SubmitContextType } from '../SubmitContext';
-import { importFileandPreview } from '../submitutils/myReader';
 
 const AddVideo = () => {
-  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const message = useMessage();
   const errMessage = `Sorry, we accept only images (.png, .jpeg, .gif) and videos (.mp4, .mov)`
-  const { selectedFile, setThumbnail, setSelectedFile, setIsVideo, setWidth, setHeight, setIsImage } = useContext(SubmitContext) as SubmitContextType;
+  const { setSelectedFile, setIsVideo, setWidth, setHeight, setIsImage } = useContext(SubmitContext) as SubmitContextType;
   const fileVideoRef = useRef<HTMLInputElement>(null)
 
   const addVideoToPost = async (e: ChangeEvent<HTMLInputElement>) => {

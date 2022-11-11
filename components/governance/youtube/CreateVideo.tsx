@@ -1,7 +1,7 @@
-import { Dispatch, SetStateAction, useContext, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { catchErrorWithMessage } from '../../API/common';
 import { postRequestHeaders } from '../../main/config';
-import { TimeMsgContext, TimeMsgContextProps } from '../../main/TimeMsgContext';
+import { useMessage } from '../../main/TimeMsgContext';
 import { buttonClass, Spinner } from '../../utils/Button';
 
 interface CreateVideoProps {
@@ -14,7 +14,7 @@ interface CreateVideoProps {
 const CreateVideo = ({ setVideoOptions, input, setInput, videoOptions }: CreateVideoProps) => {
   const [imageIndex, setImageIndex] = useState(0);
   const [loading, setLoading] = useState(false);
-  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const message = useMessage();
 
   const createVideo = async () => {
     try {

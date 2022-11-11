@@ -78,7 +78,7 @@ export const searchCommunity = async (text: string) => {
     })
     const data = await res.json();
     if (res.ok) {
-      return data
+      return data;
     } else {
       throw new Error(data?.msg);
     }

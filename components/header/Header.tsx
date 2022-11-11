@@ -1,7 +1,7 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { buttonClass } from '../utils/Button';
-import {AuthModalContext, AuthModalContextProps} from '../auth/modal/AuthModalContext';
+import {useAuthModal} from '../auth/modal/AuthModalContext';
 import ClickOutHandler from 'react-clickout-ts';
 import UserMenu from './UserMenu';
 import NotUserMenu from './NotUserMenu';
@@ -24,7 +24,7 @@ const Header: NextComponentType = () => {
     buttonHeader: 'items-center justify-center hover:bg-reddit_dark-brightest h-[32px] w-[32px] flex',
     icon: 'h-[20px] w-[20px] text-[#D7DADC] leading-5 align-middle'
   }
-  const { setShow } = useContext(AuthModalContext) as AuthModalContextProps;
+  const authModal = useAuthModal();
 
   return (
     <header id="myHeader" className={`h-12 fixed left-0 right-0 top-0 items-center inline-flex z-30 bg-reddit_dark-brighter`}>
@@ -65,13 +65,13 @@ const Header: NextComponentType = () => {
             <div className={`mx-2 hidden flex-none sm:block`}>
               <button
                 className={`ml-4 mr-2 h-8 w-20 md:mr-4 md:w-24 ${buttonClass(true)}`}
-                onClick={() => setShow('login')}
+                onClick={() => authModal.setShow('login')}
               >
                 <p>Log In</p>
               </button>
               <button
                 className={`h-8 w-20 md:w-24 ${buttonClass()}`}
-                onClick={() => setShow('register')}
+                onClick={() => authModal.setShow('register')}
               >
                 <p>Sign Up</p>
               </button>

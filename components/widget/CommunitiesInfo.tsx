@@ -2,12 +2,12 @@ import { useContext, useEffect, useState } from 'react';
 import { buttonClass } from '../utils/Button';
 import { MdOutlineAdminPanelSettings, MdDateRange } from 'react-icons/md';
 import Link from 'next/link';
-import {AuthModalContext, AuthModalContextProps} from '../auth/modal/AuthModalContext';
+import { useAuthModal} from '../auth/modal/AuthModalContext';
 import { CommunityContext, CommunityContextProps } from '../community/CommunityContext';
 import CategoriesDropdown from './community-info/CategoriesDropdown';
 import { communityUrl } from '../../lib/url';
 import {postRequestHeaders} from '../main/config';
-import { TimeMsgContext, TimeMsgContextProps } from '../main/TimeMsgContext';
+import { useMessage } from '../main/TimeMsgContext';
 import { catchErrorWithMessage } from '../API/common';
 import { useSession } from '../auth/UserContext';
 
@@ -15,8 +15,8 @@ const CommunitiesInfo = () => {
   const {session} = useSession();
   const {loading, communityInfo } = useContext(CommunityContext) as CommunityContextProps;
   const [descr, setDescr] = useState('');
-  const { setShow } = useContext(AuthModalContext) as AuthModalContextProps;
-  const message = useContext(TimeMsgContext) as TimeMsgContextProps;
+  const modalContext = useAuthModal();
+  const message = useMessage();
   const [created, setCreated] = useState('');
   const [showTextarea, setShowTextarea] = useState(false);
 
@@ -118,7 +118,7 @@ const CommunitiesInfo = () => {
           {!session?.user && (
             <button
               onClick={() => {
-                setShow('login')
+                modalContext.setShow('login')
               }}
               className={`mt-3 w-full h-[32px] ${buttonClass()}`}
             >
