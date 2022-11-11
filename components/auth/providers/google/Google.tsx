@@ -1,5 +1,4 @@
 
-import { useRouter } from 'next/router';
 import {useAuthModal} from '../../modal/AuthModalContext';
 import { useMessage } from '../../../main/TimeMsgContext';
 import GoogleLogin from './GoogleLogin';
@@ -9,7 +8,6 @@ import { googleLoginAnalytics } from '../../../../lib/gtag';
 import { catchErrorWithMessage } from '../../../API/common';
 
 const Google = () => {
-  const router = useRouter()
   const modalContext = useAuthModal();
   const message = useMessage();
 
@@ -19,7 +17,11 @@ const Google = () => {
       localStorage.setItem('isLogged', 'true');
       modalContext.setShow('hidden');
       googleLoginAnalytics();
-      router.reload();
+      if (top?.window.location.href) {
+        top.window.location.href = '/'
+      } else {
+        window.location.href = '/'
+      }
     } catch (err) {
       catchErrorWithMessage(err, message)
     }
