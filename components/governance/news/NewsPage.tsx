@@ -34,7 +34,7 @@ const NewsPage = () => {
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                Router.back();
+                Router.push('/governance/news');
               }}
             >
               <MdArrowBackIosNew className='text-reddit_blue' />

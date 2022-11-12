@@ -3,10 +3,10 @@ import { catchError } from "../API/common";
 import { ssrHeaders } from "../API/ssrAPI";
 import { postRequestHeaders } from "../main/config";
 
-export const getOneNews = async (title: string, context: NextPageContext) => {
+export const getOneNews = async (permalink: string, context: NextPageContext) => {
     try {
         const server = process.env.NEXT_PUBLIC_SERVER_URL;
-        const url = `${server}/news/${title}`;
+        const url = `${server}/news/${permalink}`;
         const res = await fetch(url, {
             method: 'get',
             headers: ssrHeaders(context)

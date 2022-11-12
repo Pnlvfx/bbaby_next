@@ -40,7 +40,6 @@ const LoginForm = () => {
         //authModal.setShow('hidden');
         setLoading(false);
       } catch (err) {
-        console.log(err);
         setLoading(false);
       }
     }

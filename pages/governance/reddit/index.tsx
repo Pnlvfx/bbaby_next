@@ -1,12 +1,12 @@
 import type { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
-import { getSession } from '../../components/API/ssrAPI';
-import GovernanceCtrl from '../../components/governance/GovernanceCtrl';
-import GovernanceMainMenù from '../../components/governance/GovernanceMainMenù';
-import RedditFeed from '../../components/governance/reddit/RedditFeed';
-import { siteUrl } from '../../components/main/config';
-import BestPost from '../../components/post/postutils/BestPost';
-import PostForm from '../../components/submit/submitutils/PostForm';
+import { getSession } from '../../../components/API/ssrAPI';
+import GovernanceCtrl from '../../../components/governance/GovernanceCtrl';
+import GovernanceMainMenù from '../../../components/governance/GovernanceMainMenù';
+import RedditFeed from '../../../components/governance/reddit/RedditFeed';
+import { siteUrl } from '../../../components/main/config';
+import BestPost from '../../../components/post/postutils/BestPost';
+import PostForm from '../../../components/submit/submitutils/PostForm';
 
 const RedditPage: NextPage = () => {
   return (

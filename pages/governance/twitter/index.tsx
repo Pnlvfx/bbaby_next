@@ -1,10 +1,10 @@
 import type { NextPage, NextPageContext } from "next";
-import Twitter from "../../components/governance/twitter/Twitter";
-import GovernanceCtrl from "../../components/governance/GovernanceCtrl";
+import Twitter from "../../../components/governance/twitter/Twitter";
+import GovernanceCtrl from "../../../components/governance/GovernanceCtrl";
 import Head from "next/head";
-import GovernanceMainMenù from "../../components/governance/GovernanceMainMenù";
-import { getSession } from "../../components/API/ssrAPI";
-import { siteUrl } from "../../components/main/config";
+import GovernanceMainMenù from "../../../components/governance/GovernanceMainMenù";
+import { getSession } from "../../../components/API/ssrAPI";
+import { siteUrl } from "../../../components/main/config";
 
 const TwitterPage: NextPage = () => {
   return (

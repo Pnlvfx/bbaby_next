@@ -3,7 +3,6 @@ import Router from "next/router";
 import { AiOutlineRead } from "react-icons/ai";
 import {FcVideoProjector} from 'react-icons/fc';
 import { useSession } from "../auth/UserContext";
-import { buildUnderscoreUrl } from "../main/config";
 
 interface MyNewsCardProps {
     news: NewsProps
@@ -14,8 +13,7 @@ const MyNewsCard = ({news, isListing}: MyNewsCardProps) => {
     const {session} = useSession();
 
     const openNews = () => {
-        const url = buildUnderscoreUrl(`/news/${news.title}`);
-        Router.push(url)
+        Router.push(news.permalink)
     }
 
   return (
@@ -43,7 +41,7 @@ const MyNewsCard = ({news, isListing}: MyNewsCardProps) => {
             <div id="buttons" className="flex items-center rounded-sm mt-2 mr-2 text-reddit_text-darker">
                 {isListing ? (
                     <Link 
-                        href={buildUnderscoreUrl(`/news/${news.title}`)}
+                        href={news.permalink}
                         type="button"
                         className="hover:bg-reddit_dark-brightest rounded-md flex p-[10px]"
                         onClick={(e) => {

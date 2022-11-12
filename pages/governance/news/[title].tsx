@@ -8,7 +8,7 @@ import NewsPage from '../../../components/governance/news/NewsPage';
 import { siteUrl } from '../../../components/main/config';
 
 interface NewsIdProps {
-  BBCnews: any,
+  BBCnews: BBCNews,
 }
 
 const NewsPagee: NextPage<NewsIdProps> = ({ BBCnews }) => {
@@ -23,7 +23,7 @@ const NewsPagee: NextPage<NewsIdProps> = ({ BBCnews }) => {
             {BBCnews && (
               <NewsContextProvider 
                 originalTitle={BBCnews.title.toString()}
-                originalDescription={BBCnews.full_description}
+                originalDescription={BBCnews.description}
                 originalImage={BBCnews.image}
               >
                 <NewsPage />

@@ -1,10 +1,8 @@
-interface ExternalNews {
+interface BBCNews {
     title: string
     date: string
-    description: string
     image: string
     image_source: string
+    description: string
     permalink: string
-    original_link: string
-    _id: string
 }

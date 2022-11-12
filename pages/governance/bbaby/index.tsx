@@ -1,10 +1,10 @@
 import type { NextPage, NextPageContext } from 'next'
 import Head from 'next/head'
-import { getSession } from '../../components/API/ssrAPI'
-import GovernanceCtrl from '../../components/governance/GovernanceCtrl'
-import GovernanceMainMenù from '../../components/governance/GovernanceMainMenù'
-import Homepage from '../../components/governance/main/Homepage'
-import { siteUrl } from '../../components/main/config'
+import { getSession } from '../../../components/API/ssrAPI'
+import GovernanceCtrl from '../../../components/governance/GovernanceCtrl'
+import GovernanceMainMenù from '../../../components/governance/GovernanceMainMenù'
+import Homepage from '../../../components/governance/main/Homepage'
+import { siteUrl } from '../../../components/main/config'
 
 const AuthorityPage: NextPage = () => {
   

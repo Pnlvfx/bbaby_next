@@ -45,7 +45,6 @@ const RegisterForm = () => {
         window.location.href = '/'
       }
     } catch (err) {
-      console.log(err);
       setLoading(false);
     }
   }

@@ -50,10 +50,9 @@ export default NewsIdPage;
 export const getServerSideProps = async (context: NextPageContext) => {
   try {
     const session = await getSession(context);
-    const {title} = context.query;
-    if (!title) throw new Error(`Missing title parameters.`);
-    const fixedTitle = title.toString().replaceAll('_', ' ');
-    const news = await getOneNews(fixedTitle, context);
+    let {permalink} = context.query
+    if (!permalink) throw new Error(`Missing title parameters.`);
+    const news = await getOneNews(permalink.toString(), context);
     return {
       props: {
         session,

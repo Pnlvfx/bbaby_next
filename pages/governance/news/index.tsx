@@ -62,16 +62,14 @@ const GovNewsPage: NextPage = () => {
           endMessage={<p>No more news.</p>}
         >
           {BBCnews.map((news, key) => (
-            <div key={key} className={`border border-solid border-${news?.full_description?.length <= 1000 ? 'reddit_blue' : news?.full_description?.length >= 1000 ? 'reddit_red' : 'transparent'}`}>
-              <LinkPreview
-                key={key}
-                title={news.title} 
-                description={news.description}
-                url={news.permalink}
-                image={news.image} 
-                createdAt={news.createdAt}
-              />
-            </div>
+            <LinkPreview
+              key={key}
+              title={news.title} 
+              url={news.permalink}
+              description={news.description}
+              image={news.image} 
+              date={news.date}
+            />
           ))}
         </InfiniteScroll>
       </GovernanceCtrl>

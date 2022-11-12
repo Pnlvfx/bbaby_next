@@ -3,24 +3,20 @@ import TimeAgo from 'timeago-react';
 
 export interface LinkPreviewProps {
     title: string
-    description: string
     url: string
     image: string
-    hostname?: string
-    siteName?: string
-    createdAt?: string
+    date: string
+    description: string
 }
 
-const containerClass = `overflow-hidden border border-reddit_border rounded-md mb-3 bg-reddit_dark-brighter xl:mx-2 max-w-[700px]`
-
-const LinkPreview = ({title, description, url, image, hostname, siteName, createdAt }: LinkPreviewProps) => {
+const LinkPreview = ({title, url, image, date, description }: LinkPreviewProps) => {
     return (
-        <div className={`${containerClass} h-[500px]`}>
-            <Link href={url} className='p-2'>
+        <div className={`overflow-hidden border border-reddit_border rounded-md mb-3 bg-reddit_dark-brighter xl:mx-2 max-w-[700px] h-[500px]`}>
+            <Link href={url}>
                 <div className='w-full mb-4 text-lg text-center flex-none'>
                     <p className='font-bold truncate'>{title}</p>
                 </div>
-                <div className='mb-4 flex items-center justify-center'>
+                <div className='mb-4 flex items-center justify-center max-h-[350px] overflow-hidden'>
                     <picture>
                         <img
                             src={image} 
@@ -30,14 +26,12 @@ const LinkPreview = ({title, description, url, image, hostname, siteName, create
                         />
                     </picture>
                 </div>
-                <div className='flex justify-center'>
-                    <p className='text-lg'>{description}</p>
-                </div>
-                {createdAt && (
-                    <div className='flex mt-2'>
-                        <TimeAgo className='ml-auto text-reddit_text-darker text-sm' datetime={createdAt} />
+                <div className='flex mt-2 text-reddit_text-darker text-sm'>
+                    <div>
+                        <span>Description length: {description.length}</span>
                     </div>
-                )}
+                    <TimeAgo className='ml-auto' datetime={date} />
+                </div>
             </Link>
         </div>
     )
@@ -47,7 +41,7 @@ export default LinkPreview;
 
 export const LinkPreviewLoader = () => {
     return (
-      <div className={`${containerClass} h-[500px]`}>
+      <div className={`overflow-hidden border border-reddit_border rounded-md mb-3 bg-reddit_dark-brighter xl:mx-2 max-w-[700px] h-[500px]`}>
           <div className='p-2'>
               <div className={`w-full mb-4 text-lg text-center h-[28px] loading`} />
               <div className='mb-4 flex items-center justify-center h-[350px] loading' />

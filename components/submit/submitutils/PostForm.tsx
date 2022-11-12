@@ -9,38 +9,34 @@ type PostFormProps = {
     community?: string
 }
 
-function PostForm({community}:PostFormProps) {
+function PostForm({community}: PostFormProps) {
     const {session} = useSession();
     const modalContext = useAuthModal();
     const inputClass = 'text-[16px] md:text-[14px] leading-5 bg-reddit_dark-brightest p-2 px-3 block w-full rounded-md placeholder:text-reddit_text-darker'
+
+    if (!session?.user) return null;
     
     return (
-    <div className='border border-reddit_border p-2 rounded-md flex bg-reddit_dark-brighter mx-auto'>
-        <div className='flex-none rounded-full bg-gray-600 overflow-hidden w-9 h-9 border border-reddit_border'>
-            {session?.user && (
-                <Link href={`/user/${session.user.username.toLowerCase()}`}>
-                    <div className='w-9 h-9 relative'>
-                        <Image 
-                            src={session.user.avatar} 
-                            className='rounded-full' 
-                            alt='User Avatar' 
-                            width={9}
-                            height={9}
-                        />
+    <div className='border border-reddit_border p-2 rounded flex bg-reddit_dark-brighter mx-auto'>
+        <div className='overflow-hidden w-[38px] h-[38px]'>
+            <Link 
+                href={`/user/${session.user.username.toLowerCase()}`}
+                className='w-[38px] h-[38px]'
+            >
+                <div className='relative h-full'>
+                    <div className='rounded-[50%] w-[38px] h-[38px] relative'>
+                        <div className='bg-[#343536] w-full h-full rounded-[50%]' />
+                            <picture className='absolute bottom-0 w-full h-full rounded-[50%]'>
+                                <img
+                                    src={session.user.avatar} 
+                                    className='w-full h-full rounded-[50%]'
+                                    style={{transformOrigin: 'bottom center'}}
+                                    alt='User Avatar'
+                                />
+                            </picture>
                     </div>
-                </Link>
-            )}
-            {!session?.user && (
-                <div className='w-9 h-9 relative'>
-                    <Image 
-                        className='rounded-full'
-                        src={'https://res.cloudinary.com/bbabystyle/image/upload/v1655209740/default/avatar_txt7me.webp'} 
-                        alt='User Avatar'
-                        width={9}
-                        height={9}
-                    />
                 </div>
-            )}
+            </Link>
         </div>
         <form className='flex-grow bg-reddit_dark-brightest border border-reddit_border hover:border-reddit_text ml-4 mr-2 rounded-md'>
             {session?.user && (
