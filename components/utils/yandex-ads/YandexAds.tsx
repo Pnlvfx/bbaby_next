@@ -6,9 +6,10 @@ const YandexAds = () => {
     const yandexBlock = session?.device?.mobile ? 1 : 2
 
     useEffect(() => {
-        if (typeof window === undefined) return;
         if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return;
-        (window as any).yaContextCb.push(()=>{
+        if (typeof window === undefined) return;
+        if (!(window as any)?.yaContextCb) return;
+        (window as any).yaContextCb.push(() => {
           (window as any).Ya.Context.AdvManager.render({
             renderTo: `yandex_rtb_R-A-1957512-${yandexBlock}`,
             blockId: `R-A-1957512-${yandexBlock}`,

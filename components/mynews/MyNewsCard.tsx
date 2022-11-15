@@ -26,7 +26,7 @@ const MyNewsCard = ({news, isListing}: MyNewsCardProps) => {
                 isListing ? openNews() : null
             }}
         >
-            <p className="font-bold mb-2">{news.title}</p>
+            <p className="font-bold mb-2 text-center">{news.title}</p>
             {news.mediaInfo.isImage && news.mediaInfo.image && news.mediaInfo.width && news.mediaInfo.height && news.mediaInfo.alt && (
                 <picture className="max-h-[510px] overflow-hidden">
                     <img

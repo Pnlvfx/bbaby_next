@@ -8,7 +8,6 @@ export const getUserInfo = async () => {
         credentials: 'include'
       })
       const data = await res.json();
-      console.log(res.ok, data);
       if (!res.ok) {
         throw new Error(data?.msg);
       } else {

@@ -21,7 +21,7 @@ const NextConfig = {
   //distDir: '.bbaby',
   experimental: {
     enableUndici: false,
-    appDir: true
+    //appDir: true
   }
 }
 

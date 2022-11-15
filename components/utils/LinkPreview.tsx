@@ -11,7 +11,7 @@ export interface LinkPreviewProps {
 
 const LinkPreview = ({title, url, image, date, description }: LinkPreviewProps) => {
     return (
-        <div className={`overflow-hidden border border-reddit_border rounded-md mb-3 bg-reddit_dark-brighter xl:mx-2 max-w-[700px] h-[500px]`}>
+        <div className={`overflow-hidden border border-reddit_border rounded-md mb-3 bg-reddit_dark-brighter xl:mx-2 max-w-[700px] h-[450px]`}>
             <Link href={url}>
                 <div className='w-full mb-4 text-lg text-center flex-none'>
                     <p className='font-bold truncate'>{title}</p>
