@@ -11,7 +11,7 @@ export type StatusProps = {
 
 const AuthModal: NextComponentType = () => {
   // IF NEW USER
-  const [EmailTo, setEmailTo] = useState('')
+  const [EmailTo, setEmailTo] = useState('');
   const authModal = useAuthModal();
 
   const closeModal = async () => {

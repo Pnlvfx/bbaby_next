@@ -83,7 +83,7 @@ const Search = ({ posts }: SearchPageProps) => {
                     {posts?.length > 0 ? 
                       posts.map((post) => (
                         <div key={post._id} className="h-auto w-full">
-                          <Post post={post} />
+                          <Post post={post} isListing={false} />
                         </div>
                       )) : (
                         <div className={style2.emptyContainer}>

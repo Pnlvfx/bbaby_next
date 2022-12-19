@@ -1,19 +1,21 @@
-import PostContent from './PostContent';
-import { useSession } from '../auth/UserContext';
-import { openPost } from './postutils/hooks';
-import Link from 'next/link';
+import PostContent from './PostContent'
+import { useSession } from '../auth/UserContext'
+import { openPost } from './postutils/hooks'
+import Link from 'next/link'
 
 interface ExtendPostProps {
   post: PostProps
-  isListing?: boolean
+  isListing: boolean
 }
 
 const Post = ({ post, isListing }: ExtendPostProps) => {
-  const { session } = useSession();
-  const containerClass = `rounded-md border ${isListing 
-    ? 'mb-3 w-full border-reddit_border bg-[#141415] hover:border-reddit_text' 
-    : 'border-none'}`;
-
+  const { session } = useSession()
+  const containerClass = `rounded-md border ${
+    isListing
+      ? 'mb-3 w-full border-reddit_border bg-[#141415] hover:border-reddit_text'
+      : 'border-none'
+  }`
+  
   return (
     <div>
       <div>
@@ -22,7 +24,7 @@ const Post = ({ post, isListing }: ExtendPostProps) => {
             className={`${containerClass} ${isListing && 'cursor-pointer'}`}
             onClick={(e) => {
               if (isListing) {
-                openPost(e, false, post);
+                openPost(e, false, post)
               }
             }}
           >
@@ -30,22 +32,23 @@ const Post = ({ post, isListing }: ExtendPostProps) => {
           </div>
         ) : (
           <>
-          {isListing ? (
-            <article className={`${containerClass} article`} id={post._id}>
-              <Link href={`/b/${post.community.toLowerCase()}/comments/${post._id}`}>
-                
-              </Link>
+            {isListing ? (
+              <article className={`${containerClass} article`} id={post._id}>
+                <Link
+                  href={`/b/${post.community.toLowerCase()}/comments/${
+                    post._id
+                  }`}
+                />
+                <PostContent post={post} isListing={isListing} />
+              </article>
+            ) : (
               <PostContent post={post} isListing={isListing} />
-            </article>
-          ) : (
-              <PostContent post={post} />
-          )}
+            )}
           </>
-        )
-      }
+        )}
       </div>
     </div>
   )
 }
 
-export default Post;
+export default Post

@@ -16,7 +16,7 @@ const CommentContent = () => {
     
   return (
     <>
-        <Post post={post} />
+        <Post post={post} isListing={false} />
         {!!post && !!post._id && (
             <div className='my-6 lg:mx-10 relative'>
                 <YandexAds />

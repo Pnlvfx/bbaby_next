@@ -12,35 +12,30 @@ import { catchErrorWithMessage } from "../../../components/API/common";
 import { useMessage } from "../../../components/main/TimeMsgContext";
 
 const GovNewsPage: NextPage = () => {
-  const [BBCnews, setBBCnews] = useState<ExternalNews[] | []>([]);
-  const [total, setTotal] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
+  const [BBCnews, setBBCnews] = useState<ExternalNews[]>([]);
   const url = `${siteUrl}/governance/news`;
   const message = useMessage();
-
-  const getMore = async () => {
-    try {
-      if (total <= BBCnews.length) return setHasMore(false);
-      const res = await getBBCLinks(10, BBCnews.length);
-      const newArticle = res.data;
-      setBBCnews(oldNews => [...oldNews, ...newArticle])
-    } catch (err) {
-      catchErrorWithMessage(err, message);
-    }
-  }
 
   useEffect(() => {
     const get = async () => {
       try {
-        const res = await getBBCLinks(16, 0);
-        setBBCnews(res.data);
-        setTotal(res.total);
+        const news = await getBBCLinks(16, 0);
+        setBBCnews(news);
       } catch (err) {
         catchErrorWithMessage(err, message);
       }
     }
     get();
   },[]);
+
+  const getMore = async () => {
+    try {
+      const news = await getBBCLinks(10, BBCnews.length);
+      setBBCnews(oldNews => [...oldNews, ...news])
+    } catch (err) {
+      catchErrorWithMessage(err, message);
+    }
+  }
 
   return (
     <>
@@ -52,10 +47,10 @@ const GovNewsPage: NextPage = () => {
       <GovernanceCtrl>
         <GovernanceMainMenù />
         <InfiniteScroll
-          className='md:space-x-auto grid grid-cols-1 md:grid-cols-3 w-full mt-5'
+          className='w-full mt-5 grid grid-cols-1 xl:grid-cols-3 xl:space-x-auto'
           dataLength={BBCnews.length}
           next={getMore}
-          hasMore={hasMore}
+          hasMore={true}
           loader={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((_, idx) => (
             <LinkPreviewLoader key={idx} />
           ))}

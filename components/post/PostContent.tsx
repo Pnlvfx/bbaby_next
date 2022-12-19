@@ -8,7 +8,7 @@ import PostButtons from './postutils/PostButtons';
 
 export type PostContentProps = {
   post: PostProps
-  isListing?: boolean
+  isListing: boolean
 }
 
 const PostContent = ({ post, isListing }: PostContentProps) => {

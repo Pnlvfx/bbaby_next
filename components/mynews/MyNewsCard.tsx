@@ -3,10 +3,11 @@ import Router from "next/router";
 import { AiOutlineRead } from "react-icons/ai";
 import {FcVideoProjector} from 'react-icons/fc';
 import { useSession } from "../auth/UserContext";
+import ShareButton from "../post/postutils/ShareButton";
 
 interface MyNewsCardProps {
     news: NewsProps
-    isListing?: boolean
+    isListing: boolean
 }
 
 const MyNewsCard = ({news, isListing}: MyNewsCardProps) => {
@@ -38,7 +39,7 @@ const MyNewsCard = ({news, isListing}: MyNewsCardProps) => {
                 </picture>
             )}
             <p className="whitespace-pre-wrap truncate mt-2">{isListing ? news.description.substring(0, 250) + '...' : news.description}</p>
-            <div id="buttons" className="flex items-center rounded-sm mt-2 mr-2 text-reddit_text-darker">
+            <div id="buttons" className="flex items-center rounded-sm mt-2 mr-2 text-reddit_text-darker text-[12px] font-bold">
                 {isListing ? (
                     <Link 
                         href={news.permalink}
@@ -80,6 +81,7 @@ const MyNewsCard = ({news, isListing}: MyNewsCardProps) => {
                         <AiOutlineRead className="w-5 h-5" />
                         <p className="text-sm ml-1">Edit News</p>
                     </button>
+                    <ShareButton linkToCopy={news.permalink} isListing={isListing} />
                     </>
                 )}
             </div>

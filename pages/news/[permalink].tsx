@@ -33,7 +33,7 @@ const NewsIdPage: NextPage<NewsIdPageProps> = ({ news }) => {
     />
     <div className="max-w-full md:py-5 md:px-6 box-border flex justify-center mx-auto">
         <div className="w-full lg:w-[640px]">
-            <MyNewsCard news={news} />
+            <MyNewsCard news={news} isListing={false} />
         </div>
         <div className='hidden lg:block ml-6'>
           <Widget />

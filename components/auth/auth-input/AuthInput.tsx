@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
 import style from './auth-input.module.css';
 
 type AuthInput = {
@@ -30,7 +29,7 @@ const AuthInput = ({id, type, name, value, validate, isValid, error, autoComplet
         }}
       />
       <label htmlFor={id} className={`${style.textInputLabel} ${style.modalUpdate}`}>
-        {name}
+        {name.slice(0, 1).toUpperCase() + name.slice(1)}
       </label>
       {isValid === false && (
         <div className='text-[#fb133a] text-[12px] pl-4 mt-1 '>
