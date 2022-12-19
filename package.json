@@ -25,6 +25,7 @@
     "react-icons": "^4.7.1",
     "react-infinite-scroll-component": "^6.1.0",
     "react-linkify": "^1.0.0-alpha",
+    "sharp": "^0.31.2",
     "timeago-react": "^3.0.5"
   },
   "devDependencies": {
