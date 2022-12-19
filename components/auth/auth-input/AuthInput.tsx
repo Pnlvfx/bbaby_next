@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import style from './auth-input.module.css';
-=======
 import style from './auth-input.module.css'
->>>>>>> 37cf1437146e9308d66dd42adba32fc919a28cd9
 
 type AuthInput = {
   id: string
@@ -44,16 +40,11 @@ const AuthInput = ({
           validate(e.target.value)
         }}
       />
-<<<<<<< HEAD
-      <label htmlFor={id} className={`${style.textInputLabel} ${style.modalUpdate}`}>
-        {name.slice(0, 1).toUpperCase() + name.slice(1)}
-=======
       <label
         htmlFor={id}
         className={`${style.textInputLabel} ${style.modalUpdate}`}
       >
         {name}
->>>>>>> 37cf1437146e9308d66dd42adba32fc919a28cd9
       </label>
       {isValid === false && (
         <div className="mt-1 pl-4 text-[12px] text-[#fb133a] ">{error}</div>
