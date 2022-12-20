@@ -1,39 +1,41 @@
-import type { NextPage, NextPageContext } from "next";
-import Head from "next/head";
-import { getBBCLinks } from "../../../components/API/governance/governanceNewsAPI";
-import { getSession } from "../../../components/API/ssrAPI";
-import GovernanceCtrl from "../../../components/governance/GovernanceCtrl";
-import GovernanceMainMenù from "../../../components/governance/GovernanceMainMenù";
-import LinkPreview, { LinkPreviewLoader } from "../../../components/utils/LinkPreview";
-import { useEffect, useState } from "react";
-import { siteUrl } from "../../../components/main/config";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { catchErrorWithMessage } from "../../../components/API/common";
-import { useMessage } from "../../../components/main/TimeMsgContext";
+import type { NextPage, NextPageContext } from 'next'
+import Head from 'next/head'
+import { getBBCLinks } from '../../../components/API/governance/governanceNewsAPI'
+import { getSession } from '../../../components/API/ssrAPI'
+import GovernanceCtrl from '../../../components/governance/GovernanceCtrl'
+import GovernanceMainMenù from '../../../components/governance/GovernanceMainMenù'
+import LinkPreview, {
+  LinkPreviewLoader,
+} from '../../../components/utils/LinkPreview'
+import { useEffect, useState } from 'react'
+import { siteUrl } from '../../../components/main/config'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { catchErrorWithMessage } from '../../../components/API/common'
+import { useMessage } from '../../../components/main/TimeMsgContext'
 
 const GovNewsPage: NextPage = () => {
-  const [BBCnews, setBBCnews] = useState<ExternalNews[]>([]);
-  const url = `${siteUrl}/governance/news`;
-  const message = useMessage();
+  const [BBCnews, setBBCnews] = useState<ExternalNews[]>([])
+  const url = `${siteUrl}/governance/news`
+  const message = useMessage()
 
   useEffect(() => {
     const get = async () => {
       try {
-        const news = await getBBCLinks(16, 0);
-        setBBCnews(news);
+        const news = await getBBCLinks(16, 0)
+        setBBCnews(news)
       } catch (err) {
-        catchErrorWithMessage(err, message);
+        catchErrorWithMessage(err, message)
       }
     }
-    get();
-  },[]);
+    get()
+  }, [])
 
   const getMore = async () => {
     try {
-      const news = await getBBCLinks(10, BBCnews.length);
-      setBBCnews(oldNews => [...oldNews, ...news])
+      const news = await getBBCLinks(10, BBCnews.length)
+      setBBCnews((oldNews) => [...oldNews, ...news])
     } catch (err) {
-      catchErrorWithMessage(err, message);
+      catchErrorWithMessage(err, message)
     }
   }
 
@@ -41,13 +43,13 @@ const GovNewsPage: NextPage = () => {
     <>
       <Head>
         <title>Bbabystyle - authority page</title>
-        <meta name='robots' content='noindex' />
-        <link rel='canonical' href={url} key='canonical' />
+        <meta name="robots" content="noindex" />
+        <link rel="canonical" href={url} key="canonical" />
       </Head>
       <GovernanceCtrl>
         <GovernanceMainMenù />
         <InfiniteScroll
-          className='w-full mt-5 grid grid-cols-1 xl:grid-cols-3 xl:space-x-auto'
+          className="xl:space-x-auto mt-5 w-full xl:grid xl:grid-cols-3"
           dataLength={BBCnews.length}
           next={getMore}
           hasMore={true}
@@ -59,10 +61,10 @@ const GovNewsPage: NextPage = () => {
           {BBCnews.map((news, key) => (
             <LinkPreview
               key={key}
-              title={news.title} 
+              title={news.title}
               url={news.permalink}
               description={news.description}
-              image={news.image} 
+              image={news.image}
               date={news.date}
             />
           ))}
@@ -72,11 +74,11 @@ const GovNewsPage: NextPage = () => {
   )
 }
 
-export default GovNewsPage;
+export default GovNewsPage
 
 export const getServerSideProps = async (context: NextPageContext) => {
   try {
-    const session = await getSession(context);
+    const session = await getSession(context)
     return {
       props: {
         session,
@@ -86,8 +88,8 @@ export const getServerSideProps = async (context: NextPageContext) => {
     const error = `Don't panic. Now we will fix the issue!`
     return {
       props: {
-        error
-      }
+        error,
+      },
     }
   }
 }

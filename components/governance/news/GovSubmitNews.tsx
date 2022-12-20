@@ -1,7 +1,7 @@
-import { useContext } from 'react';
-import { NewsContext, NewsContextProps } from './NewsContext';
-import { buttonClass, Spinner } from '../../utils/Button';
-import TeaxtareaAutosize from '../../utils/TeaxtareaAutosize';
+import { useContext } from 'react'
+import { NewsContext, NewsContextProps } from './NewsContext'
+import { buttonClass, Spinner } from '../../utils/Button'
+import TeaxtareaAutosize from '../../utils/TeaxtareaAutosize'
 
 const GovSubmitNews = () => {
   const {
@@ -12,15 +12,15 @@ const GovSubmitNews = () => {
     setDescription,
     loading,
     createNews,
-  } = useContext(NewsContext) as NewsContextProps;
+  } = useContext(NewsContext) as NewsContextProps
 
   return (
-    <div className="lg:ml-4 w-full max-w-[850px] rounded-md bg-reddit_dark-brighter border border-reddit_dark-brightest">
+    <div className="w-full max-w-[850px] rounded-md border border-reddit_dark-brightest bg-reddit_dark-brighter lg:ml-4">
       <div>
         <div className="flex whitespace-pre-wrap break-words">
           <div className="flex w-full p-[6px]">
             <TeaxtareaAutosize
-              className="row-span-1 block h-auto w-full text-center resize-none rounded-md bg-reddit_dark-brighter pl-3 text-[22px] font-bold leading-6 text-reddit_text placeholder-reddit_text-darker outline-none"
+              className="row-span-1 block h-auto w-full resize-none rounded-md bg-reddit_dark-brighter pl-3 text-center text-[22px] font-bold leading-6 text-reddit_text placeholder-reddit_text-darker outline-none"
               placeholder={'Title'}
               value={title}
               onChange={(e) => {
@@ -47,7 +47,7 @@ const GovSubmitNews = () => {
         <div className="mt-3 flex whitespace-pre-wrap break-words">
           <div className="flex w-full p-[6px]">
             <TeaxtareaAutosize
-              className="row-span-1 whitespace-pre-wrap block h-auto w-full resize-none overflow-hidden rounded-md bg-reddit_dark-brighter pl-3 text-[15px] leading-6 text-reddit_text placeholder-reddit_text-darker outline-none"
+              className="row-span-1 block h-auto w-full resize-none overflow-hidden whitespace-pre-wrap rounded-md bg-reddit_dark-brighter pl-3 text-[16px] leading-6 text-reddit_text placeholder-reddit_text-darker outline-none md:text-[15px]"
               placeholder={'Description'}
               value={description}
               onChange={(e) => {
@@ -58,7 +58,7 @@ const GovSubmitNews = () => {
         </div>
         <div className="flex justify-end p-2">
           <button
-            className={`${buttonClass()} h-[30px] w-16 flex items-center justify-center`}
+            className={`${buttonClass()} flex h-[30px] w-16 items-center justify-center`}
             onClick={() => {
               createNews()
             }}
