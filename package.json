@@ -16,8 +16,8 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
-    "@next/env": "^13.0.7",
-    "next": "13.0.7",
+    "@next/env": "^13.1.0",
+    "next": "13.1.0",
     "next-sitemap": "^3.1.43",
     "react": "^18.2.0",
     "react-clickout-ts": "^1.0.5",
@@ -25,7 +25,7 @@
     "react-icons": "^4.7.1",
     "react-infinite-scroll-component": "^6.1.0",
     "react-linkify": "^1.0.0-alpha",
-    "sharp": "^0.31.2",
+    "sharp": "^0.31.3",
     "timeago-react": "^3.0.5"
   },
   "devDependencies": {
@@ -35,7 +35,7 @@
     "@types/react-linkify": "^1.0.1",
     "autoprefixer": "^10.4.13",
     "eslint": "8.30.0",
-    "eslint-config-next": "13.0.7",
+    "eslint-config-next": "13.1.0",
     "postcss": "^8.4.20",
     "prettier": "^2.8.1",
     "prettier-plugin-tailwindcss": "^0.2.1",

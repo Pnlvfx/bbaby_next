@@ -52,10 +52,6 @@ const RedditPost = ({ post }: ExtendRedditPosts) => {
     }
   }
 
-  if (!post.is_video) return null
-
-  console.log(post)
-
   return (
     <div>
       <div
