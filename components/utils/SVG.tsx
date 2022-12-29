@@ -26,25 +26,25 @@ export const TextLogo = (props: any) => {
 
 export const UserIcon = (props: any) => {
   return (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={2}
-        stroke="currentColor"
-        aria-hidden="true"
-        width={24}
-        height={24}
-        {...props}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zm-4 7a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-          stroke="#818384"
-          strokeWidth="2px"
-        />
-      </svg>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={2}
+      stroke="currentColor"
+      aria-hidden="true"
+      width={24}
+      height={24}
+      {...props}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zm-4 7a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+        stroke="#818384"
+        strokeWidth="2px"
+      />
+    </svg>
   )
 }
 
@@ -444,7 +444,6 @@ export const Checkbox = (props: any) => {
 export const PublicCommunity = (props: any) => {
   return (
     <svg
-      className="_3WyydSidemq34inFmhA1SE"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 20 20"
       width={20}
@@ -462,7 +461,6 @@ export const PublicCommunity = (props: any) => {
 export const PrivateCommunity = (props: any) => {
   return (
     <svg
-      className="_1Ma7YYe0ShiEmNSS16r18H"
       viewBox="0 0 40 40"
       xmlns="http://www.w3.org/2000/svg"
       width={40}
@@ -493,6 +491,43 @@ export const GoBackIcon = (props: any) => {
         d="M12.999 6H3.413l4.293-4.293A.999.999 0 106.292.293l-6 6a1.001 1.001 0 000 1.416l6 5.998a.997.997 0 001.414 0 .999.999 0 000-1.414L3.413 8h9.586a1 1 0 000-2"
         fill="#878a8c"
         fillRule="evenodd"
+      />
+    </svg>
+  )
+}
+
+export const RetweetIcon = (props: any) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi"
+      width={24}
+      height={24}
+      {...props}
+    >
+      <path
+        d="M4.5 3.88l4.432 4.14-1.364 1.46L5.5 7.55V16c0 1.1.896 2 2 2H13v2H7.5a4 4 0 01-4-4V7.55L1.432 9.48.068 8.02 4.5 3.88zM16.5 6H11V4h5.5a4 4 0 014 4v8.45l2.068-1.93 1.364 1.46-4.432 4.14-4.432-4.14 1.364-1.46 2.068 1.93V8c0-1.1-.896-2-2-2z"
+        fill="#71767B"
+      />
+    </svg>
+  )
+}
+
+export const HeartIcon = (props: any) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      width={24}
+      height={24}
+      {...props}
+    >
+      <path
+        d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5a3.44 3.44 0 00-2.91 1.91c-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82a3.439 3.439 0 00-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67a5.417 5.417 0 014.601-3.01c1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01a5.417 5.417 0 014.601 3.01c.896 1.81.846 4.17-.514 6.67z"
+        fill="#71767B"
       />
     </svg>
   )
