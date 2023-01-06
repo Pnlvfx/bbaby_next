@@ -1,10 +1,11 @@
+import { Video } from '@bbabystyle/next-video-player'
 import { useState } from 'react'
 import TimeAgo from 'timeago-react'
 import { catchErrorWithMessage, urlisImage } from '../../API/common'
 import { translate } from '../../API/governance/governanceAPI'
+import { LOGO } from '../../main/config'
 import { useMessage } from '../../main/TimeMsgContext'
 import SubmitLayout, { newTweetProps } from '../../submit/SubmitLayout'
-import Video from '../../utils/video/Video'
 
 interface ExtendRedditPosts {
   post: RedditPostsProps['data']
@@ -141,6 +142,7 @@ const RedditPost = ({ post }: ExtendRedditPosts) => {
                           url={post.media?.reddit_video.fallback_url}
                           poster={post.thumbnail}
                           scroll={true}
+                          Logo={LOGO}
                         />
                       </div>
                     </>

@@ -1,12 +1,14 @@
+import { Video } from '@bbabystyle/next-video-player'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import ReactLinkify from 'react-linkify'
 import TimeAgo from 'timeago-react'
 import { catchErrorWithMessage } from '../../API/common'
 import { translate } from '../../API/governance/governanceAPI'
+import { LOGO } from '../../main/config'
 import { useMessage } from '../../main/TimeMsgContext'
 import SubmitLayout, { newTweetProps } from '../../submit/SubmitLayout'
 import { HeartIcon, RetweetIcon } from '../../utils/SVG'
-import Video from '../../utils/video/Video'
 
 type TweetPageProps = {
   user_avatar: string
@@ -117,7 +119,21 @@ const Tweet = ({
               </div>
               <div className="mx-2">
                 <div className="inline align-baseline">
-                  <h1 className="mb-4 break-words text-lg">{title}</h1>
+                  <ReactLinkify
+                    componentDecorator={(decoratedHref, decoratedText, key) => (
+                      <a
+                        className="text-reddit_blue"
+                        target={'_blank'}
+                        href={decoratedHref}
+                        key={key}
+                        rel={'noopener nofollow ugc noreferrer'}
+                      >
+                        {decoratedText}
+                      </a>
+                    )}
+                  >
+                    <h1 className="mb-4 break-words text-lg">{title}</h1>
+                  </ReactLinkify>
                 </div>
               </div>
               <div className="relative mt-2 max-h-[512px] overflow-hidden">
@@ -132,7 +148,12 @@ const Tweet = ({
                 {type === 'video' && video && image && width && height && (
                   <div className="w-full pb-[105.35%]">
                     <div className="absolute top-0 left-0 bottom-0 right-0">
-                      <Video url={video} poster={image} scroll={true} />
+                      <Video
+                        Logo={LOGO}
+                        url={video}
+                        poster={image}
+                        scroll={true}
+                      />
                     </div>
                   </div>
                 )}

@@ -2,8 +2,9 @@ import { useContext, useRef, useState } from 'react'
 import { SubmitContext, SubmitContextType } from '../SubmitContext'
 import ClickOutHandler from 'react-clickout-ts'
 import { TrashIcon } from '../../utils/SVG'
-import Video from '../../utils/video/Video'
 import SubmitButton from '../each-submit-button/SubmitButton'
+import { Video } from '@bbabystyle/next-video-player'
+import { LOGO } from '../../main/config'
 
 const Body = () => {
   const [showDeleteOptions, setShowDeleteOptions] = useState(false)
@@ -116,6 +117,7 @@ const Body = () => {
                                           <Video
                                             url={selectedFile}
                                             poster={thumbnail}
+                                            Logo={LOGO}
                                           />
                                           <div className="absolute top-0 bottom-0 left-0 right-0" />
                                         </div>

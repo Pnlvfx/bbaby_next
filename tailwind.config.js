@@ -4,6 +4,7 @@ module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
+    './node_modules/@bbabystyle/next-video-player/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
@@ -23,11 +24,11 @@ module.exports = {
           darker: '#818384',
         },
         reddit_hover: {
-          DEFAULT: '#454546'
+          DEFAULT: '#454546',
         },
         reddit_blue: {
-          DEFAULT: '#24A0ED'
-        }
+          DEFAULT: '#24A0ED',
+        },
       },
     },
   },

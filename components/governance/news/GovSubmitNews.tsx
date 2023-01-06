@@ -1,5 +1,4 @@
-import { useContext } from 'react'
-import { NewsContext, NewsContextProps } from './NewsContext'
+import { useNewsProvider } from './NewsContext'
 import { buttonClass, Spinner } from '../../utils/Button'
 import TeaxtareaAutosize from '../../utils/TeaxtareaAutosize'
 
@@ -12,7 +11,7 @@ const GovSubmitNews = () => {
     setDescription,
     loading,
     createNews,
-  } = useContext(NewsContext) as NewsContextProps
+  } = useNewsProvider()
 
   return (
     <div className="w-full max-w-[850px] rounded-md border border-reddit_dark-brightest bg-reddit_dark-brighter lg:ml-4">

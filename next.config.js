@@ -11,6 +11,7 @@ const NextConfig = {
       'localhost',
       'api.bbabystyle.com',
       '192.168.1.22',
+      '192.168.1.21',
     ],
   },
   env: {

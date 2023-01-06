@@ -1,29 +1,59 @@
 import Router from 'next/router'
-import { useContext, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { MdArrowBackIosNew } from 'react-icons/md'
-import { useSession } from '../../auth/UserContext'
+import { catchErrorWithMessage } from '../../API/common'
+import { translate } from '../../API/governance/governanceAPI'
+import { useMessage } from '../../main/TimeMsgContext'
+import CheckBox from '../../utils/buttons/CheckBox'
 import GovSubmitNews from './GovSubmitNews'
-import { NewsContext, NewsContextProps } from './NewsContext'
+import { useNewsProvider } from './NewsContext'
 import PexelsImages from './PexelsImages'
 
 const NewsPage = () => {
-  const { level, setlevel, originalTitle, originalImage, originalDescription } =
-    useContext(NewsContext) as NewsContextProps
-  const [showMobile, setShowMobile] = useState(false)
-  const { session } = useSession()
+  const {
+    level,
+    setlevel,
+    originalTitle,
+    originalImage,
+    originalDescription,
+    setTitle,
+    setDescription,
+    setMediaInfo,
+  } = useNewsProvider()
+  const [useCurrentImage, setUseCurrentImage] = useState(false)
+  const message = useMessage()
 
   const openPexelsImageForm = () => {
-    setlevel('image')
+    if (useCurrentImage) {
+      const image = new Image()
+      image.src = originalImage
+
+      image.onload = () => {
+        setMediaInfo({
+          image: originalImage,
+          alt: image.alt,
+          height: image.naturalHeight,
+          width: image.naturalWidth,
+          isImage: true,
+        })
+      }
+      openSubmit()
+    } else {
+      setlevel('image')
+    }
   }
 
-  useEffect(() => {
-    if (level === 'image' && session?.device?.mobile) {
-      setShowMobile(true)
+  const openSubmit = async () => {
+    try {
+      const title = await translate(originalTitle, 'en')
+      const description = await translate(originalDescription, 'en')
+      setTitle(title)
+      setDescription(description)
+      setlevel('submit')
+    } catch (err) {
+      catchErrorWithMessage(err, message)
     }
-    if (level === 'submit' && session?.device?.mobile) {
-      setShowMobile(true)
-    }
-  }, [level])
+  }
 
   return (
     <div
@@ -31,7 +61,11 @@ const NewsPage = () => {
         level === 'read' ? 'mx-auto max-w-[1000px]' : 'lg:grid lg:grid-cols-2'
       }`}
     >
-      <div className={`lg:px-2 ${showMobile ? 'hidden' : 'block'}`}>
+      <div
+        className={`${
+          level === 'image' || level === 'submit' ? 'hidden' : ''
+        } lg:block lg:px-2`}
+      >
         <article className="rounded-md border border-reddit_border bg-reddit_dark-brighter hover:border-reddit_text">
           <div
             className="mt-2 mb-4 flex items-center justify-center text-2xl font-bold"
@@ -61,12 +95,19 @@ const NewsPage = () => {
               <img src={originalImage} alt="News Image" />
             </picture>
           </div>
+          <div className="mt-2 ml-1">
+            <CheckBox
+              title="Use the current image"
+              check={useCurrentImage}
+              setCheck={setUseCurrentImage}
+            />
+          </div>
           <p className="mt-4 flex items-center justify-center whitespace-pre-wrap leading-5">
             {originalDescription}
           </p>
         </article>
       </div>
-      {level === 'image' && <PexelsImages />}
+      {level === 'image' && <PexelsImages openSubmit={openSubmit} />}
       {level === 'submit' && <GovSubmitNews />}
     </div>
   )

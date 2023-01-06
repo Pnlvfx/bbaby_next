@@ -9,6 +9,7 @@ import SubmitTitle from './SubmitTitle'
 import { newTweetProps } from './SubmitLayout'
 import Link from 'next/link'
 import { AiOutlineInfoCircle } from 'react-icons/ai'
+import CheckBox from '../utils/buttons/CheckBox'
 
 type SubmitProps = {
   newTweet?: newTweetProps
@@ -36,14 +37,6 @@ const Submit = ({ newTweet, community }: SubmitProps) => {
     titleLength,
     createPost,
   } = useContext(SubmitContext) as SubmitContextType
-  // SHARE ON TELEGRAM
-  const shareToTelegram = () => {
-    setSharePostToTG(!sharePostToTG)
-  }
-  //SHARE TO TWITTER
-  const shareToTwitter = () => {
-    setSharePostToTwitter(!sharePostToTwitter)
-  }
 
   //////MY TWEEEEEEEEET
   useEffect(() => {
@@ -130,57 +123,19 @@ const Submit = ({ newTweet, community }: SubmitProps) => {
                 style={{ flexFlow: 'column' }}
               >
                 {session?.user?.role === 1 && (
-                  <div className="flex items-center">
-                    <div className="mb-2 text-[14px] font-medium leading-[18px]">
-                      <div
-                        aria-checked={sharePostToTG}
-                        aria-disabled="false"
-                        className="flex cursor-pointer select-none items-center"
-                        aria-labelledby="post-to-telegram"
-                        role={'checkbox'}
-                        tabIndex={0}
-                        onClick={() => {
-                          shareToTelegram()
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          id="telegram"
-                          checked={sharePostToTG}
-                          onChange={shareToTelegram}
-                          className="h-[20px] w-[16px] bg-reddit_dark-brighter"
-                          style={{ filter: 'invert(85%)' }}
-                        />
-                        <p className="ml-2">Share this post on Telegram</p>
-                      </div>
-                    </div>
-                  </div>
+                  <CheckBox
+                    title="Share this post on Telegram"
+                    check={sharePostToTG}
+                    setCheck={setSharePostToTG}
+                  />
                 )}
                 <div className="flex items-center">
                   {canPostOnTwitter ? (
-                    <div className="mb-2 text-[14px] font-medium leading-[18px]">
-                      <div
-                        aria-checked={sharePostToTwitter}
-                        aria-disabled="false"
-                        className="flex cursor-pointer select-none items-center"
-                        aria-labelledby="post-to-twitter"
-                        role={'checkbox'}
-                        tabIndex={0}
-                        onClick={() => {
-                          shareToTwitter()
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          id="twitter"
-                          checked={sharePostToTwitter}
-                          onChange={shareToTwitter}
-                          className="h-[20px] w-[16px] bg-reddit_dark-brighter"
-                          style={{ filter: 'invert(85%)' }}
-                        />
-                        <p className="ml-2">Share this post on Twitter</p>
-                      </div>
-                    </div>
+                    <CheckBox
+                      title="Share this post on Twitter"
+                      check={sharePostToTwitter}
+                      setCheck={setSharePostToTwitter}
+                    />
                   ) : (
                     <>
                       <Link
