@@ -38,17 +38,17 @@ const NewsButtons = ({ news, isListing, openNews }: NewsButtonsProps) => {
           <p className="ml-1 text-xs">News</p>
         </div>
       )}
-      {session?.user?.role === 1 && !session.device?.mobile && (
-        <>
+      {session?.user?.role === 1 && (
+        <div className="hidden md:flex md:items-center">
           <Link
-            href={`/governance/youtube?title=${news.title}`}
+            href={`/governance/youtube?permalink=${news.permalink}`}
             className="flex items-center rounded-md p-[10px] hover:bg-reddit_dark-brightest"
             onClick={(e) => {
               e.preventDefault()
               e.stopPropagation()
               Router.push({
                 pathname: `/governance/youtube`,
-                query: { title: news.title },
+                query: { permalink: news.permalink.replace('/news/', '') },
               })
             }}
           >
@@ -59,7 +59,7 @@ const NewsButtons = ({ news, isListing, openNews }: NewsButtonsProps) => {
             <AiOutlineRead className="h-5 w-5" />
             <p className="ml-1 text-xs">Edit News</p>
           </button>
-        </>
+        </div>
       )}
       <ShareButton linkToCopy={news.permalink} isListing={isListing} />
     </div>

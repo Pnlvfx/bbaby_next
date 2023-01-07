@@ -25,8 +25,7 @@ const MyNewsCard = ({ news, isListing }: MyNewsCardProps) => {
         {news.mediaInfo.isImage &&
           news.mediaInfo.image &&
           news.mediaInfo.width &&
-          news.mediaInfo.height &&
-          news.mediaInfo.alt && (
+          news.mediaInfo.height && (
             <picture className="max-h-[510px] overflow-hidden">
               <img
                 src={news.mediaInfo.image}

@@ -41,15 +41,11 @@ export interface SubmitContextType {
   setSharePostToTwitter: Dispatch<SetStateAction<boolean>>
   loading: boolean
   setLoading: Dispatch<SetStateAction<boolean>>
-  titleLength: number
-  setTitleLength: Dispatch<SetStateAction<number>>
   canPostOnTwitter: boolean
   createPost: Function
 }
 
-export const SubmitContextProvider = ({
-  children,
-}: SubmitContextProviderProps) => {
+export const SubmitContextProvider = ({ children }: SubmitContextProviderProps) => {
   const { session } = useSession()
   const modalContext = useAuthModal()
   const [title, setTitle] = useState('')
@@ -63,14 +59,9 @@ export const SubmitContextProvider = ({
   const [isImage, setIsImage] = useState(false)
   const [isVideo, setIsVideo] = useState(false)
   const [canPostOnTwitter, setCanPostOnTwitter] = useState(false)
-  const [sharePostToTG, setSharePostToTG] = useState(
-    session?.user?.role === 1 ? true : false
-  )
-  const [sharePostToTwitter, setSharePostToTwitter] = useState(
-    canPostOnTwitter && session?.user?.role ? true : false
-  )
+  const [sharePostToTG, setSharePostToTG] = useState(session?.user?.role === 1 ? true : false)
+  const [sharePostToTwitter, setSharePostToTwitter] = useState(canPostOnTwitter && session?.user?.role ? true : false)
   const [loading, setLoading] = useState(false)
-  const [titleLength, setTitleLength] = useState(0)
   const message = useMessage()
 
   const createPost = async () => {
@@ -126,12 +117,11 @@ export const SubmitContextProvider = ({
   useEffect(() => {
     const authorize = async () => {
       const userInfo = await getUserInfo()
-      if (
-        userInfo?.externalAccounts?.find(
-          (provider) => provider.provider === 'twitter'
-        )
-      ) {
+      if (userInfo?.externalAccounts?.find((provider) => provider.provider === 'twitter')) {
         setCanPostOnTwitter(true)
+        if (session?.user?.role === 1) {
+          setSharePostToTwitter(true)
+        }
       }
     }
     authorize()
@@ -164,8 +154,6 @@ export const SubmitContextProvider = ({
         setSharePostToTwitter,
         loading,
         setLoading,
-        titleLength,
-        setTitleLength,
         thumbnail,
         setThumbnail,
         canPostOnTwitter,

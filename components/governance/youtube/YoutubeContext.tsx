@@ -1,11 +1,19 @@
-import { createContext, Dispatch, SetStateAction, useState, ReactNode, useEffect } from 'react';
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useState,
+  ReactNode,
+  useEffect,
+  useContext,
+} from 'react'
 
 interface YoutubeContextProviderProps {
   ssrNews: NewsProps
   children: ReactNode
 }
 
-export interface YoutubeContextProps {
+interface YoutubeContextProps {
   news: NewsProps
   setNews: Dispatch<SetStateAction<NewsProps>>
   descriptionArray: string[]
@@ -22,11 +30,13 @@ export const YoutubeContextProvider = ({
 }: YoutubeContextProviderProps) => {
   const [news, setNews] = useState<NewsProps | {}>({})
   const [descriptionArray, setDescriptionArray] = useState<Array<string>>([])
-  const [descriptionArrayToSend, setDescriptionArrayToSend] = useState<Array<string>>([])
+  const [descriptionArrayToSend, setDescriptionArrayToSend] = useState<
+    Array<string>
+  >([])
 
   useEffect(() => {
-    if (!ssrNews) return;
-    setNews(ssrNews);
+    if (!ssrNews) return
+    setNews(ssrNews)
   }, [ssrNews])
 
   return (
@@ -43,4 +53,14 @@ export const YoutubeContextProvider = ({
       {children}
     </YoutubeContext.Provider>
   )
+}
+
+export const useYoutubeProvider = () => {
+  const context = useContext(YoutubeContext) as YoutubeContextProps
+  if (!context) {
+    throw new Error(
+      'Youtube component must be used with YoutubeContextProvider component'
+    )
+  }
+  return context
 }

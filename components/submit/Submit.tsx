@@ -20,6 +20,7 @@ const Submit = ({ newTweet, community }: SubmitProps) => {
   const { session } = useSession()
 
   const {
+    title,
     setTitle,
     setBody,
     setHeight,
@@ -34,7 +35,6 @@ const Submit = ({ newTweet, community }: SubmitProps) => {
     setSharePostToTwitter,
     canPostOnTwitter,
     loading,
-    titleLength,
     createPost,
   } = useContext(SubmitContext) as SubmitContextType
 
@@ -98,11 +98,11 @@ const Submit = ({ newTweet, community }: SubmitProps) => {
             </button>
             <button
               className={`h-[30px] ${buttonClass()} ${
-                titleLength >= 1 && selectedCommunity
+                title.length >= 1 && selectedCommunity
                   ? 'text-opacity-100'
                   : 'cursor-not-allowed text-opacity-40'
               }`}
-              disabled={titleLength >= 1 && selectedCommunity ? false : true}
+              disabled={title.length >= 1 && selectedCommunity ? false : true}
               onClick={async (e) => {
                 e.preventDefault()
                 e.stopPropagation()

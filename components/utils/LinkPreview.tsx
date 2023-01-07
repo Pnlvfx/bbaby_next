@@ -22,7 +22,7 @@ const LinkPreview = ({
     >
       <Link className="flex-col" href={url}>
         <div>
-          <div className="mb-4 w-full text-center text-lg">
+          <div className="mb-4 w-full px-3 text-center text-lg">
             <p className="font-bold">{title}</p>
           </div>
           <div className="mb-4 flex max-h-[350px] items-center justify-center overflow-hidden">
@@ -31,7 +31,7 @@ const LinkPreview = ({
             </picture>
           </div>
         </div>
-        <div className="mt-2 flex text-sm text-reddit_text-darker">
+        <div className="mt-2 flex p-2 text-sm text-reddit_text-darker">
           <div>
             <span>Description length: {description.length}</span>
           </div>
