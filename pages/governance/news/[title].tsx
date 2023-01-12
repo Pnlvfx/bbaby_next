@@ -21,11 +21,7 @@ const NewsPagee: NextPage<NewsIdProps> = ({ BBCnews }) => {
       </Head>
       <GovernanceCtrl>
         {BBCnews && (
-          <NewsContextProvider
-            originalTitle={BBCnews.title.toString()}
-            originalDescription={BBCnews.description}
-            originalImage={BBCnews.image}
-          >
+          <NewsContextProvider originalTitle={BBCnews.title.toString()} originalDescription={BBCnews.description} originalImage={BBCnews.image}>
             <NewsPage />
           </NewsContextProvider>
         )}

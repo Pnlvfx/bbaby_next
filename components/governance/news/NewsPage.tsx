@@ -10,16 +10,7 @@ import { useNewsProvider } from './NewsContext'
 import PexelsImages from './PexelsImages'
 
 const NewsPage = () => {
-  const {
-    level,
-    setlevel,
-    originalTitle,
-    originalImage,
-    originalDescription,
-    setTitle,
-    setDescription,
-    setMediaInfo,
-  } = useNewsProvider()
+  const { level, setlevel, originalTitle, originalImage, originalDescription, setTitle, setDescription, setMediaInfo } = useNewsProvider()
   const [useCurrentImage, setUseCurrentImage] = useState(false)
   const message = useMessage()
 
@@ -56,21 +47,10 @@ const NewsPage = () => {
   }
 
   return (
-    <div
-      className={`mt-4 ${
-        level === 'read' ? 'mx-auto max-w-[1000px]' : 'lg:grid lg:grid-cols-2'
-      }`}
-    >
-      <div
-        className={`${
-          level === 'image' || level === 'submit' ? 'hidden' : ''
-        } lg:block lg:px-2`}
-      >
+    <div className={`mt-4 ${level === 'read' ? 'mx-auto max-w-[1000px]' : 'lg:grid lg:grid-cols-2'}`}>
+      <div className={`${level === 'image' || level === 'submit' ? 'hidden' : ''} lg:block lg:px-2`}>
         <article className="rounded-md border border-reddit_border bg-reddit_dark-brighter hover:border-reddit_text">
-          <div
-            className="mt-2 mb-4 flex items-center justify-center text-2xl font-bold"
-            id="title"
-          >
+          <div className="mt-2 mb-4 flex items-center justify-center text-2xl font-bold" id="title">
             <button
               className="mr-auto hidden pl-3 lg:block"
               onClick={(e) => {
@@ -95,16 +75,10 @@ const NewsPage = () => {
               <img src={originalImage} alt="News Image" />
             </picture>
           </div>
-          <div className="mt-2 ml-1">
-            <CheckBox
-              title="Use the current image"
-              check={useCurrentImage}
-              setCheck={setUseCurrentImage}
-            />
+          <div className="mt-2 ml-1 flex items-center justify-center">
+            <CheckBox title="Use the current image" check={useCurrentImage} setCheck={setUseCurrentImage} />
           </div>
-          <p className="mt-4 flex items-center justify-center whitespace-pre-wrap leading-5">
-            {originalDescription}
-          </p>
+          <p className="mt-4 flex items-center justify-center whitespace-pre-wrap leading-5">{originalDescription}</p>
         </article>
       </div>
       {level === 'image' && <PexelsImages openSubmit={openSubmit} />}

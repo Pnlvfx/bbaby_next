@@ -19,10 +19,7 @@ interface App {
   error: string
 }
 
-const MyApp = ({
-  Component,
-  pageProps: { session, error, ...pageProps },
-}: AppProps<App>) => {
+const MyApp = ({ Component, pageProps: { session, error, ...pageProps } }: AppProps<App>) => {
   useEffect(() => {
     if (session?.user?.role === 1) return
     if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return
@@ -42,88 +39,25 @@ const MyApp = ({
   return (
     <>
       <Head>
-        <meta
-          name="yandex-verification"
-          content="081e3ec3c7e3962f"
-          key={'yandex'}
-        />
+        <meta name="twitter:creator" content="@Bbabystyle" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="referrer" content="origin-when-cross-origin" />
-        <link
-          rel="apple-touch-icon"
-          sizes="57x57"
-          href={`${siteUrl}/apple-touch-icon-57x57.png`}
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="60x60"
-          href={`${siteUrl}/apple-icon-60x60.png`}
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="72x72"
-          href={`${siteUrl}/apple-touch-icon-72x72.png`}
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="76x76"
-          href={`${siteUrl}/apple-touch-icon-76x76.png`}
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="114x114"
-          href={`${siteUrl}/apple-touch-icon-114x114.png`}
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="120x120"
-          href={`${siteUrl}/apple-touch-icon-120x120.png`}
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="144x144"
-          href={`${siteUrl}/apple-touch-icon-144x144.png`}
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="152x152"
-          href={`${siteUrl}/apple-touch-icon-152x152.png`}
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href={`${siteUrl}/apple-touch-icon-180x180.png`}
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="192x192"
-          href={`${siteUrl}/android-chrome-192x192.png`}
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href={`${siteUrl}/favicon-32x32.png`}
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="96x96"
-          href={`${siteUrl}/android-icon-96x96.png`}
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href={`${siteUrl}/favicon-16x16.png`}
-        />
+        <link rel="apple-touch-icon" sizes="57x57" href={`${siteUrl}/apple-touch-icon-57x57.png`} />
+        <link rel="apple-touch-icon" sizes="60x60" href={`${siteUrl}/apple-icon-60x60.png`} />
+        <link rel="apple-touch-icon" sizes="72x72" href={`${siteUrl}/apple-touch-icon-72x72.png`} />
+        <link rel="apple-touch-icon" sizes="76x76" href={`${siteUrl}/apple-touch-icon-76x76.png`} />
+        <link rel="apple-touch-icon" sizes="114x114" href={`${siteUrl}/apple-touch-icon-114x114.png`} />
+        <link rel="apple-touch-icon" sizes="120x120" href={`${siteUrl}/apple-touch-icon-120x120.png`} />
+        <link rel="apple-touch-icon" sizes="144x144" href={`${siteUrl}/apple-touch-icon-144x144.png`} />
+        <link rel="apple-touch-icon" sizes="152x152" href={`${siteUrl}/apple-touch-icon-152x152.png`} />
+        <link rel="apple-touch-icon" sizes="180x180" href={`${siteUrl}/apple-touch-icon-180x180.png`} />
+        <link rel="icon" type="image/png" sizes="192x192" href={`${siteUrl}/android-chrome-192x192.png`} />
+        <link rel="icon" type="image/png" sizes="32x32" href={`${siteUrl}/favicon-32x32.png`} />
+        <link rel="icon" type="image/png" sizes="96x96" href={`${siteUrl}/android-icon-96x96.png`} />
+        <link rel="icon" type="image/png" sizes="16x16" href={`${siteUrl}/favicon-16x16.png`} />
         <link rel="manifest" href={`${siteUrl}/manifest.json`} />
         <meta name="msapplication-TileColor" content="#030303" />
-        <meta
-          name="msapplication-TileImage"
-          content={`${siteUrl}/mstile-150x150.png`}
-        />
+        <meta name="msapplication-TileImage" content={`${siteUrl}/mstile-150x150.png`} />
         <meta name="theme-color" content="#1a1a1b" />
         <meta name="application-name" content="bbabystyle" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

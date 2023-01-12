@@ -3,15 +3,7 @@ import { buttonClass, Spinner } from '../../utils/Button'
 import TeaxtareaAutosize from '../../utils/TeaxtareaAutosize'
 
 const GovSubmitNews = () => {
-  const {
-    title,
-    setTitle,
-    mediaInfo,
-    description,
-    setDescription,
-    loading,
-    createNews,
-  } = useNewsProvider()
+  const { title, setTitle, mediaInfo, description, setDescription, loading, createNews } = useNewsProvider()
 
   return (
     <div className="w-full max-w-[850px] rounded-md border border-reddit_dark-brightest bg-reddit_dark-brighter lg:ml-4">
@@ -29,19 +21,11 @@ const GovSubmitNews = () => {
           </div>
         </div>
         <div className="mt-2 mb-3 box-content flex justify-center rounded-md  border border-reddit_border p-3">
-          {mediaInfo.isImage &&
-            mediaInfo.image &&
-            mediaInfo.width &&
-            mediaInfo.height && (
-              <picture>
-                <img
-                  alt={mediaInfo.alt}
-                  src={mediaInfo.image}
-                  height={mediaInfo.height}
-                  width={mediaInfo.width}
-                />
-              </picture>
-            )}
+          {mediaInfo.isImage && mediaInfo.image && mediaInfo.width && mediaInfo.height && (
+            <picture>
+              <img alt={mediaInfo.alt} src={mediaInfo.image} height={mediaInfo.height} width={mediaInfo.width} />
+            </picture>
+          )}
         </div>
         <div className="mt-3 flex whitespace-pre-wrap break-words">
           <div className="flex w-full p-[6px]">

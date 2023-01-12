@@ -1,11 +1,5 @@
 import Router from 'next/router'
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useState,
-} from 'react'
+import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react'
 import { catchErrorWithMessage } from '../../API/common'
 import { postRequestHeaders } from '../../main/config'
 import { useMessage } from '../../main/TimeMsgContext'
@@ -36,15 +30,8 @@ interface NewsContextProps {
 
 export const NewsContext = createContext({})
 
-export const NewsContextProvider = ({
-  children,
-  originalTitle,
-  originalDescription,
-  originalImage,
-}: NewsContextProviderProps) => {
-  const [level, setlevel] = useState<'read' | 'image' | 'submit' | 'comments'>(
-    'read'
-  )
+export const NewsContextProvider = ({ children, originalTitle, originalDescription, originalImage }: NewsContextProviderProps) => {
+  const [level, setlevel] = useState<'read' | 'image' | 'submit' | 'comments'>('read')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [mediaInfo, setMediaInfo] = useState({})
@@ -106,9 +93,7 @@ export const NewsContextProvider = ({
 export const useNewsProvider = () => {
   const context = useContext(NewsContext) as NewsContextProps
   if (!context) {
-    throw new Error(
-      'Session component must be used with UserContextProvider component'
-    )
+    throw new Error('Session component must be used with UserContextProvider component')
   }
   return context
 }
