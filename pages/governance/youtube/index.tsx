@@ -17,24 +17,20 @@ interface NewsPropsPage {
 const Governance: NextPage<NewsPropsPage> = ({ news }) => {
   const router = useRouter()
 
-  // useEffect(() => {
-  //   if (!router.isReady) return
-  //   if (!news) {
-  //     const url = `/news`
-  //     router.push(url)
-  //   }
-  // }, [router, news])
+  useEffect(() => {
+    if (!router.isReady) return
+    if (!news) {
+      const url = `/news`
+      router.push(url)
+    }
+  }, [router, news])
 
   return (
     <div className="h-[1000px] w-full">
       <Head>
         <title>Bbabystyle - authority page - youtube</title>
         <meta name="robots" content="noindex" />
-        <link
-          rel="canonical"
-          href={`${siteUrl}/governance/youtube`}
-          key="canonical"
-        />
+        <link rel="canonical" href={`${siteUrl}/governance/youtube`} key="canonical" />
       </Head>
       <GovernanceCtrl>
         <GovernanceMainMenù />

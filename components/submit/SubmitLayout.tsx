@@ -1,6 +1,6 @@
-import UserSecurity from "../utils/security/UserSecurity";
-import Submit from "./Submit";
-import { SubmitContextProvider } from "./SubmitContext";
+import UserSecurity from '../utils/security/UserSecurity'
+import Submit from './Submit'
+import { SubmitContextProvider } from './SubmitContext'
 
 export interface newTweetProps {
   title: string
@@ -17,7 +17,7 @@ interface SubmitLayoutProps {
   community?: string
 }
 
-const SubmitLayout = ({newTweet, community}: SubmitLayoutProps) => {
+const SubmitLayout = ({ newTweet, community }: SubmitLayoutProps) => {
   return (
     <SubmitContextProvider>
       <UserSecurity>
@@ -27,4 +27,4 @@ const SubmitLayout = ({newTweet, community}: SubmitLayoutProps) => {
   )
 }
 
-export default SubmitLayout;
+export default SubmitLayout

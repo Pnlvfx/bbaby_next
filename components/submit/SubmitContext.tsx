@@ -116,12 +116,16 @@ export const SubmitContextProvider = ({ children }: SubmitContextProviderProps) 
 
   useEffect(() => {
     const authorize = async () => {
-      const userInfo = await getUserInfo()
-      if (userInfo?.externalAccounts?.find((provider) => provider.provider === 'twitter')) {
-        setCanPostOnTwitter(true)
-        if (session?.user?.role === 1) {
-          setSharePostToTwitter(true)
+      try {
+        const userInfo = await getUserInfo()
+        if (userInfo?.externalAccounts?.find((provider) => provider.provider === 'twitter')) {
+          setCanPostOnTwitter(true)
+          if (session?.user?.role === 1) {
+            setSharePostToTwitter(true)
+          }
         }
+      } catch (err) {
+        catchErrorWithMessage(err, message)
       }
     }
     authorize()

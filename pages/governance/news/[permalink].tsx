@@ -34,9 +34,9 @@ export default NewsPagee
 
 export const getServerSideProps = async (context: NextPageContext) => {
   try {
-    const { title } = context.query
-    if (!title) throw new Error('Missing title parameter!')
-    const permalink = `/governance/news/${title}`
+    const perma = context.query.permalink
+    if (!perma) throw new Error('Missing title parameter!')
+    const permalink = `/governance/news/${perma}`
     const session = await getSession(context)
     const BBCnews = await getArticle(permalink, context)
     return {

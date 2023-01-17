@@ -8,10 +8,7 @@ import { useRouter } from 'next/router'
 import { useMessage } from '../TimeMsgContext'
 import { useSession } from '../../auth/UserContext'
 import CookieConsent from '../../utils/validation/cookie-consent/CookieConsent'
-import {
-  CommunityContext,
-  CommunityContextProps,
-} from '../../community/CommunityContext'
+import { CommunityContext, CommunityContextProps } from '../../community/CommunityContext'
 import GoogleAnalytics from '../../google/GoogleAnalytics'
 import { googleLoginAnalytics } from '../../../lib/gtag'
 import { CredentialResponse } from '../../../@types/google'
@@ -29,15 +26,10 @@ const Layout = ({ children, error }: LayoutProps) => {
   const { session } = useSession()
   const communityContext = useContext(CommunityContext) as CommunityContextProps
   const AuthModal = dynamic(() => import('../../auth/modal/AuthModal'))
-  const CommunityFormModal = dynamic(
-    () => import('../../community/CommunityFormModal')
-  )
+  const CommunityFormModal = dynamic(() => import('../../community/CommunityFormModal'))
   const TimeMsg = dynamic(() => import('../TimeMsg'))
 
-  const noHeader =
-    router.pathname.match('login') || router.pathname.match('register')
-      ? true
-      : false
+  const noHeader = router.pathname.match('login') || router.pathname.match('register') ? true : false
 
   const responseGoogle = async (response: CredentialResponse) => {
     try {
@@ -92,10 +84,7 @@ const Layout = ({ children, error }: LayoutProps) => {
                 <div>
                   <div className="flex min-h-[calc(100vh_-_48px)] flex-col">
                     <div className="z-3">
-                      {!session?.eu_cookie &&
-                        !process.env.NEXT_PUBLIC_CLIENT_URL.match(
-                          'http://192'
-                        ) && <CookieConsent />}
+                      {!session?.eu_cookie && !process.env.NEXT_PUBLIC_CLIENT_URL.startsWith('http://192') && <CookieConsent />}
                       {children}
                     </div>
                   </div>
@@ -103,9 +92,7 @@ const Layout = ({ children, error }: LayoutProps) => {
               </div>
             </div>
             {session?.user && communityContext.show && <CommunityFormModal />}
-            {process.env.NEXT_PUBLIC_NODE_ENV === 'production' && (
-              <GoogleAnalytics />
-            )}
+            {process.env.NEXT_PUBLIC_NODE_ENV === 'production' && <GoogleAnalytics />}
             <TimeMsg />
           </div>
         </div>

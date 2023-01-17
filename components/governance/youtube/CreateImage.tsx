@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { catchErrorWithMessage } from '../../API/common'
 import { postRequestHeaders } from '../../main/config'
 import { useMessage } from '../../main/TimeMsgContext'
@@ -9,7 +9,7 @@ import YoutubeDescription from './YoutubeDescription'
 
 type CreateImageProps = {
   setModalType: Dispatch<SetStateAction<modalType>>
-  setInput: Dispatch<SetStateAction<InputProps>>
+  setInput: Dispatch<SetStateAction<InputProps | undefined>>
 }
 
 const CreateImage = ({ setModalType, setInput }: CreateImageProps) => {
@@ -20,18 +20,8 @@ const CreateImage = ({ setModalType, setInput }: CreateImageProps) => {
   const message = useMessage()
   const [loading, setLoading] = useState(false)
   const [show, setShow] = useState(false)
-  const {
-    news: oneNews,
-    descriptionArrayToSend,
-    descriptionArray,
-    setDescriptionArray,
-  } = useYoutubeProvider()
-
-  useEffect(() => {
-    if (oneNews.description) {
-      setDescriptionArray(oneNews.description.split('\n\n'))
-    }
-  }, [oneNews])
+  const { news: oneNews, descriptionArrayToSend } = useYoutubeProvider()
+  const descriptionArray = oneNews.description.split('\n\n')
 
   const createImage = async () => {
     try {
@@ -80,12 +70,7 @@ const CreateImage = ({ setModalType, setInput }: CreateImageProps) => {
           <div className="mt-2">
             <div className="relative mb-3 max-h-[512px] overflow-hidden">
               <picture className="max-h-[512px] overflow-hidden">
-                <img
-                  src={oneNews.mediaInfo.image}
-                  width={oneNews.mediaInfo.width}
-                  height={oneNews.mediaInfo.height}
-                  alt={oneNews.mediaInfo.alt}
-                />
+                <img src={oneNews.mediaInfo.image} width={oneNews.mediaInfo.width} height={oneNews.mediaInfo.height} alt={oneNews.mediaInfo.alt} />
               </picture>
               <div
                 style={{
@@ -109,13 +94,7 @@ const CreateImage = ({ setModalType, setInput }: CreateImageProps) => {
                 >
                   {oneNews.title}
                 </span>
-                {show && (
-                  <InteractiveDropdown
-                    value={value}
-                    setValue={setValue}
-                    setShow={setShow}
-                  />
-                )}
+                {show && <InteractiveDropdown value={value} setValue={setValue} setShow={setShow} />}
                 {loading && (
                   <div className="absolute">
                     <Spinner />

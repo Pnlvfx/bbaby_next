@@ -61,7 +61,7 @@ const NewsPage = () => {
             >
               <MdArrowBackIosNew className="text-reddit_blue" />
             </button>
-            <p className="mr-auto text-center">{originalTitle}</p>
+            <p className="text-center lg:mr-auto">{originalTitle}</p>
           </div>
           <div
             title="Open pexels search"

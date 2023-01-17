@@ -1,19 +1,15 @@
-import { userAPIurl } from "../../lib/url";
-import { catchError } from "../API/common";
+import { catchError } from '../API/common'
 
 export const getUserInfo = async () => {
-    try {
-      const res = await fetch(userAPIurl.userInfo, {
-        method: 'get',
-        credentials: 'include'
-      })
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data?.msg);
-      } else {
-        return data as UserProps;
-      }
-    } catch (err) {
-      throw catchError(err);
-    }
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/user/about`, {
+      method: 'get',
+      credentials: 'include',
+    })
+    const data = await res.json()
+    if (!res.ok) throw new Error(data?.msg)
+    return data as UserProps
+  } catch (err) {
+    throw catchError(err)
   }
+}

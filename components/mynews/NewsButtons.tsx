@@ -14,10 +14,7 @@ interface NewsButtonsProps {
 const NewsButtons = ({ news, isListing, openNews }: NewsButtonsProps) => {
   const { session } = useSession()
   return (
-    <div
-      id="buttons"
-      className="mt-2 mr-2 flex items-center rounded-sm text-xs font-bold text-reddit_text-darker"
-    >
+    <div id="buttons" className="mt-2 mr-2 flex items-center rounded-sm text-xs font-bold text-reddit_text-darker">
       {isListing ? (
         <Link
           href={news.permalink}
@@ -39,7 +36,7 @@ const NewsButtons = ({ news, isListing, openNews }: NewsButtonsProps) => {
         </div>
       )}
       {session?.user?.role === 1 && (
-        <div className="hidden md:flex md:items-center">
+        <div className="flex md:items-center">
           <Link
             href={`/governance/youtube?permalink=${news.permalink}`}
             className="flex items-center rounded-md p-[10px] hover:bg-reddit_dark-brightest"

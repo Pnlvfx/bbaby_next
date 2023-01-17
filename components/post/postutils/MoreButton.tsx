@@ -9,11 +9,10 @@ import { useMessage } from '../../main/TimeMsgContext'
 
 type MoreButtonProps = {
   post: PostProps
-  postId: string
   isListing?: boolean
 }
 
-const MoreButton = ({ post, postId, isListing }: MoreButtonProps) => {
+const MoreButton = ({ post, isListing }: MoreButtonProps) => {
   const { session } = useSession()
   const router = useRouter()
   const [show, setShow] = useState(false)
@@ -22,7 +21,7 @@ const MoreButton = ({ post, postId, isListing }: MoreButtonProps) => {
   const deletePost = async () => {
     try {
       const server = process.env.NEXT_PUBLIC_SERVER_URL
-      const url = `${server}/posts/${postId}`
+      const url = `${server}/posts/${post._id}`
       const res = await fetch(url, {
         method: 'delete',
         credentials: 'include',

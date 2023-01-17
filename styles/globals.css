@@ -3,61 +3,58 @@
 @tailwind utilities;
 
 @keyframes loaderSwipeAnim {
-    0%{
-        left: 0;
-        
-    }
-    100%{
-        left: 100%;
-        
-    }
-  }
-
-  body {
-    min-height: calc(100vh - 48px);
-    line-height: 1;
-    font-family: IBMPlexSans, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    color: rgb(215 218 220);
-  }
-
-  .loading {
-    position: relative;
-
-  }
-
-  .loading::after{
-    content: "";
-    position: absolute;
+  0% {
     left: 0;
-    top: 0;
-    height: 100%;
-    width:100%;
-    background-image: linear-gradient(to left, transparent, rgb(26,26,27),transparent);
-    animation: loading-ans 1s linear infinite;
   }
+  100% {
+    left: 100%;
+  }
+}
 
-  @keyframes loading-ans {
-    0%{
-        transform: translateX(-100%);
-    }
-    100% {
-        transform: translateX(100%);
-    }
+body {
+  min-height: calc(100vh - 48px);
+  line-height: 1;
+  font-family: IBMPlexSans, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: rgb(215 218 220);
+}
+
+.loading {
+  position: relative;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(to left, transparent, rgb(26, 26, 27), transparent);
+  animation: loading-ans 1s linear infinite;
+}
+
+@keyframes loading-ans {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 .icon {
-    font-size: 20px;
-    font-weight: 400;
-    height: 20px;
-    line-height: 20px;
-    vertical-align: middle;
-    width: 20px;
+  font-size: 20px;
+  font-weight: 400;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+  width: 20px;
 }
 
 .main {
-    background-color: var(--background);
-    min-height: calc(100vh - 48px);
+  background-color: var(--background);
+  min-height: calc(100vh - 48px);
 }
 
 .inputClass {
@@ -82,10 +79,13 @@
 }
 
 .top-community::before {
-  background: linear-gradient(0deg, rgba(0, 0, 0, .7) 0, transparent);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0, transparent);
   content: '';
   height: 80px;
   position: absolute;
   width: 100%;
 }
 
+.costum-shadow {
+  box-shadow: 0px -10px 10px #031da0, 0px 10px 10px #031da0;
+}

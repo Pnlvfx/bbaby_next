@@ -1,12 +1,4 @@
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useState,
-  ReactNode,
-  useEffect,
-  useContext,
-} from 'react'
+import { createContext, Dispatch, SetStateAction, useState, ReactNode, useContext } from 'react'
 
 interface YoutubeContextProviderProps {
   ssrNews: NewsProps
@@ -16,36 +8,21 @@ interface YoutubeContextProviderProps {
 interface YoutubeContextProps {
   news: NewsProps
   setNews: Dispatch<SetStateAction<NewsProps>>
-  descriptionArray: string[]
-  setDescriptionArray: Dispatch<SetStateAction<Array<string>>>
   descriptionArrayToSend: string[]
   setDescriptionArrayToSend: Dispatch<SetStateAction<Array<string>>>
 }
 
 export const YoutubeContext = createContext<YoutubeContextProps | {}>({})
 
-export const YoutubeContextProvider = ({
-  ssrNews,
-  children,
-}: YoutubeContextProviderProps) => {
-  const [news, setNews] = useState<NewsProps | {}>({})
-  const [descriptionArray, setDescriptionArray] = useState<Array<string>>([])
-  const [descriptionArrayToSend, setDescriptionArrayToSend] = useState<
-    Array<string>
-  >([])
-
-  useEffect(() => {
-    if (!ssrNews) return
-    setNews(ssrNews)
-  }, [ssrNews])
+export const YoutubeContextProvider = ({ ssrNews, children }: YoutubeContextProviderProps) => {
+  const [news, setNews] = useState<NewsProps>(ssrNews)
+  const [descriptionArrayToSend, setDescriptionArrayToSend] = useState<Array<string>>([])
 
   return (
     <YoutubeContext.Provider
       value={{
         news,
         setNews,
-        descriptionArray,
-        setDescriptionArray,
         descriptionArrayToSend,
         setDescriptionArrayToSend,
       }}
@@ -58,9 +35,7 @@ export const YoutubeContextProvider = ({
 export const useYoutubeProvider = () => {
   const context = useContext(YoutubeContext) as YoutubeContextProps
   if (!context) {
-    throw new Error(
-      'Youtube component must be used with YoutubeContextProvider component'
-    )
+    throw new Error('Youtube component must be used with YoutubeContextProvider component')
   }
   return context
 }
