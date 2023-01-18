@@ -11,7 +11,7 @@ interface NewsIdProps {
   BBCnews: BBCNews
 }
 
-const NewsPagee: NextPage<NewsIdProps> = ({ BBCnews }) => {
+const BBCNewsPage: NextPage<NewsIdProps> = ({ BBCnews }) => {
   return (
     <>
       <Head>
@@ -30,7 +30,7 @@ const NewsPagee: NextPage<NewsIdProps> = ({ BBCnews }) => {
   )
 }
 
-export default NewsPagee
+export default BBCNewsPage
 
 export const getServerSideProps = async (context: NextPageContext) => {
   try {

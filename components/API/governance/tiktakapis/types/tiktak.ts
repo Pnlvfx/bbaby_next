@@ -1,16 +1,16 @@
-interface NewTiktakResponse {
+export interface NewTiktakResponse {
   original_body: string
   body: string
   permalink: string
   _id: string
 }
 
-interface GetTiktakResponse {
+export interface GetTiktakResponse {
   tiktak: TiktakProps
   videos: PexelsProps[]
 }
 
-interface TiktakProps {
+export interface TiktakProps {
   original_body: string
   body: string
   permalink: string
@@ -20,6 +20,7 @@ interface TiktakProps {
   images: FFmpegImage[]
   audios: string[]
   video: string
+  synthetize: string
   _id: string
   createdAt: string
   updatedAt: string

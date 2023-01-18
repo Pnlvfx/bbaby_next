@@ -6,7 +6,7 @@ import { translate } from '../../API/governance/governanceAPI'
 import { useMessage } from '../../main/TimeMsgContext'
 import { Spinner } from '../../utils/Button'
 import CheckBox from '../../utils/buttons/CheckBox'
-import GovSubmitNews from './GovSubmitNews'
+import GovSubmitNews from './submit/GovSubmitNews'
 import { useNewsProvider } from './NewsContext'
 import PexelsImages from './PexelsImages'
 
@@ -86,10 +86,10 @@ const NewsPage = () => {
               </div>
             )}
           </div>
-          <div className="mt-2 ml-1 flex items-center justify-center">
+          <div className="mt-5 ml-1 flex items-center justify-center">
             <CheckBox title="Use the current image" check={useCurrentImage} setCheck={setUseCurrentImage} />
           </div>
-          <p className="mt-4 flex items-center justify-center whitespace-pre-wrap leading-5">{originalDescription}</p>
+          <p className="mt-2 flex items-center justify-center whitespace-pre-wrap leading-5">{originalDescription}</p>
         </article>
       </div>
       {level === 'image' && <PexelsImages openSubmit={openSubmit} />}

@@ -1,6 +1,7 @@
 import Router from 'next/router'
 import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react'
 import { catchErrorWithMessage } from '../../API/common'
+import { useSession } from '../../auth/UserContext'
 import { postRequestHeaders, server } from '../../main/config'
 import { useMessage } from '../../main/TimeMsgContext'
 
@@ -25,17 +26,26 @@ interface NewsContextProps {
   setMediaInfo: Dispatch<SetStateAction<mediaInfoProps>>
   loading: boolean
   setLoading: Dispatch<SetStateAction<boolean>>
+  sharePostToTG: boolean
+  setSharePostToTG: Dispatch<SetStateAction<boolean>>
+  sharePostToTwitter: boolean
+  setSharePostToTwitter: Dispatch<SetStateAction<boolean>>
+  canPostOnTwitter: boolean
   createNews: () => Promise<void>
 }
 
 export const NewsContext = createContext({})
 
 export const NewsContextProvider = ({ children, originalTitle, originalDescription, originalImage }: NewsContextProviderProps) => {
+  const { session } = useSession()
   const [level, setlevel] = useState<'read' | 'image' | 'submit' | 'comments'>('read')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [mediaInfo, setMediaInfo] = useState({})
   const [loading, setLoading] = useState(false)
+  const [canPostOnTwitter, setCanPostOnTwitter] = useState(false)
+  const [sharePostToTG, setSharePostToTG] = useState(session?.user?.role === 1 ? true : false)
+  const [sharePostToTwitter, setSharePostToTwitter] = useState(canPostOnTwitter && session?.user?.role ? true : false)
   const message = useMessage()
 
   const createNews = async () => {
@@ -45,6 +55,8 @@ export const NewsContextProvider = ({ children, originalTitle, originalDescripti
         title,
         description,
         mediaInfo,
+        sharePostToTG,
+        sharePostToTwitter,
       })
       const url = `${server}/governance/news`
       const res = await fetch(url, {
@@ -78,6 +90,12 @@ export const NewsContextProvider = ({ children, originalTitle, originalDescripti
         mediaInfo,
         setMediaInfo,
         loading,
+        canPostOnTwitter,
+        setCanPostOnTwitter,
+        sharePostToTG,
+        setSharePostToTG,
+        sharePostToTwitter,
+        setSharePostToTwitter,
         createNews,
       }}
     >

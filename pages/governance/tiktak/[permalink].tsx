@@ -1,14 +1,17 @@
 import type { NextPage, NextPageContext } from 'next'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
 import { catchErrorWithMessage } from '../../../components/API/common'
 import tiktakapis from '../../../components/API/governance/tiktakapis/tiktakapis'
+import { GetTiktakResponse } from '../../../components/API/governance/tiktakapis/types/tiktak'
 import { getSession } from '../../../components/API/ssrAPI'
 import GovernanceCtrl from '../../../components/governance/GovernanceCtrl'
 import TiktakText from '../../../components/governance/tiktak/TiktakText'
 import { siteUrl } from '../../../components/main/config'
 import { useMessage } from '../../../components/main/TimeMsgContext'
-import { buttonClass, Spinner } from '../../../components/utils/Button'
+import { Spinner } from '../../../components/utils/Button'
 
 interface TiktakPage {
   data: GetTiktakResponse
@@ -18,16 +21,22 @@ const TiktakPage: NextPage<TiktakPage> = ({ data }) => {
   const [translated, setTranslated] = useState(data.tiktak.body)
   const [loading, setLoading] = useState(false)
   const message = useMessage()
+  const router = useRouter()
+  const [synthetize, setSynthetize] = useState(data.tiktak.synthetize)
 
   const create = async () => {
     try {
       setLoading(true)
-      await tiktakapis.createTiktak(data.tiktak.permalink, translated)
+      await tiktakapis.createTiktak(data.tiktak.permalink, translated, synthetize)
       setLoading(false)
     } catch (err) {
       setLoading(false)
       catchErrorWithMessage(err, message)
     }
+  }
+
+  const goBack = () => {
+    router.back()
   }
 
   return (
@@ -39,10 +48,27 @@ const TiktakPage: NextPage<TiktakPage> = ({ data }) => {
       </Head>
       <GovernanceCtrl>
         <TiktakText value={translated} setValue={setTranslated} />
-        <div className="mt-6 flex justify-center">
-          <button disabled={loading} className={`${buttonClass()} flex h-[35px] w-20 items-center justify-center`} onClick={create}>
+        <div className="mx-2 mt-6 flex justify-between">
+          <button
+            disabled={loading}
+            onClick={goBack}
+            className={`flex h-[35px] w-16 items-center justify-center rounded-full border border-reddit_border bg-reddit_dark-brighter`}
+          >
             {loading && <Spinner />}
-            {!loading && <p className="text-right">Create</p>}
+            {!loading && <AiOutlineArrowLeft className="h-6 w-6" />}
+          </button>
+          <input
+            value={synthetize}
+            onChange={(e) => setSynthetize(e.target.value)}
+            className="rounded-md bg-reddit_dark-brighter p-2 text-center font-bold outline-none"
+          />
+          <button
+            disabled={loading}
+            className={`flex h-[35px] w-16 items-center justify-center rounded-full border border-reddit_border bg-reddit_dark-brighter`}
+            onClick={create}
+          >
+            {loading && <Spinner />}
+            {!loading && <AiOutlineArrowRight className="h-6 w-6" />}
           </button>
         </div>
       </GovernanceCtrl>

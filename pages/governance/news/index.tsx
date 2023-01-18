@@ -4,31 +4,21 @@ import { getBBCLinks } from '../../../components/API/governance/governanceNewsAP
 import { getSession } from '../../../components/API/ssrAPI'
 import GovernanceCtrl from '../../../components/governance/GovernanceCtrl'
 import GovernanceMainMenù from '../../../components/governance/GovernanceMainMenù'
-import LinkPreview, {
-  LinkPreviewLoader,
-} from '../../../components/utils/LinkPreview'
-import { useEffect, useState } from 'react'
+import LinkPreview, { LinkPreviewLoader } from '../../../components/utils/LinkPreview'
+import { useState } from 'react'
 import { siteUrl } from '../../../components/main/config'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { catchErrorWithMessage } from '../../../components/API/common'
 import { useMessage } from '../../../components/main/TimeMsgContext'
 
-const GovNewsPage: NextPage = () => {
-  const [BBCnews, setBBCnews] = useState<ExternalNews[]>([])
+type GovNewsPageProps = {
+  news: ExternalNews[]
+}
+
+const GovNewsPage: NextPage<GovNewsPageProps> = ({ news }) => {
+  const [BBCnews, setBBCnews] = useState<ExternalNews[]>(news)
   const url = `${siteUrl}/governance/news`
   const message = useMessage()
-
-  useEffect(() => {
-    const get = async () => {
-      try {
-        const news = await getBBCLinks(16, 0)
-        setBBCnews(news)
-      } catch (err) {
-        catchErrorWithMessage(err, message)
-      }
-    }
-    get()
-  }, [])
 
   const getMore = async () => {
     try {
@@ -59,14 +49,7 @@ const GovNewsPage: NextPage = () => {
           endMessage={<p>No more news.</p>}
         >
           {BBCnews.map((news, key) => (
-            <LinkPreview
-              key={key}
-              title={news.title}
-              url={news.permalink}
-              description={news.description}
-              image={news.image}
-              date={news.date}
-            />
+            <LinkPreview key={key} title={news.title} url={news.permalink} description={news.description} image={news.image} date={news.date} />
           ))}
         </InfiniteScroll>
       </GovernanceCtrl>
@@ -79,9 +62,11 @@ export default GovNewsPage
 export const getServerSideProps = async (context: NextPageContext) => {
   try {
     const session = await getSession(context)
+    const news = await getBBCLinks(16, 0, context)
     return {
       props: {
         session,
+        news,
       },
     }
   } catch (err) {

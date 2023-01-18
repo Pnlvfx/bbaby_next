@@ -4,47 +4,26 @@ import { searchPexelsImages } from '../../API/governance/governanceNewsAPI'
 import { useMessage } from '../../main/TimeMsgContext'
 import { Spinner } from '../../utils/Button'
 import { LinkPreviewLoader } from '../../utils/LinkPreview'
-import { useNewsProvider } from './NewsContext'
+import PexelsImage from './PexelsImage'
 
-interface PexelsImagesProps {
+export interface PexelsImagesProps {
   openSubmit: () => Promise<void>
 }
 
 const PexelsImages = ({ openSubmit }: PexelsImagesProps) => {
   const [searchPexels, setSearchPexels] = useState('')
-  const [loadingResearch, setLoadingResearch] = useState<JSX.Element | null>(null!)
+  const [loading, setLoading] = useState<JSX.Element | null>(null!)
   const [pexelsImage, setPexelsImage] = useState<PexelsProps[] | []>([])
-  const { setMediaInfo } = useNewsProvider()
   const message = useMessage()
-  const [loadingChoose, setLoadingChoose] = useState(false)
 
   const dosearchPexels = async () => {
     try {
-      setLoadingResearch(<LinkPreviewLoader />)
+      setLoading(<LinkPreviewLoader />)
       const photos = await searchPexelsImages(searchPexels)
       setPexelsImage(photos)
-      setLoadingResearch(null)
+      setLoading(null)
     } catch (err) {
-      setLoadingResearch(null)
-      catchErrorWithMessage(err, message)
-    }
-  }
-
-  const selectOneImage = async (image: PexelsProps) => {
-    try {
-      if (loadingChoose) return
-      setLoadingChoose(true)
-      setMediaInfo({
-        image: image.src.original,
-        isImage: true,
-        width: image.width,
-        height: image.height,
-        alt: image.alt,
-      })
-      await openSubmit()
-      setLoadingChoose(false)
-    } catch (err) {
-      setLoadingChoose(false)
+      setLoading(null)
       catchErrorWithMessage(err, message)
     }
   }
@@ -67,35 +46,11 @@ const PexelsImages = ({ openSubmit }: PexelsImagesProps) => {
             dosearchPexels()
           }}
         >
-          {loadingResearch ? <Spinner /> : <p>Search</p>}
+          {loading ? <Spinner /> : <p>Search</p>}
         </button>
       </form>
       {pexelsImage.length >= 1 ? (
-        pexelsImage.map((image) => (
-          <div key={image.id} className="mx-2 my-4 flex justify-center">
-            <div className="w-full max-w-[700px]">
-              <picture
-                title="choose"
-                className="relative box-border block cursor-pointer bg-reddit_dark-brighter"
-                onClick={(e) => {
-                  e.preventDefault()
-                  selectOneImage(image)
-                }}
-              >
-                <img src={image.src.medium} alt={image.alt} width={image.width} height={image.height} />
-              </picture>
-              <button
-                className="rounded-md bg-reddit_dark-brightest p-2"
-                onClick={(e) => {
-                  e.preventDefault()
-                  selectOneImage(image)
-                }}
-              >
-                <p className="font-bold">Choose</p>
-              </button>
-            </div>
-          </div>
-        ))
+        pexelsImage.map((image) => <PexelsImage key={image.id} image={image} openSubmit={openSubmit} />)
       ) : (
         <div>
           <p>Search your image</p>

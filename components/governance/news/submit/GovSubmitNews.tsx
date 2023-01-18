@@ -1,6 +1,7 @@
-import { useNewsProvider } from './NewsContext'
-import { buttonClass, Spinner } from '../../utils/Button'
-import TeaxtareaAutosize from '../../utils/TeaxtareaAutosize'
+import { useNewsProvider } from '../NewsContext'
+import { buttonClass, Spinner } from '../../../utils/Button'
+import TeaxtareaAutosize from '../../../utils/TeaxtareaAutosize'
+import GovSubmitShareButtons from './GovSubmitShareButtons'
 
 const GovSubmitNews = () => {
   const { title, setTitle, mediaInfo, description, setDescription, loading, createNews } = useNewsProvider()
@@ -39,16 +40,18 @@ const GovSubmitNews = () => {
             />
           </div>
         </div>
-        <div className="flex justify-end p-2">
-          <button
-            className={`${buttonClass()} flex h-[30px] w-16 items-center justify-center`}
-            onClick={() => {
-              createNews()
-            }}
-          >
-            {loading && <Spinner />}
-            {!loading && <p className="text-right">Post</p>}
-          </button>
+        <div className="mb-5 rounded-[5px] bg-reddit_dark-brighter">
+          <hr className="mx-3 mt-12 mb-4 border-reddit_border" />
+          <div className="mx-4 flex items-center justify-end pb-4 text-right">
+            <button className={`mr-2 h-[30px] opacity-20 ${buttonClass(true)}`}>
+              <p>Save Draft</p>
+            </button>
+            <button className={`${buttonClass()} flex h-[30px] w-16 items-center justify-center`} onClick={createNews}>
+              {loading && <Spinner />}
+              {!loading && <p className="text-right">Post</p>}
+            </button>
+          </div>
+          <GovSubmitShareButtons />
         </div>
       </div>
     </div>

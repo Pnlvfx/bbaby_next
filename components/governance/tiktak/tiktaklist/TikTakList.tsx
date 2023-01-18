@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { TikTakPage } from '../../../../pages/governance/tiktak'
+import { TiktakProps } from '../../../API/governance/tiktakapis/types/tiktak'
 import styles from './tiktaklist.module.css'
 
 type TiktakContainer = {

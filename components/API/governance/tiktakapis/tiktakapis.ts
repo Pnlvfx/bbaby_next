@@ -2,6 +2,7 @@ import { NextPageContext } from 'next'
 import { postRequestHeaders, server } from '../../../main/config'
 import { catchError } from '../../common'
 import { ssrHeaders } from '../../ssrAPI'
+import { GetTiktakResponse, NewTiktakResponse } from './types/tiktak'
 
 const tiktakapis = {
   newTiktak: async (text: string, language: string) => {
@@ -37,11 +38,12 @@ const tiktakapis = {
       throw catchError(err)
     }
   },
-  createTiktak: async (permalink: string, translated: string) => {
+  createTiktak: async (permalink: string, text: string, synthetize: string) => {
     try {
       const url = `${server}/governance/tiktak/create?permalink=${permalink}`
       const body = JSON.stringify({
-        text: translated,
+        text,
+        synthetize,
       })
       const res = await fetch(url, {
         method: 'POST',

@@ -1,20 +1,20 @@
+import { NextPageContext } from 'next'
+import { postRequestHeaders, server } from '../../main/config'
 import { catchError } from '../common'
+import { ssrHeaders } from '../ssrAPI'
 
-const server = process.env.NEXT_PUBLIC_SERVER_URL
-
-export const getBBCLinks = async (limit: string | number, skip: string | number) => {
+export const getBBCLinks = async (limit: string | number, skip: string | number, context?: NextPageContext) => {
   try {
     const url = `${server}/governance/BBCnews?limit=${limit}&skip=${skip}`
+    const headers = context ? ssrHeaders(context) : postRequestHeaders
     const res = await fetch(url, {
       method: 'get',
       credentials: 'include',
+      headers,
     })
     const data = await res.json()
-    if (res.ok) {
-      return data as ExternalNews[]
-    } else {
-      throw new Error(data?.msg)
-    }
+    if (!res.ok) throw new Error(data?.msg)
+    return data as ExternalNews[]
   } catch (err) {
     throw catchError(err)
   }
