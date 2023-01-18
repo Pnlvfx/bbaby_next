@@ -2,7 +2,6 @@ const server = process.env.NEXT_PUBLIC_SERVER_URL
 
 export const loginUrl = `${server}/login` as '/login'
 export const registerUrl = `${server}/register` //  auth/AuthModal.tsx
-export const google_loginUrl = `${server}/google_login` as '/google_login' //  auth/Google.tsx
 
 export const userAPIurl = {
   reset_password: `${server}/user/forgot` as '/user/forgot',

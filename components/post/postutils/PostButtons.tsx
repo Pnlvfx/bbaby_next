@@ -15,28 +15,23 @@ const PostButtons = ({ post, isListing }: PostContentProps) => {
         <div className={`flex flex-row items-center px-[2px] md:hidden ${session?.device?.mobile && isListing && 'articleLink'}`}>
           <Voting ups={post.ups} postId={post._id} liked={post.liked} />
         </div>
-        {isListing ? (
-          <Link
-            href={`/b/${post.community.toLowerCase()}/comments/${post._id}`}
-            scroll={false}
-            className={`mr-1 box-border flex items-center p-2 hover:bg-reddit_dark-brightest ${session?.device?.mobile && 'articleLink'}`}
-            onClick={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              if (isListing) {
-                openPost(e, session?.device?.mobile ? session.device.mobile : false, post)
-              }
-            }}
-          >
-            <CommentIcon role="presentation" />
-            <span className="ml-[6px]">{post.numComments} Comments</span>
-          </Link>
-        ) : (
-          <div className="mr-1 box-border flex items-center p-2">
-            <CommentIcon role="presentation" />
-            <span className="ml-[6px]">{post.numComments} Comments</span>
-          </div>
-        )}
+        <Link
+          href={`/b/${post.community.toLowerCase()}/comments/${post._id}`}
+          scroll={false}
+          className={`mr-1 box-border flex items-center p-2 ${isListing && 'hover:bg-reddit_dark-brightest'} ${
+            session?.device?.mobile && 'articleLink'
+          }`}
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            if (isListing) {
+              openPost(e, post)
+            }
+          }}
+        >
+          <CommentIcon role="presentation" />
+          <span className="ml-[6px]">{post.numComments} Comments</span>
+        </Link>
         <ShareButton linkToCopy={'/b/' + post.community + '/comments/' + post._id} isListing={isListing} />
         <MoreButton post={post} isListing={isListing} />
       </div>

@@ -21,7 +21,7 @@ const TeaxtareaAutosize = (props: DetailedHTMLProps<TextareaHTMLAttributes<HTMLT
     if (tx.current) resizeTextarea()
   }, [props.value])
 
-  return <textarea ref={tx} {...props} />
+  return <textarea style={{ resize: 'none', overflowWrap: 'break-word' }} ref={tx} {...props} />
 }
 
 export default TeaxtareaAutosize

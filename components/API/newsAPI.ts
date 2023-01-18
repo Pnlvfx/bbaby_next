@@ -1,11 +1,10 @@
 import { NextPageContext } from 'next'
-import { postRequestHeaders } from '../main/config'
+import { postRequestHeaders, server } from '../main/config'
 import { catchError } from './common'
 import { ssrHeaders } from './ssrAPI'
 
 export const getArticle = async (permalink: string, context?: NextPageContext) => {
   try {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
     const serverUrl = `${server}/governance/news/article`
     const body = JSON.stringify({ permalink })
     const headers = context ? ssrHeaders(context) : postRequestHeaders

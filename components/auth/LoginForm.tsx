@@ -2,7 +2,6 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { login } from '../API/oauthAPI'
 import { useSession } from './UserContext'
-import * as gtag from '../../lib/gtag'
 import Link from 'next/link'
 import Google from './providers/google/Google'
 import AuthInput from './auth-input/AuthInput'
@@ -16,7 +15,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState('')
   const [passwordIsValid, setPasswordIsValid] = useState<boolean | null>(null)
   const [loading, setLoading] = useState(false)
-  const { session, refreshSession } = useSession()
+  const { session } = useSession()
   const router = useRouter()
   const authModal = useAuthModal()
 
@@ -72,30 +71,17 @@ const LoginForm = () => {
                 <h1 className="mt-6 text-xl">Log In</h1>
               </div>
               <p className=" mx-auto mt-2 text-xs">
-                By continuing, you agree are setting up a Bbabystyle account and
-                agree to our{' '}
-                <Link
-                  target={'_blank'}
-                  href={'/policies/user-agreement'}
-                  className="text-reddit_blue"
-                >
+                By continuing, you agree are setting up a Bbabystyle account and agree to our{' '}
+                <Link target={'_blank'} href={'/policies/user-agreement'} className="text-reddit_blue">
                   User Agreement{' '}
                 </Link>
                 and{' '}
-                <Link
-                  target={'_blank'}
-                  href={'/policies/privacy-policy'}
-                  className="text-reddit_blue"
-                >
+                <Link target={'_blank'} href={'/policies/privacy-policy'} className="text-reddit_blue">
                   Privacy Policy
                 </Link>
                 .
               </p>
-              <form
-                method="post"
-                action="/login"
-                className="m-auto box-border block w-[280px] max-w-[280px]"
-              >
+              <form method="post" action="/login" className="m-auto box-border block w-[280px] max-w-[280px]">
                 <div className="mt-8 mb-[18px] box-border">
                   <div className="box-border">
                     <div className="relative my-2 box-border block h-[44px] w-[280px] min-w-[280px] max-w-[400px]">
@@ -104,9 +90,7 @@ const LoginForm = () => {
                   </div>
                   <div className="mt-[20px] mb-6 flex items-center justify-between">
                     <span className="box-border w-[40%]" />
-                    <span className="box-border w-[40%] text-sm font-bold">
-                      OR
-                    </span>
+                    <span className="box-border w-[40%] text-sm font-bold">OR</span>
                     <span className="box-border w-[40%]" />
                   </div>
                 </div>
@@ -137,17 +121,11 @@ const LoginForm = () => {
                 />
                 <div className="mt-4 text-[12px] leading-4">
                   Forget your{' '}
-                  <Link
-                    href={''}
-                    className="font-bold leading-6 text-[#0079d3] underline"
-                  >
+                  <Link href={''} className="font-bold leading-6 text-[#0079d3] underline">
                     username
                   </Link>{' '}
                   or{' '}
-                  <Link
-                    href={''}
-                    className="font-bold leading-6 text-[#0079d3] underline"
-                  >
+                  <Link href={''} className="font-bold leading-6 text-[#0079d3] underline">
                     password
                   </Link>{' '}
                   ?
@@ -172,10 +150,7 @@ const LoginForm = () => {
                     onClick={(e) => {
                       e.preventDefault()
                       e.stopPropagation()
-                      if (
-                        router.pathname.match('register') ||
-                        router.pathname.match('login')
-                      ) {
+                      if (router.pathname.match('register') || router.pathname.match('login')) {
                         router.push('/account/register')
                       } else {
                         authModal.setShow('register')

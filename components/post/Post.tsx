@@ -10,12 +10,8 @@ interface ExtendPostProps {
 
 const Post = ({ post, isListing }: ExtendPostProps) => {
   const { session } = useSession()
-  const containerClass = `rounded-md border ${
-    isListing
-      ? 'mb-3 w-full border-reddit_border bg-[#141415] hover:border-reddit_text'
-      : 'border-none'
-  }`
-  
+  const containerClass = `rounded-md border ${isListing ? 'mb-3 w-full border-reddit_border bg-[#141415] hover:border-reddit_text' : 'border-none'}`
+
   return (
     <div>
       <div>
@@ -24,7 +20,7 @@ const Post = ({ post, isListing }: ExtendPostProps) => {
             className={`${containerClass} ${isListing && 'cursor-pointer'}`}
             onClick={(e) => {
               if (isListing) {
-                openPost(e, false, post)
+                openPost(e, post)
               }
             }}
           >
@@ -34,11 +30,7 @@ const Post = ({ post, isListing }: ExtendPostProps) => {
           <>
             {isListing ? (
               <article className={`${containerClass} article`} id={post._id}>
-                <Link
-                  href={`/b/${post.community.toLowerCase()}/comments/${
-                    post._id
-                  }`}
-                />
+                <Link href={`/b/${post.community.toLowerCase()}/comments/${post._id}`} />
                 <PostContent post={post} isListing={isListing} />
               </article>
             ) : (

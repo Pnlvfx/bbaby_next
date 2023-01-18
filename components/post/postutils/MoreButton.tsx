@@ -6,6 +6,7 @@ import { useSession } from '../../auth/UserContext'
 import { MoreIcon } from '../../utils/SVG'
 import { catchErrorWithMessage } from '../../API/common'
 import { useMessage } from '../../main/TimeMsgContext'
+import postapis from '../../API/postapis'
 
 type MoreButtonProps = {
   post: PostProps
@@ -20,17 +21,9 @@ const MoreButton = ({ post, isListing }: MoreButtonProps) => {
 
   const deletePost = async () => {
     try {
-      const server = process.env.NEXT_PUBLIC_SERVER_URL
-      const url = `${server}/posts/${post._id}`
-      const res = await fetch(url, {
-        method: 'delete',
-        credentials: 'include',
-      })
-      if (!res.ok) return
+      await postapis.deletePost(post._id)
       if (router.asPath !== '/') {
-        router.push(
-          `${window?.location?.origin}/b/${post.community.toLowerCase()}`
-        )
+        router.push(`${window?.location?.origin}/b/${post.community.toLowerCase()}`)
       } else {
         router.reload()
       }
@@ -40,11 +33,7 @@ const MoreButton = ({ post, isListing }: MoreButtonProps) => {
   }
 
   return (
-    <div
-      className={`flex items-center ${
-        session?.device?.mobile && isListing && 'articleLink'
-      }`}
-    >
+    <div className={`flex items-center ${session?.device?.mobile && isListing && 'articleLink'}`}>
       <ClickOutHandler onClickOut={() => setShow(false)}>
         <button
           aria-label="more options"

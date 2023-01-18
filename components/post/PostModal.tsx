@@ -1,12 +1,12 @@
-import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
-import Comment from '../comments/Comment';
-import {GrDocumentText} from 'react-icons/gr';
-import { CloseIcon } from "../utils/SVG";
-import { CommunityContext, CommunityContextProps } from "../community/CommunityContext";
-import Donations from "../widget/Donations";
-import { getPost } from "../API/postAPI";
-import Widget from "../widget/Widget";
+import { useRouter } from 'next/router'
+import { useContext, useEffect, useState } from 'react'
+import Comment from '../comments/Comment'
+import { GrDocumentText } from 'react-icons/gr'
+import { CloseIcon } from '../utils/SVG'
+import { CommunityContext, CommunityContextProps } from '../community/CommunityContext'
+import Donations from '../widget/Donations'
+import Widget from '../widget/Widget'
+import postapis from '../API/postapis'
 
 type PostModalProps = {
   community?: string
@@ -15,110 +15,116 @@ type PostModalProps = {
   onClickOut: Function
 }
 
-const PostModal = ({community, postId, open, onClickOut}: PostModalProps) => {
-  const router = useRouter();
-  const [post, setPost] = useState<PostProps>({} as PostProps);
+const PostModal = ({ community, postId, open, onClickOut }: PostModalProps) => {
+  const router = useRouter()
+  const [post, setPost] = useState<PostProps>({} as PostProps)
   const [loading, setLoading] = useState(true)
-  const {getCommunity} = useContext(CommunityContext) as CommunityContextProps;
+  const { getCommunity } = useContext(CommunityContext) as CommunityContextProps
 
   useEffect(() => {
-    if(!postId) return;
+    if (!postId) return
     const g = async () => {
       try {
-        const res = await getPost(postId);
-        setPost(res);
+        const res = await postapis.getPost(postId)
+        setPost(res)
         if (!community) {
-          getCommunity(res.community);
+          getCommunity(res.community)
         }
-        setLoading(false);
+        setLoading(false)
       } catch (err) {
-        console.log(err);
+        console.log(err)
       }
     }
-    g();
-  },[postId]);
+    g()
+  }, [postId])
 
   const clickOut = () => {
-    router.push({
-      pathname:router.pathname,
-      query: community ? {community: community} : {username: post?.author}
-    },
-    router.pathname, {scroll: false}
+    router.push(
+      {
+        pathname: router.pathname,
+        query: community ? { community: community } : { username: post?.author },
+      },
+      router.pathname,
+      { scroll: false }
     )
-    onClickOut();
-    setPost({} as PostProps);
+    onClickOut()
+    setPost({} as PostProps)
   }
 
   return (
     <>
-    {!loading && (
-      <div className={`${open ? 'fixed' : 'hidden'} top-12 bottom-0 h-full left-0 right-0 w-full z-20 bg-[rgb(25,25,25)]`}>
-      <div 
-        className="h-full overflow-y-auto relative w-full"
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          clickOut();
-        }} 
-      >
-          <div onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            //prevent closing modal
-          }} tabIndex={-1} className="bg-reddit_dark box-border h-12 left-0 mx-auto sticky max-w-[1280px] right-0 top-0 w-[calc(100%_-_160px)]">
-            <div className="md:px-8 items-center flex box-border h-full m-auto max-w-[1128px] w-full">
-              <div className={`flex items-center flex-grow w-full max-w-[calc(100%_-_324px)] `}>
-                <div className="">
-
-                </div>
-                <i className="icon mr-2">
-                  <GrDocumentText className="icon w-5 h-5 text-reddit_text"/>
-                </i>
-                <div className="flex min-w-0 realtive break-words">
-                  <div className="overflow-hidden text-ellipsis whitespace-nowrap text-[14px] leading-[18px] inline pr-[5px] break-words font-medium">
-                    <h1 className='inline'>{post.title}</h1>
+      {!loading && (
+        <div className={`${open ? 'fixed' : 'hidden'} top-12 bottom-0 left-0 right-0 z-20 h-full w-full bg-[rgb(25,25,25)]`}>
+          <div
+            className="relative h-full w-full overflow-y-auto"
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              clickOut()
+            }}
+          >
+            <div
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                //prevent closing modal
+              }}
+              tabIndex={-1}
+              className="sticky left-0 right-0 top-0 mx-auto box-border h-12 w-[calc(100%_-_160px)] max-w-[1280px] bg-reddit_dark"
+            >
+              <div className="m-auto box-border flex h-full w-full max-w-[1128px] items-center md:px-8">
+                <div className={`flex w-full max-w-[calc(100%_-_324px)] flex-grow items-center `}>
+                  <div className=""></div>
+                  <i className="icon mr-2">
+                    <GrDocumentText className="icon h-5 w-5 text-reddit_text" />
+                  </i>
+                  <div className="realtive flex min-w-0 break-words">
+                    <div className="inline overflow-hidden text-ellipsis whitespace-nowrap break-words pr-[5px] text-[14px] font-medium leading-[18px]">
+                      <h1 className="inline">{post.title}</h1>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="flex justify-end ml-3 w-[312px] text-[12px] font-bold leading-4">
-                <button 
-                  role={'button'} 
-                  tabIndex={0}
-                  title='Close'
-                  aria-label="Close"
-                  className="hover:bg-reddit_dark-brighter relative border border-transparent text-[12px] font-bold min-h-[24px] min-w-[24px] py-1 px-2 flex items-center rounded-full box-border justify-center text-center w-auto" 
-                  onClick={() => {
-                    clickOut()
-                  }} >
-                <i className='inline-block pr-1'>
-                  <CloseIcon className='h-4 w-4' />
-                </i>
-                  <span>Close</span>
-                </button>
+                <div className="ml-3 flex w-[312px] justify-end text-[12px] font-bold leading-4">
+                  <button
+                    role={'button'}
+                    tabIndex={0}
+                    title="Close"
+                    aria-label="Close"
+                    className="relative box-border flex min-h-[24px] w-auto min-w-[24px] items-center justify-center rounded-full border border-transparent py-1 px-2 text-center text-[12px] font-bold hover:bg-reddit_dark-brighter"
+                    onClick={() => {
+                      clickOut()
+                    }}
+                  >
+                    <i className="inline-block pr-1">
+                      <CloseIcon className="h-4 w-4" />
+                    </i>
+                    <span>Close</span>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div tabIndex={-1}
-            className="box-border justify-center flex mx-auto max-w-[1280px] w-[calc(100%_-_160px)] pb-8 relative bg-reddit_dark" 
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              //prevent closing modal
-            }} 
-          >
-              <div className='md:max-w-[740px] m-8 mr-3 flex-grow min-h-[100vh] pb-[1px] w-full break-words rounded-md bg-reddit_dark-brighter'>
+            <div
+              tabIndex={-1}
+              className="relative mx-auto box-border flex w-[calc(100%_-_160px)] max-w-[1280px] justify-center bg-reddit_dark pb-8"
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                //prevent closing modal
+              }}
+            >
+              <div className="m-8 mr-3 min-h-[100vh] w-full flex-grow break-words rounded-md bg-reddit_dark-brighter pb-[1px] md:max-w-[740px]">
                 <Comment post={post} />
               </div>
-              <div className="hidden lg:block m-8 ml-0">
+              <div className="m-8 ml-0 hidden lg:block">
                 <Widget community={true} />
                 <Donations />
+              </div>
             </div>
           </div>
-      </div>
-  </div>
-    )}
+        </div>
+      )}
     </>
   )
 }
 
-export default PostModal;
+export default PostModal

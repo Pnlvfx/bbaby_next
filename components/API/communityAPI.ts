@@ -1,8 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
 import { catchError } from './common'
-import { postRequestHeaders } from '../main/config'
-
-const server = process.env.NEXT_PUBLIC_SERVER_URL
+import { postRequestHeaders, server } from '../main/config'
 
 export const getUserPrefCommunities = async () => {
   try {

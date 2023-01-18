@@ -46,6 +46,7 @@ const NewsPage = () => {
       setlevel('submit')
       setLoading(false)
     } catch (err) {
+      setLoading(false)
       catchErrorWithMessage(err, message)
     }
   }

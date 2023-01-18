@@ -11,22 +11,9 @@ type AuthInput = {
   autoComplete: string
 }
 
-const AuthInput = ({
-  id,
-  type,
-  name,
-  value,
-  validate,
-  isValid,
-  error,
-  autoComplete,
-}: AuthInput) => {
+const AuthInput = ({ id, type, name, value, validate, isValid, error, autoComplete }: AuthInput) => {
   return (
-    <fieldset
-      className={`${style.field} ${style.modalUpdate} ${style.required} ${
-        isValid ? style.valid : isValid === false ? style.invalid : ''
-      }`}
-    >
+    <fieldset className={`${style.field} ${style.modalUpdate} ${style.required} ${isValid ? style.valid : isValid === false ? style.invalid : ''}`}>
       <input
         id={id}
         className={`${style.textInput} ${style.modalUpdate}`}
@@ -40,15 +27,10 @@ const AuthInput = ({
           validate(e.target.value)
         }}
       />
-      <label
-        htmlFor={id}
-        className={`${style.textInputLabel} ${style.modalUpdate}`}
-      >
+      <label htmlFor={id} className={`${style.textInputLabel} ${style.modalUpdate}`}>
         {name}
       </label>
-      {isValid === false && (
-        <div className="mt-1 pl-4 text-[12px] text-[#fb133a] ">{error}</div>
-      )}
+      {isValid === false && <div className="mt-1 pl-4 text-[12px] text-[#fb133a] ">{error}</div>}
     </fieldset>
   )
 }
