@@ -4,16 +4,14 @@ import { useAuthModal } from '../auth/modal/AuthModalContext'
 import Link from 'next/link'
 
 const NotUserMenu = ({ setShowDropdown }: any) => {
-
-  const ButtonWithIcon = (name: string, ) => {
+  const ButtonWithIcon = (name: string) => {
     return (
-      <button className={'hover:bg-reddit_dark-brightest box-border block h-10 w-full'}>
-        <span className={'flex items-center px-5 h-full'}>
+      <button className={'box-border block h-10 w-full hover:bg-reddit_dark-brightest'}>
+        <span className={'flex h-full items-center px-5'}>
           <span>
             <FiSettings className="mr-2 h-5 w-5" />
           </span>
-          <span className="text-[14px] leading-[18px] font-bold">{name}</span>
-          
+          <span className="text-[14px] font-bold leading-[18px]">{name}</span>
         </span>
       </button>
     )
@@ -21,11 +19,13 @@ const NotUserMenu = ({ setShowDropdown }: any) => {
 
   const containerClass = 'hover:bg-reddit_dark-brightest cursor-pointer'
   const buttonClass = 'text-sm p-3 pl-12 font-bold'
-  const authModal = useAuthModal();
+  const authModal = useAuthModal()
 
   return (
     <>
-      <div className={'absolute right-0 top-[48px] z-10 overflow-hidden rounded-md border border-reddit_border bg-reddit_dark-brighter text-reddit_text'}>
+      <div
+        className={'absolute right-0 top-[48px] z-10 overflow-hidden rounded-md border border-reddit_border bg-reddit_dark-brighter text-reddit_text'}
+      >
         <div className="w-[280px]">
           <div className="">
             <div id="buttons_with_icon">
@@ -35,7 +35,7 @@ const NotUserMenu = ({ setShowDropdown }: any) => {
             <hr className="my-3 mb-4 border-reddit_border" />
             <div id="button_no_icons">
               <div className={containerClass}>
-                <Link 
+                <Link
                   href={'/policies/user-agreement'}
                   target="_blank"
                   onClick={() => {
@@ -46,7 +46,7 @@ const NotUserMenu = ({ setShowDropdown }: any) => {
                 </Link>
               </div>
               <div className={containerClass}>
-                <Link 
+                <Link
                   href={'/policies/privacy-policy'}
                   target="_blank"
                   onClick={() => {
@@ -73,15 +73,11 @@ const NotUserMenu = ({ setShowDropdown }: any) => {
                 className={'flex p-[9px] pl-4'}
               >
                 <BiUserCircle className="mr-2 h-6 w-6" />
-                <p className="mt-[2px] text-sm font-bold">
-                  Sign Up or Log In
-                </p>
+                <p className="mt-[2px] text-sm font-bold">Sign Up or Log In</p>
               </div>
             </div>
             <div>
-              <p className="p-4 pt-3 text-xs text-reddit_text-darker">
-                2022 Bbabystyle.Inc. All rights reserved
-              </p>
+              <p className="p-4 pt-3 text-xs text-reddit_text-darker">2022 Bbabystyle.Inc. All rights reserved</p>
             </div>
           </div>
         </div>
@@ -90,5 +86,4 @@ const NotUserMenu = ({ setShowDropdown }: any) => {
   )
 }
 
-export default NotUserMenu;
-
+export default NotUserMenu

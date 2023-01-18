@@ -4,6 +4,7 @@ import { MdArrowBackIosNew } from 'react-icons/md'
 import { catchErrorWithMessage } from '../../API/common'
 import { translate } from '../../API/governance/governanceAPI'
 import { useMessage } from '../../main/TimeMsgContext'
+import { Spinner } from '../../utils/Button'
 import CheckBox from '../../utils/buttons/CheckBox'
 import GovSubmitNews from './GovSubmitNews'
 import { useNewsProvider } from './NewsContext'
@@ -13,9 +14,11 @@ const NewsPage = () => {
   const { level, setlevel, originalTitle, originalImage, originalDescription, setTitle, setDescription, setMediaInfo } = useNewsProvider()
   const [useCurrentImage, setUseCurrentImage] = useState(false)
   const message = useMessage()
+  const [loading, setLoading] = useState(false)
 
-  const openPexelsImageForm = () => {
+  const open = () => {
     if (useCurrentImage) {
+      setLoading(true)
       const image = new Image()
       image.src = originalImage
 
@@ -41,6 +44,7 @@ const NewsPage = () => {
       setTitle(title)
       setDescription(description)
       setlevel('submit')
+      setLoading(false)
     } catch (err) {
       catchErrorWithMessage(err, message)
     }
@@ -65,15 +69,21 @@ const NewsPage = () => {
           </div>
           <div
             title="Open pexels search"
-            className="flex cursor-pointer justify-center"
+            className="relative flex cursor-pointer justify-center"
             onClick={(e) => {
               e.preventDefault()
-              openPexelsImageForm()
+              if (loading) return
+              open()
             }}
           >
             <picture>
               <img src={originalImage} alt="News Image" />
             </picture>
+            {loading && (
+              <div className="absolute top-0 left-0 bottom-0 right-0 flex items-center justify-center">
+                <Spinner width={50} height={50} color={'black'} />
+              </div>
+            )}
           </div>
           <div className="mt-2 ml-1 flex items-center justify-center">
             <CheckBox title="Use the current image" check={useCurrentImage} setCheck={setUseCurrentImage} />

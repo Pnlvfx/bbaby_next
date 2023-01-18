@@ -12,42 +12,46 @@ interface PexelsImagesProps {
 
 const PexelsImages = ({ openSubmit }: PexelsImagesProps) => {
   const [searchPexels, setSearchPexels] = useState('')
-  const [loading, setLoading] = useState<JSX.Element | null>(null!)
+  const [loadingResearch, setLoadingResearch] = useState<JSX.Element | null>(null!)
   const [pexelsImage, setPexelsImage] = useState<PexelsProps[] | []>([])
   const { setMediaInfo } = useNewsProvider()
   const message = useMessage()
+  const [loadingChoose, setLoadingChoose] = useState(false)
 
   const dosearchPexels = async () => {
     try {
-      setLoading(<LinkPreviewLoader />)
+      setLoadingResearch(<LinkPreviewLoader />)
       const photos = await searchPexelsImages(searchPexels)
       setPexelsImage(photos)
-      setLoading(null)
+      setLoadingResearch(null)
     } catch (err) {
+      setLoadingResearch(null)
       catchErrorWithMessage(err, message)
-      setLoading(null)
     }
   }
 
   const selectOneImage = async (image: PexelsProps) => {
-    setMediaInfo({
-      image: image.src.original,
-      isImage: true,
-      width: image.width,
-      height: image.height,
-      alt: image.alt,
-    })
-    await openSubmit()
+    try {
+      if (loadingChoose) return
+      setLoadingChoose(true)
+      setMediaInfo({
+        image: image.src.original,
+        isImage: true,
+        width: image.width,
+        height: image.height,
+        alt: image.alt,
+      })
+      await openSubmit()
+      setLoadingChoose(false)
+    } catch (err) {
+      setLoadingChoose(false)
+      catchErrorWithMessage(err, message)
+    }
   }
 
   return (
     <div className="block lg:mx-2">
-      <form
-        className="mb-4 flex items-center justify-center bg-reddit_dark-brighter"
-        onSubmit={(e) => {
-          e.preventDefault()
-        }}
-      >
+      <form className="mb-4 flex items-center justify-center bg-reddit_dark-brighter" onSubmit={(e) => e.preventDefault()}>
         <input
           type={'text'}
           placeholder="Search Image"
@@ -58,12 +62,12 @@ const PexelsImages = ({ openSubmit }: PexelsImagesProps) => {
           className={`inputClass h-10 flex-grow pl-2 text-[16px] leading-6 outline-none`}
         />
         <button
-          className={`h-6 w-[75px] rounded-full border border-gray-300 bg-white text-sm font-bold text-black`}
+          className={`mr-2 h-7 w-[75px] rounded-full border border-gray-300 bg-white text-sm font-bold text-black`}
           onClick={() => {
             dosearchPexels()
           }}
         >
-          {loading ? <Spinner /> : <p>Search</p>}
+          {loadingResearch ? <Spinner /> : <p>Search</p>}
         </button>
       </form>
       {pexelsImage.length >= 1 ? (
@@ -78,12 +82,7 @@ const PexelsImages = ({ openSubmit }: PexelsImagesProps) => {
                   selectOneImage(image)
                 }}
               >
-                <img
-                  src={image.src.medium}
-                  alt={image.alt}
-                  width={image.width}
-                  height={image.height}
-                />
+                <img src={image.src.medium} alt={image.alt} width={image.width} height={image.height} />
               </picture>
               <button
                 className="rounded-md bg-reddit_dark-brightest p-2"

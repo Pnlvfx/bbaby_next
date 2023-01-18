@@ -1,7 +1,7 @@
 import Router from 'next/router'
 import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react'
 import { catchErrorWithMessage } from '../../API/common'
-import { postRequestHeaders } from '../../main/config'
+import { postRequestHeaders, server } from '../../main/config'
 import { useMessage } from '../../main/TimeMsgContext'
 
 interface NewsContextProviderProps {
@@ -40,14 +40,13 @@ export const NewsContextProvider = ({ children, originalTitle, originalDescripti
 
   const createNews = async () => {
     try {
-      const server = process.env.NEXT_PUBLIC_SERVER_URL
+      setLoading(true)
       const body = JSON.stringify({
         title,
         description,
         mediaInfo,
       })
       const url = `${server}/governance/news`
-      setLoading(true)
       const res = await fetch(url, {
         method: 'POST',
         headers: postRequestHeaders,
@@ -55,12 +54,9 @@ export const NewsContextProvider = ({ children, originalTitle, originalDescripti
         credentials: 'include',
       })
       const data = await res.json()
+      if (!res.ok) throw new Error(data?.msg)
+      Router.push(data.permalink)
       setLoading(false)
-      if (!res.ok) {
-        catchErrorWithMessage(data?.msg, message)
-      } else {
-        Router.push(data.permalink)
-      }
     } catch (err) {
       setLoading(false)
       catchErrorWithMessage(err, message)

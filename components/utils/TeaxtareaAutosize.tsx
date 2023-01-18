@@ -1,41 +1,27 @@
-import { ChangeEventHandler, MouseEventHandler, useEffect, useRef } from 'react'
+import { DetailedHTMLProps, TextareaHTMLAttributes, useEffect, useRef } from 'react'
 
-interface TextareaProps {
-  value: string
-  className: string
-  placeholder: string
-  onClick?: MouseEventHandler<HTMLTextAreaElement>
-  onChange?: ChangeEventHandler<HTMLTextAreaElement>
-  maxLength?: number
-}
-
-const TeaxtareaAutosize = ({ value, className, placeholder, onClick, onChange, maxLength }: TextareaProps) => {
+const TeaxtareaAutosize = (props: DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>) => {
   const tx = useRef<HTMLTextAreaElement>(null)
+  const prevHeightRef = useRef(0)
 
   const resizeTextarea = () => {
     if (tx.current) {
-      tx.current.style.height = '0'
-      tx.current.style.height = tx.current.scrollHeight + 'px'
+      const currentHeight = tx.current.scrollHeight
+      if (prevHeightRef.current !== currentHeight) {
+        tx.current.style.height = '0'
+        /* prettier-ignore */
+        tx.current.style.height = (tx.current.scrollHeight) + 'px'
+        /* prettier-ignore */
+        prevHeightRef.current = currentHeight
+      }
     }
   }
 
   useEffect(() => {
     if (tx.current) resizeTextarea()
-  }, [value])
+  }, [props.value])
 
-  return (
-    <textarea
-      ref={tx}
-      className={`${className} break-words`}
-      placeholder={placeholder}
-      rows={1}
-      onClick={onClick}
-      onChange={onChange}
-      maxLength={maxLength}
-      value={value}
-      spellCheck={false}
-    />
-  )
+  return <textarea ref={tx} {...props} />
 }
 
 export default TeaxtareaAutosize
