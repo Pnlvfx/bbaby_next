@@ -3,7 +3,6 @@ import type { NextPage, NextPageContext } from 'next'
 import GovernanceCtrl from '../../../components/governance/GovernanceCtrl'
 import Head from 'next/head'
 import GovernanceMainMenù from '../../../components/governance/GovernanceMainMenù'
-import { YoutubeContextProvider } from '../../../components/governance/youtube/YoutubeContext'
 import { getOneNews } from '../../../components/mynews/APInews'
 import { getSession } from '../../../components/API/ssrAPI'
 import { useRouter } from 'next/router'
@@ -34,9 +33,7 @@ const Governance: NextPage<NewsPropsPage> = ({ news }) => {
       </Head>
       <GovernanceCtrl>
         <GovernanceMainMenù />
-        <YoutubeContextProvider ssrNews={news}>
-          <Youtube />
-        </YoutubeContextProvider>
+        <Youtube news={news} />
       </GovernanceCtrl>
     </div>
   )

@@ -17,7 +17,7 @@ export default SearchPage
 export const getServerSideProps = async (context: NextPageContext) => {
   try {
     const session = await getSession(context)
-    const text = context.query.text ? context.query.text : undefined
+    const text = context.query.text
     let posts = []
     if (text) {
       posts = await search(text.toString())

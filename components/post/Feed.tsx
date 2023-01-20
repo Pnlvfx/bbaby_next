@@ -14,13 +14,13 @@ import YandexAds from '../utils/yandex-ads/YandexAds'
 import postapis from '../API/postapis'
 
 type FeedProps = {
-  posts: PostProps[]
+  posts?: PostProps[]
   community?: string
   author?: string
 }
 
 const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
-  const [posts, setPosts] = useState<PostProps[]>(ssrPost)
+  const [posts, setPosts] = useState<PostProps[]>(ssrPost || [])
   const [postOpen, setPostOpen] = useState(false)
   const router = useRouter()
   const { session } = useSession()
@@ -85,17 +85,11 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
               ))}
               endMessage={<></>}
             >
-              {posts?.length >= 1 ? (
-                posts.map((post, index) => {
-                  if (index === 3) {
-                    return <YandexAds key={index} />
-                  } else {
+              {posts?.length >= 1
+                ? posts.map((post, index) => {
                     return <Post key={post._id} post={post} isListing={true} />
-                  }
-                })
-              ) : (
-                <div></div>
-              )}
+                  })
+                : [1, 2, 3, 4, 5].map((_, idx) => <Skeleton isImage={true} key={idx} />)}
             </InfiniteScroll>
           </div>
         </div>

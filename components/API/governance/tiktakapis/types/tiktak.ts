@@ -7,7 +7,6 @@ export interface NewTiktakResponse {
 
 export interface GetTiktakResponse {
   tiktak: TiktakProps
-  videos: PexelsProps[]
 }
 
 export interface TiktakProps {

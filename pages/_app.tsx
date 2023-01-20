@@ -4,7 +4,7 @@ import '../styles/post.css'
 import '../styles/videoMobile.css'
 import '../components/user/user-page.css'
 import { UserContextProvider } from '../components/auth/UserContext'
-import type { AppProps, NextWebVitalsMetric } from 'next/app'
+import type { AppProps } from 'next/app'
 import { AuthModalContextProvider } from '../components/auth/modal/AuthModalContext'
 import { CommunityContextProvider } from '../components/community/CommunityContext'
 import { TimeMsgContextProvider } from '../components/main/TimeMsgContext'
@@ -12,8 +12,7 @@ import { GoogleOAuthProvider } from '../components/auth/providers/google/GoogleO
 import Layout from '../components/main/layout/Layout'
 import { useEffect } from 'react'
 import Head from 'next/head'
-import { siteUrl } from '../components/main/config'
-import dynamic from 'next/dynamic'
+import { server, siteUrl } from '../components/main/config'
 interface App {
   session: SessionProps
   error: string
@@ -25,7 +24,6 @@ const MyApp = ({ Component, pageProps: { session, error, ...pageProps } }: AppPr
     if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return
     const tracker = async () => {
       try {
-        const server = process.env.NEXT_PUBLIC_SERVER_URL
         const url = `${server}/user/analytics`
         const res = await fetch(url, {
           method: 'get',
@@ -83,8 +81,3 @@ const MyApp = ({ Component, pageProps: { session, error, ...pageProps } }: AppPr
 }
 
 export default MyApp
-
-export const reportWebVitals = (metric: NextWebVitalsMetric) => {
-  if (process.env.NODE_ENV === 'development') return
-  //telegramapis.sendLog(`${metric.name} : ${metric.value} start: ${metric.startTime}`)
-}

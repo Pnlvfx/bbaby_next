@@ -91,18 +91,14 @@ export const searchCommunity = async (text: string) => {
 
 export const getCommunities = async (limit: number) => {
   try {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
     const url = `${server}/communities?limit=${limit}`
     const res = await fetch(url, {
       method: 'get',
       credentials: 'include',
     })
     const data = await res.json()
-    if (res.ok) {
-      return data
-    } else {
-      throw new Error(data?.msg)
-    }
+    if (!res.ok) throw new Error(data?.msg)
+    return data
   } catch (err) {
     throw catchError(err)
   }

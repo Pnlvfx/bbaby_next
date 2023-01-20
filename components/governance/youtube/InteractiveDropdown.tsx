@@ -1,15 +1,14 @@
-import { Dispatch, SetStateAction, useRef } from 'react'
+import { Dispatch, RefObject, SetStateAction } from 'react'
 import ClickOutHandler from 'react-clickout-ts'
 
 interface InteractiveDropdown {
   value: ValueProps
   setValue: Dispatch<SetStateAction<ValueProps>>
   setShow: Dispatch<SetStateAction<boolean>>
+  colorRef: RefObject<HTMLInputElement>
 }
 
-const InteractiveDropdown = ({ value, setValue, setShow }: InteractiveDropdown) => {
-  const colorRef = useRef<HTMLInputElement>(null)
-
+const InteractiveDropdown = ({ colorRef, value, setValue, setShow }: InteractiveDropdown) => {
   return (
     <div className="absolute flex h-full w-full cursor-default items-center justify-center text-center">
       <ClickOutHandler
@@ -27,22 +26,13 @@ const InteractiveDropdown = ({ value, setValue, setShow }: InteractiveDropdown) 
         >
           <div className="h-full w-full">
             <div>
-              <input
-                hidden
-                ref={colorRef}
-                type="color"
-                value={value.textColor}
-                onChange={(e) => {
-                  setValue({ ...value, textColor: e.target.value })
-                }}
-              />
               <button
                 onClick={(e) => {
                   e.preventDefault()
                   e.stopPropagation()
                   colorRef.current?.click()
                 }}
-                className="text-sm text-reddit_text "
+                className="text-sm text-reddit_text"
               >
                 Choose color
               </button>

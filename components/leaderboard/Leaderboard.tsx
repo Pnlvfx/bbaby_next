@@ -1,47 +1,51 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { getCommunities } from '../API/communityAPI';
-import Widget from '../widget/Widget';
-import LeaderboardFeed from './LeaderboardFeed';
-import LeaderboardMenu from './LeaderboardMenu';
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { catchErrorWithMessage } from '../API/common'
+import { getCommunities } from '../API/communityAPI'
+import { useMessage } from '../main/TimeMsgContext'
+import Widget from '../widget/Widget'
+import LeaderboardFeed from './LeaderboardFeed'
+import LeaderboardMenu from './LeaderboardMenu'
 
 const Leaderboard = () => {
-  const router = useRouter();
-  const [communities, setCommunities] = useState<CommunityProps[] | []>([]);
+  const router = useRouter()
+  const [communities, setCommunities] = useState<CommunityProps[]>([])
+  const message = useMessage()
 
   useEffect(() => {
-    if (!router.isReady) return;
+    if (!router.isReady) return
     const getComm = async () => {
-      const { category } = router.query
-      const c = await getCommunities(25);
-      setCommunities(c);
+      try {
+        const c = await getCommunities(25)
+        setCommunities(c)
+      } catch (err) {
+        catchErrorWithMessage(err, message)
+      }
     }
-    getComm();
+    getComm()
   }, [router])
 
   return (
-    <div className='flex flex-col min-h-[calc(100vh_-_48px)]'>
-        <div className='z-[3]'>
-          <div className="flex bg-reddit_dark-brighter h-24 justify-center">
-          <div className="box-border flex flex-grow flex-col justify-center h-24 mx-6 max-w-[1200px] px-4">
-            <h1 className="text-2xl font-bold leading-6 mb-2">Today&apos;s Top Growing Communities</h1>
+    <div className="flex min-h-[calc(100vh_-_48px)] flex-col">
+      <div className="z-[3]">
+        <div className="flex h-24 justify-center bg-reddit_dark-brighter">
+          <div className="mx-6 box-border flex h-24 max-w-[1200px] flex-grow flex-col justify-center px-4">
+            <h1 className="mb-2 text-2xl font-bold leading-6">Today&apos;s Top Growing Communities</h1>
             <span className="text-xs text-reddit_text-darker">
-              Browse bbaby&apos;s top growing communities. Find the top
-              communities in your favorite category.
+              Browse bbaby&apos;s top growing communities. Find the top communities in your favorite category.
             </span>
           </div>
         </div>
-        <div className="max-w-[1248px] py-5 px-6 box-border flex justify-center mx-auto ">
+        <div className="mx-auto box-border flex max-w-[1248px] justify-center py-5 px-6 ">
           <LeaderboardMenu />
           <LeaderboardFeed communities={communities} />
-          <div className='ml-8'>
+          <div className="ml-8">
             <Widget />
           </div>
         </div>
-        </div>
+      </div>
     </div>
   )
 }
 
-export default Leaderboard;
-
+export default Leaderboard

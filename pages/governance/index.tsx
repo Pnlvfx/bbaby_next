@@ -3,31 +3,33 @@ import GovernanceCtrl from '../../components/governance/GovernanceCtrl'
 import Head from 'next/head'
 import GovernanceMainMenù from '../../components/governance/GovernanceMainMenù'
 import Homepage from '../../components/governance/main/Homepage'
-import { getYoutubeAccessToken } from '../../components/API/governance/youtubeAPI'
+import youtubeapis from '../../components/API/governance/youtubeAPI'
 import { useEffect } from 'react'
 import { useMessage } from '../../components/main/TimeMsgContext'
 import { useRouter } from 'next/router'
 import { getSession } from '../../components/API/ssrAPI'
 import { siteUrl } from '../../components/main/config'
+import { catchErrorWithMessage } from '../../components/API/common'
 
-interface YoutubeError {
-  youtube?: string
-}
-
-const Governance: NextPage<YoutubeError> = ({ youtube }) => {
-  const { setMessage } = useMessage()
+const Governance: NextPage = () => {
+  const message = useMessage()
   const router = useRouter()
 
   useEffect(() => {
-    if (!youtube) return
-    if (!router.isReady) return
-    setMessage({ value: youtube, status: 'success' })
-    router.replace('/governance', undefined, { shallow: false })
-
-    return () => {
-      youtube = ''
+    const getToken = async () => {
+      try {
+        if (!router.isReady) return
+        if (!router.query.code) return
+        const data = await youtubeapis.getYoutubeAccessToken(router.query.code.toString())
+        console.log(data)
+        message.setMessage({ value: data.msg, status: 'success' })
+        router.replace('/governance', undefined, { shallow: false })
+      } catch (err) {
+        catchErrorWithMessage(err, message)
+      }
     }
-  }, [router, youtube])
+    getToken()
+  }, [router])
 
   return (
     <>
@@ -47,21 +49,19 @@ const Governance: NextPage<YoutubeError> = ({ youtube }) => {
 export default Governance
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  const { code } = context.query
-  let session = null
-  let youtube = ''
   try {
-    session = await getSession(context)
-  } catch (error) {}
-  if (code) {
-    const res = await getYoutubeAccessToken(code.toString(), context)
-    youtube = 'Account connected successfully'
-  }
-
-  return {
-    props: {
-      session,
-      youtube,
-    },
+    const session = await getSession(context)
+    return {
+      props: {
+        session,
+      },
+    }
+  } catch (err) {
+    const error = `Don't panic. Now we fix the issue!`
+    return {
+      props: {
+        error,
+      },
+    }
   }
 }
