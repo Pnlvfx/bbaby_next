@@ -1,10 +1,10 @@
 import type { NextPage, NextPageContext } from 'next'
 import { useRouter } from 'next/router'
+import newsapis from '../../components/API/newsapis'
 import { getSession } from '../../components/API/ssrAPI'
 import CEO from '../../components/main/CEO'
 import { siteUrl } from '../../components/main/config'
 import PageNotFound from '../../components/main/PageNotFound'
-import { getOneNews } from '../../components/mynews/APInews'
 import MyNewsCard from '../../components/mynews/MyNewsCard'
 import Donations from '../../components/widget/Donations'
 import PolicyWidget from '../../components/widget/PolicyWidget'
@@ -17,7 +17,7 @@ interface NewsIdPageProps {
 const NewsIdPage: NextPage<NewsIdPageProps> = ({ news }) => {
   const description = news?.description.substring(0, 250) || ''
   const router = useRouter()
-  const url = news ? `${siteUrl}/news/${news.title}` : `${siteUrl}${router.asPath}`
+  const url = news ? `${siteUrl}${news.permalink}` : `${siteUrl}${router.asPath}`
   const title = news?.title || router.asPath.split('/')[2]
 
   return (
@@ -58,7 +58,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     const session = await getSession(context)
     let { permalink } = context.query
     if (!permalink) throw new Error(`Missing title parameters.`)
-    const news = await getOneNews(permalink.toString(), context)
+    const news = await newsapis.getArticle(permalink.toString(), context)
     return {
       props: {
         session,

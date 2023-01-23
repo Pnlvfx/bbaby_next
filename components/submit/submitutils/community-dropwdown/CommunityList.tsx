@@ -10,32 +10,26 @@ type CommunityListProps = {
 
 const CommunityList = ({ community, setShow, setActiveClass }: CommunityListProps) => {
   const size = 35
-  const { setSelectedCommunity, setCommunityIcon } = useContext(SubmitContext) as SubmitContextType
+  const { setSelectedCommunity } = useContext(SubmitContext) as SubmitContextType
 
   return (
-      <button className='w-full hover:bg-reddit_dark-brightest mb-3'
-        value={'community'}
-        onClick={() => {
-          setCommunityIcon(community.communityAvatar)
-          setSelectedCommunity(community.name)
-          setShow(false)
-          setActiveClass(false)
-        }}
-      >
-        <div className="flex items-center text-left">
-          <Image
-            src={community.communityAvatar}
-            alt='Community Icon'
-            height={size}
-            width={size}
-            className="rounded-full"
-          />
-          <div className='ml-3'>
-            <p className="">b/{community.name}</p>
-            <p className='text-reddit_text-darker'>{community.subscribers} members</p>
-          </div>
+    <button
+      className="mb-3 w-full hover:bg-reddit_dark-brightest"
+      value={'community'}
+      onClick={() => {
+        setSelectedCommunity(community.name)
+        setShow(false)
+        setActiveClass(false)
+      }}
+    >
+      <div className="flex items-center text-left">
+        <Image src={community.communityAvatar} alt="Community Icon" height={size} width={size} className="rounded-full" />
+        <div className="ml-3">
+          <p className="">b/{community.name}</p>
+          <p className="text-reddit_text-darker">{community.subscribers} members</p>
         </div>
-      </button>
+      </div>
+    </button>
   )
 }
 

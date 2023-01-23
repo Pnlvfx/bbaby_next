@@ -4,7 +4,7 @@ import { createContext, Dispatch, SetStateAction, useState } from 'react'
 import { catchErrorWithMessage } from '../API/common'
 import { useAuthModal } from '../auth/modal/AuthModalContext'
 import { useSession } from '../auth/UserContext'
-import { postRequestHeaders } from '../main/config'
+import { postRequestHeaders, server } from '../main/config'
 import { useMessage } from '../main/TimeMsgContext'
 import { getUserInfo } from '../user_settings/user_settingsAPI'
 
@@ -29,8 +29,6 @@ export interface SubmitContextType {
   setThumbnail: SetStateAction<any>
   selectedCommunity: string
   setSelectedCommunity: Dispatch<SetStateAction<string>>
-  communityIcon: string
-  setCommunityIcon: Dispatch<SetStateAction<string>>
   isImage: boolean
   setIsImage: Dispatch<SetStateAction<boolean>>
   isVideo: boolean
@@ -53,7 +51,6 @@ export const SubmitContextProvider = ({ children }: SubmitContextProviderProps) 
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
   const [selectedCommunity, setSelectedCommunity] = useState('')
-  const [communityIcon, setCommunityIcon] = useState('')
   const [selectedFile, setSelectedFile] = useState(null)
   const [thumbnail, setThumbnail] = useState(null)
   const [isImage, setIsImage] = useState(false)
@@ -67,13 +64,11 @@ export const SubmitContextProvider = ({ children }: SubmitContextProviderProps) 
   const createPost = async () => {
     try {
       setLoading(true)
-      const server = process.env.NEXT_PUBLIC_SERVER_URL
       const url = `${server}/posts`
       const _body = JSON.stringify({
         title,
         body,
         community: selectedCommunity,
-        communityIcon,
         selectedFile,
         isImage,
         isVideo,
@@ -144,8 +139,6 @@ export const SubmitContextProvider = ({ children }: SubmitContextProviderProps) 
         setWidth,
         selectedCommunity,
         setSelectedCommunity,
-        communityIcon,
-        setCommunityIcon,
         selectedFile,
         setSelectedFile,
         isImage,

@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
+import { Dispatch, SetStateAction } from 'react'
 import { AiOutlineRead } from 'react-icons/ai'
 import { FcVideoProjector } from 'react-icons/fc'
 import { useSession } from '../auth/UserContext'
@@ -8,11 +9,13 @@ import ShareButton from '../post/postutils/ShareButton'
 interface NewsButtonsProps {
   news: NewsProps
   isListing: boolean
+  setEditMode: Dispatch<SetStateAction<boolean>>
   openNews: () => void
 }
 
-const NewsButtons = ({ news, isListing, openNews }: NewsButtonsProps) => {
+const NewsButtons = ({ news, isListing, setEditMode, openNews }: NewsButtonsProps) => {
   const { session } = useSession()
+  const router = useRouter()
   return (
     <div id="buttons" className="mt-2 mr-2 flex items-center rounded-sm text-xs font-bold text-reddit_text-darker">
       {isListing ? (
@@ -43,7 +46,7 @@ const NewsButtons = ({ news, isListing, openNews }: NewsButtonsProps) => {
             onClick={(e) => {
               e.preventDefault()
               e.stopPropagation()
-              Router.push({
+              router.push({
                 pathname: `/governance/youtube`,
                 query: { permalink: news.permalink.replace('/news/', '') },
               })
@@ -52,10 +55,18 @@ const NewsButtons = ({ news, isListing, openNews }: NewsButtonsProps) => {
             <FcVideoProjector className="h-5 w-5" />
             <p className="ml-1 text-xs">Create video</p>
           </Link>
-          <button className="flex items-center rounded-md p-[10px] hover:bg-reddit_dark-brightest">
-            <AiOutlineRead className="h-5 w-5" />
-            <p className="ml-1 text-xs">Edit News</p>
-          </button>
+          {!isListing && (
+            <button
+              className="flex items-center rounded-md p-[10px] hover:bg-reddit_dark-brightest"
+              onClick={(e) => {
+                e.preventDefault()
+                setEditMode(true)
+              }}
+            >
+              <AiOutlineRead className="h-5 w-5" />
+              <p className="ml-1 text-xs">Edit News</p>
+            </button>
+          )}
         </div>
       )}
       <ShareButton linkToCopy={news.permalink} isListing={isListing} />

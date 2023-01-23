@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { catchErrorWithMessage } from '../../API/common'
-import { searchPexelsImages } from '../../API/governance/governanceNewsAPI'
+import govnewsapi from '../../API/governance/govnewsapi'
 import { useMessage } from '../../main/TimeMsgContext'
 import { Spinner } from '../../utils/Button'
 import { LinkPreviewLoader } from '../../utils/LinkPreview'
@@ -19,7 +19,7 @@ const PexelsImages = ({ openSubmit }: PexelsImagesProps) => {
   const dosearchPexels = async () => {
     try {
       setLoading(<LinkPreviewLoader />)
-      const photos = await searchPexelsImages(searchPexels)
+      const photos = await govnewsapi.searchPexelsImages(searchPexels)
       setPexelsImage(photos)
       setLoading(null)
     } catch (err) {

@@ -1,9 +1,10 @@
 import Router from 'next/router'
-import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react'
+import { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
 import { catchErrorWithMessage } from '../../API/common'
 import { useSession } from '../../auth/UserContext'
 import { postRequestHeaders, server } from '../../main/config'
 import { useMessage } from '../../main/TimeMsgContext'
+import { getUserInfo } from '../../user_settings/user_settingsAPI'
 
 interface NewsContextProviderProps {
   children: React.ReactNode
@@ -47,6 +48,23 @@ export const NewsContextProvider = ({ children, originalTitle, originalDescripti
   const [sharePostToTG, setSharePostToTG] = useState(session?.user?.role === 1 ? true : false)
   const [sharePostToTwitter, setSharePostToTwitter] = useState(canPostOnTwitter && session?.user?.role ? true : false)
   const message = useMessage()
+
+  useEffect(() => {
+    const authorize = async () => {
+      try {
+        const userInfo = await getUserInfo()
+        if (userInfo?.externalAccounts?.find((provider) => provider.provider === 'twitter')) {
+          setCanPostOnTwitter(true)
+          if (session?.user?.role === 1) {
+            setSharePostToTwitter(true)
+          }
+        }
+      } catch (err) {
+        catchErrorWithMessage(err, message)
+      }
+    }
+    authorize()
+  }, [])
 
   const createNews = async () => {
     try {

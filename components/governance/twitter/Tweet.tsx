@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import ReactLinkify from 'react-linkify'
 import TimeAgo from 'timeago-react'
 import { catchErrorWithMessage } from '../../API/common'
-import { translate } from '../../API/governance/governanceAPI'
+import govapis from '../../API/governance/govapis'
 import { LOGO } from '../../main/config'
 import { useMessage } from '../../main/TimeMsgContext'
 import SubmitLayout, { newTweetProps } from '../../submit/SubmitLayout'
@@ -48,7 +48,7 @@ const Tweet = ({
 
   const doTranslate = async () => {
     try {
-      const tweetTitle = await translate(title, language)
+      const tweetTitle = await govapis.translate(title, language)
       setNewTweet({
         title: tweetTitle,
         image: image ? image : undefined,
@@ -89,14 +89,7 @@ const Tweet = ({
               <div className="relative mx-2 mb-2 flex items-start text-[12px] leading-4">
                 <div className="flex-none align-baseline">
                   <div className="mr-1 inline-block h-5 w-5 rounded-full bg-[#4c075a] align-middle">
-                    <Image
-                      role={'presentation'}
-                      src={user_avatar}
-                      alt="twitter_user_image"
-                      className="rounded-full"
-                      width={20}
-                      height={20}
-                    />
+                    <Image role={'presentation'} src={user_avatar} alt="twitter_user_image" className="rounded-full" width={20} height={20} />
                   </div>
                 </div>
                 <div className="flex flex-shrink flex-grow flex-wrap items-center overflow-hidden">
@@ -107,13 +100,8 @@ const Tweet = ({
                         {` - `}
                       </span>
                     </div>
-                    <span className="ml-1 text-xs font-bold leading-6 text-reddit_text-darker">
-                      @{screen_name}
-                    </span>
-                    <TimeAgo
-                      datetime={created_at}
-                      className="ml-1 text-ellipsis text-xs leading-6 text-reddit_text-darker"
-                    />
+                    <span className="ml-1 text-xs font-bold leading-6 text-reddit_text-darker">@{screen_name}</span>
+                    <TimeAgo datetime={created_at} className="ml-1 text-ellipsis text-xs leading-6 text-reddit_text-darker" />
                   </div>
                 </div>
               </div>
@@ -121,13 +109,7 @@ const Tweet = ({
                 <div className="inline align-baseline">
                   <ReactLinkify
                     componentDecorator={(decoratedHref, decoratedText, key) => (
-                      <a
-                        className="text-reddit_blue"
-                        target={'_blank'}
-                        href={decoratedHref}
-                        key={key}
-                        rel={'noopener nofollow ugc noreferrer'}
-                      >
+                      <a className="text-reddit_blue" target={'_blank'} href={decoratedHref} key={key} rel={'noopener nofollow ugc noreferrer'}>
                         {decoratedText}
                       </a>
                     )}
@@ -137,23 +119,11 @@ const Tweet = ({
                 </div>
               </div>
               <div className="relative mt-2 max-h-[512px] overflow-hidden">
-                {type === 'photo' && image && width && height && (
-                  <Image
-                    src={image}
-                    height={height}
-                    alt="Tweet Image"
-                    width={width}
-                  />
-                )}
+                {type === 'photo' && image && width && height && <Image src={image} height={height} alt="Tweet Image" width={width} />}
                 {type === 'video' && video && image && width && height && (
                   <div className="w-full pb-[105.35%]">
                     <div className="absolute top-0 left-0 bottom-0 right-0">
-                      <Video
-                        Logo={LOGO}
-                        url={video}
-                        poster={image}
-                        scroll={true}
-                      />
+                      <Video Logo={LOGO} url={video} poster={image} scroll={true} />
                     </div>
                   </div>
                 )}
@@ -173,23 +143,15 @@ const Tweet = ({
                         }
                       }}
                     >
-                      <span className="max-h-[36px] overflow-hidden text-ellipsis text-left leading-3">
-                        Magic
-                      </span>
+                      <span className="max-h-[36px] overflow-hidden text-ellipsis text-left leading-3">Magic</span>
                     </button>
-                    <button
-                      className="flex h-full items-center rounded-[2px] py-2 px-3 hover:bg-reddit_dark-brightest"
-                      type="button"
-                    >
+                    <button className="flex h-full items-center rounded-[2px] py-2 px-3 hover:bg-reddit_dark-brightest" type="button">
                       <span className="flex max-h-[36px] items-center overflow-hidden text-ellipsis text-left leading-3">
                         <RetweetIcon className="mr-[10px] h-5 w-5" />
                         {retweet_count}
                       </span>
                     </button>
-                    <button
-                      className="flex h-full items-center rounded-[2px] py-2 px-3 hover:bg-reddit_dark-brightest"
-                      type="button"
-                    >
+                    <button className="flex h-full items-center rounded-[2px] py-2 px-3 hover:bg-reddit_dark-brightest" type="button">
                       <span className="flex max-h-[36px] items-center overflow-hidden text-ellipsis text-left leading-3">
                         <HeartIcon className="mr-[10px] h-5 w-5" />
                         {like_count}

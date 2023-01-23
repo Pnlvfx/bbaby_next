@@ -3,11 +3,11 @@ import type { NextPage, NextPageContext } from 'next'
 import GovernanceCtrl from '../../../components/governance/GovernanceCtrl'
 import Head from 'next/head'
 import GovernanceMainMenù from '../../../components/governance/GovernanceMainMenù'
-import { getOneNews } from '../../../components/mynews/APInews'
 import { getSession } from '../../../components/API/ssrAPI'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { siteUrl } from '../../../components/main/config'
+import newsapis from '../../../components/API/newsapis'
 
 interface NewsPropsPage {
   news: NewsProps
@@ -46,7 +46,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     const session = await getSession(context)
     const { permalink } = context.query
     if (!permalink) throw new Error('Missing required permalink parameter.')
-    const news = await getOneNews(permalink.toString(), context)
+    const news = await newsapis.getArticle(permalink.toString(), context)
     return {
       props: {
         session,

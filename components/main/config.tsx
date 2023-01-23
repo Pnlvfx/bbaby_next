@@ -4,6 +4,6 @@ export const postRequestHeaders = {
 }
 
 export const LOGO = '/logo.png'
-export const siteUrl = process.env.NODE_ENV === 'production' ? 'https://www.bbabystyle.com' : 'http://localhost:3000'
+export const siteUrl = process.env.NEXT_PUBLIC_CLIENT_URL
 
 export const server = process.env.NEXT_PUBLIC_SERVER_URL

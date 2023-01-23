@@ -1,6 +1,5 @@
 import type { NextPage, NextPageContext } from 'next'
 import Head from 'next/head'
-import { getBBCLinks } from '../../../components/API/governance/governanceNewsAPI'
 import { getSession } from '../../../components/API/ssrAPI'
 import GovernanceCtrl from '../../../components/governance/GovernanceCtrl'
 import GovernanceMainMenù from '../../../components/governance/GovernanceMainMenù'
@@ -10,6 +9,7 @@ import { siteUrl } from '../../../components/main/config'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { catchErrorWithMessage } from '../../../components/API/common'
 import { useMessage } from '../../../components/main/TimeMsgContext'
+import govnewsapi from '../../../components/API/governance/govnewsapi'
 
 type GovNewsPageProps = {
   news: ExternalNews[]
@@ -22,7 +22,7 @@ const GovNewsPage: NextPage<GovNewsPageProps> = ({ news }) => {
 
   const getMore = async () => {
     try {
-      const news = await getBBCLinks(10, BBCnews.length)
+      const news = await govnewsapi.getArticles(10, BBCnews.length)
       setBBCnews((oldNews) => [...oldNews, ...news])
     } catch (err) {
       catchErrorWithMessage(err, message)
@@ -62,7 +62,7 @@ export default GovNewsPage
 export const getServerSideProps = async (context: NextPageContext) => {
   try {
     const session = await getSession(context)
-    const news = await getBBCLinks(16, 0, context)
+    const news = await govnewsapi.getArticles(16, 0, context)
     return {
       props: {
         session,

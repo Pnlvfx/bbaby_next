@@ -1,8 +1,8 @@
 import type { NextPage, NextPageContext } from 'next'
+import newsapis from '../../components/API/newsapis'
 import { getSession } from '../../components/API/ssrAPI'
 import CEO from '../../components/main/CEO'
 import { siteUrl } from '../../components/main/config'
-import { getMyNews } from '../../components/mynews/APInews'
 import MyNewsCard from '../../components/mynews/MyNewsCard'
 import BestPost from '../../components/post/postutils/BestPost'
 import Donations from '../../components/widget/Donations'
@@ -57,7 +57,7 @@ export default MyNewsPage
 export const getServerSideProps = async (context: NextPageContext) => {
   try {
     const session = await getSession(context)
-    const myNews = await getMyNews(context)
+    const myNews = await newsapis.getArticles(context)
     return {
       props: {
         session,

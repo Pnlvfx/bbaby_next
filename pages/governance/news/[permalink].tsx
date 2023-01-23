@@ -1,6 +1,6 @@
 import type { NextPage, NextPageContext } from 'next'
 import Head from 'next/head'
-import { getArticle } from '../../../components/API/newsAPI'
+import govnewsapi from '../../../components/API/governance/govnewsapi'
 import { getSession } from '../../../components/API/ssrAPI'
 import GovernanceCtrl from '../../../components/governance/GovernanceCtrl'
 import { NewsContextProvider } from '../../../components/governance/news/NewsContext'
@@ -38,7 +38,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     if (!perma) throw new Error('Missing title parameter!')
     const permalink = `/governance/news/${perma}`
     const session = await getSession(context)
-    const BBCnews = await getArticle(permalink, context)
+    const BBCnews = await govnewsapi.getArticle(permalink, context)
     return {
       props: {
         session,

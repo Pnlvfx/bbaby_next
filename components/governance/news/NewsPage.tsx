@@ -2,13 +2,13 @@ import Router from 'next/router'
 import { useState } from 'react'
 import { MdArrowBackIosNew } from 'react-icons/md'
 import { catchErrorWithMessage } from '../../API/common'
-import { translate } from '../../API/governance/governanceAPI'
 import { useMessage } from '../../main/TimeMsgContext'
 import { Spinner } from '../../utils/Button'
 import CheckBox from '../../utils/buttons/CheckBox'
 import GovSubmitNews from './submit/GovSubmitNews'
 import { useNewsProvider } from './NewsContext'
 import PexelsImages from './PexelsImages'
+import govapis from '../../API/governance/govapis'
 
 const NewsPage = () => {
   const { level, setlevel, originalTitle, originalImage, originalDescription, setTitle, setDescription, setMediaInfo } = useNewsProvider()
@@ -39,8 +39,8 @@ const NewsPage = () => {
 
   const openSubmit = async () => {
     try {
-      const title = await translate(originalTitle, 'en')
-      const description = await translate(originalDescription, 'en')
+      const title = await govapis.translate(originalTitle, 'en')
+      const description = await govapis.translate(originalDescription, 'en')
       setTitle(title)
       setDescription(description)
       setlevel('submit')

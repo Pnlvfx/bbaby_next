@@ -10,7 +10,6 @@ import Skeleton from '../governance/twitter/Skeleton'
 import Widget from '../widget/Widget'
 import { useSession } from '../auth/UserContext'
 import PolicyWidget from '../widget/PolicyWidget'
-import YandexAds from '../utils/yandex-ads/YandexAds'
 import postapis from '../API/postapis'
 
 type FeedProps = {
@@ -22,6 +21,7 @@ type FeedProps = {
 const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
   const [posts, setPosts] = useState<PostProps[]>(ssrPost || [])
   const [postOpen, setPostOpen] = useState(false)
+  const [hasMore, setHasMore] = useState(posts?.length > 0 ? true : false)
   const router = useRouter()
   const { session } = useSession()
   const PostModal = dynamic(() => import('./PostModal'))
@@ -46,8 +46,10 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
   const getMorePosts = async () => {
     const input = community ? 'community' : author ? 'author' : undefined
     const value = community ? community : author ? author : undefined
-    const res = await postapis.getPosts(posts.length, input, value)
-    const newPosts = res
+    const newPosts = await postapis.getPosts(posts.length, input, value)
+    if (newPosts.length < 10) {
+      setHasMore(false)
+    }
     setPosts([...posts, ...newPosts])
   }
   //
@@ -74,19 +76,18 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
           <div className="mb-4">
             <BestPost />
           </div>
-
           <div>
             <InfiniteScroll
               dataLength={posts?.length || 1}
               next={getMorePosts}
-              hasMore={posts?.length > 0 ? true : false}
+              hasMore={hasMore}
               loader={[1, 2, 3, 4, 5].map((_, idx) => (
                 <Skeleton isImage={true} key={idx} />
               ))}
               endMessage={<></>}
             >
               {posts?.length >= 1
-                ? posts.map((post, index) => {
+                ? posts.map((post) => {
                     return <Post key={post._id} post={post} isListing={true} />
                   })
                 : [1, 2, 3, 4, 5].map((_, idx) => <Skeleton isImage={true} key={idx} />)}

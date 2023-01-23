@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import { useEffect } from 'react'
 
 interface CEOProps {
   /**
@@ -44,65 +43,21 @@ interface CEOProps {
   width?: string
 }
 
-const CEO = ({
-  title,
-  url,
-  description,
-  twitter_card,
-  type,
-  image,
-  video,
-  width,
-  height,
-  index,
-}: CEOProps) => {
-  // useEffect(() => {
-  //   const CEOvalidator = async () => {
-  //       if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') return;
-  //       if (!title) throw new Error(`CEO:This title missing.`);
-  //       if (!description) throw new Error(`CEO:This description is missing.`)
-  //       if (!image) throw new Error(`CEO:Missing image`);
-  //       if (image) {
-  //         if (!width || !height) {
-  //           throw new Error(`CEO: Image is missing required width and height!`)
-  //         }
-  //       }
-  //   }
-  //   CEOvalidator();
-  // }, [description, height, image, title, width])
-
+const CEO = ({ title, url, description, twitter_card, type, image, video, width, height, index }: CEOProps) => {
   return (
     <Head>
-      <title>
-        {title.length >= 70 ? title?.substring(0, 67) + '...' : title}
-      </title>
+      <title>{title.length >= 70 ? title?.substring(0, 67) + '...' : title}</title>
       <meta
         name="description"
-        content={
-          description && description.length >= 160
-            ? description.substring(0, 157) + '...'
-            : description
-        }
+        content={description && description.length >= 160 ? description.substring(0, 157) + '...' : description}
         key={'description'}
       />
       <meta property="og:ttl" content="600" key={'ogttl'} />
       <meta property="og:site_name" content="bbabystyle" key={'ogsite_name'} />
       <meta property="twitter:card" content={twitter_card} key="twcard" />
-      <meta
-        property="og:title"
-        content={title?.substring(0, 70)}
-        key="ogtitle"
-      />
-      <meta
-        property="twitter:title"
-        content={title?.substring(0, 70)}
-        key="twitter_title"
-      />
-      <meta
-        property="og:description"
-        content={description?.substring(0, 160)}
-        key="ogdesc"
-      />
+      <meta property="og:title" content={title?.substring(0, 70)} key="ogtitle" />
+      <meta property="twitter:title" content={title?.substring(0, 70)} key="twitter_title" />
+      <meta property="og:description" content={description?.substring(0, 160)} key="ogdesc" />
       <meta property="og:image" content={image} key="ogimage" />
       <meta property="twitter:image" content={image} key={'twitter_image'} />
       {image && (
@@ -113,7 +68,7 @@ const CEO = ({
       )}
       {!index && <meta name="robots" content="noindex" key={'noindex'} />}
       {video && <meta property="og:video" content={video} />}
-      <meta property="og:url" content={url} key="ogurl" />
+      <meta property="og:url" content={url.toLowerCase()} key="ogurl" />
       <meta property="og:type" content={type} key="ogtype" />
       <link rel="canonical" href={url.toLowerCase()} key="canonical" />
     </Head>

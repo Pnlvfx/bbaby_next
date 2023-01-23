@@ -1,8 +1,9 @@
 import { catchError } from '../API/common'
+import { server } from '../main/config'
 
 export const getUserInfo = async () => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/user/about`, {
+    const res = await fetch(`${server}/user/about`, {
       method: 'get',
       credentials: 'include',
     })

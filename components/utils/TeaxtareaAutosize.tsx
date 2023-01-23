@@ -10,7 +10,7 @@ const TeaxtareaAutosize = (props: DetailedHTMLProps<TextareaHTMLAttributes<HTMLT
       if (prevHeightRef.current !== currentHeight) {
         tx.current.style.height = '0'
         /* prettier-ignore */
-        tx.current.style.height = (tx.current.scrollHeight) + 'px'
+        tx.current.style.height = (tx.current.scrollHeight + 5) + 'px'
         /* prettier-ignore */
         prevHeightRef.current = currentHeight
       }

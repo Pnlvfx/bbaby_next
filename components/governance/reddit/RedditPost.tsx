@@ -2,7 +2,7 @@ import { Video } from '@bbabystyle/next-video-player'
 import { useState } from 'react'
 import TimeAgo from 'timeago-react'
 import { catchErrorWithMessage, urlisImage } from '../../API/common'
-import { translate } from '../../API/governance/governanceAPI'
+import govapis from '../../API/governance/govapis'
 import { LOGO } from '../../main/config'
 import { useMessage } from '../../main/TimeMsgContext'
 import SubmitLayout, { newTweetProps } from '../../submit/SubmitLayout'
@@ -13,37 +13,23 @@ interface ExtendRedditPosts {
 
 const RedditPost = ({ post }: ExtendRedditPosts) => {
   const message = useMessage()
-  const [newReddit, setNewReddit] = useState<newTweetProps | undefined>(
-    undefined
-  )
+  const [newReddit, setNewReddit] = useState<newTweetProps | undefined>(undefined)
   const [showSubmit, setShowSubmit] = useState(false)
 
   const titleClass = `text-[18px] leading-[22px] words-breaks inline`
 
   const doTranslate = async () => {
     try {
-      const newTitle = await translate(post.title, 'en')
-      const body = post?.selftext
-        ? await translate(post.selftext, 'en')
-        : undefined
+      const newTitle = await govapis.translate(post.title, 'en')
+      const body = post?.selftext ? await govapis.translate(post.selftext, 'en') : undefined
       const isImage = urlisImage(post.url) ? true : false
       const type = post?.is_video ? 'video' : isImage ? 'photo' : undefined
       setNewReddit({
         title: newTitle,
         body,
         image: isImage ? post.url : undefined,
-        width:
-          type === 'video'
-            ? post.media?.reddit_video.width
-            : isImage
-            ? post.preview.images[0].source.width
-            : undefined,
-        height:
-          type === 'video'
-            ? post.media?.reddit_video.height
-            : isImage
-            ? post.preview.images[0].source.height
-            : undefined,
+        width: type === 'video' ? post.media?.reddit_video.width : isImage ? post.preview.images[0].source.width : undefined,
+        height: type === 'video' ? post.media?.reddit_video.height : isImage ? post.preview.images[0].source.height : undefined,
         video: post?.is_video ? post?.media?.reddit_video.dash_url : undefined,
         type,
       })
@@ -87,12 +73,7 @@ const RedditPost = ({ post }: ExtendRedditPosts) => {
                     />
                 </div>
                 )} */}
-                <span className={`text-xs font-bold hover:underline`}>
-                  {' '}
-                  {post.subreddit
-                    ? 'r/' + post.subreddit + ' ' + '-' + ' '
-                    : null}
-                </span>
+                <span className={`text-xs font-bold hover:underline`}> {post.subreddit ? 'r/' + post.subreddit + ' ' + '-' + ' ' : null}</span>
               </div>
               <div className="ml-1 flex truncate text-xs text-reddit_text-darker">
                 <span>{post.title && 'Posted by'}</span>{' '}
@@ -102,51 +83,31 @@ const RedditPost = ({ post }: ExtendRedditPosts) => {
                     event.stopPropagation()
                   }}
                 >
-                  <span className="hover:underline">
-                    {post.author && 'u/' + post.author}
-                  </span>
+                  <span className="hover:underline">{post.author && 'u/' + post.author}</span>
                 </div>
-                {post.created_utc && (
-                  <TimeAgo
-                    datetime={post.created_utc}
-                    className="ml-1 truncate"
-                  />
-                )}
+                {post.created_utc && <TimeAgo datetime={post.created_utc} className="ml-1 truncate" />}
               </div>
             </div>
             <div className="mx-2">
               <div className="inline align-baseline">
-                <p
-                  className={`whitespace-pre-wrap text-[#D7DADC] ${titleClass}`}
-                >
-                  {post.title}
-                </p>
+                <p className={`whitespace-pre-wrap text-[#D7DADC] ${titleClass}`}>{post.title}</p>
               </div>
             </div>
             <div className="mt-2">
               <div className="relative max-h-[512px] overflow-hidden">
                 {post?.url && (
                   <div className="flex max-h-[500px] w-full items-center justify-center overflow-hidden">
-                    {urlisImage(post.url) && (
-                      <img src={`${post.url}`} alt="Reddit Image" />
-                    )}
+                    {urlisImage(post.url) && <img src={`${post.url}`} alt="Reddit Image" />}
                   </div>
                 )}
-                {post?.is_video &&
-                  post?.media?.reddit_video.dash_url &&
-                  post.thumbnail && (
-                    <>
-                      <div className="w-full pb-[105.35%]" />
-                      <div className="absolute top-0 left-0 bottom-0 right-0">
-                        <Video
-                          url={post.media?.reddit_video.fallback_url}
-                          poster={post.thumbnail}
-                          scroll={true}
-                          Logo={LOGO}
-                        />
-                      </div>
-                    </>
-                  )}
+                {post?.is_video && post?.media?.reddit_video.dash_url && post.thumbnail && (
+                  <>
+                    <div className="w-full pb-[105.35%]" />
+                    <div className="absolute top-0 left-0 bottom-0 right-0">
+                      <Video url={post.media?.reddit_video.fallback_url} poster={post.thumbnail} scroll={true} Logo={LOGO} />
+                    </div>
+                  </>
+                )}
                 {post.selftext && (
                   <div className="resize-x-none flex-none break-words text-sm leading-6">
                     <p className="whitespace-pre-wrap">{post.selftext}</p>
