@@ -1,4 +1,4 @@
-const server = process.env.NEXT_PUBLIC_SERVER_URL
+import { server } from '../components/main/config'
 
 export const loginUrl = `${server}/login` as '/login'
 export const registerUrl = `${server}/register` //  auth/AuthModal.tsx
