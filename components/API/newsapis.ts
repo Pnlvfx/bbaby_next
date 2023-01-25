@@ -50,7 +50,7 @@ const newsapis = {
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data?.msg)
-      return data as NewsProps[]
+      return data as true
     } catch (err) {
       throw catchError(err)
     }

@@ -8,8 +8,11 @@ const telegramapis = {
       const res = await fetch(url, {
         method: 'GET',
       })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data?.msg)
+      return data
     } catch (err) {
-      catchError(err)
+      throw catchError(err)
     }
   },
 }

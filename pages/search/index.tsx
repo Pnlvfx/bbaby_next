@@ -1,7 +1,7 @@
 import { NextPage, NextPageContext } from 'next'
-import postapis from '../../components/API/postapis'
+import searchapis from '../../components/API/searchapis'
+import postapis from '../../components/API/postapis/postapis'
 import { getSession } from '../../components/API/ssrAPI'
-import { search } from '../../components/header/search/APIsearch'
 import Search from '../../components/search/Search'
 
 export interface SearchPageProps {
@@ -20,9 +20,12 @@ export const getServerSideProps = async (context: NextPageContext) => {
     const text = context.query.text
     let posts = []
     if (text) {
-      posts = await search(text.toString())
+      posts = await searchapis.search(text.toString())
     } else {
-      posts = await postapis.getPosts(0)
+      posts = await postapis.getPosts(0, {
+        context,
+        limit: 15,
+      })
     }
 
     return {

@@ -1,22 +1,22 @@
-import { useState, useRef, useEffect, ChangeEvent } from 'react';
-import { AiOutlinePlus } from 'react-icons/ai';
-import Image from 'next/image';
-import { useMessage } from '../main/TimeMsgContext';
-import { postRequestHeaders } from '../main/config';
-import { catchErrorWithMessage } from '../API/common';
-import { useSession } from '../auth/UserContext';
+import { useState, useRef, useEffect, ChangeEvent } from 'react'
+import { AiOutlinePlus } from 'react-icons/ai'
+import Image from 'next/image'
+import { useMessage } from '../main/TimeMsgContext'
+import { catchErrorWithMessage } from '../API/common'
+import { useSession } from '../auth/UserContext'
+import userapis from '../API/userapis'
 
 const Profile = () => {
-  const { session } = useSession();
+  const { session } = useSession()
   const [selectedFile, setSelectedFile] = useState(session?.user?.avatar)
   const [change, setChange] = useState(false)
   const filePickerRef = useRef<HTMLInputElement>(null)
-  const message = useMessage();
+  const message = useMessage()
 
-  const handleFileInputChange = (e:ChangeEvent<HTMLInputElement>) => {
+  const handleFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e?.target?.files?.length > 0) {
-        const file = e?.target?.files[0]
-        previewFile(file)
+      const file = e?.target?.files[0]
+      previewFile(file)
     }
   }
 
@@ -31,40 +31,28 @@ const Profile = () => {
 
   const changeUserAvatar = async () => {
     try {
-      const server = process.env.NEXT_PUBLIC_SERVER_URL;
-      const url = `${server}/user/change_avatar`;
-      const body = JSON.stringify({ image: selectedFile, username: session?.user?.username });
-      const res = await fetch(url, {
-        method: 'POST',
-        credentials: 'include',
-        headers: postRequestHeaders,
-        body,
-      })
-      const data = await res.json();
-      if (!res.ok) {
-        message.setMessage({value: data?.msg, status: 'error'})
-      } else {
-        setChange(false);
-        message.setMessage({value: data.success, status: 'success'})
-      }
+      if (!selectedFile) return
+      const data = await userapis.changeAvatar(selectedFile)
+      setChange(false)
+      message.setMessage({ value: data.success, status: 'success' })
     } catch (err) {
       catchErrorWithMessage(err, message)
     }
   }
 
   useEffect(() => {
-    if (!change) return;
-    changeUserAvatar();
+    if (!change) return
+    changeUserAvatar()
   }, [change])
 
   return (
-    <div className='max-w-[800px] font-semibold space-y-6 mt-6'>
-        <p className="text-[19px]">Costumize profile</p>
-        <div>
-          <p className="text-[11px] text-reddit_text-darker">PROFILE INFORMATION</p>
-          <hr className="border-reddit_border mt-1" />
-        </div>
-      <div className='space-y-4'>
+    <div className="mt-6 max-w-[800px] space-y-6 font-semibold">
+      <p className="text-[19px]">Costumize profile</p>
+      <div>
+        <p className="text-[11px] text-reddit_text-darker">PROFILE INFORMATION</p>
+        <hr className="mt-1 border-reddit_border" />
+      </div>
+      <div className="space-y-4">
         <div>
           <p className="text-[11px] text-reddit_text-darker">IMAGES</p>
           <hr className="mt-1 border-reddit_border" />
@@ -78,7 +66,7 @@ const Profile = () => {
         {selectedFile && (
           <div
             onClick={() => {
-                filePickerRef && filePickerRef?.current?.click()
+              filePickerRef && filePickerRef?.current?.click()
             }}
             className="relative flex h-36 w-36 cursor-pointer overflow-hidden rounded-full bg-reddit_dark-brightest"
           >
@@ -87,9 +75,9 @@ const Profile = () => {
           </div>
         )}
         <input
-          className='text-[16px]'
+          className="text-[16px]"
           hidden
-          accept='image/png, image/jpeg'
+          accept="image/png, image/jpeg"
           type="file"
           name="image"
           id="file_up"
@@ -101,5 +89,4 @@ const Profile = () => {
   )
 }
 
-export default Profile;
-
+export default Profile

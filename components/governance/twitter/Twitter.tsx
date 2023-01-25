@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import Skeleton from './Skeleton'
-import { getAnonHome } from '../../API/governance/twitterAPI'
 import Tweet from './Tweet'
 import TwMainMenu from './TwMainMenu'
 import { useMessage } from '../../main/TimeMsgContext'
 import { catchErrorWithMessage } from '../../API/common'
 import TwitterWidget from './TwitterWidget'
 import { useRouter } from 'next/router'
+import twitterapis from '../../API/governance/twitterapis'
 
 const Twitter = () => {
   const [tweets, setTweets] = useState<TweetProps[]>([])
@@ -18,7 +18,7 @@ const Twitter = () => {
   useEffect(() => {
     const get = async () => {
       try {
-        const data = await getAnonHome()
+        const data = await twitterapis.getAnonHome()
         setTweets(data)
       } catch (err) {
         catchErrorWithMessage(err, messageRef.current)
@@ -30,12 +30,7 @@ const Twitter = () => {
   const changeOrder = () => {
     if (router.query.order === 'best') {
       router.push(router.pathname)
-      setTweets(
-        tweets.sort(
-          (a, b) =>
-            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-        )
-      )
+      setTweets(tweets.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()))
     } else {
       router.push({
         pathname: router.pathname,
@@ -52,10 +47,7 @@ const Twitter = () => {
           <TwMainMenu setLanguage={setLanguage} setTweets={setTweets} />
         </div>
         <div className="mb-4">
-          <button
-            onClick={changeOrder}
-            className="rounded-full border border-reddit_border px-4 py-1 text-sm font-bold"
-          >
+          <button onClick={changeOrder} className="rounded-full border border-reddit_border px-4 py-1 text-sm font-bold">
             {router.query.order ? router.query.order : 'Recently'}
           </button>
         </div>
@@ -79,9 +71,7 @@ const Twitter = () => {
                   like_count={tweet.favorite_count}
                 />
               ))
-            : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((_, idx) => (
-                <Skeleton key={idx} />
-              ))}
+            : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((_, idx) => <Skeleton key={idx} />)}
         </ul>
         <div className="hidden lg:block">
           <TwitterWidget />

@@ -6,7 +6,7 @@ import RedditLogin from "../auth/providers/RedditLogin";
 import { NextComponentType } from "next";
 import { useMessage } from "../main/TimeMsgContext";
 import { catchErrorWithMessage } from "../API/common";
-import { getUserInfo } from "./user_settingsAPI";
+import userapis from "../API/userapis";
 
 const Account: NextComponentType = () => {
 
@@ -17,7 +17,7 @@ const Account: NextComponentType = () => {
   useEffect(() => {
     const _getUserInfo = async () => {
       try {
-        const user_info = await getUserInfo();
+        const user_info = await userapis.getUserInfo();
         setUserInfo(user_info);
         setLoading(false);
       } catch (err) {

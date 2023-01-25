@@ -1,6 +1,7 @@
 import type { NextPage, NextPageContext } from 'next'
 import Head from 'next/head'
-import { getSession, ssrHeaders } from '../../components/API/ssrAPI'
+import postapis from '../../components/API/postapis/postapis'
+import { getSession } from '../../components/API/ssrAPI'
 import CEO from '../../components/main/CEO'
 import { siteUrl } from '../../components/main/config'
 import Feed from '../../components/post/Feed'
@@ -45,22 +46,19 @@ export default Username
 export const getServerSideProps = async (context: NextPageContext) => {
   try {
     const author = context.query.username
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
-    const postUrl = `${server}/posts?author=${author}&limit=15&skip=0`
+    if (!author) throw new Error('Missing required parameter: author')
     const session = await getSession(context)
-    const res = await fetch(postUrl, {
-      method: 'GET',
-      headers: ssrHeaders(context),
+    const posts = await postapis.getPosts(0, {
+      author: author.toString(),
+      limit: 15,
+      context,
     })
-    if (res.ok) {
-      const posts: PostProps[] = await res.json()
-      return {
-        props: {
-          session,
-          posts,
-          author,
-        },
-      }
+    return {
+      props: {
+        session,
+        posts,
+        author,
+      },
     }
   } catch (err) {
     const error = `Sorry we couldn't load post for this page.`

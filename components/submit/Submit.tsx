@@ -1,13 +1,17 @@
-import { useContext, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { buttonClass, Spinner } from '../utils/Button'
 import CommunityDropdown from './submitutils/community-dropwdown/CommunityDropdown'
-import { useSession } from '../auth/UserContext'
-import { SubmitContext, SubmitContextType } from './SubmitContext'
+import { useSubmitProvider } from './SubmitContext'
 import Body from './submitutils/Body'
 import SubmitType from './SubmitType'
 import SubmitTitle from './SubmitTitle'
 import { newTweetProps } from './SubmitLayout'
 import SubmitShareButtons from './SubmitShareButtons'
+import postapis from '../API/postapis/postapis'
+import { useRouter } from 'next/router'
+import { catchErrorWithMessage } from '../API/common'
+import { useMessage } from '../main/TimeMsgContext'
+import { useSession } from '../auth/UserContext'
 
 type SubmitProps = {
   newTweet?: newTweetProps
@@ -15,8 +19,29 @@ type SubmitProps = {
 }
 
 const Submit = ({ newTweet, community }: SubmitProps) => {
-  const { title, setTitle, setBody, setHeight, setWidth, selectedCommunity, setSelectedFile, setIsImage, setIsVideo, loading, createPost } =
-    useContext(SubmitContext) as SubmitContextType
+  const {
+    title,
+    setTitle,
+    setBody,
+    setHeight,
+    setWidth,
+    selectedCommunity,
+    setSelectedFile,
+    setIsImage,
+    setIsVideo,
+    body,
+    height,
+    isImage,
+    isVideo,
+    selectedFile,
+    sharePostToTG,
+    sharePostToTwitter,
+    width,
+  } = useSubmitProvider()
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
+  const message = useMessage()
+  const { session } = useSession()
 
   //////MY TWEEEEEEEEET
   useEffect(() => {
@@ -38,6 +63,35 @@ const Submit = ({ newTweet, community }: SubmitProps) => {
       }
     }
   }, [newTweet])
+
+  const createPost = async () => {
+    try {
+      setLoading(true)
+      const data = await postapis.newPost(title, selectedCommunity, {
+        body,
+        height,
+        isImage,
+        isVideo,
+        selectedFile,
+        sharePostToTG,
+        sharePostToTwitter,
+        width,
+      })
+      if (session?.user?.role === 0) {
+        const { _id, community } = data as PostProps
+        router.push('/b/' + community.toLowerCase() + '/comments/' + _id)
+      } else {
+        message.setMessage({
+          value: 'Post created successfully',
+          status: 'success',
+        })
+        setLoading(false)
+      }
+    } catch (err) {
+      setLoading(false)
+      catchErrorWithMessage(err, message)
+    }
+  }
 
   return (
     <>
@@ -73,10 +127,10 @@ const Submit = ({ newTweet, community }: SubmitProps) => {
                 title.length >= 1 && selectedCommunity ? 'text-opacity-100' : 'cursor-not-allowed text-opacity-40'
               }`}
               disabled={title.length >= 1 && selectedCommunity ? false : true}
-              onClick={async (e) => {
+              onClick={(e) => {
                 e.preventDefault()
                 e.stopPropagation()
-                await createPost()
+                createPost()
               }}
             >
               {!loading && <p>Post</p>}

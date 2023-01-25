@@ -5,12 +5,12 @@ import { useState } from 'react'
 import { catchErrorWithMessage } from '../../../components/API/common'
 import tiktakapis from '../../../components/API/governance/tiktakapis/tiktakapis'
 import { TiktakProps } from '../../../components/API/governance/tiktakapis/types/tiktak'
-import { getSession, ssrHeaders } from '../../../components/API/ssrAPI'
+import { getSession } from '../../../components/API/ssrAPI'
 import GovernanceCtrl from '../../../components/governance/GovernanceCtrl'
 import GovernanceMainMenù from '../../../components/governance/GovernanceMainMenù'
 import TiktakList from '../../../components/governance/tiktak/tiktaklist/TikTakList'
 import TiktakText from '../../../components/governance/tiktak/TiktakText'
-import { server, siteUrl } from '../../../components/main/config'
+import { siteUrl } from '../../../components/main/config'
 import { useMessage } from '../../../components/main/TimeMsgContext'
 import { buttonClass, Spinner } from '../../../components/utils/Button'
 
@@ -62,16 +62,11 @@ export default TikTakPage
 export const getServerSideProps = async (context: NextPageContext) => {
   try {
     const session = await getSession(context)
-    const url = `${server}/governance/tiktak`
-    const res = await fetch(url, {
-      method: 'get',
-      headers: ssrHeaders(context),
-    })
-    const data = await res.json()
+    const tiktaks = await tiktakapis.getTiktaks(context)
     return {
       props: {
         session,
-        tiktaks: data,
+        tiktaks,
       },
     }
   } catch (err) {

@@ -6,7 +6,7 @@ import { CloseIcon } from '../utils/SVG'
 import { CommunityContext, CommunityContextProps } from '../community/CommunityContext'
 import Donations from '../widget/Donations'
 import Widget from '../widget/Widget'
-import postapis from '../API/postapis'
+import postapis from '../API/postapis/postapis'
 
 type PostModalProps = {
   community?: string
@@ -19,7 +19,7 @@ const PostModal = ({ community, postId, open, onClickOut }: PostModalProps) => {
   const router = useRouter()
   const [post, setPost] = useState<PostProps>({} as PostProps)
   const [loading, setLoading] = useState(true)
-  const { getCommunity } = useContext(CommunityContext) as CommunityContextProps
+  const { refreshCommunity } = useContext(CommunityContext) as CommunityContextProps
 
   useEffect(() => {
     if (!postId) return
@@ -28,7 +28,7 @@ const PostModal = ({ community, postId, open, onClickOut }: PostModalProps) => {
         const res = await postapis.getPost(postId)
         setPost(res)
         if (!community) {
-          getCommunity(res.community)
+          refreshCommunity(res.community)
         }
         setLoading(false)
       } catch (err) {

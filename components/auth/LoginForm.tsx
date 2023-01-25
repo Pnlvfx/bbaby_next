@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { login } from '../API/oauthAPI'
 import { useSession } from './UserContext'
 import Link from 'next/link'
 import Google from './providers/google/Google'
 import AuthInput from './auth-input/AuthInput'
 import { Spinner } from '../utils/Button'
 import { useAuthModal } from './modal/AuthModalContext'
+import oauthapis from '../API/oauthapis'
 
 const LoginForm = () => {
   const [username, setUsername] = useState('')
@@ -28,10 +28,8 @@ const LoginForm = () => {
   const doLogin = async () => {
     try {
       setLoading(true)
-      await login(username, password)
+      await oauthapis.login(username, password)
       localStorage.setItem('isLogged', 'true')
-      //gtag.loginAnalytics();
-      //await refreshSession();
       if (top?.window.location.href) {
         top.window.location.href = '/'
       } else {

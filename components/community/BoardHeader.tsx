@@ -1,10 +1,8 @@
 import Image from 'next/image'
 import { useContext, useEffect, useRef, useState } from 'react'
-import { communityUrl } from '../../lib/url'
 import { useAuthModal } from '../auth/modal/AuthModalContext'
-import { subscribe } from '../API/communityAPI'
+import communityapis from '../API/communityapis'
 import { CommunityContext, CommunityContextProps } from './CommunityContext'
-import { postRequestHeaders } from '../main/config'
 import { buttonClass } from '../utils/Button'
 import Link from 'next/link'
 
@@ -24,7 +22,7 @@ const BoardHeader = () => {
 
   const doSubscribe = async () => {
     try {
-      await subscribe(communityInfo.name, authModal.setShow)
+      await communityapis.subscribe(communityInfo.name, authModal.setShow)
       await refreshCommunity(communityInfo.name)
     } catch (err) {
       console.log(err)
@@ -33,22 +31,14 @@ const BoardHeader = () => {
 
   const changeAvatar = async () => {
     try {
-      const url = communityUrl.change_avatar(communityInfo.name)
-      const body = JSON.stringify({ image: selectedFile })
-      const res = await fetch(url, {
-        method: 'POST',
-        body,
-        headers: postRequestHeaders,
-        credentials: 'include',
-      })
-      if (!res.ok) return
+      if (!selectedFile) return
+      await communityapis.changeAvatar(communityInfo.name, selectedFile)
       refreshCommunity(communityInfo.name)
       setSelectedFile('')
     } catch (err) {}
   }
 
   useEffect(() => {
-    if (!selectedFile) return
     changeAvatar()
   }, [selectedFile])
 

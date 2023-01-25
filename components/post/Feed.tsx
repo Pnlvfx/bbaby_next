@@ -10,7 +10,7 @@ import Skeleton from '../governance/twitter/Skeleton'
 import Widget from '../widget/Widget'
 import { useSession } from '../auth/UserContext'
 import PolicyWidget from '../widget/PolicyWidget'
-import postapis from '../API/postapis'
+import postapis from '../API/postapis/postapis'
 
 type FeedProps = {
   posts?: PostProps[]
@@ -44,9 +44,11 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
   //INFINITE SCROLLING
 
   const getMorePosts = async () => {
-    const input = community ? 'community' : author ? 'author' : undefined
-    const value = community ? community : author ? author : undefined
-    const newPosts = await postapis.getPosts(posts.length, input, value)
+    const newPosts = await postapis.getPosts(posts.length, {
+      community,
+      author,
+      limit: 10,
+    })
     if (newPosts.length < 10) {
       setHasMore(false)
     }
@@ -86,11 +88,13 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
               ))}
               endMessage={<></>}
             >
-              {posts?.length >= 1
-                ? posts.map((post) => {
-                    return <Post key={post._id} post={post} isListing={true} />
-                  })
-                : [1, 2, 3, 4, 5].map((_, idx) => <Skeleton isImage={true} key={idx} />)}
+              {posts?.length >= 1 ? (
+                posts.map((post) => {
+                  return <Post key={post._id} post={post} isListing={true} />
+                })
+              ) : (
+                <div></div>
+              )}
             </InfiniteScroll>
           </div>
         </div>

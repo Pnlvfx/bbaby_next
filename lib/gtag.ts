@@ -27,26 +27,6 @@ export const event = ({ action, category, label, value }: GTagEvent) => {
   })
 }
 
-export const loginAnalytics = () => {
-  if (!production) return
-  const { gtag } = window
-  return gtag('event', 'login')
-}
-
-export const registerAnalytics = () => {
-  if (!production) return
-  const { gtag } = window
-  return gtag('event', 'register')
-}
-
-export const googleLoginAnalytics = () => {
-  if (!production) return
-  const { gtag } = window
-  return gtag('event', 'login', {
-    method: 'google',
-  })
-}
-
 export const shareAnalytics = () => {
   if (!production) return
   const { gtag } = window

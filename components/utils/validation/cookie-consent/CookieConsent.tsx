@@ -1,6 +1,6 @@
 import Link from 'next/link'
+import userapis from '../../../API/userapis'
 import { useSession } from '../../../auth/UserContext'
-import { postRequestHeaders } from '../../../main/config'
 import { CloseIcon } from '../../SVG'
 import style from './cookie-consent.module.css'
 
@@ -9,19 +9,8 @@ const CookieConsent = () => {
 
   const eu_cookie = async (status: boolean) => {
     try {
-      const server = process.env.NEXT_PUBLIC_SERVER_URL
-      const url = `${server}/eu_cookie`
-      const body = JSON.stringify({ status })
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: postRequestHeaders,
-        credentials: 'include',
-        body,
-      })
-      if (res.ok) {
-        const data = await res.json()
-        setSession({ ...session, eu_cookie: data })
-      }
+      const data = await userapis.saveEUcookie(status)
+      setSession({ ...session, eu_cookie: data })
     } catch (err) {}
   }
 

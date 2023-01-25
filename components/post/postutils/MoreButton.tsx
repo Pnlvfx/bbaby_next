@@ -6,7 +6,7 @@ import { useSession } from '../../auth/UserContext'
 import { MoreIcon } from '../../utils/SVG'
 import { catchErrorWithMessage } from '../../API/common'
 import { useMessage } from '../../main/TimeMsgContext'
-import postapis from '../../API/postapis'
+import postapis from '../../API/postapis/postapis'
 
 type MoreButtonProps = {
   post: PostProps

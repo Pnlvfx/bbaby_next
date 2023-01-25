@@ -1,8 +1,8 @@
-import { ChangeEvent, useContext, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import ClickOutHandler from 'react-clickout-ts'
 import { useSession } from '../auth/UserContext'
 import TeaxtareaAutosize from '../utils/TeaxtareaAutosize'
-import { SubmitContext, SubmitContextType } from './SubmitContext'
+import { useSubmitProvider } from './SubmitContext'
 import style from './submit-title.module.css'
 
 const SubmitTitle = () => {
@@ -10,7 +10,7 @@ const SubmitTitle = () => {
   const [active, setActive] = useState(false)
   const maxLength = session?.user?.role === 1 ? 999 : 300
 
-  const { title, setTitle } = useContext(SubmitContext) as SubmitContextType
+  const { title, setTitle } = useSubmitProvider()
 
   const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(e.target.value)
@@ -25,9 +25,7 @@ const SubmitTitle = () => {
           }}
         >
           <TeaxtareaAutosize
-            className={`${style.submitTitle} text-[16px] md:text-[14px] ${
-              active ? 'border-reddit_text' : 'border-reddit_border'
-            }`}
+            className={`${style.submitTitle} text-[16px] md:text-[14px] ${active ? 'border-reddit_text' : 'border-reddit_border'}`}
             placeholder={'Title'}
             onClick={() => {
               setActive(true)

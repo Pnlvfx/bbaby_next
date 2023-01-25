@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { register } from '../API/oauthAPI'
 import { useMessage } from '../main/TimeMsgContext'
 import AuthInput from './auth-input/AuthInput'
 import { useAuthModal } from './modal/AuthModalContext'
@@ -7,6 +6,7 @@ import Register1 from './register/Register1'
 import { Spinner } from '../utils/Button'
 import Link from 'next/link'
 import { GoBackIcon } from '../utils/SVG'
+import oauthapis from '../API/oauthapis'
 
 const RegisterForm = () => {
   const [email, setEmail] = useState('')
@@ -32,12 +32,11 @@ const RegisterForm = () => {
   const doRegister = async () => {
     try {
       setLoading(true)
-      const data = await register(email, username, password)
+      const data = await oauthapis.register(email, username, password)
       message.setMessage({ value: data?.msg, status: 'success' })
       localStorage.setItem('isLogged', 'true')
       //setEmailTo(email);
       authModal.setShow('hidden')
-      //gtag.registerAnalytics();
       if (top?.window.location.href) {
         top.window.location.href = '/'
       } else {

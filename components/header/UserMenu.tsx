@@ -5,28 +5,20 @@ import { CommunityContext, CommunityContextProps } from '../community/CommunityC
 import Router from 'next/router'
 import { useSession } from '../auth/UserContext'
 import Link from 'next/link'
-import { postRequestHeaders } from '../main/config'
 import { HiOutlineLogout } from 'react-icons/hi'
 import { catchErrorWithMessage } from '../API/common'
 import { useMessage } from '../main/TimeMsgContext'
+import oauthapis from '../API/oauthapis'
 
 function UserMenu({ showDropdown, setShowDropdown }: any) {
   const { session } = useSession()
-  const server = process.env.NEXT_PUBLIC_SERVER_URL
   const containerClass = 'hover:bg-reddit_dark-brightest cursor-pointer'
   const buttonClass = 'text-sm p-3 pl-12 font-bold'
   const message = useMessage()
 
   const logout = async () => {
     try {
-      const url = `${server}/logout`
-      const body = JSON.stringify({})
-      const res = await fetch(url, {
-        method: 'POST',
-        body,
-        headers: postRequestHeaders,
-        credentials: 'include',
-      })
+      await oauthapis.logout()
       localStorage.removeItem('isLogged')
       Router.reload()
     } catch (err) {

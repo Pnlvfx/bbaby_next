@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import { SetStateAction, useContext } from 'react'
-import { SubmitContext, SubmitContextType } from '../../SubmitContext'
+import { SetStateAction } from 'react'
+import { useSubmitProvider } from '../../SubmitContext'
 
 type CommunityListProps = {
   community: CommunityProps
@@ -10,7 +10,7 @@ type CommunityListProps = {
 
 const CommunityList = ({ community, setShow, setActiveClass }: CommunityListProps) => {
   const size = 35
-  const { setSelectedCommunity } = useContext(SubmitContext) as SubmitContextType
+  const { setSelectedCommunity } = useSubmitProvider()
 
   return (
     <button

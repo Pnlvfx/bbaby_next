@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import ClickOutHandler from 'react-clickout-ts'
+import searchapis from '../../API/searchapis'
 import { catchErrorWithMessage } from '../../API/common'
 import { useMessage } from '../../main/TimeMsgContext'
-import { searchTrend } from './APIsearch'
 
 interface SearchDropdownProps {
   show: boolean
@@ -10,12 +10,13 @@ interface SearchDropdownProps {
 }
 
 const SearchDropdown = ({ show, setShow }: SearchDropdownProps) => {
-  const [trends, setTrends] = useState([])
+  const [trends, setTrends] = useState<PostProps[]>([])
   const message = useMessage()
 
   useEffect(() => {
     setTimeout(() => {
-      searchTrend()
+      searchapis
+        .searchTrend()
         .then((trend) => {
           setTrends(trend)
         })

@@ -3,11 +3,12 @@ import BoardHeader from '../../components/community/BoardHeader'
 import { CommunityContext, CommunityContextProps } from '../../components/community/CommunityContext'
 import type { NextPage, NextPageContext } from 'next'
 import Feed from '../../components/post/Feed'
-import { getSession, ssrHeaders } from '../../components/API/ssrAPI'
-import { server, siteUrl } from '../../components/main/config'
+import { getSession } from '../../components/API/ssrAPI'
+import { siteUrl } from '../../components/main/config'
 import CEO from '../../components/main/CEO'
 import { useRouter } from 'next/router'
 import PageNotFound from '../../components/main/PageNotFound'
+import postapis from '../../components/API/postapis/postapis'
 
 type CommunityPg = {
   community?: string
@@ -56,21 +57,19 @@ export default CommunityPage
 export const getServerSideProps = async (context: NextPageContext) => {
   try {
     const { community } = context.query
-    const postUrl = `${server}/posts?community=${community}&limit=15&skip=0`
+    if (!community) throw new Error('Missing the community!')
     const session = await getSession(context)
-    const res = await fetch(postUrl, {
-      method: 'get',
-      headers: ssrHeaders(context),
+    const posts = await postapis.getPosts(0, {
+      community: community.toString(),
+      context,
+      limit: 15,
     })
-    if (res.ok) {
-      const posts = await res.json()
-      return {
-        props: {
-          session,
-          community,
-          posts,
-        },
-      }
+    return {
+      props: {
+        session,
+        community,
+        posts,
+      },
     }
   } catch (err) {
     const error = `Sorry we couldn't load this post.`

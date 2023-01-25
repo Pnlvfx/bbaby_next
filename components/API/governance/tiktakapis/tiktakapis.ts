@@ -2,7 +2,7 @@ import { NextPageContext } from 'next'
 import { postRequestHeaders, server } from '../../../main/config'
 import { catchError } from '../../common'
 import { ssrHeaders } from '../../ssrAPI'
-import { GetTiktakResponse, NewTiktakResponse } from './types/tiktak'
+import { GetTiktakResponse, NewTiktakResponse, TiktakProps } from './types/tiktak'
 
 const tiktakapis = {
   newTiktak: async (text: string, language: string) => {
@@ -18,6 +18,21 @@ const tiktakapis = {
       const data = await res.json()
       if (!res.ok) throw new Error(data?.msg)
       return data as NewTiktakResponse
+    } catch (err) {
+      throw catchError(err)
+    }
+  },
+  getTiktaks: async (context?: NextPageContext) => {
+    try {
+      const url = `${server}/governance/tiktak`
+      const headers = context ? ssrHeaders(context) : postRequestHeaders
+      const res = await fetch(url, {
+        method: 'get',
+        headers,
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data?.msg)
+      return data as TiktakProps[]
     } catch (err) {
       throw catchError(err)
     }

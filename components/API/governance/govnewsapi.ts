@@ -47,7 +47,7 @@ const govnewsapi = {
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data?.msg)
-      return data
+      return data as PexelsProps[]
     } catch (err) {
       throw catchError(err)
     }

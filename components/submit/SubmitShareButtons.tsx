@@ -1,15 +1,35 @@
 import Link from 'next/link'
-import React, { useContext } from 'react'
+import { useEffect, useState } from 'react'
 import { AiOutlineInfoCircle } from 'react-icons/ai'
+import { catchErrorWithMessage } from '../API/common'
+import userapis from '../API/userapis'
 import { useSession } from '../auth/UserContext'
+import { useMessage } from '../main/TimeMsgContext'
 import CheckBox from '../utils/buttons/CheckBox'
-import { SubmitContext, SubmitContextType } from './SubmitContext'
+import { useSubmitProvider } from './SubmitContext'
 
 const SubmitShareButtons = () => {
   const { session } = useSession()
-  const { sharePostToTG, setSharePostToTG, sharePostToTwitter, setSharePostToTwitter, canPostOnTwitter } = useContext(
-    SubmitContext
-  ) as SubmitContextType
+  const [canPostOnTwitter, setCanPostOnTwitter] = useState(false)
+  const { sharePostToTG, setSharePostToTG, sharePostToTwitter, setSharePostToTwitter } = useSubmitProvider()
+  const message = useMessage()
+
+  useEffect(() => {
+    const authorize = async () => {
+      try {
+        const userInfo = await userapis.getUserInfo()
+        if (userInfo?.externalAccounts?.find((provider) => provider.provider === 'twitter')) {
+          setCanPostOnTwitter(true)
+          if (session?.user?.role === 1) {
+            setSharePostToTwitter(true)
+          }
+        }
+      } catch (err) {
+        catchErrorWithMessage(err, message)
+      }
+    }
+    authorize()
+  }, [])
   return (
     <div
       className="relative flex h-24 rounded-b-md border-t border-solid border-reddit_border bg-reddit_dark-brightest py-2 px-4"

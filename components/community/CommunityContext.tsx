@@ -1,12 +1,6 @@
 import { useRouter } from 'next/router'
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react'
+import { createContext, Dispatch, SetStateAction, useEffect, useState } from 'react'
+import communityapis from '../API/communityapis'
 
 export type CommunityContextProps = {
   show: boolean
@@ -19,13 +13,7 @@ export type CommunityContextProps = {
 
 export const CommunityContext = createContext<CommunityContextProps | {}>({})
 
-interface CommunityContextProviderProps {
-  children: ReactNode
-}
-
-export const CommunityContextProvider = ({
-  children,
-}: CommunityContextProviderProps) => {
+export const CommunityContextProvider = ({ children }: ChildrenProps) => {
   const [show, setShow] = useState(false)
   const [communityInfo, setCommunityInfo] = useState({})
   const [loading, setLoading] = useState(true)
@@ -34,19 +22,9 @@ export const CommunityContextProvider = ({
   const getCommunity = async (community: string) => {
     try {
       setLoading(true)
-      const server = process.env.NEXT_PUBLIC_SERVER_URL
-      const url = `${server}/communities/${community}`
-      const res = await fetch(url, {
-        method: 'get',
-        credentials: 'include',
-      })
-      if (res.ok) {
-        const data = await res.json()
-        setCommunityInfo(data)
-        setLoading(false)
-      } else {
-        setLoading(true)
-      }
+      const data = await communityapis.getCommunity(community)
+      setCommunityInfo(data)
+      setLoading(false)
     } catch (err) {
       setLoading(true)
     }
@@ -54,18 +32,8 @@ export const CommunityContextProvider = ({
 
   const refreshCommunity = async (community: string) => {
     try {
-      const server = process.env.NEXT_PUBLIC_SERVER_URL
-      const url = `${server}/communities/${community}`
-      const res = await fetch(url, {
-        method: 'get',
-        credentials: 'include',
-      })
-      if (res.ok) {
-        const data = await res.json()
-        setCommunityInfo(data)
-      } else {
-        setLoading(true)
-      }
+      const data = await communityapis.getCommunity(community)
+      setCommunityInfo(data)
     } catch (err) {
       setLoading(true)
     }

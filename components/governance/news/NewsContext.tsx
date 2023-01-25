@@ -1,13 +1,12 @@
 import Router from 'next/router'
 import { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
 import { catchErrorWithMessage } from '../../API/common'
+import userapis from '../../API/userapis'
 import { useSession } from '../../auth/UserContext'
 import { postRequestHeaders, server } from '../../main/config'
 import { useMessage } from '../../main/TimeMsgContext'
-import { getUserInfo } from '../../user_settings/user_settingsAPI'
 
-interface NewsContextProviderProps {
-  children: React.ReactNode
+interface NewsContextProviderProps extends ChildrenProps {
   originalTitle: string
   originalDescription: string
   originalImage: string
@@ -35,7 +34,7 @@ interface NewsContextProps {
   createNews: () => Promise<void>
 }
 
-export const NewsContext = createContext({})
+const NewsContext = createContext({})
 
 export const NewsContextProvider = ({ children, originalTitle, originalDescription, originalImage }: NewsContextProviderProps) => {
   const { session } = useSession()
@@ -52,7 +51,7 @@ export const NewsContextProvider = ({ children, originalTitle, originalDescripti
   useEffect(() => {
     const authorize = async () => {
       try {
-        const userInfo = await getUserInfo()
+        const userInfo = await userapis.getUserInfo()
         if (userInfo?.externalAccounts?.find((provider) => provider.provider === 'twitter')) {
           setCanPostOnTwitter(true)
           if (session?.user?.role === 1) {

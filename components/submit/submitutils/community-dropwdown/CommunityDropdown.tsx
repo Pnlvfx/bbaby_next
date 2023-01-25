@@ -4,9 +4,9 @@ import { useContext, useEffect, useState } from 'react'
 import ClickOutHandler from 'react-clickout-ts'
 import { HiChevronDown } from 'react-icons/hi'
 import { useSession } from '../../../auth/UserContext'
-import { getCommunities, getUserPrefCommunities, searchCommunity } from '../../../API/communityAPI'
+import communityapis from '../../../API/communityapis'
 import { CommunityContext, CommunityContextProps } from '../../../community/CommunityContext'
-import { SubmitContext, SubmitContextType } from '../../SubmitContext'
+import { useSubmitProvider } from '../../SubmitContext'
 import CommunityList from './CommunityList'
 import { BiSearch } from 'react-icons/bi'
 import { catchErrorWithMessage } from '../../../API/common'
@@ -21,7 +21,7 @@ const CommunityDropdown = ({ initialCommunity }: CommunityDropdown) => {
   const [show, setShow] = useState(false)
   const [activeClass, setActiveClass] = useState(false)
   const [allCommunity, setAllCommunity] = useState<CommunityProps[] | []>([])
-  const { selectedCommunity, setSelectedCommunity } = useContext(SubmitContext) as SubmitContextType
+  const { selectedCommunity, setSelectedCommunity } = useSubmitProvider()
   const { getCommunity, communityInfo, setShow: setShowCommunityForm } = useContext(CommunityContext) as CommunityContextProps
   const message = useMessage()
 
@@ -55,9 +55,9 @@ const CommunityDropdown = ({ initialCommunity }: CommunityDropdown) => {
     } else {
       setTimeout(async () => {
         try {
-          let communities = await getUserPrefCommunities()
+          let communities = await communityapis.getUserPrefCommunities()
           if (communities.length <= 0) {
-            communities = await getCommunities(11)
+            communities = await communityapis.getCommunities(11)
           }
           setAllCommunity(communities)
         } catch (err) {
@@ -73,7 +73,7 @@ const CommunityDropdown = ({ initialCommunity }: CommunityDropdown) => {
     if (initialCommunity) return
     if (!selectedCommunity) return
     const timer = setTimeout(() => {
-      searchCommunity(selectedCommunity).then((res) => {
+      communityapis.searchCommunity(selectedCommunity).then((res) => {
         setAllCommunity(res)
       })
     }, 300)

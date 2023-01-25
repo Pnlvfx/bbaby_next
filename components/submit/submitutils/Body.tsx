@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react'
-import { SubmitContext, SubmitContextType } from '../SubmitContext'
+import { useState } from 'react'
+import { useSubmitProvider } from '../SubmitContext'
 import ClickOutHandler from 'react-clickout-ts'
 import { TrashIcon } from '../../utils/SVG'
 import SubmitButton from '../each-submit-button/SubmitButton'
@@ -9,7 +9,7 @@ import { LOGO } from '../../main/config'
 const Body = () => {
   const [showDeleteOptions, setShowDeleteOptions] = useState(false)
   const [activeClassBody, setActiveClassBody] = useState(false)
-  const { thumbnail, selectedFile, setSelectedFile, isImage, setIsImage, body, setBody, isVideo } = useContext(SubmitContext) as SubmitContextType
+  const { thumbnail, selectedFile, setSelectedFile, isImage, setIsImage, body, setBody, isVideo } = useSubmitProvider()
   const [activeFigure, setActiveFigure] = useState(false)
 
   const figureClickOut = () => {

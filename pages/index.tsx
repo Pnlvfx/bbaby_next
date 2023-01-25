@@ -1,8 +1,9 @@
 import type { NextPage, NextPageContext } from 'next'
 import CEO from '../components/main/CEO'
-import { getSession, ssrHeaders } from '../components/API/ssrAPI'
+import { getSession } from '../components/API/ssrAPI'
 import Feed from '../components/post/Feed'
 import { siteUrl } from '../components/main/config'
+import postapis from '../components/API/postapis/postapis'
 
 type HomePg = {
   posts: PostProps[]
@@ -37,21 +38,16 @@ export default Home
 
 export const getServerSideProps = async (context: NextPageContext) => {
   try {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
-    const postUrl = `${server}/posts?limit=15&skip=0`
     const session = await getSession(context)
-    const res = await fetch(postUrl, {
-      method: 'GET',
-      headers: ssrHeaders(context),
+    const posts = await postapis.getPosts(0, {
+      context,
+      limit: 15,
     })
-    if (res.ok) {
-      const posts: PostProps[] = await res.json()
-      return {
-        props: {
-          session,
-          posts,
-        },
-      }
+    return {
+      props: {
+        session,
+        posts,
+      },
     }
   } catch (err) {
     const error = `Sorry we couldn't load post for this page.`

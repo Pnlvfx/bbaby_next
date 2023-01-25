@@ -1,13 +1,13 @@
 type SessionProps = {
-    user?: {
-      username: string
-      avatar: string
-      role: number
-    }
-    device?: {
-      mobile: boolean
-    }
-    eu_cookie?: string
+  user?: {
+    username: string
+    avatar: string
+    role: number
+  }
+  device?: {
+    mobile: boolean
+  }
+  eu_cookie?: boolean
 }
 
 type UserProps = {

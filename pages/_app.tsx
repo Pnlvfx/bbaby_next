@@ -19,10 +19,10 @@ interface App {
 
 const MyApp = ({ Component, pageProps: { session, error, ...pageProps } }: AppProps<App>) => {
   useEffect(() => {
-    if (session?.user?.role === 1) return
-    if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return
     const tracker = async () => {
       try {
+        if (session?.user?.role === 1) return
+        if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return
         const url = `${server}/user/analytics`
         const res = await fetch(url, {
           method: 'get',

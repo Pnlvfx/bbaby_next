@@ -1,5 +1,6 @@
 import type { NextPage, NextPageContext } from 'next'
 import { useContext, useEffect } from 'react'
+import postapis from '../../../../components/API/postapis/postapis'
 import { getSession } from '../../../../components/API/ssrAPI'
 import CommentPage from '../../../../components/comments/CommentPage'
 import { CommunityContext, CommunityContextProps } from '../../../../components/community/CommunityContext'
@@ -50,23 +51,15 @@ export default IdPage
 
 export const getServerSideProps = async (context: NextPageContext) => {
   try {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL
     const { id } = context.query
-    const headers = context?.req?.headers?.cookie ? { cookie: context.req.headers.cookie } : undefined
-    const postUrl = `${server}/posts/${id}`
+    if (!id) throw new Error('Missing post for this id!')
     const session = await getSession(context)
-    const res = await fetch(postUrl, {
-      method: 'GET',
-      headers,
-    })
-    if (res.ok) {
-      const post = await res.json()
-      return {
-        props: {
-          session,
-          post,
-        },
-      }
+    const post = await postapis.getPost(id.toString(), context)
+    return {
+      props: {
+        session,
+        post,
+      },
     }
   } catch (err) {
     const error = `Our server seems to be in trouble, please retry in a few seconds.`

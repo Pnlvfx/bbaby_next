@@ -23,13 +23,13 @@ export const ssrHeaders = (context: NextPageContext) => {
 export const getSession = async (context: NextPageContext) => {
   try {
     const url = `${server}/user`
-    const response = await fetch(url, {
+    const res = await fetch(url, {
       method: 'GET',
       headers: ssrHeaders(context),
     })
-    const session = await response.json()
-    if (!response.ok) {
-      if (response.status === 601) {
+    const session = await res.json()
+    if (!res.ok) {
+      if (res.status === 601) {
         context.res?.setHeader('Set-Cookie', `token=''; Max-Age=0`)
         await getSession(context)
         return
@@ -39,6 +39,6 @@ export const getSession = async (context: NextPageContext) => {
     }
     return session as SessionProps
   } catch (err) {
-    catchError(err)
+    throw catchError(err)
   }
 }

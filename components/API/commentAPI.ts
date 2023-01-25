@@ -13,7 +13,7 @@ export const postComment = async (commentBody: string, parentId: string, rootId:
     })
     const data = await res.json()
     if (!res.ok) throw new Error(data?.msg)
-    return data
+    return data as CommentProps
   } catch (err) {
     throw catchError(err)
   }
@@ -22,12 +22,12 @@ export const postComment = async (commentBody: string, parentId: string, rootId:
 export const getCommentsFromPost = async (postId: string) => {
   try {
     const url = `${server}/comments/root/${postId}`
-    const response = await fetch(url, {
+    const res = await fetch(url, {
       method: 'GET',
     })
-    const data = await response.json()
-    if (!response.ok) throw new Error(data?.msg)
-    return data
+    const data = await res.json()
+    if (!res.ok) throw new Error(data?.msg)
+    return data as CommentProps[]
   } catch (err) {
     throw catchError(err)
   }

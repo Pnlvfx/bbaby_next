@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { catchErrorWithMessage } from '../API/common'
-import { getCommunities } from '../API/communityAPI'
+import communityapis from '../API/communityapis'
 import { useMessage } from '../main/TimeMsgContext'
 import Widget from '../widget/Widget'
 import LeaderboardFeed from './LeaderboardFeed'
@@ -16,7 +16,7 @@ const Leaderboard = () => {
     if (!router.isReady) return
     const getComm = async () => {
       try {
-        const c = await getCommunities(25)
+        const c = await communityapis.getCommunities(25)
         setCommunities(c)
       } catch (err) {
         catchErrorWithMessage(err, message)

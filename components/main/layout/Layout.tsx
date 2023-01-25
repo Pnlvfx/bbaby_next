@@ -1,7 +1,6 @@
 import Header from '../../header/Header'
 import UseGoogleOneTapLogin from '../../auth/providers/google/hooks/useGoogleOneTapLogin'
 import dynamic from 'next/dynamic'
-import { googleLogin } from '../../auth/providers/google/hooks/googleLogin'
 import { CSSProperties, ReactNode, useContext, useEffect } from 'react'
 import { useAuthModal } from '../../auth/modal/AuthModalContext'
 import { useRouter } from 'next/router'
@@ -10,9 +9,9 @@ import { useSession } from '../../auth/UserContext'
 import CookieConsent from '../../utils/validation/cookie-consent/CookieConsent'
 import { CommunityContext, CommunityContextProps } from '../../community/CommunityContext'
 import GoogleAnalytics from '../../google/GoogleAnalytics'
-import { googleLoginAnalytics } from '../../../lib/gtag'
 import { CredentialResponse } from '../../../@types/google'
 import { catchErrorWithMessage } from '../../API/common'
+import oauthapis from '../../API/oauthapis'
 
 interface LayoutProps {
   children: ReactNode
@@ -33,10 +32,9 @@ const Layout = ({ children, error }: LayoutProps) => {
 
   const responseGoogle = async (response: CredentialResponse) => {
     try {
-      await googleLogin(response)
+      await oauthapis.googleLogin(response)
       localStorage.setItem('isLogged', 'true')
       authModal.setShow('hidden')
-      googleLoginAnalytics()
       router.reload()
     } catch (err) {
       catchErrorWithMessage(err, message)
