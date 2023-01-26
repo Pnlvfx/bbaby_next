@@ -1,6 +1,6 @@
 import { Video } from '@bbabystyle/next-video-player'
 import { useState } from 'react'
-import TimeAgo from 'timeago-react'
+import TimeAgo from 'react-timeago'
 import { catchErrorWithMessage, urlisImage } from '../../API/common'
 import govapis from '../../API/governance/govapis'
 import { LOGO } from '../../main/config'
@@ -85,7 +85,7 @@ const RedditPost = ({ post }: ExtendRedditPosts) => {
                 >
                   <span className="hover:underline">{post.author && 'u/' + post.author}</span>
                 </div>
-                {post.created_utc && <TimeAgo datetime={post.created_utc} className="ml-1 truncate" />}
+                {post.created_utc && <TimeAgo date={post.created_utc} className="ml-1 truncate" />}
               </div>
             </div>
             <div className="mx-2">

@@ -2,7 +2,7 @@ import { Video } from '@bbabystyle/next-video-player'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import ReactLinkify from 'react-linkify'
-import TimeAgo from 'timeago-react'
+import TimeAgo from 'react-timeago'
 import { catchErrorWithMessage } from '../../API/common'
 import govapis from '../../API/governance/govapis'
 import { LOGO } from '../../main/config'
@@ -101,7 +101,7 @@ const Tweet = ({
                       </span>
                     </div>
                     <span className="ml-1 text-xs font-bold leading-6 text-reddit_text-darker">@{screen_name}</span>
-                    <TimeAgo datetime={created_at} className="ml-1 text-ellipsis text-xs leading-6 text-reddit_text-darker" />
+                    <TimeAgo date={created_at} className="ml-1 text-ellipsis text-xs leading-6 text-reddit_text-darker" />
                   </div>
                 </div>
               </div>

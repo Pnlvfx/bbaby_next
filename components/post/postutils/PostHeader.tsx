@@ -2,8 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Router from 'next/router'
 import { MouseEvent } from 'react'
-import TimeAgo from 'timeago-react'
 import { useSession } from '../../auth/UserContext'
+import TimeAgo from 'react-timeago'
 
 type PostHeaderProps = {
   post: PostProps
@@ -64,7 +64,7 @@ const PostHeader = ({ post, isListing }: PostHeaderProps) => {
               </Link>
             </div>
           </div>
-          <TimeAgo className="ml-[3px] font-normal text-reddit_text-darker" datetime={post.createdAt} />
+          <TimeAgo className="ml-[3px] font-normal text-reddit_text-darker" date={post.createdAt} />
         </div>
       </div>
     </div>

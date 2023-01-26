@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import TimeAgo from 'timeago-react'
+import TimeAgo from 'react-timeago'
 
 export interface LinkPreviewProps {
   title: string
@@ -9,17 +9,9 @@ export interface LinkPreviewProps {
   description: string
 }
 
-const LinkPreview = ({
-  title,
-  url,
-  image,
-  date,
-  description,
-}: LinkPreviewProps) => {
+const LinkPreview = ({ title, url, image, date, description }: LinkPreviewProps) => {
   return (
-    <div
-      className={`mx-auto mb-3 max-w-[700px] overflow-hidden rounded-md border border-reddit_border bg-reddit_dark-brighter lg:h-[450px] xl:mx-2`}
-    >
+    <div className={`mx-auto mb-3 max-w-[700px] overflow-hidden rounded-md border border-reddit_border bg-reddit_dark-brighter lg:h-[450px] xl:mx-2`}>
       <Link className="flex-col" href={url}>
         <div>
           <div className="mb-4 w-full px-3 text-center text-lg">
@@ -35,7 +27,7 @@ const LinkPreview = ({
           <div>
             <span>Description length: {description.length}</span>
           </div>
-          <TimeAgo className="ml-auto" datetime={date} />
+          <TimeAgo className="ml-auto" date={date} />
         </div>
       </Link>
     </div>

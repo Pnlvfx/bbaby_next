@@ -50,19 +50,20 @@ const MoreButton = ({ post, isListing }: MoreButtonProps) => {
         </button>
         <div className={`absolute z-20 ${show ? 'block' : 'hidden'}`}>
           <div className="flex rounded-md border border-reddit_border bg-reddit_dark-brighter">
-            {session?.user?.username === post.author && (
-              <button
-                className="flex w-auto p-2 text-reddit_text-darker hover:bg-blue-900 lg:w-[200px]"
-                onClick={(e) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  deletePost()
-                }}
-              >
-                <BsTrashFill className="mt-1 mr-2 h-4 w-4" />
-                <p className="text-sm">Delete</p>
-              </button>
-            )}
+            {session?.user?.username === post.author ||
+              (session?.user?.role === 1 && (
+                <button
+                  className="flex w-auto p-2 text-reddit_text-darker hover:bg-blue-900 lg:w-[200px]"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    deletePost()
+                  }}
+                >
+                  <BsTrashFill className="mt-1 mr-2 h-4 w-4" />
+                  <p className="text-sm">Delete</p>
+                </button>
+              ))}
           </div>
         </div>
       </ClickOutHandler>

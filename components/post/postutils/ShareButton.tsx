@@ -41,7 +41,11 @@ const ShareButton = ({ linkToCopy, isListing }: ShareButtonProps) => {
           onClick={(event) => {
             event.preventDefault()
             event.stopPropagation()
-            setShareDropdownVisibilityClass(!shareDropdownVisibilityClass)
+            if (session?.device?.mobile) {
+              copyTextToClipboard(`${window.location.origin}${linkToCopy}`.toLowerCase())
+            } else {
+              setShareDropdownVisibilityClass(!shareDropdownVisibilityClass)
+            }
           }}
         >
           <ShareIcon className="mr-[6px] leading-4" />
