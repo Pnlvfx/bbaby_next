@@ -63,7 +63,7 @@ const Voting = ({ ups, postId, liked }: Voting) => {
       >
         <BiUpvote className={`&& h-6 w-6 text-center text-reddit_text-darker hover:text-blue-600 ${voted === true && 'text-blue-600'}`} />
       </button>
-      <div className="pointer-events-none mx-[1px] w-8 text-center text-[12px] font-bold leading-[15px]">{upVote ? upVote : 0}</div>
+      <div className="pointer-events-none mx-[1px] w-8 text-center text-[12px] font-bold leading-[15px]">{upVote === 0 ? 'Vote' : upVote}</div>
       <button
         aria-label="downvote"
         className="h-6 w-6"

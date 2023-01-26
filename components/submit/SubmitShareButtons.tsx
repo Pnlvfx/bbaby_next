@@ -20,7 +20,7 @@ const SubmitShareButtons = () => {
         const userInfo = await userapis.getUserInfo()
         if (userInfo?.externalAccounts?.find((provider) => provider.provider === 'twitter')) {
           setCanPostOnTwitter(true)
-          if (session?.user?.role === 1) {
+          if (session?.user?.role === 1 && process.env.NODE_ENV === 'production') {
             setSharePostToTwitter(true)
           }
         }

@@ -38,6 +38,20 @@ const userapis = {
       throw catchError(err)
     }
   },
+  getEUcookie: async () => {
+    try {
+      const url = `${server}/eu_cookie`
+      const res = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data?.msg)
+      return data as true
+    } catch (err) {
+      throw catchError(err)
+    }
+  },
   getUserInfo: async () => {
     try {
       const res = await fetch(`${server}/user/about`, {

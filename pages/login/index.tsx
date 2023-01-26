@@ -1,8 +1,8 @@
-import { NextPageContext } from "next";
-import Head from "next/head";
-import { getSession } from "../../components/API/ssrAPI";
-import LoginForm from "../../components/auth/LoginForm";
-import { siteUrl } from "../../components/main/config";
+import { NextPageContext } from 'next'
+import Head from 'next/head'
+import { getSession } from '../../components/API/ssrAPI'
+import LoginForm from '../../components/auth/LoginForm'
+import { siteUrl } from '../../components/main/config'
 
 const LoginPage = () => {
   const title = `${siteUrl}: Log in`
@@ -13,7 +13,7 @@ const LoginPage = () => {
     <>
       <Head>
         <title>{title}</title>
-        <link rel='canonical' href={url} key='canonical' />
+        <link rel="canonical" href={url} key="canonical" />
         <meta name="description" content={description} key={'description'} />
       </Head>
       <LoginForm />
@@ -21,11 +21,11 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage;
+export default LoginPage
 
 export const getServerSideProps = async (context: NextPageContext) => {
   try {
-    const session = await getSession(context);
+    const session = await getSession(context)
     return {
       props: {
         session,
@@ -35,8 +35,8 @@ export const getServerSideProps = async (context: NextPageContext) => {
     const error = `Don't panic. Now we will fix the issue!`
     return {
       props: {
-        error
-      }
+        error,
+      },
     }
   }
 }

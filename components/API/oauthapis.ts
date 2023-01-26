@@ -37,7 +37,7 @@ const oauthapis = {
         credentials: 'include',
       })
       const data = await res.json()
-      if (res.ok) throw new Error(data.msg)
+      if (!res.ok) throw new Error(data.msg)
       return data as {
         msg: string
       }
@@ -73,10 +73,10 @@ const oauthapis = {
         headers: postRequestHeaders,
         credentials: 'include',
       })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data?.msg)
-      return data
+      if (!res.ok) throw new Error('Something went wrong, please try again!')
+      return true
     } catch (err) {
+      console.log(err)
       throw catchError(err)
     }
   },

@@ -1,7 +1,6 @@
 import Router from 'next/router'
-import { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
+import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react'
 import { catchErrorWithMessage } from '../../API/common'
-import userapis from '../../API/userapis'
 import { useSession } from '../../auth/UserContext'
 import { postRequestHeaders, server } from '../../main/config'
 import { useMessage } from '../../main/TimeMsgContext'
@@ -30,7 +29,6 @@ interface NewsContextProps {
   setSharePostToTG: Dispatch<SetStateAction<boolean>>
   sharePostToTwitter: boolean
   setSharePostToTwitter: Dispatch<SetStateAction<boolean>>
-  canPostOnTwitter: boolean
   createNews: () => Promise<void>
 }
 
@@ -43,27 +41,9 @@ export const NewsContextProvider = ({ children, originalTitle, originalDescripti
   const [description, setDescription] = useState('')
   const [mediaInfo, setMediaInfo] = useState({})
   const [loading, setLoading] = useState(false)
-  const [canPostOnTwitter, setCanPostOnTwitter] = useState(false)
-  const [sharePostToTG, setSharePostToTG] = useState(session?.user?.role === 1 ? true : false)
-  const [sharePostToTwitter, setSharePostToTwitter] = useState(canPostOnTwitter && session?.user?.role ? true : false)
+  const [sharePostToTG, setSharePostToTG] = useState(session?.user?.role === 1 && process.env.NODE_ENV === 'production' ? true : false)
+  const [sharePostToTwitter, setSharePostToTwitter] = useState(false)
   const message = useMessage()
-
-  useEffect(() => {
-    const authorize = async () => {
-      try {
-        const userInfo = await userapis.getUserInfo()
-        if (userInfo?.externalAccounts?.find((provider) => provider.provider === 'twitter')) {
-          setCanPostOnTwitter(true)
-          if (session?.user?.role === 1) {
-            setSharePostToTwitter(true)
-          }
-        }
-      } catch (err) {
-        catchErrorWithMessage(err, message)
-      }
-    }
-    authorize()
-  }, [])
 
   const createNews = async () => {
     try {
@@ -107,8 +87,6 @@ export const NewsContextProvider = ({ children, originalTitle, originalDescripti
         mediaInfo,
         setMediaInfo,
         loading,
-        canPostOnTwitter,
-        setCanPostOnTwitter,
         sharePostToTG,
         setSharePostToTG,
         sharePostToTwitter,

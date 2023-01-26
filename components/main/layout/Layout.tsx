@@ -82,7 +82,7 @@ const Layout = ({ children, error }: LayoutProps) => {
                 <div>
                   <div className="flex min-h-[calc(100vh_-_48px)] flex-col">
                     <div className="z-3">
-                      {!session?.eu_cookie && !process.env.NEXT_PUBLIC_CLIENT_URL.startsWith('http://192') && <CookieConsent />}
+                      {!process.env.NEXT_PUBLIC_CLIENT_URL.startsWith('http://192') && <CookieConsent />}
                       <div
                         onTouchEnd={(e) => {
                           router.push(router.pathname, undefined, { shallow: true })

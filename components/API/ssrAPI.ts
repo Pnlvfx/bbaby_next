@@ -1,6 +1,7 @@
 import { NextPageContext } from 'next'
-import { server, siteUrl } from '../main/config'
+import { postRequestHeaders, server, siteUrl } from '../main/config'
 import { catchError } from './common'
+import oauthapis from './oauthapis'
 
 export const ssrHeaders = (context: NextPageContext) => {
   const user_agent = context.req?.headers['user-agent'] ? context.req.headers['user-agent'] : ''
@@ -20,17 +21,23 @@ export const ssrHeaders = (context: NextPageContext) => {
   return headers
 }
 
-export const getSession = async (context: NextPageContext) => {
+export const getSession = async (context?: NextPageContext) => {
   try {
     const url = `${server}/user`
+    const headers = context ? ssrHeaders(context) : postRequestHeaders
     const res = await fetch(url, {
       method: 'GET',
-      headers: ssrHeaders(context),
+      headers,
+      credentials: 'include',
     })
     const session = await res.json()
     if (!res.ok) {
       if (res.status === 601) {
-        context.res?.setHeader('Set-Cookie', `token=''; Max-Age=0`)
+        if (context) {
+          context.res?.setHeader('Set-Cookie', `token=''; Max-Age=0`)
+        } else {
+          await oauthapis.logout()
+        }
         await getSession(context)
         return
       } else {

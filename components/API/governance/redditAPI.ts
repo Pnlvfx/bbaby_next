@@ -11,22 +11,7 @@ export const getRedditPosts = async (after?: string, count?: number) => {
       credentials: 'include',
     })
     const p = isJson(res) ? await res.json() : null
-    if (res.ok) throw new Error(p ? p?.msg : 'Something went wrong')
-    return p.data
-  } catch (err) {
-    throw catchError(err)
-  }
-}
-
-export const getRedditPostsFromCommunity = async (after?: string, count?: number) => {
-  try {
-    const url = `${server}/reddit/community_posts`
-    const res = await fetch(url, {
-      method: 'get',
-      credentials: 'include',
-    })
-    const p = isJson(res) ? await res.json() : null
-    if (res.ok) throw new Error(`${res.statusText} ${p?.msg}`)
+    if (!res.ok) throw new Error(p ? p?.msg : 'Something went wrong')
     return p.data
   } catch (err) {
     throw catchError(err)

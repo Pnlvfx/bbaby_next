@@ -4,12 +4,14 @@ import NewEmailNotif from '../NewEmailNotif'
 import UserPreferencesModal from '../../user/UserPreferencesModal'
 import { CloseIcon } from '../../utils/SVG'
 import { NextComponentType } from 'next'
+import { useSession } from '../UserContext'
 
 export type StatusProps = {
   err?: string
 }
 
 const AuthModal: NextComponentType = () => {
+  const { session } = useSession()
   // IF NEW USER
   const [EmailTo, setEmailTo] = useState('')
   const authModal = useAuthModal()
@@ -28,6 +30,11 @@ const AuthModal: NextComponentType = () => {
     }
   }, [])
 
+  useEffect(() => {
+    if (!session?.user) return
+    closeModal()
+  }, [session])
+
   return (
     <div>
       <div className="fixed left-0 top-0 z-[110] h-full w-full bg-[rgba(0,0,0,.4)]">
@@ -36,22 +43,13 @@ const AuthModal: NextComponentType = () => {
           style={{ transform: 'translate(-50%, -50%)' }}
         >
           {authModal.show === 'login' ? (
-            <iframe
-              key={authModal.show}
-              src={`${process.env.NEXT_PUBLIC_CLIENT_URL}/account/login`}
-              className="h-full w-full"
-            />
+            <iframe key={authModal.show} src={`${process.env.NEXT_PUBLIC_CLIENT_URL}/account/login`} className="h-full w-full" />
+          ) : authModal.show === 'register' ? (
+            <iframe key={authModal.show} src={`${process.env.NEXT_PUBLIC_CLIENT_URL}/account/register`} className="h-full w-full" />
           ) : (
-            <iframe
-              key={authModal.show}
-              src={`${process.env.NEXT_PUBLIC_CLIENT_URL}/account/register`}
-              className="h-full w-full"
-            />
+            <div />
           )}
-          <button
-            onClick={() => closeModal()}
-            className="absolute right-[16px] top-[16px]"
-          >
+          <button onClick={closeModal} className="absolute right-[16px] top-[16px]">
             <CloseIcon className="h-4 w-4" />
           </button>
         </div>

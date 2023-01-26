@@ -7,7 +7,6 @@ type SessionProps = {
   device?: {
     mobile: boolean
   }
-  eu_cookie?: boolean
 }
 
 type UserProps = {

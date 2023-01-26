@@ -1,12 +1,35 @@
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { AiOutlineInfoCircle } from 'react-icons/ai'
+import { catchErrorWithMessage } from '../../../API/common'
+import userapis from '../../../API/userapis'
 import { useSession } from '../../../auth/UserContext'
+import { useMessage } from '../../../main/TimeMsgContext'
 import CheckBox from '../../../utils/buttons/CheckBox'
 import { useNewsProvider } from '../NewsContext'
 
 const GovSubmitShareButtons = () => {
   const { session } = useSession()
-  const { canPostOnTwitter, setSharePostToTG, sharePostToTG, sharePostToTwitter, setSharePostToTwitter } = useNewsProvider()
+  const [canPostOnTwitter, setCanPostOnTwitter] = useState(false)
+  const { setSharePostToTG, sharePostToTG, sharePostToTwitter, setSharePostToTwitter } = useNewsProvider()
+  const message = useMessage()
+
+  useEffect(() => {
+    const authorize = async () => {
+      try {
+        const userInfo = await userapis.getUserInfo()
+        if (userInfo?.externalAccounts?.find((provider) => provider.provider === 'twitter')) {
+          setCanPostOnTwitter(true)
+          if (session?.user?.role === 1 && process.env.NODE_ENV === 'production') {
+            setSharePostToTwitter(true)
+          }
+        }
+      } catch (err) {
+        catchErrorWithMessage(err, message)
+      }
+    }
+    authorize()
+  }, [])
   return (
     <div
       className="relative flex h-24 rounded-b-md border-t border-solid border-reddit_border bg-reddit_dark-brightest py-2 px-4"

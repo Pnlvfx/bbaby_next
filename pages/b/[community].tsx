@@ -11,7 +11,7 @@ import PageNotFound from '../../components/main/PageNotFound'
 import postapis from '../../components/API/postapis/postapis'
 
 type CommunityPg = {
-  community?: string
+  community: string
   posts?: PostProps[]
 }
 
@@ -23,9 +23,8 @@ const CommunityPage: NextPage<CommunityPg> = ({ community, posts }) => {
   const title = community || 'bbabystyle.com: page not found'
 
   useEffect(() => {
-    if (!community) return
     getCommunity(community)
-  }, [community])
+  }, [])
 
   return (
     <>

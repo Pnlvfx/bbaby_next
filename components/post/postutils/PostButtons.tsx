@@ -32,7 +32,7 @@ const PostButtons = ({ post, isListing }: PostContentProps) => {
           <CommentIcon role="presentation" />
           <span className="ml-[6px]">{post.numComments} Comments</span>
         </Link>
-        <ShareButton linkToCopy={'/b/' + post.community + '/comments/' + post._id} isListing={isListing} />
+        <ShareButton linkToCopy={'/b/' + post.community.toLowerCase() + '/comments/' + post._id} isListing={isListing} />
         <MoreButton post={post} isListing={isListing} />
       </div>
     </div>

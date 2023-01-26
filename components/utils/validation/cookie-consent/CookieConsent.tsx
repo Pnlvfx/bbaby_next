@@ -1,18 +1,30 @@
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import userapis from '../../../API/userapis'
-import { useSession } from '../../../auth/UserContext'
 import { CloseIcon } from '../../SVG'
 import style from './cookie-consent.module.css'
 
 const CookieConsent = () => {
-  const { session, setSession } = useSession()
+  const [euCookie, setEuCookie] = useState(true) // it defer the appears on ssr
 
-  const eu_cookie = async (status: boolean) => {
+  useEffect(() => {
+    const get = async () => {
+      try {
+        const boolean = await userapis.getEUcookie()
+        setEuCookie(boolean)
+      } catch (err) {}
+    }
+    get()
+  }, [])
+
+  const saveEUcookie = async (status: boolean) => {
     try {
       const data = await userapis.saveEUcookie(status)
-      setSession({ ...session, eu_cookie: data })
+      setEuCookie(true)
     } catch (err) {}
   }
+
+  if (euCookie) return null
 
   return (
     <>
@@ -39,7 +51,7 @@ const CookieConsent = () => {
                     role={'button'}
                     tabIndex={0}
                     onClick={() => {
-                      eu_cookie(false)
+                      saveEUcookie(false)
                     }}
                   >
                     Reject non-essential
@@ -47,7 +59,7 @@ const CookieConsent = () => {
                   <button
                     className={style.cookieButtons}
                     onClick={() => {
-                      eu_cookie(true)
+                      saveEUcookie(true)
                     }}
                   >
                     <p className="text-reddit_dark">Accept all</p>
@@ -64,7 +76,7 @@ const CookieConsent = () => {
           aria-label="close cookie"
           className="absolute right-1 top-1 p-1"
           onClick={() => {
-            eu_cookie(true)
+            saveEUcookie(true)
           }}
         >
           <i className="inline-block align-middle leading-[1em]">

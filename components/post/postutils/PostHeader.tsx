@@ -64,7 +64,7 @@ const PostHeader = ({ post, isListing }: PostHeaderProps) => {
               </Link>
             </div>
           </div>
-          {/* <TimeAgo className="ml-[3px] font-normal text-reddit_text-darker" datetime={post.createdAt} /> */}
+          <TimeAgo className="ml-[3px] font-normal text-reddit_text-darker" datetime={post.createdAt} />
         </div>
       </div>
     </div>

@@ -40,7 +40,7 @@ export const SubmitContextProvider = ({ children }: ChildrenProps) => {
   const [thumbnail, setThumbnail] = useState(null)
   const [isImage, setIsImage] = useState(false)
   const [isVideo, setIsVideo] = useState(false)
-  const [sharePostToTG, setSharePostToTG] = useState(session?.user?.role === 1 ? true : false)
+  const [sharePostToTG, setSharePostToTG] = useState(session?.user?.role === 1 && process.env.NODE_ENV === 'production' ? true : false)
   const [sharePostToTwitter, setSharePostToTwitter] = useState(false)
 
   return (

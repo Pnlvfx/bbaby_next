@@ -17,6 +17,7 @@ body {
   font-family: IBMPlexSans, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   color: rgb(215 218 220);
+  background-color: #030303;
 }
 
 .loading {
