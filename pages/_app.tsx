@@ -12,6 +12,8 @@ import Layout from '../components/main/layout/Layout'
 import { useEffect } from 'react'
 import Head from 'next/head'
 import { server, siteUrl } from '../components/main/config'
+import { getUserInfo } from '../lib/IPinfo'
+import telegramapis from '../components/API/telegramapis'
 interface App {
   session: SessionProps
   error: string
@@ -23,11 +25,14 @@ const MyApp = ({ Component, pageProps: { session, error, ...pageProps } }: AppPr
       try {
         if (session?.user?.role === 1) return
         if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return
-        const url = `${server}/user/analytics`
-        const res = await fetch(url, {
-          method: 'GET',
-          credentials: 'include',
-        })
+        const info = await getUserInfo()
+        telegramapis.sendLog(
+          `New session: ${session.user?.username.toLowerCase() || 'unknown user'}` +
+            ', Country: ' +
+            info.country.toLowerCase() +
+            ', City: ' +
+            info.city.toLowerCase()
+        )
       } catch (err) {}
     }
     tracker()
