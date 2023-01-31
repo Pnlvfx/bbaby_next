@@ -2,7 +2,7 @@ import { BiLink } from 'react-icons/bi'
 import Link from 'next/link'
 import { useAuthModal } from '../../auth/modal/AuthModalContext'
 import Image from 'next/image'
-import { AddImageIcon } from '../../utils/SVG'
+import { AddImageIcon } from '../../utils/SVG/SVG'
 import { useSession } from '../../auth/UserContext'
 
 type PostFormProps = {
@@ -20,10 +20,7 @@ function PostForm({ community }: PostFormProps) {
   return (
     <div className="mx-auto flex rounded border border-reddit_border bg-reddit_dark-brighter p-2">
       <div className="h-[38px] w-[38px] overflow-hidden">
-        <Link
-          href={`/user/${session.user.username.toLowerCase()}`}
-          className="h-[38px] w-[38px]"
-        >
+        <Link href={`/user/${session.user.username.toLowerCase()}`} className="h-[38px] w-[38px]">
           <div className="relative h-full">
             <div className="relative h-[38px] w-[38px] rounded-[50%]">
               <div className="h-full w-full rounded-[50%] bg-[#343536]" />
@@ -42,11 +39,7 @@ function PostForm({ community }: PostFormProps) {
       <form className="ml-4 mr-2 flex-grow rounded-md border border-reddit_border bg-reddit_dark-brightest hover:border-reddit_text">
         {session?.user && (
           <Link href={!community ? '/submit' : `/b/${community}/submit`}>
-            <input
-              type="text"
-              className={inputClass}
-              placeholder="Create Post"
-            />
+            <input type="text" className={inputClass} placeholder="Create Post" />
           </Link>
         )}
         {!session?.user && (
@@ -56,11 +49,7 @@ function PostForm({ community }: PostFormProps) {
               modalContext.setShow('login')
             }}
           >
-            <input
-              type="text"
-              className={inputClass}
-              placeholder="Login to create a Post"
-            />
+            <input type="text" className={inputClass} placeholder="Login to create a Post" />
           </div>
         )}
       </form>

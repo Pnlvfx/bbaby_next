@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSubmitProvider } from '../SubmitContext'
 import ClickOutHandler from 'react-clickout-ts'
-import { TrashIcon } from '../../utils/SVG'
+import { TrashIcon } from '../../utils/SVG/SVG'
 import SubmitButton from '../each-submit-button/SubmitButton'
 import { Video } from '@bbabystyle/next-video-player'
 import { LOGO } from '../../main/config'

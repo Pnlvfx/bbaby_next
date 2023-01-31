@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { buttonClass } from '../utils/Button'
+import { buttonClass } from '../utils/buttons/Button'
 import Image from 'next/image'
 import { LOGO } from '../main/config'
 

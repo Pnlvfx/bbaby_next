@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useSession } from '../../auth/UserContext'
-import { CommentIcon } from '../../utils/SVG'
+import { CommentIcon } from '../../utils/SVG/SVG'
 import { PostContentProps } from '../PostContent'
 import Voting from '../Voting'
 import { openPost } from './hooks'

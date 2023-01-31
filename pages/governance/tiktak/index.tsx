@@ -12,7 +12,7 @@ import TiktakList from '../../../components/governance/tiktak/tiktaklist/TikTakL
 import TiktakText from '../../../components/governance/tiktak/TiktakText'
 import { siteUrl } from '../../../components/main/config'
 import { useMessage } from '../../../components/main/TimeMsgContext'
-import { buttonClass, Spinner } from '../../../components/utils/Button'
+import { buttonClass, Spinner } from '../../../components/utils/buttons/Button'
 
 export interface TikTakPage {
   tiktaks: TiktakProps[]

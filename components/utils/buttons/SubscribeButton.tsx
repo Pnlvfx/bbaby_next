@@ -1,6 +1,6 @@
 import communityapis from '../../API/communityapis'
 import { useAuthModal } from '../../auth/modal/AuthModalContext'
-import { buttonClass } from '../Button'
+import { buttonClass } from './Button'
 
 interface SubscribeButton {
   community: CommunityProps

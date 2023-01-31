@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { catchErrorWithMessage } from '../../API/common'
 import govnewsapi from '../../API/governance/govnewsapi'
 import { useMessage } from '../../main/TimeMsgContext'
-import { Spinner } from '../../utils/Button'
+import { Spinner } from '../../utils/buttons/Button'
 import { LinkPreviewLoader } from '../../utils/LinkPreview'
 import PexelsImage from './PexelsImage'
 

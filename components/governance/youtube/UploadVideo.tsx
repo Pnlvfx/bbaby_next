@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { catchErrorWithMessage } from '../../API/common'
 import { postRequestHeaders, server } from '../../main/config'
 import { useMessage } from '../../main/TimeMsgContext'
-import { buttonClass, Spinner } from '../../utils/Button'
+import { buttonClass, Spinner } from '../../utils/buttons/Button'
 
 type UploadVideoProps = {
   input?: InputProps

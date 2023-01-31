@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import ClickOutHandler from 'react-clickout-ts'
 import { AiOutlineLink } from 'react-icons/ai'
-import { ShareIcon } from '../../utils/SVG'
+import { ShareIcon } from '../../utils/SVG/SVG'
 import { useMessage } from '../../main/TimeMsgContext'
 import { shareAnalytics } from '../../../lib/gtag'
 import { useSession } from '../../auth/UserContext'

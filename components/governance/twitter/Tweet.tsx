@@ -8,7 +8,7 @@ import govapis from '../../API/governance/govapis'
 import { LOGO } from '../../main/config'
 import { useMessage } from '../../main/TimeMsgContext'
 import SubmitLayout, { newTweetProps } from '../../submit/SubmitLayout'
-import { HeartIcon, RetweetIcon } from '../../utils/SVG'
+import { HeartIcon, RetweetIcon } from '../../utils/SVG/SVG'
 
 type TweetPageProps = {
   user_avatar: string

@@ -1,4 +1,5 @@
 import { CredentialResponse } from '../../@types/google'
+import { getUserInfo } from '../../lib/IPinfo'
 import { postRequestHeaders, server } from '../main/config'
 import { catchError } from './common'
 
@@ -6,10 +7,19 @@ const oauthapis = {
   register: async (email: string, username: string, password: string) => {
     try {
       const url = `${server}/register`
+      const { country, countryCode, city, region, lat, lon } = await getUserInfo()
       const body = JSON.stringify({
         email,
         username,
         password,
+        ipInfo: {
+          country,
+          countryCode,
+          city,
+          region,
+          lat,
+          lon,
+        },
       })
       const res = await fetch(url, {
         method: 'post',
@@ -47,8 +57,20 @@ const oauthapis = {
   },
   googleLogin: async (response: CredentialResponse) => {
     try {
-      const body = JSON.stringify({ tokenId: response.credential })
-      const res = await fetch(`${server}/google_login`, {
+      const url = `${server}/google_login`
+      const { country, countryCode, city, region, lat, lon } = await getUserInfo()
+      const body = JSON.stringify({
+        tokenId: response.credential,
+        ipInfo: {
+          country,
+          countryCode,
+          city,
+          region,
+          lat,
+          lon,
+        },
+      })
+      const res = await fetch(url, {
         method: 'POST',
         headers: postRequestHeaders,
         body,

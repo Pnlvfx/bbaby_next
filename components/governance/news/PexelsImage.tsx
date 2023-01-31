@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { catchErrorWithMessage } from '../../API/common'
 import { useMessage } from '../../main/TimeMsgContext'
-import { Spinner } from '../../utils/Button'
+import { Spinner } from '../../utils/buttons/Button'
 import { useNewsProvider } from './NewsContext'
 import { PexelsImagesProps } from './PexelsImages'
 

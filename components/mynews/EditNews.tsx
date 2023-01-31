@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction, useState } from 'react'
 import { catchErrorWithMessage } from '../API/common'
 import newsapis from '../API/newsapis'
 import { useMessage } from '../main/TimeMsgContext'
-import { Spinner } from '../utils/Button'
+import { Spinner } from '../utils/buttons/Button'
 import TeaxtareaAutosize from '../utils/TeaxtareaAutosize'
 
 interface EditNewsProps {

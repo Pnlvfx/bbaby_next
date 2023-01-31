@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { postRequestHeaders } from '../../main/config'
-import { TwitterLogo } from '../../utils/SVG'
+import { TwitterLogo } from '../../utils/SVG/SVG'
 
 const TwitterLogin = (userInfo: UserProps) => {
   const router = useRouter()

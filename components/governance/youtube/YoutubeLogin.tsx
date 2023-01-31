@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { buttonClass } from '../../utils/Button'
+import { buttonClass } from '../../utils/buttons/Button'
 
 const YoutubeLogin = () => {
   const router = useRouter()

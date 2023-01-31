@@ -44,15 +44,17 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
   //INFINITE SCROLLING
 
   const getMorePosts = async () => {
-    const newPosts = await postapis.getPosts(posts.length, {
-      community,
-      author,
-      limit: 10,
-    })
-    if (newPosts.length < 10) {
-      setHasMore(false)
-    }
-    setPosts([...posts, ...newPosts])
+    try {
+      const newPosts = await postapis.getPosts(posts.length, {
+        community,
+        author,
+        limit: 10,
+      })
+      if (newPosts.length < 10) {
+        setHasMore(false)
+      }
+      setPosts([...posts, ...newPosts])
+    } catch (err) {}
   }
   //
 

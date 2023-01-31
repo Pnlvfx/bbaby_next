@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { BiConfused } from 'react-icons/bi'
-import telegramapis from '../utils/telegramapis'
+import telegramapis from '../API/telegramapis'
 
 const PageNotFound = () => {
   const size = 200

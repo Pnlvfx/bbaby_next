@@ -4,7 +4,7 @@ import { useSession } from './UserContext'
 import Link from 'next/link'
 import Google from './providers/google/Google'
 import AuthInput from './auth-input/AuthInput'
-import { Spinner } from '../utils/Button'
+import { Spinner } from '../utils/buttons/Button'
 import { useAuthModal } from './modal/AuthModalContext'
 import oauthapis from '../API/oauthapis'
 

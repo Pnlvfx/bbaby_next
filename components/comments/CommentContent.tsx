@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { GoCommentDiscussion } from 'react-icons/go'
 import Post from '../post/Post'
-import YandexAds from '../utils/yandex-ads/YandexAds'
 import Comments from './Comments'
 import CommentForm from './commentutils/CommentForm'
 import { useCommentContext } from './commentutils/RootCommentContext'
@@ -18,7 +17,6 @@ const CommentContent = () => {
       <Post post={post} isListing={false} />
       {!!post && !!post._id && (
         <div className="relative my-6 lg:mx-10">
-          <YandexAds />
           <CommentForm rootId={post._id} parentId={post._id} showAuthor={true} />
           <div className="my-4">
             <hr className="border-reddit_border" />

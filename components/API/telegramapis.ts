@@ -1,4 +1,4 @@
-import { catchError } from '../API/common'
+import { catchError } from './common'
 import { server } from '../main/config'
 
 const telegramapis = {

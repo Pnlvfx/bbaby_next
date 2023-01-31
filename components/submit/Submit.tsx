@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { buttonClass, Spinner } from '../utils/Button'
+import { buttonClass, Spinner } from '../utils/buttons/Button'
 import CommunityDropdown from './submitutils/community-dropwdown/CommunityDropdown'
 import { useSubmitProvider } from './SubmitContext'
 import Body from './submitutils/Body'

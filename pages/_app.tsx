@@ -25,7 +25,7 @@ const MyApp = ({ Component, pageProps: { session, error, ...pageProps } }: AppPr
         if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return
         const url = `${server}/user/analytics`
         const res = await fetch(url, {
-          method: 'get',
+          method: 'GET',
           credentials: 'include',
         })
       } catch (err) {}

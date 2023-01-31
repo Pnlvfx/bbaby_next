@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import { useAuthModal } from '../auth/modal/AuthModalContext'
 import communityapis from '../API/communityapis'
 import { CommunityContext, CommunityContextProps } from './CommunityContext'
-import { buttonClass } from '../utils/Button'
+import { buttonClass } from '../utils/buttons/Button'
 import Link from 'next/link'
 
 const BoardHeader = () => {

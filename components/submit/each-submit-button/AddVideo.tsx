@@ -1,6 +1,6 @@
 import { ChangeEvent, useRef } from 'react'
 import { useMessage } from '../../main/TimeMsgContext'
-import { VideoIcon } from '../../utils/SVG'
+import { VideoIcon } from '../../utils/SVG/SVG'
 import { useSubmitProvider } from '../SubmitContext'
 
 const AddVideo = () => {

@@ -1,6 +1,6 @@
 import { FaRegFlag } from 'react-icons/fa'
 import { useEffect, useState } from 'react'
-import { Spinner } from '../utils/Button'
+import { Spinner } from '../utils/buttons/Button'
 import { useSession } from '../auth/UserContext'
 
 const Donations = () => {

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useAuthModal } from './AuthModalContext'
 import NewEmailNotif from '../NewEmailNotif'
 import UserPreferencesModal from '../../user/UserPreferencesModal'
-import { CloseIcon } from '../../utils/SVG'
+import { CloseIcon } from '../../utils/SVG/SVG'
 import { NextComponentType } from 'next'
 import { useSession } from '../UserContext'
 

@@ -3,9 +3,9 @@ import { useMessage } from '../main/TimeMsgContext'
 import AuthInput from './auth-input/AuthInput'
 import { useAuthModal } from './modal/AuthModalContext'
 import Register1 from './register/Register1'
-import { Spinner } from '../utils/Button'
+import { Spinner } from '../utils/buttons/Button'
 import Link from 'next/link'
-import { GoBackIcon } from '../utils/SVG'
+import { GoBackIcon } from '../utils/SVG/SVG'
 import oauthapis from '../API/oauthapis'
 
 const RegisterForm = () => {

@@ -1,5 +1,5 @@
 import { useNewsProvider } from '../NewsContext'
-import { buttonClass, Spinner } from '../../../utils/Button'
+import { buttonClass, Spinner } from '../../../utils/buttons/Button'
 import TeaxtareaAutosize from '../../../utils/TeaxtareaAutosize'
 import GovSubmitShareButtons from './GovSubmitShareButtons'
 

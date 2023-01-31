@@ -11,7 +11,7 @@ import GovernanceCtrl from '../../../components/governance/GovernanceCtrl'
 import TiktakText from '../../../components/governance/tiktak/TiktakText'
 import { siteUrl } from '../../../components/main/config'
 import { useMessage } from '../../../components/main/TimeMsgContext'
-import { Spinner } from '../../../components/utils/Button'
+import { Spinner } from '../../../components/utils/buttons/Button'
 
 export interface TiktakPage {
   data?: GetTiktakResponse

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import userapis from '../../../API/userapis'
-import { CloseIcon } from '../../SVG'
+import { CloseIcon } from '../../SVG/SVG'
 import style from './cookie-consent.module.css'
 
 const CookieConsent = () => {

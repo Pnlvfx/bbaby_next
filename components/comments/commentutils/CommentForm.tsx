@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useSession } from '../../auth/UserContext'
-import { buttonClass } from '../../utils/Button'
+import { buttonClass } from '../../utils/buttons/Button'
 import ClickOutHandler from 'react-clickout-ts'
 import { postComment } from '../../API/commentAPI'
 import { useCommentContext } from './RootCommentContext'

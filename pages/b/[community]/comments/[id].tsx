@@ -32,7 +32,7 @@ const IdPage: NextPage<PostIdPageProps> = ({ post }) => {
         description={
           post?.body?.length >= 160
             ? post.body
-            : `${post.body} ${post.ups} votes, ${post.numComments} comments in the ${post.community} community. b/${post.community}`
+            : `${post.body || ''} ${post.ups} votes, ${post.numComments} comments in the ${post.community} community. b/${post.community}`
         }
         twitter_card={'summary_large_image'}
         type={'article'}

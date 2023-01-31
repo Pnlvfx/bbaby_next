@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useRef, useState } from 'react'
 import { catchErrorWithMessage } from '../../API/common'
 import { postRequestHeaders } from '../../main/config'
 import { useMessage } from '../../main/TimeMsgContext'
-import { Spinner } from '../../utils/Button'
+import { Spinner } from '../../utils/buttons/Button'
 import InteractiveDropdown from './InteractiveDropdown'
 import YoutubeDescription from './YoutubeDescription'
 

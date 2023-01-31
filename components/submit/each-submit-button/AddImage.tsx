@@ -1,6 +1,6 @@
 import { ChangeEvent, useRef } from 'react'
 import { useMessage } from '../../main/TimeMsgContext'
-import { AddImageIcon } from '../../utils/SVG'
+import { AddImageIcon } from '../../utils/SVG/SVG'
 import { useSubmitProvider } from '../SubmitContext'
 import { previewImage } from '../submitutils/myReader'
 
