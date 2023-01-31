@@ -23,7 +23,7 @@ const CommentForm = ({ rootId, parentId, onCancel, showAuthor }: CommentFormProp
 
   const doPostComment = async () => {
     try {
-      const create = await postComment(commentBody, parentId, rootId)
+      await postComment(commentBody, parentId, rootId)
       setCommentBody('')
       getComments()
     } catch (err) {
@@ -37,30 +37,18 @@ const CommentForm = ({ rootId, parentId, onCancel, showAuthor }: CommentFormProp
     }
   }, [commentBodyLength])
 
-  // useEffect(() => {
-  //   if (!commentBody) return;
-  //   const urlify = () => {
-  //     var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
-  //     return commentBody.replace(urlRegex, (url) => {
-  //       return `<a href="${url}" target="_blank">${url}</a>`
-  //     })
-  //   }
-  //   urlify()
-  // }, [commentBody])
-
   return (
     <>
-      {session?.user &&
-        showAuthor && ( //SHOW AUTHOR
-          <div className="mx-1 mb-1">
-            <span className="text-[16px] leading-[18px] lg:text-[12px]">
-              Comment as{' '}
-              <Link className="text-[16px] leading-[16px] text-[#4fbcff] lg:text-[12px]" href={`/user/${session.user.username.toLowerCase()}`}>
-                {session.user.username}
-              </Link>
-            </span>
-          </div>
-        )}
+      {session?.user && showAuthor && (
+        <div className="mx-1 mb-1">
+          <span className="text-[16px] leading-[18px] lg:text-[12px]">
+            Comment as{' '}
+            <Link className="text-[16px] leading-[16px] text-[#4fbcff] lg:text-[12px]" href={`/user/${session.user.username.toLowerCase()}`}>
+              {session.user.username}
+            </Link>
+          </span>
+        </div>
+      )}
       <div className="left-[33px]">
         <div className="relative">
           <div
@@ -92,9 +80,7 @@ const CommentForm = ({ rootId, parentId, onCancel, showAuthor }: CommentFormProp
                   )}
                   <button
                     disabled={!enableComment}
-                    onClick={() => {
-                      doPostComment()
-                    }}
+                    onClick={doPostComment}
                     className={`my-1 mr-2 h-[24px] ${buttonClass()} ${enableComment ? 'text-opacity-100' : 'cursor-not-allowed text-opacity-40'}`}
                   >
                     <p>Comment</p>

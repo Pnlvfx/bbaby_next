@@ -87,7 +87,7 @@ const postapis = {
       })
       const data = await res.json()
       if (!res.ok) {
-        if (res.status === 401 || 400) {
+        if (res.status === 401) {
           modalContext.setShow('login')
         }
         throw new Error(data?.msg)

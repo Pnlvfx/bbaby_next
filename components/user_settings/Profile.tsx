@@ -29,19 +29,18 @@ const Profile = () => {
     }
   }
 
-  const changeUserAvatar = async () => {
-    try {
-      if (!selectedFile) return
-      const data = await userapis.changeAvatar(selectedFile)
-      setChange(false)
-      message.setMessage({ value: data.success, status: 'success' })
-    } catch (err) {
-      catchErrorWithMessage(err, message)
-    }
-  }
-
   useEffect(() => {
-    if (!change) return
+    const changeUserAvatar = async () => {
+      try {
+        if (!change) return
+        if (!selectedFile) return
+        const data = await userapis.changeAvatar(selectedFile)
+        setChange(false)
+        message.setMessage({ value: data.success, status: 'success' })
+      } catch (err) {
+        catchErrorWithMessage(err, message)
+      }
+    }
     changeUserAvatar()
   }, [change])
 

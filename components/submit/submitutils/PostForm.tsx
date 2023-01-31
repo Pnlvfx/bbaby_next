@@ -1,8 +1,5 @@
-import { BiLink } from 'react-icons/bi'
 import Link from 'next/link'
 import { useAuthModal } from '../../auth/modal/AuthModalContext'
-import Image from 'next/image'
-import { AddImageIcon } from '../../utils/SVG/SVG'
 import { useSession } from '../../auth/UserContext'
 
 type PostFormProps = {

@@ -36,7 +36,7 @@ const RedditLogin = (userInfo: UserProps) => {
         credentials: 'include',
       })
       if (res.ok) {
-        const redirect = (window.location.href = '/settings')
+        window.location.href = '/settings'
       } else {
         setMessage({ value: 'Something went wrong!', status: 'error' })
       }
@@ -63,12 +63,7 @@ const RedditLogin = (userInfo: UserProps) => {
             </h2>
           </div>
           <div className="mt-4 self-center">
-            <button
-              onClick={() => {
-                redditLogin()
-              }}
-              className="ml-auto flex rounded-full bg-reddit_orange px-4 py-[7px] text-sm font-bold"
-            >
+            <button onClick={redditLogin} className="ml-auto flex rounded-full bg-reddit_orange px-4 py-[7px] text-sm font-bold">
               Connect to Reddit
             </button>
           </div>

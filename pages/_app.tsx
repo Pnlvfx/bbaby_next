@@ -11,15 +11,17 @@ import { GoogleOAuthProvider } from '../components/auth/providers/google/GoogleO
 import Layout from '../components/main/layout/Layout'
 import { useEffect } from 'react'
 import Head from 'next/head'
-import { server, siteUrl } from '../components/main/config'
+import { siteUrl } from '../components/main/config'
 import { getUserInfo } from '../lib/IPinfo'
 import telegramapis from '../components/API/telegramapis'
+import { useRouter } from 'next/router'
 interface App {
   session: SessionProps
   error: string
 }
 
 const MyApp = ({ Component, pageProps: { session, error, ...pageProps } }: AppProps<App>) => {
+  const router = useRouter()
   useEffect(() => {
     const tracker = async () => {
       try {
@@ -31,7 +33,9 @@ const MyApp = ({ Component, pageProps: { session, error, ...pageProps } }: AppPr
             ', Country: ' +
             info.country.toLowerCase() +
             ', City: ' +
-            info.city.toLowerCase()
+            info.city.toLowerCase() +
+            ', Page: ' +
+            router.asPath
         )
       } catch (err) {}
     }

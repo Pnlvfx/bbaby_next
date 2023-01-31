@@ -1,5 +1,4 @@
-import { CSSProperties, useEffect, useRef } from 'react'
-import { VideoPlayFromBarIcon } from '../../utils/SVG/SVG'
+import { CSSProperties } from 'react'
 
 export interface PostMobile {
   post: PostProps

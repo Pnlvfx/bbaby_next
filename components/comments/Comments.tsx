@@ -13,7 +13,7 @@ interface CommentsProps {
 }
 
 const Comments = ({ parentId, rootId }: CommentsProps) => {
-  const { comments: propsComments, getComments } = useCommentContext()
+  const { comments: propsComments } = useCommentContext()
   const [showForm, setShowForm] = useState(false)
   const comments = propsComments.filter((comment) => parentId === comment.parentId)
 

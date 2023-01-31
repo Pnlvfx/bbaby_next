@@ -11,8 +11,8 @@ const SubscribeButton = ({ community }: SubscribeButton) => {
 
   const doSubscribe = async () => {
     try {
-      const join = await communityapis.subscribe(community.name, authModal.setShow)
-      const refresh = await communityapis.getCommunities(5)
+      await communityapis.subscribe(community.name, authModal.setShow)
+      await communityapis.getCommunities(5)
     } catch (err) {}
   }
   return (

@@ -1,29 +1,26 @@
-import { useRouter } from "next/router";
-import Script from "next/script";
-import { useEffect } from "react";
-import * as gtag from '../../lib/gtag';
+import { useRouter } from 'next/router'
+import Script from 'next/script'
+import { useEffect } from 'react'
+import * as gtag from '../../lib/gtag'
 
 const GoogleAnalytics = () => {
   const router = useRouter()
-  
+
   useEffect(() => {
-      const handleRouteChange = (url: URL) => {
-        gtag.pageview(url)
-      }
-      router.events.on('routeChangeComplete', handleRouteChange)
-      router.events.on('hashChangeComplete',handleRouteChange)
-      return()=> {
+    const handleRouteChange = (url: URL) => {
+      gtag.pageview(url)
+    }
+    router.events.on('routeChangeComplete', handleRouteChange)
+    router.events.on('hashChangeComplete', handleRouteChange)
+    return () => {
       router.events.off('routeChangeComplete', handleRouteChange)
       router.events.off('hashChangeComplete', handleRouteChange)
     }
   }, [router.events])
-  
+
   return (
     <>
-      <Script
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
-      />
+      <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`} />
       <Script
         id="gtag-init"
         async
@@ -44,8 +41,4 @@ const GoogleAnalytics = () => {
   )
 }
 
-export default GoogleAnalytics;
-
-export function useAppInit() {
-  throw new Error('Function not implemented.')
-}
+export default GoogleAnalytics

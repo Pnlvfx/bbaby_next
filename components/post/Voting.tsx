@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import { BiDownvote, BiUpvote } from 'react-icons/bi'
-import { catchErrorWithMessage } from '../API/common'
 import postapis from '../API/postapis/postapis'
 import { useAuthModal } from '../auth/modal/AuthModalContext'
-import { useMessage } from '../main/TimeMsgContext'
 
 type Voting = {
   ups: number
@@ -16,7 +14,6 @@ const Voting = ({ ups, postId, liked }: Voting) => {
   const [upVote, setUpVote] = useState(ups)
   const modalContext = useAuthModal()
   const [voted, setVoted] = useState(liked) //true false or null
-  const message = useMessage()
 
   const refreshVote = async () => {
     try {
@@ -35,9 +32,7 @@ const Voting = ({ ups, postId, liked }: Voting) => {
         }
       }
       setUpVote(data.vote)
-    } catch (err) {
-      catchErrorWithMessage(err, message)
-    }
+    } catch (err) {}
   }
 
   const handleVoteUp = () => {

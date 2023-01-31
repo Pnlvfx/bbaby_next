@@ -19,7 +19,7 @@ const CookieConsent = () => {
 
   const saveEUcookie = async (status: boolean) => {
     try {
-      const data = await userapis.saveEUcookie(status)
+      await userapis.saveEUcookie(status)
       setEuCookie(true)
     } catch (err) {}
   }

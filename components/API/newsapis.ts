@@ -4,12 +4,12 @@ import { catchError } from './common'
 import { ssrHeaders } from './ssrAPI'
 
 const newsapis = {
-  getArticles: async (context?: NextPageContext) => {
+  getArticles: async (skip: number, limit: number, context?: NextPageContext) => {
     try {
-      const url = `${server}/news`
+      const url = `${server}/news?skip=${skip}&limit=${limit}`;
       const headers = context ? ssrHeaders(context) : postRequestHeaders
       const res = await fetch(url, {
-        method: 'get',
+        method: 'GET',
         headers,
         credentials: 'include',
       })

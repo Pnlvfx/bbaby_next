@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import TimeAgo from 'react-timeago'
 
-export interface LinkPreviewProps {
+interface LinkPreviewProps {
   title: string
   url: string
   image: string

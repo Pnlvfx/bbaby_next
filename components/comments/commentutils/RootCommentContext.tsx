@@ -40,8 +40,6 @@ export const RootCommentContextProvider = ({ children, post }: RootCommentContex
   )
 }
 
-export default RootCommentContext
-
 export const useCommentContext = () => {
   const context = useContext(RootCommentContext) as RootCommentContextProps
   if (!context) {
