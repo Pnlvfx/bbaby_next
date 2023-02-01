@@ -10,7 +10,7 @@ interface CEOProps {
    */
   url: string
   /**
-   * Use article for articles and website for the rest of your pages.
+   * use the main image if present
    */
   image?: string
   /**

@@ -87,8 +87,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
       },
     }
   } catch (err) {
-    console.log(err)
-    const error = `Sorry we couldn't load post for this page.`
+    const error = ''
     return {
       props: {
         error,

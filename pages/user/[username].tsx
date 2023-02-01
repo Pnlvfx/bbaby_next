@@ -1,5 +1,4 @@
 import type { NextPage, NextPageContext } from 'next'
-import Head from 'next/head'
 import postapis from '../../components/API/postapis/postapis'
 import { getSession } from '../../components/API/ssrAPI'
 import CEO from '../../components/main/CEO'
@@ -30,11 +29,7 @@ const Username: NextPage<AuthorPg> = ({ author, posts }) => {
         image={imagePreview}
         width={'256'}
         height={'256'}
-        index={true}
       />
-      <Head>
-        <meta name="robots" content="noindex,nofollow" />
-      </Head>
       <AuthorHeaderPage />
       <Feed author={author} posts={posts} />
     </>

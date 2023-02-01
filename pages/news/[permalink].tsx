@@ -20,6 +20,8 @@ const NewsIdPage: NextPage<NewsIdPageProps> = ({ news }) => {
   const url = news ? `${siteUrl}${news.permalink}` : `${siteUrl}${router.asPath}`
   const title = news?.title || router.asPath.split('/')[2]
 
+  if (!news) return <PageNotFound />
+
   return (
     <>
       <CEO
@@ -34,13 +36,9 @@ const NewsIdPage: NextPage<NewsIdPageProps> = ({ news }) => {
         index={true}
       />
       <div className="mx-auto box-border flex max-w-full justify-center md:py-5 md:px-6">
-        {news ? (
-          <div className="w-full lg:w-[640px]">
-            <MyNewsCard news={news} isListing={false} />
-          </div>
-        ) : (
-          <PageNotFound />
-        )}
+        <div className="w-full lg:w-[640px]">
+          <MyNewsCard news={news} isListing={false} />
+        </div>
         <div className="ml-6 hidden lg:block">
           <Widget />
           <Donations />

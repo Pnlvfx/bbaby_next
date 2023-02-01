@@ -10,9 +10,6 @@ module.exports = {
       {
         userAgent: '*',
         disallow: ['/login', '/governance', '/governance/*', '/submit', '/activation/*', '/b/*/submit'],
-      },
-      {
-        userAgent: '*',
         allow: '/',
       },
     ],
