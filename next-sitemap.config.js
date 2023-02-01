@@ -16,7 +16,7 @@ module.exports = {
         allow: '/',
       },
     ],
-    additionalSitemaps: [`${siteUrl}/server-sitemap.xml`, `${siteUrl}/news-sitemap.xml`, `${siteUrl}/community.xml`],
+    additionalSitemaps: [`${siteUrl}/server-sitemap.xml`, `${siteUrl}/news.xml`, `${siteUrl}/community.xml`],
   },
   exclude: [
     '/governance',
