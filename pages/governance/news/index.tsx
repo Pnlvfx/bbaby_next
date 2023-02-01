@@ -19,10 +19,14 @@ const GovNewsPage: NextPage<GovNewsPageProps> = ({ news }) => {
   const [BBCnews, setBBCnews] = useState<ExternalNews[]>(news)
   const url = `${siteUrl}/governance/news`
   const message = useMessage()
+  const [hasMore, setHasMore] = useState(news.length < 16 ? false : true)
 
   const getMore = async () => {
     try {
       const news = await govnewsapi.getArticles(10, BBCnews.length)
+      if (news.length < 10) {
+        setHasMore(false)
+      }
       setBBCnews((oldNews) => [...oldNews, ...news])
     } catch (err) {
       catchErrorWithMessage(err, message)
@@ -42,11 +46,11 @@ const GovNewsPage: NextPage<GovNewsPageProps> = ({ news }) => {
           className="xl:space-x-auto mt-5 w-full xl:grid xl:grid-cols-3"
           dataLength={BBCnews.length}
           next={getMore}
-          hasMore={true}
+          hasMore={hasMore}
           loader={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((_, idx) => (
             <LinkPreviewLoader key={idx} />
           ))}
-          endMessage={<p>No more news.</p>}
+          endMessage={<div />}
         >
           {BBCnews.map((news, key) => (
             <LinkPreview key={key} title={news.title} url={news.permalink} description={news.description} image={news.image} date={news.date} />

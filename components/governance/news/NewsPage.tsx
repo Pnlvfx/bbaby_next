@@ -9,31 +9,33 @@ import GovSubmitNews from './submit/GovSubmitNews'
 import { useNewsProvider } from './NewsContext'
 import PexelsImages from './PexelsImages'
 import govapis from '../../API/governance/govapis'
+import bbabyapis from '../../API/bbabyapis'
 
 const NewsPage = () => {
   const { level, setlevel, originalTitle, originalImage, originalDescription, setTitle, setDescription, setMediaInfo } = useNewsProvider()
-  const [useCurrentImage, setUseCurrentImage] = useState(false)
+  const [useRandomImage, setUseRandomImage] = useState(true)
   const message = useMessage()
   const [loading, setLoading] = useState(false)
 
-  const open = () => {
-    if (useCurrentImage) {
-      setLoading(true)
-      const image = new Image()
-      image.src = originalImage
-
-      image.onload = () => {
+  const open = async () => {
+    try {
+      if (useRandomImage) {
+        setLoading(true)
+        const data = await bbabyapis.generateImage(originalTitle)
         setMediaInfo({
-          image: originalImage,
-          alt: image.alt,
-          height: image.naturalHeight,
-          width: image.naturalWidth,
+          image: data.image,
+          alt: originalTitle.substring(0, 50),
+          height: data.height,
+          width: data.width,
           isImage: true,
         })
+        openSubmit()
+      } else {
+        setlevel('image')
       }
-      openSubmit()
-    } else {
-      setlevel('image')
+    } catch (err) {
+      setLoading(false)
+      catchErrorWithMessage(err, message)
     }
   }
 
@@ -87,7 +89,7 @@ const NewsPage = () => {
             )}
           </div>
           <div className="mt-5 ml-1 flex items-center justify-center">
-            <CheckBox title="Use the current image" check={useCurrentImage} setCheck={setUseCurrentImage} />
+            <CheckBox title="Use random image" check={useRandomImage} setCheck={setUseRandomImage} />
           </div>
           <p className="mt-2 flex items-center justify-center whitespace-pre-wrap leading-5">{originalDescription}</p>
         </article>

@@ -21,7 +21,7 @@ const GovSubmitNews = () => {
             />
           </div>
         </div>
-        <div className="mt-2 mb-3 box-content flex justify-center rounded-md  border border-reddit_border p-3">
+        <div className="mt-2 mb-3 box-content flex justify-center  rounded-md border border-reddit_border p-3">
           {mediaInfo.isImage && mediaInfo.image && mediaInfo.width && mediaInfo.height && (
             <picture>
               <img alt={mediaInfo.alt} src={mediaInfo.image} height={mediaInfo.height} width={mediaInfo.width} />

@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 
-const siteUrl = 'https://www.bbabystyle.com';
+const siteUrl = 'https://www.bbabystyle.com'
 
 module.exports = {
   siteUrl,
@@ -9,32 +9,21 @@ module.exports = {
     policies: [
       {
         userAgent: '*',
-        disallow: 
-        [
-          '/login',
-          '/governance',
-          '/governance/*',
-          '/submit',
-          '/activation/*',
-          '/b/*/submit'
-        ]
+        disallow: ['/login', '/governance', '/governance/*', '/submit', '/activation/*', '/b/*/submit'],
       },
       {
         userAgent: '*',
-        allow: '/'
-      }
+        allow: '/',
+      },
     ],
-    additionalSitemaps: [
-      `${siteUrl}/server-sitemap.xml`,
-      `${siteUrl}/community.xml`,
-    ],
+    additionalSitemaps: [`${siteUrl}/server-sitemap.xml`, `${siteUrl}/news-sitemap.xml`, `${siteUrl}/community.xml`],
   },
-  exclude: 
-  [
+  exclude: [
     '/governance',
     '/governance/*',
     '/account/*',
     '/server-sitemap.xml',
+    '/news.xml',
     '/community.xml',
     '/settings',
     '/settings/*',
@@ -43,6 +32,6 @@ module.exports = {
     '/best',
     '/bbaby/leaderboard',
     '/submit',
-    '/search'
+    '/search',
   ],
 }
