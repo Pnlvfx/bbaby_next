@@ -29,6 +29,7 @@ const Username: NextPage<AuthorPg> = ({ author, posts }) => {
         image={imagePreview}
         width={'256'}
         height={'256'}
+        index={true}
       />
       <AuthorHeaderPage />
       <Feed author={author} posts={posts} />
