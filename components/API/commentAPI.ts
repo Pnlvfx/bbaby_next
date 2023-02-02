@@ -1,7 +1,8 @@
+import { AuthModalContextProps } from '../auth/modal/AuthModalContext'
 import { postRequestHeaders, server } from '../main/config'
 import { catchError } from './common'
 
-export const postComment = async (commentBody: string, parentId: string, rootId: string) => {
+export const postComment = async (commentBody: string, parentId: string, rootId: string, authModal: AuthModalContextProps) => {
   try {
     const url = `${server}/comments`
     const body = JSON.stringify({ body: commentBody, parentId, rootId })
@@ -12,7 +13,12 @@ export const postComment = async (commentBody: string, parentId: string, rootId:
       body,
     })
     const data = await res.json()
-    if (!res.ok) throw new Error(data?.msg)
+    if (!res.ok) {
+      if (res.status === 401) {
+        authModal.setShow('login')
+      }
+      throw new Error(data?.msg)
+    }
     return data as CommentProps
   } catch (err) {
     throw catchError(err)

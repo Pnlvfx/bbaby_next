@@ -1,21 +1,20 @@
-import { useState, useRef, useEffect, ChangeEvent } from 'react'
+import { useState, useRef, ChangeEvent } from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import Image from 'next/image'
 import { useMessage } from '../main/TimeMsgContext'
-import { catchErrorWithMessage } from '../API/common'
 import { useSession } from '../auth/UserContext'
 import userapis from '../API/userapis'
+import { catchErrorWithMessage } from '../API/common'
 
 const Profile = () => {
   const { session } = useSession()
   const [selectedFile, setSelectedFile] = useState(session?.user?.avatar)
-  const [change, setChange] = useState(false)
   const filePickerRef = useRef<HTMLInputElement>(null)
   const message = useMessage()
 
   const handleFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e?.target?.files?.length > 0) {
-      const file = e?.target?.files[0]
+      const file = e.target.files[0]
       previewFile(file)
     }
   }
@@ -23,26 +22,19 @@ const Profile = () => {
   const previewFile = (file: File) => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
-    reader.onloadend = () => {
-      setSelectedFile(reader.result?.toString())
-      setChange(true)
-    }
-  }
-
-  useEffect(() => {
-    const changeUserAvatar = async () => {
+    reader.onloadend = async () => {
       try {
-        if (!change) return
-        if (!selectedFile) return
-        const data = await userapis.changeAvatar(selectedFile)
-        setChange(false)
+        if (!reader.result) return
+        setSelectedFile(reader.result.toString())
+        const data = await userapis.changeAvatar(reader.result.toString())
         message.setMessage({ value: data.success, status: 'success' })
       } catch (err) {
         catchErrorWithMessage(err, message)
       }
     }
-    changeUserAvatar()
-  }, [change])
+  }
+
+  if (!session || !selectedFile) return null
 
   return (
     <div className="mt-6 max-w-[800px] space-y-6 font-semibold">
@@ -62,17 +54,13 @@ const Profile = () => {
         </div>
       </div>
       <div className="">
-        {selectedFile && (
-          <div
-            onClick={() => {
-              filePickerRef && filePickerRef?.current?.click()
-            }}
-            className="relative flex h-36 w-36 cursor-pointer overflow-hidden rounded-full bg-reddit_dark-brightest"
-          >
-            <Image src={selectedFile} layout="fill" alt="user_image" />
-            <AiOutlinePlus className="absolute mx-[95px] mt-[100px] h-8 w-8 text-reddit_text-darker" />
-          </div>
-        )}
+        <div
+          onClick={filePickerRef?.current?.click}
+          className="relative flex h-36 w-36 cursor-pointer overflow-hidden rounded-full bg-reddit_dark-brightest"
+        >
+          <Image src={selectedFile} fill alt="user_image" />
+          <AiOutlinePlus className="absolute mx-[95px] mt-[100px] h-8 w-8 text-reddit_text-darker" />
+        </div>
         <input
           className="text-[16px]"
           hidden

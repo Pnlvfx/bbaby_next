@@ -2,6 +2,7 @@ import type { NextPage, NextPageContext } from 'next'
 import { useRouter } from 'next/router'
 import newsapis from '../../components/API/newsapis'
 import { getSession } from '../../components/API/ssrAPI'
+import { useSession } from '../../components/auth/UserContext'
 import CEO from '../../components/main/CEO'
 import { siteUrl } from '../../components/main/config'
 import PageNotFound from '../../components/main/PageNotFound'
@@ -19,6 +20,7 @@ const NewsIdPage: NextPage<NewsIdPageProps> = ({ news }) => {
   const router = useRouter()
   const url = news ? `${siteUrl}${news.permalink}` : `${siteUrl}${router.asPath}`
   const title = news?.title || router.asPath.split('/')[2]
+  const { session } = useSession()
 
   if (!news) return <PageNotFound />
 
@@ -39,11 +41,13 @@ const NewsIdPage: NextPage<NewsIdPageProps> = ({ news }) => {
         <div className="w-full lg:w-[640px]">
           <MyNewsCard news={news} isListing={false} />
         </div>
-        <div className="ml-6 hidden lg:block">
-          <Widget />
-          <Donations />
-          <PolicyWidget />
-        </div>
+        {!session?.device?.mobile && (
+          <div className="ml-6 hidden lg:block">
+            <Widget />
+            <Donations />
+            <PolicyWidget />
+          </div>
+        )}
       </div>
     </>
   )

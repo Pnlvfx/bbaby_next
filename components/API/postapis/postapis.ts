@@ -11,7 +11,7 @@ const postapis = {
       const limit = options?.limit || 10
       let url = `${server}/posts?skip=${skip}&limit=${limit}`
       if (options) {
-        const usedOptions = Object.entries(options).filter(([key, value]) => value !== undefined)
+        const usedOptions = Object.entries(options).filter(([, value]) => value !== undefined)
         usedOptions.forEach(([key, value]) => {
           if (key === 'context') return
           if (key === 'limit') return
@@ -75,7 +75,7 @@ const postapis = {
       throw catchError(err)
     }
   },
-  vote: async (postId: string, dir: number, modalContext: AuthModalContextProps) => {
+  vote: async (postId: string, dir: number, authModal: AuthModalContextProps) => {
     try {
       const url = `${server}/posts/${postId}/vote`
       const body = JSON.stringify({ dir })
@@ -88,7 +88,7 @@ const postapis = {
       const data = await res.json()
       if (!res.ok) {
         if (res.status === 401) {
-          modalContext.setShow('login')
+          authModal.setShow('login')
         }
         throw new Error(data?.msg)
       }

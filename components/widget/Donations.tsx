@@ -1,11 +1,9 @@
 import { FaRegFlag } from 'react-icons/fa'
 import { useEffect, useState } from 'react'
 import { Spinner } from '../utils/buttons/Button'
-import { useSession } from '../auth/UserContext'
 
 const Donations = () => {
   const [paypal, setPaypal] = useState(<Spinner />)
-  const { session } = useSession()
 
   const PaypalComp = () => {
     return (
@@ -23,7 +21,6 @@ const Donations = () => {
   }
 
   useEffect(() => {
-    if (session?.device?.mobile) return
     setTimeout(() => {
       setPaypal(PaypalComp)
     }, 500)

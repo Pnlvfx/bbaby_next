@@ -5,11 +5,14 @@ import { buttonClass } from '../../utils/buttons/Button'
 import ClickOutHandler from 'react-clickout-ts'
 import { postComment } from '../../API/commentAPI'
 import { useCommentContext } from './RootCommentContext'
+import { useMessage } from '../../main/TimeMsgContext'
+import { catchErrorWithMessage } from '../../API/common'
+import { useAuthModal } from '../../auth/modal/AuthModalContext'
 
 interface CommentFormProps {
   rootId: string
   parentId: string
-  onCancel?: Function
+  onCancel?: () => void
   showAuthor: boolean
 }
 
@@ -20,14 +23,16 @@ const CommentForm = ({ rootId, parentId, onCancel, showAuthor }: CommentFormProp
   const [enableComment, setEnableComment] = useState(false)
   const [active, setActive] = useState(false)
   const { getComments } = useCommentContext()
+  const message = useMessage()
+  const authModal = useAuthModal()
 
   const doPostComment = async () => {
     try {
-      await postComment(commentBody, parentId, rootId)
+      await postComment(commentBody, parentId, rootId, authModal)
       setCommentBody('')
       getComments()
     } catch (err) {
-      console.log(err)
+      catchErrorWithMessage(err, message)
     }
   }
 
@@ -74,7 +79,7 @@ const CommentForm = ({ rootId, parentId, onCancel, showAuthor }: CommentFormProp
               <div className="h-[34px] w-full bg-reddit_dark-brightest">
                 <div className="text-right">
                   {!!onCancel && (
-                    <button className={`${buttonClass()} mr-4 h-[24px] border-none hover:bg-reddit_hover`} onClick={(e) => onCancel()}>
+                    <button className={`${buttonClass()} mr-4 h-[24px] border-none hover:bg-reddit_hover`} onClick={onCancel}>
                       Cancel
                     </button>
                   )}

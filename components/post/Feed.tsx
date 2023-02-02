@@ -100,11 +100,13 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
             </InfiniteScroll>
           </div>
         </div>
-        <div className="ml-6 hidden lg:block">
-          <Widget community={community ? true : false} />
-          <Donations />
-          <PolicyWidget />
-        </div>
+        {!session?.device?.mobile && (
+          <div className="ml-6 hidden lg:block">
+            <Widget community={community ? true : false} />
+            <Donations />
+            <PolicyWidget />
+          </div>
+        )}
       </div>
     </>
   )

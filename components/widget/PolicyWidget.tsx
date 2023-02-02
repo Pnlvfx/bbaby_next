@@ -1,29 +1,23 @@
-import Link from "next/link"
+import Link from 'next/link'
 
 const PolicyWidget = () => {
   return (
-    <div className='relative flex-grow'>
-        <div className='sticky top-[57px]'>
-            <div className='bg-transparent text-reddit_text-darker p-2'>
-            <div className='border-b solid border-transparent flex py-2 mx-3'>
-                <div className='flex w-[50%] px-1 flex-col flex-nowrap' >
-                <Link   
-                    href={'/policies/user-agreement'}
-                    className='mx-1 text-[12px] leading-4 inline-block'
-                >
-                    User Agreement
-                </Link>
-                <Link 
-                    href={'/policies/privacy-policy'}
-                    className='mx-1 text-[12px] leading-4 inline-block mt-1'
-                >
-                    Privacy Policy
-                </Link>
-                </div>
+    <div className="relative flex-grow">
+      <div className="sticky top-[57px]">
+        <div className="bg-transparent p-2 text-reddit_text-darker">
+          <div className="solid mx-3 flex border-b border-transparent py-2">
+            <div className="flex w-[50%] flex-col flex-nowrap px-1">
+              <Link href={'/policies/user-agreement'} className="mx-1 inline-block text-[12px] leading-4">
+                User Agreement
+              </Link>
+              <Link href={'/policies/privacy-policy'} className="mx-1 mt-1 inline-block text-[12px] leading-4">
+                Privacy Policy
+              </Link>
             </div>
-            <div className='text-[12px] leading-4 flex p-3'>Bbabystyle Inc © 2022. All rights reserved</div>
-            </div>
+          </div>
+          <div className="flex p-3 text-[12px] leading-4">Bbabystyle Inc © 2022. All rights reserved</div>
         </div>
+      </div>
     </div>
   )
 }

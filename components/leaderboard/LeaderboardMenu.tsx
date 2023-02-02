@@ -8,7 +8,7 @@ const LeaderboardMenu = () => {
   const [totalShow, setTotalShow] = useState(12)
   const [active, setActive] = useState(-1)
   const [showMore, setShowMore] = useState(false)
-  const [categoriesLists, setCategoriesLists] = useState<CategoryProps[] | []>([])
+  const [categoriesLists, setCategoriesLists] = useState<CategoryProps[]>([])
   const message = useMessage()
 
   useEffect(() => {

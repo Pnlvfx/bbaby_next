@@ -5,6 +5,7 @@ type AuthInput = {
   type: string
   name: string
   value: string
+  // eslint-disable-next-line no-unused-vars
   validate: (input: HTMLInputElement['value']) => void
   isValid: boolean | null
   error: string

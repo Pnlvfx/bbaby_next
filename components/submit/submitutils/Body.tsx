@@ -93,7 +93,9 @@ const Body = () => {
                                   )}
                                   {isImage && (
                                     <>
-                                      <img draggable={false} src={selectedFile} alt={''} className="z-0 max-w-[100%] self-center rounded-[8px]" />
+                                      <picture>
+                                        <img draggable={false} src={selectedFile} alt={''} className="z-0 max-w-[100%] self-center rounded-[8px]" />
+                                      </picture>
                                       <div className="absolute bottom-0 left-0 right-0 z-10 h-[64px] opacity-0"></div>
                                     </>
                                   )}

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import newsapis from '../../components/API/newsapis'
 import { getSession } from '../../components/API/ssrAPI'
+import { useSession } from '../../components/auth/UserContext'
 import Skeleton from '../../components/governance/twitter/Skeleton'
 import CEO from '../../components/main/CEO'
 import { siteUrl } from '../../components/main/config'
@@ -23,6 +24,7 @@ const MyNewsPage: NextPage<MyNewsPageProps> = ({ ssrNews }) => {
   const description = 'Bbabystyle - News in italiano'
   const url = `${siteUrl}/news`
   const [hasMore, setHasMore] = useState(news.length >= 10 ? true : false)
+  const { session } = useSession()
 
   const getMoreNews = async () => {
     try {
@@ -64,11 +66,13 @@ const MyNewsPage: NextPage<MyNewsPageProps> = ({ ssrNews }) => {
             {news?.length >= 1 ? news?.map((news) => <MyNewsCard key={news._id} news={news} isListing={true} />) : <div></div>}
           </InfiniteScroll>
         </div>
-        <div className="ml-6 hidden lg:block">
-          <Widget />
-          <Donations />
-          <PolicyWidget />
-        </div>
+        {!session?.device?.mobile && (
+          <div className="ml-6 hidden lg:block">
+            <Widget />
+            <Donations />
+            <PolicyWidget />
+          </div>
+        )}
       </div>
     </>
   )

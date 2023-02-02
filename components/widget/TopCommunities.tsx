@@ -1,18 +1,15 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import TopCommunitiesContent from './TopCommunitiesContent'
-import { useSession } from '../auth/UserContext'
 import communityapis from '../API/communityapis'
 
 const TopCommunities = () => {
   const [allCommunity, setAllCommunity] = useState<CommunityProps[] | []>([])
   const [loading, setLoading] = useState(true)
-  const { session } = useSession()
 
   useEffect(() => {
     const get = async () => {
       try {
-        if (session?.device?.mobile) return
         setTimeout(async () => {
           try {
             const communities = await communityapis.getCommunities(5)

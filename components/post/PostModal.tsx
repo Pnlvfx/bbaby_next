@@ -7,19 +7,20 @@ import { CommunityContext, CommunityContextProps } from '../community/CommunityC
 import Donations from '../widget/Donations'
 import Widget from '../widget/Widget'
 import postapis from '../API/postapis/postapis'
+import { useSession } from '../auth/UserContext'
 
 type PostModalProps = {
   community?: string
   postId: string
   open: boolean
-  onClickOut: Function
+  onClickOut: () => void
 }
 
 const PostModal = ({ community, postId, open, onClickOut }: PostModalProps) => {
   const router = useRouter()
-  const [post, setPost] = useState<PostProps>({} as PostProps)
-  const [loading, setLoading] = useState(true)
+  const [post, setPost] = useState<PostProps>()
   const { refreshCommunity } = useContext(CommunityContext) as CommunityContextProps
+  const { session } = useSession()
 
   useEffect(() => {
     if (!postId) return
@@ -30,7 +31,6 @@ const PostModal = ({ community, postId, open, onClickOut }: PostModalProps) => {
         if (!community) {
           refreshCommunity(res.community)
         }
-        setLoading(false)
       } catch (err) {
         console.log(err)
       }
@@ -53,7 +53,7 @@ const PostModal = ({ community, postId, open, onClickOut }: PostModalProps) => {
 
   return (
     <>
-      {!loading && (
+      {post && (
         <div className={`${open ? 'fixed' : 'hidden'} top-12 bottom-0 left-0 right-0 z-20 h-full w-full bg-[rgb(25,25,25)]`}>
           <div
             className="relative h-full w-full overflow-y-auto"
@@ -91,9 +91,7 @@ const PostModal = ({ community, postId, open, onClickOut }: PostModalProps) => {
                     title="Close"
                     aria-label="Close"
                     className="relative box-border flex min-h-[24px] w-auto min-w-[24px] items-center justify-center rounded-full border border-transparent py-1 px-2 text-center text-[12px] font-bold hover:bg-reddit_dark-brighter"
-                    onClick={() => {
-                      clickOut()
-                    }}
+                    onClick={clickOut}
                   >
                     <i className="inline-block pr-1">
                       <CloseIcon className="h-4 w-4" />
@@ -115,10 +113,12 @@ const PostModal = ({ community, postId, open, onClickOut }: PostModalProps) => {
               <div className="m-8 mr-3 min-h-[100vh] w-full flex-grow break-words rounded-md bg-reddit_dark-brighter pb-[1px] md:max-w-[740px]">
                 <Comment post={post} />
               </div>
-              <div className="m-8 ml-0 hidden lg:block">
-                <Widget community={true} />
-                <Donations />
-              </div>
+              {!session?.device?.mobile && (
+                <div className="m-8 ml-0 hidden lg:block">
+                  <Widget community={true} />
+                  <Donations />
+                </div>
+              )}
             </div>
           </div>
         </div>
