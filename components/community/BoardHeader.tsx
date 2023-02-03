@@ -9,7 +9,7 @@ import Link from 'next/link'
 const BoardHeader = () => {
   const { loading, refreshCommunity, communityInfo } = useContext(CommunityContext) as CommunityContextProps
   const authModal = useAuthModal()
-  const [selectedFile, setSelectedFile] = useState<string | undefined>(communityInfo.communityAvatar)
+  const [selectedFile, setSelectedFile] = useState<string | undefined>(communityInfo.image)
   const filePickerRef = useRef<HTMLInputElement>(null)
 
   const previewFile = (file: File) => {
@@ -71,7 +71,7 @@ const BoardHeader = () => {
             >
               {!loading && (
                 <Image
-                  src={communityInfo.communityAvatar}
+                  src={communityInfo.image}
                   alt="community header"
                   className="rounded-full border-4 border-solid border-white bg-white bg-cover"
                   width={72}

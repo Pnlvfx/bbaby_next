@@ -27,9 +27,7 @@ const Home = () => {
       setPath(<span className="ml-2 text-sm font-bold">b/{router.query.community}</span>)
       setIcon(
         <div className="h-5 w-5 rounded-full bg-gray-800">
-          {communityInfo.communityAvatar && (
-            <Image className="rounded-full" src={communityInfo.communityAvatar} alt="Community Icon" height={20} width={20} />
-          )}
+          {communityInfo.image && <Image className="rounded-full" src={communityInfo.image} alt="Community Icon" height={20} width={20} />}
         </div>
       )
     } else if (router.query.username) {

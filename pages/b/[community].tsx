@@ -6,7 +6,6 @@ import Feed from '../../components/post/Feed'
 import { getSession } from '../../components/API/ssrAPI'
 import { siteUrl } from '../../components/main/config'
 import CEO from '../../components/main/CEO'
-import { useRouter } from 'next/router'
 import PageNotFound from '../../components/main/PageNotFound'
 import postapis from '../../components/API/postapis/postapis'
 
@@ -16,11 +15,10 @@ type CommunityPg = {
 }
 
 const CommunityPage: NextPage<CommunityPg> = ({ community, posts }) => {
-  const { getCommunity, communityInfo } = useContext(CommunityContext) as CommunityContextProps
-  const description = communityInfo.description || `r/${communityInfo.name}`
-  const router = useRouter()
-  const url = community ? `${siteUrl}/b/${community.toLowerCase()}` : `${siteUrl}/b${router.pathname}`
+  const description = `b/${community}`
+  const url = community ? `${siteUrl}/b/${community.toLowerCase()}` : `${siteUrl}/b`
   const title = community || 'bbabystyle.com: page not found'
+  const { getCommunity } = useContext(CommunityContext) as CommunityContextProps
 
   useEffect(() => {
     getCommunity(community)
@@ -35,7 +33,7 @@ const CommunityPage: NextPage<CommunityPg> = ({ community, posts }) => {
         twitter_card={'summary'}
         type="website"
         url={url}
-        image={communityInfo.communityAvatar}
+        image={posts && posts[0].communityIcon}
         height={'256'}
         width={'256'}
       />
@@ -71,7 +69,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
       },
     }
   } catch (err) {
-    const error = `Sorry we couldn't load this post.`
+    const error = `Sorry we couldn't load this page.`
     return {
       props: {
         error,

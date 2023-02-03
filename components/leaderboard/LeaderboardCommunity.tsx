@@ -17,7 +17,7 @@ const LeaderboardCommunity = ({ community, index }: LeaderboardCommunityProps) =
           <picture>
             <img
               role={'presentation'}
-              src={community.communityAvatar}
+              src={community.image}
               alt="Community Icon"
               className="mx-2 ml-2 mr-1 box-border flex-none rounded-[24px] bg-[rgb(108,163,196)] bg-no-repeat text-[40px] leading-10"
               width={40}

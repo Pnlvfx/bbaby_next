@@ -28,12 +28,12 @@ const PostModal = ({ community, postId, open, onClickOut }: PostModalProps) => {
       try {
         const res = await postapis.getPost(postId)
         setPost(res)
+        console.log('not community')
         if (!community) {
+          console.log('community')
           refreshCommunity(res.community)
         }
-      } catch (err) {
-        console.log(err)
-      }
+      } catch (err) {}
     }
     g()
   }, [postId])

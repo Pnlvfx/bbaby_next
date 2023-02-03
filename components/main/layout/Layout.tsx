@@ -1,7 +1,7 @@
 import Header from '../../header/Header'
 import UseGoogleOneTapLogin from '../../auth/providers/google/hooks/useGoogleOneTapLogin'
 import dynamic from 'next/dynamic'
-import { CSSProperties, ReactNode, useContext, useEffect } from 'react'
+import { CSSProperties, ReactNode, useContext, useEffect, useRef } from 'react'
 import { useAuthModal } from '../../auth/modal/AuthModalContext'
 import { useRouter } from 'next/router'
 import { useMessage } from '../TimeMsgContext'
@@ -21,7 +21,7 @@ interface LayoutProps {
 const Layout = ({ children, error }: LayoutProps) => {
   const authModal = useAuthModal()
   const router = useRouter()
-  const message = useMessage()
+  const message = useRef(useMessage())
   const { session } = useSession()
   const communityContext = useContext(CommunityContext) as CommunityContextProps
   const AuthModal = dynamic(() => import('../../auth/modal/AuthModal'))
@@ -37,20 +37,14 @@ const Layout = ({ children, error }: LayoutProps) => {
       authModal.setShow('hidden')
       router.reload()
     } catch (err) {
-      catchErrorWithMessage(err, message)
+      catchErrorWithMessage(err, message.current)
     }
   }
 
   useEffect(() => {
     if (!error) return
-    message.setMessage({ value: error, status: 'error', time: 20000 })
+    message.current.setMessage({ value: error, status: 'error', time: 20000 })
   }, [error])
-
-  useEffect(() => {
-    if (session?.user && authModal.show !== 'hidden') {
-      router.reload()
-    }
-  }, [session])
 
   return (
     <>

@@ -14,7 +14,6 @@ const Google = () => {
       await oauthapis.googleLogin(response)
       localStorage.setItem('isLogged', 'true')
       modalContext.setShow('hidden')
-      //googleLoginAnalytics();
       if (top?.window.location.href) {
         top.window.location.href = '/'
       } else {

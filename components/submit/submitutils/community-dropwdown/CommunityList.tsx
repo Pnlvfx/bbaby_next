@@ -23,7 +23,7 @@ const CommunityList = ({ community, setShow, setActiveClass }: CommunityListProp
       }}
     >
       <div className="flex items-center text-left">
-        <Image src={community.communityAvatar} alt="Community Icon" height={size} width={size} className="rounded-full" />
+        <Image src={community.image} alt="Community Icon" height={size} width={size} className="rounded-full" />
         <div className="ml-3">
           <p className="">b/{community.name}</p>
           <p className="text-reddit_text-darker">{community.subscribers} members</p>

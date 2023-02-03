@@ -1,52 +1,53 @@
-import { useEffect, useRef } from "react";
-import { CredentialResponse, MomenListener } from "../../../../../@types/google";
-import { useGoogleContext } from "../GoogleOAuthProvider";
+import { useEffect, useRef } from 'react'
+import { CredentialResponse, MomenListener } from '../../../../../@types/google'
+import { useGoogleContext } from '../GoogleOAuthProvider'
 
 interface UseGoogleOneTapLoginOptions {
-    onSuccess: (credentialResponse: CredentialResponse) => void;
-    onError?: () => void;
-    promptMomentNotification?: MomenListener;
-    cancel_on_tap_outside?: boolean;
-    hosted_domain?: string
+  // eslint-disable-next-line no-unused-vars
+  onSuccess: (credentialResponse: CredentialResponse) => void
+  onError?: () => void
+  promptMomentNotification?: MomenListener
+  cancel_on_tap_outside?: boolean
+  hosted_domain?: string
 }
 
 const UseGoogleOneTapLogin = ({
-    onSuccess,
-    onError,
-    promptMomentNotification,
-    cancel_on_tap_outside,
-    hosted_domain
-}: UseGoogleOneTapLoginOptions):void => {
-    const { clientId, scriptLoadedSuccessfully } = useGoogleContext();
+  onSuccess,
+  onError,
+  promptMomentNotification,
+  cancel_on_tap_outside,
+  hosted_domain,
+}: UseGoogleOneTapLoginOptions): void => {
+  const { clientId, scriptLoadedSuccessfully } = useGoogleContext()
 
-    const onSuccessRef = useRef(onSuccess);
-    onSuccessRef.current = onSuccess;
+  const onSuccessRef = useRef(onSuccess)
+  onSuccessRef.current = onSuccess
 
-    const onErrorRef = useRef(onError);
-    onErrorRef.current = onError;
+  const onErrorRef = useRef(onError)
+  onErrorRef.current = onError
 
-    const promptMomentNotificationRef = useRef(promptMomentNotification);
-    promptMomentNotificationRef.current = promptMomentNotification;
+  const promptMomentNotificationRef = useRef(promptMomentNotification)
+  promptMomentNotificationRef.current = promptMomentNotification
 
-    useEffect(() => {
-        if (!scriptLoadedSuccessfully) return;
-        window.google?.accounts.id.initialize({
-            client_id: clientId,
-            callback: (credentialResponse: CredentialResponse) => {
-                if (!credentialResponse.clientId || !credentialResponse.credential) {
-                    return onErrorRef.current?.();
-                }
-                onSuccessRef.current(credentialResponse);
-            },
-            hosted_domain,
-            cancel_on_tap_outside,
-        });
-        window.google?.accounts.id.prompt(promptMomentNotificationRef.current);
+  useEffect(() => {
+    if (!scriptLoadedSuccessfully) return
+    window.google?.accounts.id.initialize({
+      client_id: clientId,
+      callback: (credentialResponse: CredentialResponse) => {
+        if (!credentialResponse.clientId || !credentialResponse.credential) {
+          return onErrorRef.current?.()
+        }
+        onSuccessRef.current(credentialResponse)
+      },
+      hosted_domain,
+      cancel_on_tap_outside,
+    })
+    window.google?.accounts.id.prompt(promptMomentNotificationRef.current)
 
-        return () => {
-            window.google?.accounts.id.cancel();
-        };
-    }, [clientId, scriptLoadedSuccessfully, cancel_on_tap_outside, hosted_domain])
+    return () => {
+      window.google?.accounts.id.cancel()
+    }
+  }, [clientId, scriptLoadedSuccessfully, cancel_on_tap_outside, hosted_domain])
 }
 
-export default UseGoogleOneTapLogin;
+export default UseGoogleOneTapLogin

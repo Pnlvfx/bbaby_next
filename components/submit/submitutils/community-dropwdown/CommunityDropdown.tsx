@@ -96,14 +96,14 @@ const CommunityDropdown = ({ initialCommunity }: CommunityDropdown) => {
               openDropdown()
             }}
           >
-            {!communityInfo?.communityAvatar && show ? (
+            {!communityInfo?.image && show ? (
               <BiSearch className="h-[22px] w-[22px] text-reddit_text-darker" />
-            ) : !communityInfo.communityAvatar && !show ? (
+            ) : !communityInfo.image && !show ? (
               <span className="box-border h-[22px] w-[22px] rounded-[22px] border border-dashed text-[22px] leading-[22px]" />
-            ) : communityInfo?.communityAvatar && show ? (
+            ) : communityInfo?.image && show ? (
               <BiSearch className="h-[22px] w-[22px] text-reddit_text-darker" />
             ) : (
-              <Image src={communityInfo.communityAvatar} width={22} height={22} className="rounded-full" alt="Community Icon" />
+              <Image src={communityInfo.image} width={22} height={22} className="rounded-full" alt="Community Icon" />
             )}
             <div className="flex-1 pl-2">
               <input

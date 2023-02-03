@@ -25,10 +25,11 @@ const MyApp = ({ Component, pageProps: { session, error, ...pageProps } }: AppPr
   useEffect(() => {
     const tracker = async () => {
       try {
+        if (!router.isReady) return
         if (session?.user?.role === 1) return
         if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') return
         const info = await getUserInfo()
-        telegramapis.sendLog(
+        await telegramapis.sendLog(
           `New session: ${session.user?.username.toLowerCase() || 'unknown user'}` +
             ', Country: ' +
             info.country.toLowerCase() +
@@ -72,17 +73,17 @@ const MyApp = ({ Component, pageProps: { session, error, ...pageProps } }: AppPr
         <meta name="mobile-web-app-capable" content="yes" />
       </Head>
       <UserContextProvider session={session}>
-        <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
-          <AuthModalContextProvider>
-            <CommunityContextProvider>
-              <TimeMsgContextProvider>
+        <AuthModalContextProvider>
+          <CommunityContextProvider>
+            <TimeMsgContextProvider>
+              <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
                 <Layout error={error}>
                   <Component {...pageProps} />
                 </Layout>
-              </TimeMsgContextProvider>
-            </CommunityContextProvider>
-          </AuthModalContextProvider>
-        </GoogleOAuthProvider>
+              </GoogleOAuthProvider>
+            </TimeMsgContextProvider>
+          </CommunityContextProvider>
+        </AuthModalContextProvider>
       </UserContextProvider>
     </>
   )

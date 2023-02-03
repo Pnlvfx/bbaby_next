@@ -78,7 +78,7 @@ const NotificationButton = () => {
                     </picture>
                     <h1 className="mb-2 mt-6 text-[18px] font-medium leading-[22px]">You don&apos;t have any activity yet</h1>
                     <p className="mx-10 text-center text-[14px] leading-[18px] text-reddit_text-darker ">
-                      That&apos;s o, maybe you need the right inspitation. Try posting in
+                      That&apos;s ok, maybe you need the right inspitation. Try posting in
                       <Link href={''}></Link>a popular community for discussion.
                     </p>
                   </div>
