@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import communityapis from '../../API/communityapis'
 import { useAuthModal } from '../../auth/modal/AuthModalContext'
 import { buttonClass } from './Button'
@@ -6,13 +7,14 @@ interface SubscribeButton {
   community: CommunityProps
 }
 
-const SubscribeButton = ({ community }: SubscribeButton) => {
+const SubscribeButton = ({ community: req_community }: SubscribeButton) => {
+  const [community, setCommunity] = useState(req_community)
   const authModal = useAuthModal()
 
   const doSubscribe = async () => {
     try {
       await communityapis.subscribe(community.name, authModal.setShow)
-      await communityapis.getCommunities(5)
+      setCommunity({ ...community, user_is_subscriber: !community.user_is_subscriber })
     } catch (err) {}
   }
   return (

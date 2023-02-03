@@ -6,6 +6,7 @@ export type CommunityContextProps = {
   show: boolean
   loading: boolean
   setShow: Dispatch<SetStateAction<Boolean>>
+  // eslint-disable-next-line no-unused-vars
   getCommunity: (community: string) => Promise<void>
   refreshCommunity: Function
   communityInfo: CommunityProps

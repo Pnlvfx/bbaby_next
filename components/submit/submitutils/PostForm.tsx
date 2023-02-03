@@ -35,7 +35,7 @@ function PostForm({ community }: PostFormProps) {
       </div>
       <form className="ml-4 mr-2 flex-grow rounded-md border border-reddit_border bg-reddit_dark-brightest hover:border-reddit_text">
         {session?.user && (
-          <Link href={!community ? '/submit' : `/b/${community}/submit`}>
+          <Link href={!community ? '/submit' : `/b/${community.toLowerCase()}/submit`}>
             <input type="text" className={inputClass} placeholder="Create Post" />
           </Link>
         )}

@@ -85,7 +85,7 @@ const RedditPost = ({ post }: ExtendRedditPosts) => {
                 >
                   <span className="hover:underline">{post.author && 'u/' + post.author}</span>
                 </div>
-                {post.created_utc && <TimeAgo date={post.created_utc} className="ml-1 truncate" />}
+                {post.created_utc && <TimeAgo date={new Date(post.created_utc)} className="ml-1 truncate" />}
               </div>
             </div>
             <div className="mx-2">

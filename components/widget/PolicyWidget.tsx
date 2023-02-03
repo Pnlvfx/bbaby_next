@@ -15,7 +15,7 @@ const PolicyWidget = () => {
               </Link>
             </div>
           </div>
-          <div className="flex p-3 text-[12px] leading-4">Bbabystyle Inc © 2022. All rights reserved</div>
+          <div className="flex p-3 text-[12px] leading-4">Bbabystyle Inc © 2023. All rights reserved</div>
         </div>
       </div>
     </div>

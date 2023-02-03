@@ -96,6 +96,9 @@ const Feed = ({ posts: ssrPost, community, author }: FeedProps) => {
                 })
               ) : (
                 <div></div>
+                //<!-- Ezoic - mid_content - mid_content -->
+                // <div id="ezoic-pub-ad-placeholder-101"> </div>
+                // <!-- End Ezoic - mid_content - mid_content -->
               )}
             </InfiniteScroll>
           </div>

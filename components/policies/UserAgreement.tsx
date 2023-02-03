@@ -143,18 +143,18 @@ const UserAgreement = () => {
           , or if you otherwise create or are likely to create liability for us.
         </span>
         <p className="mt-5 text-lg">6. Third-Party Content, Advertisements, and Promotions</p>
-        <p>
+        <p className="mt-5 text-sm">
           The Services may contain links to third-party websites, products, or services, which may be posted by advertisers, our affiliates, our
           partners, or other users (“Third-Party Content”). Third-Party Content is not under our control, and we are not responsible for any third
           party&apos;s websites, products, or services. Your use of Third-Party Content is at your own risk and you should make any investigation you
           feel necessary before proceeding with any transaction in connection with such Third-Party Content.
         </p>
-        <p>
+        <p className="mt-5 text-sm">
           The Services may also contain sponsored Third-Party Content or advertisements. The type, degree, and targeting of advertisements are subject
           to change, and you acknowledge and agree that we may place advertisements in connection with the display of any Content or information on
           the Services, including Your Content.
         </p>
-        <p>
+        <p className="mt-5 text-sm">
           If you choose to use the Services to conduct a promotion, including a contest or sweepstakes (“Promotion”), you alone are responsible for
           conducting the Promotion in compliance with all applicable laws and regulations, including but not limited to creating official rules, offer
           terms, eligibility requirements, and compliance with applicable laws, rules, and regulations which govern the Promotion (such as licenses,
