@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useRouter } from 'next/router'
 import { createContext, Dispatch, SetStateAction, useEffect, useState } from 'react'
 import communityapis from '../API/communityapis'
@@ -5,10 +6,9 @@ import communityapis from '../API/communityapis'
 export type CommunityContextProps = {
   show: boolean
   loading: boolean
-  setShow: Dispatch<SetStateAction<Boolean>>
-  // eslint-disable-next-line no-unused-vars
+  setShow: Dispatch<SetStateAction<boolean>>
   getCommunity: (community: string) => Promise<void>
-  refreshCommunity: Function
+  refreshCommunity: (community: string) => Promise<void>
   communityInfo: CommunityProps
 }
 
@@ -16,7 +16,7 @@ export const CommunityContext = createContext<CommunityContextProps | {}>({})
 
 export const CommunityContextProvider = ({ children }: ChildrenProps) => {
   const [show, setShow] = useState(false)
-  const [communityInfo, setCommunityInfo] = useState({})
+  const [communityInfo, setCommunityInfo] = useState<CommunityProps | {}>({})
   const [loading, setLoading] = useState(true)
   const router = useRouter()
 

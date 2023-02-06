@@ -67,7 +67,7 @@ const Submit = ({ newTweet, community }: SubmitProps) => {
   const createPost = async () => {
     try {
       setLoading(true)
-      const data = await postapis.newPost(title, selectedCommunity, {
+      const post = await postapis.newPost(title, selectedCommunity, {
         body,
         height,
         isImage,
@@ -78,8 +78,7 @@ const Submit = ({ newTweet, community }: SubmitProps) => {
         width,
       })
       if (session?.user?.role === 0) {
-        const { _id, community } = data as PostProps
-        router.push('/b/' + community.toLowerCase() + '/comments/' + _id)
+        router.push(post.permalink)
       } else {
         message.setMessage({
           value: 'Post created successfully',

@@ -7,7 +7,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const posts: PostProps[] = await response.json()
 
   const fields: ISitemapField[] = posts.map((post) => ({
-    loc: `${siteUrl}/b/${post.community.toLowerCase()}/comments/${post._id}`,
+    loc: `${siteUrl}${post.permalink}`,
     priority: 1,
     lastmod: new Date(post.createdAt).toISOString(),
   }))

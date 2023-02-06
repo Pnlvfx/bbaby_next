@@ -5,9 +5,9 @@ export const openPost = (e: MouseEvent<HTMLDivElement | HTMLAnchorElement>, post
   e.preventDefault()
   e.stopPropagation()
   const mobile = window.innerWidth >= 820 ? false : true
-  const url = mobile ? `/b/${post.community.toLowerCase()}/comments/${post._id}` : Router.pathname
+  const url = mobile ? post.permalink : Router.pathname
   const query = mobile ? undefined : { postId: post._id, community: post.community, username: post.author }
-  const as = mobile ? undefined : `/b/${post.community.toLowerCase()}/comments/${post._id}`
+  const as = mobile ? undefined : post.permalink
   Router.push(
     {
       pathname: url,

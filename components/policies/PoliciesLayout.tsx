@@ -1,4 +1,4 @@
-import MainButtonNav from './MainButtonNav';
+import MainButtonNav from './MainButtonNav'
 
 interface PoliciesLayoutProps {
   children: React.ReactNode
@@ -13,4 +13,4 @@ const PoliciesLayout = ({ children }: PoliciesLayoutProps) => {
   )
 }
 
-export default PoliciesLayout;
+export default PoliciesLayout

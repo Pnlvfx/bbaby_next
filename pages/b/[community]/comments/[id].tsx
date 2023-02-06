@@ -28,7 +28,7 @@ const IdPage: NextPage<PostIdPageProps> = ({ post }) => {
     <>
       <CEO
         title={post?.title}
-        url={`${siteUrl}/b/${post.community.toLowerCase()}/comments/${post._id}`}
+        url={`${siteUrl}${post.permalink}`}
         description={
           post?.body?.length >= 160
             ? post.body

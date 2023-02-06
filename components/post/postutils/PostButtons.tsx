@@ -16,14 +16,12 @@ const PostButtons = ({ post, isListing }: PostContentProps) => {
           <Voting ups={post.ups} postId={post._id} liked={post.liked} />
         </div>
         <Link
-          href={`/b/${post.community.toLowerCase()}/comments/${post._id}`}
+          href={post.permalink}
           scroll={false}
           className={`mr-1 box-border flex items-center p-2 ${isListing && 'hover:bg-reddit_dark-brightest'} ${
             session?.device?.mobile && 'articleLink'
           }`}
           onClick={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
             if (isListing) {
               openPost(e, post)
             }
@@ -32,7 +30,7 @@ const PostButtons = ({ post, isListing }: PostContentProps) => {
           <CommentIcon role="presentation" />
           <span className="ml-[6px]">{post.numComments} Comments</span>
         </Link>
-        <ShareButton linkToCopy={'/b/' + post.community.toLowerCase() + '/comments/' + post._id} isListing={isListing} />
+        <ShareButton linkToCopy={post.permalink} isListing={isListing} />
         <MoreButton post={post} isListing={isListing} />
       </div>
     </div>

@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction } from 'react'
 import { catchError } from './common'
 import { postRequestHeaders, server } from '../main/config'
+import { NextPageContext } from 'next'
+import { ssrHeaders } from './ssrAPI'
 
 const communityapis = {
   getCommunities: async (limit: number) => {
@@ -17,16 +19,18 @@ const communityapis = {
       throw catchError(err)
     }
   },
-  getCommunity: async (community: string) => {
+  getCommunity: async (community: string, context?: NextPageContext) => {
     try {
       const url = `${server}/communities/${community}`
+      const headers = context ? ssrHeaders(context) : postRequestHeaders
       const res = await fetch(url, {
         method: 'get',
         credentials: 'include',
+        headers,
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data?.msg)
-      return data as string
+      return data as CommunityProps
     } catch (err) {
       throw catchError(err)
     }

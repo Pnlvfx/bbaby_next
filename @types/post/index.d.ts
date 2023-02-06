@@ -1,7 +1,7 @@
-type PostProps = {
+/* eslint-disable no-unused-vars */
+interface PostProps {
   _id: string
   author: string
-  authorAvatar: string
   title: string
   body: string
   community: string
@@ -21,4 +21,5 @@ type PostProps = {
   numComments: number
   createdAt: Date
   updatedAt: Date
+  permalink: string
 }
