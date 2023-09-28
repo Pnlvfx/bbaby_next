@@ -27,7 +27,7 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-linkify": "^1.0.0-alpha",
     "react-timeago": "^7.1.0",
-    "sharp": "^0.31.3"
+    "sharp": "^0.32.6"
   },
   "devDependencies": {
     "@types/gtag.js": "^0.0.12",
